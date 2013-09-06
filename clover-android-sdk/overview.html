@@ -1,0 +1,74 @@
+<body>
+<p>
+    The Clover SDK for Android facilitates development of applications on top of the Clover
+    platform. This includes services for interacting with merchants, their orders, customers,
+    employees, and inventory. This SDK can also be used for sending and receiving push
+    notifications.
+</p>
+
+<p>
+    To access merchant information, employee, customer, inventory, and order data, bound AIDL
+    services
+    are available.
+<ul>
+    <li>{@link com.clover.sdk.v1.merchant.IMerchantService}</li>
+    <li>{@link com.clover.sdk.v1.employee.IEmployeeService}</li>
+    <li>{@link com.clover.sdk.v1.customer.ICustomerService}</li>
+    <li>{@link com.clover.sdk.v1.inventory.IInventoryService}</li>
+    <li>{@link com.clover.sdk.v1.order.IOrderService}</li>
+</ul>
+</p>
+<p>
+    For more information about bound services, refer to the Android documentation:
+    <a href="http://developer.android.com/guide/components/bound-services.html#Binding">
+        Bound Services
+    </a>.
+</p>
+
+<p>
+    To bind to any Clover service, a Clover {@link android.accounts.Account} is required.
+    To obtain a Clover account object, the {@link com.clover.sdk.util.CloverAccount} helper
+    class may be used. To allow the user to select the Clover account from those present
+    on the device,
+
+<pre>
+    Intent intent = AccountManager.newChooseAccountIntent(
+        null,
+        null,
+        new String[]{CloverAccount.CLOVER_ACCOUNT_TYPE},
+        false,
+        null,
+        null,
+        null,
+        null);
+    startActivityForResult(intent, REQUEST_ACCOUNT);
+</pre>
+    See {@link android.accounts.AccountManager#newChooseAccountIntent(Account, ArrayList, String[], boolean, String, String, String[], Bundle)}
+    for more information.
+</p>
+
+<p>
+    Each service has a matching {@code *Intent} class that defines the actions and extras
+    required to bind. These classes are as follows,
+<ul>
+    <li>{@link com.clover.sdk.v1.merchant.MerchantIntent}</li>
+    <li>{@link com.clover.sdk.v1.employee.EmployeeIntent}</li>
+    <li>{@link com.clover.sdk.v1.customer.CustomerIntent}</li>
+    <li>{@link com.clover.sdk.v1.inventory.InventoryIntent}</li>
+    <li>{@link com.clover.sdk.v1.order.OrderIntent}</li>
+</ul>
+</p>
+<p>
+    Services can also be interacted with by
+    using their respective <i>service connector</i> class. A service connector automatically
+    binds and provides convenience methods for calling service methods asynchronously.
+    The following service connectors are available, mirroring each bound service,
+<ul>
+    <li>{@link com.clover.sdk.v1.merchant.MerchantConnector}</li>
+    <li>{@link com.clover.sdk.v1.employee.EmployeeConnector}</li>
+    <li>{@link com.clover.sdk.v1.customer.CustomerConnector}</li>
+    <li>{@link com.clover.sdk.v1.inventory.InventoryConnector}</li>
+    <li>{@link com.clover.sdk.v1.order.OrderConnector}</li>
+</ul>
+</p>
+</body>

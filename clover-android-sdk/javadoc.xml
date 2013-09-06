@@ -1,0 +1,47 @@
+<project name="clover-android-sdk" default="doc" basedir=".">
+  <property environment="env"/>
+  <property name="src.dir" location="src/main/java"/>
+  <property name="src.aidl.dir" location="build/source/aidl/debug"/>
+  <property name="src.r.dir" location="build/source/r/debug"/>
+  <property name="build.dir" location="build"/>
+  <property name="doc.dir" location="${build.dir}/doc/"/>
+  <property name="android.home" location="${env.ANDROID_HOME}"/>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${doc.dir}"/>
+  </target>
+
+  <target name="build">
+    <exec executable="gradle">
+      <arg value="build"/>
+    </exec>
+  </target>
+
+  <target name="doc" depends="init, build">
+    <javadoc
+            destdir="${doc.dir}"
+            classpath="${android.home}/platforms/android-17/android.jar"
+            overview="overview.html"
+            stylesheetfile="javadoc-style.css">
+      <packageset dir="${src.dir}" defaultexcludes="yes">
+        <include name="com/clover/sdk/**"/>
+        <exclude name="com/clover/sdk/impl/**"/>
+      </packageset>
+      <packageset dir="${src.aidl.dir}" defaultexcludes="yes">
+        <include name="com/clover/sdk/**"/>
+      </packageset>
+      <classpath>
+        <pathelement location="${android.home}/platforms/android-17/android.jar"/>
+        <pathelement path="${build.dir}/classes/debug"/>
+      </classpath>
+      <doctitle><![CDATA[<h1>Clover SDK for Android</h1>]]></doctitle>
+      <bottom><![CDATA[<i>Copyright &#169; 2013 Clover Network, Inc. All Rights Reserved.</i>]]></bottom>
+      <link offline="true" href="http://d.android.com/reference" packagelistLoc="${android.home}/docs/reference"/>
+    </javadoc>
+  </target>
+
+  <target name="clean">
+    <delete dir="${doc.dir}"/>
+  </target>
+</project>

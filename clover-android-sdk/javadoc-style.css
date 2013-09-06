@@ -1,0 +1,57 @@
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults */
+
+/* Page background color */
+body { background-color: #FFFFFF; color:#222; font-family: Arial, Helvetica, sans-serif; }
+
+/*
+ #5B784C    clover primary green
+ #7D7D7E    clover primary gray
+
+ #7D7D7E    clover secondary green (lighter green)
+ #404041    clover secondary gray (off-black)
+ #E6E9E1    clover secondary light-green
+ #DBDCDE    clover secondary light-gray
+*/
+
+
+/* Headings */
+h1 { font-size: 145%; }
+h2 { font-size: 145%; }
+
+
+/* Links */
+a:link{color:#337c33; text-decoration:none; }
+a:visited {color:#337c33; text-decoration:none; }
+/*a:focus { color:#04469D; }*/
+a:hover { color:#337c33; text-decoration:underline;}
+
+/* HR and table borders*/
+hr{background-color: #333; border: 0 none; color: #333; height: 1px; }
+table{border-collapse:collapse; border-color:gray; }
+th{border-style: none; }
+
+/* Table colors */
+.TableHeadingColor     { background: #579057; color:#fff; text-shadow: 1px 1px 0 #060; }
+.TableSubHeadingColor  { background: #579057; color:#fff; text-shadow: 1px 1px 0 #060; }
+.TableRowColor         { background: #FFFFFF; color:#404041; }
+.TableHeadingColor a:link, .TableSubHeadingColor a:link, .TableHeadingColor a:hover, .TableSubHeadingColor a:hover, .TableHeadingColor a:visited, .TableSubHeadingColor a:visited { color:#ddf9dd; }
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont { font-size: 100%; color:#404041; background-color:#eee; width:auto; display:block; font-weight:bold; padding:5px; }
+table .FrameTitleFont { padding:0; }
+.FrameHeadingFont { font-size: 100%; color:#404041; font-weight:bold; line-height:28px; }
+.FrameItemFont    { font-size:  90%; color:#404041; line-height:20px; }
+.FrameItemFont+p { margin: 0; }
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background: #579057; padding:4px; }
+.NavBarFont1    { background: #579057; color:#fff; text-shadow: 1px 1px 0 #060; }
+.NavBarCell1Rev { background: #579057; font-weight:bold; padding:4px; }
+.NavBarFont1Rev { background: #579057; color:#ded; font-weight:bold; text-shadow: 1px 1px 0 #060;  }
+
+.NavBarCell2    { background-color:#FFFFFF; color:#404041; }
+.NavBarCell3    { background-color:#FFFFFF; color:#404041; }
+
+.Footer { color:#aaa; font-style:italic; font-size:80%; }

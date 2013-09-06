@@ -1,0 +1,31 @@
+group = 'com.clover.sdk'
+version = '1-SNAPSHOT'
+
+apply plugin: 'android-library'
+apply plugin: 'maven-publish'
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 17
+    }
+}
+
+dependencies {
+}
+
+android.libraryVariants
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact bundleRelease
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.6'
+}

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.clover.android.sdk.examples"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.clover.android.sdk.examples.MerchantTestActivity"
+            android:label="Merchant Test">
+    </activity>
+
+    <activity
+            android:taskAffinity="com.clover.sdk.examples.employee"
+            android:name="com.clover.android.sdk.examples.EmployeeTestActivity"
+            android:label="Employee Test">
+    </activity>
+
+    <activity
+            android:taskAffinity="com.clover.sdk.examples.inventory"
+            android:name="com.clover.android.sdk.examples.InventoryTestActivity"
+            android:label="@string/inventory_test">
+    </activity>
+
+    <activity
+            android:taskAffinity="com.clover.sdk.examples.customer"
+            android:name="com.clover.android.sdk.examples.CustomerTestActivity"
+            android:label="@string/customer_test">
+    </activity>
+
+    <activity
+            android:taskAffinity="com.clover.sdk.examples.order"
+            android:name="com.clover.android.sdk.examples.OrderTestActivity"
+            android:label="@string/order_test">
+    </activity>
+
+    <activity
+        android:taskAffinity="com.clover.sdk.examples.main"
+        android:name="com.clover.android.sdk.examples.MainActivity"
+        android:label="Clover SDK Examples">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:taskAffinity="com.clover.sdk.examples.app"
+        android:name="com.clover.android.sdk.examples.AppNotificationTestActivity"
+        android:label="@string/app_notification_test">
+    </activity>
+
+    <activity
+        android:taskAffinity="com.clover.sdk.examples.inventory.list"
+        android:name="com.clover.android.sdk.examples.InventoryListActivity"
+        android:label="@string/inventory_list">
+    </activity>
+
+      <activity
+          android:name="com.clover.android.sdk.examples.WebServiceActivity"
+          android:label="@string/title_activity_web_service">
+      </activity>
+  </application>
+
+</manifest>
