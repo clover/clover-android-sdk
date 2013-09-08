@@ -47,6 +47,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/logText"/>
+        android:id="@+id/logText"
+        android:freezesText="true"/>
   </ScrollView>
 </LinearLayout>

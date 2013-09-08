@@ -64,8 +64,9 @@ public class AuthTask extends AsyncTask<Account, Void, CloverAuth.AuthResult> {
 
   @Override
   protected CloverAuth.AuthResult doInBackground(Account... accounts) {
+    CloverAuth.AuthResult result = null;
     try {
-      CloverAuth.AuthResult result = CloverAuth.authenticate(activity, accounts[0]);
+      result = CloverAuth.authenticate(activity, accounts[0]);
       errorMessage = result.errorMessage;
     } catch (OperationCanceledException e) {
       canceledException = e;
@@ -80,7 +81,7 @@ public class AuthTask extends AsyncTask<Account, Void, CloverAuth.AuthResult> {
       exception = e;
       errorMessage = getErrorMessage(e);
     }
-    return null;
+    return result;
   }
 
   private static String getErrorMessage(Exception e) {
@@ -107,7 +108,7 @@ public class AuthTask extends AsyncTask<Account, Void, CloverAuth.AuthResult> {
       onIOException(ioException);
       onAuthComplete(false, result);
     } else {
-      onAuthComplete(true, result);
+      onAuthComplete(result.authToken != null, result);
     }
   }
 

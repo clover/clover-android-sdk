@@ -25,12 +25,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.clover.sdk.util.AuthTask;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
 import com.clover.sdk.v1.app.AppNotification;
 import com.clover.sdk.v1.app.AppNotificationReceiver;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,18 +47,9 @@ public class AppNotificationTestActivity extends Activity {
   private EditText payloadText;
   private Button sendButton;
   private AuthTask authTask;
+  private CloverAuth.AuthResult authResult;
 
   private SimpleDateFormat dateFormat = new SimpleDateFormat("H:mm:ss");
-
-  private View.OnClickListener sendListener = new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-      String appEvent = appEventText.getText().toString();
-      String payload = payloadText.getText().toString();
-      AppNotification notification = new AppNotification(appEvent, payload);
-      log("Attempted to send " + notification + ", but this feature is not implemented yet.");
-    }
-  };
 
   private AppNotificationReceiver receiver = new AppNotificationReceiver() {
     @Override
@@ -64,17 +58,59 @@ public class AppNotificationTestActivity extends Activity {
     }
   };
 
-  private class SendNotificationTask extends AsyncTask<Void, Void, Void> {
+  private class SendNotificationTask extends AsyncTask<AppNotification, Void, Exception> {
+
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Exception doInBackground(AppNotification... notifications) {
+      try {
+        // Post the app notification to the REST API.
+        AppNotification notification = notifications[0];
+        Log.i(TAG, "Sending " + notification);
+
+        InventoryTestActivity.CustomHttpClient client = InventoryTestActivity.CustomHttpClient.getHttpClient();
+        JSONObject request = new JSONObject();
+        request.put("notification", notification.toJson());
+
+        String uri = authResult.baseUrl + "/v2/merchant/" + authResult.merchantId + "/apps/" +
+                authResult.appId + "/notifications?access_token=" + authResult.authToken;
+        Log.i(TAG, "Posting app notification to " + uri);
+        client.post(uri, request.toString());
+      } catch (Exception e) {
+        String msg = getResources().getString(R.string.error_while_sending, e.getMessage());
+        Log.w(TAG, msg);
+        return e;
+      }
       return null;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-      super.onPostExecute(aVoid);
+    protected void onPostExecute(Exception e) {
+      super.onPostExecute(e);
+      if (e == null) {
+        log("Successfully sent notification.");
+      } else {
+        log("Unable to send notification: " + e.toString());
+      }
     }
   }
+
+  private View.OnClickListener sendListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+      if (authResult == null) {
+        Toast.makeText(AppNotificationTestActivity.this, R.string.cannot_send_auth_failed, Toast.LENGTH_LONG);
+        return;
+      }
+
+      String appEvent = appEventText.getText().toString();
+      String payload = payloadText.getText().toString();
+      AppNotification notification = new AppNotification(appEvent, payload);
+      log("Sending " + notification);
+
+      SendNotificationTask task = new SendNotificationTask();
+      task.execute(notification);
+    }
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +138,8 @@ public class AppNotificationTestActivity extends Activity {
       @Override
       protected void onAuthComplete(boolean success, CloverAuth.AuthResult result) {
         if (success) {
-          log("Auth successful.");
+          authResult = result;
+          log("Auth successful: " + result + ", " + result.authData);
         } else {
           log("Auth error: " + getErrorMessage());
         }
@@ -115,6 +152,7 @@ public class AppNotificationTestActivity extends Activity {
   protected void onDestroy() {
     super.onDestroy();
     authTask.cancel(true);
+    receiver.unregister();
   }
 
   /**

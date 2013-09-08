@@ -70,6 +70,16 @@ public class CloverAuth {
     public final String errorMessage;
 
     /**
+     * The id of the merchant associated with the authenticated account.
+     */
+    public final String merchantId;
+
+    /**
+     * The id of the app that performed authentication.
+     */
+    public final String appId;
+
+    /**
      * The complete set of data returned by {@link android.accounts.AccountManager}.
      */
     public final Bundle authData;
@@ -78,7 +88,13 @@ public class CloverAuth {
       this.authData = new Bundle(authData);
       authToken = authData.getString(AccountManager.KEY_AUTHTOKEN);
       baseUrl = authData.getString(CloverAccount.KEY_BASE_URL);
+      merchantId = authData.getString(CloverAccount.KEY_MERCHANT_ID);
+      appId = authData.getString(CloverAccount.KEY_APP_ID);
       errorMessage = authData.getString(AccountManager.KEY_ERROR_MESSAGE);
+    }
+
+    public String toString() {
+      return AuthResult.class.getSimpleName() + ": {authToken=" + authToken + ", baseUrl=" + baseUrl + "}";
     }
   }
 }

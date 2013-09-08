@@ -17,13 +17,19 @@
 package com.clover.sdk.v1.app;
 
 import android.content.Intent;
+import android.util.Log;
 
 import junit.framework.Assert;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Represents a notification sent to an app.
  */
 public class AppNotification {
+
+  private static final String TAG = AppNotification.class.getSimpleName();
 
   /**
    * The app-specific event name.
@@ -49,5 +55,17 @@ public class AppNotification {
   @Override
   public String toString() {
     return AppNotification.class.getSimpleName() + ": {appEvent=" + appEvent + ", payload=" + payload + "}";
+  }
+
+  public JSONObject toJson() {
+    try {
+      JSONObject notification = new JSONObject();
+      notification.put("appEvent", appEvent);
+      notification.put("payload", payload);
+      return notification;
+    } catch (JSONException e) {
+      Log.e(TAG, "Unexpected JSON error", e);
+      return null;
+    }
   }
 }

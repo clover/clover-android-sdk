@@ -24,7 +24,7 @@ import android.provider.BaseColumns;
  * The contract between the customers provider and applications. Contains
  * definitions for the supported URIs and columns.
  */
-public final class CustomersContract {
+public final class CustomerContract {
   /** The authority for the modifier provider */
   public static final String AUTHORITY = "com.clover.customers";
 

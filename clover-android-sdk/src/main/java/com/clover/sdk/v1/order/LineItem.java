@@ -28,6 +28,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class representing an line item associated with an order. Instances of this object are returned
+ * by the {@link com.clover.sdk.v1.order.IOrderService#addLineItem(String orderId, com.clover.sdk.v1.inventory.Item item,
+ * int unitQuantity, String binName, String userData, ResultStatus resultStatus)} method or as part of a
+ * {@link com.clover.sdk.v1.order.Order} object.
+ */
 public class LineItem implements Parcelable {
   final public JSONObject mLineItem;
 
@@ -50,38 +56,65 @@ public class LineItem implements Parcelable {
     }
   }
 
+  /**
+   * Unique identifier
+   */
   public String getId() {
     return mLineItem.optString("id");
   }
 
+  /**
+   * item id
+   */
   public String getItemId() {
     return mLineItem.optString("itemId");
   }
 
+  /**
+   * Name of the line item
+   */
   public String getName() {
     return mLineItem.optString("name");
   }
 
+  /**
+   * Price of the line item, typically in cents; use priceType and merchant currency to determine actual item price
+   */
   public long getPrice() {
     return mLineItem.optLong("price", 0);
   }
 
+  /**
+   * Quantity of item for items of type PriceType.PER_UNIT
+   */
   public int getUnitQuantity() {
     return mLineItem.optInt("unitQty", 0);
   }
 
+  /**
+   * Unit Name for items of type PriceType.PER_UNIT
+   */
   public String getUnitName() {
     return mLineItem.optString("unitName");
   }
 
+  /**
+   * Line item tax rate
+   */
   public long getTaxRate() {
     return mLineItem.optLong("taxRate", 0);
   }
 
+  /**
+   * Product code, e.g. UPC or EAN
+   */
   public String getProductCode() {
     return mLineItem.optString("productCode");
   }
 
+  /**
+   * Alternate name of the line item
+   */
   public String getAlternateName() {
     return mLineItem.optString("alternateName");
   }
@@ -94,6 +127,10 @@ public class LineItem implements Parcelable {
     return mLineItem.optString("userData");
   }
 
+  /**
+   * Line item tax rates
+   * @return
+   */
   public List<TaxRate> getTaxRates() {
     if (mTaxRates == null) {
       try {

@@ -42,6 +42,8 @@ public class CloverAccount {
   public static final String CLOVER_ACCOUNT_TYPE = "com.clover.account";
   public static final String CLOVER_AUTHTOKEN_TYPE = "com.clover.account.token.app";
   public static final String KEY_BASE_URL = "base_url";
+  public static final String KEY_MERCHANT_ID = "merchant_id";
+  public static final String KEY_APP_ID = "app_id";
 
   private CloverAccount() {
   }

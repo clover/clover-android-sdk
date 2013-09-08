@@ -26,6 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class Order implements Parcelable {
   final public JSONObject mOrder;
 
