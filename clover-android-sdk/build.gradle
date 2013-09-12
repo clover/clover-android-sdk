@@ -3,7 +3,7 @@ version = '1'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'signing'
 
 ant.importBuild 'javadoc.xml'
 
@@ -27,7 +27,7 @@ task install(type: Upload) {
 uploadArchives {
   repositories {
     mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+      //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "http://artifactory/artifactory/libs-release-local") {
         authentication(userName: "${artifactory_user}", password: "${artifactory_password}")
@@ -79,9 +79,9 @@ artifacts {
   archives sourcesJar
 }
 
-signing {
-  sign configurations.archives
-}
+//signing {
+//  sign configurations.archives
+//}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '1.7'
