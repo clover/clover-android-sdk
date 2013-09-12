@@ -1,28 +1,28 @@
-group = 'com.clover'
-version = '1-SNAPSHOT'
+group = 'com.clover.sdk'
+version = '1'
 
 apply plugin: 'android'
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+  compileSdkVersion 17
+  buildToolsVersion "17.0.0"
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 17
-    }
+  defaultConfig {
+    minSdkVersion 14
+    targetSdkVersion 17
+  }
 }
 
 dependencies {
-    //compile 'com.clover.sdk:clover-android-sdk:1-SNAPSHOT'
-    compile project(':clover-android-sdk')
+  //compile 'com.clover.sdk:clover-android-sdk:1'
+  compile project(':clover-android-sdk')
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.6'
+  gradleVersion = '1.7'
 }

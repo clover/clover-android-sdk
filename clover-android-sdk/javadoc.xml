@@ -12,13 +12,7 @@
     <mkdir dir="${doc.dir}"/>
   </target>
 
-  <target name="build">
-    <exec executable="gradle">
-      <arg value="build"/>
-    </exec>
-  </target>
-
-  <target name="doc" depends="init, build">
+  <target name="doc" depends="init">
     <javadoc
             destdir="${doc.dir}"
             classpath="${android.home}/platforms/android-17/android.jar"
@@ -41,7 +35,7 @@
     </javadoc>
   </target>
 
-  <target name="clean">
+  <target name="doc-clean">
     <delete dir="${doc.dir}"/>
   </target>
 </project>
