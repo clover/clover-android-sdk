@@ -29,7 +29,7 @@ uploadArchives {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-      repository(url: "http://bulldog.corp.clover.com:8081/artifactory/libs-release-local") {
+      repository(url: "http://artifactory/artifactory/libs-release-local") {
         authentication(userName: "${artifactory_user}", password: "${artifactory_password}")
       }
       pom.project {
