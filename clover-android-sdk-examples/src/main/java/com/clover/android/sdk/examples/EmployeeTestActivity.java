@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
@@ -141,7 +142,7 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
   }
 
   private void logout() {
-    employeeConnector.logout(new EmployeeConnector.EmployeeCallback<Void>(){
+    employeeConnector.logout(new EmployeeConnector.EmployeeCallback<Void>() {
       @Override
       public void onServiceSuccess(Void result, ResultStatus status) {
         super.onServiceSuccess(result, status);
@@ -280,12 +281,12 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
       msg = "Employee logged out";
     }
     Notification n = new Notification.Builder(this)
-            .setContentTitle(msg)
-            .setContentText(msg)
-            .setSmallIcon(android.R.drawable.stat_sys_warning)
-            .getNotification();
+        .setContentTitle(msg)
+        .setContentText(msg)
+        .setSmallIcon(android.R.drawable.stat_sys_warning)
+        .getNotification();
     NotificationManager notificationManager =
-            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     n.flags |= Notification.FLAG_AUTO_CANCEL;
     notificationManager.notify(0, n);
   }
@@ -318,12 +319,12 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
   }
 
   @Override
-  public void onServiceConnected() {
-    Log.i(TAG, "service connected");
+  public void onServiceConnected(ServiceConnector connector) {
+    Log.i(TAG, "service connected: " + connector);
   }
 
   @Override
-  public void onServiceDisconnected() {
-    Log.i(TAG, "service disconnected");
+  public void onServiceDisconnected(ServiceConnector connector) {
+    Log.i(TAG, "service disconnected: " + connector);
   }
 }

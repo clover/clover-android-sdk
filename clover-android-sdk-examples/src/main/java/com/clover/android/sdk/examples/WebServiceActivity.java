@@ -24,8 +24,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;

@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2013 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.clover.sdk.v1.order;
 
 import android.accounts.Account;
@@ -9,10 +25,14 @@ import android.provider.BaseColumns;
  * definitions for the supported URIs and columns.
  */
 public final class OrderContract {
-  /** The authority for the orders provider */
+  /**
+   * The authority for the orders provider
+   */
   public static final String AUTHORITY = "com.clover.orders";
 
-  /** A content:// style uri to the authority for the contacts provider */
+  /**
+   * A content:// style uri to the authority for the contacts provider
+   */
   public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
   public static final String ACTION_UPDATE_STATUS = "com.clover.intent.action.ORDER_ACTION";
@@ -23,126 +43,126 @@ public final class OrderContract {
   public interface SummaryColumns {
     /**
      * Order Id.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String ID = "id";
 
     /**
      * Timestamp when order was created, in a {@link System#currentTimeMillis()} time base.
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String CREATED = "created_time";
 
     /**
      * Timestamp when order was last modified, in a {@link System#currentTimeMillis()} time base.
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String LAST_MODIFIED = "last_modified";
 
     /**
      * Order total. Values are stored in cents ($1.99 is stored as 199).
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String TOTAL = "total";
 
     /**
      * Order amount paid. Values are stored in cents ($1.99 is stored as 199).
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String AMOUNT_PAID = "amount_paid";
 
     /**
      * Order amount refunded. Values are stored in cents ($1.99 is stored as 199).
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String AMOUNT_REFUNDED = "amount_refunded";
 
     /**
      * Order amount credited. Values are stored in cents ($1.99 is stored as 199).
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String AMOUNT_CREDITED = "amount_credited";
 
     /**
      * Order currency.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String CURRENCY = "currency";
 
     /**
      * Order customer id.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String CUSTOMER_ID = "customer_id";
 
     /**
      * Order customer name.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String CUSTOMER_NAME = "customer_name";
 
     /**
      * Order employee name.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String EMPLOYEE_NAME = "employee_name";
 
     /**
      * Order title (order number, order name etc).
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String TITLE = "title";
 
     /**
      * Order note.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String NOTE = "note";
 
     /**
      * Order deleted flag.
-     * <p>
+     * <p/>
      * Type: INTEGER
      */
     public static final String DELETED = "deleted";
 
     /**
      * Order state.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String STATE = "state";
 
     /**
      * Order payment state.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String PAYMENT_STATE = "payment_state";
 
     /**
      * Order payment types.
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String TENDERS = "tenders";
 
     /**
      * Order type (UUID).
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String ORDER_TYPE = "order_type";
@@ -166,7 +186,7 @@ public final class OrderContract {
     public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
 
     /**
-    /**
+     * /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of order
      * summaries.
      */
@@ -180,6 +200,7 @@ public final class OrderContract {
 
     /**
      * Creates an order summary content {@link Uri} with the {@link Account} added as query parameters
+     *
      * @param account Clover {@link Account} to associate with order summary content {@link Uri}
      * @return a new {@link Uri}
      */

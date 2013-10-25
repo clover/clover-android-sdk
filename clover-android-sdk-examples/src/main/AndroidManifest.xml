@@ -13,85 +13,100 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
--->
+  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.clover.android.sdk.examples"
-    android:versionCode="1"
-    android:versionName="1.0" >
+          package="com.clover.android.sdk.examples"
+          android:versionCode="1"
+          android:versionName="1.0">
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+  <uses-sdk
+      android:minSdkVersion="14"
+      android:targetSdkVersion="17"/>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.clover.android.sdk.examples.MerchantTestActivity"
-            android:label="Merchant Test" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.EmployeeTestActivity"
-            android:label="Employee Test"
-            android:taskAffinity="com.clover.sdk.examples.employee" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.InventoryTestActivity"
-            android:label="@string/inventory_test"
-            android:taskAffinity="com.clover.sdk.examples.inventory" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.CustomerTestActivity"
-            android:label="@string/customer_test"
-            android:taskAffinity="com.clover.sdk.examples.customer" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.OrderTestActivity"
-            android:label="@string/order_test"
-            android:taskAffinity="com.clover.sdk.examples.order" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.MainActivity"
-            android:label="Clover SDK Examples"
-            android:taskAffinity="com.clover.sdk.examples.main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  <application
+      android:allowBackup="true"
+      android:icon="@drawable/ic_launcher"
+      android:label="@string/app_name"
+      android:theme="@style/AppTheme">
+    <activity
+        android:name="com.clover.android.sdk.examples.MerchantTestActivity"
+        android:label="Merchant Test">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.EmployeeTestActivity"
+        android:label="Employee Test"
+        android:taskAffinity="com.clover.sdk.examples.employee">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.InventoryTestActivity"
+        android:label="@string/inventory_test"
+        android:taskAffinity="com.clover.sdk.examples.inventory">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.CustomerTestActivity"
+        android:label="@string/customer_test"
+        android:taskAffinity="com.clover.sdk.examples.customer">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.OrderTestActivity"
+        android:label="@string/order_test"
+        android:taskAffinity="com.clover.sdk.examples.order">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.MainActivity"
+        android:label="Clover SDK Examples"
+        android:taskAffinity="com.clover.sdk.examples.main">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.AppNotificationTestActivity"
-            android:label="@string/app_notification_test"
-            android:taskAffinity="com.clover.sdk.examples.app" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.InventoryListActivity"
-            android:label="@string/inventory_list"
-            android:taskAffinity="com.clover.sdk.examples.inventory.list" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.WebServiceActivity"
-            android:label="@string/title_activity_web_service" >
-        </activity>
-        <activity
-            android:name=".CreateCustomTenderTestActivity"
-            android:label="@string/create_custom_tender_test" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.CustomTenderHandlerTestActivity"
-            android:label="@string/custom_tender_handler_test" >
-            <intent-filter>
-                <action android:name="clover.intent.action.PAY"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-    </application>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.AppNotificationTestActivity"
+        android:label="@string/app_notification_test"
+        android:taskAffinity="com.clover.sdk.examples.app">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.InventoryListActivity"
+        android:label="@string/inventory_list"
+        android:taskAffinity="com.clover.sdk.examples.inventory.list">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.WebServiceActivity"
+        android:label="@string/title_activity_web_service">
+    </activity>
+    <activity
+        android:name=".CreateCustomTenderTestActivity"
+        android:label="@string/create_custom_tender_test">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.CustomTenderHandlerTestActivity"
+        android:label="@string/custom_tender_handler_test">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.PrinterTestActivity"
+        android:label="@string/printer_test">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.PrintTestActivity"
+        android:label="@string/print_test">
+    </activity>
+    <activity
+        android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
+        android:label="@string/receipt_registration_test">
+    </activity>
+
+    <provider
+        android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestProvider"
+        android:authorities="com.clover.android.sdk.examples.receipt"
+        android:exported="true"/>
+
+  </application>
 
 </manifest>

@@ -1,3 +1,19 @@
+<!--
+  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <project name="clover-android-sdk" default="doc" basedir=".">
   <property environment="env"/>
   <property name="src.dir" location="src/main/java"/>
@@ -14,13 +30,14 @@
 
   <target name="doc" depends="init">
     <javadoc
-            destdir="${doc.dir}"
-            classpath="${android.home}/platforms/android-17/android.jar"
-            overview="overview.html"
-            stylesheetfile="javadoc-style.css">
+        destdir="${doc.dir}"
+        classpath="${android.home}/platforms/android-17/android.jar"
+        overview="overview.html"
+        stylesheetfile="javadoc-style.css">
       <packageset dir="${src.dir}" defaultexcludes="yes">
         <include name="com/clover/sdk/**"/>
         <exclude name="com/clover/sdk/impl/**"/>
+        <exclude name="com/clover/sdk/internal/**"/>
       </packageset>
       <packageset dir="${src.aidl.dir}" defaultexcludes="yes">
         <include name="com/clover/sdk/**"/>

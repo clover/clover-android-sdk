@@ -15,88 +15,88 @@
   -->
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context=".MerchantTestActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MerchantTestActivity">
 
   <TextView
-          android:id="@+id/status_employees"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;get employees idles&gt;"/>
+      android:id="@+id/status_employees"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;get employees idles&gt;"/>
 
   <TextView
-          android:id="@+id/result_employees"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text=""/>
+      android:id="@+id/result_employees"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text=""/>
 
   <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Get employees"
-          android:id="@+id/button_employees"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Get employees"
+      android:id="@+id/button_employees"
+      android:layout_gravity="left|center_vertical"/>
 
   <View
-          android:layout_width="0dp"
-          android:layout_height="16dp"/>
+      android:layout_width="0dp"
+      android:layout_height="16dp"/>
 
   <TextView
-          android:id="@+id/status_active_employee"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;get active employee idle&gt;"/>
+      android:id="@+id/status_active_employee"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;get active employee idle&gt;"/>
 
   <TextView
-          android:id="@+id/result_active_employee"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text=""/>
+      android:id="@+id/result_active_employee"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text=""/>
 
   <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Get active employee"
-          android:id="@+id/button_active_employee"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Get active employee"
+      android:id="@+id/button_active_employee"
+      android:layout_gravity="left|center_vertical"/>
 
   <View
-          android:layout_width="0dp"
-          android:layout_height="16dp"/>
+      android:layout_width="0dp"
+      android:layout_height="16dp"/>
 
   <TextView
-          android:id="@+id/status_login"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;login idle&gt;"/>
+      android:id="@+id/status_login"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;login idle&gt;"/>
 
 
   <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="left|center_vertical">
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="left|center_vertical">
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/button_login"
-            android:layout_gravity="left|center_vertical"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:id="@+id/button_login"
+        android:layout_gravity="left|center_vertical"/>
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:id="@+id/button_logout"
-            android:layout_gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/button_logout"
+        android:layout_gravity="center"/>
   </LinearLayout>
 
 

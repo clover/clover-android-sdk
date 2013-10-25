@@ -15,131 +15,131 @@
   -->
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        tools:context=".MerchantTestActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MerchantTestActivity">
 
   <TextView
-          android:id="@+id/status_get_merchant"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;get merchant idle&gt;"/>
+      android:id="@+id/status_get_merchant"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;get merchant idle&gt;"/>
 
   <TextView
-          android:id="@+id/result_get_merchant"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text=""/>
+      android:id="@+id/result_get_merchant"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text=""/>
 
   <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="left|center_vertical">
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="left|center_vertical">
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get merchant"
-            android:id="@+id/button_get_merchant"
-            android:layout_gravity="left|center_vertical"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get merchant"
+        android:id="@+id/button_get_merchant"
+        android:layout_gravity="left|center_vertical"/>
 
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Employees"
-            android:id="@+id/button_employees"
-            android:layout_gravity="left|center_vertical"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employees"
+        android:id="@+id/button_employees"
+        android:layout_gravity="left|center_vertical"/>
 
   </LinearLayout>
 
   <View
-          android:layout_width="0dp"
-          android:layout_height="16dp"/>
+      android:layout_width="0dp"
+      android:layout_height="16dp"/>
 
   <TextView
-          android:id="@+id/status_set_address"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;set address idle&gt;"/>
+      android:id="@+id/status_set_address"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;set address idle&gt;"/>
 
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Address line 1"
-          android:id="@+id/address1_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Address line 1"
+      android:id="@+id/address1_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Address line 2"
-          android:id="@+id/address2_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Address line 2"
+      android:id="@+id/address2_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="City"
-          android:id="@+id/city_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="City"
+      android:id="@+id/city_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="State"
-          android:id="@+id/state_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="State"
+      android:id="@+id/state_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Zip"
-          android:id="@+id/zip_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Zip"
+      android:id="@+id/zip_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Country"
-          android:id="@+id/country_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Country"
+      android:id="@+id/country_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Set address"
-          android:id="@+id/button_set_address"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Set address"
+      android:id="@+id/button_set_address"
+      android:layout_gravity="left|center_vertical"/>
 
   <View
-          android:layout_width="0dp"
-          android:layout_height="16dp"/>
+      android:layout_width="0dp"
+      android:layout_height="16dp"/>
 
   <TextView
-          android:id="@+id/status_set_phone"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="&lt;set phone number idle&gt;"/>
+      android:id="@+id/status_set_phone"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="&lt;set phone number idle&gt;"/>
 
   <EditText
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Phone number"
-          android:id="@+id/phone_edit"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Phone number"
+      android:id="@+id/phone_edit"
+      android:layout_gravity="left|center_vertical"/>
 
   <Button
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Set phone"
-          android:id="@+id/button_phone"
-          android:layout_gravity="left|center_vertical"/>
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Set phone"
+      android:id="@+id/button_phone"
+      android:layout_gravity="left|center_vertical"/>
 </LinearLayout>

@@ -18,6 +18,7 @@ package com.clover.sdk.v1.customer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +71,7 @@ public class Customer implements Parcelable {
   public List<PhoneNumber> getPhoneNumbers() {
     try {
       JSONArray array = data.optJSONArray("phoneNumbers");
-      if (array!=null) {
+      if (array != null) {
         List<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
         for (int i = 0; i < array.length(); i++) {
           JSONObject phoneNumberObject = array.getJSONObject(i);
@@ -78,14 +79,15 @@ public class Customer implements Parcelable {
         }
         return phoneNumbers;
       }
-    } catch (JSONException ex) {}
+    } catch (JSONException ex) {
+    }
     return Collections.emptyList();
   }
 
   public List<EmailAddress> getEmailAddresses() {
     try {
       JSONArray array = data.optJSONArray("emailAddresses");
-      if (array!=null) {
+      if (array != null) {
         List<EmailAddress> emailAddresses = new ArrayList<EmailAddress>();
         for (int i = 0; i < array.length(); i++) {
           JSONObject emailAddressObject = array.getJSONObject(i);
@@ -93,14 +95,15 @@ public class Customer implements Parcelable {
         }
         return emailAddresses;
       }
-    } catch (JSONException ex) {}
+    } catch (JSONException ex) {
+    }
     return Collections.emptyList();
   }
 
   public List<Address> getAddresses() {
     try {
       JSONArray array = data.optJSONArray("addresses");
-      if (array!=null) {
+      if (array != null) {
         List<Address> addresses = new ArrayList<Address>();
         for (int i = 0; i < array.length(); i++) {
           JSONObject addressObject = array.getJSONObject(i);
@@ -108,14 +111,15 @@ public class Customer implements Parcelable {
         }
         return addresses;
       }
-    } catch (JSONException ex) {}
+    } catch (JSONException ex) {
+    }
     return Collections.emptyList();
   }
 
   public List<Order> getOrders() {
     try {
       JSONArray array = data.optJSONArray("orders");
-      if (array!=null) {
+      if (array != null) {
         List<Order> orders = new ArrayList<Order>();
         for (int i = 0; i < array.length(); i++) {
           JSONObject ordersObject = array.getJSONObject(i);
@@ -123,7 +127,8 @@ public class Customer implements Parcelable {
         }
         return orders;
       }
-    } catch (JSONException ex) {}
+    } catch (JSONException ex) {
+    }
     return Collections.emptyList();
   }
 

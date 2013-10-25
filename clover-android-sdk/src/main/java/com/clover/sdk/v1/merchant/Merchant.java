@@ -20,6 +20,7 @@ import android.accounts.Account;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.Currency;
 import java.util.TimeZone;
 
@@ -37,9 +38,9 @@ public class Merchant implements Parcelable {
 
   private final Bundle data;
 
-  public Merchant(Bundle data, Account account) {
+  public Merchant(Bundle data, Bundle localData) {
     this.data = data;
-    data.putParcelable(KEY_ACCOUNT, account);
+    this.data.putAll(localData);
   }
 
   public Merchant(Parcel in) {

@@ -45,10 +45,11 @@ import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.inventory.CategoryDescription;
+import com.clover.sdk.v1.inventory.Discount;
 import com.clover.sdk.v1.inventory.IInventoryService;
+import com.clover.sdk.v1.inventory.InventoryConnector;
 import com.clover.sdk.v1.inventory.InventoryContract;
 import com.clover.sdk.v1.inventory.InventoryIntent;
-import com.clover.sdk.v1.inventory.InventoryConnector;
 import com.clover.sdk.v1.inventory.Item;
 import com.clover.sdk.v1.inventory.Modifier;
 import com.clover.sdk.v1.inventory.ModifierGroup;
@@ -143,12 +144,12 @@ public class InventoryTestActivity extends Activity {
   private void connectToInventoryContentProviderAndServiceWrapper() {
     inventoryConnector = new InventoryConnector(this, CloverAccount.getAccount(this), new ServiceConnector.OnServiceConnectedListener() {
       @Override
-      public void onServiceConnected() {
+      public void onServiceConnected(ServiceConnector connector) {
         serviceIsBound = true;
       }
 
       @Override
-      public void onServiceDisconnected() {
+      public void onServiceDisconnected(ServiceConnector connector) {
         serviceIsBound = false;
       }
     });
@@ -165,7 +166,7 @@ public class InventoryTestActivity extends Activity {
   private void connectToServiceConnector() {
     inventoryConnector = new InventoryConnector(this, CloverAccount.getAccount(this), new ServiceConnector.OnServiceConnectedListener() {
       @Override
-      public void onServiceConnected() {
+      public void onServiceConnected(ServiceConnector connector) {
         serviceIsBound = true;
         statusText.setText("Connected to service via service wrapper");
         if (connectionMethod == ConnectionMethod.SERVICE_CONNECTOR_USING_CALLBACKS) {
@@ -176,7 +177,7 @@ public class InventoryTestActivity extends Activity {
       }
 
       @Override
-      public void onServiceDisconnected() {
+      public void onServiceDisconnected(ServiceConnector connector) {
         statusText.setText("Disconnected from service via wrapper");
         serviceIsBound = false;
       }
@@ -374,7 +375,9 @@ public class InventoryTestActivity extends Activity {
               for (int i = 0; i < items.size(); i++) {
                 String itemId = items.get(i);
                 // just print out the first few to the console
-                if (i > 5) break;
+                if (i > 5) {
+                  break;
+                }
                 item = inventoryConnector.getItem(itemId);
               }
 
@@ -439,14 +442,18 @@ public class InventoryTestActivity extends Activity {
             // Attempt #1
             Item newItem = new Item("Test Item #1", null, null, 500L, PriceType.FIXED, true, null, null, null);
             newItem = inventoryService.createItem(newItem, resultStatus);
-            if (newItem != null) items.add(newItem);
+            if (newItem != null) {
+              items.add(newItem);
+            }
             Log.v(TAG, "Result from createItem() #1 = " + resultStatus + ", item = " + dumpItem(newItem));
 
             // Attempt #2, missing data (item name) should be caught by Item() constructor
             try {
               Item newItemFailure = new Item(null, null, null, 500L, PriceType.FIXED, true, null, null, null);
               newItemFailure = inventoryService.createItem(newItemFailure, resultStatus);
-              if (newItemFailure != null) items.add(newItemFailure);
+              if (newItemFailure != null) {
+                items.add(newItemFailure);
+              }
               Log.v(TAG, "Result from createItem() #2 = " + resultStatus + ", item = " + dumpItem(newItemFailure));
             } catch (Exception e) {
               Log.v(TAG, "Result from createItem() #2, where we were missing required field: " + e.getMessage());
@@ -456,7 +463,9 @@ public class InventoryTestActivity extends Activity {
             try {
               Item newItemFailure2 = new Item("Test Item 3", null, null, -500L, PriceType.FIXED, true, null, null, null);
               newItemFailure2 = inventoryService.createItem(newItemFailure2, resultStatus);
-              if (newItemFailure2 != null) items.add(newItemFailure2);
+              if (newItemFailure2 != null) {
+                items.add(newItemFailure2);
+              }
               Log.v(TAG, "Result from createItem() #3 = " + resultStatus + ", item = " + dumpItem(newItemFailure2));
             } catch (Exception e) {
               Log.v(TAG, "Result from createItem() #3, where we set an invalid value: " + e.getMessage());
@@ -465,20 +474,26 @@ public class InventoryTestActivity extends Activity {
             // Attempt #4, using server's constructor
             Item newItemWithId = new Item("XXXXXXXXXXXXX", "Test Item 3", null, null, 500L, PriceType.FIXED, true, null, null, null, null, null, null);
             newItemWithId = inventoryService.createItem(newItemWithId, resultStatus);
-            if (newItemWithId != null) items.add(newItemWithId);
+            if (newItemWithId != null) {
+              items.add(newItemWithId);
+            }
             Log.v(TAG, "Result from createItem() #4 = " + resultStatus + ", item = " + dumpItem(newItemWithId));
 
             // Attempt #5, maliciously manipulating data to be invalid
             String badJson = "{\"name\": \"Way Too Long Name..............................................................................................................................................\",\"price\": 600,\"priceType\": \"FIXED\",\"taxable\": true}";
             Item newItemBadJson = new Item(badJson, true);
             newItemBadJson = inventoryService.createItem(newItemBadJson, resultStatus);
-            if (newItemBadJson != null) items.add(newItemBadJson);
+            if (newItemBadJson != null) {
+              items.add(newItemBadJson);
+            }
             Log.v(TAG, "Result from createItem() #5 = " + resultStatus + ", item = " + newItemBadJson);
 
             // Attempt #6, using fluent builder pattern aka method chaining
             Item.Builder itemBuilder = new Item.Builder().name("Test Item #6").price(500L).taxable(true).priceType(PriceType.FIXED);
             Item returnedItem = inventoryService.createItem(itemBuilder.build(), resultStatus);
-            if (returnedItem != null) items.add(returnedItem);
+            if (returnedItem != null) {
+              items.add(returnedItem);
+            }
             Log.v(TAG, "Result from createItem() #6 = " + resultStatus + ", item = " + dumpItem(returnedItem));
           } catch (Exception e) {
             Log.e(TAG, "Error calling inventory service", e);
@@ -664,12 +679,24 @@ public class InventoryTestActivity extends Activity {
       Boolean taxable = null, defaultTaxRates = null;
       Long cost = null; // not currently stored in local db
 
-      if (uuidIndex >= 0) id = cursor.getString(uuidIndex);
-      if (nameIndex >= 0) name = cursor.getString(nameIndex);
-      if (alternateNameIndex >= 0) alternateName = cursor.getString(alternateNameIndex);
-      if (codeIndex >= 0) code = cursor.getString(codeIndex);
-      if (unitNameIndex >= 0) unitName = cursor.getString(unitNameIndex);
-      if (priceIndex >= 0) price = cursor.getLong(priceIndex);
+      if (uuidIndex >= 0) {
+        id = cursor.getString(uuidIndex);
+      }
+      if (nameIndex >= 0) {
+        name = cursor.getString(nameIndex);
+      }
+      if (alternateNameIndex >= 0) {
+        alternateName = cursor.getString(alternateNameIndex);
+      }
+      if (codeIndex >= 0) {
+        code = cursor.getString(codeIndex);
+      }
+      if (unitNameIndex >= 0) {
+        unitName = cursor.getString(unitNameIndex);
+      }
+      if (priceIndex >= 0) {
+        price = cursor.getLong(priceIndex);
+      }
       if (priceTypeIndex >= 0) {
         priceTypeInt = cursor.getInt(priceTypeIndex);
         priceType = PriceType.values()[priceTypeInt];
@@ -689,6 +716,71 @@ public class InventoryTestActivity extends Activity {
 
   static class InventoryWebService implements IInventoryService {
     private static final String TAG = InventoryWebService.class.getSimpleName();
+
+    @Override
+    public List<Discount> getDiscounts(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getDiscounts()");
+    }
+
+    @Override
+    public Discount getDiscount(String discountId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getDiscount()");
+    }
+
+    @Override
+    public Discount createDiscount(Discount discount, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createDiscount()");
+    }
+
+    @Override
+    public void updateDiscount(Discount discount, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateDiscount()");
+    }
+
+    @Override
+    public void deleteDiscount(String discountId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteDiscount()");
+    }
+
+    @Override
+    public void addItemToCategory(String itemId, String categoryId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement addItemToCategory()");
+    }
+
+    @Override
+    public void removeItemFromCategory(String itemId, String categoryId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeItemFromCategory()");
+    }
+
+    @Override
+    public void moveItemInCategoryLayout(String itemId, String categoryId, int direction, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement moveItemInCategoryLayout()");
+    }
+
+    @Override
+    public void assignModifierGroupToItem(String modifierGroupId, String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignModifierGroupToItem()");
+    }
+
+    @Override
+    public void removeModifierGroupFromItem(String modifierGroupId, String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeModifierGroupFromItem()");
+    }
+
+    @Override
+    public TaxRate createTaxRate(TaxRate taxRate, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createTaxRate()");
+    }
+
+    @Override
+    public void updateTaxRate(TaxRate taxRate, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateTaxRate()");
+    }
+
+    @Override
+    public void deleteTaxRate(String taxRateId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteTaxRate()");
+    }
 
     private String merchantId;
     private String accessToken;

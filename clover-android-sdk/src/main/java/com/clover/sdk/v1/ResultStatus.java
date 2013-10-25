@@ -19,6 +19,8 @@ package com.clover.sdk.v1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.clover.sdk.internal.util.Objects;
+
 /**
  * Possible statuses results from calling Clover services. Most Clover service calls accept
  * an instance of this class as an "out" parameter. For example,
@@ -80,7 +82,7 @@ public class ResultStatus implements Parcelable {
   }
 
   public boolean isClientError() {
-    return (statusCode >= 400 && statusCode <= 499) || statusCode==999;
+    return (statusCode >= 400 && statusCode <= 499) || statusCode == 999;
   }
 
   public boolean isServiceError() {
@@ -89,40 +91,42 @@ public class ResultStatus implements Parcelable {
 
   private static String getStatusCodeString(int statusCode) {
     switch (statusCode) {
-      case UNKNOWN: return "UNKNOWN";
-      case OK : return "OK";
-      case OK_CREATED : return "OK_CREATED";
-      case OK_ACCEPTED : return "OK_ACCEPTED";
-      case OK_NON_AUTHORITATIVE : return "OK_NON_AUTHORITATIVE";
-      case BAD_REQUEST : return "BAD_REQUEST";
-      case UNAUTHORIZED : return "UNAUTHORIZED";
-      case FORBIDDEN : return "FORBIDDEN";
-      case NOT_FOUND : return "NOT_FOUND";
-      case REQUEST_TOO_LARGE : return "REQUEST_TOO_LARGE";
-      case RESPONSE_TOO_LARGE : return "RESPONSE_TOO_LARGE";
-      case SERVICE_ERROR : return "SERVICE_ERROR";
-      case NOT_IMPLEMENTED : return "NOT_IMPLEMENTED";
-      case OTHER : return "CLOVER_ERROR";
-      default: return "Unknown status code; getStatusCodeString() needs to be updated";
+      case UNKNOWN:
+        return "UNKNOWN";
+      case OK:
+        return "OK";
+      case OK_CREATED:
+        return "OK_CREATED";
+      case OK_ACCEPTED:
+        return "OK_ACCEPTED";
+      case OK_NON_AUTHORITATIVE:
+        return "OK_NON_AUTHORITATIVE";
+      case BAD_REQUEST:
+        return "BAD_REQUEST";
+      case UNAUTHORIZED:
+        return "UNAUTHORIZED";
+      case FORBIDDEN:
+        return "FORBIDDEN";
+      case NOT_FOUND:
+        return "NOT_FOUND";
+      case REQUEST_TOO_LARGE:
+        return "REQUEST_TOO_LARGE";
+      case RESPONSE_TOO_LARGE:
+        return "RESPONSE_TOO_LARGE";
+      case SERVICE_ERROR:
+        return "SERVICE_ERROR";
+      case NOT_IMPLEMENTED:
+        return "NOT_IMPLEMENTED";
+      case OTHER:
+        return "CLOVER_ERROR";
+      default:
+        return "Unknown status code; getStatusCodeString() needs to be updated";
     }
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb
-            .append(getClass().getSimpleName())
-            .append("{statusCode=")
-            .append(getStatusCodeString(getStatusCode()));
-
-    if (getStatusMessage() != null) {
-      sb
-              .append(", statusMessage=")
-              .append(getStatusMessage());
-    }
-
-    sb.append("}");
-    return sb.toString();
+    return Objects.toStringHelper(this).add("statusCode", getStatusCodeString(statusCode)).add("statusMessage", statusMessage).toString();
   }
 
   @Override

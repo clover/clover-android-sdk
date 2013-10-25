@@ -16,11 +16,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-          android:showAsAction="ifRoom"
-          android:id="@+id/action_javadoc"
-          android:title="SDK Documentation"/>
+      android:showAsAction="ifRoom"
+      android:id="@+id/action_javadoc"
+      android:title="SDK Documentation"/>
   <item
-          android:showAsAction="ifRoom"
-          android:id="@+id/action_source"
-          android:title="SDK Source"/>
+      android:showAsAction="ifRoom"
+      android:id="@+id/action_source"
+      android:title="SDK Source"/>
 </menu>

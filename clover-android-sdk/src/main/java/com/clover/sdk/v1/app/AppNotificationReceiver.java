@@ -43,6 +43,7 @@ abstract public class AppNotificationReceiver {
 
   /**
    * Create a new instance and register it with the given context.
+   *
    * @see #register(android.content.Context)
    */
   public AppNotificationReceiver(Context context) {

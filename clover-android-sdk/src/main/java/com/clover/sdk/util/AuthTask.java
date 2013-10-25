@@ -17,7 +17,6 @@
 package com.clover.sdk.util;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
@@ -40,6 +39,7 @@ public class AuthTask extends AsyncTask<Account, Void, CloverAuth.AuthResult> {
 
   /**
    * Create a new {@code AuthTask}.
+   *
    * @param activity the {@code Activity} that initiated authentication with the Clover service.
    */
   public AuthTask(Activity activity) {
@@ -116,7 +116,7 @@ public class AuthTask extends AsyncTask<Account, Void, CloverAuth.AuthResult> {
    * Called on the main thread after the auth process has completed.
    *
    * @param success {@code true} if authentication was successful
-   * @param result the authentication result, or {@code null} if an exception was thrown
+   * @param result  the authentication result, or {@code null} if an exception was thrown
    */
   protected void onAuthComplete(boolean success, CloverAuth.AuthResult result) {
   }

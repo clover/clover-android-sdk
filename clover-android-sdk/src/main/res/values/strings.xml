@@ -17,7 +17,6 @@
 
 <resources>
 
-    <string name="app_name">clover-android-sdk</string>
-    <string name="title_activity_account_chooser">Clover Accounts</string>
+  <string name="title_activity_account_chooser">Clover Accounts</string>
 
 </resources>

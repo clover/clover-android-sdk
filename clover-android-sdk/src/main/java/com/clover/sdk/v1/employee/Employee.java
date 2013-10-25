@@ -29,13 +29,18 @@ public class Employee implements Parcelable {
   private static final String KEY_NICKNAME = "employeeNickname";
   private static final String KEY_NAME = "employeeName";
   private static final String KEY_ROLE = "employeeRole";
+  private static final String KEY_IS_PIN_SET = "employeePinSet";
 
   /**
    * Employee roles.
    *
    * @see #getRole()
    */
-  public static enum Role {ADMIN, EMPLOYEE, MANAGER};
+  public static enum Role {
+    ADMIN, EMPLOYEE, MANAGER
+  }
+
+  ;
 
   private final Bundle data;
 
@@ -88,6 +93,10 @@ public class Employee implements Parcelable {
       return Employee.Role.valueOf(str);
     }
     return Employee.Role.EMPLOYEE;
+  }
+
+  public boolean isPinSet() {
+    return data.getBoolean(KEY_IS_PIN_SET, false);
   }
 
   @Override

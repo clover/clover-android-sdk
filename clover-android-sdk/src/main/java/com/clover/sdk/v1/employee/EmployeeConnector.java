@@ -27,9 +27,6 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.merchant.Merchant;
-import com.clover.sdk.v1.merchant.MerchantAddress;
-import com.clover.sdk.v1.merchant.MerchantIntent;
 
 import java.util.List;
 
@@ -37,11 +34,11 @@ import java.util.List;
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.employee.IEmployeeService}.
  * This class automatically binds and provides both synchronous and asynchronous service
  * method invocation.
- *
+ * <p/>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
- *
+ * <p/>
  * For all service methods, this class provides both synchronous and asynchronous call options.
  * The synchronous methods must not be called on the UI thread.
  */
@@ -65,7 +62,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
    * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
    * for receiving asynchronous results from {@link com.clover.sdk.v1.employee.EmployeeConnector}
    * methods that provides default method implementations.
-   *
+   * <p/>
    * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
    * invocation.
    *
@@ -86,7 +83,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     public void onServiceConnectionFailure() {
       Log.w(TAG, String.format("on service connect failure"));
     }
-  };
+  }
+
+  ;
 
   private final IEmployeeListener iEmployeeListener = new IEmployeeListener.Stub() {
     @Override
@@ -130,19 +129,19 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   @Override
   public void disconnect() {
     execute(
-            new EmployeeCallable<Void>() {
-              @Override
-              public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
-                service.removeListener(iEmployeeListener, status);
-                return null;
-              }
-            }, new EmployeeCallback<Void>() {
-              @Override
-              public void onServiceSuccess(Void result, ResultStatus status) {
-                super.onServiceSuccess(result, status);
-                EmployeeConnector.super.disconnect();
-              }
-            }
+        new EmployeeCallable<Void>() {
+          @Override
+          public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+            service.removeListener(iEmployeeListener, status);
+            return null;
+          }
+        }, new EmployeeCallback<Void>() {
+          @Override
+          public void onServiceSuccess(Void result, ResultStatus status) {
+            super.onServiceSuccess(result, status);
+            EmployeeConnector.super.disconnect();
+          }
+        }
     );
   }
 

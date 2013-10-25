@@ -25,18 +25,24 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:hint="@string/app_event_name"
-      android:id="@+id/appEventText"/>
+      android:id="@+id/app_event_text"/>
 
   <EditText
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:hint="@string/payload"
-      android:id="@+id/payloadText"/>
+      android:id="@+id/payload_text"/>
+
+  <Spinner
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:entries="@array/connection_type"
+      android:id="@+id/connection_type_spinner"/>
 
   <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/sendButton"
+      android:id="@+id/send_button"
       android:text="@string/send_app_notification"/>
 
   <ScrollView
@@ -47,7 +53,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/logText"
-        android:freezesText="true"/>
+        android:id="@+id/log_text"/>
   </ScrollView>
 </LinearLayout>

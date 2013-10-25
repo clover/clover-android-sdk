@@ -33,32 +33,47 @@ import java.util.concurrent.Executors;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
- * a bound AIDL service.
+ * a bound AIDL service.  Subclasses of this class implement methods that are specific to the
+ * service that they're interacting with.<p/>
+ * <p/>
+ * Connection with the service happens implicitly.  However, the user of a {@code ServiceConnector}
+ * <em>must</em> call {@link #disconnect} when he or she is done with the instance.  For example,
+ * when using a {@code ServiceConnector} in an {@code Activity}, call {@link #disconnect()} from
+ * {@code onPause()} or {@code onDestroy()}.
  *
  * @param <S> The service interface that is being encapsulated.
  */
 public abstract class ServiceConnector<S extends IInterface> implements ServiceConnection {
   private static final String TAG = "ServiceConnector";
 
-  private static final int SERVICE_CONNECTION_TIMEOUT = 4000;
+  private static final int SERVICE_CONNECTION_TIMEOUT = 20000;
 
   protected final Context mContext;
   protected final Account mAccount;
   protected final OnServiceConnectedListener mClient;
   protected final Executor mExecutor = Executors.newCachedThreadPool();
-  protected final Handler mHandler = new Handler();
+  protected final Handler mHandler = new Handler(Looper.getMainLooper());
 
   protected S mService;
   protected boolean mConnected; // true if connect() has been called since last disconnect()
 
   public interface OnServiceConnectedListener {
-    void onServiceConnected();
-    void onServiceDisconnected();
+    void onServiceConnected(ServiceConnector<? extends IInterface> connector);
+
+    void onServiceDisconnected(ServiceConnector<? extends IInterface> connector);
   }
 
+  /**
+   * Responds to the results of a call to a {@code ServiceConnector} method.  All the callback
+   * methods are executed on the main thread.
+   *
+   * @param <T> the data type returned by the method call
+   */
   public interface Callback<T> {
     void onServiceSuccess(T result, ResultStatus status);
+
     void onServiceFailure(ResultStatus status);
+
     void onServiceConnectionFailure();
   }
 
@@ -72,11 +87,12 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   /**
    * Constructs a new ServiceConnector object.
+   *
    * @param context the Context object, required for establishing a connection to
-   * the service.
+   *                the service.
    * @param account the Account to use with the service.
-   * @param client an optional object implementing the OnServiceConnectedListener
-   * interface, for receiving connection notifications from the service.
+   * @param client  an optional object implementing the OnServiceConnectedListener
+   *                interface, for receiving connection notifications from the service.
    */
   public ServiceConnector(Context context, Account account, OnServiceConnectedListener client) {
     mContext = context;
@@ -137,6 +153,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   /**
    * Returns whether we are connected to the order service
+   *
    * @return true if we are connected, false otherwise
    */
   public synchronized boolean isConnected() {
@@ -145,6 +162,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   /**
    * Returns the order service interface
+   *
    * @return Service if we are connected, null otherwise
    */
   public synchronized S getService() {
@@ -210,7 +228,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     });
   }
 
-  protected void executeOnThread(final ServiceRunnable<S> runnable, final Callback<Void> callback) {
+  protected void execute(final ServiceRunnable<S> runnable, final Callback<Void> callback) {
     connect();
 
     mExecutor.execute(new Runnable() {
@@ -243,7 +261,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
       // do nothing; this is the default case
     } else if (status.getStatusCode() == ResultStatus.FORBIDDEN) {
       throw new ForbiddenException(status);
-    } else if (status.isClientError()) {
+    } else if (status.isClientError() || status.getStatusCode() == ResultStatus.OTHER) {
       throw new ClientException(status);
     } else if (status.isServiceError()) {
       throw new ServiceException(status);
@@ -273,13 +291,13 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
     if (client != null) {
-      client.onServiceConnected();
+      client.onServiceConnected(this);
     }
   }
 
   protected void notifyServiceDisconnected(OnServiceConnectedListener client) {
     if (client != null) {
-      client.onServiceDisconnected();
+      client.onServiceDisconnected(this);
     }
   }
 

@@ -22,21 +22,21 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
 /**
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.merchant.IMerchantService}.
  * This class automatically binds and provides both synchronous and asynchronous service
  * method invocation.
- *
+ * <p/>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
- *
+ * <p/>
  * For all service methods, this class provides both synchronous and asynchronous call options.
  * The synchronous methods must not be called on the UI thread.
  */
@@ -60,7 +60,7 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
    * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
    * for receiving asynchronous results from {@link com.clover.sdk.v1.merchant.MerchantConnector}
    * methods that provides default method implementations.
-   *
+   * <p/>
    * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
    * invocation.
    *
@@ -81,7 +81,9 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     public void onServiceConnectionFailure() {
       Log.w(TAG, String.format("on service connect failure"));
     }
-  };
+  }
+
+  ;
 
   private final IMerchantListener iMerchantListener = new IMerchantListener.Stub() {
     @Override
@@ -98,7 +100,7 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
    *
    * @param context The Context in which this connector will bind to the underlying service.
    * @param account The Clover account which is used when binding to the underlying service.
-   * @param client A listener, or null.
+   * @param client  A listener, or null to receive no notifications.
    */
   public MerchantConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
@@ -170,7 +172,7 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   /**
    * Set the merchant's address.
    *
-   * @param address The address of the merchant.
+   * @param address  The address of the merchant.
    * @param callback A callback to receive invocation results.
    */
   public void setAddress(final MerchantAddress address, Callback<Void> callback) {
@@ -199,7 +201,7 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
    * Set the merchant's phone number.
    *
    * @param phoneNumber The phone number of the merchant.
-   * @param callback A callback to receive invocation results.
+   * @param callback    A callback to receive invocation results.
    */
   public void setPhoneNumber(final String phoneNumber, Callback<Void> callback) {
     execute(new MerchantCallable<Void>() {

@@ -18,15 +18,7 @@ package com.clover.sdk.util;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-
-import java.io.IOException;
 
 /**
  * This class provides access to the Clover {@link android.accounts.Account} object on the device.

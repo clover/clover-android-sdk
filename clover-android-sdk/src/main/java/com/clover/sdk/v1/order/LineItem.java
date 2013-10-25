@@ -129,6 +129,7 @@ public class LineItem implements Parcelable {
 
   /**
    * Line item tax rates
+   *
    * @return
    */
   public List<TaxRate> getTaxRates() {
@@ -138,7 +139,7 @@ public class LineItem implements Parcelable {
 
         if (li != null) {
           List<TaxRate> taxRates = new ArrayList<TaxRate>(li.length());
-          for (int i=0; i < li.length(); i++) {
+          for (int i = 0; i < li.length(); i++) {
             taxRates.add(new TaxRate(li.getJSONObject(i)));
           }
           mTaxRates = taxRates;

@@ -18,6 +18,7 @@ package com.clover.sdk.v1.customer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +29,65 @@ import org.json.JSONObject;
  * {@link com.clover.sdk.v1.customer.Customer} object.
  */
 public class Address implements Parcelable {
+  public static class Builder {
+    private String id = null;
+    private String address1 = null;
+    private String address2 = null;
+    private String city = null;
+    private String state = null;
+    private String zip = null;
+
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder address1(String address1) {
+      this.address1 = address1;
+      return this;
+    }
+
+    public Builder address2(String address2) {
+      this.address2 = address2;
+      return this;
+    }
+
+    public Builder city(String city) {
+      this.city = city;
+      return this;
+    }
+
+    public Builder state(String state) {
+      this.state = state;
+      return this;
+    }
+
+    public Builder zip(String zip) {
+      this.zip = zip;
+      return this;
+    }
+
+    public Address build() {
+      return new Address(id, address1, address2, city, state, zip);
+    }
+  }
+
   private final JSONObject data;
 
+  private Address(String id, String address1, String address2, String city, String state, String zip) {
+    data = new JSONObject();
+    try {
+      data.put("id", id);
+      data.put("address1", address1);
+      data.put("address2", address2);
+      data.put("city", city);
+      data.put("state", state);
+      data.put("zip", zip);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
+  }
 
   Address(String json) throws JSONException {
     this.data = new JSONObject(json);

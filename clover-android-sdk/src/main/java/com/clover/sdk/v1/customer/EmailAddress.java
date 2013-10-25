@@ -18,6 +18,7 @@ package com.clover.sdk.v1.customer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +29,36 @@ import org.json.JSONObject;
  * {@link com.clover.sdk.v1.customer.Customer} object.
  */
 public class EmailAddress implements Parcelable {
+  public static class Builder {
+    private String id = null;
+    private String emailAddress = null;
+
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder emailAddress(String emailAddress) {
+      this.emailAddress = emailAddress;
+      return this;
+    }
+
+    public EmailAddress build() {
+      return new EmailAddress(id, emailAddress);
+    }
+  }
+
   private final JSONObject data;
+
+  private EmailAddress(String id, String emailAddress) {
+    data = new JSONObject();
+    try {
+      data.put("id", id);
+      data.put("emailAddress", emailAddress);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+  }
 
   EmailAddress(String json) throws JSONException {
     this.data = new JSONObject(json);

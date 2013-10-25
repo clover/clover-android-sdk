@@ -16,8 +16,6 @@
 
 package com.clover.sdk.v1.app;
 
-import android.content.Intent;
-
 public class AppNotificationIntent {
 
   /**

@@ -36,7 +36,7 @@ public class CloverAuth {
    * Clover service.  It should be run on a background thread.
    *
    * @param activity the activity that initiated the authentication
-   * @param account the account used for authentication
+   * @param account  the account used for authentication
    */
   public static AuthResult authenticate(Activity activity, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
     Log.d(TAG, "Authenticating " + account);

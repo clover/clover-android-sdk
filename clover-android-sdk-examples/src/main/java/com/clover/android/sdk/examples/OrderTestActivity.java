@@ -22,6 +22,8 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,15 +39,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.order.Order;
 import com.clover.sdk.v1.order.OrderConnector;
+import com.clover.sdk.v1.order.OrderSummary;
 
 import org.json.JSONException;
+
+import java.util.List;
 
 public class OrderTestActivity extends Activity implements ServiceConnector.OnServiceConnectedListener, OrderConnector.OnOrderUpdateListener {
   private static final String TAG = "OrderTestActivity";
@@ -61,6 +66,7 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
   private TextView orderJSONText;
   private Button createButton;
   private Button refreshButton;
+  private Button selectButton;
 
   private Spinner fieldSpinner;
   private EditText fieldEdit;
@@ -96,6 +102,13 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
         }
       }
     });
+    selectButton = (Button) findViewById(R.id.select);
+    selectButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        loadOrders();
+      }
+    });
 
     fieldEdit = (EditText) findViewById(R.id.fieldValue);
     fieldSetButton = (Button) findViewById(R.id.setField);
@@ -103,11 +116,13 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
       @Override
       public void onClick(View view) {
         String newValue = fieldEdit.getText().toString();
-        if (mOrder == null || TextUtils.isEmpty(newValue)) {
-          return ;
+        if (mOrder == null) {
+          return;
         }
+        boolean enabled = false;
         try {
-          // "title", "note", "type", "state", "total"
+          // "title", "note", "type", "state", "total",
+          // "Group Line Items", "Tax Removed", "Test Mode", "Manual Transaction", "Customer Id", "Service Charge Id",
           switch (fieldSpinner.getSelectedItemPosition()) {
             case 0:
               orders.setTitle(mOrder.getId(), newValue, null);
@@ -125,6 +140,28 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
               long total = Long.parseLong(newValue);
               orders.setTotal(mOrder.getId(), total, null);
               break;
+            case 5:
+              enabled = Boolean.parseBoolean(newValue);
+              orders.setGroupLineItems(mOrder.getId(), enabled, null);
+              break;
+            case 6:
+              enabled = Boolean.parseBoolean(newValue);
+              orders.setTaxRemoved(mOrder.getId(), enabled, null);
+              break;
+            case 7:
+              enabled = Boolean.parseBoolean(newValue);
+              orders.setTestMode(mOrder.getId(), enabled, null);
+              break;
+            case 8:
+              enabled = Boolean.parseBoolean(newValue);
+              orders.setManualTransaction(mOrder.getId(), enabled, null);
+              break;
+            case 9:
+              orders.setCustomer(mOrder.getId(), newValue, null);
+              break;
+            case 10:
+              orders.addServiceCharge(mOrder.getId(), newValue, null);
+              break;
           }
         } catch (RemoteException e) {
           e.printStackTrace();
@@ -134,7 +171,8 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
 
     fieldSpinner = (Spinner) findViewById(R.id.fieldSpinner);
 
-    String[] fields = new String[] { "title", "note", "type", "state", "total" };
+    String[] fields = new String[]{"title", "note", "type", "state", "total",
+        "Group Line Items", "Tax Removed", "Test Mode", "Manual Transaction", "Customer Id", "Service Charge Id"};
     ArrayAdapter<String> fieldsAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, fields);
     fieldSpinner.setAdapter(fieldsAdapter);
 
@@ -216,12 +254,12 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
   }
 
   @Override
-  public void onServiceConnected() {
+  public void onServiceConnected(ServiceConnector connector) {
     Log.d(TAG, "onServiceConnected");
   }
 
   @Override
-  public void onServiceDisconnected() {
+  public void onServiceDisconnected(ServiceConnector connector) {
     Log.d(TAG, "onServiceDisconnected");
   }
 
@@ -353,7 +391,8 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
 
   void refreshSpinner(int i) {
     if (mOrder != null) {
-      // "title", "note", "type", "state", "total"
+      // "title", "note", "type", "state", "total",
+      // "Group Line Items", "Tax Removed", "Test Mode", "Manual Transaction", "Customer Id", "Service Charge Id",
       switch (i) {
         case 0:
           fieldEdit.setText(mOrder.getTitle());
@@ -370,9 +409,71 @@ public class OrderTestActivity extends Activity implements ServiceConnector.OnSe
         case 4:
           fieldEdit.setText(String.valueOf(mOrder.getTotal()));
           break;
+        case 5:
+          fieldEdit.setText(String.valueOf(mOrder.getGroupLineItems()));
+          break;
+        case 6:
+          fieldEdit.setText(String.valueOf(mOrder.getTaxRemoved()));
+          break;
+        case 7:
+          fieldEdit.setText(String.valueOf(mOrder.getTestMode()));
+          break;
+        case 8:
+          fieldEdit.setText(String.valueOf(mOrder.getManualTransaction()));
+          break;
+        case 9:
+          fieldEdit.setText(mOrder.getCustomerId());
+          break;
+        case 10:
+          fieldEdit.setText(mOrder.getServiceChargeId());
+          break;
       }
     } else {
       fieldEdit.setText("");
     }
+  }
+
+  private void loadOrders() {
+    try {
+      orders.getOrders(0, 10, new ServiceConnector.Callback<List<OrderSummary>>() {
+        @Override
+        public void onServiceSuccess(List<OrderSummary> result, ResultStatus status) {
+          showOrdersDialog(result);
+        }
+
+        @Override
+        public void onServiceFailure(ResultStatus status) {
+        }
+
+        @Override
+        public void onServiceConnectionFailure() {
+        }
+      });
+    } catch (RemoteException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void showOrdersDialog(final List<OrderSummary> orders) {
+    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    builder.setTitle("Select Order");
+    final int size = orders.size();
+    String[] names = new String[size];
+
+    int i = 0;
+    for (OrderSummary order : orders) {
+      names[i++] = order.getId() + " " + order.mOrder.toString();
+    }
+
+    builder.setSingleChoiceItems(names, -1, new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int which) {
+        // Stuff to do when the account is selected by the user
+        dialog.dismiss();
+
+        loadOrder(orders.get(which).getId());
+      }
+    });
+    builder.show();
   }
 }

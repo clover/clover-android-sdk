@@ -33,8 +33,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v1.merchant.MerchantAddress;
 import com.clover.sdk.v1.merchant.MerchantConnector;
@@ -237,12 +237,12 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
 
   private void setAddress() {
     MerchantAddress address = new MerchantAddress.Builder()
-            .address1(address1Edit.getText().toString())
-            .address2(address2Edit.getText().toString())
-            .city(cityEdit.getText().toString())
-            .state(stateEdit.getText().toString())
-            .zip(zipEdit.getText().toString())
-            .country(countryEdit.getText().toString()).build();
+        .address1(address1Edit.getText().toString())
+        .address2(address2Edit.getText().toString())
+        .city(cityEdit.getText().toString())
+        .state(stateEdit.getText().toString())
+        .zip(zipEdit.getText().toString())
+        .country(countryEdit.getText().toString()).build();
 
     merchantConnector.setAddress(address, new MerchantConnector.MerchantCallback<Void>() {
       @Override
@@ -290,12 +290,12 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
 
   private void notifyMerchantChanged(Merchant merchant) {
     Notification n = new Notification.Builder(this)
-            .setContentTitle(String.format("Merchant changed: %s (%s)", merchant.getName(), merchant.getId()))
-            .setContentText(String.format("Merchant changed: %s (%s)", merchant.getName(), merchant.getId()))
-            .setSmallIcon(android.R.drawable.stat_sys_warning)
-            .getNotification();
+        .setContentTitle(String.format("Merchant changed: %s (%s)", merchant.getName(), merchant.getId()))
+        .setContentText(String.format("Merchant changed: %s (%s)", merchant.getName(), merchant.getId()))
+        .setSmallIcon(android.R.drawable.stat_sys_warning)
+        .getNotification();
     NotificationManager notificationManager =
-            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     n.flags |= Notification.FLAG_AUTO_CANCEL;
     notificationManager.notify(0, n);
   }
@@ -317,12 +317,12 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
   }
 
   @Override
-  public void onServiceConnected() {
-    Log.i(TAG, "service connected");
+  public void onServiceConnected(ServiceConnector connector) {
+    Log.i(TAG, "service connected: " + connector);
   }
 
   @Override
-  public void onServiceDisconnected() {
-    Log.i(TAG, "service disconnected");
+  public void onServiceDisconnected(ServiceConnector connector) {
+    Log.i(TAG, "service disconnected: " + connector);
   }
 }

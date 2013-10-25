@@ -25,10 +25,14 @@ import android.provider.BaseColumns;
  * definitions for the supported URIs and columns.
  */
 public final class CustomerContract {
-  /** The authority for the modifier provider */
+  /**
+   * The authority for the modifier provider
+   */
   public static final String AUTHORITY = "com.clover.customers";
 
-  /** A content:// style uri to the authority for the customer provider */
+  /**
+   * A content:// style uri to the authority for the customer provider
+   */
   public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
   public static final String AUTH_TOKEN_PARAM = "token";
@@ -38,20 +42,20 @@ public final class CustomerContract {
   public interface SummaryColumns {
     /**
      * UUID for this customer
-     * <p>
+     * <p/>
      * Type: TEXT
      */
 
     public static final String ID = "id";
 
     /**
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String LAST_NAME = "last_name";
 
     /**
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String FIRST_NAME = "first_name";
@@ -76,7 +80,7 @@ public final class CustomerContract {
 
     /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of customers
-    public static final String TYPE = "type";.
+     * public static final String TYPE = "type";.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/summary";
 
@@ -100,20 +104,20 @@ public final class CustomerContract {
   public interface DataColumns {
     /**
      * UUID for this customer
-     * <p>
+     * <p/>
      * Type: TEXT
      */
 
     public static final String ID = "id";
 
     /**
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String KEY = "key";
 
     /**
-     * <p>
+     * <p/>
      * Type: TEXT
      */
     public static final String VALUE = "value";
@@ -138,7 +142,7 @@ public final class CustomerContract {
 
     /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of key value data for a customer
-     public static final String TYPE = "type";.
+     * public static final String TYPE = "type";.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/data";
 

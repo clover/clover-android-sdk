@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
   private ActivityInfo[] filter(ActivityInfo[] activityInfos) throws PackageManager.NameNotFoundException {
     final ActivityInfo thisActivity = getPackageManager().getActivityInfo(new ComponentName(getPackageName(), getClass().getName()), PackageManager.GET_ACTIVITIES);
     List<ActivityInfo> activityInfoList = new ArrayList<ActivityInfo>();
-    for (ActivityInfo ai: activityInfos) {
+    for (ActivityInfo ai : activityInfos) {
       if (ai.name.equals(thisActivity.name)) {
         continue;
       }

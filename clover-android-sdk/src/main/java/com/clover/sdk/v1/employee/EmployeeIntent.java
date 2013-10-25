@@ -18,6 +18,7 @@ package com.clover.sdk.v1.employee;
 
 import android.accounts.Account;
 import android.content.Intent;
+
 import com.clover.sdk.v1.Intents;
 
 /**

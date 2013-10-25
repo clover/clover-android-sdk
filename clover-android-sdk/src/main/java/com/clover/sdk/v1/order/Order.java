@@ -33,6 +33,7 @@ public class Order implements Parcelable {
   final public JSONObject mOrder;
 
   private List<LineItem> mLineItems;
+  private List<Adjustment> mAdjustments;
 
   public Order(JSONObject order) throws JSONException {
     mOrder = order;
@@ -64,7 +65,7 @@ public class Order implements Parcelable {
   }
 
   public String getType() {
-    return mOrder.optString("type");
+    return mOrder.optString("orderType");
   }
 
   public String getState() {
@@ -79,6 +80,22 @@ public class Order implements Parcelable {
     return mOrder.optString("employeeId");
   }
 
+  public String getEmployeeName() {
+    return mOrder.optString("employeeName");
+  }
+
+  public String getCurrency() {
+    return mOrder.optString("currency");
+  }
+
+  public long getTimestamp() {
+    return mOrder.optLong("timestamp", 0);
+  }
+
+  public String getTimezone() {
+    return mOrder.optString("timezone");
+  }
+
   public long getTotal() {
     return mOrder.optLong("total", 0);
   }
@@ -91,6 +108,22 @@ public class Order implements Parcelable {
     return mOrder.optBoolean("groupLineItems", false);
   }
 
+  public boolean getTestMode() {
+    return mOrder.optBoolean("testMode", false);
+  }
+
+  public boolean getManualTransaction() {
+    return mOrder.optBoolean("manualTransaction", false);
+  }
+
+  public String getCustomerId() {
+    return mOrder.optString("customerId");
+  }
+
+  public String getServiceChargeId() {
+    return mOrder.optString("serviceChargeId");
+  }
+
   public List<LineItem> getLineItems() {
     if (mLineItems == null) {
       try {
@@ -98,7 +131,7 @@ public class Order implements Parcelable {
 
         if (li != null) {
           List<LineItem> lineItems = new ArrayList<LineItem>(li.length());
-          for (int i=0; i < li.length(); i++) {
+          for (int i = 0; i < li.length(); i++) {
             lineItems.add(new LineItem(li.getJSONObject(i)));
           }
           mLineItems = lineItems;
@@ -109,6 +142,26 @@ public class Order implements Parcelable {
     }
 
     return mLineItems;
+  }
+
+  public List<Adjustment> getAdjustments() {
+    if (mAdjustments == null) {
+      try {
+        JSONArray li = mOrder.optJSONArray("adjustments");
+
+        if (li != null) {
+          List<Adjustment> adjustments = new ArrayList<Adjustment>(li.length());
+          for (int i = 0; i < li.length(); i++) {
+            adjustments.add(new Adjustment(li.getJSONObject(i)));
+          }
+          mAdjustments = adjustments;
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return mAdjustments;
   }
 
   @Override

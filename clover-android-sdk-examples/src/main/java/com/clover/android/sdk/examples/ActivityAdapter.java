@@ -66,7 +66,7 @@ public class ActivityAdapter extends BaseAdapter {
 
     TextView descriptionText = (TextView) view.findViewById(R.id.description);
     if (activityInfo.labelRes != 0) {
-    descriptionText.setText(activityInfo.labelRes);
+      descriptionText.setText(activityInfo.labelRes);
     } else {
       descriptionText.setText(activityInfo.nonLocalizedLabel);
     }

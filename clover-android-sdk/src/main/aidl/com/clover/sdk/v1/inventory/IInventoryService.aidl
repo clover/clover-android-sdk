@@ -17,6 +17,7 @@
 package com.clover.sdk.v1.inventory;
 
 import com.clover.sdk.v1.inventory.CategoryDescription;
+import com.clover.sdk.v1.inventory.Discount;
 import com.clover.sdk.v1.inventory.Item;
 import com.clover.sdk.v1.inventory.Modifier;
 import com.clover.sdk.v1.inventory.ModifierGroup;
@@ -94,6 +95,21 @@ interface IInventoryService {
   void deleteCategory(in String categoryId, out ResultStatus resultStatus);
 
   /**
+   * Adds an item to a category.
+   */
+  void addItemToCategory(in String itemId, in String categoryId, out ResultStatus resultStatus);
+
+  /**
+   * Removes an item from a category.
+   */
+  void removeItemFromCategory(in String itemId, in String categoryId, out ResultStatus resultStatus);
+
+  /**
+   * Moves an item's position within an existing category. If 'direction' is negative, the item is moved to the left.
+   */
+  void moveItemInCategoryLayout(in String itemId, in String categoryId, in int direction, out ResultStatus resultStatus);
+
+  /**
    * Retrieve the list of modifier groups.
    */
   List<ModifierGroup> getModifierGroups(out ResultStatus resultStatus);
@@ -112,6 +128,16 @@ interface IInventoryService {
    * Deletes an existing modifier group.
    */
   void deleteModifierGroup(in String groupId, out ResultStatus resultStatus);
+
+  /**
+   * Associates a modifier group with an item.
+   */
+  void assignModifierGroupToItem(in String modifierGroupId, in String itemId, out ResultStatus resultStatus);
+
+  /**
+   * Removes a modifier group association from an item.
+   */
+  void removeModifierGroupFromItem(in String modifierGroupId, in String itemId, out ResultStatus resultStatus);
 
   /**
    * Retrieve the list of modifiers belonging to a modifier group.
@@ -149,12 +175,34 @@ interface IInventoryService {
   void removeTaxRatesFromItem(in String itemId, in List<String> taxRates, out ResultStatus resultStatus);
 
   /**
-   * Gets all defined tax rates for the merchant
+   * Gets all defined tax rates for the merchant.
    */
   List<TaxRate> getTaxRates(out ResultStatus resultStatus);
 
   /**
-   * Gets a single tax rate identified by its unique ID
+   * Gets a single tax rate identified by its unique ID.
    */
   TaxRate getTaxRate(in String taxRateId, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new tax rate.
+   */
+  TaxRate createTaxRate(in TaxRate taxRate, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing tax rate.
+   */
+  void updateTaxRate(in TaxRate taxRate, out ResultStatus resultStatus);
+
+  /**
+   * Deletes a tax rate.
+   */
+  void deleteTaxRate(in String taxRateId, out ResultStatus resultStatus);
+
+  List<Discount> getDiscounts(out ResultStatus resultStatus);
+  Discount getDiscount(in String discountId, out ResultStatus resultStatus);
+  Discount createDiscount(in Discount discount, out ResultStatus resultStatus);
+  void updateDiscount(in Discount discount, out ResultStatus resultStatus);
+  void deleteDiscount(in String discountId, out ResultStatus resultStatus);
+
 }
