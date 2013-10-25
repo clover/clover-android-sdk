@@ -25,8 +25,6 @@ public class ReportPrintJob extends ImagePrintJob implements Serializable {
     PAYMENTS, ITEMS, DISCOUNTS, TAXES;
   }
 
-  ;
-
   public static class Builder extends ImagePrintJob.Builder {
     private ReportType type = ReportType.PAYMENTS;
 

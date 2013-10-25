@@ -14,23 +14,33 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v1.app;
+package com.clover.sdk.v1.tender;
 
 import android.accounts.Account;
 import android.content.Intent;
 import com.clover.sdk.v1.Intents;
 
 /**
- * Definition of actions and extras for communicating with the app service.
+ * Definition of actions and extras for communicating with
+ * {@link com.clover.sdk.v1.merchant.ITenderService}.
  *
- * @see com.clover.sdk.v1.app.IAppService
+ * @see com.clover.sdk.v1.merchant.ITenderService
  */
-public class AppIntent {
+public class TenderIntent {
+  private TenderIntent() {
+
+  }
 
   /**
-   * Service action: bind to the app service.
+   * Service action: bind to the merchant service.
    */
-  public static final String ACTION_APP_SERVICE = "com.clover.sdk.app.intent.action.APP_SERVICE";
+  public static final String ACTION_TENDER_SERVICE = "com.clover.sdk.tender.intent.action.TENDER_SERVICE";
+  /**
+   * Broadcast action: the merchant has changed. Intents received with this action will contain extra
+   * {@link com.clover.sdk.v1.Intents#EXTRA_ACCOUNT}
+   * and {@link com.clover.sdk.v1.Intents#EXTRA_MERCHANT_ID}.
+   */
+  public static final String ACTION_MERCHANT_CHANGED = "com.clover.sdk.tender.intent.action.TENDER_CHANGED";
 
   /**
    * Extract the {@link android.accounts.Account}

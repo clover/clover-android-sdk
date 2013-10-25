@@ -19,7 +19,6 @@ package com.clover.sdk.v1.printer;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-
 import com.clover.sdk.v1.Intents;
 
 /**

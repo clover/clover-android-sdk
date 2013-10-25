@@ -18,9 +18,7 @@ package com.clover.sdk.v1.order;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.clover.sdk.v1.inventory.TaxRate;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -28,7 +28,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.clover.sdk.util.AuthTask;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
@@ -37,7 +36,6 @@ import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.app.AppConnector;
 import com.clover.sdk.v1.app.AppNotification;
 import com.clover.sdk.v1.app.AppNotificationReceiver;
-
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;

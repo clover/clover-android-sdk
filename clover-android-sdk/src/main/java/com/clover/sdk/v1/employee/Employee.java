@@ -40,8 +40,6 @@ public class Employee implements Parcelable {
     ADMIN, EMPLOYEE, MANAGER
   }
 
-  ;
-
   private final Bundle data;
 
   public Employee(Bundle data) {

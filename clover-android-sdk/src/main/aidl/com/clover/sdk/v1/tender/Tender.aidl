@@ -14,30 +14,6 @@
  * limitations under the License.
  */
 
-group = 'com.clover.sdk'
-version = '3'
+package com.clover.sdk.v1.tender;
 
-apply plugin: 'android'
-
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
-android {
-  compileSdkVersion 17
-  buildToolsVersion "17.0.0"
-
-  defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 17
-  }
-}
-
-dependencies {
-  compile project(':clover-android-sdk')
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
-}
+parcelable Tender;

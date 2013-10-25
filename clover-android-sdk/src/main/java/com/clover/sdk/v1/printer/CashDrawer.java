@@ -19,7 +19,6 @@ package com.clover.sdk.v1.printer;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-
 import com.clover.sdk.v1.Intents;
 
 /**
@@ -28,8 +27,6 @@ import com.clover.sdk.v1.Intents;
 public class CashDrawer {
   private CashDrawer() {
   }
-
-  ;
 
   /**
    * Open a cash drawer connected to a printer. If more than one printer exists that supports

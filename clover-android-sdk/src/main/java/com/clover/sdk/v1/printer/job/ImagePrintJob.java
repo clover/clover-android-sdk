@@ -18,7 +18,6 @@ package com.clover.sdk.v1.printer.job;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-
 import com.clover.sdk.v1.printer.Category;
 
 import java.io.File;

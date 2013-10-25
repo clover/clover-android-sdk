@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '2'
+version = '3'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
@@ -45,7 +45,7 @@ uploadArchives {
     mavenDeployer {
       //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-      repository(url: "http://artifactory/artifactory/libs-release-local") {
+      repository(url: "http://bulldog.corp.clover.com:8081/artifactory/libs-release-local") {
         authentication(userName: "${artifactory_user}", password: "${artifactory_password}")
       }
       pom.project {
@@ -96,9 +96,9 @@ artifacts {
 }
 
 //signing {
-//  sign configurations.archives
+//   sign configurations.archives
 //}
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.7'
+  gradleVersion = '1.8'
 }

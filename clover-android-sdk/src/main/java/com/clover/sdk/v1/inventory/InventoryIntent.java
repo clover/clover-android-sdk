@@ -18,7 +18,6 @@ package com.clover.sdk.v1.inventory;
 
 import android.accounts.Account;
 import android.content.Intent;
-
 import com.clover.sdk.v1.Intents;
 
 public class InventoryIntent {

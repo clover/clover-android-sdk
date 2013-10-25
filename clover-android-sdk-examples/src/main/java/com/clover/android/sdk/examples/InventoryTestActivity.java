@@ -33,7 +33,6 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
 import com.clover.sdk.v1.BindingException;
@@ -55,7 +54,6 @@ import com.clover.sdk.v1.inventory.Modifier;
 import com.clover.sdk.v1.inventory.ModifierGroup;
 import com.clover.sdk.v1.inventory.PriceType;
 import com.clover.sdk.v1.inventory.TaxRate;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;

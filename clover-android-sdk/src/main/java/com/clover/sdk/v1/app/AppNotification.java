@@ -20,11 +20,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-
 import com.clover.sdk.internal.util.Objects;
-
 import junit.framework.Assert;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

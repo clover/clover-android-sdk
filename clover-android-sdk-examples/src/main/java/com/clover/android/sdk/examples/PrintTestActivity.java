@@ -28,7 +28,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.printer.CashDrawer;
 import com.clover.sdk.v1.printer.job.ImagePrintJob;

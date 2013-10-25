@@ -88,6 +88,10 @@
     <activity
         android:name="com.clover.android.sdk.examples.CustomTenderHandlerTestActivity"
         android:label="@string/custom_tender_handler_test">
+      <intent-filter>
+        <action android:name="clover.intent.action.PAY"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
     </activity>
     <activity
         android:name="com.clover.android.sdk.examples.PrinterTestActivity"

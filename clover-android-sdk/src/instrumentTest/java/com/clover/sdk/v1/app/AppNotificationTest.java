@@ -17,10 +17,8 @@
 package com.clover.sdk.v1.app;
 
 import android.os.Parcel;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
 import org.json.JSONObject;
 
 public class AppNotificationTest extends TestCase {

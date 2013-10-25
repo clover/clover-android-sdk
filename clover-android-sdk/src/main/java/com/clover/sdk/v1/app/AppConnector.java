@@ -20,7 +20,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.RemoteException;
-
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;

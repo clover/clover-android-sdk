@@ -25,7 +25,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
-
 import com.clover.sdk.v1.printer.ReceiptContract;
 
 import java.io.File;

@@ -14,30 +14,17 @@
  * limitations under the License.
  */
 
-group = 'com.clover.sdk'
-version = '3'
+package com.clover.sdk.v1.tender;
 
-apply plugin: 'android'
+import com.clover.sdk.v1.tender.Tender;
+import com.clover.sdk.v1.ResultStatus;
 
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
+/**
+ * An interface for interacting with the Clover tender service. The tender
+ * service is a bound AIDL service.
+ */
 
-android {
-  compileSdkVersion 17
-  buildToolsVersion "17.0.0"
-
-  defaultConfig {
-    minSdkVersion 14
-    targetSdkVersion 17
-  }
-}
-
-dependencies {
-  compile project(':clover-android-sdk')
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+ interface ITenderService {
+    List<Tender> getTenders(out ResultStatus resultStatus);
+    Tender checkAndCreateTender(String label, String labelKey, boolean enabled, boolean opensCashDrawer, out ResultStatus resultStatus);
 }

@@ -37,7 +37,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -47,7 +46,6 @@ import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.order.Order;
 import com.clover.sdk.v1.order.OrderConnector;
 import com.clover.sdk.v1.order.OrderSummary;
-
 import org.json.JSONException;
 
 import java.util.List;
