@@ -29,7 +29,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
@@ -37,18 +41,24 @@ import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.employee.Employee;
 import com.clover.sdk.v1.employee.EmployeeConnector;
 import com.clover.sdk.v1.employee.EmployeeIntent;
+import com.clover.sdk.v1.merchant.Merchant;
+import com.clover.sdk.v1.merchant.MerchantConnector;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class EmployeeTestActivity extends Activity implements EmployeeConnector.OnActiveEmployeeChangedListener, ServiceConnector.OnServiceConnectedListener {
+public class EmployeeTestActivity extends Activity
+        implements EmployeeConnector.OnActiveEmployeeChangedListener,
+        ServiceConnector.OnServiceConnectedListener {
   public static final String EXTRA_ACCOUNT = "account";
 
   private static final int REQUEST_ACCOUNT = 0;
-  private static final String TAG = "EmployeeTestActivity";
+  private static final String TAG = EmployeeTestActivity.class.getSimpleName();
+  private static final String TEST_EMPLOYEE_NAME = EmployeeTestActivity.class.getSimpleName();
 
   private EmployeeConnector employeeConnector;
+  private MerchantConnector merchantConnector;
 
   private TextView resultEmployeesText;
   private TextView resultActiveEmployeeText;
@@ -58,7 +68,25 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
   private Button buttonActiveEmployee;
   private Button loginButton;
   private Button logoutButton;
+  private Button createButton;
+  private Button deleteButton;
   private TextView statusLogin;
+  private EditText nicknameEditText;
+  private Button setNicknameButton;
+  private EditText customIdEditText;
+  private Button setCustomIdButton;
+  private EditText pinEditText;
+  private Button setPinButton;
+  private Spinner roleSpinner;
+  private Button setRoleButton;
+
+  private MerchantConnector.OnMerchantChangedListener merchantListener = new MerchantConnector.OnMerchantChangedListener() {
+    @Override
+    public void onMerchantChanged(Merchant merchant) {
+      getEmployees();
+    }
+  };
+
   private final BroadcastReceiver activeEmployeeChangedReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -74,6 +102,7 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
     }
   };
   private Account account;
+  private List<Employee> employees;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +142,202 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
       }
     });
     statusLogin = (TextView) findViewById(R.id.status_login);
+    createButton = (Button) findViewById(R.id.button_create);
+    createButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        createTestEmployee();
+      }
+    });
+    deleteButton = (Button) findViewById(R.id.button_delete);
+    deleteButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        deleteTestEmployee();
+      }
+    });
+    nicknameEditText = (EditText) findViewById(R.id.edit_text_nickname);
+    setNicknameButton = (Button) findViewById(R.id.button_set_nickname);
+    setNicknameButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        setNickname();
+      }
+    });
+    customIdEditText = (EditText) findViewById(R.id.edit_text_custom_id);
+    setCustomIdButton = (Button) findViewById(R.id.button_set_custom_id);
+    setCustomIdButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        setCustomId();
+      }
+    });
+    pinEditText = (EditText) findViewById(R.id.edit_text_pin);
+    setPinButton = (Button) findViewById(R.id.button_set_pin);
+    setPinButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        setPin();
+      }
+    });
+    roleSpinner = (Spinner) findViewById(R.id.spinner_role);
+    setRoleButton = (Button) findViewById(R.id.button_set_role);
+    setRoleButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        setRole();
+      }
+    });
 
     account = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
     registerReceiver(activeEmployeeChangedReceiver, new IntentFilter(EmployeeIntent.ACTION_ACTIVE_EMPLOYEE_CHANGED));
+  }
+
+  private void createTestEmployee() {
+    employeeConnector.createEmployee(TEST_EMPLOYEE_NAME, "Tester", "test123",
+            "employee-test-activity@example.com", "123", "EMPLOYEE", new EmployeeConnector.EmployeeCallback<Employee>() {
+      @Override
+      public void onServiceSuccess(Employee result, ResultStatus status) {
+        if (status.getStatusCode() / 100 != 2) {
+          toast("Unable to create employee: " + status.getStatusMessage());
+          return;
+        }
+        toast("Successfully created test employee.");
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to create test employee: " + status.getStatusMessage());
+      }
+    });
+  }
+
+  private void deleteTestEmployee() {
+    Employee e = getTestEmployee();
+    if (e == null) {
+      return;
+    }
+    employeeConnector.deleteEmployee(e.getId(), new EmployeeConnector.EmployeeCallback<Void>() {
+      @Override
+      public void onServiceSuccess(Void result, ResultStatus status) {
+        if (status.getStatusCode() / 100 != 2) {
+          toast("Unable to delete test employee: " + status.getStatusMessage());
+        } else {
+          toast("Successfully deleted test employee.");
+        }
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to delete test employee: " + status.getStatusMessage());
+      }
+    });
+  }
+
+  private Employee getTestEmployee() {
+    if (employees == null) {
+      toast("Employees have not been loaded.");
+      return null;
+    }
+    for (Employee e : employees) {
+      if (TEST_EMPLOYEE_NAME.equals(e.getName())) {
+        return e;
+      }
+    }
+    toast("Test employee has not been created.");
+    return null;
+  }
+
+  public void setNickname() {
+    Employee e = getTestEmployee();
+    if (e == null) {
+      return;
+    }
+    final String nickname = nicknameEditText.getText().toString().trim();
+    employeeConnector.setNickname(e.getId(), nickname, new EmployeeConnector.EmployeeCallback<Employee>() {
+      @Override
+      public void onServiceSuccess(Employee result, ResultStatus status) {
+        if (status.getStatusCode() / 100 == 2) {
+          toast("Successfully set the test employee nickname to '" + nickname + "'.");
+        } else {
+          toast("Unable to set the test employee nickname: " + status.getStatusMessage());
+        }
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to set the test employee nickname: " + status.getStatusMessage());
+      }
+    });
+  }
+
+  public void setCustomId() {
+    Employee e = getTestEmployee();
+    if (e == null) {
+      return;
+    }
+    final String customId = customIdEditText.getText().toString().trim();
+    employeeConnector.setCustomId(e.getId(), customId, new EmployeeConnector.EmployeeCallback<Employee>() {
+      @Override
+      public void onServiceSuccess(Employee result, ResultStatus status) {
+        if (status.getStatusCode() / 100 == 2) {
+          toast("Successfully set the test employee custom id to '" + customId + "'.");
+        } else {
+          toast("Unable to set the test employee custom id: " + status.getStatusMessage());
+        }
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to set the test employee custom id: " + status.getStatusMessage());
+      }
+    });
+  }
+
+  public void setPin() {
+    Employee e = getTestEmployee();
+    if (e == null) {
+      return;
+    }
+    final String pin = pinEditText.getText().toString().trim();
+    employeeConnector.setPin(e.getId(), pin, new EmployeeConnector.EmployeeCallback<Employee>() {
+      @Override
+      public void onServiceSuccess(Employee result, ResultStatus status) {
+        if (status.getStatusCode() / 100 == 2) {
+          toast("Successfully set the test employee pin to '" + pin + "'.");
+        } else {
+          toast("Unable to set the test employee pin: " + status.getStatusMessage());
+        }
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to set the test employee pin: " + status.getStatusMessage());
+      }
+    });
+  }
+
+  public void setRole() {
+    Employee e = getTestEmployee();
+    if (e == null) {
+      return;
+    }
+    final String role = roleSpinner.getSelectedItem().toString();
+    employeeConnector.setRole(e.getId(), role, new EmployeeConnector.EmployeeCallback<Employee>() {
+      @Override
+      public void onServiceSuccess(Employee result, ResultStatus status) {
+        if (status.getStatusCode() / 100 == 2) {
+          toast("Successfully set the test employee role to '" + role + "'.");
+        } else {
+          toast("Unable to set the test employee role: " + status.getStatusMessage());
+        }
+      }
+
+      @Override
+      public void onServiceFailure(ResultStatus status) {
+        toast("Unable to set the test employee role: " + status.getStatusMessage());
+      }
+    });
   }
 
   private void login() {
@@ -167,6 +389,9 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
     if (account != null) {
       employeeConnector = new EmployeeConnector(this, account, this);
       employeeConnector.connect();
+      merchantConnector = new MerchantConnector(this, account, this);
+      merchantConnector.setOnMerchantChangedListener(merchantListener);
+      merchantConnector.connect();
     }
   }
 
@@ -174,6 +399,10 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
     if (employeeConnector != null) {
       employeeConnector.disconnect();
       employeeConnector = null;
+    }
+    if (merchantConnector != null) {
+      merchantConnector.disconnect();
+      merchantConnector = null;
     }
   }
 
@@ -207,6 +436,7 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
       @Override
       public void onServiceSuccess(List<Employee> result, ResultStatus status) {
         super.onServiceSuccess(result, status);
+        employees = result;
         updateEmployees("get employees success", status, result);
       }
 
@@ -311,7 +541,6 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
     }
   }
 
-
   @Override
   public void onActiveEmployeeChanged(Employee employee) {
     updateActiveEmployee("active employee changed", null, employee);
@@ -325,5 +554,9 @@ public class EmployeeTestActivity extends Activity implements EmployeeConnector.
   @Override
   public void onServiceDisconnected(ServiceConnector connector) {
     Log.i(TAG, "service disconnected: " + connector);
+  }
+
+  private void toast(String message) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
   }
 }

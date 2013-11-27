@@ -82,14 +82,18 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }
   }
 
-  ;
+  private OnMerchantChangedListener merchantChangedListener;
 
   private final IMerchantListener iMerchantListener = new IMerchantListener.Stub() {
     @Override
     public void onMerchantChanged(final Merchant merchant) {
-      if (mClient instanceof OnMerchantChangedListener) {
-        OnMerchantChangedListener listener = (OnMerchantChangedListener) mClient;
-        postOnMerchantChanged(merchant, listener);
+      if (merchantChangedListener != null) {
+        mHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            merchantChangedListener.onMerchantChanged(merchant);
+          }
+        });
       }
     }
   };
@@ -103,6 +107,13 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
    */
   public MerchantConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
+  }
+
+  /**
+   * Set the listener that will be called when merchant properties change.
+   */
+  public void setOnMerchantChangedListener(OnMerchantChangedListener listener) {
+    merchantChangedListener = listener;
   }
 
   @Override
@@ -119,15 +130,13 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
     super.notifyServiceConnected(client);
 
-    if (client != null && client instanceof OnMerchantChangedListener) {
-      execute(new MerchantCallable<Void>() {
-        @Override
-        public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
-          service.addListener(iMerchantListener, status);
-          return null;
-        }
-      }, new MerchantCallback<Void>());
-    }
+    execute(new MerchantCallable<Void>() {
+      @Override
+      public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
+        service.addListener(iMerchantListener, status);
+        return null;
+      }
+    }, new MerchantCallback<Void>());
   }
 
   @Override
@@ -223,14 +232,4 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
       }
     });
   }
-
-  private void postOnMerchantChanged(final Merchant merchant, final OnMerchantChangedListener listener) {
-    mHandler.post(new Runnable() {
-      @Override
-      public void run() {
-        listener.onMerchantChanged(merchant);
-      }
-    });
-  }
-
 }

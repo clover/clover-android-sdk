@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class CategoryDescription implements android.os.Parcelable {
+public class CategoryDescription implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -62,10 +62,24 @@ public class CategoryDescription implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
     }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 127) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.Integer sortOrder = getSortOrder();
+    if (sortOrder != null && sortOrder < 0) {
+      throw new IllegalArgumentException("Invalid value for 'sortOrder'");
+    }
+    java.util.List<java.lang.String> items = getItems();
+
     // TODO: also validate string length, valid ranges and other integrity checks
   }
 
@@ -84,13 +98,13 @@ public class CategoryDescription implements android.os.Parcelable {
     return getJSONObject().optInt("sortOrder");
   }
 
-  public java.util.List<java.lang.String> getItems() throws org.json.JSONException {
+  public java.util.List<java.lang.String> getItems() {
     java.util.List<java.lang.String> itemList = null;
     if (getJSONObject().has("items")) {
       itemList = new java.util.ArrayList<java.lang.String>();
-      org.json.JSONArray itemArray = getJSONObject().getJSONArray("items");
+      org.json.JSONArray itemArray = getJSONObject().optJSONArray("items");
       for (int i = 0; i < itemArray.length(); i++) {
-        org.json.JSONObject obj = itemArray.getJSONObject(i);
+        org.json.JSONObject obj = itemArray.optJSONObject(i);
         java.lang.String item = obj.toString();
         itemList.add(item);
       }
@@ -142,7 +156,7 @@ public class CategoryDescription implements android.os.Parcelable {
   }
 
   public void setSortOrder(java.lang.Integer sortOrder) throws org.json.JSONException {
-    if (sortOrder < 0) {
+    if (sortOrder != null && sortOrder < 0) {
       throw new IllegalArgumentException("Invalid value for 'sortOrder'");
     }
     getJSONObject().put("sortOrder", sortOrder);
@@ -208,7 +222,7 @@ public class CategoryDescription implements android.os.Parcelable {
     }
 
     public Builder sortOrder(java.lang.Integer sortOrder) {
-      if (sortOrder < 0) {
+      if (sortOrder != null && sortOrder < 0) {
         throw new IllegalArgumentException("Invalid value for 'sortOrder'");
       }
       this.sortOrder = sortOrder;

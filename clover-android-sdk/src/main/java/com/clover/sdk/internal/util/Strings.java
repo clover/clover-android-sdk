@@ -27,4 +27,11 @@ public class Strings {
   public static String nullToEmpty(String s) {
     return s == null ? "" : s;
   }
+
+  /**
+   * Return {@code true} if the given string is null or empty.
+   */
+  public static boolean isNullOrEmpty(String s) {
+    return s == null || s.isEmpty();
+  }
 }

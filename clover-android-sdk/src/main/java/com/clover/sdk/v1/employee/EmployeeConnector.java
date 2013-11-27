@@ -198,6 +198,118 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  public Employee createEmployee(final String name, final String nickname, final String customId, final String email,
+                                 final String pin, final String role) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.createEmployee(name, nickname, customId, email, pin, role, status);
+      }
+    });
+  }
+
+  public void createEmployee(final String name, final String nickname, final String customId, final String email,
+                             final String pin, final String role, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.createEmployee(name, nickname, customId, email, pin, role, status);
+      }
+    }, callback);
+  }
+
+  public Employee setNickname(final String employeeId, final String nickname) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setNickname(employeeId, nickname, status);
+      }
+    });
+  }
+
+  public void setNickname(final String employeeId, final String nickname, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setNickname(employeeId, nickname, status);
+      }
+    }, callback);
+  }
+
+  public Employee setCustomId(final String employeeId, final String customId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setCustomId(employeeId, customId, status);
+      }
+    });
+  }
+
+  public void setCustomId(final String employeeId, final String customId, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setCustomId(employeeId, customId, status);
+      }
+    }, callback);
+  }
+
+  public Employee setPin(final String employeeId, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setPin(employeeId, pin, status);
+      }
+    });
+  }
+
+  public void setPin(final String employeeId, final String pin, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setPin(employeeId, pin, status);
+      }
+    }, callback);
+  }
+
+  public Employee setRole(final String employeeId, final String role) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setRole(employeeId, role, status);
+      }
+    });
+  }
+
+  public void setRole(final String employeeId, final String role, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.setRole(employeeId, role, status);
+      }
+    }, callback);
+  }
+
+  public void deleteEmployee(final String employeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.deleteEmployee(employeeId, status);
+        return null;
+      }
+    });
+  }
+
+  public void deleteEmployee(final String employeeId, EmployeeCallback<Void> callback) {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.deleteEmployee(employeeId, status);
+        return null;
+      }
+    }, callback);
+  }
+
   public void login(EmployeeCallback<Void> callback) {
     execute(new EmployeeCallable<Void>() {
       @Override

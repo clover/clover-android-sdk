@@ -160,6 +160,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
     disconnect();
     if (account != null) {
       merchantConnector = new MerchantConnector(this, account, this);
+      merchantConnector.setOnMerchantChangedListener(this);
       merchantConnector.connect();
     }
   }

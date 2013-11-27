@@ -23,13 +23,23 @@ import java.io.Serializable;
 public class BillPrintJob extends ReceiptPrintJob implements Serializable {
   public static class Builder extends ReceiptPrintJob.Builder {
 
+    private String binName;
+
+    public Builder binName(String binName) {
+      this.binName = binName;
+      return this;
+    }
+
     public BillPrintJob build() {
-      return new BillPrintJob(orderId, flags | FLAG_BILL);
+      return new BillPrintJob(orderId, binName, flags | FLAG_BILL);
     }
   }
 
-  protected BillPrintJob(String orderId, int flags) {
+  public final String binName;
+
+  protected BillPrintJob(String orderId, String binName, int flags) {
     super(orderId, flags);
+    this.binName = binName;
   }
 
   @Override

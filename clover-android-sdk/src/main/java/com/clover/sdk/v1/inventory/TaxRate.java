@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class TaxRate implements android.os.Parcelable {
+public class TaxRate implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -66,13 +66,29 @@ public class TaxRate implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
     }
     if (getRate() == null) {
       throw new IllegalArgumentException("'rate' is required to be non-null");
     }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 127) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.Long rate = getRate();
+    if (rate != null && rate < 0) {
+      throw new IllegalArgumentException("Invalid value for 'rate'");
+    }
+    java.lang.Boolean isDefault = getIsDefault();
+
+    java.lang.Boolean deleted = getDeleted();
+
     // TODO: also validate string length, valid ranges and other integrity checks
   }
 
@@ -147,7 +163,7 @@ public class TaxRate implements android.os.Parcelable {
   }
 
   public void setRate(java.lang.Long rate) throws org.json.JSONException {
-    if (rate < 0) {
+    if (rate != null && rate < 0) {
       throw new IllegalArgumentException("Invalid value for 'rate'");
     }
     getJSONObject().put("rate", rate);
@@ -214,7 +230,7 @@ public class TaxRate implements android.os.Parcelable {
     }
 
     public Builder rate(java.lang.Long rate) {
-      if (rate < 0) {
+      if (rate != null && rate < 0) {
         throw new IllegalArgumentException("Invalid value for 'rate'");
       }
       this.rate = rate;

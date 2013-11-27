@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 public class ReportPrintJob extends ImagePrintJob implements Serializable {
   public enum ReportType {
-    PAYMENTS, ITEMS, DISCOUNTS, TAXES;
+    PAYMENTS, ITEMS, DISCOUNTS, TAXES, SHIFTS;
   }
 
   public static class Builder extends ImagePrintJob.Builder {

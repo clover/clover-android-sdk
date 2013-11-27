@@ -48,6 +48,12 @@ import com.clover.sdk.v1.ResultStatus;
 interface IEmployeeService {
     Employee getActiveEmployee(out ResultStatus resultStatus);
     Employee getEmployee(String id, out ResultStatus resultStatus);
+    Employee createEmployee(String name, String nickname, String customId, String email, String pin, String role, out ResultStatus resultStatus);
+    Employee setNickname(String id, String nickname, out ResultStatus resultStatus);
+    Employee setCustomId(String id, String customId, out ResultStatus resultStatus);
+    Employee setPin(String id, String pin, out ResultStatus resultStatus);
+    Employee setRole(String id, String role, out ResultStatus resultStatus);
+    void deleteEmployee(String id, out ResultStatus resultStatus);
     List<Employee> getEmployees(out ResultStatus resultStatus);
 
     void logout(out ResultStatus resultStatus);

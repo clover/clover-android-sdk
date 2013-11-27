@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class ModifierGroup implements android.os.Parcelable {
+public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -62,10 +62,22 @@ public class ModifierGroup implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
     }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 255) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.Boolean showByDefault = getShowByDefault();
+
+    java.util.List<com.clover.sdk.v1.inventory.Modifier> modifiers = getModifiers();
+
     // TODO: also validate string length, valid ranges and other integrity checks
   }
 

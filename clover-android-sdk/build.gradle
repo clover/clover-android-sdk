@@ -15,13 +15,17 @@
  */
 
 group = 'com.clover.sdk'
-version = '3'
+version = '4'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
-//apply plugin: 'signing'
 
 ant.importBuild 'javadoc.xml'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
 
 android {
   compileSdkVersion 17
@@ -40,64 +44,7 @@ task install(type: Upload) {
   }
 }
 
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: "http://artifactory/artifactory/libs-release-local") {
-        authentication(userName: "${artifactory_user}", password: "${artifactory_password}")
-      }
-      pom.project {
-        parent {
-          groupId 'org.sonatype.oss'
-          artifactId 'oss-parent'
-          version '7'
-        }
-
-        name 'Clover Android SDK'
-        description 'Android services and objects used for interacting with Clover Services'
-        url 'http://www.clover.com/'
-
-        licenses {
-          license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0'
-            distribution 'repo'
-          }
-        }
-
-        scm {
-          url "https://github.com/clover/clover-android-sdk"
-          connection "https://github.com/clover/clover-android-sdk.git"
-          developerConnection "git@github.com:clover/clover-android-sdk.git"
-        }
-
-        developers {
-          developer {
-            name 'Clover Engineering Team'
-            url 'https://www.clover.com/team'
-          }
-        }
-      }
-    }
-  }
-}
-
 task publishToMavenLocal(dependsOn: install)
-
-task sourcesJar(type: Jar) {
-  classifier = 'sources'
-  from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-  archives sourcesJar
-}
-
-//signing {
-//   sign configurations.archives
-//}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '1.8'

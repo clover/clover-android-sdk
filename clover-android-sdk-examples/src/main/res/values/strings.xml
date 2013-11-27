@@ -16,7 +16,7 @@
   -->
 <resources>
 
-  <string name="app_name">clover-android-sdk-examples</string>
+  <string name="app_name">Clover Android SDK Examples</string>
   <string name="action_settings">Settings</string>
   <string name="inventory_test">Inventory Test</string>
   <string name="customer_test">Customer Test</string>
@@ -38,5 +38,11 @@
   <array name="connection_type">
     <item>Use app service</item>
     <item>Use HTTP</item>
+  </array>
+
+  <array name="role">
+    <item>Employee</item>
+    <item>Manager</item>
+    <item>Admin</item>
   </array>
 </resources>

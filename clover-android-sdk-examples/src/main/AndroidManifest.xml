@@ -40,7 +40,8 @@
     <activity
         android:name="com.clover.android.sdk.examples.EmployeeTestActivity"
         android:label="Employee Test"
-        android:taskAffinity="com.clover.sdk.examples.employee">
+        android:taskAffinity="com.clover.sdk.examples.employee"
+        android:windowSoftInputMode="stateUnchanged">
     </activity>
     <activity
         android:name="com.clover.android.sdk.examples.InventoryTestActivity"

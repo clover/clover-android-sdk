@@ -254,30 +254,35 @@ public class InventoryTestActivity extends Activity {
           try {
             ResultStatus getItemsStatus = new ResultStatus();
             List<Item> items = inventoryService.getItems(getItemsStatus);
-            Log.d(TAG, "Received result from getItems(): " + getItemsStatus);
+            Log.i(TAG, "Received result from getItems(): " + getItemsStatus);
+            if (getItemsStatus.isSuccess()) {
+              for (Item i : items) {
+                Log.i(TAG, "item = " + dumpItem(i));
+              }
+            }
             if (items != null && items.size() > 0) {
               String itemId = items.get(0).getId();
               ResultStatus getItemStatus = new ResultStatus();
               item = inventoryService.getItem(itemId, getItemStatus);
-              Log.d(TAG, "Received result from getItem(): " + getItemStatus);
+              Log.i(TAG, "Received result from getItem(): " + getItemStatus);
             }
 
             ResultStatus resultStatus = new ResultStatus();
             List<CategoryDescription> categories = inventoryService.getCategories(resultStatus);
             if (resultStatus.isSuccess()) {
               for (CategoryDescription category : categories) {
-                Log.v(TAG, "category = " + dumpCategory(category));
+                Log.i(TAG, "category = " + dumpCategory(category));
               }
             } else {
-              Log.v(TAG, "Couldn't retrieve categories: " + resultStatus);
+              Log.i(TAG, "Couldn't retrieve categories: " + resultStatus);
             }
             List<TaxRate> taxRates = inventoryService.getTaxRates(resultStatus);
             if (resultStatus.isSuccess()) {
               for (TaxRate taxRate : taxRates) {
-                Log.v(TAG, "tax rate = " + dumpTaxRate(taxRate));
+                Log.i(TAG, "tax rate = " + dumpTaxRate(taxRate));
               }
             } else {
-              Log.v(TAG, "Couldn't retrieve tax rates: " + resultStatus);
+              Log.i(TAG, "Couldn't retrieve tax rates: " + resultStatus);
             }
           } catch (RemoteException e) {
             Log.e(TAG, "Error calling inventory service", e);
@@ -373,10 +378,11 @@ public class InventoryTestActivity extends Activity {
               for (int i = 0; i < items.size(); i++) {
                 String itemId = items.get(i);
                 // just print out the first few to the console
-                if (i > 5) {
+                if (i > 10) {
                   break;
                 }
                 item = inventoryConnector.getItem(itemId);
+                Log.v(TAG, "item = " + dumpItem(item));
               }
 
               // fetch tax rates, categories, modifier groups and modifiers and just print them to log for now

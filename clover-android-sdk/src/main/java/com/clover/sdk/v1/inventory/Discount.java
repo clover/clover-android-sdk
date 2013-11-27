@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class Discount implements android.os.Parcelable {
+public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -71,9 +71,25 @@ public class Discount implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
+    }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 127) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.Long amount = getAmount();
+    if (amount != null && amount < 0) {
+      throw new IllegalArgumentException("Invalid value for 'amount'");
+    }
+    java.lang.Long percentage = getPercentage();
+    if (percentage != null && percentage < 0) {
+      throw new IllegalArgumentException("Invalid value for 'percentage'");
     }
     // TODO: also validate string length, valid ranges and other integrity checks
   }
@@ -150,14 +166,14 @@ public class Discount implements android.os.Parcelable {
   }
 
   public void setAmount(java.lang.Long amount) throws org.json.JSONException {
-    if (amount < 0) {
+    if (amount != null && amount < 0) {
       throw new IllegalArgumentException("Invalid value for 'amount'");
     }
     getJSONObject().put("amount", amount);
   }
 
   public void setPercentage(java.lang.Long percentage) throws org.json.JSONException {
-    if (percentage < 0) {
+    if (percentage != null && percentage < 0) {
       throw new IllegalArgumentException("Invalid value for 'percentage'");
     }
     getJSONObject().put("percentage", percentage);
@@ -204,7 +220,7 @@ public class Discount implements android.os.Parcelable {
     }
 
     public Builder amount(java.lang.Long amount) {
-      if (amount < 0) {
+      if (amount != null && amount < 0) {
         throw new IllegalArgumentException("Invalid value for 'amount'");
       }
       this.amount = amount;
@@ -212,7 +228,7 @@ public class Discount implements android.os.Parcelable {
     }
 
     public Builder percentage(java.lang.Long percentage) {
-      if (percentage < 0) {
+      if (percentage != null && percentage < 0) {
         throw new IllegalArgumentException("Invalid value for 'percentage'");
       }
       this.percentage = percentage;

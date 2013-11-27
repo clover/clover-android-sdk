@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class Modifier implements android.os.Parcelable {
+public class Modifier implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -62,9 +62,25 @@ public class Modifier implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
+    }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 255) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.String alternateName = getAlternateName();
+    if (alternateName != null && alternateName.length() > 255) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'alternateName'");
+    }
+    java.lang.Long price = getPrice();
+    if (price != null && price < 0) {
+      throw new IllegalArgumentException("Invalid value for 'price'");
     }
     // TODO: also validate string length, valid ranges and other integrity checks
   }
@@ -148,7 +164,7 @@ public class Modifier implements android.os.Parcelable {
   }
 
   public void setPrice(java.lang.Long price) throws org.json.JSONException {
-    if (price < 0) {
+    if (price != null && price < 0) {
       throw new IllegalArgumentException("Invalid value for 'price'");
     }
     getJSONObject().put("price", price);
@@ -212,7 +228,7 @@ public class Modifier implements android.os.Parcelable {
     }
 
     public Builder price(java.lang.Long price) {
-      if (price < 0) {
+      if (price != null && price < 0) {
         throw new IllegalArgumentException("Invalid value for 'price'");
       }
       this.price = price;

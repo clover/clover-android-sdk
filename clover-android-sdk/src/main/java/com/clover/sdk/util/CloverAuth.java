@@ -22,6 +22,7 @@ import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -39,9 +40,21 @@ public class CloverAuth {
    * @param account  the account used for authentication
    */
   public static AuthResult authenticate(Activity activity, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
+      Log.d(TAG, "Authenticating " + account);
+      AccountManager accountManager = AccountManager.get(activity);
+      AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, "com.clover.account.token.app", null, activity, null, null);
+      Bundle result = future.getResult();
+      Log.v(TAG, "Bundle result returned from account manager: ");
+      for (String key : result.keySet()) {
+        Log.v(TAG, key + " => " + result.get(key));
+      }
+      return new AuthResult(result);
+  }
+
+  public static AuthResult authenticate(Context context, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
     Log.d(TAG, "Authenticating " + account);
-    AccountManager accountManager = AccountManager.get(activity);
-    AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, "com.clover.account.token.app", null, activity, null, null);
+    AccountManager accountManager = AccountManager.get(context);
+    AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, "com.clover.account.token.app", false, null, null);
     Bundle result = future.getResult();
     Log.v(TAG, "Bundle result returned from account manager: ");
     for (String key : result.keySet()) {

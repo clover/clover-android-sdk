@@ -23,7 +23,7 @@ public enum Type implements Parcelable {
   STAR_TSP100_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100Ethernet", "Star TSP100", true, true, true),
   STAR_TSP100_USB("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100USB", "Star TSP100U", true, true, true),
   STAR_TSP700_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarSP700Ethernet", "Star SP700", false, true, true),
-  SEIKO_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.Seiko", "Seiko", true, true, true);
+  SEIKO_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.Seiko", "Station", true, true, true);
 
   public final String baseClassName;
   public final String model;
@@ -96,4 +96,9 @@ public enum Type implements Parcelable {
       return new Type[size];
     }
   };
+
+  public boolean isUsb() {
+    // do better please
+    return name().endsWith("_USB");
+  }
 }

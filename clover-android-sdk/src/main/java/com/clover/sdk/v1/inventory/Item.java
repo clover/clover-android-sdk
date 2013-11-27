@@ -24,7 +24,7 @@
 package com.clover.sdk.v1.inventory;
 
 @SuppressWarnings("all")
-public class Item implements android.os.Parcelable {
+public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator {
 
   protected String jsonString = null;
   protected org.json.JSONObject jsonObject = null;
@@ -98,7 +98,7 @@ public class Item implements android.os.Parcelable {
     return jsonObject;
   }
 
-  public void validate() {
+  public void validate() throws org.json.JSONException {
     if (getName() == null) {
       throw new IllegalArgumentException("'name' is required to be non-null");
     }
@@ -108,6 +108,38 @@ public class Item implements android.os.Parcelable {
     if (getTaxable() == null) {
       throw new IllegalArgumentException("'taxable' is required to be non-null");
     }
+    java.lang.String id = getId();
+    if (id != null && id.length() > 13) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    }
+    java.lang.String name = getName();
+    if (name != null && name.length() > 127) {
+      throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    }
+    java.lang.String alternateName = getAlternateName();
+
+    java.lang.String code = getCode();
+
+    java.lang.Long price = getPrice();
+    if (price != null && price < 0) {
+      throw new IllegalArgumentException("Invalid value for 'price'");
+    }
+    com.clover.sdk.v1.inventory.PriceType priceType = getPriceType();
+
+    java.lang.Boolean taxable = getTaxable();
+
+    java.lang.Boolean defaultTaxRates = getDefaultTaxRates();
+
+    java.lang.String unitName = getUnitName();
+
+    java.lang.Long cost = getCost();
+
+    java.util.List<com.clover.sdk.v1.inventory.TaxRate> taxRates = getTaxRates();
+
+    java.util.List<com.clover.sdk.v1.inventory.ModifierGroup> modifierGroups = getModifierGroups();
+
+    java.util.List<com.clover.sdk.v1.inventory.CategoryDescription> categories = getCategories();
+
     // TODO: also validate string length, valid ranges and other integrity checks
   }
 
@@ -346,7 +378,7 @@ public class Item implements android.os.Parcelable {
   }
 
   public void setPrice(java.lang.Long price) throws org.json.JSONException {
-    if (price < 0) {
+    if (price != null && price < 0) {
       throw new IllegalArgumentException("Invalid value for 'price'");
     }
     getJSONObject().put("price", price);
@@ -466,7 +498,7 @@ public class Item implements android.os.Parcelable {
     }
 
     public Builder price(java.lang.Long price) {
-      if (price < 0) {
+      if (price != null && price < 0) {
         throw new IllegalArgumentException("Invalid value for 'price'");
       }
       this.price = price;

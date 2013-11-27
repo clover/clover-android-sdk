@@ -14,90 +14,169 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
     tools:context=".MerchantTestActivity">
 
-  <TextView
-      android:id="@+id/status_employees"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="&lt;get employees idles&gt;"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
-  <TextView
-      android:id="@+id/result_employees"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text=""/>
+        <TextView
+            android:id="@+id/status_employees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;get employees idles&gt;"/>
 
-  <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Get employees"
-      android:id="@+id/button_employees"
-      android:layout_gravity="left|center_vertical"/>
+        <TextView
+            android:id="@+id/result_employees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
 
-  <View
-      android:layout_width="0dp"
-      android:layout_height="16dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get employees"
+            android:id="@+id/button_employees"
+            android:layout_gravity="left|center_vertical"/>
 
-  <TextView
-      android:id="@+id/status_active_employee"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="&lt;get active employee idle&gt;"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="16dp"/>
 
-  <TextView
-      android:id="@+id/result_active_employee"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text=""/>
+        <TextView
+            android:id="@+id/status_active_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;get active employee idle&gt;"/>
 
-  <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Get active employee"
-      android:id="@+id/button_active_employee"
-      android:layout_gravity="left|center_vertical"/>
+        <TextView
+            android:id="@+id/result_active_employee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
 
-  <View
-      android:layout_width="0dp"
-      android:layout_height="16dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get active employee"
+            android:id="@+id/button_active_employee"
+            android:layout_gravity="left|center_vertical"/>
 
-  <TextView
-      android:id="@+id/status_login"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="&lt;login idle&gt;"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="16dp"/>
 
-
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="left|center_vertical">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/button_login"
-        android:layout_gravity="left|center_vertical"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/button_logout"
-        android:layout_gravity="center"/>
-  </LinearLayout>
+        <TextView
+            android:id="@+id/status_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;login idle&gt;"/>
 
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:id="@+id/button_login"
+                android:layout_gravity="left|center_vertical"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:id="@+id/button_logout"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create test employee"
+            android:id="@+id/button_create"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete test employee"
+            android:id="@+id/button_delete"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical">
+            <EditText
+                android:id="@+id/edit_text_nickname"
+                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:hint="Nickname"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/button_set_nickname"
+                android:text="Set nickname"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical">
+            <EditText
+                android:id="@+id/edit_text_custom_id"
+                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:hint="Id"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/button_set_custom_id"
+                android:text="Set custom id"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical">
+            <EditText
+                android:id="@+id/edit_text_pin"
+                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:hint="Pin"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/button_set_pin"
+                android:text="Set pin"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_role"
+                android:entries="@array/role"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/button_set_role"
+                android:text="Set role"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
