@@ -27,7 +27,9 @@ import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.employee.IEmployeeService}.
@@ -43,6 +45,8 @@ import java.util.List;
  */
 public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   private static final String TAG = "EmployeeConnector";
+
+  private final List<WeakReference<OnActiveEmployeeChangedListener>> mOnActiveEmployeeChangedListener = new CopyOnWriteArrayList<WeakReference<OnActiveEmployeeChangedListener>>();
 
   /**
    * A listener that is invoked when the active employee changes.
@@ -84,14 +88,24 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }
   }
 
-  ;
-
   private final IEmployeeListener iEmployeeListener = new IEmployeeListener.Stub() {
     @Override
     public void onActiveEmployeeChanged(final Employee employee) {
       if (mClient instanceof OnActiveEmployeeChangedListener) {
         OnActiveEmployeeChangedListener listener = (OnActiveEmployeeChangedListener) mClient;
         postOnActiveEmployeeChanged(employee, listener);
+      }
+      if (mOnActiveEmployeeChangedListener != null && !mOnActiveEmployeeChangedListener.isEmpty()) {
+        // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
+        // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
+        // array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed
+        // not to throw ConcurrentModificationException.
+        for (WeakReference<OnActiveEmployeeChangedListener> weakReference : mOnActiveEmployeeChangedListener) {
+          OnActiveEmployeeChangedListener listener = weakReference.get();
+          if (listener != null) {
+            postOnActiveEmployeeChanged(employee, listener);
+          }
+        }
       }
     }
   };
@@ -127,6 +141,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
 
   @Override
   public void disconnect() {
+    mOnActiveEmployeeChangedListener.clear();
     execute(
         new EmployeeCallable<Void>() {
           @Override
@@ -198,94 +213,56 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
-  public Employee createEmployee(final String name, final String nickname, final String customId, final String email,
-                                 final String pin, final String role) throws RemoteException, ClientException, ServiceException, BindingException {
+  public Employee createEmployee(final Employee employee) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.createEmployee(name, nickname, customId, email, pin, role, status);
+        return service.createEmployee(employee, status);
       }
     });
   }
 
-  public void createEmployee(final String name, final String nickname, final String customId, final String email,
-                             final String pin, final String role, EmployeeCallback<Employee> callback) {
+  public void createEmployee(final Employee employee, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.createEmployee(name, nickname, customId, email, pin, role, status);
+        return service.createEmployee(employee, status);
       }
     }, callback);
   }
 
-  public Employee setNickname(final String employeeId, final String nickname) throws RemoteException, ClientException, ServiceException, BindingException {
+  public Employee updateEmployee(final Employee employee) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setNickname(employeeId, nickname, status);
+        return service.updateEmployee(employee, status);
       }
     });
   }
 
-  public void setNickname(final String employeeId, final String nickname, EmployeeCallback<Employee> callback) {
+  public void setEmployeePin(final String id, final String pin, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setNickname(employeeId, nickname, status);
+        return service.setEmployeePin(id, pin, status);
       }
     }, callback);
   }
 
-  public Employee setCustomId(final String employeeId, final String customId) throws RemoteException, ClientException, ServiceException, BindingException {
+  public Employee setEmployeePin(final String id, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setCustomId(employeeId, customId, status);
+        return service.setEmployeePin(id, pin, status);
       }
     });
   }
 
-  public void setCustomId(final String employeeId, final String customId, EmployeeCallback<Employee> callback) {
+  public void updateEmployee(final Employee employee, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
       public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setCustomId(employeeId, customId, status);
-      }
-    }, callback);
-  }
-
-  public Employee setPin(final String employeeId, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
-    return execute(new EmployeeCallable<Employee>() {
-      @Override
-      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setPin(employeeId, pin, status);
-      }
-    });
-  }
-
-  public void setPin(final String employeeId, final String pin, EmployeeCallback<Employee> callback) {
-    execute(new EmployeeCallable<Employee>() {
-      @Override
-      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setPin(employeeId, pin, status);
-      }
-    }, callback);
-  }
-
-  public Employee setRole(final String employeeId, final String role) throws RemoteException, ClientException, ServiceException, BindingException {
-    return execute(new EmployeeCallable<Employee>() {
-      @Override
-      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setRole(employeeId, role, status);
-      }
-    });
-  }
-
-  public void setRole(final String employeeId, final String role, EmployeeCallback<Employee> callback) {
-    execute(new EmployeeCallable<Employee>() {
-      @Override
-      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        return service.setRole(employeeId, role, status);
+        return service.updateEmployee(employee, status);
       }
     }, callback);
   }
@@ -355,5 +332,25 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
         listener.onActiveEmployeeChanged(employee);
       }
     });
+  }
+
+  public void addOnActiveEmployeeChangedListener(OnActiveEmployeeChangedListener listener) {
+    mOnActiveEmployeeChangedListener.add(new WeakReference<OnActiveEmployeeChangedListener>(listener));
+  }
+
+  public void removeOnActiveEmployeeChangedListener(OnActiveEmployeeChangedListener listener) {
+    if (mOnActiveEmployeeChangedListener != null && !mOnActiveEmployeeChangedListener.isEmpty()) {
+      WeakReference<OnActiveEmployeeChangedListener> listenerWeakReference = null;
+      for (WeakReference<OnActiveEmployeeChangedListener> weakReference : mOnActiveEmployeeChangedListener) {
+        OnActiveEmployeeChangedListener listener1 = weakReference.get();
+        if (listener1 != null && listener1 == listener) {
+          listenerWeakReference = weakReference;
+          break;
+        }
+      }
+      if (listenerWeakReference != null) {
+        mOnActiveEmployeeChangedListener.remove(listenerWeakReference);
+      }
+    }
   }
 }

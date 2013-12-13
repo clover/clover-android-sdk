@@ -38,7 +38,7 @@ interface ICustomerService {
     void setEmailAddress(in String customerId, in String emailAddressId, in String emailAddress, out ResultStatus resultStatus);
     void deleteEmailAddress(in String customerId, in String emailAddressId, out ResultStatus resultStatus);
 
-    Address addAddress(in String customerId, in String address1, in String address2, in String city, in String state, in String zip, out ResultStatus resultStatus);
-    void setAddress(in String customerId, in String addressId, in String address1, in String address2, in String city, in String state, in String zip, out ResultStatus resultStatus);
+    Address addAddress(in String customerId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
+    void setAddress(in String customerId, in String addressId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
     void deleteAddress(in String customerId, in String addressId, out ResultStatus resultStatus);
 }

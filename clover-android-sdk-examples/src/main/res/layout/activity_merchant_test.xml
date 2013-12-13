@@ -87,6 +87,13 @@
   <EditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:hint="Address line 3"
+      android:id="@+id/address3_edit"
+      android:layout_gravity="left|center_vertical"/>
+
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:hint="City"
       android:id="@+id/city_edit"
       android:layout_gravity="left|center_vertical"/>

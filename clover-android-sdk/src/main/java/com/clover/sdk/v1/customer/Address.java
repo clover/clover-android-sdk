@@ -24,7 +24,7 @@ import org.json.JSONObject;
 /**
  * A class representing an address associated with a customer. Instances of this object are returned
  * by the {@link com.clover.sdk.v1.customer.ICustomerService#addAddress(String customerId, String address1,
- * String address2, String city, String state, String zip, ResultStatus resultStatus)} method or as part of a
+ * String address2, String address3, String city, String state, String zip, ResultStatus resultStatus)} method or as part of a
  * {@link com.clover.sdk.v1.customer.Customer} object.
  */
 public class Address implements Parcelable {
@@ -32,6 +32,7 @@ public class Address implements Parcelable {
     private String id = null;
     private String address1 = null;
     private String address2 = null;
+    private String address3 = null;
     private String city = null;
     private String state = null;
     private String zip = null;
@@ -51,6 +52,11 @@ public class Address implements Parcelable {
       return this;
     }
 
+    public Builder address3(String address3) {
+      this.address3 = address3;
+      return this;
+    }
+
     public Builder city(String city) {
       this.city = city;
       return this;
@@ -67,18 +73,19 @@ public class Address implements Parcelable {
     }
 
     public Address build() {
-      return new Address(id, address1, address2, city, state, zip);
+      return new Address(id, address1, address2, address3, city, state, zip);
     }
   }
 
   private final JSONObject data;
 
-  private Address(String id, String address1, String address2, String city, String state, String zip) {
+  private Address(String id, String address1, String address2, String address3, String city, String state, String zip) {
     data = new JSONObject();
     try {
       data.put("id", id);
       data.put("address1", address1);
       data.put("address2", address2);
+      data.put("address3", address3);
       data.put("city", city);
       data.put("state", state);
       data.put("zip", zip);
@@ -111,6 +118,10 @@ public class Address implements Parcelable {
 
   public String getAddress2() {
     return data.optString("address2", null);
+  }
+
+  public String getAddress3() {
+    return data.optString("address3", null);
   }
 
   public String getCity() {

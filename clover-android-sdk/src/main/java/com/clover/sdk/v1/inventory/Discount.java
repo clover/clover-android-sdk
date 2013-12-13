@@ -105,21 +105,33 @@ public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Valida
    * Name of the discount
    */
   public java.lang.String getName() {
-    return getJSONObject().optString("name");
+    if (getJSONObject().has("name")) {
+      return getJSONObject().optString("name");
+    } else {
+      return null;
+    }
   }
 
   /**
    * Discount amount in 1/100 of currency unit (e.g. cents)
    */
   public java.lang.Long getAmount() {
-    return getJSONObject().optLong("amount");
+    if (hasAmount()) {
+      return getJSONObject().optLong("amount");
+    } else {
+      return null;
+    }
   }
 
   /**
    * Discount amount in percent
    */
   public java.lang.Long getPercentage() {
-    return getJSONObject().optLong("percentage");
+    if (hasPercentage()) {
+      return getJSONObject().optLong("percentage");
+    } else {
+      return null;
+    }
   }
 
 
@@ -166,7 +178,7 @@ public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Valida
   }
 
   public void setAmount(java.lang.Long amount) throws org.json.JSONException {
-    if (amount != null && amount < 0) {
+    if (amount != null && amount > 0) {
       throw new IllegalArgumentException("Invalid value for 'amount'");
     }
     getJSONObject().put("amount", amount);
@@ -220,7 +232,7 @@ public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Valida
     }
 
     public Builder amount(java.lang.Long amount) {
-      if (amount != null && amount < 0) {
+      if (amount != null && amount > 0) {
         throw new IllegalArgumentException("Invalid value for 'amount'");
       }
       this.amount = amount;

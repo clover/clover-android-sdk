@@ -38,11 +38,13 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
+import com.clover.sdk.v1.employee.AccountRole;
 import com.clover.sdk.v1.employee.Employee;
 import com.clover.sdk.v1.employee.EmployeeConnector;
 import com.clover.sdk.v1.employee.EmployeeIntent;
 import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v1.merchant.MerchantConnector;
+import org.json.JSONException;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -194,8 +196,14 @@ public class EmployeeTestActivity extends Activity
   }
 
   private void createTestEmployee() {
-    employeeConnector.createEmployee(TEST_EMPLOYEE_NAME, "Tester", "test123",
-            "employee-test-activity@example.com", "123", "EMPLOYEE", new EmployeeConnector.EmployeeCallback<Employee>() {
+    Employee employee = null;
+    try {
+      employee = new Employee(TEST_EMPLOYEE_NAME, "Tester", "test123",
+          "employee-test-activity@example.com", "123", AccountRole.EMPLOYEE, null);
+    } catch (JSONException e1) {
+      Log.e(TAG, "Error creating object", e1);
+    }
+    employeeConnector.createEmployee(employee, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
         if (status.getStatusCode() / 100 != 2) {
@@ -254,7 +262,12 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String nickname = nicknameEditText.getText().toString().trim();
-    employeeConnector.setNickname(e.getId(), nickname, new EmployeeConnector.EmployeeCallback<Employee>() {
+    try {
+      e.setNickname(nickname);
+    } catch (JSONException e1) {
+      Log.e(TAG, "Error updating object", e1);
+    }
+    employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
         if (status.getStatusCode() / 100 == 2) {
@@ -277,7 +290,12 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String customId = customIdEditText.getText().toString().trim();
-    employeeConnector.setCustomId(e.getId(), customId, new EmployeeConnector.EmployeeCallback<Employee>() {
+    try {
+      e.setCustomId(customId);
+    } catch (JSONException e1) {
+      Log.e(TAG, "Error updating object", e1);
+    }
+    employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
         if (status.getStatusCode() / 100 == 2) {
@@ -300,7 +318,12 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String pin = pinEditText.getText().toString().trim();
-    employeeConnector.setPin(e.getId(), pin, new EmployeeConnector.EmployeeCallback<Employee>() {
+    try {
+      e.setPin(pin);
+    } catch (JSONException e1) {
+      Log.e(TAG, "Error updating object", e1);
+    }
+    employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
         if (status.getStatusCode() / 100 == 2) {
@@ -323,7 +346,12 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String role = roleSpinner.getSelectedItem().toString();
-    employeeConnector.setRole(e.getId(), role, new EmployeeConnector.EmployeeCallback<Employee>() {
+    try {
+      e.setRole(getRoleFromString(role));
+    } catch (JSONException e1) {
+      Log.e(TAG, "Error updating object", e1);
+    }
+    employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
         if (status.getStatusCode() / 100 == 2) {
@@ -481,7 +509,11 @@ public class EmployeeTestActivity extends Activity
     if (result == null) {
       resultEmployeesText.setText("");
     } else {
-      resultEmployeesText.setText(result.toString());
+      String employees = "";
+      for (Employee employee : result) {
+        employees += employee.getName() + ", " + employee.getEmail() + "\n";
+      }
+      resultEmployeesText.setText(employees);
     }
   }
 
@@ -490,7 +522,7 @@ public class EmployeeTestActivity extends Activity
     if (result == null) {
       resultActiveEmployeeText.setText("<no active employee>");
     } else {
-      resultActiveEmployeeText.setText(result.toString());
+      resultActiveEmployeeText.setText(result.getName() + ", " + result.getEmail() + "\n");
     }
   }
 
@@ -559,4 +591,17 @@ public class EmployeeTestActivity extends Activity
   private void toast(String message) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show();
   }
+
+  private AccountRole getRoleFromString(String role) {
+    if (role == null) throw new IllegalArgumentException("Role must not be null");
+    if (role.equals("MANAGER")) {
+      return AccountRole.MANAGER;
+    } else if (role.equals("ADMIN")) {
+      return AccountRole.ADMIN;
+    } else if (role.equals("EMPLOYEE")) {
+      return AccountRole.EMPLOYEE;
+    }
+    throw new IllegalArgumentException("Unrecognized role");
+  }
+
 }

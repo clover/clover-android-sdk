@@ -14,30 +14,9 @@
  * limitations under the License.
  */
 
-group = 'com.clover.sdk'
-version = '5'
+package com.clover.sdk.v1.employee;
 
-apply plugin: 'android'
-
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
-android {
-  compileSdkVersion 17
-  buildToolsVersion "17.0.0"
-
-  defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 17
-  }
-}
-
-dependencies {
-  compile project(':clover-android-sdk')
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+@SuppressWarnings("all")
+public enum AccountRole {
+  ADMIN, MANAGER, EMPLOYEE;
 }

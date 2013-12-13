@@ -32,6 +32,7 @@ public class MerchantAddress implements Parcelable {
   public static class Builder {
     private String address1 = null;
     private String address2 = null;
+    private String address3 = null;
     private String city = null;
     private String state = null;
     private String zip = null;
@@ -44,6 +45,11 @@ public class MerchantAddress implements Parcelable {
 
     public Builder address2(String address2) {
       this.address2 = address2;
+      return this;
+    }
+
+    public Builder address3(String address3) {
+      this.address3 = address3;
       return this;
     }
 
@@ -68,12 +74,13 @@ public class MerchantAddress implements Parcelable {
     }
 
     public MerchantAddress build() {
-      return new MerchantAddress(address1, address2, city, state, zip, country);
+      return new MerchantAddress(address1, address2, address3, city, state, zip, country);
     }
   }
 
   private static final String KEY_ADDRESS1 = "address1";
   private static final String KEY_ADDRESS2 = "address2";
+  private static final String KEY_ADDRESS3 = "address3";
   private static final String KEY_CITY = "city";
   private static final String KEY_STATE = "state";
   private static final String KEY_ZIP = "zip";
@@ -81,11 +88,12 @@ public class MerchantAddress implements Parcelable {
 
   private final Bundle data;
 
-  MerchantAddress(String address1, String address2, String city, String state, String zip, String country) {
+  MerchantAddress(String address1, String address2, String address3, String city, String state, String zip, String country) {
     this();
 
     setAddress1(address1);
     setAddress2(address2);
+    setAddress3(address3);
     setCity(city);
     setState(state);
     setZip(zip);
@@ -133,6 +141,20 @@ public class MerchantAddress implements Parcelable {
    */
   void setAddress2(String address2) {
     data.putString(KEY_ADDRESS2, address2);
+  }
+
+  /**
+   * Returns the second address line of the address.
+   */
+  public String getAddress3() {
+    return data.getString(KEY_ADDRESS3);
+  }
+
+  /**
+   * Sets the second address line of the address.
+   */
+  void setAddress3(String address3) {
+    data.putString(KEY_ADDRESS3, address3);
   }
 
   /**
@@ -213,6 +235,6 @@ public class MerchantAddress implements Parcelable {
 
   @Override
   public String toString() {
-    return String.format("%s{address1=%s, address2=%s, city=%s, state=%s, zip=%s, country=%s", getClass().getSimpleName(), getAddress1(), getAddress2(), getCity(), getState(), getZip(), getCountry());
+    return String.format("%s{address1=%s, address2=%s, address3=%s, city=%s, state=%s, zip=%s, country=%s", getClass().getSimpleName(), getAddress1(), getAddress2(), getAddress3(), getCity(), getState(), getZip(), getCountry());
   }
 }

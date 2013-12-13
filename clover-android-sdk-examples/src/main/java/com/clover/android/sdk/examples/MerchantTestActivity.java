@@ -59,6 +59,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
   private Button buttonPhone;
   private EditText address1Edit;
   private EditText address2Edit;
+  private EditText address3Edit;
   private EditText cityEdit;
   private EditText stateEdit;
   private EditText zipEdit;
@@ -105,6 +106,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
 
     address1Edit = (EditText) findViewById(R.id.address1_edit);
     address2Edit = (EditText) findViewById(R.id.address2_edit);
+    address3Edit = (EditText) findViewById(R.id.address3_edit);
     cityEdit = (EditText) findViewById(R.id.city_edit);
     stateEdit = (EditText) findViewById(R.id.state_edit);
     zipEdit = (EditText) findViewById(R.id.zip_edit);
@@ -188,6 +190,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
 
         address1Edit.setText(result.getAddress().getAddress1());
         address2Edit.setText(result.getAddress().getAddress2());
+        address3Edit.setText(result.getAddress().getAddress3());
         cityEdit.setText(result.getAddress().getCity());
         stateEdit.setText(result.getAddress().getState());
         zipEdit.setText(result.getAddress().getZip());
@@ -239,6 +242,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
     MerchantAddress address = new MerchantAddress.Builder()
         .address1(address1Edit.getText().toString())
         .address2(address2Edit.getText().toString())
+        .address3(address3Edit.getText().toString())
         .city(cityEdit.getText().toString())
         .state(stateEdit.getText().toString())
         .zip(zipEdit.getText().toString())

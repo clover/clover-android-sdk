@@ -14,30 +14,20 @@
  * limitations under the License.
  */
 
-group = 'com.clover.sdk'
-version = '5'
+package com.clover.sdk.v1.employee;
 
-apply plugin: 'android'
+import android.text.TextUtils;
 
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
-android {
-  compileSdkVersion 17
-  buildToolsVersion "17.0.0"
-
-  defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 17
+public class EmployeeUtils {
+  public static boolean isPinSet(Employee employee) {
+    return (employee.getPin() != null);
   }
-}
 
-dependencies {
-  compile project(':clover-android-sdk')
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+  public static String getDisplayName(Employee employee) {
+    String displayName = employee.getNickname();
+    if (TextUtils.isEmpty(displayName)) {
+      displayName = employee.getName();
+    }
+    return displayName;
+  }
 }

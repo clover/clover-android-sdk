@@ -35,6 +35,7 @@ public class Merchant implements Parcelable {
   private static final String KEY_ACCOUNT = "account";
   private static final String KEY_DEVICE_ID = "deviceId";
   private static final String KEY_PHONE_NUMBER = "phoneNumber";
+  private static final String KEY_IS_VAT = "isVat";
 
   private final Bundle data;
 
@@ -103,6 +104,13 @@ public class Merchant implements Parcelable {
    */
   public String getPhoneNumber() {
     return data.getString(KEY_PHONE_NUMBER, null);
+  }
+
+  /**
+   * Returns whether this merchant is in a region using VAT
+   */
+  public boolean isVat() {
+    return data.getBoolean(KEY_IS_VAT, false);
   }
 
   @Override

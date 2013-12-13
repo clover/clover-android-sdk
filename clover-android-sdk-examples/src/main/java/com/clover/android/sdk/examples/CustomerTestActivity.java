@@ -145,12 +145,12 @@ public class CustomerTestActivity extends Activity {
           output.add(customerToOutput(newCustomer));
 
           output.add("\nAdd address number->");
-          Address newAddress = customerConnector.addAddress(newCustomer.getId(), "123 Test St", "Apt 45", "Sunnyvale", "CA", "94086");
+          Address newAddress = customerConnector.addAddress(newCustomer.getId(), "123 Test St", "Apt 45", "Address 3", "Sunnyvale", "CA", "94086");
           newCustomer = customerConnector.getCustomer(newCustomer.getId());
           output.add(customerToOutput(newCustomer));
 
           output.add("\nChange address ->");
-          customerConnector.setAddress(newCustomer.getId(), newAddress.getId(), "456 Main St", "", "Austin", "TX", "78701");
+          customerConnector.setAddress(newCustomer.getId(), newAddress.getId(), "456 Main St", "", "Address 3", "Austin", "TX", "78701");
           newCustomer = customerConnector.getCustomer(newCustomer.getId());
           output.add(customerToOutput(newCustomer));
 
@@ -220,7 +220,7 @@ public class CustomerTestActivity extends Activity {
     if (c.getAddresses().size() > 0) {
       sb.append("\n     ").append("Addresses:");
       for (Address address : c.getAddresses()) {
-        sb.append("\n          ").append(address.getId()).append(" : ").append(address.getAddress1()).append(" , ").append(address.getAddress2()).append(" , ").append(address.getCity()).append(" , ").append(address.getState()).append(" , ").append(address.getZip());
+        sb.append("\n          ").append(address.getId()).append(" : ").append(address.getAddress1()).append(" , ").append(address.getAddress2()).append(address.getAddress3()).append(" , ").append(address.getCity()).append(" , ").append(address.getState()).append(" , ").append(address.getZip());
       }
     }
     return sb.toString();

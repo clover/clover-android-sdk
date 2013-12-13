@@ -242,15 +242,16 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
    * @param customerId The id of the customer.
    * @param address1   The first row of an address.
    * @param address2   The second row of an address.
+   * @param address3   The third row of an address.
    * @param city       The city.
    * @param state      The state.
    * @param zip        The zip (postal code).
    * @return A {@link com.clover.sdk.v1.customer.Address} object.
    */
-  public Address addAddress(final String customerId, final String address1, final String address2, final String city, final String state, final String zip) throws ClientException, ServiceException, BindingException, RemoteException {
+  public Address addAddress(final String customerId, final String address1, final String address2, final String address3, final String city, final String state, final String zip) throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<ICustomerService, Address>() {
       public Address call(ICustomerService service, ResultStatus status) throws RemoteException {
-        return service.addAddress(customerId, address1, address2, city, state, zip, status);
+        return service.addAddress(customerId, address1, address2, address3, city, state, zip, status);
       }
     });
   }
@@ -262,14 +263,15 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
    * @param addressId  The id of the email address.
    * @param address1   The first row of an address.
    * @param address2   The second row of an address.
+   * @param address3   The third row of an address.
    * @param city       The city.
    * @param state      The state.
    * @param zip        The zip (postal code).
    */
-  public void setAddress(final String customerId, final String addressId, final String address1, final String address2, final String city, final String state, final String zip) throws ClientException, ServiceException, BindingException, RemoteException {
+  public void setAddress(final String customerId, final String addressId, final String address1, final String address2, final String address3, final String city, final String state, final String zip) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<ICustomerService>() {
       public void run(ICustomerService service, ResultStatus status) throws RemoteException {
-        service.setAddress(customerId, addressId, address1, address2, city, state, zip, status);
+        service.setAddress(customerId, addressId, address1, address2, address3, city, state, zip, status);
       }
     });
   }

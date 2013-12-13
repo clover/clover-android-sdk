@@ -76,12 +76,20 @@ public class Adjustment implements Parcelable {
   /**
    * Amount of the adjust, typically in cents; use priceType and merchant currency to determine actual item price
    */
-  public long getAmount() {
-    return mAdjustment.optLong("amount", 0);
+  public Long getAmount() {
+    if (hasAmount()) {
+      return mAdjustment.optLong("amount", 0);
+    } else {
+      return null;
+    }
   }
 
-  public long getPercentage() {
-    return mAdjustment.optLong("percentage", 0);
+  public Long getPercentage() {
+    if (hasPercentage()) {
+      return mAdjustment.optLong("percentage", 0);
+    } else {
+      return null;
+    }
   }
 
   public String getType() {

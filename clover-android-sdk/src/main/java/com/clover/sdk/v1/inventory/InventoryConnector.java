@@ -414,4 +414,40 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       }
     });
   }
+
+  public void assignModifierGroupToItem(final String modifierGroupId, final String itemId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignModifierGroupToItem(modifierGroupId, itemId, status);
+        return null;
+      }
+    });
+  }
+
+  public void assignModifierGroupToItem(final String modifierGroupId, final String itemId, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignModifierGroupToItem(modifierGroupId, itemId, status);
+        return null;
+      }
+    }, callback);
+  }
+
+  public void removeModifierGroupFromItem(final String modifierGroupId, final String itemId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeModifierGroupFromItem(modifierGroupId, itemId, status);
+        return null;
+      }
+    });
+  }
+
+  public void removeModifierGroupFromItem(final String modifierGroupId, final String itemId, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeModifierGroupFromItem(modifierGroupId, itemId, status);
+        return null;
+      }
+    }, callback);
+  }
 }
