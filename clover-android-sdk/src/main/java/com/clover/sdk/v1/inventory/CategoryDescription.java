@@ -47,11 +47,12 @@ public class CategoryDescription implements android.os.Parcelable, com.clover.sd
     setItems(items);
   }
 
-  protected org.json.JSONObject getJSONObject() {
+  public org.json.JSONObject getJSONObject() {
     try {
       if (jsonObject == null) {
         if (jsonString != null) {
           jsonObject = (org.json.JSONObject) new org.json.JSONTokener(jsonString).nextValue();
+          jsonString = null; // null this so it will be recreated if jsonObject is modified
         } else {
           jsonObject = new org.json.JSONObject();
         }
@@ -84,18 +85,21 @@ public class CategoryDescription implements android.os.Parcelable, com.clover.sd
   }
 
   public java.lang.String getId() {
-    return getJSONObject().optString("id");
+    return hasId() ?
+        getJSONObject().optString("id", null) : null;
   }
 
   /**
    *
    */
   public java.lang.String getName() {
-    return getJSONObject().optString("name");
+    return hasName() ?
+        getJSONObject().optString("name", null) : null;
   }
 
   public java.lang.Integer getSortOrder() {
-    return getJSONObject().optInt("sortOrder");
+    return hasSortOrder() ?
+        getJSONObject().optInt("sortOrder") : null;
   }
 
   public java.util.List<java.lang.String> getItems() {
@@ -104,8 +108,7 @@ public class CategoryDescription implements android.os.Parcelable, com.clover.sd
       itemList = new java.util.ArrayList<java.lang.String>();
       org.json.JSONArray itemArray = getJSONObject().optJSONArray("items");
       for (int i = 0; i < itemArray.length(); i++) {
-        org.json.JSONObject obj = itemArray.optJSONObject(i);
-        java.lang.String item = obj.toString();
+        java.lang.String item = itemArray.optString(i);
         itemList.add(item);
       }
     }
@@ -145,21 +148,33 @@ public class CategoryDescription implements android.os.Parcelable, com.clover.sd
     if (id != null && id.length() > 13) {
       throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
     }
-    getJSONObject().put("id", id);
+    try {
+      getJSONObject().put("id", id);
+    } catch (org.json.JSONException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   public void setName(java.lang.String name) throws org.json.JSONException {
     if (name != null && name.length() > 127) {
       throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
     }
-    getJSONObject().put("name", name);
+    try {
+      getJSONObject().put("name", name);
+    } catch (org.json.JSONException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   public void setSortOrder(java.lang.Integer sortOrder) throws org.json.JSONException {
     if (sortOrder != null && sortOrder < 0) {
       throw new IllegalArgumentException("Invalid value for 'sortOrder'");
     }
-    getJSONObject().put("sortOrder", sortOrder);
+    try {
+      getJSONObject().put("sortOrder", sortOrder);
+    } catch (org.json.JSONException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   public void setItems(java.util.List<java.lang.String> items) throws org.json.JSONException {

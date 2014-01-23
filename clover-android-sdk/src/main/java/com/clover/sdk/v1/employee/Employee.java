@@ -94,42 +94,42 @@ public class Employee implements android.os.Parcelable {
    * Unique identifier
    */
   public java.lang.String getId() {
-    return getJSONObject().optString("id");
+    return getJSONObject().optString("id", null);
   }
 
   /**
    * Full name of the employee
    */
   public java.lang.String getName() {
-    return getJSONObject().optString("name");
+    return getJSONObject().optString("name", null);
   }
 
   /**
    * Nickname of the employee (shows up on receipts)
    */
   public java.lang.String getNickname() {
-    return getJSONObject().optString("nickname");
+    return getJSONObject().optString("nickname", null);
   }
 
   /**
    * Custom ID of the employee
    */
   public java.lang.String getCustomId() {
-    return getJSONObject().optString("customId");
+    return getJSONObject().optString("customId", null);
   }
 
   /**
    * Email of the employee (optional)
    */
   public java.lang.String getEmail() {
-    return getJSONObject().optString("email");
+    return getJSONObject().optString("email", null);
   }
 
   /**
    * Employee PIN
    */
   public java.lang.String getPin() {
-    return getJSONObject().optString("pin");
+    return getJSONObject().optString("pin", null);
   }
 
   /**

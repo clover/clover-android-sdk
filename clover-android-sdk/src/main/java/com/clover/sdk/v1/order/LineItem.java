@@ -125,6 +125,26 @@ public class LineItem implements Parcelable {
     return mLineItem.optString("userData");
   }
 
+  public List<Adjustment> getAdjustments() {
+    if (mLineItem.has("adjustments")) {
+      try {
+        JSONArray li = mLineItem.optJSONArray("adjustments");
+
+        if (li != null) {
+          List<Adjustment> adjustments = new ArrayList<Adjustment>(li.length());
+          for (int i = 0; i < li.length(); i++) {
+            adjustments.add(new Adjustment(li.getJSONObject(i)));
+          }
+          return adjustments;
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return null;
+  }
+
   /**
    * Line item tax rates
    *

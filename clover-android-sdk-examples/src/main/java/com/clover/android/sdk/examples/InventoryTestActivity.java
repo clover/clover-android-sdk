@@ -980,6 +980,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<ModifierGroup> getModifierGroupsForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getModifierGroupsForItem()");
+    }
+
+    @Override
     public IBinder asBinder() {
       throw new UnsupportedOperationException("Not a real Android service");
     }

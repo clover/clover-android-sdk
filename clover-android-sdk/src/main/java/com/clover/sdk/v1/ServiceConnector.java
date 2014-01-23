@@ -46,7 +46,8 @@ import java.util.concurrent.Executors;
 public abstract class ServiceConnector<S extends IInterface> implements ServiceConnection {
   private static final String TAG = "ServiceConnector";
 
-  private static final int SERVICE_CONNECTION_TIMEOUT = 20000;
+  private static final int SERVICE_CONNECTION_TIMEOUT = 3000;
+  private static final int MAX_RETRY_ATTEMPTS = 3;
 
   protected final Context mContext;
   protected final Account mAccount;
@@ -105,9 +106,11 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected abstract S getServiceInterface(IBinder iBinder);
 
   public boolean connect() {
-    boolean result = false;
+    boolean result;
     synchronized (this) {
-      if (!mConnected) {
+      if (mConnected) {
+        result = true;
+      } else {
         Intent intent = new Intent(getServiceIntentAction());
         intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(Intents.EXTRA_VERSION, 1);
@@ -135,11 +138,19 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   protected synchronized S waitForConnection() throws BindingException {
     if (!isConnected()) {
-      connect();
-      try {
-        wait(SERVICE_CONNECTION_TIMEOUT);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+
+      int retryCount = 0;
+      boolean result = false;
+
+      while (!result && retryCount < MAX_RETRY_ATTEMPTS) {
+        result = connect();
+        // wait for ServiceConnection callback to notify
+        try {
+          wait(SERVICE_CONNECTION_TIMEOUT);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        retryCount++;
       }
     }
 
@@ -329,6 +340,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
         client = mClient;
       }
       mService = null;
+      mConnected = false;
     }
 
     notifyServiceDisconnected(client);

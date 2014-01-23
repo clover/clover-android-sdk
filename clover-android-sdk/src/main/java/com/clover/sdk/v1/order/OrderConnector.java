@@ -73,7 +73,7 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
   };
 
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
-    super.notifyServiceDisconnected(client);
+    super.notifyServiceConnected(client);
 
     if (client != null && client instanceof OnOrderUpdateListener) {
       try {

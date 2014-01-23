@@ -45,14 +45,13 @@
  * textPrintJob.print(context, CloverAccount.getAccount(context));
  * </code>
  * </pre>
- * To print an image,
+ * To print a View,
  * <pre>
  * <code>
- * Bitmap bitmap = ...; // get the bitmap
- * PrintJob imagePrintJob = new ImagePrintJob()
- *     .bitmap(bitmap)
+ * PrintJob viewPrintJob = new ViewPrintJob()
+ *     .view(view)
  *     .build();
- * imagePrintJob.print(context, CloverAccount.getAccount(context));
+ * viewPrintJob.print(context, CloverAccount.getAccount(context));
  * </code>
  * </pre>
  *

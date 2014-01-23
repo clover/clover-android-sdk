@@ -19,6 +19,7 @@ package com.clover.sdk.util;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.util.Log;
 
 /**
  * This class provides access to the Clover {@link android.accounts.Account} object on the device.
@@ -61,9 +62,16 @@ public class CloverAccount {
    * @param context the context
    */
   public static Account[] getAccounts(Context context) {
-    AccountManager mgr = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
-    Account[] accounts = mgr.getAccountsByType(CLOVER_ACCOUNT_TYPE);
-    return accounts;
+    try {
+      AccountManager mgr = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
+      Account[] accounts = mgr.getAccountsByType(CLOVER_ACCOUNT_TYPE);
+
+      return accounts;
+    } catch (RuntimeException e) {
+      Log.e(TAG, "failed to get accounts", e);
+    }
+
+    return null;
   }
 
 }

@@ -199,10 +199,34 @@ interface IInventoryService {
    */
   void deleteTaxRate(in String taxRateId, out ResultStatus resultStatus);
 
+  /**
+   * Retrieve the list of discounts.
+   */
   List<Discount> getDiscounts(out ResultStatus resultStatus);
+
+  /**
+   * Gets a single discount identified by its unique ID.
+   */
   Discount getDiscount(in String discountId, out ResultStatus resultStatus);
+
+  /**
+   * Adds a new discount.
+   */
   Discount createDiscount(in Discount discount, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing discount.
+   */
   void updateDiscount(in Discount discount, out ResultStatus resultStatus);
+
+  /**
+   * Deletes a discount.
+   */
   void deleteDiscount(in String discountId, out ResultStatus resultStatus);
+
+  /**
+   * Retrieve the list of modifier groups for a particular item.
+   */
+  List<ModifierGroup> getModifierGroupsForItem(in String itemId, out ResultStatus resultStatus);
 
 }

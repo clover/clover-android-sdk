@@ -16,16 +16,15 @@
 
 package com.clover.sdk.v1.printer.job;
 
-import android.graphics.Bitmap;
-
+import android.view.View;
 import java.io.Serializable;
 
-public class ReportPrintJob extends ImagePrintJob implements Serializable {
+public class ReportPrintJob extends ViewPrintJob implements Serializable {
   public enum ReportType {
     PAYMENTS, ITEMS, DISCOUNTS, TAXES, SHIFTS;
   }
 
-  public static class Builder extends ImagePrintJob.Builder {
+  public static class Builder extends ViewPrintJob.Builder {
     private ReportType type = ReportType.PAYMENTS;
 
     public Builder type(ReportType type) {
@@ -34,14 +33,14 @@ public class ReportPrintJob extends ImagePrintJob implements Serializable {
     }
 
     public ReportPrintJob build() {
-      return new ReportPrintJob(bitmap, type, flags);
+      return new ReportPrintJob(view, type, flags);
     }
   }
 
   public final ReportType type;
 
-  protected ReportPrintJob(Bitmap bitmap, ReportType type, int flags) {
-    super(bitmap, flags);
+  protected ReportPrintJob(View view, ReportType type, int flags) {
+    super(view, flags);
     this.type = type;
   }
 }
