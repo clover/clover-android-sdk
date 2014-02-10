@@ -30,7 +30,7 @@ public class PaymentPrintJob extends ReceiptPrintJob implements Serializable {
     }
 
     public PaymentPrintJob build() {
-      return new PaymentPrintJob(orderId, paymentId, flags);
+      return new PaymentPrintJob(orderId, paymentId, flags | FLAG_SALE);
     }
   }
 

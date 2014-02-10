@@ -133,6 +133,13 @@ public class Employee implements android.os.Parcelable {
   }
 
   /**
+   * Employee PIN (unhashed)
+   */
+  public java.lang.String getUnhashedPin() {
+    return getJSONObject().optString("unhashedPin", null);
+  }
+
+  /**
    * Employee Role
    */
   public AccountRole getRole() {
@@ -216,6 +223,13 @@ public class Employee implements android.os.Parcelable {
   }
 
   /**
+   * Checks whether the 'unhashedPin' field has been set
+   */
+  public boolean hasUnhashedPin() {
+    return getJSONObject().has("unhashedPin");
+  }
+
+  /**
    * Checks whether the 'role' field has been set
    */
   public boolean hasRole() {
@@ -267,6 +281,10 @@ public class Employee implements android.os.Parcelable {
 
   public void setPin(java.lang.String pin) throws org.json.JSONException {
     getJSONObject().put("pin", pin);
+  }
+
+  public void setUnhashedPin(java.lang.String pin) throws org.json.JSONException {
+    getJSONObject().put("unhashedPin", pin);
   }
 
   public void setRole(AccountRole role) throws org.json.JSONException {

@@ -24,16 +24,9 @@ import android.content.IntentFilter;
 /**
  * Handles an {@link com.clover.sdk.v1.app.AppNotificationIntent#ACTION_APP_NOTIFICATION} intent.
  */
-abstract public class AppNotificationReceiver {
+abstract public class AppNotificationReceiver extends BroadcastReceiver {
 
   private Context context;
-
-  private BroadcastReceiver receiver = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      AppNotificationReceiver.this.onReceive(new AppNotification(intent));
-    }
-  };
 
   /**
    * Create a new instance.
@@ -56,7 +49,7 @@ abstract public class AppNotificationReceiver {
    */
   public void register(Context context) {
     this.context = context;
-    context.registerReceiver(receiver, new IntentFilter(AppNotificationIntent.ACTION_APP_NOTIFICATION));
+    context.registerReceiver(this, new IntentFilter(AppNotificationIntent.ACTION_APP_NOTIFICATION));
   }
 
   /**
@@ -64,11 +57,16 @@ abstract public class AppNotificationReceiver {
    * or {@link android.app.Activity#onDestroy()}, to unregister the underlying {@link android.content.BroadcastReceiver}.
    */
   public void unregister() {
-    context.unregisterReceiver(receiver);
+    context.unregisterReceiver(this);
+  }
+
+  @Override
+  public final void onReceive(Context context, Intent intent) {
+    AppNotificationReceiver.this.onReceive(context, new AppNotification(intent));
   }
 
   /**
    * Implement this method to respond to notifications.
    */
-  abstract public void onReceive(AppNotification notification);
+  abstract public void onReceive(Context context, AppNotification notification);
 }

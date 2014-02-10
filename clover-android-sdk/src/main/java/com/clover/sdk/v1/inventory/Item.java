@@ -172,6 +172,13 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
   }
 
   /**
+   * Sku
+   */
+  public java.lang.String getSku() {
+    return getJSONObject().optString("sku");
+  }
+
+  /**
    * Price of the item, typically in cents; use priceType and merchant currency to determine actual item price
    */
   public java.lang.Long getPrice() {
@@ -261,6 +268,12 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
     return itemList;
   }
 
+  /**
+   * Count of items available.
+   */
+  public java.lang.Long getCount() {
+    return getJSONObject().optLong("count");
+  }
 
   /**
    * Checks whether the 'id' field has been set
@@ -288,6 +301,13 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
    */
   public boolean hasCode() {
     return getJSONObject().has("code");
+  }
+
+  /**
+   * Checks whether the 'sku' field has been set
+   */
+  public boolean hasSku() {
+    return getJSONObject().has("sku");
   }
 
   /**
@@ -353,6 +373,13 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
     return getJSONObject().has("categories");
   }
 
+  /**
+   * Checks whether the 'count' field has been set
+   */
+  public boolean hasCount() {
+    return getJSONObject().has("count");
+  }
+
   public void setId(java.lang.String id) throws org.json.JSONException {
     if (id != null && id.length() > 13) {
       throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
@@ -375,6 +402,11 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
   public void setCode(java.lang.String code) throws org.json.JSONException {
 
     getJSONObject().put("code", code);
+  }
+
+  public void setSku(java.lang.String sku) throws org.json.JSONException {
+
+    getJSONObject().put("sku", sku);
   }
 
   public void setPrice(java.lang.Long price) throws org.json.JSONException {
@@ -439,6 +471,10 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
     }
   }
 
+  public void setCount(java.lang.Long count) throws org.json.JSONException {
+    getJSONObject().put("count", count);
+  }
+
 
   @Override
   public int describeContents() {
@@ -473,6 +509,8 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
     private java.lang.Boolean defaultTaxRates;
     private java.lang.String unitName;
     private java.lang.Long cost;
+    private java.lang.Long count;
+    private java.lang.String sku;
 
     public Builder() {
     }
@@ -494,6 +532,12 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
     public Builder code(java.lang.String code) {
 
       this.code = code;
+      return this;
+    }
+
+    public Builder sku(java.lang.String sku) {
+
+      this.sku = sku;
       return this;
     }
 
@@ -535,8 +579,22 @@ public class Item implements android.os.Parcelable, com.clover.sdk.v1.Validator 
       return this;
     }
 
+    public Builder count(java.lang.Long cost) {
+
+      this.count = count;
+      return this;
+    }
+
+
     public Item build() throws org.json.JSONException {
-      return new Item(name, alternateName, code, price, priceType, taxable, defaultTaxRates, unitName, cost);
+      Item item = new Item(name, alternateName, code, price, priceType, taxable, defaultTaxRates, unitName, cost);
+      if (count != null) {
+        item.setCount(count);
+      }
+      if (sku != null) {
+        item.setSku(sku);
+      }
+      return item;
     }
   }
 

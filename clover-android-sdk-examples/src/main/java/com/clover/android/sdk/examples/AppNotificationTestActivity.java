@@ -18,6 +18,7 @@ package com.clover.android.sdk.examples;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -70,7 +71,7 @@ public class AppNotificationTestActivity extends Activity {
    */
   private AppNotificationReceiver receiver = new AppNotificationReceiver() {
     @Override
-    public void onReceive(AppNotification notification) {
+    public void onReceive(Context context, AppNotification notification) {
       log("Received " + notification);
     }
   };

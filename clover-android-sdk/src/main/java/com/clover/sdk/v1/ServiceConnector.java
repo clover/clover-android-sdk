@@ -148,10 +148,12 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
         try {
           wait(SERVICE_CONNECTION_TIMEOUT);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          Log.i(TAG, "waitForConnection interrupted...");
+          return null;
         }
         retryCount++;
       }
+      Log.i(TAG, "waitForConnection result: " + result + ", retryCount: " + retryCount);
     }
 
     S service = getService();

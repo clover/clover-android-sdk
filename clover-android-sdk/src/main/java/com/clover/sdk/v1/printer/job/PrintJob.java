@@ -32,12 +32,19 @@ public abstract class PrintJob implements Serializable {
   public static final int FLAG_BILL = 1 << 1;
   public static final int FLAG_SALE = 1 << 2;
   public static final int FLAG_REFUND = 1 << 3;
+  public static final int FLAG_NO_SIGNATURE = 1 << 4;
 
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
 
+    @Deprecated
     public Builder flags(int flags) {
       this.flags = flags;
+      return this;
+    }
+
+    public Builder flag(int flag) {
+      this.flags |= flag;
       return this;
     }
 

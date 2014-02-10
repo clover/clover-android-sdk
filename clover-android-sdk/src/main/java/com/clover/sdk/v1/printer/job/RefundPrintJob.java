@@ -20,8 +20,8 @@ import com.clover.sdk.v1.printer.Category;
 
 import java.io.Serializable;
 
-public class RefundPrintJob extends ReceiptPrintJob implements Serializable {
-  public static class Builder extends ReceiptPrintJob.Builder {
+public class RefundPrintJob extends OrderBasedPrintJob implements Serializable {
+  public static class Builder extends OrderBasedPrintJob.Builder {
     private String refundId;
 
     public Builder redfundId(String refundId) {
@@ -30,7 +30,7 @@ public class RefundPrintJob extends ReceiptPrintJob implements Serializable {
     }
 
     public RefundPrintJob build() {
-      return new RefundPrintJob(orderId, refundId, flags);
+      return new RefundPrintJob(orderId, refundId, flags | FLAG_REFUND);
     }
   }
 

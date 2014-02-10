@@ -53,6 +53,7 @@ import com.clover.sdk.v1.inventory.Item;
 import com.clover.sdk.v1.inventory.Modifier;
 import com.clover.sdk.v1.inventory.ModifierGroup;
 import com.clover.sdk.v1.inventory.PriceType;
+import com.clover.sdk.v1.inventory.Tag;
 import com.clover.sdk.v1.inventory.TaxRate;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
@@ -982,6 +983,46 @@ public class InventoryTestActivity extends Activity {
     @Override
     public List<ModifierGroup> getModifierGroupsForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement getModifierGroupsForItem()");
+    }
+
+    @Override
+    public List<Tag> getTags(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getTags()");
+    }
+
+    @Override
+    public Tag getTag(String tagId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getTag()");
+    }
+
+    @Override
+    public Tag createTag(Tag tag, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createTag()");
+    }
+
+    @Override
+    public void updateTag(Tag tag, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateTag()");
+    }
+
+    @Override
+    public void deleteTag(String tagId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteTag()");
+    }
+
+    @Override
+    public List<Tag> getTagsForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getTagsForItem()");
+    }
+
+    @Override
+    public void assignTagsToItem(String itemId, List<String> tags, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignTagsToItem()");
+    }
+
+    @Override
+    public void removeTagsFromItem(String itemId, List<String> tags, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeTagsFromItem()");
     }
 
     @Override

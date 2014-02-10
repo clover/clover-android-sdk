@@ -613,4 +613,132 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public List<Tag> getTags() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTags(status);
+      }
+    });
+  }
+
+  public void getTags(Callback<List<Tag>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTags(status);
+      }
+    }, callback);
+  }
+
+  public Tag getTag(final String tagId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Tag>() {
+      public Tag call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTag(tagId, status);
+      }
+    });
+  }
+
+  public void getTag(final String tagId, Callback<Tag> callback) {
+    execute(new ServiceCallable<IInventoryService, Tag>() {
+      public Tag call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTag(tagId, status);
+      }
+    }, callback);
+  }
+
+  public Tag createTag(final Tag tag) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Tag>() {
+      public Tag call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createTag(tag, status);
+      }
+    });
+  }
+
+  public void createTag(final Tag tag, Callback<Tag> callback) {
+    execute(new ServiceCallable<IInventoryService, Tag>() {
+      public Tag call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createTag(tag, status);
+      }
+    }, callback);
+  }
+
+  public void updateTag(final Tag tag) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateTag(tag, status);
+      }
+    });
+  }
+
+  public void updateTag(final Tag tag, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateTag(tag, status);
+      }
+    }, callback);
+  }
+
+  public void deleteTag(final String tagId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteTag(tagId, status);
+      }
+    });
+  }
+
+  public void deleteTag(final String tagId, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteTag(tagId, status);
+      }
+    }, callback);
+  }
+
+  public List<Tag> getTagsForItem(final String itemId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTagsForItem(itemId, status);
+      }
+    });
+  }
+
+  public void getTagsForItem(final String itemId, Callback<List<Tag>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTagsForItem(itemId, status);
+      }
+    }, callback);
+  }
+
+  public void assignTagsToItem(final String itemId, final List<String> tags) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignTagsToItem(itemId, tags, status);
+      }
+    });
+  }
+
+  public void assignTagsToItem(final String itemId, final List<String> tags, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignTagsToItem(itemId, tags, status);
+      }
+    }, callback);
+  }
+
+  public void removeTagsFromItem(final String itemId, final List<String> tags) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeTagsFromItem(itemId, tags, status);
+      }
+    });
+  }
+
+  public void removeTagsFromItem(final String itemId, final List<String> tags, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeTagsFromItem(itemId, tags, status);
+      }
+    }, callback);
+  }
+  
 }

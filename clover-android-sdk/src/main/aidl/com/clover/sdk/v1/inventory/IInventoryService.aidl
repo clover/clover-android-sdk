@@ -21,6 +21,7 @@ import com.clover.sdk.v1.inventory.Discount;
 import com.clover.sdk.v1.inventory.Item;
 import com.clover.sdk.v1.inventory.Modifier;
 import com.clover.sdk.v1.inventory.ModifierGroup;
+import com.clover.sdk.v1.inventory.Tag;
 import com.clover.sdk.v1.inventory.TaxRate;
 import com.clover.sdk.v1.ResultStatus;
 
@@ -228,5 +229,45 @@ interface IInventoryService {
    * Retrieve the list of modifier groups for a particular item.
    */
   List<ModifierGroup> getModifierGroupsForItem(in String itemId, out ResultStatus resultStatus);
+
+  /**
+   * Gets all defined tags for the merchant.
+   */
+  List<com.clover.sdk.v1.inventory.Tag> getTags(out ResultStatus resultStatus);
+
+  /**
+   * Gets a single tag identified by its unique ID.
+   */
+  com.clover.sdk.v1.inventory.Tag getTag(in String tagId, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new tag.
+   */
+  com.clover.sdk.v1.inventory.Tag createTag(in com.clover.sdk.v1.inventory.Tag tag, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing tag.
+   */
+  void updateTag(in com.clover.sdk.v1.inventory.Tag tag, out ResultStatus resultStatus);
+
+  /**
+   * Deletes a tag.
+   */
+  void deleteTag(in String tagId, out ResultStatus resultStatus);
+
+  /**
+   * Retrieve the list of tags for an item.
+   */
+  List<com.clover.sdk.v1.inventory.Tag> getTagsForItem(in String itemId, out ResultStatus resultStatus);
+
+  /**
+   * Assign a list of tags (identified by their unique ID) to an item.
+   */
+  void assignTagsToItem(in String itemId, in List<String> tags, out ResultStatus resultStatus);
+
+  /**
+   * Remove a list of tags (identified by their unique ID) from an item.
+   */
+  void removeTagsFromItem(in String itemId, in List<String> tags, out ResultStatus resultStatus);
 
 }

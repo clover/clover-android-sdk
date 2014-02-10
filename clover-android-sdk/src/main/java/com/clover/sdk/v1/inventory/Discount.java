@@ -84,7 +84,7 @@ public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Valida
       throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
     }
     java.lang.Long amount = getAmount();
-    if (amount != null && amount < 0) {
+    if (amount != null && amount > 0) {
       throw new IllegalArgumentException("Invalid value for 'amount'");
     }
     java.lang.Long percentage = getPercentage();

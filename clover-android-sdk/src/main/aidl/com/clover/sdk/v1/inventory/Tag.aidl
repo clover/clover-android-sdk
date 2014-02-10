@@ -14,38 +14,6 @@
  * limitations under the License.
  */
 
-group = 'com.clover.sdk'
-version = '8'
+package com.clover.sdk.v1.inventory;
 
-apply plugin: 'android-library'
-apply plugin: 'maven'
-
-ant.importBuild 'javadoc.xml'
-
-repositories {
-  mavenLocal()
-  mavenCentral()
-}
-
-android {
-  compileSdkVersion 17
-  buildToolsVersion "17.0.0"
-
-  defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 17
-  }
-}
-
-task install(type: Upload) {
-  setConfiguration configurations.getByName("archives")
-  repositories {
-    mavenInstaller()
-  }
-}
-
-task publishToMavenLocal(dependsOn: install)
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
-}
+parcelable Tag;

@@ -24,7 +24,7 @@ public class ReceiptPrintJob extends OrderBasedPrintJob implements Serializable 
   public static class Builder extends OrderBasedPrintJob.Builder {
 
     public ReceiptPrintJob build() {
-      return new ReceiptPrintJob(orderId, flags);
+      return new ReceiptPrintJob(orderId, flags | FLAG_SALE);
     }
   }
 
