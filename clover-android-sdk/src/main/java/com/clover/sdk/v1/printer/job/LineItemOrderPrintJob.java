@@ -16,14 +16,16 @@
 
 package com.clover.sdk.v1.printer.job;
 
-import java.io.Serializable;
-import java.util.List;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import java.util.ArrayList;
 
-public class LineItemOrderPrintJob extends OrderPrintJob implements Serializable {
+public class LineItemOrderPrintJob extends OrderPrintJob implements Parcelable {
   public static class Builder extends OrderPrintJob.Builder {
-    protected List<String> itemIds;
+    protected ArrayList<String> itemIds;
 
-    public Builder itemIds(List<String> itemIds) {
+    public Builder itemIds(ArrayList<String> itemIds) {
       this.itemIds = itemIds;
       return this;
     }
@@ -33,10 +35,39 @@ public class LineItemOrderPrintJob extends OrderPrintJob implements Serializable
     }
   }
 
-  public final List<String> itemIds;
+  public final ArrayList<String> itemIds;
+  private static final String BUNDLE_KEY_ITEM_IDS = "i";
 
-  protected LineItemOrderPrintJob(String orderId, List<String> itemIds, int flags) {
+  protected LineItemOrderPrintJob(String orderId, ArrayList<String> itemIds, int flags) {
     super(orderId, flags);
     this.itemIds = itemIds;
+  }
+
+  public static final Parcelable.Creator<LineItemOrderPrintJob> CREATOR
+      = new Parcelable.Creator<LineItemOrderPrintJob>() {
+    public LineItemOrderPrintJob createFromParcel(Parcel in) {
+      return new LineItemOrderPrintJob(in);
+    }
+
+    public LineItemOrderPrintJob[] newArray(int size) {
+      return new LineItemOrderPrintJob[size];
+    }
+  };
+
+  protected LineItemOrderPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    itemIds = bundle.getStringArrayList(BUNDLE_KEY_ITEM_IDS);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putStringArrayList(BUNDLE_KEY_ITEM_IDS, itemIds);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

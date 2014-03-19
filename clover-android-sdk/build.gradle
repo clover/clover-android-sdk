@@ -47,5 +47,5 @@ task install(type: Upload) {
 task publishToMavenLocal(dependsOn: install)
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+  gradleVersion = '1.11'
 }

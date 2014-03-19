@@ -52,6 +52,7 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
       if (jsonObject == null) {
         if (jsonString != null) {
           jsonObject = (org.json.JSONObject) new org.json.JSONTokener(jsonString).nextValue();
+          jsonString = null; // null this so it will be recreated if jsonObject is modified
         } else {
           jsonObject = new org.json.JSONObject();
         }
@@ -92,6 +93,20 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
     return getJSONObject().optString("name");
   }
 
+  public java.lang.Integer getMinRequired() {
+    if (!hasMinRequired()) {
+      return null;
+    }
+    return getJSONObject().optInt("minRequired", 1);
+  }
+
+  public java.lang.Integer getMaxAllowed() {
+    if (!hasMaxAllowed()) {
+      return null;
+    }
+    return getJSONObject().optInt("maxAllowed", 1);
+  }
+
   public java.lang.Boolean getShowByDefault() {
     return getJSONObject().optBoolean("showByDefault", true);
   }
@@ -126,6 +141,20 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
   }
 
   /**
+   * Checks whether the 'minRequired' field has been set
+   */
+  public boolean hasMinRequired() {
+    return getJSONObject().has("minRequired");
+  }
+
+  /**
+   * Checks whether the 'maxAllowed' field has been set
+   */
+  public boolean hasMaxAllowed() {
+    return getJSONObject().has("maxAllowed");
+  }
+
+  /**
    * Checks whether the 'showByDefault' field has been set
    */
   public boolean hasShowByDefault() {
@@ -153,7 +182,15 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
     getJSONObject().put("name", name);
   }
 
-  public void setShowByDefault(java.lang.Boolean showByDefault) throws org.json.JSONException {
+  public void setMinRequired(java.lang.Integer minRequired) throws org.json.JSONException {
+    getJSONObject().put("minRequired", minRequired);
+  }
+
+  public void setMaxAllowed(java.lang.Integer maxAllowed) throws org.json.JSONException {
+    getJSONObject().put("maxAllowed", maxAllowed);
+  }
+
+    public void setShowByDefault(java.lang.Boolean showByDefault) throws org.json.JSONException {
 
     getJSONObject().put("showByDefault", showByDefault);
   }
@@ -195,6 +232,8 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
 
     private java.lang.String id;
     private java.lang.String name;
+    private java.lang.Integer minRequired;
+    private java.lang.Integer maxAllowed;
     private java.lang.Boolean showByDefault;
     private java.util.List<com.clover.sdk.v1.inventory.Modifier> modifiers;
 
@@ -217,6 +256,18 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
       return this;
     }
 
+    public Builder minRequired(java.lang.Integer minRequired) {
+
+      this.minRequired = minRequired;
+      return this;
+    }
+
+    public Builder maxAllowed(java.lang.Integer maxAllowed) {
+
+      this.maxAllowed = maxAllowed;
+      return this;
+    }
+
     public Builder showByDefault(java.lang.Boolean showByDefault) {
 
       this.showByDefault = showByDefault;
@@ -230,7 +281,10 @@ public class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v1.V
     }
 
     public ModifierGroup build() throws org.json.JSONException {
-      return new ModifierGroup(id, name, showByDefault, modifiers);
+      ModifierGroup group = new ModifierGroup(id, name, showByDefault, modifiers);
+      group.setMinRequired(minRequired);
+      group.setMaxAllowed(maxAllowed);
+      return group;
     }
   }
 

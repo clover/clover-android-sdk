@@ -85,6 +85,8 @@ public class MerchantAddress implements Parcelable {
   private static final String KEY_STATE = "state";
   private static final String KEY_ZIP = "zip";
   private static final String KEY_COUNTRY = "country";
+  private static final String KEY_LATITUDE = "latitude";
+  private static final String KEY_LONGITUDE = "longitude";
 
   private final Bundle data;
 
@@ -211,6 +213,28 @@ public class MerchantAddress implements Parcelable {
    */
   void setCountry(String country) {
     data.putString(KEY_COUNTRY, country);
+  }
+
+  /**
+   * Gets the latitude of the address.
+   */
+  public Double getLatitude() {
+    if (data.containsKey(KEY_LATITUDE)) {
+      return data.getDouble(KEY_LATITUDE);
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Gets the longitude of the address.
+   */
+  public Double getLongitude() {
+    if (data.containsKey(KEY_LONGITUDE)) {
+      return data.getDouble(KEY_LONGITUDE);
+    } else {
+      return null;
+    }
   }
 
   @Override

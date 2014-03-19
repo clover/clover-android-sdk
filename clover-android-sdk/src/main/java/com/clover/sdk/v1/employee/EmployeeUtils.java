@@ -24,9 +24,12 @@ public class EmployeeUtils {
   }
 
   public static String getDisplayName(Employee employee) {
-    String displayName = employee.getNickname();
-    if (TextUtils.isEmpty(displayName)) {
-      displayName = employee.getName();
+    String displayName = null;
+    if (employee != null) {
+      displayName = employee.getNickname();
+      if (TextUtils.isEmpty(displayName)) {
+        displayName = employee.getName();
+      }
     }
     return displayName;
   }

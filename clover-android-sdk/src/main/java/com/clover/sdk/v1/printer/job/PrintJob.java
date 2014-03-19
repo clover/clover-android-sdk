@@ -19,14 +19,16 @@ package com.clover.sdk.v1.printer.job;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.PrinterIntent;
 
-import java.io.Serializable;
+public abstract class PrintJob implements Parcelable {
 
-public abstract class PrintJob implements Serializable {
   public static final int FLAG_NONE = 0;
   public static final int FLAG_REPRINT = 1 << 0;
   public static final int FLAG_BILL = 1 << 1;
@@ -52,6 +54,7 @@ public abstract class PrintJob implements Serializable {
   }
 
   public final int flags;
+  private static final String BUNDLE_KEY_FLAGS = "f";
 
   protected PrintJob(int flags) {
     this.flags = flags;
@@ -74,4 +77,25 @@ public abstract class PrintJob implements Serializable {
 
   public void cancel() {
   }
+
+  protected PrintJob(Parcel in) {
+    Bundle bundle = in.readBundle();
+    flags = bundle.getInt(BUNDLE_KEY_FLAGS);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int f) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(BUNDLE_KEY_FLAGS, this.flags);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
+  }
+
 }

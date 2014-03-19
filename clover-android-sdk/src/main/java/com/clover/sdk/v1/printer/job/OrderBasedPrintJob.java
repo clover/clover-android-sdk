@@ -16,9 +16,11 @@
 
 package com.clover.sdk.v1.printer.job;
 
-import java.io.Serializable;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public abstract class OrderBasedPrintJob extends PrintJob implements Serializable {
+public abstract class OrderBasedPrintJob extends PrintJob implements Parcelable {
   public abstract static class Builder extends PrintJob.Builder {
     protected String orderId;
 
@@ -29,9 +31,27 @@ public abstract class OrderBasedPrintJob extends PrintJob implements Serializabl
   }
 
   public final String orderId;
+  private static final String BUNDLE_KEY_ORDER_ID = "o";
 
   protected OrderBasedPrintJob(String orderId, int flags) {
     super(flags);
     this.orderId = orderId;
+  }
+
+  protected OrderBasedPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    orderId = bundle.getString(BUNDLE_KEY_ORDER_ID);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putString(BUNDLE_KEY_ORDER_ID, orderId);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

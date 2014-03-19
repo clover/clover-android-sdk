@@ -61,6 +61,7 @@ public class Discount implements android.os.Parcelable, com.clover.sdk.v1.Valida
       if (jsonObject == null) {
         if (jsonString != null) {
           jsonObject = (org.json.JSONObject) new org.json.JSONTokener(jsonString).nextValue();
+          jsonString = null; // null this so it will be recreated if jsonObject is modified
         } else {
           jsonObject = new org.json.JSONObject();
         }

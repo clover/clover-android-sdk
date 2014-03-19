@@ -16,11 +16,12 @@
 
 package com.clover.sdk.v1.printer.job;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
-import java.io.Serializable;
-
-public class BillPrintJob extends ReceiptPrintJob implements Serializable {
+public class BillPrintJob extends ReceiptPrintJob implements Parcelable {
   public static class Builder extends ReceiptPrintJob.Builder {
 
     private String binName;
@@ -36,6 +37,7 @@ public class BillPrintJob extends ReceiptPrintJob implements Serializable {
   }
 
   public final String binName;
+  public static final String BUNDLE_KEY_BIN_NAME = "b";
 
   protected BillPrintJob(String orderId, String binName, int flags) {
     super(orderId, flags);
@@ -45,5 +47,33 @@ public class BillPrintJob extends ReceiptPrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public static final Parcelable.Creator<BillPrintJob> CREATOR
+      = new Parcelable.Creator<BillPrintJob>() {
+    public BillPrintJob createFromParcel(Parcel in) {
+      return new BillPrintJob(in);
+    }
+
+    public BillPrintJob[] newArray(int size) {
+      return new BillPrintJob[size];
+    }
+  };
+
+  protected BillPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    binName = bundle.getString(BUNDLE_KEY_BIN_NAME);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putString(BUNDLE_KEY_BIN_NAME, binName);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

@@ -456,6 +456,24 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     }, callback);
   }
 
+  public LineItem addCustomLineItem(final String id, final String name, final long amount, final boolean taxable, final String binName, final String userData) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, LineItem>() {
+      @Override
+      public LineItem call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addCustomLineItem(id, name, amount, taxable, binName, userData, status);
+      }
+    });
+  }
+
+  public void addCustomLineItem(final String id, final String name, final long amount, final boolean taxable, final String binName, final String userData, Callback<LineItem> callback) throws RemoteException {
+    execute(new ServiceCallable<IOrderService, LineItem>() {
+      @Override
+      public LineItem call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addCustomLineItem(id, name, amount, taxable, binName, userData, status);
+      }
+    }, callback);
+  }
+
   public void deleteLineItem(final String id, final String lineItemId) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new ServiceRunnable<IOrderService>() {
       @Override
