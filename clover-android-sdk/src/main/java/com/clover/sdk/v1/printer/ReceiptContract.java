@@ -56,7 +56,7 @@ public final class ReceiptContract {
   /**
    * The order ID of the receipt to be printed.
    */
-  public static final String PARAM_ORDER_ID = "orderId";
+  public static final String PARAM_ORDER_ID = "order_id";
   /**
    * The Clover account that is printing the receipt.
    */
@@ -65,6 +65,14 @@ public final class ReceiptContract {
    * The Clover account type is printing the receipt.
    */
   public static final String PARAM_ACCOUNT_TYPE = "account_type";
+  /**
+   * The merchant ID.
+   */
+  public static final String PARAM_MERCHANT_ID = "merchant_id";
+  /**
+   * The print flags.
+   */
+  public static final String PARAM_FLAGS = "flags";
 
   /**
    * Column name for returning text-only receipt data. Must map to a string column value.

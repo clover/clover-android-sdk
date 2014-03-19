@@ -20,8 +20,10 @@ import android.accounts.Account;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import java.util.Currency;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -36,6 +38,9 @@ public class Merchant implements Parcelable {
   private static final String KEY_DEVICE_ID = "deviceId";
   private static final String KEY_PHONE_NUMBER = "phoneNumber";
   private static final String KEY_IS_VAT = "isVat";
+  private static final String KEY_SUPPORT_PHONE = "supportPhone";
+  private static final String KEY_SUPPORT_EMAIL = "supportEmail";
+  private static final String KEY_LOCALE = "locale";
 
   private final Bundle data;
 
@@ -111,6 +116,38 @@ public class Merchant implements Parcelable {
    */
   public boolean isVat() {
     return data.getBoolean(KEY_IS_VAT, false);
+  }
+
+  /**
+   * Get the support phone number.
+   */
+  public String getSupportPhone() {
+    return data.getString(KEY_SUPPORT_PHONE, null);
+  }
+
+  /**
+   * Get the support email.
+   */
+  public String getSupportEmail() {
+    return data.getString(KEY_SUPPORT_EMAIL, null);
+  }
+
+  /**
+   * Get the locale.
+   */
+  public Locale getLocale() {
+    String rawLocale = data.getString(KEY_LOCALE, null);
+    if (!TextUtils.isEmpty(rawLocale)) {
+      String tokens[] = rawLocale.split("[-_]");
+      if (tokens.length == 0) {
+        return Locale.getDefault();
+      } else if (tokens.length == 1) {
+        return new Locale(tokens[0]);
+      } else {
+        return new Locale(tokens[0], tokens[1]);
+      }
+    }
+    return Locale.getDefault();
   }
 
   @Override

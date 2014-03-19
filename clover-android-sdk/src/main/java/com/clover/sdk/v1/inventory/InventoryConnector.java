@@ -740,5 +740,101 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       }
     }, callback);
   }
-  
+
+  public List<Tag> getTagsForPrinter(final String printerUid) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTagsForPrinter(printerUid, status);
+      }
+    });
+  }
+
+  public void getTagsForPrinter(final String printerUid, Callback<List<Tag>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Tag>>() {
+      public List<Tag> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getTagsForPrinter(printerUid, status);
+      }
+    }, callback);
+  }
+
+  public void assignTagsToPrinter(final String printerUid, final List<String> tags) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignTagsToPrinter(printerUid, tags, status);
+      }
+    });
+  }
+
+  public void assignTagsToPrinter(final String printerUid, final List<String> tags, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignTagsToPrinter(printerUid, tags, status);
+      }
+    }, callback);
+  }
+
+  public void removeTagsFromPrinter(final String printerUid, final List<String> tags) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeTagsFromPrinter(printerUid, tags, status);
+      }
+    });
+  }
+
+  public void removeTagsFromPrinter(final String printerUid, final List<String> tags, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeTagsFromPrinter(printerUid, tags, status);
+      }
+    }, callback);
+  }
+
+  public void assignItemsToTag(final String tagId, final List<String> items) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignItemsToTag(tagId, items, status);
+      }
+    });
+  }
+
+  public void assignItemsToTag(final String tagId, final List<String> items, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignItemsToTag(tagId, items, status);
+      }
+    }, callback);
+  }
+
+  public void removeItemsFromTag(final String tagId, final List<String> items) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeItemsFromTag(tagId, items, status);
+      }
+    });
+  }
+
+  public void removeItemsFromTag(final String tagId, final List<String> items, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeItemsFromTag(tagId, items, status);
+      }
+    }, callback);
+  }
+
+  public void updateModifierSortOrder(final String modifierGroupId, final List<String> modifierIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateModifierSortOrder(modifierGroupId, modifierIds, status);
+      }
+    });
+  }
+
+  public void updateModifierSortOrder(final String modifierGroupId, final List<String> modifierIds, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateModifierSortOrder(modifierGroupId, modifierIds, status);
+      }
+    }, callback);
+  }
+
 }

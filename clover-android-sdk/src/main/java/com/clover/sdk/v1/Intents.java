@@ -44,4 +44,34 @@ public class Intents {
    * An <code>int</code>, the version of the service.
    */
   public static final String EXTRA_VERSION = "clover.intent.extra.VERSION";
+
+  /**
+   * Broadcast by Payment screen to request a RemoteViews object from apps to be displayed before an order is complete.
+   * It is sent with EXTRA_VIEWID which is a unique id to be used with the ACTION_UPDATE_PAYMENT_REMOTE_VIEWS intent,
+   * EXTRA_ORDER_ID for the order being processed, and EXTRA_REMOTE_VIEW_SIZE for the size desired.
+   */
+  public static final String ACTION_REQUEST_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_REQUEST_PAYMENT_REMOTE_VIEWS";
+
+  /**
+   * Payment screen listens for this broadcast as a response to ACTION_REQUEST_PAYMENT_REMOTE_VIEWS to receive views to be
+   * displayed on the tender screen. It must be sent with EXTRA_REMOTE_VIEWS and the EXTRA_VIEWID.
+   */
+  public static final String ACTION_UPDATE_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_UPDATE_PAYMENT_REMOTE_VIEWS";
+
+  /** A RemoteViews objects sent to Register app */
+  public static final String EXTRA_REMOTE_VIEWS = "clover.intent.extra.REMOTE_VIEWS";
+
+  /** See ACTION_REQUEST_PAYMENT_REMOTE_VIEWS and ACTION_UPDATE_PAYMENT_REMOTE_VIEWS */
+  public static final String EXTRA_VIEWID = "clover.intent.extra.VIEW_ID";
+
+  public enum RemoteViewSize {
+    /** 500dp x 160dp  */
+    MEDIUM,
+    /** 688dp x 160dp */
+    LARGE,
+  }
+
+  /** A String version of one of the values from the enum RemoteViewSize. */
+  public static final String EXTRA_REMOTE_VIEW_SIZE = "clover.intent.extra.REMOTE_VIEW_SIZE";
+
 }

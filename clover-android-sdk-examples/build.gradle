@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '8'
+version = '16'
 
 apply plugin: 'android'
 
@@ -26,7 +26,7 @@ repositories {
 
 android {
   compileSdkVersion 17
-  buildToolsVersion "17.0.0"
+  buildToolsVersion "19.0.3"
 
   defaultConfig {
     minSdkVersion 16
@@ -39,5 +39,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+  gradleVersion = '1.11'
 }

@@ -16,11 +16,14 @@
 
 package com.clover.sdk.v1.printer.job;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
-import java.io.Serializable;
 
-public class ReportPrintJob extends ViewPrintJob implements Serializable {
+public class ReportPrintJob extends ViewPrintJob implements Parcelable {
   public enum ReportType {
+    // Do not remove or rename these, add only to avoid breaking 3rd party apps
     PAYMENTS, ITEMS, DISCOUNTS, TAXES, SHIFTS;
   }
 
@@ -38,9 +41,38 @@ public class ReportPrintJob extends ViewPrintJob implements Serializable {
   }
 
   public final ReportType type;
+  private static final String BUNDLE_KEY_REPORT_TYPE = "t";
 
   protected ReportPrintJob(View view, ReportType type, int flags) {
     super(view, flags);
     this.type = type;
+  }
+
+  public static final Parcelable.Creator<ReportPrintJob> CREATOR
+      = new Parcelable.Creator<ReportPrintJob>() {
+    public ReportPrintJob createFromParcel(Parcel in) {
+      return new ReportPrintJob(in);
+    }
+
+    public ReportPrintJob[] newArray(int size) {
+      return new ReportPrintJob[size];
+    }
+  };
+
+  protected ReportPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    type = ReportType.valueOf(bundle.getString(BUNDLE_KEY_REPORT_TYPE));
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putString(BUNDLE_KEY_REPORT_TYPE, type.name());
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

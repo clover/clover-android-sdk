@@ -17,6 +17,9 @@
 package com.clover.sdk.v1.printer.job;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import com.clover.sdk.v1.printer.Category;
 
@@ -24,9 +27,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 
-public class ImagePrintJob extends PrintJob implements Serializable {
+public class ImagePrintJob extends PrintJob implements Parcelable {
   private static final int WIDTH_MAX = 600;
 
   private static final String TAG = "ImagePrintJob";
@@ -65,7 +67,9 @@ public class ImagePrintJob extends PrintJob implements Serializable {
     }
   }
 
+  // FIXME: This is not a safe way to transfer file data, we should be using ContentProvider file methods instead
   public final File imageFile;
+  private static final String BUNDLE_KEY_IMAGE_FILE = "i";
 
   protected ImagePrintJob(Bitmap bitmap, int flags) {
     super(flags);
@@ -82,6 +86,34 @@ public class ImagePrintJob extends PrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public static final Parcelable.Creator<ImagePrintJob> CREATOR
+      = new Parcelable.Creator<ImagePrintJob>() {
+    public ImagePrintJob createFromParcel(Parcel in) {
+      return new ImagePrintJob(in);
+    }
+
+    public ImagePrintJob[] newArray(int size) {
+      return new ImagePrintJob[size];
+    }
+  };
+
+  protected ImagePrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    imageFile = new File(bundle.getString(BUNDLE_KEY_IMAGE_FILE));
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putString(BUNDLE_KEY_IMAGE_FILE, imageFile.getAbsolutePath());
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 
   private static File writeImageFile(Bitmap bitmap) throws IOException {

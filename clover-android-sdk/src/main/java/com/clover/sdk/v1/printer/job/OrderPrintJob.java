@@ -16,11 +16,13 @@
 
 package com.clover.sdk.v1.printer.job;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
-import java.io.Serializable;
 
-public class OrderPrintJob extends OrderBasedPrintJob implements Serializable {
+public class OrderPrintJob extends OrderBasedPrintJob implements Parcelable {
   public static class Builder extends OrderBasedPrintJob.Builder {
 
     public OrderPrintJob build() {
@@ -35,5 +37,31 @@ public class OrderPrintJob extends OrderBasedPrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.ORDER;
+  }
+
+  public static final Parcelable.Creator<OrderPrintJob> CREATOR
+      = new Parcelable.Creator<OrderPrintJob>() {
+    public OrderPrintJob createFromParcel(Parcel in) {
+      return new OrderPrintJob(in);
+    }
+
+    public OrderPrintJob[] newArray(int size) {
+      return new OrderPrintJob[size];
+    }
+  };
+
+  protected OrderPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

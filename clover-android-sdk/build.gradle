@@ -29,7 +29,7 @@ repositories {
 
 android {
   compileSdkVersion 17
-  buildToolsVersion "17.0.0"
+  buildToolsVersion "19.0.3"
 
   defaultConfig {
     minSdkVersion 16
@@ -47,5 +47,5 @@ task install(type: Upload) {
 task publishToMavenLocal(dependsOn: install)
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.8'
+  gradleVersion = '1.11'
 }

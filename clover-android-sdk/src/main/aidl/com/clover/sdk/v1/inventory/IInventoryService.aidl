@@ -270,4 +270,34 @@ interface IInventoryService {
    */
   void removeTagsFromItem(in String itemId, in List<String> tags, out ResultStatus resultStatus);
 
+  /**
+   * Retrieve the list of tags for a printer.
+   */
+  List<com.clover.sdk.v1.inventory.Tag> getTagsForPrinter(in String printerMac, out ResultStatus resultStatus);
+
+  /**
+   * Assign a list of tags (identified by their unique ID) to a printer.
+   */
+  void assignTagsToPrinter(in String printerUid, in List<String> tags, out ResultStatus resultStatus);
+
+  /**
+   * Remove a list of tags (identified by their unique ID) from a printer.
+   */
+  void removeTagsFromPrinter(in String printerUid, in List<String> tags, out ResultStatus resultStatus);
+
+  /**
+   * Assign a list of items (identified by their unique ID) to a tag.
+   */
+  void assignItemsToTag(in String tagId, in List<String> items, out ResultStatus resultStatus);
+
+  /**
+   * Remove a list of items (identified by their unique ID) from a tag.
+   */
+  void removeItemsFromTag(in String tagId, in List<String> items, out ResultStatus resultStatus);
+
+  /**
+   * Update modifier sort order for a modifier group.
+   */
+  void updateModifierSortOrder(in String modifierGroupId, in List<String> modifierIds, out ResultStatus resultStatus);
+
 }

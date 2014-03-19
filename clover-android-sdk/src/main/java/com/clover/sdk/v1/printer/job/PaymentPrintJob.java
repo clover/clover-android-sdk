@@ -16,11 +16,12 @@
 
 package com.clover.sdk.v1.printer.job;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
-import java.io.Serializable;
-
-public class PaymentPrintJob extends ReceiptPrintJob implements Serializable {
+public class PaymentPrintJob extends ReceiptPrintJob implements Parcelable {
   public static class Builder extends ReceiptPrintJob.Builder {
     private String paymentId;
 
@@ -35,6 +36,7 @@ public class PaymentPrintJob extends ReceiptPrintJob implements Serializable {
   }
 
   public final String paymentId;
+  public static final String BUNDLE_KEY_PAYMENT_ID = "p";
 
   protected PaymentPrintJob(String orderId, String paymentId, int flags) {
     super(orderId, flags);
@@ -44,5 +46,33 @@ public class PaymentPrintJob extends ReceiptPrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public static final Parcelable.Creator<PaymentPrintJob> CREATOR
+      = new Parcelable.Creator<PaymentPrintJob>() {
+    public PaymentPrintJob createFromParcel(Parcel in) {
+      return new PaymentPrintJob(in);
+    }
+
+    public PaymentPrintJob[] newArray(int size) {
+      return new PaymentPrintJob[size];
+    }
+  };
+
+  protected PaymentPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    paymentId = bundle.getString(BUNDLE_KEY_PAYMENT_ID);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putString(BUNDLE_KEY_PAYMENT_ID, paymentId);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

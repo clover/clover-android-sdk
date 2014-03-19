@@ -73,4 +73,6 @@ interface IOrderService {
   LineItem exchangeItemById(String orderId, String oldLineItemId, String itemId, int unitQuantity, String binName, String userData, out ResultStatus status);
 
   LineItem exchangeItem(String orderId, String oldLineItemId, in Item item, int unitQuantity, String binName, String userData, out ResultStatus status);
+
+  LineItem addCustomLineItem(String orderId, in String name, long amount, boolean taxable, String binName, String userData, out ResultStatus status);
 }

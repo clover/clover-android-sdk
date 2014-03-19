@@ -19,8 +19,10 @@ package com.clover.sdk.v1.printer;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 public class Printer implements Parcelable {
+
   public static class Builder {
     private String uuid = null;
     private Type type = null;
@@ -203,6 +205,22 @@ public class Printer implements Parcelable {
     }
 
     return true;
+  }
+
+  public boolean isLocal() {
+    String mac = getMac();
+    return TextUtils.isEmpty(mac);
+  }
+
+  /**
+   * This is not the same as UUID, the returned value depends on the printer and is used to associate tags.
+   */
+  public String getUniqueId() {
+    String uid = getMac();
+    if (TextUtils.isEmpty(uid)) {
+      uid = "MY_LOCAL"; // See android-common class com.clover.common.data.printer.PrinterType
+    }
+    return uid;
   }
 
   @Override

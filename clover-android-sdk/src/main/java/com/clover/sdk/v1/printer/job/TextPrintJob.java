@@ -16,15 +16,17 @@
 
 package com.clover.sdk.v1.printer.job;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TextPrintJob extends PrintJob implements Serializable {
+public class TextPrintJob extends PrintJob implements Parcelable {
   public static class Builder extends PrintJob.Builder {
     private List<String> lines = Collections.emptyList();
 
@@ -45,6 +47,7 @@ public class TextPrintJob extends PrintJob implements Serializable {
   }
 
   public final ArrayList<String> lines;
+  private static final String BUNDLE_KEY_LINES = "l";
 
   private TextPrintJob(ArrayList<String> lines) {
     super(FLAG_NONE);
@@ -54,5 +57,33 @@ public class TextPrintJob extends PrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public static final Parcelable.Creator<TextPrintJob> CREATOR
+      = new Parcelable.Creator<TextPrintJob>() {
+    public TextPrintJob createFromParcel(Parcel in) {
+      return new TextPrintJob(in);
+    }
+
+    public TextPrintJob[] newArray(int size) {
+      return new TextPrintJob[size];
+    }
+  };
+
+  protected TextPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    lines = bundle.getStringArrayList(BUNDLE_KEY_LINES);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putStringArrayList(BUNDLE_KEY_LINES, lines);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 }

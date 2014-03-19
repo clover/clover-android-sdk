@@ -1026,6 +1026,36 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public void assignItemsToTag(String tagId, List<String> items, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignItemsToTag()");
+    }
+
+    @Override
+    public void removeItemsFromTag(String tagId, List<String> items, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeItemsFromTag()");
+    }
+
+    @Override
+    public List<Tag> getTagsForPrinter(String printerMac, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getTagsForPrinter()");
+    }
+
+    @Override
+    public void assignTagsToPrinter(String printerMac, List<String> tags, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignTagsToPrinter()");
+    }
+
+    @Override
+    public void removeTagsFromPrinter(String printerMac, List<String> tags, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeTagsFromPrinter()");
+    }
+
+    @Override
+    public void updateModifierSortOrder(String modifierGroupId, List<String> modifierIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateModifierSortOrder()");
+    }
+
+    @Override
     public IBinder asBinder() {
       throw new UnsupportedOperationException("Not a real Android service");
     }

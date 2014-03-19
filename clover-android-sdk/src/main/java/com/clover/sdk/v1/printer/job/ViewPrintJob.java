@@ -20,8 +20,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -33,7 +36,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
@@ -41,7 +43,7 @@ import java.util.concurrent.Executor;
 /**
  * Create a PrintJob from a given {@link android.view.View}. This may take time, must not be built on the main thread.
  */
-public class ViewPrintJob extends PrintJob implements Serializable {
+public class ViewPrintJob extends PrintJob implements Parcelable {
 
   // Short enough to always fit in heap, matches seiko printer max height
   private static final int BITMAP_MAX_HEIGHT = 512;
@@ -62,7 +64,9 @@ public class ViewPrintJob extends PrintJob implements Serializable {
     }
   }
 
+  // FIXME: This is not a safe way to transfer file data, we should be using ContentProvider file methods instead
   public final ArrayList<String> imageFiles;
+  private static final String BUNDLE_KEY_IMAGE_FILES = "i";
 
   protected ViewPrintJob(View view, int flags) {
     super(flags);
@@ -78,6 +82,34 @@ public class ViewPrintJob extends PrintJob implements Serializable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public static final Parcelable.Creator<ViewPrintJob> CREATOR
+      = new Parcelable.Creator<ViewPrintJob>() {
+    public ViewPrintJob createFromParcel(Parcel in) {
+      return new ViewPrintJob(in);
+    }
+
+    public ViewPrintJob[] newArray(int size) {
+      return new ViewPrintJob[size];
+    }
+  };
+
+  protected ViewPrintJob(Parcel in) {
+    super(in);
+    Bundle bundle = in.readBundle();
+    imageFiles = bundle.getStringArrayList(BUNDLE_KEY_IMAGE_FILES);
+    // Add more data here, but remember old apps might not provide it!
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    Bundle bundle = new Bundle();
+    bundle.putStringArrayList(BUNDLE_KEY_IMAGE_FILES, imageFiles);
+    // Add more stuff here
+
+    dest.writeBundle(bundle);
   }
 
   // NOTE: All view operations must occur on the main thread, enable strict mode to test
