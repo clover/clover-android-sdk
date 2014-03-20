@@ -24,3 +24,8 @@ $ gradle clean installDebug
 Alternatively, you may import both the SDK and examples as an Android Studio project.
 
 Additional details on how to use in Eclipse forthcoming.
+
+Latest Apps for Testing
+=======================
+
+If you are testing on your own tablet then you will need the latest apps. Please run the kickstart.py script to get the minimum apps. More can be downloaded by modifying the script.
