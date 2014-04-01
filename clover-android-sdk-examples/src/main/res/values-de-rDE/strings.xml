@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+  <string name="title_activity_account_chooser">Clover-Konten</string>
+
+  <string name="action_settings">Settings</string>
+  <string name="app_event_name">App event name</string>
+  <string name="app_name">Clover Android SDK Examples</string>
+  <string name="app_notification_test">App Notification Test</string>
+  <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
+  <string name="create_custom_tender_test">CreateCustomTenderTestActivity</string>
+  <string name="customer_test">Customer Test</string>
+  <string name="custom_tender_handler_test">CustomTenderHandlerTestActivity</string>
+  <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
+  <string name="inventory_list">Inventory List</string>
+  <string name="inventory_test">Inventory Test</string>
+  <string name="order_test">Order Test</string>
+  <string name="payload">Payload</string>
+  <string name="printer_test">Printer Test</string>
+  <string name="print_test">Print Test</string>
+  <string name="receipt_registration_test">Receipt Registration Test</string>
+  <string name="send_app_notification">Send app notification</string>
+  <string name="title_activity_web_service">"Web Service Activity "</string>
+</resources>

@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '8'
+version = '17'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
@@ -28,6 +28,9 @@ repositories {
 }
 
 android {
+      lintOptions {
+          abortOnError false
+      }
   compileSdkVersion 17
   buildToolsVersion "19.0.3"
 
@@ -37,15 +40,19 @@ android {
   }
 }
 
-task install(type: Upload) {
-  setConfiguration configurations.getByName("archives")
-  repositories {
-    mavenInstaller()
+task install(dependsOn: uploadArchives) {
+}
+
+afterEvaluate {
+  uploadArchives {
+    repositories {
+      mavenDeployer {
+        repository(url: "file://${System.properties['user.home']}/.m2/repository")
+      }
+    }
   }
 }
 
-task publishToMavenLocal(dependsOn: install)
-
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.11'
+    gradleVersion = '1.11'
 }
