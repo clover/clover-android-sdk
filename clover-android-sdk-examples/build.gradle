@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '16'
+version = '17'
 
 apply plugin: 'android'
 
@@ -25,6 +25,9 @@ repositories {
 }
 
 android {
+      lintOptions {
+          abortOnError false
+      }
   compileSdkVersion 17
   buildToolsVersion "19.0.3"
 
