@@ -28,4 +28,6 @@ Additional details on how to use in Eclipse forthcoming.
 Latest Apps for Testing
 =======================
 
-If you are testing on your own tablet then you will need the latest apps. Please run the kickstart.py script to get the minimum apps. More apps can be downloaded by modifying the script.
+If you are testing on your own tablet then you will need the latest apps. Please run the kickstart.py script to get the minimum apps. All apps can be downloaded at:
+
+https://www.clover.com/docs/dev-apks
