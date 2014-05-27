@@ -96,6 +96,11 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
   }
 
   @Override
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
+  @Override
   protected IReceiptRegistrationService getServiceInterface(IBinder iBinder) {
     return IReceiptRegistrationService.Stub.asInterface(iBinder);
   }

@@ -103,6 +103,11 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   protected abstract String getServiceIntentAction();
 
+  @Deprecated
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
   protected abstract S getServiceInterface(IBinder iBinder);
 
   public boolean connect() {
@@ -113,7 +118,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
       } else {
         Intent intent = new Intent(getServiceIntentAction());
         intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
-        intent.putExtra(Intents.EXTRA_VERSION, 1);
+        intent.putExtra(Intents.EXTRA_VERSION, getServiceIntentVersion());
         result = mContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
         mConnected = true;
       }

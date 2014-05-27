@@ -54,6 +54,11 @@
         android:taskAffinity="com.clover.sdk.examples.customer">
     </activity>
     <activity
+        android:name="com.clover.android.sdk.examples.CashEventTestActivity"
+        android:label="@string/cashevent_test"
+        android:taskAffinity="com.clover.sdk.examples.cashevent">
+    </activity>
+    <activity
         android:name="com.clover.android.sdk.examples.OrderTestActivity"
         android:label="@string/order_test"
         android:taskAffinity="com.clover.sdk.examples.order">
@@ -106,7 +111,10 @@
         android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
         android:label="@string/receipt_registration_test">
     </activity>
-
+    <activity
+        android:name="com.clover.android.sdk.examples.AuthenticateEmployeeTestActivity"
+        android:label="@string/authenticate_employee" >
+    </activity>
     <provider
         android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestProvider"
         android:authorities="com.clover.android.sdk.examples.receipt"

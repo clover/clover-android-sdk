@@ -29,9 +29,6 @@ import com.clover.sdk.v1.ServiceException;
 
 import java.util.List;
 
-/**
- * Created by michael on 9/18/13.
- */
 public class TenderConnector extends ServiceConnector<ITenderService> {
   private static final String TAG = "TenderConnector";
 
@@ -55,6 +52,11 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
   @Override
   protected String getServiceIntentAction() {
     return TenderIntent.ACTION_TENDER_SERVICE;
+  }
+
+  @Override
+  protected int getServiceIntentVersion() {
+    return 1;
   }
 
   @Override

@@ -19,6 +19,7 @@ package com.clover.sdk.v1;
 public class Intents {
   public static final String ACTION_PAY = "clover.intent.action.PAY";
   public static final String ACTION_REFUND = "clover.intent.action.REFUND";
+  public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
 
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
   public static final String EXTRA_AMOUNT = "clover.intent.extra.AMOUNT";
@@ -26,6 +27,7 @@ public class Intents {
   public static final String EXTRA_MERCHANT_ID = "clover.intent.extra.MERCHANT_ID";
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
   public static final String EXTRA_NOTE = "clover.intent.extra.NOTE";
+  public static final String EXTRA_LINE_ITEM_IDS = "clover.intent.extra.LINE_ITEM_IDS";
 
   public static final String EXTRA_CUSTOMER_ID = "clover.intent.extra.CUSTOMER_ID";
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
@@ -74,4 +76,40 @@ public class Intents {
   /** A String version of one of the values from the enum RemoteViewSize. */
   public static final String EXTRA_REMOTE_VIEW_SIZE = "clover.intent.extra.REMOTE_VIEW_SIZE";
 
+  public static final String EXTRA_REASON = "clover.intent.extra.REASON";
+
+  public static final String EXTRA_DIALOG = "clover.intent.extra.DIALOG";
+
+  /**
+   * start Activity to authenticate an employee (i.e. enter pin number)
+   * <p>
+   * Input:
+   * <li>{@link #EXTRA_ACCOUNT} if not set then use current account
+   * <li>{@link #EXTRA_EMPLOYEE_ID} String. if set then authenticate this particular employee, if not set then authenticate any employee and return id in result
+   * <li>{@link #EXTRA_REASON} String custom title (optional)
+   * <li>{@link #EXTRA_DIALOG} Boolean extra value, if true then use Dialog theme
+   * <p>
+   * Output:
+   * <li>{@link #EXTRA_EMPLOYEE_ID} Integer representing the authenticated employee id
+   * <li>Nothing if {@link #EXTRA_EMPLOYEE_ID} is set in input params
+   *
+   */
+  public static final String ACTION_AUTHENTICATE_EMPLOYEE = "clover.intent.action.AUTHENTICATE_EMPLOYEE";
+
+
+  /**
+   * Intents for barcode scanning preview.
+   */
+  public static final String ACTION_SCAN = "clover.intent.action.BARCODE_SCAN";
+  public static final String EXTRA_START_SCAN = "clover.intent.extra.SCAN_START";
+  public static final String EXTRA_SHOW_PREVIEW = "clover.intent.extra.SHOW_PREVIEW";
+  public static final String EXTRA_SHOW_MERCHANT_PREVIEW = "clover.intent.extra.SHOW_MERCHANT_PREVIEW";
+  public static final String EXTRA_SHOW_CUSTOMER_PREVIEW = "clover.intent.extra.SHOW_CUSTOMER_PREVIEW";
+  public static final String EXTRA_LED_ON = "clover.intent.extra.LED_ON";
+  public static final String EXTRA_SHOW_CLOSE_BUTTON = "clover.intent.extra.SHOW_CLOSE_BUTTON";
+  public static final String EXTRA_SHOW_LED_BUTTON = "clover.intent.extra.SHOW_LED_BUTTON";
+  public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";
+  public static final String EXTRA_SCAN_Y = "clover.intent.extra.SCAN_Y";
+
+  public static final String EXTRA_ALLOW_FIRE = "clover.intent.extra.ALLOW_FIRE";
 }

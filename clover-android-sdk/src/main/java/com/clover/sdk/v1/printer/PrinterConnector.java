@@ -94,6 +94,11 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
   }
 
   @Override
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
+  @Override
   protected IPrinterService getServiceInterface(IBinder iBinder) {
     return IPrinterService.Stub.asInterface(iBinder);
   }

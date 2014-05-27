@@ -16,37 +16,27 @@
 
 package com.clover.sdk.v1.printer.job;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.os.AsyncTask;
+import android.content.ContentValues;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.ScrollView;
-
+import com.clover.sdk.internal.util.OutputUriFactory;
+import com.clover.sdk.internal.util.Views;
 import com.clover.sdk.v1.printer.Category;
+import com.clover.sdk.v1.printer.ReceiptFileContract;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
 
 /**
  * Create a PrintJob from a given {@link android.view.View}. This may take time, must not be built on the main thread.
  */
 public class ViewPrintJob extends PrintJob implements Parcelable {
-
-  // Short enough to always fit in heap, matches seiko printer max height
-  private static final int BITMAP_MAX_HEIGHT = 512;
 
   private static final String TAG = "ViewPrintJob";
 
@@ -64,7 +54,6 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
     }
   }
 
-  // FIXME: This is not a safe way to transfer file data, we should be using ContentProvider file methods instead
   public final ArrayList<String> imageFiles;
   private static final String BUNDLE_KEY_IMAGE_FILES = "i";
 
@@ -72,7 +61,7 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
     super(flags);
     ArrayList<String> files = null;
     try {
-      files = producePrintableBitmapFileChucks(view);
+      files = Views.writeBitmapChucks(view, new ReceiptFileOutputFactory(view.getContext()));
     } catch (Exception e) {
       Log.e(TAG, "Unable to produce image files for print", e);
     }
@@ -112,114 +101,25 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
     dest.writeBundle(bundle);
   }
 
-  // NOTE: All view operations must occur on the main thread, enable strict mode to test
-  private static ArrayList<String> producePrintableBitmapFileChucks(final View view) throws IOException {
-    if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-      throw new RuntimeException("Long running operation should not be executed on the main thread");
+  private static class ReceiptFileOutputFactory extends OutputUriFactory {
+    public ReceiptFileOutputFactory(Context context) {
+      super(context);
     }
 
-    Point viewWH = runSynchronouslyOnMainThread(new Callable<Point>() {
-      @Override
-      public Point call() throws Exception {
-        Point wh = new Point();
-        wh.x = view.getMeasuredWidth();
-        wh.y = getContentHeight(view);
-        return wh;
-      }
-    });
-
-    final int measuredWidth = viewWH.x;
-    final int contentHeight = viewWH.y;
-
-    if (measuredWidth <= 0 || contentHeight <= 0) {
-      throw new IllegalArgumentException("Measured view width or height is 0");
-    }
-
-    Bitmap bitmap = null;
-    ArrayList<String> outFiles = new ArrayList<String>();
-
-    for (int top = 0; top < contentHeight; top += BITMAP_MAX_HEIGHT) {
-      int bitmapHeight = Math.min(contentHeight - top, BITMAP_MAX_HEIGHT);
-
-      if (bitmap == null || bitmapHeight < BITMAP_MAX_HEIGHT) {
-        if (bitmap != null) {
-          bitmap.recycle();
-        }
-
-        bitmap = Bitmap.createBitmap(measuredWidth, bitmapHeight, Bitmap.Config.RGB_565);
-      }
-
-      bitmap.eraseColor(0xFFFFFFFF);
-
-      final Canvas canvas = new Canvas(bitmap);
-      canvas.translate(0, -top);
-
-      runSynchronouslyOnMainThread(new Callable<Void>() {
-        @Override
-        public Void call() throws Exception {
-          view.draw(canvas);
-          return null;
-        }
-      });
-
-      File dir = new File("/sdcard", "clover" + File.separator + "image-print");
-      if (!dir.exists()) {
-        dir.mkdirs();
-      }
-      File outFile = File.createTempFile("image-", ".png", dir);
-
-      BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(outFile));
-      bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-      bos.flush();
-      bos.close();
-
-      outFiles.add(outFile.getAbsolutePath());
-    }
-
-    return outFiles;
-  }
-
-  private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
-
-  private static final Executor sMainThreadExecutor = new Executor() {
     @Override
-    public void execute(Runnable runnable) {
-      sMainHandler.post(runnable);
+    public Uri createNewOutputUri() {
+      ContentValues values = new ContentValues();
+      values.put(ReceiptFileContract.ReceiptFiles.FILE_EXTENSION, "png");
+      return getContext().getContentResolver().insert(ReceiptFileContract.ReceiptFileFactory.CONTENT_URI, values);
     }
-  };
 
-  private static <T> T runSynchronouslyOnMainThread(final Callable<T> callable) {
-    AsyncTask<Void, Void, T> task = new AsyncTask<Void, Void, T>() {
-      @Override
-      protected T doInBackground(Void... voids) {
-        T result;
-        try {
-          result = callable.call();
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-        return result;
+    @Override
+    public OutputStream getOutputStreamForUri(Uri uri) {
+      try {
+        return getContext().getContentResolver().openOutputStream(uri);
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
       }
-    };
-
-    task.executeOnExecutor(sMainThreadExecutor);
-
-    T result;
-    try {
-      result = task.get();
-    } catch (Exception e) {
-      throw new RuntimeException("Error, try creating print job on same thread as view was created", e);
-    }
-    return result;
-  }
-
-  private static int getContentHeight(View view) {
-    if (view instanceof WebView) {
-      return ((WebView)view).getContentHeight();
-    } else if (view instanceof ScrollView) {
-      return ((ScrollView)view).getChildAt(0).getMeasuredHeight();
-    } else {
-      return view.getMeasuredHeight();
     }
   }
 

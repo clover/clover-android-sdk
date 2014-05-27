@@ -24,6 +24,7 @@ import android.util.Log;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
@@ -84,7 +85,14 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
 
   private OnMerchantChangedListener merchantChangedListener;
 
-  private final IMerchantListener iMerchantListener = new IMerchantListener.Stub() {
+  private class OnMerchantChangedListenerParent extends IMerchantListener.Stub {
+
+    private MerchantConnector mConnector;
+
+    private OnMerchantChangedListenerParent(MerchantConnector connector) {
+      mConnector = connector;
+    }
+
     @Override
     public void onMerchantChanged(final Merchant merchant) {
       if (merchantChangedListener != null) {
@@ -96,7 +104,16 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
         });
       }
     }
-  };
+
+    // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
+    // AIDL services Android unnecessarily retains pointers to otherwise unreferenced instances of this class which in
+    // turn are referencing Context objects that consume large amounts of memory.
+    public void destroy() {
+      mConnector = null;
+    }
+  }
+
+  private OnMerchantChangedListenerParent mListener;
 
   /**
    * Construct a new merchant connector.
@@ -122,6 +139,11 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   }
 
   @Override
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
+  @Override
   protected IMerchantService getServiceInterface(IBinder iBinder) {
     return IMerchantService.Stub.asInterface(iBinder);
   }
@@ -130,25 +152,41 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
     super.notifyServiceConnected(client);
 
-    execute(new MerchantCallable<Void>() {
-      @Override
-      public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
-        service.addListener(iMerchantListener, status);
-        return null;
-      }
-    }, new MerchantCallback<Void>());
+    if (client != null && client instanceof OnMerchantChangedListener) {
+      execute(new MerchantCallable<Void>() {
+        @Override
+        public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
+          if (mListener == null) {
+            mListener = new OnMerchantChangedListenerParent(MerchantConnector.this);
+          }
+          service.addListener(mListener, status);
+          return null;
+        }
+      }, new MerchantCallback<Void>());
+    }
   }
 
   @Override
   public void disconnect() {
-    if (mService != null) {
-      try {
-        mService.removeListener(iMerchantListener, new ResultStatus());
-      } catch (RemoteException e) {
-        e.printStackTrace();
-      }
-    }
-    super.disconnect();
+    execute(
+        new ServiceCallable<IMerchantService, Void>() {
+          @Override
+          public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
+            if (mListener != null) {
+              service.removeListener(mListener, new ResultStatus());
+              mListener.destroy();
+              mListener = null;
+            }
+            return null;
+          }
+        }, new ServiceCallback<Void>() {
+          @Override
+          public void onServiceSuccess(Void result, ResultStatus status) {
+            super.onServiceSuccess(result, status);
+            MerchantConnector.super.disconnect();
+          }
+        }
+    );
   }
 
   /**

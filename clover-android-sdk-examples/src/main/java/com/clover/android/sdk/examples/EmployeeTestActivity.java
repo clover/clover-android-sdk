@@ -33,26 +33,24 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.employee.AccountRole;
-import com.clover.sdk.v1.employee.Employee;
-import com.clover.sdk.v1.employee.EmployeeConnector;
-import com.clover.sdk.v1.employee.EmployeeIntent;
 import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v1.merchant.MerchantConnector;
-import org.json.JSONException;
+import com.clover.sdk.v3.employees.AccountRole;
+import com.clover.sdk.v3.employees.Employee;
+import com.clover.sdk.v3.employees.EmployeeConnector;
+import com.clover.sdk.v3.employees.EmployeeIntent;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class EmployeeTestActivity extends Activity
-        implements EmployeeConnector.OnActiveEmployeeChangedListener,
-        ServiceConnector.OnServiceConnectedListener {
+    implements EmployeeConnector.OnActiveEmployeeChangedListener,
+    ServiceConnector.OnServiceConnectedListener {
   public static final String EXTRA_ACCOUNT = "account";
 
   private static final int REQUEST_ACCOUNT = 0;
@@ -197,12 +195,13 @@ public class EmployeeTestActivity extends Activity
 
   private void createTestEmployee() {
     Employee employee = null;
-    try {
-      employee = new Employee(TEST_EMPLOYEE_NAME, "Tester", "test123",
-          "employee-test-activity@example.com", "123", AccountRole.EMPLOYEE, null);
-    } catch (JSONException e1) {
-      Log.e(TAG, "Error creating object", e1);
-    }
+    employee = new Employee();
+    employee.setName(TEST_EMPLOYEE_NAME);
+    employee.setNickname("Tester");
+    employee.setCustomId("test123");
+    employee.setEmail("employee-test-activity@example.com");
+    employee.setPin("123456");
+    employee.setRole(AccountRole.EMPLOYEE);
     employeeConnector.createEmployee(employee, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
@@ -262,11 +261,7 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String nickname = nicknameEditText.getText().toString().trim();
-    try {
-      e.setNickname(nickname);
-    } catch (JSONException e1) {
-      Log.e(TAG, "Error updating object", e1);
-    }
+    e.setNickname(nickname);
     employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
@@ -290,11 +285,7 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String customId = customIdEditText.getText().toString().trim();
-    try {
-      e.setCustomId(customId);
-    } catch (JSONException e1) {
-      Log.e(TAG, "Error updating object", e1);
-    }
+    e.setCustomId(customId);
     employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
@@ -318,11 +309,7 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String pin = pinEditText.getText().toString().trim();
-    try {
-      e.setPin(pin);
-    } catch (JSONException e1) {
-      Log.e(TAG, "Error updating object", e1);
-    }
+    e.setPin(pin);
     employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {
@@ -346,11 +333,7 @@ public class EmployeeTestActivity extends Activity
       return;
     }
     final String role = roleSpinner.getSelectedItem().toString();
-    try {
-      e.setRole(getRoleFromString(role));
-    } catch (JSONException e1) {
-      Log.e(TAG, "Error updating object", e1);
-    }
+    e.setRole(getRoleFromString(role));
     employeeConnector.updateEmployee(e, new EmployeeConnector.EmployeeCallback<Employee>() {
       @Override
       public void onServiceSuccess(Employee result, ResultStatus status) {

@@ -39,6 +39,11 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
   }
 
   @Override
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
+  @Override
   protected ICustomerService getServiceInterface(IBinder iBinder) {
     return ICustomerService.Stub.asInterface(iBinder);
   }
