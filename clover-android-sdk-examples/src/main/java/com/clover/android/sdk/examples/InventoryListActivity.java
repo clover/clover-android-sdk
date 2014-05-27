@@ -29,8 +29,8 @@ import android.widget.TextView;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.inventory.InventoryContract;
-import com.clover.sdk.v1.inventory.PriceType;
+import com.clover.sdk.v3.inventory.InventoryContract;
+import com.clover.sdk.v3.inventory.PriceType;
 import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v1.merchant.MerchantConnector;
 

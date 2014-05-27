@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '17'
+version = '21'
 
 apply plugin: 'android'
 

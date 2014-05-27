@@ -53,6 +53,8 @@ public class CustomerTestActivity extends Activity {
 
   private TextView statusText;
 
+  private Account account;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class CustomerTestActivity extends Activity {
 
     statusText = (TextView) findViewById(R.id.status);
 
-    Account account = CloverAccount.getAccount(this);
+    account = CloverAccount.getAccount(this);
     if (account != null) {
       customerConnector = new CustomerConnector(this, account, null);
       customerConnector.connect();

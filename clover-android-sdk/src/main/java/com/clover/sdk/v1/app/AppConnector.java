@@ -45,6 +45,11 @@ public class AppConnector extends ServiceConnector<IAppService> {
     return AppIntent.ACTION_APP_SERVICE;
   }
 
+  @Override
+  protected int getServiceIntentVersion() {
+    return 1;
+  }
+
   /**
    * Send an app notification synchronously.
    */

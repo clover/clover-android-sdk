@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -37,6 +39,8 @@ public class Merchant implements Parcelable {
   private static final String KEY_ACCOUNT = "account";
   private static final String KEY_DEVICE_ID = "deviceId";
   private static final String KEY_PHONE_NUMBER = "phoneNumber";
+  private static final String KEY_MERCHANT_GATEWAY = "merchantGateway";
+  private static final String KEY_MID = "mid";
   private static final String KEY_IS_VAT = "isVat";
   private static final String KEY_SUPPORT_PHONE = "supportPhone";
   private static final String KEY_SUPPORT_EMAIL = "supportEmail";
@@ -109,6 +113,22 @@ public class Merchant implements Parcelable {
    */
   public String getPhoneNumber() {
     return data.getString(KEY_PHONE_NUMBER, null);
+  }
+
+  /**
+   * Get the merchant MID
+   */
+  public String getMid() {
+    String gateway = data.getString(KEY_MERCHANT_GATEWAY, null);
+    if (gateway != null) {
+      try {
+        JSONObject gateWayObj = new JSONObject(gateway);
+        return gateWayObj.has(KEY_MID) ? gateWayObj.getString(KEY_MID) : null;
+      } catch (JSONException ex) {
+        return null;
+      }
+    }
+    return null;
   }
 
   /**

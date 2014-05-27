@@ -21,6 +21,7 @@
   <string name="inventory_test">Inventory Test</string>
   <string name="customer_test">Customer Test</string>
   <string name="order_test">Order Test</string>
+  <string name="v3order_test">Order_V3 Test</string>
   <string name="app_notification_test">App Notification Test</string>
   <string name="app_event_name">App event name</string>
   <string name="payload">Payload</string>
@@ -31,9 +32,11 @@
   <string name="custom_tender_handler_test">CustomTenderHandlerTestActivity</string>
   <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
   <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
+  <string name="cashevent_test">Cash Event Test</string>
   <string name="printer_test">Printer Test</string>
   <string name="print_test">Print Test</string>
   <string name="receipt_registration_test">Receipt Registration Test</string>
+  <string name="authenticate_employee">Authenticate Employee</string>
 
   <array name="connection_type">
     <item>Use app service</item>

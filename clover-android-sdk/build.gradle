@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '17'
+version = '21'
 
 apply plugin: 'android-library'
 apply plugin: 'maven'
@@ -28,9 +28,9 @@ repositories {
 }
 
 android {
-      lintOptions {
-          abortOnError false
-      }
+  lintOptions {
+    abortOnError false
+  }
   compileSdkVersion 17
   buildToolsVersion "19.0.3"
 
@@ -38,6 +38,10 @@ android {
     minSdkVersion 16
     targetSdkVersion 17
   }
+}
+
+dependencies {
+  compile files('lib/calc.jar')
 }
 
 task install(dependsOn: uploadArchives) {
@@ -54,5 +58,5 @@ afterEvaluate {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
+  gradleVersion = '1.11'
 }

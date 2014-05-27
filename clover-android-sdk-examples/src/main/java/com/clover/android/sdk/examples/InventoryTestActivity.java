@@ -43,18 +43,18 @@ import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.inventory.CategoryDescription;
-import com.clover.sdk.v1.inventory.Discount;
-import com.clover.sdk.v1.inventory.IInventoryService;
-import com.clover.sdk.v1.inventory.InventoryConnector;
-import com.clover.sdk.v1.inventory.InventoryContract;
-import com.clover.sdk.v1.inventory.InventoryIntent;
-import com.clover.sdk.v1.inventory.Item;
-import com.clover.sdk.v1.inventory.Modifier;
-import com.clover.sdk.v1.inventory.ModifierGroup;
-import com.clover.sdk.v1.inventory.PriceType;
-import com.clover.sdk.v1.inventory.Tag;
-import com.clover.sdk.v1.inventory.TaxRate;
+import com.clover.sdk.v3.inventory.Category;
+import com.clover.sdk.v3.inventory.Discount;
+import com.clover.sdk.v3.inventory.IInventoryService;
+import com.clover.sdk.v3.inventory.InventoryConnector;
+import com.clover.sdk.v3.inventory.InventoryContract;
+import com.clover.sdk.v3.inventory.InventoryIntent;
+import com.clover.sdk.v3.inventory.Item;
+import com.clover.sdk.v3.inventory.Modifier;
+import com.clover.sdk.v3.inventory.ModifierGroup;
+import com.clover.sdk.v3.inventory.PriceType;
+import com.clover.sdk.v3.inventory.Tag;
+import com.clover.sdk.v3.inventory.TaxRate;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
@@ -240,7 +240,7 @@ public class InventoryTestActivity extends Activity {
     };
 
     Account account = CloverAccount.getAccount(this);
-    Intent intent = new Intent(InventoryIntent.ACTION_INVENTORY_SERVICE);
+    Intent intent = new Intent(InventoryIntent.ACTION_INVENTORY_SERVICE_V3);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
   }
@@ -269,9 +269,9 @@ public class InventoryTestActivity extends Activity {
             }
 
             ResultStatus resultStatus = new ResultStatus();
-            List<CategoryDescription> categories = inventoryService.getCategories(resultStatus);
+            List<Category> categories = inventoryService.getCategories(resultStatus);
             if (resultStatus.isSuccess()) {
-              for (CategoryDescription category : categories) {
+              for (Category category : categories) {
                 Log.i(TAG, "category = " + dumpCategory(category));
               }
             } else {
@@ -337,10 +337,10 @@ public class InventoryTestActivity extends Activity {
         }
       });
 
-      inventoryConnector.getCategories(new ServiceCallback<List<CategoryDescription>>() {
+      inventoryConnector.getCategories(new ServiceCallback<List<Category>>() {
         @Override
-        public void onServiceSuccess(List<CategoryDescription> result, ResultStatus resultStatus) {
-          for (CategoryDescription category : result) {
+        public void onServiceSuccess(List<Category> result, ResultStatus resultStatus) {
+          for (Category category : result) {
             Log.v(TAG, "category = " + dumpCategory(category));
           }
         }
@@ -387,9 +387,9 @@ public class InventoryTestActivity extends Activity {
               }
 
               // fetch tax rates, categories, modifier groups and modifiers and just print them to log for now
-              List<CategoryDescription> categories = inventoryConnector.getCategories();
+              List<Category> categories = inventoryConnector.getCategories();
               if (categories != null) {
-                for (CategoryDescription category : categories) {
+                for (Category category : categories) {
                   Log.v(TAG, "category = " + dumpCategory(category));
                 }
               }
@@ -445,7 +445,7 @@ public class InventoryTestActivity extends Activity {
             ResultStatus resultStatus = new ResultStatus();
 
             // Attempt #1
-            Item newItem = new Item("Test Item #1", null, null, 500L, PriceType.FIXED, true, null, null, null);
+            Item newItem = new Item().setName("Test Item #1").setPrice(500L).setPriceType(PriceType.FIXED).setDefaultTaxRates(true);
             newItem = inventoryService.createItem(newItem, resultStatus);
             if (newItem != null) {
               items.add(newItem);
@@ -454,7 +454,7 @@ public class InventoryTestActivity extends Activity {
 
             // Attempt #2, missing data (item name) should be caught by Item() constructor
             try {
-              Item newItemFailure = new Item(null, null, null, 500L, PriceType.FIXED, true, null, null, null);
+              Item newItemFailure = new Item().setPrice(500L).setPriceType(PriceType.FIXED).setDefaultTaxRates(true);
               newItemFailure = inventoryService.createItem(newItemFailure, resultStatus);
               if (newItemFailure != null) {
                 items.add(newItemFailure);
@@ -466,7 +466,7 @@ public class InventoryTestActivity extends Activity {
 
             // Attempt #3, invalid data (price too low) should be caught by Item() constructor
             try {
-              Item newItemFailure2 = new Item("Test Item 3", null, null, -500L, PriceType.FIXED, true, null, null, null);
+              Item newItemFailure2 = new Item().setName("Test Item 3").setPrice(-500L).setPriceType(PriceType.FIXED).setDefaultTaxRates(true);
               newItemFailure2 = inventoryService.createItem(newItemFailure2, resultStatus);
               if (newItemFailure2 != null) {
                 items.add(newItemFailure2);
@@ -477,7 +477,7 @@ public class InventoryTestActivity extends Activity {
             }
 
             // Attempt #4, using server's constructor
-            Item newItemWithId = new Item("XXXXXXXXXXXXX", "Test Item 3", null, null, 500L, PriceType.FIXED, true, null, null, null, null, null, null);
+            Item newItemWithId = new Item().setId("XXXXXXXXXXXXX").setName("Test Item 4").setPrice(500L).setPriceType(PriceType.FIXED).setDefaultTaxRates(true);
             newItemWithId = inventoryService.createItem(newItemWithId, resultStatus);
             if (newItemWithId != null) {
               items.add(newItemWithId);
@@ -486,20 +486,12 @@ public class InventoryTestActivity extends Activity {
 
             // Attempt #5, maliciously manipulating data to be invalid
             String badJson = "{\"name\": \"Way Too Long Name..............................................................................................................................................\",\"price\": 600,\"priceType\": \"FIXED\",\"taxable\": true}";
-            Item newItemBadJson = new Item(badJson, true);
+            Item newItemBadJson = new Item(badJson);
             newItemBadJson = inventoryService.createItem(newItemBadJson, resultStatus);
             if (newItemBadJson != null) {
               items.add(newItemBadJson);
             }
             Log.v(TAG, "Result from createItem() #5 = " + resultStatus + ", item = " + newItemBadJson);
-
-            // Attempt #6, using fluent builder pattern aka method chaining
-            Item.Builder itemBuilder = new Item.Builder().name("Test Item #6").price(500L).taxable(true).priceType(PriceType.FIXED);
-            Item returnedItem = inventoryService.createItem(itemBuilder.build(), resultStatus);
-            if (returnedItem != null) {
-              items.add(returnedItem);
-            }
-            Log.v(TAG, "Result from createItem() #6 = " + resultStatus + ", item = " + dumpItem(returnedItem));
           } catch (Exception e) {
             Log.e(TAG, "Error calling inventory service", e);
           }
@@ -528,7 +520,7 @@ public class InventoryTestActivity extends Activity {
   }
 
   private String dumpItem(Item item) {
-    return item != null ? String.format("%s{id=%s, name=%s, price=%d, taxable=%b}", Item.class.getSimpleName(), item.getId(), item.getName(), item.getPrice(), item.getTaxable()) : null;
+    return item != null ? String.format("%s{id=%s, name=%s, price=%d}", Item.class.getSimpleName(), item.getId(), item.getName(), item.getPrice()) : null;
   }
 
   private String dumpTaxRate(TaxRate taxRate) {
@@ -543,8 +535,8 @@ public class InventoryTestActivity extends Activity {
     return String.format("%s{id=%s, name=%s}", ModifierGroup.class.getSimpleName(), modifierGroup.getId(), modifierGroup.getName());
   }
 
-  private String dumpCategory(CategoryDescription category) {
-    return String.format("%s{id=%s, name=%s, sort order=%d}", CategoryDescription.class.getSimpleName(), category.getId(), category.getName(), category.getSortOrder());
+  private String dumpCategory(Category category) {
+    return String.format("%s{id=%s, name=%s, sort order=%d}", Category.class.getSimpleName(), category.getId(), category.getName(), category.getSortOrder());
   }
 
   @Override
@@ -674,14 +666,13 @@ public class InventoryTestActivity extends Activity {
       int unitNameIndex = cursor.getColumnIndex(InventoryContract.Item.UNIT_NAME);
       int priceIndex = cursor.getColumnIndex(InventoryContract.Item.PRICE);
       int priceTypeIndex = cursor.getColumnIndex(InventoryContract.Item.PRICE_TYPE);
-      int taxableIndex = cursor.getColumnIndex(InventoryContract.Item.TAXABLE);
       int defaultTaxRatesIndex = cursor.getColumnIndex(InventoryContract.Item.DEFAULT_TAX_RATES);
 
       String id = null, name = null, alternateName = null, unitName = null, code = null;
-      Integer priceTypeInt, taxableInt, defaultTaxRatesInt;
+      Integer priceTypeInt, defaultTaxRatesInt;
       PriceType priceType = null;
       Long price = null;
-      Boolean taxable = null, defaultTaxRates = null;
+      Boolean defaultTaxRates = null;
       Long cost = null; // not currently stored in local db
 
       if (uuidIndex >= 0) {
@@ -706,16 +697,12 @@ public class InventoryTestActivity extends Activity {
         priceTypeInt = cursor.getInt(priceTypeIndex);
         priceType = PriceType.values()[priceTypeInt];
       }
-      if (taxableIndex >= 0) {
-        taxableInt = cursor.getInt(taxableIndex);
-        taxable = taxableInt != null && taxableInt == 1;
-      }
       if (defaultTaxRatesIndex >= 0) {
         defaultTaxRatesInt = cursor.getInt(defaultTaxRatesIndex);
         defaultTaxRates = defaultTaxRatesInt != null && defaultTaxRatesInt == 1;
       }
 
-      return new Item(id, name, alternateName, code, price, priceType, taxable, defaultTaxRates, unitName, cost, null, null, null);
+      return new Item().setId(id).setName(name).setAlternateName(alternateName).setCode(code).setPrice(price).setPriceType(priceType).setDefaultTaxRates(defaultTaxRates).setUnitName(unitName).setCost(cost);
     }
   }
 
@@ -868,9 +855,9 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
-    public List<CategoryDescription> getCategories(ResultStatus resultStatus) throws RemoteException {
+    public List<Category> getCategories(ResultStatus resultStatus) throws RemoteException {
       String uri = "/v2/merchant/" + merchantId + "/inventory/categories";
-      return getArrayResults(CategoryDescription.class, uri, "categories", resultStatus);
+      return getArrayResults(Category.class, uri, "categories", resultStatus);
     }
 
     private <T> T getResult(Class<T> dataClass, String uri, String jsonFieldName, ResultStatus resultStatus) throws RemoteException {
@@ -926,12 +913,12 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
-    public CategoryDescription createCategory(CategoryDescription category, ResultStatus resultStatus) throws RemoteException {
+    public Category createCategory(Category category, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement createCategory()");
     }
 
     @Override
-    public void updateCategory(CategoryDescription category, ResultStatus resultStatus) throws RemoteException {
+    public void updateCategory(Category category, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement updateCategory()");
     }
 
@@ -1053,6 +1040,16 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void updateModifierSortOrder(String modifierGroupId, List<String> modifierIds, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement updateModifierSortOrder()");
+    }
+
+    @Override
+    public void updateItemStock(String itemId, long stockCount, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateItemStock()");
+    }
+
+    @Override
+    public void removeItemStock(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeItemStock()");
     }
 
     @Override

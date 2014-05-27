@@ -18,7 +18,7 @@ package com.clover.sdk.v1;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.clover.sdk.internal.util.Objects;
+import com.clover.core.internal.Objects;
 
 /**
  * Possible statuses results from calling Clover services. Most Clover service calls accept
