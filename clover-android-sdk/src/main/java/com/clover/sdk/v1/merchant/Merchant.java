@@ -45,6 +45,8 @@ public class Merchant implements Parcelable {
   private static final String KEY_SUPPORT_PHONE = "supportPhone";
   private static final String KEY_SUPPORT_EMAIL = "supportEmail";
   private static final String KEY_LOCALE = "locale";
+  private static final String KEY_UPDATE_STOCK = "updateStock";
+  private static final String KEY_TRACK_STOCK = "trackStock";
 
   private final Bundle data;
 
@@ -168,6 +170,20 @@ public class Merchant implements Parcelable {
       }
     }
     return Locale.getDefault();
+  }
+
+  /**
+   * Returns whether this merchant is using Clover to update stock
+   */
+  public boolean isUpdateStockEnabled() {
+    return data.getBoolean(KEY_UPDATE_STOCK, false);
+  }
+
+  /**
+   * Returns whether this merchant is using Clover to track stock
+   */
+  public boolean isTrackStockEnabled() {
+    return data.getBoolean(KEY_TRACK_STOCK, false);
   }
 
   @Override

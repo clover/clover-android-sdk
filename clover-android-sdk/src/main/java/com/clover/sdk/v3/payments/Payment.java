@@ -40,6 +40,12 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.extractOrder();
       }
     },
+    device {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.extractDevice();
+      }
+    },
     tender {
       @Override
       public Object extractValue(Payment instance) {
@@ -92,6 +98,12 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
       @Override
       public Object extractValue(Payment instance) {
         return instance.extractClientCreatedTime();
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.extractModifiedTime();
       }
     },
     offline {
@@ -299,6 +311,23 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
   /**
+   * Device which processed the transaction for this payment
+   *
+   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
+   */
+  public com.clover.sdk.v3.base.Reference getDevice() {
+    return cacheGet(CacheKey.device);
+  }
+
+  private com.clover.sdk.v3.base.Reference extractDevice() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("device"));
+    }
+    return null;
+  }
+
+  /**
    * The tender type associated with this payment, e.g. credit card, cash, etc.
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
@@ -412,6 +441,18 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   private java.lang.Long extractClientCreatedTime() {
     return getJSONObject().isNull("clientCreatedTime") ? null :
       getJSONObject().optLong("clientCreatedTime");
+  }
+
+  /**
+   * Last modified time of the payment
+   */
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
+
+  private java.lang.Long extractModifiedTime() {
+    return getJSONObject().isNull("modifiedTime") ? null :
+      getJSONObject().optLong("modifiedTime");
   }
 
   /**
@@ -569,6 +610,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     return cacheValueIsNotNull(CacheKey.order);
   }
 
+  /** Checks whether the 'device' field is set and is not null */
+  public boolean isNotNullDevice() {
+    return cacheValueIsNotNull(CacheKey.device);
+  }
+
   /** Checks whether the 'tender' field is set and is not null */
   public boolean isNotNullTender() {
     return cacheValueIsNotNull(CacheKey.tender);
@@ -612,6 +658,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   /** Checks whether the 'clientCreatedTime' field is set and is not null */
   public boolean isNotNullClientCreatedTime() {
     return cacheValueIsNotNull(CacheKey.clientCreatedTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
   /** Checks whether the 'offline' field is set and is not null */
@@ -675,6 +726,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     return cacheHasKey(CacheKey.order);
   }
 
+  /** Checks whether the 'device' field has been set, however the value could be null */
+  public boolean hasDevice() {
+    return cacheHasKey(CacheKey.device);
+  }
+
   /** Checks whether the 'tender' field has been set, however the value could be null */
   public boolean hasTender() {
     return cacheHasKey(CacheKey.tender);
@@ -718,6 +774,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   /** Checks whether the 'clientCreatedTime' field has been set, however the value could be null */
   public boolean hasClientCreatedTime() {
     return cacheHasKey(CacheKey.clientCreatedTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return cacheHasKey(CacheKey.modifiedTime);
   }
 
   /** Checks whether the 'offline' field has been set, however the value could be null */
@@ -788,6 +849,25 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     }
 
     cacheMarkDirty(CacheKey.order);
+    return this;
+  }
+
+  /**
+   * Sets the field 'device'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setDevice(com.clover.sdk.v3.base.Reference device) {
+    logChange("device");
+
+    try {
+      getJSONObject().put("device",
+          device == null ? org.json.JSONObject.NULL : device.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.device);
     return this;
   }
 
@@ -938,6 +1018,22 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     }
 
     cacheMarkDirty(CacheKey.clientCreatedTime);
+    return this;
+  }
+
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public Payment setModifiedTime(java.lang.Long modifiedTime) {
+    logChange("modifiedTime");
+
+    try {
+      getJSONObject().put("modifiedTime", modifiedTime == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(modifiedTime));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.modifiedTime);
     return this;
   }
 
@@ -1125,6 +1221,13 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     cacheRemoveValue(CacheKey.order);
   }
 
+  /** Clears the 'device' field, the 'has' method for this field will now return false */
+  public void clearDevice() {
+    unlogChange("device");
+    getJSONObject().remove("device");
+    cacheRemoveValue(CacheKey.device);
+  }
+
   /** Clears the 'tender' field, the 'has' method for this field will now return false */
   public void clearTender() {
     unlogChange("tender");
@@ -1186,6 +1289,13 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     unlogChange("clientCreatedTime");
     getJSONObject().remove("clientCreatedTime");
     cacheRemoveValue(CacheKey.clientCreatedTime);
+  }
+
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    unlogChange("modifiedTime");
+    getJSONObject().remove("modifiedTime");
+    cacheRemoveValue(CacheKey.modifiedTime);
   }
 
   /** Clears the 'offline' field, the 'has' method for this field will now return false */
@@ -1341,7 +1451,7 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     @Override
     public Payment createFromParcel(android.os.Parcel in) {
       Payment instance = new Payment(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -1367,6 +1477,8 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
 
     public static final boolean ORDER_IS_REQUIRED = false;
 
+    public static final boolean DEVICE_IS_REQUIRED = false;
+
     public static final boolean TENDER_IS_REQUIRED = false;
 
     public static final boolean AMOUNT_IS_REQUIRED = false;
@@ -1385,6 +1497,8 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
 
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
+
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
     public static final boolean OFFLINE_IS_REQUIRED = false;
 

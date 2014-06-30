@@ -15,10 +15,14 @@
  */
 
 group = 'com.clover.sdk'
-version = '21'
+version = '26'
 
 apply plugin: 'android-library'
-apply plugin: 'maven'
+apply plugin: 'android-maven'
+
+dependencies {
+  compile files('lib/calc.jar')
+}
 
 ant.importBuild 'javadoc.xml'
 
@@ -38,25 +42,4 @@ android {
     minSdkVersion 16
     targetSdkVersion 17
   }
-}
-
-dependencies {
-  compile files('lib/calc.jar')
-}
-
-task install(dependsOn: uploadArchives) {
-}
-
-afterEvaluate {
-  uploadArchives {
-    repositories {
-      mavenDeployer {
-        repository(url: "file://${System.properties['user.home']}/.m2/repository")
-      }
-    }
-  }
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.11'
 }

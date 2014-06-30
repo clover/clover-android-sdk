@@ -40,6 +40,18 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractName();
       }
     },
+    firstName {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractFirstName();
+      }
+    },
+    lastName {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractLastName();
+      }
+    },
     email {
       @Override
       public Object extractValue(Developer instance) {
@@ -106,12 +118,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractBusinessLegalName();
       }
     },
-    businessDbaName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.extractBusinessDbaName();
-      }
-    },
     ein {
       @Override
       public Object extractValue(Developer instance) {
@@ -152,6 +158,18 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
       @Override
       public Object extractValue(Developer instance) {
         return instance.extractBillingStatusMessage();
+      }
+    },
+    website {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractWebsite();
+      }
+    },
+    owner {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractOwner();
       }
     },
     ;
@@ -282,6 +300,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     java.lang.String name = getName();
     if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
 
+    java.lang.String firstName = getFirstName();
+    if (firstName != null && firstName.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'firstName'");
+
+    java.lang.String lastName = getLastName();
+    if (lastName != null && lastName.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'lastName'");
+
     java.lang.String email = getEmail();
     if (email != null && email.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'email'");
 
@@ -315,9 +339,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     java.lang.String businessLegalName = getBusinessLegalName();
     if (businessLegalName != null && businessLegalName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'businessLegalName'");
 
-    java.lang.String businessDbaName = getBusinessDbaName();
-    if (businessDbaName != null && businessDbaName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'businessDbaName'");
-
     java.lang.String ein = getEin();
     if (ein != null && ein.length() > 9) throw new IllegalArgumentException("Maximum string length exceeded for 'ein'");
 
@@ -338,6 +359,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     java.lang.String billingStatusMessage = getBillingStatusMessage();
     if (billingStatusMessage != null && billingStatusMessage.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'billingStatusMessage'");
+
+    java.lang.String website = getWebsite();
+    if (website != null && website.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'website'");
   }
 
 
@@ -354,7 +378,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
-   * Developer's name
+   * Developer's name.  Could be a company name.  Whatever is to be shown as who made the app in App Marketplace, e.g. NoshList, Pioneer Works Inc., Seven Spaces, etc.  Also used as (optional) Business DBA (Doing Business Name) name when sending to Braintree for app billing background check.
    */
   public java.lang.String getName() {
     return cacheGet(CacheKey.name);
@@ -363,6 +387,30 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
+  }
+
+  /**
+   * Developer's individual first name
+   */
+  public java.lang.String getFirstName() {
+    return cacheGet(CacheKey.firstName);
+  }
+
+  private java.lang.String extractFirstName() {
+    return getJSONObject().isNull("firstName") ? null :
+      getJSONObject().optString("firstName");
+  }
+
+  /**
+   * Developer's individual last name
+   */
+  public java.lang.String getLastName() {
+    return cacheGet(CacheKey.lastName);
+  }
+
+  private java.lang.String extractLastName() {
+    return getJSONObject().isNull("lastName") ? null :
+      getJSONObject().optString("lastName");
   }
 
   /**
@@ -498,18 +546,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
-   * Developer's business doing business as name
-   */
-  public java.lang.String getBusinessDbaName() {
-    return cacheGet(CacheKey.businessDbaName);
-  }
-
-  private java.lang.String extractBusinessDbaName() {
-    return getJSONObject().isNull("businessDbaName") ? null :
-      getJSONObject().optString("businessDbaName");
-  }
-
-  /**
    * Developer's EIN; won't be stored in DB
    */
   public java.lang.String getEin() {
@@ -593,6 +629,35 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
       getJSONObject().optString("billingStatusMessage");
   }
 
+  /**
+   * Developer's business website
+   */
+  public java.lang.String getWebsite() {
+    return cacheGet(CacheKey.website);
+  }
+
+  private java.lang.String extractWebsite() {
+    return getJSONObject().isNull("website") ? null :
+      getJSONObject().optString("website");
+  }
+
+  /**
+   * The user account that owns this developer account.
+   *
+   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
+   */
+  public com.clover.sdk.v3.base.Reference getOwner() {
+    return cacheGet(CacheKey.owner);
+  }
+
+  private com.clover.sdk.v3.base.Reference extractOwner() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("owner");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("owner"));
+    }
+    return null;
+  }
+
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
@@ -602,6 +667,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'name' field is set and is not null */
   public boolean isNotNullName() {
     return cacheValueIsNotNull(CacheKey.name);
+  }
+
+  /** Checks whether the 'firstName' field is set and is not null */
+  public boolean isNotNullFirstName() {
+    return cacheValueIsNotNull(CacheKey.firstName);
+  }
+
+  /** Checks whether the 'lastName' field is set and is not null */
+  public boolean isNotNullLastName() {
+    return cacheValueIsNotNull(CacheKey.lastName);
   }
 
   /** Checks whether the 'email' field is set and is not null */
@@ -659,11 +734,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.businessLegalName);
   }
 
-  /** Checks whether the 'businessDbaName' field is set and is not null */
-  public boolean isNotNullBusinessDbaName() {
-    return cacheValueIsNotNull(CacheKey.businessDbaName);
-  }
-
   /** Checks whether the 'ein' field is set and is not null */
   public boolean isNotNullEin() {
     return cacheValueIsNotNull(CacheKey.ein);
@@ -699,6 +769,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.billingStatusMessage);
   }
 
+  /** Checks whether the 'website' field is set and is not null */
+  public boolean isNotNullWebsite() {
+    return cacheValueIsNotNull(CacheKey.website);
+  }
+
+  /** Checks whether the 'owner' field is set and is not null */
+  public boolean isNotNullOwner() {
+    return cacheValueIsNotNull(CacheKey.owner);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -708,6 +788,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return cacheHasKey(CacheKey.name);
+  }
+
+  /** Checks whether the 'firstName' field has been set, however the value could be null */
+  public boolean hasFirstName() {
+    return cacheHasKey(CacheKey.firstName);
+  }
+
+  /** Checks whether the 'lastName' field has been set, however the value could be null */
+  public boolean hasLastName() {
+    return cacheHasKey(CacheKey.lastName);
   }
 
   /** Checks whether the 'email' field has been set, however the value could be null */
@@ -765,11 +855,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheHasKey(CacheKey.businessLegalName);
   }
 
-  /** Checks whether the 'businessDbaName' field has been set, however the value could be null */
-  public boolean hasBusinessDbaName() {
-    return cacheHasKey(CacheKey.businessDbaName);
-  }
-
   /** Checks whether the 'ein' field has been set, however the value could be null */
   public boolean hasEin() {
     return cacheHasKey(CacheKey.ein);
@@ -805,6 +890,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheHasKey(CacheKey.billingStatusMessage);
   }
 
+  /** Checks whether the 'website' field has been set, however the value could be null */
+  public boolean hasWebsite() {
+    return cacheHasKey(CacheKey.website);
+  }
+
+  /** Checks whether the 'owner' field has been set, however the value could be null */
+  public boolean hasOwner() {
+    return cacheHasKey(CacheKey.owner);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -835,6 +930,38 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     }
 
     cacheMarkDirty(CacheKey.name);
+    return this;
+  }
+
+  /**
+   * Sets the field 'firstName'.
+   */
+  public Developer setFirstName(java.lang.String firstName) {
+    logChange("firstName");
+
+    try {
+      getJSONObject().put("firstName", firstName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(firstName));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.firstName);
+    return this;
+  }
+
+  /**
+   * Sets the field 'lastName'.
+   */
+  public Developer setLastName(java.lang.String lastName) {
+    logChange("lastName");
+
+    try {
+      getJSONObject().put("lastName", lastName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(lastName));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.lastName);
     return this;
   }
 
@@ -1015,22 +1142,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
-   * Sets the field 'businessDbaName'.
-   */
-  public Developer setBusinessDbaName(java.lang.String businessDbaName) {
-    logChange("businessDbaName");
-
-    try {
-      getJSONObject().put("businessDbaName", businessDbaName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(businessDbaName));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.businessDbaName);
-    return this;
-  }
-
-  /**
    * Sets the field 'ein'.
    */
   public Developer setEin(java.lang.String ein) {
@@ -1142,6 +1253,41 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return this;
   }
 
+  /**
+   * Sets the field 'website'.
+   */
+  public Developer setWebsite(java.lang.String website) {
+    logChange("website");
+
+    try {
+      getJSONObject().put("website", website == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(website));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.website);
+    return this;
+  }
+
+  /**
+   * Sets the field 'owner'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Developer setOwner(com.clover.sdk.v3.base.Reference owner) {
+    logChange("owner");
+
+    try {
+      getJSONObject().put("owner",
+          owner == null ? org.json.JSONObject.NULL : owner.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.owner);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1155,6 +1301,20 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     unlogChange("name");
     getJSONObject().remove("name");
     cacheRemoveValue(CacheKey.name);
+  }
+
+  /** Clears the 'firstName' field, the 'has' method for this field will now return false */
+  public void clearFirstName() {
+    unlogChange("firstName");
+    getJSONObject().remove("firstName");
+    cacheRemoveValue(CacheKey.firstName);
+  }
+
+  /** Clears the 'lastName' field, the 'has' method for this field will now return false */
+  public void clearLastName() {
+    unlogChange("lastName");
+    getJSONObject().remove("lastName");
+    cacheRemoveValue(CacheKey.lastName);
   }
 
   /** Clears the 'email' field, the 'has' method for this field will now return false */
@@ -1234,13 +1394,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     cacheRemoveValue(CacheKey.businessLegalName);
   }
 
-  /** Clears the 'businessDbaName' field, the 'has' method for this field will now return false */
-  public void clearBusinessDbaName() {
-    unlogChange("businessDbaName");
-    getJSONObject().remove("businessDbaName");
-    cacheRemoveValue(CacheKey.businessDbaName);
-  }
-
   /** Clears the 'ein' field, the 'has' method for this field will now return false */
   public void clearEin() {
     unlogChange("ein");
@@ -1288,6 +1441,20 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     unlogChange("billingStatusMessage");
     getJSONObject().remove("billingStatusMessage");
     cacheRemoveValue(CacheKey.billingStatusMessage);
+  }
+
+  /** Clears the 'website' field, the 'has' method for this field will now return false */
+  public void clearWebsite() {
+    unlogChange("website");
+    getJSONObject().remove("website");
+    cacheRemoveValue(CacheKey.website);
+  }
+
+  /** Clears the 'owner' field, the 'has' method for this field will now return false */
+  public void clearOwner() {
+    unlogChange("owner");
+    getJSONObject().remove("owner");
+    cacheRemoveValue(CacheKey.owner);
   }
 
 
@@ -1394,7 +1561,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     @Override
     public Developer createFromParcel(android.os.Parcel in) {
       Developer instance = new Developer(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -1420,6 +1587,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
+
+    public static final boolean FIRSTNAME_IS_REQUIRED = false;
+    public static final long FIRSTNAME_MAX_LEN = 127;
+
+    public static final boolean LASTNAME_IS_REQUIRED = false;
+    public static final long LASTNAME_MAX_LEN = 127;
 
     public static final boolean EMAIL_IS_REQUIRED = false;
     public static final long EMAIL_MAX_LEN = 127;
@@ -1454,9 +1627,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     public static final boolean BUSINESSLEGALNAME_IS_REQUIRED = false;
     public static final long BUSINESSLEGALNAME_MAX_LEN = 255;
 
-    public static final boolean BUSINESSDBANAME_IS_REQUIRED = false;
-    public static final long BUSINESSDBANAME_MAX_LEN = 255;
-
     public static final boolean EIN_IS_REQUIRED = false;
     public static final long EIN_MAX_LEN = 9;
 
@@ -1477,6 +1647,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean BILLINGSTATUSMESSAGE_IS_REQUIRED = false;
     public static final long BILLINGSTATUSMESSAGE_MAX_LEN = 127;
+
+    public static final boolean WEBSITE_IS_REQUIRED = false;
+    public static final long WEBSITE_MAX_LEN = 255;
+
+    public static final boolean OWNER_IS_REQUIRED = false;
 
   }
 

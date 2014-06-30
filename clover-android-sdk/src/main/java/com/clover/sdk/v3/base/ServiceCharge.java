@@ -470,7 +470,7 @@ public final class ServiceCharge implements android.os.Parcelable, com.clover.sd
     @Override
     public ServiceCharge createFromParcel(android.os.Parcel in) {
       ServiceCharge instance = new ServiceCharge(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

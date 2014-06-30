@@ -365,7 +365,7 @@ public final class Reference implements android.os.Parcelable, com.clover.sdk.v3
     @Override
     public Reference createFromParcel(android.os.Parcel in) {
       Reference instance = new Reference(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

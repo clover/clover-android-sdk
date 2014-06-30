@@ -21,7 +21,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
-
+@Deprecated
+/**
+ * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticOrderPrintJob}
+ */
 public class OrderPrintJob extends OrderBasedPrintJob implements Parcelable {
   public static class Builder extends OrderBasedPrintJob.Builder {
 

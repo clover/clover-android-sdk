@@ -380,7 +380,7 @@ public final class OptionItem implements android.os.Parcelable, com.clover.sdk.v
     @Override
     public OptionItem createFromParcel(android.os.Parcel in) {
       OptionItem instance = new OptionItem(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

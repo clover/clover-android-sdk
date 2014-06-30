@@ -27,4 +27,6 @@ import com.clover.sdk.v1.ResultStatus;
  interface ITenderService {
     List<Tender> getTenders(out ResultStatus resultStatus);
     Tender checkAndCreateTender(String label, String labelKey, boolean enabled, boolean opensCashDrawer, out ResultStatus resultStatus);
+
+    Tender setEnabled(in String tenderId, in boolean enabled, out ResultStatus resultStatus);
 }

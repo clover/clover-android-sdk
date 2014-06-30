@@ -41,6 +41,12 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
         return instance.extractName();
       }
     },
+    systemRole {
+      @Override
+      public Object extractValue(Role instance) {
+        return instance.extractSystemRole();
+      }
+    },
     ;
 
     public abstract Object extractValue(Role instance);
@@ -169,6 +175,9 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     java.lang.String name = getName();
     if (name == null) throw new java.lang.IllegalArgumentException("'name' is required to be non-null");
     if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+
+    com.clover.sdk.v3.employees.AccountRole systemRole = getSystemRole();
+    if (systemRole == null) throw new java.lang.IllegalArgumentException("'systemRole' is required to be non-null");
   }
 
 
@@ -196,6 +205,25 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
       getJSONObject().optString("name");
   }
 
+  /**
+   * Base System Role
+   */
+  public com.clover.sdk.v3.employees.AccountRole getSystemRole() {
+    return cacheGet(CacheKey.systemRole);
+  }
+
+  private com.clover.sdk.v3.employees.AccountRole extractSystemRole() {
+    if (!getJSONObject().isNull("systemRole")) {
+      try {
+        return com.clover.sdk.v3.employees.AccountRole.valueOf(getJSONObject().optString("systemRole"));
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    return null;
+  }
+
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
@@ -207,6 +235,11 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'systemRole' field is set and is not null */
+  public boolean isNotNullSystemRole() {
+    return cacheValueIsNotNull(CacheKey.systemRole);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -216,6 +249,11 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
   /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return cacheHasKey(CacheKey.name);
+  }
+
+  /** Checks whether the 'systemRole' field has been set, however the value could be null */
+  public boolean hasSystemRole() {
+    return cacheHasKey(CacheKey.systemRole);
   }
 
 
@@ -251,6 +289,22 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return this;
   }
 
+  /**
+   * Sets the field 'systemRole'.
+   */
+  public Role setSystemRole(com.clover.sdk.v3.employees.AccountRole systemRole) {
+    logChange("systemRole");
+
+    try {
+      getJSONObject().put("systemRole", systemRole == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(systemRole));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.systemRole);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -264,6 +318,13 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     unlogChange("name");
     getJSONObject().remove("name");
     cacheRemoveValue(CacheKey.name);
+  }
+
+  /** Clears the 'systemRole' field, the 'has' method for this field will now return false */
+  public void clearSystemRole() {
+    unlogChange("systemRole");
+    getJSONObject().remove("systemRole");
+    cacheRemoveValue(CacheKey.systemRole);
   }
 
 
@@ -370,7 +431,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     @Override
     public Role createFromParcel(android.os.Parcel in) {
       Role instance = new Role(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -396,6 +457,8 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
 
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
+
+    public static final boolean SYSTEMROLE_IS_REQUIRED = true;
 
   }
 

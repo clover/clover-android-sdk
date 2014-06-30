@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '21'
+version = '26'
 
 apply plugin: 'android'
 
@@ -39,8 +39,4 @@ android {
 
 dependencies {
   compile project(':clover-android-sdk')
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.11'
 }

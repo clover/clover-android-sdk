@@ -16,11 +16,15 @@
 
 package com.clover.sdk.v3.inventory;
 
+import com.clover.sdk.v3.inventory.Attribute;
 import com.clover.sdk.v3.inventory.Category;
 import com.clover.sdk.v3.inventory.Discount;
 import com.clover.sdk.v3.inventory.Item;
+import com.clover.sdk.v3.inventory.ItemGroup;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
+import com.clover.sdk.v3.inventory.Option;
+import com.clover.sdk.v3.inventory.OptionItem;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v1.ResultStatus;
@@ -301,7 +305,8 @@ interface IInventoryService {
   void updateModifierSortOrder(in String modifierGroupId, in List<String> modifierIds, out ResultStatus resultStatus);
 
   /**
-   * Update stock count for an item.
+   * Update stock count for an item. This is the old way of updating stock that takes a long, the new way is
+   * updateItemStockQuantity and takes a double.
    */
   void updateItemStock(in String itemId, in long stockCount, out ResultStatus resultStatus);
 
@@ -309,5 +314,95 @@ interface IInventoryService {
    * Remove stock count for an item.
    */
   void removeItemStock(in String itemId, out ResultStatus resultStatus);
+
+  /**
+   * Gets all defined attributes for the merchant.
+   */
+  List<com.clover.sdk.v3.inventory.Attribute> getAttributes(out ResultStatus resultStatus);
+
+  /**
+   * Gets a single attribute identified by its unique ID.
+   */
+  com.clover.sdk.v3.inventory.Attribute getAttribute(in String attributeId, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new attribute.
+   */
+  com.clover.sdk.v3.inventory.Attribute createAttribute(in com.clover.sdk.v3.inventory.Attribute attribute, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing attribute.
+   */
+  void updateAttribute(in com.clover.sdk.v3.inventory.Attribute attribute, out ResultStatus resultStatus);
+
+  /**
+   * Deletes an attribute, deletes all the options in that attribute and removes all the associations between those options and items.
+   */
+  void deleteAttribute(in String attributeId, out ResultStatus resultStatus);
+
+  /**
+   * Gets all defined options for the merchant.
+   */
+  List<com.clover.sdk.v3.inventory.Option> getOptions(out ResultStatus resultStatus);
+
+  /**
+   * Gets a single option identified by its unique ID.
+   */
+  com.clover.sdk.v3.inventory.Option getOption(in String optionId, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new option.
+   */
+  com.clover.sdk.v3.inventory.Option createOption(in com.clover.sdk.v3.inventory.Option option, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing option.
+   */
+  void updateOption(in com.clover.sdk.v3.inventory.Option option, out ResultStatus resultStatus);
+
+  /**
+   * Deletes an option and removes all the associations between that option and items.
+   */
+  void deleteOption(in String optionId, out ResultStatus resultStatus);
+
+  /**
+   * Retrieve the list of options for an item.
+   */
+  List<com.clover.sdk.v3.inventory.Option> getOptionsForItem(in String itemId, out ResultStatus resultStatus);
+
+  /**
+   * Associate the given options with an item.
+   */
+  void assignOptionsToItem(in String itemId, in List<String> optionIds, out ResultStatus resultStatus);
+
+  /**
+   * Remove the association between the given options and an item.
+   */
+  void removeOptionsFromItem(in String itemId, in List<String> optionIds, out ResultStatus resultStatus);
+
+  /**
+   * Gets a single item group identified by its unique ID.
+   */
+  com.clover.sdk.v3.inventory.ItemGroup getItemGroup(in String itemGroupId, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new item group.
+   */
+  com.clover.sdk.v3.inventory.ItemGroup createItemGroup(in com.clover.sdk.v3.inventory.ItemGroup itemGroup, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing item group.
+   */
+  void updateItemGroup(in com.clover.sdk.v3.inventory.ItemGroup itemGroup, out ResultStatus resultStatus);
+
+  /**
+   * Deletes an item group, but does not delete the items in a group, they become items without an item group.
+   */
+  void deleteItemGroup(in String itemGroupId, out ResultStatus resultStatus);
+
+  /**
+   * Update stock for an item.
+   */
+  void updateItemStockQuantity(in String itemId, in double quantity, out ResultStatus resultStatus);
 
 }

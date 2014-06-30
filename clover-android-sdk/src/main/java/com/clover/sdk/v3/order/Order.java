@@ -130,6 +130,12 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
         return instance.extractClientCreatedTime();
       }
     },
+    modifiedTime {
+      @Override
+      public Object extractValue(Order instance) {
+        return instance.extractModifiedTime();
+      }
+    },
     serviceCharge {
       @Override
       public Object extractValue(Order instance) {
@@ -164,12 +170,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Order instance) {
         return instance.extractCredits();
-      }
-    },
-    device {
-      @Override
-      public Object extractValue(Order instance) {
-        return instance.extractDevice();
       }
     },
     ;
@@ -530,6 +530,18 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   }
 
   /**
+   * Last modified time of the order
+   */
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
+
+  private java.lang.Long extractModifiedTime() {
+    return getJSONObject().isNull("modifiedTime") ? null :
+      getJSONObject().optLong("modifiedTime");
+  }
+
+  /**
    * Optional service charge (gratuity) applied to this order
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
@@ -693,22 +705,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.device.Device getDevice() {
-    return cacheGet(CacheKey.device);
-  }
-
-  private com.clover.sdk.v3.device.Device extractDevice() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");
-    if (jsonObj != null) {
-      return new com.clover.sdk.v3.device.Device(getJSONObject().optJSONObject("device"));
-    }
-    return null;
-  }
-
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
@@ -800,6 +796,11 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return cacheValueIsNotNull(CacheKey.clientCreatedTime);
   }
 
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
   /** Checks whether the 'serviceCharge' field is set and is not null */
   public boolean isNotNullServiceCharge() {
     return cacheValueIsNotNull(CacheKey.serviceCharge);
@@ -853,11 +854,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   /** Checks whether the 'credits' field is set and is not null and is not empty */
   public boolean isNotEmptyCredits() {
     return isNotNullCredits() && !getCredits().isEmpty();
-  }
-
-  /** Checks whether the 'device' field is set and is not null */
-  public boolean isNotNullDevice() {
-    return cacheValueIsNotNull(CacheKey.device);
   }
 
 
@@ -946,6 +942,11 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return cacheHasKey(CacheKey.clientCreatedTime);
   }
 
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return cacheHasKey(CacheKey.modifiedTime);
+  }
+
   /** Checks whether the 'serviceCharge' field has been set, however the value could be null */
   public boolean hasServiceCharge() {
     return cacheHasKey(CacheKey.serviceCharge);
@@ -974,11 +975,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   /** Checks whether the 'credits' field has been set, however the value could be null */
   public boolean hasCredits() {
     return cacheHasKey(CacheKey.credits);
-  }
-
-  /** Checks whether the 'device' field has been set, however the value could be null */
-  public boolean hasDevice() {
-    return cacheHasKey(CacheKey.device);
   }
 
 
@@ -1279,6 +1275,22 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   }
 
   /**
+   * Sets the field 'modifiedTime'.
+   */
+  public Order setModifiedTime(java.lang.Long modifiedTime) {
+    logChange("modifiedTime");
+
+    try {
+      getJSONObject().put("modifiedTime", modifiedTime == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(modifiedTime));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.modifiedTime);
+    return this;
+  }
+
+  /**
    * Sets the field 'serviceCharge'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1467,25 +1479,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return this;
   }
 
-  /**
-   * Sets the field 'device'.
-   *
-   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
-   */
-  public Order setDevice(com.clover.sdk.v3.device.Device device) {
-    logChange("device");
-
-    try {
-      getJSONObject().put("device",
-          device == null ? org.json.JSONObject.NULL : device.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.device);
-    return this;
-  }
-
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1606,6 +1599,13 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     cacheRemoveValue(CacheKey.clientCreatedTime);
   }
 
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    unlogChange("modifiedTime");
+    getJSONObject().remove("modifiedTime");
+    cacheRemoveValue(CacheKey.modifiedTime);
+  }
+
   /** Clears the 'serviceCharge' field, the 'has' method for this field will now return false */
   public void clearServiceCharge() {
     unlogChange("serviceCharge");
@@ -1646,13 +1646,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     unlogChange("credits");
     getJSONObject().remove("credits");
     cacheRemoveValue(CacheKey.credits);
-  }
-
-  /** Clears the 'device' field, the 'has' method for this field will now return false */
-  public void clearDevice() {
-    unlogChange("device");
-    getJSONObject().remove("device");
-    cacheRemoveValue(CacheKey.device);
   }
 
 
@@ -1759,7 +1752,7 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     @Override
     public Order createFromParcel(android.os.Parcel in) {
       Order instance = new Order(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -1819,6 +1812,8 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
 
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
 
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+
     public static final boolean SERVICECHARGE_IS_REQUIRED = false;
 
     public static final boolean DISCOUNTS_IS_REQUIRED = false;
@@ -1830,8 +1825,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     public static final boolean REFUNDS_IS_REQUIRED = false;
 
     public static final boolean CREDITS_IS_REQUIRED = false;
-
-    public static final boolean DEVICE_IS_REQUIRED = false;
 
   }
 

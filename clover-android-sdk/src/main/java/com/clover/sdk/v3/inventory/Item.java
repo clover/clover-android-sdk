@@ -40,10 +40,10 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
         return instance.extractHidden();
       }
     },
-    parentItem {
+    itemGroup {
       @Override
       public Object extractValue(Item instance) {
-        return instance.extractParentItem();
+        return instance.extractItemGroup();
       }
     },
     name {
@@ -134,6 +134,12 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Item instance) {
         return instance.extractTags();
+      }
+    },
+    itemStock {
+      @Override
+      public Object extractValue(Item instance) {
+        return instance.extractItemStock();
       }
     },
     ;
@@ -296,18 +302,18 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
   /**
-   * If this item is a variant, this will point to the base item upon which it is based
+   * Reference to an item group
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
    */
-  public com.clover.sdk.v3.base.Reference getParentItem() {
-    return cacheGet(CacheKey.parentItem);
+  public com.clover.sdk.v3.base.Reference getItemGroup() {
+    return cacheGet(CacheKey.itemGroup);
   }
 
-  private com.clover.sdk.v3.base.Reference extractParentItem() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("parentItem");
+  private com.clover.sdk.v3.base.Reference extractItemGroup() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("itemGroup");
     if (jsonObj != null) {
-      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("parentItem"));
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("itemGroup"));
     }
     return null;
   }
@@ -439,7 +445,7 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
   /**
-   * Current count of this item in stock
+   * DEPRECATED: use itemStock instead
    */
   public java.lang.Long getStockCount() {
     return cacheGet(CacheKey.stockCount);
@@ -568,6 +574,23 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return java.util.Collections.unmodifiableList(itemList);
   }
 
+  /**
+   * Item stock attribute that can be expanded to show stock quantity
+   *
+   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
+   */
+  public com.clover.sdk.v3.inventory.ItemStock getItemStock() {
+    return cacheGet(CacheKey.itemStock);
+  }
+
+  private com.clover.sdk.v3.inventory.ItemStock extractItemStock() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("itemStock");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.inventory.ItemStock(getJSONObject().optJSONObject("itemStock"));
+    }
+    return null;
+  }
+
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
@@ -579,9 +602,9 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return cacheValueIsNotNull(CacheKey.hidden);
   }
 
-  /** Checks whether the 'parentItem' field is set and is not null */
-  public boolean isNotNullParentItem() {
-    return cacheValueIsNotNull(CacheKey.parentItem);
+  /** Checks whether the 'itemGroup' field is set and is not null */
+  public boolean isNotNullItemGroup() {
+    return cacheValueIsNotNull(CacheKey.itemGroup);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -679,6 +702,11 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return isNotNullTags() && !getTags().isEmpty();
   }
 
+  /** Checks whether the 'itemStock' field is set and is not null */
+  public boolean isNotNullItemStock() {
+    return cacheValueIsNotNull(CacheKey.itemStock);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -690,9 +718,9 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return cacheHasKey(CacheKey.hidden);
   }
 
-  /** Checks whether the 'parentItem' field has been set, however the value could be null */
-  public boolean hasParentItem() {
-    return cacheHasKey(CacheKey.parentItem);
+  /** Checks whether the 'itemGroup' field has been set, however the value could be null */
+  public boolean hasItemGroup() {
+    return cacheHasKey(CacheKey.itemGroup);
   }
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -770,6 +798,11 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return cacheHasKey(CacheKey.tags);
   }
 
+  /** Checks whether the 'itemStock' field has been set, however the value could be null */
+  public boolean hasItemStock() {
+    return cacheHasKey(CacheKey.itemStock);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -804,21 +837,21 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
   /**
-   * Sets the field 'parentItem'.
+   * Sets the field 'itemGroup'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Item setParentItem(com.clover.sdk.v3.base.Reference parentItem) {
-    logChange("parentItem");
+  public Item setItemGroup(com.clover.sdk.v3.base.Reference itemGroup) {
+    logChange("itemGroup");
 
     try {
-      getJSONObject().put("parentItem",
-          parentItem == null ? org.json.JSONObject.NULL : parentItem.getJSONObject());
+      getJSONObject().put("itemGroup",
+          itemGroup == null ? org.json.JSONObject.NULL : itemGroup.getJSONObject());
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.parentItem);
+    cacheMarkDirty(CacheKey.itemGroup);
     return this;
   }
 
@@ -1134,6 +1167,25 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return this;
   }
 
+  /**
+   * Sets the field 'itemStock'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Item setItemStock(com.clover.sdk.v3.inventory.ItemStock itemStock) {
+    logChange("itemStock");
+
+    try {
+      getJSONObject().put("itemStock",
+          itemStock == null ? org.json.JSONObject.NULL : itemStock.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.itemStock);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1149,11 +1201,11 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     cacheRemoveValue(CacheKey.hidden);
   }
 
-  /** Clears the 'parentItem' field, the 'has' method for this field will now return false */
-  public void clearParentItem() {
-    unlogChange("parentItem");
-    getJSONObject().remove("parentItem");
-    cacheRemoveValue(CacheKey.parentItem);
+  /** Clears the 'itemGroup' field, the 'has' method for this field will now return false */
+  public void clearItemGroup() {
+    unlogChange("itemGroup");
+    getJSONObject().remove("itemGroup");
+    cacheRemoveValue(CacheKey.itemGroup);
   }
 
   /** Clears the 'name' field, the 'has' method for this field will now return false */
@@ -1261,6 +1313,13 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     cacheRemoveValue(CacheKey.tags);
   }
 
+  /** Clears the 'itemStock' field, the 'has' method for this field will now return false */
+  public void clearItemStock() {
+    unlogChange("itemStock");
+    getJSONObject().remove("itemStock");
+    cacheRemoveValue(CacheKey.itemStock);
+  }
+
 
   private void logChange(java.lang.String field) {
     if (changeLog == null) {
@@ -1365,7 +1424,7 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     @Override
     public Item createFromParcel(android.os.Parcel in) {
       Item instance = new Item(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -1391,7 +1450,7 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
 
     public static final boolean HIDDEN_IS_REQUIRED = false;
 
-    public static final boolean PARENTITEM_IS_REQUIRED = false;
+    public static final boolean ITEMGROUP_IS_REQUIRED = false;
 
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
@@ -1429,6 +1488,8 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     public static final boolean CATEGORIES_IS_REQUIRED = false;
 
     public static final boolean TAGS_IS_REQUIRED = false;
+
+    public static final boolean ITEMSTOCK_IS_REQUIRED = false;
 
   }
 

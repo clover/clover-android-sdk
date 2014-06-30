@@ -753,7 +753,7 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     @Override
     public Credit createFromParcel(android.os.Parcel in) {
       Credit instance = new Credit(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

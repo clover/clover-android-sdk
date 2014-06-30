@@ -40,18 +40,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
         return instance.extractName();
       }
     },
-    alternateName {
-      @Override
-      public Object extractValue(Option instance) {
-        return instance.extractAlternateName();
-      }
-    },
-    additionalCost {
-      @Override
-      public Object extractValue(Option instance) {
-        return instance.extractAdditionalCost();
-      }
-    },
     attribute {
       @Override
       public Object extractValue(Option instance) {
@@ -186,12 +174,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
     java.lang.String name = getName();
     if (name == null) throw new java.lang.IllegalArgumentException("'name' is required to be non-null");
     if (name != null && name.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
-
-    java.lang.String alternateName = getAlternateName();
-    if (alternateName != null && alternateName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'alternateName'");
-
-    java.lang.Long additionalCost = getAdditionalCost();
-    if (additionalCost != null && additionalCost < 0) throw new IllegalArgumentException("Invalid value for 'additionalCost'");
   }
 
 
@@ -217,30 +199,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
-  }
-
-  /**
-   * Alternate name of the option
-   */
-  public java.lang.String getAlternateName() {
-    return cacheGet(CacheKey.alternateName);
-  }
-
-  private java.lang.String extractAlternateName() {
-    return getJSONObject().isNull("alternateName") ? null :
-      getJSONObject().optString("alternateName");
-  }
-
-  /**
-   * Additional cost when selecting an item with this option
-   */
-  public java.lang.Long getAdditionalCost() {
-    return cacheGet(CacheKey.additionalCost);
-  }
-
-  private java.lang.Long extractAdditionalCost() {
-    return getJSONObject().isNull("additionalCost") ? null :
-      getJSONObject().optLong("additionalCost");
   }
 
   /**
@@ -270,16 +228,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
     return cacheValueIsNotNull(CacheKey.name);
   }
 
-  /** Checks whether the 'alternateName' field is set and is not null */
-  public boolean isNotNullAlternateName() {
-    return cacheValueIsNotNull(CacheKey.alternateName);
-  }
-
-  /** Checks whether the 'additionalCost' field is set and is not null */
-  public boolean isNotNullAdditionalCost() {
-    return cacheValueIsNotNull(CacheKey.additionalCost);
-  }
-
   /** Checks whether the 'attribute' field is set and is not null */
   public boolean isNotNullAttribute() {
     return cacheValueIsNotNull(CacheKey.attribute);
@@ -294,16 +242,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return cacheHasKey(CacheKey.name);
-  }
-
-  /** Checks whether the 'alternateName' field has been set, however the value could be null */
-  public boolean hasAlternateName() {
-    return cacheHasKey(CacheKey.alternateName);
-  }
-
-  /** Checks whether the 'additionalCost' field has been set, however the value could be null */
-  public boolean hasAdditionalCost() {
-    return cacheHasKey(CacheKey.additionalCost);
   }
 
   /** Checks whether the 'attribute' field has been set, however the value could be null */
@@ -345,38 +283,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
-   * Sets the field 'alternateName'.
-   */
-  public Option setAlternateName(java.lang.String alternateName) {
-    logChange("alternateName");
-
-    try {
-      getJSONObject().put("alternateName", alternateName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(alternateName));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.alternateName);
-    return this;
-  }
-
-  /**
-   * Sets the field 'additionalCost'.
-   */
-  public Option setAdditionalCost(java.lang.Long additionalCost) {
-    logChange("additionalCost");
-
-    try {
-      getJSONObject().put("additionalCost", additionalCost == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(additionalCost));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.additionalCost);
-    return this;
-  }
-
-  /**
    * Sets the field 'attribute'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -408,20 +314,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
     unlogChange("name");
     getJSONObject().remove("name");
     cacheRemoveValue(CacheKey.name);
-  }
-
-  /** Clears the 'alternateName' field, the 'has' method for this field will now return false */
-  public void clearAlternateName() {
-    unlogChange("alternateName");
-    getJSONObject().remove("alternateName");
-    cacheRemoveValue(CacheKey.alternateName);
-  }
-
-  /** Clears the 'additionalCost' field, the 'has' method for this field will now return false */
-  public void clearAdditionalCost() {
-    unlogChange("additionalCost");
-    getJSONObject().remove("additionalCost");
-    cacheRemoveValue(CacheKey.additionalCost);
   }
 
   /** Clears the 'attribute' field, the 'has' method for this field will now return false */
@@ -535,7 +427,7 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
     @Override
     public Option createFromParcel(android.os.Parcel in) {
       Option instance = new Option(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -561,12 +453,6 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
 
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 255;
-
-    public static final boolean ALTERNATENAME_IS_REQUIRED = false;
-    public static final long ALTERNATENAME_MAX_LEN = 255;
-
-    public static final boolean ADDITIONALCOST_IS_REQUIRED = false;
-    public static final long ADDITIONALCOST_MIN = 0;
 
     public static final boolean ATTRIBUTE_IS_REQUIRED = false;
 

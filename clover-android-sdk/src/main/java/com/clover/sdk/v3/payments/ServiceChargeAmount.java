@@ -363,7 +363,7 @@ public final class ServiceChargeAmount implements android.os.Parcelable, com.clo
     @Override
     public ServiceChargeAmount createFromParcel(android.os.Parcel in) {
       ServiceChargeAmount instance = new ServiceChargeAmount(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

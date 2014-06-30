@@ -30,4 +30,4 @@ interface IAppService {
         call on the main thread.
     */
     void notify(in AppNotification notification, out ResultStatus resultStatus);
-}
+  }

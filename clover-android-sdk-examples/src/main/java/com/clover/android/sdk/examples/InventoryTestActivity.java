@@ -43,6 +43,7 @@ import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.inventory.Attribute;
 import com.clover.sdk.v3.inventory.Category;
 import com.clover.sdk.v3.inventory.Discount;
 import com.clover.sdk.v3.inventory.IInventoryService;
@@ -50,8 +51,11 @@ import com.clover.sdk.v3.inventory.InventoryConnector;
 import com.clover.sdk.v3.inventory.InventoryContract;
 import com.clover.sdk.v3.inventory.InventoryIntent;
 import com.clover.sdk.v3.inventory.Item;
+import com.clover.sdk.v3.inventory.ItemGroup;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
+import com.clover.sdk.v3.inventory.Option;
+import com.clover.sdk.v3.inventory.OptionItem;
 import com.clover.sdk.v3.inventory.PriceType;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
@@ -1043,6 +1047,71 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<Attribute> getAttributes(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getAttributes()");
+    }
+
+    @Override
+    public Attribute getAttribute(String attributeId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getAttribute()");
+    }
+
+    @Override
+    public Attribute createAttribute(Attribute attribute, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createAttribute()");
+    }
+
+    @Override
+    public void updateAttribute(Attribute attribute, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateAttribute()");
+    }
+
+    @Override
+    public void deleteAttribute(String attributeId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteAttribute()");
+    }
+
+    @Override
+    public List<Option> getOptions(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getOptions()");
+    }
+
+    @Override
+    public Option getOption(String optionId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getOption()");
+    }
+
+    @Override
+    public Option createOption(Option option, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createOption()");
+    }
+
+    @Override
+    public void updateOption(Option option, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateOption()");
+    }
+
+    @Override
+    public void deleteOption(String optionId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteOption()");
+    }
+
+    @Override
+    public List<Option> getOptionsForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getOptionsForItem()");
+    }
+
+    @Override
+    public void assignOptionsToItem(String itemId, List<String> optionIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignOptionsToItem()");
+    }
+
+    @Override
+    public void removeOptionsFromItem(String itemId, List<String> optionIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeOptionsFromItem()");
+    }
+
+    @Override
     public void updateItemStock(String itemId, long stockCount, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement updateItemStock()");
     }
@@ -1050,6 +1119,31 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void removeItemStock(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement removeItemStock()");
+    }
+
+    @Override
+    public ItemGroup getItemGroup(String itemGroupId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getItemGroup()");
+    }
+
+    @Override
+    public ItemGroup createItemGroup(ItemGroup itemGroup, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createItemGroup()");
+    }
+
+    @Override
+    public void updateItemGroup(ItemGroup itemGroup, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateItemGroup()");
+    }
+
+    @Override
+    public void deleteItemGroup(String itemGroupId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteItemGroup()");
+    }
+
+    @Override
+    public void updateItemStockQuantity(String itemId, double quantity, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateItemStockQuantity()");
     }
 
     @Override

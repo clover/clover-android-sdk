@@ -365,7 +365,7 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
     @Override
     public LineItemPayment createFromParcel(android.os.Parcel in) {
       LineItemPayment instance = new LineItemPayment(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

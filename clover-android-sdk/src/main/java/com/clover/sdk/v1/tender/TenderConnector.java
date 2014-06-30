@@ -125,4 +125,25 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     }, callback);
   }
 
+  /**
+   * Will set a merchant tenders visibility
+   */
+  public Tender setEnabled(final String tenderId, final boolean enabled) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new TenderCallable<Tender>() {
+      @Override
+      public Tender call(ITenderService service, ResultStatus status) throws RemoteException {
+        return service.setEnabled(tenderId, enabled, status);
+      }
+    });
+  }
+
+  public void setEnabled(final String tenderId, final boolean enabled, ServiceConnector.Callback<Tender> callback) {
+    execute(new TenderCallable<Tender>() {
+      @Override
+      public Tender call(ITenderService service, ResultStatus status) throws RemoteException {
+        return service.setEnabled(tenderId, enabled, status);
+      }
+    }, callback);
+  }
+
 }

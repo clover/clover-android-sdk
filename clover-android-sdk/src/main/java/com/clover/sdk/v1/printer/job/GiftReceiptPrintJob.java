@@ -20,6 +20,11 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
+@Deprecated
+/**
+ * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticGiftReceiptPrintJob}
+ */
 public class GiftReceiptPrintJob extends ReceiptPrintJob implements Parcelable {
   public static class Builder extends ReceiptPrintJob.Builder {
 

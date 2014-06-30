@@ -877,4 +877,293 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public List<Attribute> getAttributes() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Attribute>>() {
+      public List<Attribute> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getAttributes(status);
+      }
+    });
+  }
+
+  public void getAttributes(Callback<List<Attribute>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Attribute>>() {
+      public List<Attribute> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getAttributes(status);
+      }
+    }, callback);
+  }
+
+  public Attribute getAttribute(final String attributeId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Attribute>() {
+      public Attribute call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getAttribute(attributeId, status);
+      }
+    });
+  }
+
+  public void getAttribute(final String attributeId, Callback<Attribute> callback) {
+    execute(new ServiceCallable<IInventoryService, Attribute>() {
+      public Attribute call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getAttribute(attributeId, status);
+      }
+    }, callback);
+  }
+
+  public Attribute createAttribute(final Attribute attribute) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Attribute>() {
+      public Attribute call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createAttribute(attribute, status);
+      }
+    });
+  }
+
+  public void createAttribute(final Attribute attribute, Callback<Attribute> callback) {
+    execute(new ServiceCallable<IInventoryService, Attribute>() {
+      public Attribute call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createAttribute(attribute, status);
+      }
+    }, callback);
+  }
+
+  public void updateAttribute(final Attribute attribute) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateAttribute(attribute, status);
+      }
+    });
+  }
+
+  public void updateAttribute(final Attribute attribute, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateAttribute(attribute, status);
+      }
+    }, callback);
+  }
+
+  public void deleteAttribute(final String attributeId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteAttribute(attributeId, status);
+      }
+    });
+  }
+
+  public void deleteAttribute(final String attributeId, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteAttribute(attributeId, status);
+      }
+    }, callback);
+  }
+
+  public List<Option> getOptions() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Option>>() {
+      public List<Option> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOptions(status);
+      }
+    });
+  }
+
+  public void getOptions(Callback<List<Option>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Option>>() {
+      public List<Option> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOptions(status);
+      }
+    }, callback);
+  }
+
+  public Option getOption(final String optionId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Option>() {
+      public Option call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOption(optionId, status);
+      }
+    });
+  }
+
+  public void getOption(final String optionId, Callback<Option> callback) {
+    execute(new ServiceCallable<IInventoryService, Option>() {
+      public Option call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOption(optionId, status);
+      }
+    }, callback);
+  }
+
+  public Option createOption(final Option option) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Option>() {
+      public Option call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createOption(option, status);
+      }
+    });
+  }
+
+  public void createOption(final Option option, Callback<Option> callback) {
+    execute(new ServiceCallable<IInventoryService, Option>() {
+      public Option call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createOption(option, status);
+      }
+    }, callback);
+  }
+
+  public void updateOption(final Option option) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateOption(option, status);
+      }
+    });
+  }
+
+  public void updateOption(final Option option, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateOption(option, status);
+      }
+    }, callback);
+  }
+
+  public void deleteOption(final String optionId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteOption(optionId, status);
+      }
+    });
+  }
+
+  public void deleteOption(final String optionId, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteOption(optionId, status);
+      }
+    }, callback);
+  }
+
+  public List<Option> getOptionsForItem(final String itemId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Option>>() {
+      public List<Option> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOptionsForItem(itemId, status);
+      }
+    });
+  }
+
+  public void getOptionsForItem(final String itemId, Callback<List<Option>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Option>>() {
+      public List<Option> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getOptionsForItem(itemId, status);
+      }
+    }, callback);
+  }
+
+  public void assignOptionsToItem(final String itemId, final List<String> optionIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignOptionsToItem(itemId, optionIds, status);
+      }
+    });
+  }
+
+  public void assignOptionsToItem(final String itemId, final List<String> optionIds, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignOptionsToItem(itemId, optionIds, status);
+      }
+    }, callback);
+  }
+
+  public void removeOptionsFromItem(final String itemId, final List<String> optionIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeOptionsFromItem(itemId, optionIds, status);
+      }
+    });
+  }
+
+  public void removeOptionsFromItem(final String itemId, final List<String> optionIds, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeOptionsFromItem(itemId, optionIds, status);
+      }
+    }, callback);
+  }
+
+  public ItemGroup getItemGroup(final String itemGroupId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, ItemGroup>() {
+      public ItemGroup call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getItemGroup(itemGroupId, status);
+      }
+    });
+  }
+
+  public void getItemGroup(final String itemGroupId, Callback<ItemGroup> callback) {
+    execute(new ServiceCallable<IInventoryService, ItemGroup>() {
+      public ItemGroup call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getItemGroup(itemGroupId, status);
+      }
+    }, callback);
+  }
+
+  public ItemGroup createItemGroup(final ItemGroup itemGroup) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, ItemGroup>() {
+      public ItemGroup call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createItemGroup(itemGroup, status);
+      }
+    });
+  }
+
+  public void createItemGroup(final ItemGroup itemGroup, Callback<ItemGroup> callback) {
+    execute(new ServiceCallable<IInventoryService, ItemGroup>() {
+      public ItemGroup call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createItemGroup(itemGroup, status);
+      }
+    }, callback);
+  }
+
+  public void updateItemGroup(final ItemGroup itemGroup) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateItemGroup(itemGroup, status);
+      }
+    });
+  }
+
+  public void updateItemGroup(final ItemGroup itemGroup, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateItemGroup(itemGroup, status);
+      }
+    }, callback);
+  }
+
+  public void deleteItemGroup(final String itemGroupId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteItemGroup(itemGroupId, status);
+      }
+    });
+  }
+
+  public void deleteItemGroup(final String itemGroupId, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteItemGroup(itemGroupId, status);
+      }
+    }, callback);
+  }
+
+  public void updateItemStockQuantity(final String itemId, final double quantity) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateItemStockQuantity(itemId, quantity, status);
+      }
+    });
+  }
+
+  public void updateItemStockQuantity(final String itemId, final double quantity, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateItemStockQuantity(itemId, quantity, status);
+        return null;
+      }
+    }, callback);
+  }
+
 }

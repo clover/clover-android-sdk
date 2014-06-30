@@ -86,10 +86,6 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
       if (mConnector == null) {
         return; // Shouldn't get here, but bail just in case
       }
-      if (mConnector.mClient != null && mConnector.mClient instanceof OnOrderUpdateListener) {
-        OnOrderUpdateListener listener = (OnOrderUpdateListener) mConnector.mClient;
-        mConnector.postOnOrderUpdated(orderId, selfChange, listener);
-      }
       if (mConnector.mOnOrderChangedListener != null && !mConnector.mOnOrderChangedListener.isEmpty()) {
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
         // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
@@ -110,7 +106,9 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     public void destroy() {
       mConnector = null;
     }
-  };
+  }
+
+  ;
 
   private OnOrderUpdateListenerParent mListener;
 
@@ -126,15 +124,13 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
     super.notifyServiceConnected(client);
 
-    if (client != null && client instanceof OnOrderUpdateListener) {
-      try {
-        if (mListener == null) {
-          mListener = new OnOrderUpdateListenerParent(this);
-        }
-        mService.addOnOrderUpdatedListener(mListener);
-      } catch (RemoteException e) {
-        e.printStackTrace();
+    try {
+      if (mListener == null) {
+        mListener = new OnOrderUpdateListenerParent(this);
       }
+      mService.addOnOrderUpdatedListener(mListener);
+    } catch (RemoteException e) {
+      e.printStackTrace();
     }
   }
 
