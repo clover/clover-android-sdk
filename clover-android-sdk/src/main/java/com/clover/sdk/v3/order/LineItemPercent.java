@@ -21,7 +21,7 @@ public class LineItemPercent implements Parcelable {
 
   public static final LineItemPercent ONE_HUNDRED = new LineItemPercent(1);
 
-  Decimal percent = null;
+  final Decimal percent;
 
   public LineItemPercent(int split) {
     this(1, split);
@@ -96,11 +96,10 @@ public class LineItemPercent implements Parcelable {
       byte[] bytes = new byte[in.readInt()];
       in.readByteArray(bytes);
       ObjectInput oi = new ObjectInputStream(new ByteArrayInputStream(bytes));
-      percent.readExternal(oi);
+      percent = new Decimal(oi);
       oi.close();
-    } catch (Exception ioe) {
-      Log.e("LineItemParent", "Error in reading percent externalizable", ioe);
+    } catch (IOException ioe) {
+      throw new RuntimeException(ioe);
     }
   }
-
 }

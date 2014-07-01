@@ -61,4 +61,7 @@ import com.clover.sdk.v1.ResultStatus;
 
     void addListener(IMerchantListener listener, out ResultStatus resultStatus);
     void removeListener(IMerchantListener listener, out ResultStatus resultStatus);
+
+    void setUpdateStock(in boolean updateStock, out ResultStatus resultStatus);
+    void setTrackStock(in boolean trackStock, out ResultStatus resultStatus);
 }

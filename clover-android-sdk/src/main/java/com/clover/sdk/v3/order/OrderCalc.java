@@ -133,13 +133,11 @@ public class OrderCalc {
     }
 
     @Override
-    public Collection<Decimal> getTaxRates() {
-      List<Decimal> taxRates = Lists.newArrayList();
+    public Collection<Calc.TaxRate> getTaxRates() {
+      List<Calc.TaxRate> taxRates = Lists.newArrayList();
       if (line.isNotNullTaxRates()) {
-        for (TaxRate tax : line.getTaxRates()) {
-          if (tax.getRate() != null) {
-            taxRates.add(new Decimal(tax.getRate()).divide(TAX_RATE_DIVISOR));
-          }
+        for (TaxRate rate : line.getTaxRates()) {
+          taxRates.add(new TaxRateCalc(rate));
         }
       }
       return taxRates;
@@ -186,6 +184,38 @@ public class OrderCalc {
         return lineItemPercent.percent.multiply(HUNDRED);
       }
       return HUNDRED;
+    }
+  }
+
+  private class TaxRateCalc implements Calc.TaxRate {
+    private TaxRate taxRate;
+
+    TaxRateCalc(TaxRate taxRate) {
+      if (taxRate == null) {
+        throw new NullPointerException("taxRate cannot be null");
+      }
+      this.taxRate = taxRate;
+    }
+
+    @Override
+    public String getId() {
+      return taxRate.getId();
+    }
+
+    @Override
+    public Decimal getRate() {
+      return new Decimal(taxRate.getRate()).divide(TAX_RATE_DIVISOR);
+    }
+
+    public int hashCode() {
+      return (getId()!=null ? getId().hashCode() : super.hashCode());
+    }
+
+    public boolean equals(Object o) {
+      if (o instanceof Calc.TaxRate) {
+        return getId()!=null ? getId().equals(((Calc.TaxRate) o).getId()) : super.equals(o);
+      }
+      return false;
     }
   }
 

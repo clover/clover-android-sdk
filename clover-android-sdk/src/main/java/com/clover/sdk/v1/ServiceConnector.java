@@ -279,7 +279,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
       // do nothing; this is the default case
     } else if (status.getStatusCode() == ResultStatus.FORBIDDEN) {
       throw new ForbiddenException(status);
-    } else if (status.isClientError() || status.getStatusCode() == ResultStatus.OTHER) {
+    } else if (status.isClientError() || status.getStatusCode() == ResultStatus.OTHER || status.getStatusCode() == ResultStatus.UNKNOWN) {
       throw new ClientException(status);
     } else if (status.isServiceError()) {
       throw new ServiceException(status);

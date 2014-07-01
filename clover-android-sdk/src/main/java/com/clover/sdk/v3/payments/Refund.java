@@ -262,6 +262,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
+   * The payment with which the refund is associated
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
    */
@@ -880,7 +881,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     @Override
     public Refund createFromParcel(android.os.Parcel in) {
       Refund instance = new Refund(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

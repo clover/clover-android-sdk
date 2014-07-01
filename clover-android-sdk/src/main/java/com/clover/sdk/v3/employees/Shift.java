@@ -797,7 +797,7 @@ public final class Shift implements android.os.Parcelable, com.clover.sdk.v3.Val
     @Override
     public Shift createFromParcel(android.os.Parcel in) {
       Shift instance = new Shift(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

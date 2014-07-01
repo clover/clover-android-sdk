@@ -8,14 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.customer.Address;
-import com.clover.sdk.v1.customer.Customer;
-import com.clover.sdk.v1.customer.EmailAddress;
-import com.clover.sdk.v1.customer.PhoneNumber;
 import com.clover.sdk.v3.cash.CashEvents;
-import com.clover.sdk.v3.cash.Type;
-
-import java.util.List;
 
 public class CashEventTestActivity extends Activity {
   private static final String TAG = "CashEventTestActivity";
@@ -48,15 +41,35 @@ public class CashEventTestActivity extends Activity {
       @Override
       protected Boolean doInBackground(Void... params) {
         CashEvents cashEvents = new CashEvents(CashEventTestActivity.this, account);
-        return cashEvents.addCash(50l, "This is a test");
+        return cashEvents.addCash(50l, "This is an add test");
       }
 
       @Override
       protected void onPostExecute(Boolean result) {
         if (result != null && result) {
-          statusText.setText("Success");
+          statusText.setText("Add Success");
         } else {
-          statusText.setText("Failure");
+          statusText.setText("Add Failure");
+        }
+      }
+    }.execute();
+
+    new AsyncTask<Void, Void, Boolean>() {
+      @Override
+      protected Boolean doInBackground(Void... params) {
+        try {
+          Thread.sleep(1500);
+        } catch (InterruptedException ex) {};
+        CashEvents cashEvents = new CashEvents(CashEventTestActivity.this, account);
+        return cashEvents.removeCash(-50l, "This is a removal test");
+      }
+
+      @Override
+      protected void onPostExecute(Boolean result) {
+        if (result != null && result) {
+          statusText.setText(statusText.getText() + ", Remove Success");
+        } else {
+          statusText.setText(statusText.getText() + ", Remove Failure");
         }
       }
     }.execute();

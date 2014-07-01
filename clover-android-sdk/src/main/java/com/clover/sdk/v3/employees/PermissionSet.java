@@ -41,10 +41,28 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
         return instance.extractName();
       }
     },
+    label {
+      @Override
+      public Object extractValue(PermissionSet instance) {
+        return instance.extractLabel();
+      }
+    },
     app {
       @Override
       public Object extractValue(PermissionSet instance) {
         return instance.extractApp();
+      }
+    },
+    employeeDefault {
+      @Override
+      public Object extractValue(PermissionSet instance) {
+        return instance.extractEmployeeDefault();
+      }
+    },
+    managerDefault {
+      @Override
+      public Object extractValue(PermissionSet instance) {
+        return instance.extractManagerDefault();
       }
     },
     permissions {
@@ -180,6 +198,9 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
 
     java.lang.String name = getName();
     if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+
+    java.lang.String label = getLabel();
+    if (label != null && label.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'label'");
   }
 
 
@@ -196,7 +217,7 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   }
 
   /**
-   * Name of the permissionSet
+   * Key of the permissionSet
    */
   public java.lang.String getName() {
     return cacheGet(CacheKey.name);
@@ -205,6 +226,18 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
+  }
+
+  /**
+   * Label of the permissionSet
+   */
+  public java.lang.String getLabel() {
+    return cacheGet(CacheKey.label);
+  }
+
+  private java.lang.String extractLabel() {
+    return getJSONObject().isNull("label") ? null :
+      getJSONObject().optString("label");
   }
 
   /**
@@ -221,6 +254,28 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
       return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("app"));
     }
     return null;
+  }
+
+  /**
+   */
+  public java.lang.Boolean getEmployeeDefault() {
+    return cacheGet(CacheKey.employeeDefault);
+  }
+
+  private java.lang.Boolean extractEmployeeDefault() {
+    return getJSONObject().isNull("employeeDefault") ? null :
+      getJSONObject().optBoolean("employeeDefault");
+  }
+
+  /**
+   */
+  public java.lang.Boolean getManagerDefault() {
+    return cacheGet(CacheKey.managerDefault);
+  }
+
+  private java.lang.Boolean extractManagerDefault() {
+    return getJSONObject().isNull("managerDefault") ? null :
+      getJSONObject().optBoolean("managerDefault");
   }
 
   /**
@@ -251,9 +306,24 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     return cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'label' field is set and is not null */
+  public boolean isNotNullLabel() {
+    return cacheValueIsNotNull(CacheKey.label);
+  }
+
   /** Checks whether the 'app' field is set and is not null */
   public boolean isNotNullApp() {
     return cacheValueIsNotNull(CacheKey.app);
+  }
+
+  /** Checks whether the 'employeeDefault' field is set and is not null */
+  public boolean isNotNullEmployeeDefault() {
+    return cacheValueIsNotNull(CacheKey.employeeDefault);
+  }
+
+  /** Checks whether the 'managerDefault' field is set and is not null */
+  public boolean isNotNullManagerDefault() {
+    return cacheValueIsNotNull(CacheKey.managerDefault);
   }
 
   /** Checks whether the 'permissions' field is set and is not null */
@@ -272,9 +342,24 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     return cacheHasKey(CacheKey.name);
   }
 
+  /** Checks whether the 'label' field has been set, however the value could be null */
+  public boolean hasLabel() {
+    return cacheHasKey(CacheKey.label);
+  }
+
   /** Checks whether the 'app' field has been set, however the value could be null */
   public boolean hasApp() {
     return cacheHasKey(CacheKey.app);
+  }
+
+  /** Checks whether the 'employeeDefault' field has been set, however the value could be null */
+  public boolean hasEmployeeDefault() {
+    return cacheHasKey(CacheKey.employeeDefault);
+  }
+
+  /** Checks whether the 'managerDefault' field has been set, however the value could be null */
+  public boolean hasManagerDefault() {
+    return cacheHasKey(CacheKey.managerDefault);
   }
 
   /** Checks whether the 'permissions' field has been set, however the value could be null */
@@ -316,6 +401,22 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   }
 
   /**
+   * Sets the field 'label'.
+   */
+  public PermissionSet setLabel(java.lang.String label) {
+    logChange("label");
+
+    try {
+      getJSONObject().put("label", label == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(label));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.label);
+    return this;
+  }
+
+  /**
    * Sets the field 'app'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -331,6 +432,38 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     }
 
     cacheMarkDirty(CacheKey.app);
+    return this;
+  }
+
+  /**
+   * Sets the field 'employeeDefault'.
+   */
+  public PermissionSet setEmployeeDefault(java.lang.Boolean employeeDefault) {
+    logChange("employeeDefault");
+
+    try {
+      getJSONObject().put("employeeDefault", employeeDefault == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(employeeDefault));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.employeeDefault);
+    return this;
+  }
+
+  /**
+   * Sets the field 'managerDefault'.
+   */
+  public PermissionSet setManagerDefault(java.lang.Boolean managerDefault) {
+    logChange("managerDefault");
+
+    try {
+      getJSONObject().put("managerDefault", managerDefault == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(managerDefault));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.managerDefault);
     return this;
   }
 
@@ -368,11 +501,32 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     cacheRemoveValue(CacheKey.name);
   }
 
+  /** Clears the 'label' field, the 'has' method for this field will now return false */
+  public void clearLabel() {
+    unlogChange("label");
+    getJSONObject().remove("label");
+    cacheRemoveValue(CacheKey.label);
+  }
+
   /** Clears the 'app' field, the 'has' method for this field will now return false */
   public void clearApp() {
     unlogChange("app");
     getJSONObject().remove("app");
     cacheRemoveValue(CacheKey.app);
+  }
+
+  /** Clears the 'employeeDefault' field, the 'has' method for this field will now return false */
+  public void clearEmployeeDefault() {
+    unlogChange("employeeDefault");
+    getJSONObject().remove("employeeDefault");
+    cacheRemoveValue(CacheKey.employeeDefault);
+  }
+
+  /** Clears the 'managerDefault' field, the 'has' method for this field will now return false */
+  public void clearManagerDefault() {
+    unlogChange("managerDefault");
+    getJSONObject().remove("managerDefault");
+    cacheRemoveValue(CacheKey.managerDefault);
   }
 
   /** Clears the 'permissions' field, the 'has' method for this field will now return false */
@@ -486,7 +640,7 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     @Override
     public PermissionSet createFromParcel(android.os.Parcel in) {
       PermissionSet instance = new PermissionSet(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -513,7 +667,14 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
 
+    public static final boolean LABEL_IS_REQUIRED = false;
+    public static final long LABEL_MAX_LEN = 127;
+
     public static final boolean APP_IS_REQUIRED = false;
+
+    public static final boolean EMPLOYEEDEFAULT_IS_REQUIRED = false;
+
+    public static final boolean MANAGERDEFAULT_IS_REQUIRED = false;
 
     public static final boolean PERMISSIONS_IS_REQUIRED = false;
 

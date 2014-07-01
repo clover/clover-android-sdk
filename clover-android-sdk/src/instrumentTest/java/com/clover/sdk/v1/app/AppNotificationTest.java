@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v1.app;
+package com.clover.sdk.v3.apps;
 
 import android.os.Parcel;
+import com.clover.sdk.v1.app.AppNotification;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.json.JSONObject;

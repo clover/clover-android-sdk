@@ -21,6 +21,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
+@Deprecated
+/**
+ * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticPaymentPrintJob}
+ */
 public class PaymentPrintJob extends ReceiptPrintJob implements Parcelable {
   public static class Builder extends ReceiptPrintJob.Builder {
     private String paymentId;

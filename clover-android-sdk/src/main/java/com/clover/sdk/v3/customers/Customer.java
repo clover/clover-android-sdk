@@ -789,7 +789,7 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     @Override
     public Customer createFromParcel(android.os.Parcel in) {
       Customer instance = new Customer(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

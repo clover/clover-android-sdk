@@ -21,6 +21,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 
+@Deprecated
+/**
+ * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticRefundPrintJob}
+ */
 public class RefundPrintJob extends OrderBasedPrintJob implements Parcelable {
   public static class Builder extends OrderBasedPrintJob.Builder {
     private String refundId;

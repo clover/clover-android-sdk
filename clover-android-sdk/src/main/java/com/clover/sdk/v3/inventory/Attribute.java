@@ -40,6 +40,12 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractName();
       }
     },
+    itemGroup {
+      @Override
+      public Object extractValue(Attribute instance) {
+        return instance.extractItemGroup();
+      }
+    },
     options {
       @Override
       public Object extractValue(Attribute instance) {
@@ -173,7 +179,10 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
 
     java.lang.String name = getName();
     if (name == null) throw new java.lang.IllegalArgumentException("'name' is required to be non-null");
-    if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    if (name != null && name.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+
+    com.clover.sdk.v3.base.Reference itemGroup = getItemGroup();
+    if (itemGroup == null) throw new java.lang.IllegalArgumentException("'itemGroup' is required to be non-null");
   }
 
 
@@ -190,7 +199,7 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
-   * 
+   * Name of this attribute
    */
   public java.lang.String getName() {
     return cacheGet(CacheKey.name);
@@ -199,6 +208,23 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
+  }
+
+  /**
+   * The item group this attribute belongs to
+   *
+   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
+   */
+  public com.clover.sdk.v3.base.Reference getItemGroup() {
+    return cacheGet(CacheKey.itemGroup);
+  }
+
+  private com.clover.sdk.v3.base.Reference extractItemGroup() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("itemGroup");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("itemGroup"));
+    }
+    return null;
   }
 
   /**
@@ -242,6 +268,11 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'itemGroup' field is set and is not null */
+  public boolean isNotNullItemGroup() {
+    return cacheValueIsNotNull(CacheKey.itemGroup);
+  }
+
   /** Checks whether the 'options' field is set and is not null */
   public boolean isNotNullOptions() {
     return cacheValueIsNotNull(CacheKey.options);
@@ -261,6 +292,11 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return cacheHasKey(CacheKey.name);
+  }
+
+  /** Checks whether the 'itemGroup' field has been set, however the value could be null */
+  public boolean hasItemGroup() {
+    return cacheHasKey(CacheKey.itemGroup);
   }
 
   /** Checks whether the 'options' field has been set, however the value could be null */
@@ -298,6 +334,25 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     }
 
     cacheMarkDirty(CacheKey.name);
+    return this;
+  }
+
+  /**
+   * Sets the field 'itemGroup'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Attribute setItemGroup(com.clover.sdk.v3.base.Reference itemGroup) {
+    logChange("itemGroup");
+
+    try {
+      getJSONObject().put("itemGroup",
+          itemGroup == null ? org.json.JSONObject.NULL : itemGroup.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.itemGroup);
     return this;
   }
 
@@ -348,6 +403,13 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     unlogChange("name");
     getJSONObject().remove("name");
     cacheRemoveValue(CacheKey.name);
+  }
+
+  /** Clears the 'itemGroup' field, the 'has' method for this field will now return false */
+  public void clearItemGroup() {
+    unlogChange("itemGroup");
+    getJSONObject().remove("itemGroup");
+    cacheRemoveValue(CacheKey.itemGroup);
   }
 
   /** Clears the 'options' field, the 'has' method for this field will now return false */
@@ -461,7 +523,7 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     @Override
     public Attribute createFromParcel(android.os.Parcel in) {
       Attribute instance = new Attribute(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -486,7 +548,9 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     public static final long ID_MAX_LEN = 13;
 
     public static final boolean NAME_IS_REQUIRED = true;
-    public static final long NAME_MAX_LEN = 127;
+    public static final long NAME_MAX_LEN = 255;
+
+    public static final boolean ITEMGROUP_IS_REQUIRED = true;
 
     public static final boolean OPTIONS_IS_REQUIRED = false;
 

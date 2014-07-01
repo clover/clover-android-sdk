@@ -586,7 +586,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
     @Override
     public Printer createFromParcel(android.os.Parcel in) {
       Printer instance = new Printer(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

@@ -382,7 +382,7 @@ public final class ItemModifierGroup implements android.os.Parcelable, com.clove
     @Override
     public ItemModifierGroup createFromParcel(android.os.Parcel in) {
       ItemModifierGroup instance = new ItemModifierGroup(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

@@ -18,10 +18,16 @@ package com.clover.sdk.v1;
 
 public class Intents {
   public static final String ACTION_PAY = "clover.intent.action.PAY";
+  public static final String ACTION_CLOVER_PAY = "com.clover.intent.action.PAY";
   public static final String ACTION_REFUND = "clover.intent.action.REFUND";
   public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
+  public static final String ACTION_MODIFY_ORDER = "clover.intent.action.MODIFY_ORDER";
+
+  // Use this intent action to start App Market's App Detail screen
+  public static final String ACTION_START_APP_DETAIL = "clover.intent.action.START_APP_DETAIL";
 
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
+  public static final String EXTRA_CLOVER_ORDER_ID = "com.clover.intent.extra.ORDER_ID";
   public static final String EXTRA_AMOUNT = "clover.intent.extra.AMOUNT";
   public static final String EXTRA_CURRENCY = "clover.intent.extra.CURRENCY";
   public static final String EXTRA_MERCHANT_ID = "clover.intent.extra.MERCHANT_ID";
@@ -35,6 +41,23 @@ public class Intents {
 
   public static final String EXTRA_CLIENT_ID = "clover.intent.extra.CLIENT_ID";
   public static final String EXTRA_TIP_AMOUNT = "clover.intent.extra.TIP_AMOUNT";
+
+  // Extra for parcelable App for the START_APP_DETAIL action
+  public static final String EXTRA_APP = "clover.intent.extra.APP";
+
+  // Extra for App package name for the START_APP_DETAIL action
+  public static final String EXTRA_APP_PACKAGE_NAME = "clover.intent.extra.APP_PACKAGE_NAME";
+
+  // Extra for App UUID for the START_APP_DETAIL action
+  public static final String EXTRA_APP_ID = "clover.intent.extra.APP_ID";
+
+  // Extra for target subscription (during an upgrade flow) for the START_APP_DETAIL action
+  public static final String EXTRA_TARGET_SUBSCRIPTION_ID = "clover.intent.extra.TARGET_SUBSCRIPTION_ID";
+
+  public static final String EXTRA_OBEY_AUTO_LOGOUT = "com.clover.intent.extra.OBEY_AUTO_LOGOUT";
+
+  // Extra for result subscription (during an upgrade flow) for the START_APP_DETAIL action
+  public static final String EXTRA_RESULT_SUBSCRIPTION_ID = "clover.intent.extra.RESULT_SUBSCRIPTION_ID";
 
   /**
    * An {@link android.accounts.Account}, the Clover account associated with
@@ -80,6 +103,10 @@ public class Intents {
 
   public static final String EXTRA_DIALOG = "clover.intent.extra.DIALOG";
 
+  public static final String EXTRA_PERMISSIONS = "clover.intent.extra.PERMISSIONS";
+
+  public static final String EXTRA_PACKAGE = "clover.intent.extra.PACKAGE";
+
   /**
    * start Activity to authenticate an employee (i.e. enter pin number)
    * <p>
@@ -87,7 +114,10 @@ public class Intents {
    * <li>{@link #EXTRA_ACCOUNT} if not set then use current account
    * <li>{@link #EXTRA_EMPLOYEE_ID} String. if set then authenticate this particular employee, if not set then authenticate any employee and return id in result
    * <li>{@link #EXTRA_REASON} String custom title (optional)
-   * <li>{@link #EXTRA_DIALOG} Boolean extra value, if true then use Dialog theme
+   * <li>{@link #EXTRA_DIALOG} Boolean extra value, false by default. if True then use Dialog theme.
+   *
+   * <li>{@link #EXTRA_PERMISSIONS} String value, if set then you must authenticate an employee with this particular permission
+   * <li>{@link #EXTRA_PACKAGE} Optional String packageName. Works in conjunction with {@link #EXTRA_PERMISSIONS}
    * <p>
    * Output:
    * <li>{@link #EXTRA_EMPLOYEE_ID} Integer representing the authenticated employee id
@@ -106,6 +136,16 @@ public class Intents {
   public static final String EXTRA_SHOW_MERCHANT_PREVIEW = "clover.intent.extra.SHOW_MERCHANT_PREVIEW";
   public static final String EXTRA_SHOW_CUSTOMER_PREVIEW = "clover.intent.extra.SHOW_CUSTOMER_PREVIEW";
   public static final String EXTRA_LED_ON = "clover.intent.extra.LED_ON";
+  /**
+   * Default value is true.
+   * Set it to false if you don't want to scan QR_CODE
+   */
+  public static final String EXTRA_SCAN_QR_CODE = "clover.intent.extra.SCAN_QR_CODE";
+  /**
+   * Default value is true.
+   * Set it to false if you don't want to scan ONE_D codes
+   */
+  public static final String EXTRA_SCAN_1D_CODE = "clover.intent.extra.SCAN_1D_CODE";
   public static final String EXTRA_SHOW_CLOSE_BUTTON = "clover.intent.extra.SHOW_CLOSE_BUTTON";
   public static final String EXTRA_SHOW_LED_BUTTON = "clover.intent.extra.SHOW_LED_BUTTON";
   public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";

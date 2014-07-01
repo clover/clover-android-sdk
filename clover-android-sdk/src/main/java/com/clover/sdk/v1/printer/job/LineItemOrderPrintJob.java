@@ -21,6 +21,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
 
+@Deprecated
+/**
+ * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticOrderPrintJob}
+ */
 public class LineItemOrderPrintJob extends OrderPrintJob implements Parcelable {
   public static class Builder extends OrderPrintJob.Builder {
     protected ArrayList<String> itemIds;

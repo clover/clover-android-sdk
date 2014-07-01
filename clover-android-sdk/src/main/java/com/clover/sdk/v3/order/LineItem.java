@@ -304,14 +304,14 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
    */
-  public com.clover.sdk.v3.inventory.Item getItem() {
+  public com.clover.sdk.v3.base.Reference getItem() {
     return cacheGet(CacheKey.item);
   }
 
-  private com.clover.sdk.v3.inventory.Item extractItem() {
+  private com.clover.sdk.v3.base.Reference extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");
     if (jsonObj != null) {
-      return new com.clover.sdk.v3.inventory.Item(getJSONObject().optJSONObject("item"));
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("item"));
     }
     return null;
   }
@@ -885,7 +885,7 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public LineItem setItem(com.clover.sdk.v3.inventory.Item item) {
+  public LineItem setItem(com.clover.sdk.v3.base.Reference item) {
     logChange("item");
 
     try {
@@ -1553,7 +1553,7 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     @Override
     public LineItem createFromParcel(android.os.Parcel in) {
       LineItem instance = new LineItem(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

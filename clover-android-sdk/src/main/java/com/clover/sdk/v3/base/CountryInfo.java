@@ -675,7 +675,7 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
     @Override
     public CountryInfo createFromParcel(android.os.Parcel in) {
       CountryInfo instance = new CountryInfo(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

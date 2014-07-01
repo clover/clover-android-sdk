@@ -70,12 +70,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
         return instance.extractState();
       }
     },
-    cvmResult {
-      @Override
-      public Object extractValue(CardTransaction instance) {
-        return instance.extractCvmResult();
-      }
-    },
     extra {
       @Override
       public Object extractValue(CardTransaction instance) {
@@ -321,24 +315,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
   /**
-   */
-  public com.clover.sdk.v3.payments.CvmResult getCvmResult() {
-    return cacheGet(CacheKey.cvmResult);
-  }
-
-  private com.clover.sdk.v3.payments.CvmResult extractCvmResult() {
-    if (!getJSONObject().isNull("cvmResult")) {
-      try {
-        return com.clover.sdk.v3.payments.CvmResult.valueOf(getJSONObject().optString("cvmResult"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-  /**
    * Extra info to be stored as part of gateway/card transaction
    */
   public java.util.Map<java.lang.String,java.lang.String> getExtra() {
@@ -387,11 +363,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return cacheValueIsNotNull(CacheKey.state);
   }
 
-  /** Checks whether the 'cvmResult' field is set and is not null */
-  public boolean isNotNullCvmResult() {
-    return cacheValueIsNotNull(CacheKey.cvmResult);
-  }
-
   /** Checks whether the 'extra' field is set and is not null */
   public boolean isNotNullExtra() {
     return cacheValueIsNotNull(CacheKey.extra);
@@ -436,11 +407,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'state' field has been set, however the value could be null */
   public boolean hasState() {
     return cacheHasKey(CacheKey.state);
-  }
-
-  /** Checks whether the 'cvmResult' field has been set, however the value could be null */
-  public boolean hasCvmResult() {
-    return cacheHasKey(CacheKey.cvmResult);
   }
 
   /** Checks whether the 'extra' field has been set, however the value could be null */
@@ -562,22 +528,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
   /**
-   * Sets the field 'cvmResult'.
-   */
-  public CardTransaction setCvmResult(com.clover.sdk.v3.payments.CvmResult cvmResult) {
-    logChange("cvmResult");
-
-    try {
-      getJSONObject().put("cvmResult", cvmResult == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(cvmResult));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.cvmResult);
-    return this;
-  }
-
-  /**
    * Sets the field 'extra'.
    */
   public CardTransaction setExtra(java.util.Map<java.lang.String,java.lang.String> extra) {
@@ -641,13 +591,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     unlogChange("state");
     getJSONObject().remove("state");
     cacheRemoveValue(CacheKey.state);
-  }
-
-  /** Clears the 'cvmResult' field, the 'has' method for this field will now return false */
-  public void clearCvmResult() {
-    unlogChange("cvmResult");
-    getJSONObject().remove("cvmResult");
-    cacheRemoveValue(CacheKey.cvmResult);
   }
 
   /** Clears the 'extra' field, the 'has' method for this field will now return false */
@@ -761,7 +704,7 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     @Override
     public CardTransaction createFromParcel(android.os.Parcel in) {
       CardTransaction instance = new CardTransaction(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
@@ -797,8 +740,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     public static final long REFERENCEID_MAX_LEN = 32;
 
     public static final boolean STATE_IS_REQUIRED = false;
-
-    public static final boolean CVMRESULT_IS_REQUIRED = false;
 
     public static final boolean EXTRA_IS_REQUIRED = false;
 

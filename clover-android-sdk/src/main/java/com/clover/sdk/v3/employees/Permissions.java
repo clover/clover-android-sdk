@@ -464,7 +464,7 @@ public final class Permissions implements android.os.Parcelable, com.clover.sdk.
     @Override
     public Permissions createFromParcel(android.os.Parcel in) {
       Permissions instance = new Permissions(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle();
+      instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }

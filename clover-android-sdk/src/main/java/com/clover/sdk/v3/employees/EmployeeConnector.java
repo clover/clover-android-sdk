@@ -101,10 +101,6 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       if (mConnector == null) {
         return; // Shouldn't get here, but bail just in case
       }
-      if (mConnector.mClient != null && mConnector.mClient instanceof OnActiveEmployeeChangedListener) {
-        OnActiveEmployeeChangedListener listener = (OnActiveEmployeeChangedListener) mConnector.mClient;
-        mConnector.postOnActiveEmployeeChanged(employee, listener);
-      }
       if (mConnector.mOnActiveEmployeeChangedListener != null && !mConnector.mOnActiveEmployeeChangedListener.isEmpty()) {
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
         // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
@@ -125,7 +121,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     public void destroy() {
       mConnector = null;
     }
-  };
+  }
 
   private OnEmployeeListenerParent mListener;
 
@@ -152,18 +148,16 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   protected void notifyServiceConnected(OnServiceConnectedListener client) {
     super.notifyServiceConnected(client);
 
-    if (client != null && client instanceof OnActiveEmployeeChangedListener) {
-      execute(new EmployeeCallable<Void>() {
-        @Override
-        public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
-          if (mListener == null) {
-            mListener = new OnEmployeeListenerParent(EmployeeConnector.this);
-          }
-          service.addListener(mListener, status);
-          return null;
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        if (mListener == null) {
+          mListener = new OnEmployeeListenerParent(EmployeeConnector.this);
         }
-      }, new EmployeeCallback<Void>());
-    }
+        service.addListener(mListener, status);
+        return null;
+      }
+    }, new EmployeeCallback<Void>());
   }
 
   @Override
