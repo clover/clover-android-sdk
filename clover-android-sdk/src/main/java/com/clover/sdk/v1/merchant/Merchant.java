@@ -47,6 +47,7 @@ public class Merchant implements Parcelable {
   private static final String KEY_LOCALE = "locale";
   private static final String KEY_UPDATE_STOCK = "updateStock";
   private static final String KEY_TRACK_STOCK = "trackStock";
+  private static final String KEY_PAID_APPS_FREE = "paidAppsFree";
 
   private final Bundle data;
 
@@ -184,6 +185,13 @@ public class Merchant implements Parcelable {
    */
   public boolean isTrackStockEnabled() {
     return data.getBoolean(KEY_TRACK_STOCK, false);
+  }
+
+  /**
+   * Get paid apps free
+   */
+  public boolean getPaidAppsFree() {
+    return data.getBoolean(KEY_PAID_APPS_FREE, false);
   }
 
   @Override

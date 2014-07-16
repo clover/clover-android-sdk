@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '26'
+version = '27’
 
 apply plugin: 'android-library'
 apply plugin: 'android-maven'

@@ -124,6 +124,12 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.extractCardTransaction();
       }
     },
+    serviceCharge {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.extractServiceCharge();
+      }
+    },
     taxRates {
       @Override
       public Object extractValue(Payment instance) {
@@ -502,6 +508,23 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
   /**
+   * Amount record as a service charge
+   *
+   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
+   */
+  public com.clover.sdk.v3.payments.ServiceChargeAmount getServiceCharge() {
+    return cacheGet(CacheKey.serviceCharge);
+  }
+
+  private com.clover.sdk.v3.payments.ServiceChargeAmount extractServiceCharge() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("serviceCharge");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.payments.ServiceChargeAmount(getJSONObject().optJSONObject("serviceCharge"));
+    }
+    return null;
+  }
+
+  /**
    *
    * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
    */
@@ -680,6 +703,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     return cacheValueIsNotNull(CacheKey.cardTransaction);
   }
 
+  /** Checks whether the 'serviceCharge' field is set and is not null */
+  public boolean isNotNullServiceCharge() {
+    return cacheValueIsNotNull(CacheKey.serviceCharge);
+  }
+
   /** Checks whether the 'taxRates' field is set and is not null */
   public boolean isNotNullTaxRates() {
     return cacheValueIsNotNull(CacheKey.taxRates);
@@ -794,6 +822,11 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   /** Checks whether the 'cardTransaction' field has been set, however the value could be null */
   public boolean hasCardTransaction() {
     return cacheHasKey(CacheKey.cardTransaction);
+  }
+
+  /** Checks whether the 'serviceCharge' field has been set, however the value could be null */
+  public boolean hasServiceCharge() {
+    return cacheHasKey(CacheKey.serviceCharge);
   }
 
   /** Checks whether the 'taxRates' field has been set, however the value could be null */
@@ -1089,6 +1122,25 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
   /**
+   * Sets the field 'serviceCharge'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setServiceCharge(com.clover.sdk.v3.payments.ServiceChargeAmount serviceCharge) {
+    logChange("serviceCharge");
+
+    try {
+      getJSONObject().put("serviceCharge",
+          serviceCharge == null ? org.json.JSONObject.NULL : serviceCharge.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.serviceCharge);
+    return this;
+  }
+
+  /**
    * Sets the field 'taxRates'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -1319,6 +1371,13 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     cacheRemoveValue(CacheKey.cardTransaction);
   }
 
+  /** Clears the 'serviceCharge' field, the 'has' method for this field will now return false */
+  public void clearServiceCharge() {
+    unlogChange("serviceCharge");
+    getJSONObject().remove("serviceCharge");
+    cacheRemoveValue(CacheKey.serviceCharge);
+  }
+
   /** Clears the 'taxRates' field, the 'has' method for this field will now return false */
   public void clearTaxRates() {
     unlogChange("taxRates");
@@ -1505,6 +1564,8 @@ public final class Payment implements android.os.Parcelable, com.clover.sdk.v3.V
     public static final boolean RESULT_IS_REQUIRED = false;
 
     public static final boolean CARDTRANSACTION_IS_REQUIRED = false;
+
+    public static final boolean SERVICECHARGE_IS_REQUIRED = false;
 
     public static final boolean TAXRATES_IS_REQUIRED = false;
 

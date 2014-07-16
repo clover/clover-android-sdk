@@ -280,12 +280,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
         return instance.extractAvailableMetereds();
       }
     },
-    isMerchantInTrial {
-      @Override
-      public Object extractValue(App instance) {
-        return instance.extractIsMerchantInTrial();
-      }
-    },
     currentSubscription {
       @Override
       public Object extractValue(App instance) {
@@ -302,6 +296,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
       @Override
       public Object extractValue(App instance) {
         return instance.extractPaidAppHasTrial();
+      }
+    },
+    paidAppFreeEligible {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractPaidAppFreeEligible();
       }
     },
     smartReceiptText {
@@ -1078,18 +1078,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
-   * If the merchant has the app installed, and the app is a paid app, and the app has a 30 day trial, this tells whether the merchant is in trial or not
-   */
-  public java.lang.Boolean getIsMerchantInTrial() {
-    return cacheGet(CacheKey.isMerchantInTrial);
-  }
-
-  private java.lang.Boolean extractIsMerchantInTrial() {
-    return getJSONObject().isNull("isMerchantInTrial") ? null :
-      getJSONObject().optBoolean("isMerchantInTrial");
-  }
-
-  /**
    * The merchant's current subscription for this app
    *
    * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
@@ -1107,7 +1095,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
-   *  Whether the app is installed
+   *  Whether the app is installed 
    */
   public java.lang.Boolean getInstalled() {
     return cacheGet(CacheKey.installed);
@@ -1119,7 +1107,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
-   * If the app is a paid app, this tells whether is has a 30 day free trial or not
+   * If the app is a paid app, this tells whether it currently offers a 30 day free trial or not.  Developer can toggle at will.
    */
   public java.lang.Boolean getPaidAppHasTrial() {
     return cacheGet(CacheKey.paidAppHasTrial);
@@ -1128,6 +1116,18 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   private java.lang.Boolean extractPaidAppHasTrial() {
     return getJSONObject().isNull("paidAppHasTrial") ? null :
       getJSONObject().optBoolean("paidAppHasTrial");
+  }
+
+  /**
+   * If the app is a paid app, this tells whether salespeople get this app for free or not
+   */
+  public java.lang.Boolean getPaidAppFreeEligible() {
+    return cacheGet(CacheKey.paidAppFreeEligible);
+  }
+
+  private java.lang.Boolean extractPaidAppFreeEligible() {
+    return getJSONObject().isNull("paidAppFreeEligible") ? null :
+      getJSONObject().optBoolean("paidAppFreeEligible");
   }
 
   /**
@@ -1155,7 +1155,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
-   * If the merchant has the app installed, this is the timestamp of when they started paying.  If the merchant doesn't have the app installed, this is the timestamp of when they would start paying.  In UTC.  Applies to paid apps only.
+   * If the merchant has the app installed, this is the timestamp of when they start/started paying.  If the merchant doesn't have the app installed, this is the timestamp of when they would start paying.  In UTC.  Applies to paid apps only.
    */
   public java.lang.Long getBillingStartTime() {
     return cacheGet(CacheKey.billingStartTime);
@@ -1397,11 +1397,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return isNotNullAvailableMetereds() && !getAvailableMetereds().isEmpty();
   }
 
-  /** Checks whether the 'isMerchantInTrial' field is set and is not null */
-  public boolean isNotNullIsMerchantInTrial() {
-    return cacheValueIsNotNull(CacheKey.isMerchantInTrial);
-  }
-
   /** Checks whether the 'currentSubscription' field is set and is not null */
   public boolean isNotNullCurrentSubscription() {
     return cacheValueIsNotNull(CacheKey.currentSubscription);
@@ -1415,6 +1410,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'paidAppHasTrial' field is set and is not null */
   public boolean isNotNullPaidAppHasTrial() {
     return cacheValueIsNotNull(CacheKey.paidAppHasTrial);
+  }
+
+  /** Checks whether the 'paidAppFreeEligible' field is set and is not null */
+  public boolean isNotNullPaidAppFreeEligible() {
+    return cacheValueIsNotNull(CacheKey.paidAppFreeEligible);
   }
 
   /** Checks whether the 'smartReceiptText' field is set and is not null */
@@ -1643,11 +1643,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheHasKey(CacheKey.availableMetereds);
   }
 
-  /** Checks whether the 'isMerchantInTrial' field has been set, however the value could be null */
-  public boolean hasIsMerchantInTrial() {
-    return cacheHasKey(CacheKey.isMerchantInTrial);
-  }
-
   /** Checks whether the 'currentSubscription' field has been set, however the value could be null */
   public boolean hasCurrentSubscription() {
     return cacheHasKey(CacheKey.currentSubscription);
@@ -1661,6 +1656,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'paidAppHasTrial' field has been set, however the value could be null */
   public boolean hasPaidAppHasTrial() {
     return cacheHasKey(CacheKey.paidAppHasTrial);
+  }
+
+  /** Checks whether the 'paidAppFreeEligible' field has been set, however the value could be null */
+  public boolean hasPaidAppFreeEligible() {
+    return cacheHasKey(CacheKey.paidAppFreeEligible);
   }
 
   /** Checks whether the 'smartReceiptText' field has been set, however the value could be null */
@@ -2430,22 +2430,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
-   * Sets the field 'isMerchantInTrial'.
-   */
-  public App setIsMerchantInTrial(java.lang.Boolean isMerchantInTrial) {
-    logChange("isMerchantInTrial");
-
-    try {
-      getJSONObject().put("isMerchantInTrial", isMerchantInTrial == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(isMerchantInTrial));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.isMerchantInTrial);
-    return this;
-  }
-
-  /**
    * Sets the field 'currentSubscription'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -2493,6 +2477,22 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
 
     cacheMarkDirty(CacheKey.paidAppHasTrial);
+    return this;
+  }
+
+  /**
+   * Sets the field 'paidAppFreeEligible'.
+   */
+  public App setPaidAppFreeEligible(java.lang.Boolean paidAppFreeEligible) {
+    logChange("paidAppFreeEligible");
+
+    try {
+      getJSONObject().put("paidAppFreeEligible", paidAppFreeEligible == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(paidAppFreeEligible));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.paidAppFreeEligible);
     return this;
   }
 
@@ -2839,13 +2839,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     cacheRemoveValue(CacheKey.availableMetereds);
   }
 
-  /** Clears the 'isMerchantInTrial' field, the 'has' method for this field will now return false */
-  public void clearIsMerchantInTrial() {
-    unlogChange("isMerchantInTrial");
-    getJSONObject().remove("isMerchantInTrial");
-    cacheRemoveValue(CacheKey.isMerchantInTrial);
-  }
-
   /** Clears the 'currentSubscription' field, the 'has' method for this field will now return false */
   public void clearCurrentSubscription() {
     unlogChange("currentSubscription");
@@ -2865,6 +2858,13 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     unlogChange("paidAppHasTrial");
     getJSONObject().remove("paidAppHasTrial");
     cacheRemoveValue(CacheKey.paidAppHasTrial);
+  }
+
+  /** Clears the 'paidAppFreeEligible' field, the 'has' method for this field will now return false */
+  public void clearPaidAppFreeEligible() {
+    unlogChange("paidAppFreeEligible");
+    getJSONObject().remove("paidAppFreeEligible");
+    cacheRemoveValue(CacheKey.paidAppFreeEligible);
   }
 
   /** Clears the 'smartReceiptText' field, the 'has' method for this field will now return false */
@@ -3115,13 +3115,13 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean AVAILABLEMETEREDS_IS_REQUIRED = false;
 
-    public static final boolean ISMERCHANTINTRIAL_IS_REQUIRED = false;
-
     public static final boolean CURRENTSUBSCRIPTION_IS_REQUIRED = false;
 
     public static final boolean INSTALLED_IS_REQUIRED = false;
 
     public static final boolean PAIDAPPHASTRIAL_IS_REQUIRED = false;
+
+    public static final boolean PAIDAPPFREEELIGIBLE_IS_REQUIRED = false;
 
     public static final boolean SMARTRECEIPTTEXT_IS_REQUIRED = false;
     public static final long SMARTRECEIPTTEXT_MAX_LEN = 100;
