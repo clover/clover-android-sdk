@@ -34,6 +34,7 @@ import com.clover.sdk.v3.payments.Refund;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class OrderConnector extends ServiceConnector<IOrderService> {
@@ -284,11 +285,21 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     });
   }
 
+  @Deprecated
   public List<LineItem> copyLineItems(final String sourceOrderId, final String destinationOrderId, final List<String> srclineItemIds) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderService, List<LineItem>>() {
       @Override
       public List<LineItem> call(IOrderService service, ResultStatus status) throws RemoteException {
         return service.copyLineItems(sourceOrderId, destinationOrderId, srclineItemIds, status);
+      }
+    });
+  }
+
+  public Map<String, List<LineItem>> createLineItemsFrom(final String sourceOrderId, final String destinationOrderId, final List<String> srclineItemIds) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Map<String, List<LineItem>>>() {
+      @Override
+      public Map<String, List<LineItem>> call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.createLineItemsFrom(sourceOrderId, destinationOrderId, srclineItemIds, status);
       }
     });
   }

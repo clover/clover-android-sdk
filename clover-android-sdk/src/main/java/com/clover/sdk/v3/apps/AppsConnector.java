@@ -70,6 +70,15 @@ public class AppsConnector extends ServiceConnector<IAppsService> {
     });
   }
 
+  public AppBillingInfo getAppBillingInfo() throws RemoteException, ServiceException, BindingException, ClientException {
+    return execute(new AppCallable<AppBillingInfo>() {
+      @Override
+      public AppBillingInfo call(IAppsService service, ResultStatus status) throws RemoteException {
+        return service.getAppBillingInfo(status);
+      }
+    });
+  }
+
   private abstract static class AppCallable<T> implements ServiceCallable<IAppsService, T> {
   }
 }

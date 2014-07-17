@@ -84,4 +84,6 @@ interface IOrderService {
   Order addBatchLineItemModifications(String orderId, in List<String> lineItemIds, in Modifier modifier, int quantity, out ResultStatus status);
 
   Order addBatchLineItemDiscounts(String orderId, in List<String> lineItemIds, in List<Discount> discounts, out ResultStatus status);
+
+  Map createLineItemsFrom(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
 }

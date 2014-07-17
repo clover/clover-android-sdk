@@ -196,6 +196,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
         return instance.extractAppBillingEnabled();
       }
     },
+    paidAppsFree {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractPaidAppsFree();
+      }
+    },
     updateStock {
       @Override
       public Object extractValue(MerchantProperties instance) {
@@ -663,6 +669,18 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
   /**
+   * If this merchant is an internal salesperson, they will get all paid apps for free
+   */
+  public java.lang.Boolean getPaidAppsFree() {
+    return cacheGet(CacheKey.paidAppsFree);
+  }
+
+  private java.lang.Boolean extractPaidAppsFree() {
+    return getJSONObject().isNull("paidAppsFree") ? null :
+      getJSONObject().optBoolean("paidAppsFree");
+  }
+
+  /**
    */
   public java.lang.Boolean getUpdateStock() {
     return cacheGet(CacheKey.updateStock);
@@ -814,6 +832,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheValueIsNotNull(CacheKey.appBillingEnabled);
   }
 
+  /** Checks whether the 'paidAppsFree' field is set and is not null */
+  public boolean isNotNullPaidAppsFree() {
+    return cacheValueIsNotNull(CacheKey.paidAppsFree);
+  }
+
   /** Checks whether the 'updateStock' field is set and is not null */
   public boolean isNotNullUpdateStock() {
     return cacheValueIsNotNull(CacheKey.updateStock);
@@ -958,6 +981,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'appBillingEnabled' field has been set, however the value could be null */
   public boolean hasAppBillingEnabled() {
     return cacheHasKey(CacheKey.appBillingEnabled);
+  }
+
+  /** Checks whether the 'paidAppsFree' field has been set, however the value could be null */
+  public boolean hasPaidAppsFree() {
+    return cacheHasKey(CacheKey.paidAppsFree);
   }
 
   /** Checks whether the 'updateStock' field has been set, however the value could be null */
@@ -1415,6 +1443,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
   /**
+   * Sets the field 'paidAppsFree'.
+   */
+  public MerchantProperties setPaidAppsFree(java.lang.Boolean paidAppsFree) {
+    logChange("paidAppsFree");
+
+    try {
+      getJSONObject().put("paidAppsFree", paidAppsFree == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(paidAppsFree));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.paidAppsFree);
+    return this;
+  }
+
+  /**
    * Sets the field 'updateStock'.
    */
   public MerchantProperties setUpdateStock(java.lang.Boolean updateStock) {
@@ -1627,6 +1671,13 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     cacheRemoveValue(CacheKey.appBillingEnabled);
   }
 
+  /** Clears the 'paidAppsFree' field, the 'has' method for this field will now return false */
+  public void clearPaidAppsFree() {
+    unlogChange("paidAppsFree");
+    getJSONObject().remove("paidAppsFree");
+    cacheRemoveValue(CacheKey.paidAppsFree);
+  }
+
   /** Clears the 'updateStock' field, the 'has' method for this field will now return false */
   public void clearUpdateStock() {
     unlogChange("updateStock");
@@ -1820,6 +1871,8 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     public static final long VATTAXNAME_MAX_LEN = 255;
 
     public static final boolean APPBILLINGENABLED_IS_REQUIRED = false;
+
+    public static final boolean PAIDAPPSFREE_IS_REQUIRED = false;
 
     public static final boolean UPDATESTOCK_IS_REQUIRED = false;
 
