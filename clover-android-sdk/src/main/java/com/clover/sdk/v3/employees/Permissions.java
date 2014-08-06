@@ -26,6 +26,25 @@ package com.clover.sdk.v3.employees;
 @SuppressWarnings("all")
 public final class Permissions implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * A bitmap representing the permissions
+  */
+  public java.lang.Long getBits() {
+    return cacheGet(CacheKey.bits);
+  }
+ /**
+   * A readable list of permissions
+  */
+  public java.util.List<com.clover.sdk.v3.employees.Permission> getReadablePermissions() {
+    return cacheGet(CacheKey.readablePermissions);
+  }
+
   public static final String AUTHORITY = "com.clover.roles";
 
   private enum CacheKey {
@@ -174,38 +193,18 @@ public final class Permissions implements android.os.Parcelable, com.clover.sdk.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * A bitmap representing the permissions
-   */
-  public java.lang.Long getBits() {
-    return cacheGet(CacheKey.bits);
-  }
 
   private java.lang.Long extractBits() {
     return getJSONObject().isNull("bits") ? null :
       getJSONObject().optLong("bits");
   }
 
-  /**
-   * A readable list of permissions
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.employees.Permission> getReadablePermissions() {
-    return cacheGet(CacheKey.readablePermissions);
-  }
 
   private java.util.List<com.clover.sdk.v3.employees.Permission> extractReadablePermissions() {
     if (getJSONObject().isNull("readablePermissions")) {

@@ -26,6 +26,37 @@ package com.clover.sdk.v3.order;
 @SuppressWarnings("all")
 public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * If this item is based on a standard discount, this will point to the appropriate inventory.Discount
+  */
+  public com.clover.sdk.v3.base.Reference getDiscount() {
+    return cacheGet(CacheKey.discount);
+  }
+ /**
+   * Name of the discount
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Discount amount in fraction of currency unit (e.g. cents) based on currency fraction digits supported
+  */
+  public java.lang.Long getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+ /**
+   * Discount amount in percent
+  */
+  public java.lang.Long getPercentage() {
+    return cacheGet(CacheKey.percentage);
+  }
+
 
   private enum CacheKey {
     id {
@@ -189,26 +220,12 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * If this item is based on a standard discount, this will point to the appropriate inventory.Discount
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getDiscount() {
-    return cacheGet(CacheKey.discount);
-  }
 
   private com.clover.sdk.v3.base.Reference extractDiscount() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("discount");
@@ -218,36 +235,18 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   * Name of the discount
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Discount amount in fraction of currency unit (e.g. cents) based on currency fraction digits supported
-   */
-  public java.lang.Long getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
   }
 
-  /**
-   * Discount amount in percent
-   */
-  public java.lang.Long getPercentage() {
-    return cacheGet(CacheKey.percentage);
-  }
 
   private java.lang.Long extractPercentage() {
     return getJSONObject().isNull("percentage") ? null :

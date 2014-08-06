@@ -26,6 +26,22 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class PaymentTaxRate implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.Long getRate() {
+    return cacheGet(CacheKey.rate);
+  }
+  public java.lang.Boolean getIsDefault() {
+    return cacheGet(CacheKey.isDefault);
+  }
+  public java.lang.Long getTaxableAmount() {
+    return cacheGet(CacheKey.taxableAmount);
+  }
+
 
   private enum CacheKey {
     id {
@@ -196,55 +212,30 @@ public final class PaymentTaxRate implements android.os.Parcelable, com.clover.s
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.Long getRate() {
-    return cacheGet(CacheKey.rate);
-  }
 
   private java.lang.Long extractRate() {
     return getJSONObject().isNull("rate") ? null :
       getJSONObject().optLong("rate");
   }
 
-  /**
-   */
-  public java.lang.Boolean getIsDefault() {
-    return cacheGet(CacheKey.isDefault);
-  }
 
   private java.lang.Boolean extractIsDefault() {
     return getJSONObject().isNull("isDefault") ? null :
       getJSONObject().optBoolean("isDefault");
   }
 
-  /**
-   */
-  public java.lang.Long getTaxableAmount() {
-    return cacheGet(CacheKey.taxableAmount);
-  }
 
   private java.lang.Long extractTaxableAmount() {
     return getJSONObject().isNull("taxableAmount") ? null :

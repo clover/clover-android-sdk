@@ -26,6 +26,25 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class TaxRate implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.Long getRate() {
+    return cacheGet(CacheKey.rate);
+  }
+  public java.lang.Boolean getIsDefault() {
+    return cacheGet(CacheKey.isDefault);
+  }
+ /**
+   * Items associated with this tax rate
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+
 
   private enum CacheKey {
     id {
@@ -193,58 +212,30 @@ public final class TaxRate implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.Long getRate() {
-    return cacheGet(CacheKey.rate);
-  }
 
   private java.lang.Long extractRate() {
     return getJSONObject().isNull("rate") ? null :
       getJSONObject().optLong("rate");
   }
 
-  /**
-   */
-  public java.lang.Boolean getIsDefault() {
-    return cacheGet(CacheKey.isDefault);
-  }
 
   private java.lang.Boolean extractIsDefault() {
     return getJSONObject().isNull("isDefault") ? null :
       getJSONObject().optBoolean("isDefault");
   }
 
-  /**
-   * Items associated with this tax rate
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractItems() {
     if (getJSONObject().isNull("items")) {

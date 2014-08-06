@@ -26,6 +26,103 @@ package com.clover.sdk.v3.order;
 @SuppressWarnings("all")
 public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Inventory item used to create this line item
+  */
+  public com.clover.sdk.v3.base.Reference getItem() {
+    return cacheGet(CacheKey.item);
+  }
+ /**
+   * Line item name
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Alternate name of the line item
+  */
+  public java.lang.String getAlternateName() {
+    return cacheGet(CacheKey.alternateName);
+  }
+ /**
+   * Price of the item, typically in cents; use priceType and merchant currency to determine actual item price
+  */
+  public java.lang.Long getPrice() {
+    return cacheGet(CacheKey.price);
+  }
+ /**
+   * Unit quantity
+  */
+  public java.lang.Integer getUnitQty() {
+    return cacheGet(CacheKey.unitQty);
+  }
+ /**
+   * Unit name (e.g. oz, lb, etc.)
+  */
+  public java.lang.String getUnitName() {
+    return cacheGet(CacheKey.unitName);
+  }
+  public java.lang.String getItemCode() {
+    return cacheGet(CacheKey.itemCode);
+  }
+  public java.lang.String getNote() {
+    return cacheGet(CacheKey.note);
+  }
+  public java.lang.Boolean getPrinted() {
+    return cacheGet(CacheKey.printed);
+  }
+  public com.clover.sdk.v3.base.Reference getExchangedLineItem() {
+    return cacheGet(CacheKey.exchangedLineItem);
+  }
+  public java.lang.String getBinName() {
+    return cacheGet(CacheKey.binName);
+  }
+  public java.lang.String getUserData() {
+    return cacheGet(CacheKey.userData);
+  }
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+  public java.util.List<com.clover.sdk.v3.order.Discount> getDiscounts() {
+    return cacheGet(CacheKey.discounts);
+  }
+ /**
+   * does the calculated flag actually do anything?
+  */
+  public java.lang.Long getDiscountAmount() {
+    return cacheGet(CacheKey.discountAmount);
+  }
+  public java.lang.Boolean getExchanged() {
+    return cacheGet(CacheKey.exchanged);
+  }
+  public java.util.List<com.clover.sdk.v3.order.Modification> getModifications() {
+    return cacheGet(CacheKey.modifications);
+  }
+  public java.lang.Boolean getRefunded() {
+    return cacheGet(CacheKey.refunded);
+  }
+ /**
+   * True if this item should be counted as revenue, for example gift cards and donations would not
+  */
+  public java.lang.Boolean getIsRevenue() {
+    return cacheGet(CacheKey.isRevenue);
+  }
+  public java.util.List<com.clover.sdk.v3.inventory.TaxRate> getTaxRates() {
+    return cacheGet(CacheKey.taxRates);
+  }
+ /**
+   * Payments that were made for this line item
+  */
+  public java.util.List<com.clover.sdk.v3.payments.LineItemPayment> getPayments() {
+    return cacheGet(CacheKey.payments);
+  }
+
 
   private enum CacheKey {
     id {
@@ -287,26 +384,12 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Inventory item used to create this line item
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getItem() {
-    return cacheGet(CacheKey.item);
-  }
 
   private com.clover.sdk.v3.base.Reference extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");
@@ -316,106 +399,54 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   * Line item name
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Alternate name of the line item
-   */
-  public java.lang.String getAlternateName() {
-    return cacheGet(CacheKey.alternateName);
-  }
 
   private java.lang.String extractAlternateName() {
     return getJSONObject().isNull("alternateName") ? null :
       getJSONObject().optString("alternateName");
   }
 
-  /**
-   * Price of the item, typically in cents; use priceType and merchant currency to determine actual item price
-   */
-  public java.lang.Long getPrice() {
-    return cacheGet(CacheKey.price);
-  }
 
   private java.lang.Long extractPrice() {
     return getJSONObject().isNull("price") ? null :
       getJSONObject().optLong("price");
   }
 
-  /**
-   * Unit quantity
-   */
-  public java.lang.Integer getUnitQty() {
-    return cacheGet(CacheKey.unitQty);
-  }
 
   private java.lang.Integer extractUnitQty() {
     return getJSONObject().isNull("unitQty") ? null :
       getJSONObject().optInt("unitQty");
   }
 
-  /**
-   * Unit name (e.g. oz, lb, etc.)
-   */
-  public java.lang.String getUnitName() {
-    return cacheGet(CacheKey.unitName);
-  }
 
   private java.lang.String extractUnitName() {
     return getJSONObject().isNull("unitName") ? null :
       getJSONObject().optString("unitName");
   }
 
-  /**
-   */
-  public java.lang.String getItemCode() {
-    return cacheGet(CacheKey.itemCode);
-  }
 
   private java.lang.String extractItemCode() {
     return getJSONObject().isNull("itemCode") ? null :
       getJSONObject().optString("itemCode");
   }
 
-  /**
-   */
-  public java.lang.String getNote() {
-    return cacheGet(CacheKey.note);
-  }
 
   private java.lang.String extractNote() {
     return getJSONObject().isNull("note") ? null :
       getJSONObject().optString("note");
   }
 
-  /**
-   */
-  public java.lang.Boolean getPrinted() {
-    return cacheGet(CacheKey.printed);
-  }
 
   private java.lang.Boolean extractPrinted() {
     return getJSONObject().isNull("printed") ? null :
       getJSONObject().optBoolean("printed");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getExchangedLineItem() {
-    return cacheGet(CacheKey.exchangedLineItem);
-  }
 
   private com.clover.sdk.v3.base.Reference extractExchangedLineItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("exchangedLineItem");
@@ -425,46 +456,24 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   */
-  public java.lang.String getBinName() {
-    return cacheGet(CacheKey.binName);
-  }
 
   private java.lang.String extractBinName() {
     return getJSONObject().isNull("binName") ? null :
       getJSONObject().optString("binName");
   }
 
-  /**
-   */
-  public java.lang.String getUserData() {
-    return cacheGet(CacheKey.userData);
-  }
 
   private java.lang.String extractUserData() {
     return getJSONObject().isNull("userData") ? null :
       getJSONObject().optString("userData");
   }
 
-  /**
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.order.Discount> getDiscounts() {
-    return cacheGet(CacheKey.discounts);
-  }
 
   private java.util.List<com.clover.sdk.v3.order.Discount> extractDiscounts() {
     if (getJSONObject().isNull("discounts")) {
@@ -487,36 +496,18 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * does the calculated flag actually do anything?
-   */
-  public java.lang.Long getDiscountAmount() {
-    return cacheGet(CacheKey.discountAmount);
-  }
 
   private java.lang.Long extractDiscountAmount() {
     return getJSONObject().isNull("discountAmount") ? null :
       getJSONObject().optLong("discountAmount");
   }
 
-  /**
-   */
-  public java.lang.Boolean getExchanged() {
-    return cacheGet(CacheKey.exchanged);
-  }
 
   private java.lang.Boolean extractExchanged() {
     return getJSONObject().isNull("exchanged") ? null :
       getJSONObject().optBoolean("exchanged");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.order.Modification> getModifications() {
-    return cacheGet(CacheKey.modifications);
-  }
 
   private java.util.List<com.clover.sdk.v3.order.Modification> extractModifications() {
     if (getJSONObject().isNull("modifications")) {
@@ -539,36 +530,18 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   */
-  public java.lang.Boolean getRefunded() {
-    return cacheGet(CacheKey.refunded);
-  }
 
   private java.lang.Boolean extractRefunded() {
     return getJSONObject().isNull("refunded") ? null :
       getJSONObject().optBoolean("refunded");
   }
 
-  /**
-   * True if this item should be counted as revenue, for example gift cards and donations would not
-   */
-  public java.lang.Boolean getIsRevenue() {
-    return cacheGet(CacheKey.isRevenue);
-  }
 
   private java.lang.Boolean extractIsRevenue() {
     return getJSONObject().isNull("isRevenue") ? null :
       getJSONObject().optBoolean("isRevenue");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.TaxRate> getTaxRates() {
-    return cacheGet(CacheKey.taxRates);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.TaxRate> extractTaxRates() {
     if (getJSONObject().isNull("taxRates")) {
@@ -591,14 +564,6 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * Payments that were made for this line item
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.LineItemPayment> getPayments() {
-    return cacheGet(CacheKey.payments);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.LineItemPayment> extractPayments() {
     if (getJSONObject().isNull("payments")) {
@@ -1588,6 +1553,7 @@ public final class LineItem implements android.os.Parcelable, com.clover.sdk.v3.
     public static final boolean PRICE_IS_REQUIRED = false;
 
     public static final boolean UNITQTY_IS_REQUIRED = false;
+    public static final long UNITQTY_MIN = 0;
 
     public static final boolean UNITNAME_IS_REQUIRED = false;
     public static final long UNITNAME_MAX_LEN = 64;

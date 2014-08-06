@@ -26,6 +26,25 @@ package com.clover.sdk.v3.merchant;
 @SuppressWarnings("all")
 public final class TipSuggestion implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the tip
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Suggested tip percentage
+  */
+  public java.lang.Long getPercentage() {
+    return cacheGet(CacheKey.percentage);
+  }
+  public java.lang.Boolean getIsEnabled() {
+    return cacheGet(CacheKey.isEnabled);
+  }
+
 
   private enum CacheKey {
     id {
@@ -183,46 +202,24 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the tip
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Suggested tip percentage
-   */
-  public java.lang.Long getPercentage() {
-    return cacheGet(CacheKey.percentage);
-  }
 
   private java.lang.Long extractPercentage() {
     return getJSONObject().isNull("percentage") ? null :
       getJSONObject().optLong("percentage");
   }
 
-  /**
-   */
-  public java.lang.Boolean getIsEnabled() {
-    return cacheGet(CacheKey.isEnabled);
-  }
 
   private java.lang.Boolean extractIsEnabled() {
     return getJSONObject().isNull("isEnabled") ? null :

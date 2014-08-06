@@ -26,6 +26,106 @@ package com.clover.sdk.v3.order;
 @SuppressWarnings("all")
 public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Currency of this order
+  */
+  public java.lang.String getCurrency() {
+    return cacheGet(CacheKey.currency);
+  }
+  public java.util.List<com.clover.sdk.v3.customers.Customer> getCustomers() {
+    return cacheGet(CacheKey.customers);
+  }
+ /**
+   * The employee who took this order
+  */
+  public com.clover.sdk.v3.base.Reference getEmployee() {
+    return cacheGet(CacheKey.employee);
+  }
+ /**
+   * Total price of the order
+  */
+  public java.lang.Long getTotal() {
+    return cacheGet(CacheKey.total);
+  }
+  public java.lang.String getTitle() {
+    return cacheGet(CacheKey.title);
+  }
+  public java.lang.String getNote() {
+    return cacheGet(CacheKey.note);
+  }
+  public com.clover.sdk.v3.order.OrderType getOrderType() {
+    return cacheGet(CacheKey.orderType);
+  }
+  public java.lang.Boolean getTaxRemoved() {
+    return cacheGet(CacheKey.taxRemoved);
+  }
+  public java.lang.Boolean getIsVat() {
+    return cacheGet(CacheKey.isVat);
+  }
+  public java.lang.String getState() {
+    return cacheGet(CacheKey.state);
+  }
+  public java.lang.Boolean getManualTransaction() {
+    return cacheGet(CacheKey.manualTransaction);
+  }
+  public java.lang.Boolean getGroupLineItems() {
+    return cacheGet(CacheKey.groupLineItems);
+  }
+  public java.lang.Boolean getTestMode() {
+    return cacheGet(CacheKey.testMode);
+  }
+  public com.clover.sdk.v3.order.PayType getPayType() {
+    return cacheGet(CacheKey.payType);
+  }
+ /**
+   * Creation timestamp
+  */
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+  public java.lang.Long getClientCreatedTime() {
+    return cacheGet(CacheKey.clientCreatedTime);
+  }
+ /**
+   * Last modified time of the order
+  */
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
+ /**
+   * Optional service charge (gratuity) applied to this order
+  */
+  public com.clover.sdk.v3.base.ServiceCharge getServiceCharge() {
+    return cacheGet(CacheKey.serviceCharge);
+  }
+  public java.util.List<com.clover.sdk.v3.order.Discount> getDiscounts() {
+    return cacheGet(CacheKey.discounts);
+  }
+  public java.util.List<com.clover.sdk.v3.order.LineItem> getLineItems() {
+    return cacheGet(CacheKey.lineItems);
+  }
+ /**
+   * Payments that were made for this order
+  */
+  public java.util.List<com.clover.sdk.v3.payments.Payment> getPayments() {
+    return cacheGet(CacheKey.payments);
+  }
+ /**
+   * Refunds that were made for this order
+  */
+  public java.util.List<com.clover.sdk.v3.payments.Refund> getRefunds() {
+    return cacheGet(CacheKey.refunds);
+  }
+  public java.util.List<com.clover.sdk.v3.payments.Credit> getCredits() {
+    return cacheGet(CacheKey.credits);
+  }
+
 
   private enum CacheKey {
     id {
@@ -302,37 +402,18 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Currency of this order
-   */
-  public java.lang.String getCurrency() {
-    return cacheGet(CacheKey.currency);
-  }
 
   private java.lang.String extractCurrency() {
     return getJSONObject().isNull("currency") ? null :
       getJSONObject().optString("currency");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.customers.Customer> getCustomers() {
-    return cacheGet(CacheKey.customers);
-  }
 
   private java.util.List<com.clover.sdk.v3.customers.Customer> extractCustomers() {
     if (getJSONObject().isNull("customers")) {
@@ -355,14 +436,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * The employee who took this order
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getEmployee() {
-    return cacheGet(CacheKey.employee);
-  }
 
   private com.clover.sdk.v3.base.Reference extractEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("employee");
@@ -372,47 +445,24 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   * Total price of the order
-   */
-  public java.lang.Long getTotal() {
-    return cacheGet(CacheKey.total);
-  }
 
   private java.lang.Long extractTotal() {
     return getJSONObject().isNull("total") ? null :
       getJSONObject().optLong("total");
   }
 
-  /**
-   */
-  public java.lang.String getTitle() {
-    return cacheGet(CacheKey.title);
-  }
 
   private java.lang.String extractTitle() {
     return getJSONObject().isNull("title") ? null :
       getJSONObject().optString("title");
   }
 
-  /**
-   */
-  public java.lang.String getNote() {
-    return cacheGet(CacheKey.note);
-  }
 
   private java.lang.String extractNote() {
     return getJSONObject().isNull("note") ? null :
       getJSONObject().optString("note");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.order.OrderType getOrderType() {
-    return cacheGet(CacheKey.orderType);
-  }
 
   private com.clover.sdk.v3.order.OrderType extractOrderType() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("orderType");
@@ -422,77 +472,42 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   */
-  public java.lang.Boolean getTaxRemoved() {
-    return cacheGet(CacheKey.taxRemoved);
-  }
 
   private java.lang.Boolean extractTaxRemoved() {
     return getJSONObject().isNull("taxRemoved") ? null :
       getJSONObject().optBoolean("taxRemoved");
   }
 
-  /**
-   */
-  public java.lang.Boolean getIsVat() {
-    return cacheGet(CacheKey.isVat);
-  }
 
   private java.lang.Boolean extractIsVat() {
     return getJSONObject().isNull("isVat") ? null :
       getJSONObject().optBoolean("isVat");
   }
 
-  /**
-   */
-  public java.lang.String getState() {
-    return cacheGet(CacheKey.state);
-  }
 
   private java.lang.String extractState() {
     return getJSONObject().isNull("state") ? null :
       getJSONObject().optString("state");
   }
 
-  /**
-   */
-  public java.lang.Boolean getManualTransaction() {
-    return cacheGet(CacheKey.manualTransaction);
-  }
 
   private java.lang.Boolean extractManualTransaction() {
     return getJSONObject().isNull("manualTransaction") ? null :
       getJSONObject().optBoolean("manualTransaction");
   }
 
-  /**
-   */
-  public java.lang.Boolean getGroupLineItems() {
-    return cacheGet(CacheKey.groupLineItems);
-  }
 
   private java.lang.Boolean extractGroupLineItems() {
     return getJSONObject().isNull("groupLineItems") ? null :
       getJSONObject().optBoolean("groupLineItems");
   }
 
-  /**
-   */
-  public java.lang.Boolean getTestMode() {
-    return cacheGet(CacheKey.testMode);
-  }
 
   private java.lang.Boolean extractTestMode() {
     return getJSONObject().isNull("testMode") ? null :
       getJSONObject().optBoolean("testMode");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.order.PayType getPayType() {
-    return cacheGet(CacheKey.payType);
-  }
 
   private com.clover.sdk.v3.order.PayType extractPayType() {
     if (!getJSONObject().isNull("payType")) {
@@ -506,49 +521,24 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   * Creation timestamp
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   */
-  public java.lang.Long getClientCreatedTime() {
-    return cacheGet(CacheKey.clientCreatedTime);
-  }
 
   private java.lang.Long extractClientCreatedTime() {
     return getJSONObject().isNull("clientCreatedTime") ? null :
       getJSONObject().optLong("clientCreatedTime");
   }
 
-  /**
-   * Last modified time of the order
-   */
-  public java.lang.Long getModifiedTime() {
-    return cacheGet(CacheKey.modifiedTime);
-  }
 
   private java.lang.Long extractModifiedTime() {
     return getJSONObject().isNull("modifiedTime") ? null :
       getJSONObject().optLong("modifiedTime");
   }
 
-  /**
-   * Optional service charge (gratuity) applied to this order
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.ServiceCharge getServiceCharge() {
-    return cacheGet(CacheKey.serviceCharge);
-  }
 
   private com.clover.sdk.v3.base.ServiceCharge extractServiceCharge() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("serviceCharge");
@@ -558,13 +548,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.order.Discount> getDiscounts() {
-    return cacheGet(CacheKey.discounts);
-  }
 
   private java.util.List<com.clover.sdk.v3.order.Discount> extractDiscounts() {
     if (getJSONObject().isNull("discounts")) {
@@ -587,13 +570,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.order.LineItem> getLineItems() {
-    return cacheGet(CacheKey.lineItems);
-  }
 
   private java.util.List<com.clover.sdk.v3.order.LineItem> extractLineItems() {
     if (getJSONObject().isNull("lineItems")) {
@@ -616,14 +592,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * Payments that were made for this order
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.Payment> getPayments() {
-    return cacheGet(CacheKey.payments);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.Payment> extractPayments() {
     if (getJSONObject().isNull("payments")) {
@@ -646,14 +614,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * Refunds that were made for this order
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.Refund> getRefunds() {
-    return cacheGet(CacheKey.refunds);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.Refund> extractRefunds() {
     if (getJSONObject().isNull("refunds")) {
@@ -676,13 +636,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.Credit> getCredits() {
-    return cacheGet(CacheKey.credits);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.Credit> extractCredits() {
     if (getJSONObject().isNull("credits")) {

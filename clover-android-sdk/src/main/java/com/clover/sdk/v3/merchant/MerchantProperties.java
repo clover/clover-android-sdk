@@ -26,6 +26,118 @@ package com.clover.sdk.v3.merchant;
 @SuppressWarnings("all")
 public final class MerchantProperties implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getDefaultCurrency() {
+    return cacheGet(CacheKey.defaultCurrency);
+  }
+  public java.lang.Boolean getTipsEnabled() {
+    return cacheGet(CacheKey.tipsEnabled);
+  }
+  public java.lang.String getReceiptProperties() {
+    return cacheGet(CacheKey.receiptProperties);
+  }
+  public java.lang.Integer getSummaryHour() {
+    return cacheGet(CacheKey.summaryHour);
+  }
+  public java.lang.Long getSignatureThreshold() {
+    return cacheGet(CacheKey.signatureThreshold);
+  }
+  public java.lang.Integer getTipRateDefault() {
+    return cacheGet(CacheKey.tipRateDefault);
+  }
+  public java.lang.Boolean getOnPaperTipSignatures() {
+    return cacheGet(CacheKey.onPaperTipSignatures);
+  }
+  public java.lang.Boolean getAutoLogout() {
+    return cacheGet(CacheKey.autoLogout);
+  }
+  public com.clover.sdk.v3.merchant.OrderTitle getOrderTitle() {
+    return cacheGet(CacheKey.orderTitle);
+  }
+  public java.lang.Boolean getNotesOnOrders() {
+    return cacheGet(CacheKey.notesOnOrders);
+  }
+  public java.lang.Boolean getDeleteOrders() {
+    return cacheGet(CacheKey.deleteOrders);
+  }
+  public java.lang.Boolean getRemoveTaxEnabled() {
+    return cacheGet(CacheKey.removeTaxEnabled);
+  }
+  public java.lang.Boolean getGroupLineItems() {
+    return cacheGet(CacheKey.groupLineItems);
+  }
+  public java.lang.Boolean getAlternateInventoryNames() {
+    return cacheGet(CacheKey.alternateInventoryNames);
+  }
+  public java.lang.Boolean getAutoPrint() {
+    return cacheGet(CacheKey.autoPrint);
+  }
+  public java.lang.String getHardwareProfile() {
+    return cacheGet(CacheKey.hardwareProfile);
+  }
+  public java.lang.String getShippingAddress() {
+    return cacheGet(CacheKey.shippingAddress);
+  }
+  public java.lang.Boolean getMarketingEnabled() {
+    return cacheGet(CacheKey.marketingEnabled);
+  }
+  public java.lang.String getMarketingPreferenceText() {
+    return cacheGet(CacheKey.marketingPreferenceText);
+  }
+  public java.lang.Integer getBankMarker() {
+    return cacheGet(CacheKey.bankMarker);
+  }
+  public java.lang.String getSupportPhone() {
+    return cacheGet(CacheKey.supportPhone);
+  }
+  public java.lang.String getSupportEmail() {
+    return cacheGet(CacheKey.supportEmail);
+  }
+  public java.lang.Boolean getManualCloseout() {
+    return cacheGet(CacheKey.manualCloseout);
+  }
+  public java.lang.Boolean getShowCloseoutOrders() {
+    return cacheGet(CacheKey.showCloseoutOrders);
+  }
+  public java.lang.Boolean getStayInCategory() {
+    return cacheGet(CacheKey.stayInCategory);
+  }
+ /**
+   * The locale of the merchant.
+  */
+  public java.lang.String getLocale() {
+    return cacheGet(CacheKey.locale);
+  }
+  public java.lang.String getTimezone() {
+    return cacheGet(CacheKey.timezone);
+  }
+ /**
+   * Whether this merchant is in a VAT country
+  */
+  public java.lang.Boolean getVat() {
+    return cacheGet(CacheKey.vat);
+  }
+ /**
+   * The VAT tax name that is shown on receipts
+  */
+  public java.lang.String getVatTaxName() {
+    return cacheGet(CacheKey.vatTaxName);
+  }
+  public java.lang.Boolean getAppBillingEnabled() {
+    return cacheGet(CacheKey.appBillingEnabled);
+  }
+ /**
+   * If this merchant is an internal salesperson, they will get all paid apps for free
+  */
+  public java.lang.Boolean getPaidAppsFree() {
+    return cacheGet(CacheKey.paidAppsFree);
+  }
+  public java.lang.Boolean getTrackStock() {
+    return cacheGet(CacheKey.trackStock);
+  }
+  public java.lang.Boolean getUpdateStock() {
+    return cacheGet(CacheKey.updateStock);
+  }
+
 
   private enum CacheKey {
     defaultCurrency {
@@ -166,6 +278,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
         return instance.extractManualCloseout();
       }
     },
+    showCloseoutOrders {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractShowCloseoutOrders();
+      }
+    },
     stayInCategory {
       @Override
       public Object extractValue(MerchantProperties instance) {
@@ -176,6 +294,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.extractLocale();
+      }
+    },
+    timezone {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractTimezone();
       }
     },
     vat {
@@ -200,6 +324,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.extractPaidAppsFree();
+      }
+    },
+    trackStock {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractTrackStock();
       }
     },
     updateStock {
@@ -345,104 +475,62 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     java.lang.String supportEmail = getSupportEmail();
     if (supportEmail != null && supportEmail.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'supportEmail'");
 
+    java.lang.String timezone = getTimezone();
+    if (timezone != null && timezone.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'timezone'");
+
     java.lang.String vatTaxName = getVatTaxName();
     if (vatTaxName != null && vatTaxName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'vatTaxName'");
   }
 
 
-  /**
-   */
-  public java.lang.String getDefaultCurrency() {
-    return cacheGet(CacheKey.defaultCurrency);
-  }
 
   private java.lang.String extractDefaultCurrency() {
     return getJSONObject().isNull("defaultCurrency") ? null :
       getJSONObject().optString("defaultCurrency");
   }
 
-  /**
-   */
-  public java.lang.Boolean getTipsEnabled() {
-    return cacheGet(CacheKey.tipsEnabled);
-  }
 
   private java.lang.Boolean extractTipsEnabled() {
     return getJSONObject().isNull("tipsEnabled") ? null :
       getJSONObject().optBoolean("tipsEnabled");
   }
 
-  /**
-   */
-  public java.lang.String getReceiptProperties() {
-    return cacheGet(CacheKey.receiptProperties);
-  }
 
   private java.lang.String extractReceiptProperties() {
     return getJSONObject().isNull("receiptProperties") ? null :
       getJSONObject().optString("receiptProperties");
   }
 
-  /**
-   */
-  public java.lang.Integer getSummaryHour() {
-    return cacheGet(CacheKey.summaryHour);
-  }
 
   private java.lang.Integer extractSummaryHour() {
     return getJSONObject().isNull("summaryHour") ? null :
       getJSONObject().optInt("summaryHour");
   }
 
-  /**
-   */
-  public java.lang.Long getSignatureThreshold() {
-    return cacheGet(CacheKey.signatureThreshold);
-  }
 
   private java.lang.Long extractSignatureThreshold() {
     return getJSONObject().isNull("signatureThreshold") ? null :
       getJSONObject().optLong("signatureThreshold");
   }
 
-  /**
-   */
-  public java.lang.Integer getTipRateDefault() {
-    return cacheGet(CacheKey.tipRateDefault);
-  }
 
   private java.lang.Integer extractTipRateDefault() {
     return getJSONObject().isNull("tipRateDefault") ? null :
       getJSONObject().optInt("tipRateDefault");
   }
 
-  /**
-   */
-  public java.lang.Boolean getOnPaperTipSignatures() {
-    return cacheGet(CacheKey.onPaperTipSignatures);
-  }
 
   private java.lang.Boolean extractOnPaperTipSignatures() {
     return getJSONObject().isNull("onPaperTipSignatures") ? null :
       getJSONObject().optBoolean("onPaperTipSignatures");
   }
 
-  /**
-   */
-  public java.lang.Boolean getAutoLogout() {
-    return cacheGet(CacheKey.autoLogout);
-  }
 
   private java.lang.Boolean extractAutoLogout() {
     return getJSONObject().isNull("autoLogout") ? null :
       getJSONObject().optBoolean("autoLogout");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.merchant.OrderTitle getOrderTitle() {
-    return cacheGet(CacheKey.orderTitle);
-  }
 
   private com.clover.sdk.v3.merchant.OrderTitle extractOrderTitle() {
     if (!getJSONObject().isNull("orderTitle")) {
@@ -456,235 +544,144 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return null;
   }
 
-  /**
-   */
-  public java.lang.Boolean getNotesOnOrders() {
-    return cacheGet(CacheKey.notesOnOrders);
-  }
 
   private java.lang.Boolean extractNotesOnOrders() {
     return getJSONObject().isNull("notesOnOrders") ? null :
       getJSONObject().optBoolean("notesOnOrders");
   }
 
-  /**
-   */
-  public java.lang.Boolean getDeleteOrders() {
-    return cacheGet(CacheKey.deleteOrders);
-  }
 
   private java.lang.Boolean extractDeleteOrders() {
     return getJSONObject().isNull("deleteOrders") ? null :
       getJSONObject().optBoolean("deleteOrders");
   }
 
-  /**
-   */
-  public java.lang.Boolean getRemoveTaxEnabled() {
-    return cacheGet(CacheKey.removeTaxEnabled);
-  }
 
   private java.lang.Boolean extractRemoveTaxEnabled() {
     return getJSONObject().isNull("removeTaxEnabled") ? null :
       getJSONObject().optBoolean("removeTaxEnabled");
   }
 
-  /**
-   */
-  public java.lang.Boolean getGroupLineItems() {
-    return cacheGet(CacheKey.groupLineItems);
-  }
 
   private java.lang.Boolean extractGroupLineItems() {
     return getJSONObject().isNull("groupLineItems") ? null :
       getJSONObject().optBoolean("groupLineItems");
   }
 
-  /**
-   */
-  public java.lang.Boolean getAlternateInventoryNames() {
-    return cacheGet(CacheKey.alternateInventoryNames);
-  }
 
   private java.lang.Boolean extractAlternateInventoryNames() {
     return getJSONObject().isNull("alternateInventoryNames") ? null :
       getJSONObject().optBoolean("alternateInventoryNames");
   }
 
-  /**
-   */
-  public java.lang.Boolean getAutoPrint() {
-    return cacheGet(CacheKey.autoPrint);
-  }
 
   private java.lang.Boolean extractAutoPrint() {
     return getJSONObject().isNull("autoPrint") ? null :
       getJSONObject().optBoolean("autoPrint");
   }
 
-  /**
-   */
-  public java.lang.String getHardwareProfile() {
-    return cacheGet(CacheKey.hardwareProfile);
-  }
 
   private java.lang.String extractHardwareProfile() {
     return getJSONObject().isNull("hardwareProfile") ? null :
       getJSONObject().optString("hardwareProfile");
   }
 
-  /**
-   */
-  public java.lang.String getShippingAddress() {
-    return cacheGet(CacheKey.shippingAddress);
-  }
 
   private java.lang.String extractShippingAddress() {
     return getJSONObject().isNull("shippingAddress") ? null :
       getJSONObject().optString("shippingAddress");
   }
 
-  /**
-   */
-  public java.lang.Boolean getMarketingEnabled() {
-    return cacheGet(CacheKey.marketingEnabled);
-  }
 
   private java.lang.Boolean extractMarketingEnabled() {
     return getJSONObject().isNull("marketingEnabled") ? null :
       getJSONObject().optBoolean("marketingEnabled");
   }
 
-  /**
-   */
-  public java.lang.String getMarketingPreferenceText() {
-    return cacheGet(CacheKey.marketingPreferenceText);
-  }
 
   private java.lang.String extractMarketingPreferenceText() {
     return getJSONObject().isNull("marketingPreferenceText") ? null :
       getJSONObject().optString("marketingPreferenceText");
   }
 
-  /**
-   */
-  public java.lang.Integer getBankMarker() {
-    return cacheGet(CacheKey.bankMarker);
-  }
 
   private java.lang.Integer extractBankMarker() {
     return getJSONObject().isNull("bankMarker") ? null :
       getJSONObject().optInt("bankMarker");
   }
 
-  /**
-   */
-  public java.lang.String getSupportPhone() {
-    return cacheGet(CacheKey.supportPhone);
-  }
 
   private java.lang.String extractSupportPhone() {
     return getJSONObject().isNull("supportPhone") ? null :
       getJSONObject().optString("supportPhone");
   }
 
-  /**
-   */
-  public java.lang.String getSupportEmail() {
-    return cacheGet(CacheKey.supportEmail);
-  }
 
   private java.lang.String extractSupportEmail() {
     return getJSONObject().isNull("supportEmail") ? null :
       getJSONObject().optString("supportEmail");
   }
 
-  /**
-   */
-  public java.lang.Boolean getManualCloseout() {
-    return cacheGet(CacheKey.manualCloseout);
-  }
 
   private java.lang.Boolean extractManualCloseout() {
     return getJSONObject().isNull("manualCloseout") ? null :
       getJSONObject().optBoolean("manualCloseout");
   }
 
-  /**
-   */
-  public java.lang.Boolean getStayInCategory() {
-    return cacheGet(CacheKey.stayInCategory);
+
+  private java.lang.Boolean extractShowCloseoutOrders() {
+    return getJSONObject().isNull("showCloseoutOrders") ? null :
+      getJSONObject().optBoolean("showCloseoutOrders");
   }
+
 
   private java.lang.Boolean extractStayInCategory() {
     return getJSONObject().isNull("stayInCategory") ? null :
       getJSONObject().optBoolean("stayInCategory");
   }
 
-  /**
-   * The locale of the merchant.
-   */
-  public java.lang.String getLocale() {
-    return cacheGet(CacheKey.locale);
-  }
 
   private java.lang.String extractLocale() {
     return getJSONObject().isNull("locale") ? null :
       getJSONObject().optString("locale");
   }
 
-  /**
-   * Whether this merchant is in a VAT country
-   */
-  public java.lang.Boolean getVat() {
-    return cacheGet(CacheKey.vat);
+
+  private java.lang.String extractTimezone() {
+    return getJSONObject().isNull("timezone") ? null :
+      getJSONObject().optString("timezone");
   }
+
 
   private java.lang.Boolean extractVat() {
     return getJSONObject().isNull("vat") ? null :
       getJSONObject().optBoolean("vat");
   }
 
-  /**
-   * The VAT tax name that is shown on receipts
-   */
-  public java.lang.String getVatTaxName() {
-    return cacheGet(CacheKey.vatTaxName);
-  }
 
   private java.lang.String extractVatTaxName() {
     return getJSONObject().isNull("vatTaxName") ? null :
       getJSONObject().optString("vatTaxName");
   }
 
-  /**
-   */
-  public java.lang.Boolean getAppBillingEnabled() {
-    return cacheGet(CacheKey.appBillingEnabled);
-  }
 
   private java.lang.Boolean extractAppBillingEnabled() {
     return getJSONObject().isNull("appBillingEnabled") ? null :
       getJSONObject().optBoolean("appBillingEnabled");
   }
 
-  /**
-   * If this merchant is an internal salesperson, they will get all paid apps for free
-   */
-  public java.lang.Boolean getPaidAppsFree() {
-    return cacheGet(CacheKey.paidAppsFree);
-  }
 
   private java.lang.Boolean extractPaidAppsFree() {
     return getJSONObject().isNull("paidAppsFree") ? null :
       getJSONObject().optBoolean("paidAppsFree");
   }
 
-  /**
-   */
-  public java.lang.Boolean getUpdateStock() {
-    return cacheGet(CacheKey.updateStock);
+
+  private java.lang.Boolean extractTrackStock() {
+    return getJSONObject().isNull("trackStock") ? null :
+      getJSONObject().optBoolean("trackStock");
   }
+
 
   private java.lang.Boolean extractUpdateStock() {
     return getJSONObject().isNull("updateStock") ? null :
@@ -807,6 +804,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheValueIsNotNull(CacheKey.manualCloseout);
   }
 
+  /** Checks whether the 'showCloseoutOrders' field is set and is not null */
+  public boolean isNotNullShowCloseoutOrders() {
+    return cacheValueIsNotNull(CacheKey.showCloseoutOrders);
+  }
+
   /** Checks whether the 'stayInCategory' field is set and is not null */
   public boolean isNotNullStayInCategory() {
     return cacheValueIsNotNull(CacheKey.stayInCategory);
@@ -815,6 +817,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'locale' field is set and is not null */
   public boolean isNotNullLocale() {
     return cacheValueIsNotNull(CacheKey.locale);
+  }
+
+  /** Checks whether the 'timezone' field is set and is not null */
+  public boolean isNotNullTimezone() {
+    return cacheValueIsNotNull(CacheKey.timezone);
   }
 
   /** Checks whether the 'vat' field is set and is not null */
@@ -835,6 +842,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'paidAppsFree' field is set and is not null */
   public boolean isNotNullPaidAppsFree() {
     return cacheValueIsNotNull(CacheKey.paidAppsFree);
+  }
+
+  /** Checks whether the 'trackStock' field is set and is not null */
+  public boolean isNotNullTrackStock() {
+    return cacheValueIsNotNull(CacheKey.trackStock);
   }
 
   /** Checks whether the 'updateStock' field is set and is not null */
@@ -958,6 +970,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheHasKey(CacheKey.manualCloseout);
   }
 
+  /** Checks whether the 'showCloseoutOrders' field has been set, however the value could be null */
+  public boolean hasShowCloseoutOrders() {
+    return cacheHasKey(CacheKey.showCloseoutOrders);
+  }
+
   /** Checks whether the 'stayInCategory' field has been set, however the value could be null */
   public boolean hasStayInCategory() {
     return cacheHasKey(CacheKey.stayInCategory);
@@ -966,6 +983,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'locale' field has been set, however the value could be null */
   public boolean hasLocale() {
     return cacheHasKey(CacheKey.locale);
+  }
+
+  /** Checks whether the 'timezone' field has been set, however the value could be null */
+  public boolean hasTimezone() {
+    return cacheHasKey(CacheKey.timezone);
   }
 
   /** Checks whether the 'vat' field has been set, however the value could be null */
@@ -986,6 +1008,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'paidAppsFree' field has been set, however the value could be null */
   public boolean hasPaidAppsFree() {
     return cacheHasKey(CacheKey.paidAppsFree);
+  }
+
+  /** Checks whether the 'trackStock' field has been set, however the value could be null */
+  public boolean hasTrackStock() {
+    return cacheHasKey(CacheKey.trackStock);
   }
 
   /** Checks whether the 'updateStock' field has been set, however the value could be null */
@@ -1363,6 +1390,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
   /**
+   * Sets the field 'showCloseoutOrders'.
+   */
+  public MerchantProperties setShowCloseoutOrders(java.lang.Boolean showCloseoutOrders) {
+    logChange("showCloseoutOrders");
+
+    try {
+      getJSONObject().put("showCloseoutOrders", showCloseoutOrders == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(showCloseoutOrders));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.showCloseoutOrders);
+    return this;
+  }
+
+  /**
    * Sets the field 'stayInCategory'.
    */
   public MerchantProperties setStayInCategory(java.lang.Boolean stayInCategory) {
@@ -1391,6 +1434,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     }
 
     cacheMarkDirty(CacheKey.locale);
+    return this;
+  }
+
+  /**
+   * Sets the field 'timezone'.
+   */
+  public MerchantProperties setTimezone(java.lang.String timezone) {
+    logChange("timezone");
+
+    try {
+      getJSONObject().put("timezone", timezone == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(timezone));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.timezone);
     return this;
   }
 
@@ -1455,6 +1514,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     }
 
     cacheMarkDirty(CacheKey.paidAppsFree);
+    return this;
+  }
+
+  /**
+   * Sets the field 'trackStock'.
+   */
+  public MerchantProperties setTrackStock(java.lang.Boolean trackStock) {
+    logChange("trackStock");
+
+    try {
+      getJSONObject().put("trackStock", trackStock == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(trackStock));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.trackStock);
     return this;
   }
 
@@ -1636,6 +1711,13 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     cacheRemoveValue(CacheKey.manualCloseout);
   }
 
+  /** Clears the 'showCloseoutOrders' field, the 'has' method for this field will now return false */
+  public void clearShowCloseoutOrders() {
+    unlogChange("showCloseoutOrders");
+    getJSONObject().remove("showCloseoutOrders");
+    cacheRemoveValue(CacheKey.showCloseoutOrders);
+  }
+
   /** Clears the 'stayInCategory' field, the 'has' method for this field will now return false */
   public void clearStayInCategory() {
     unlogChange("stayInCategory");
@@ -1648,6 +1730,13 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     unlogChange("locale");
     getJSONObject().remove("locale");
     cacheRemoveValue(CacheKey.locale);
+  }
+
+  /** Clears the 'timezone' field, the 'has' method for this field will now return false */
+  public void clearTimezone() {
+    unlogChange("timezone");
+    getJSONObject().remove("timezone");
+    cacheRemoveValue(CacheKey.timezone);
   }
 
   /** Clears the 'vat' field, the 'has' method for this field will now return false */
@@ -1676,6 +1765,13 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     unlogChange("paidAppsFree");
     getJSONObject().remove("paidAppsFree");
     cacheRemoveValue(CacheKey.paidAppsFree);
+  }
+
+  /** Clears the 'trackStock' field, the 'has' method for this field will now return false */
+  public void clearTrackStock() {
+    unlogChange("trackStock");
+    getJSONObject().remove("trackStock");
+    cacheRemoveValue(CacheKey.trackStock);
   }
 
   /** Clears the 'updateStock' field, the 'has' method for this field will now return false */
@@ -1861,9 +1957,14 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
 
     public static final boolean MANUALCLOSEOUT_IS_REQUIRED = false;
 
+    public static final boolean SHOWCLOSEOUTORDERS_IS_REQUIRED = false;
+
     public static final boolean STAYINCATEGORY_IS_REQUIRED = false;
 
     public static final boolean LOCALE_IS_REQUIRED = false;
+
+    public static final boolean TIMEZONE_IS_REQUIRED = false;
+    public static final long TIMEZONE_MAX_LEN = 255;
 
     public static final boolean VAT_IS_REQUIRED = false;
 
@@ -1873,6 +1974,8 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     public static final boolean APPBILLINGENABLED_IS_REQUIRED = false;
 
     public static final boolean PAIDAPPSFREE_IS_REQUIRED = false;
+
+    public static final boolean TRACKSTOCK_IS_REQUIRED = false;
 
     public static final boolean UPDATESTOCK_IS_REQUIRED = false;
 

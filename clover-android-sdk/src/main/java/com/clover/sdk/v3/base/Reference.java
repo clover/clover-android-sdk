@@ -26,6 +26,19 @@ package com.clover.sdk.v3.base;
 @SuppressWarnings("all")
 public final class Reference implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Reference Object
+  */
+  public java.lang.Long getElement() {
+    return cacheGet(CacheKey.element);
+  }
+
 
   private enum CacheKey {
     id {
@@ -167,24 +180,12 @@ public final class Reference implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Reference Object
-   */
-  public java.lang.Long getElement() {
-    return cacheGet(CacheKey.element);
-  }
 
   private java.lang.Long extractElement() {
     return getJSONObject().isNull("element") ? null :

@@ -26,6 +26,31 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class ItemGroup implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the option
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Items that are members of this group
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+ /**
+   * Attributes that belong to this group
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getAttributes() {
+    return cacheGet(CacheKey.attributes);
+  }
+
 
   private enum CacheKey {
     id {
@@ -183,38 +208,18 @@ public final class ItemGroup implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the option
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Items that are members of this group
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractItems() {
     if (getJSONObject().isNull("items")) {
@@ -237,14 +242,6 @@ public final class ItemGroup implements android.os.Parcelable, com.clover.sdk.v3
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * Attributes that belong to this group
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getAttributes() {
-    return cacheGet(CacheKey.attributes);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractAttributes() {
     if (getJSONObject().isNull("attributes")) {

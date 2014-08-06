@@ -26,6 +26,16 @@ package com.clover.sdk.v3.merchant;
 @SuppressWarnings("all")
 public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getMid() {
+    return cacheGet(CacheKey.mid);
+  }
+  public java.lang.Boolean getSupportsTipping() {
+    return cacheGet(CacheKey.supportsTipping);
+  }
+  public java.lang.Boolean getSupportsTipAdjust() {
+    return cacheGet(CacheKey.supportsTipAdjust);
+  }
+
 
   private enum CacheKey {
     mid {
@@ -171,33 +181,18 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
 
-  /**
-   */
-  public java.lang.String getMid() {
-    return cacheGet(CacheKey.mid);
-  }
 
   private java.lang.String extractMid() {
     return getJSONObject().isNull("mid") ? null :
       getJSONObject().optString("mid");
   }
 
-  /**
-   */
-  public java.lang.Boolean getSupportsTipping() {
-    return cacheGet(CacheKey.supportsTipping);
-  }
 
   private java.lang.Boolean extractSupportsTipping() {
     return getJSONObject().isNull("supportsTipping") ? null :
       getJSONObject().optBoolean("supportsTipping");
   }
 
-  /**
-   */
-  public java.lang.Boolean getSupportsTipAdjust() {
-    return cacheGet(CacheKey.supportsTipAdjust);
-  }
 
   private java.lang.Boolean extractSupportsTipAdjust() {
     return getJSONObject().isNull("supportsTipAdjust") ? null :

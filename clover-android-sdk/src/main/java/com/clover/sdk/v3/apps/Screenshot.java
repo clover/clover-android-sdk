@@ -26,6 +26,31 @@ package com.clover.sdk.v3.apps;
 @SuppressWarnings("all")
 public final class Screenshot implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * URL for the app screenshot
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * URL for the small version (80 x 80) of the app screenshot
+  */
+  public java.lang.String getSmall() {
+    return cacheGet(CacheKey.small);
+  }
+ /**
+   * URL for the medium version (200 x 200) of the app screenshot
+  */
+  public java.lang.String getMedium() {
+    return cacheGet(CacheKey.medium);
+  }
+ /**
+   * URL for the large version (800 x 800) of the app screenshot
+  */
+  public java.lang.String getLarge() {
+    return cacheGet(CacheKey.large);
+  }
+
 
   private enum CacheKey {
     name {
@@ -188,48 +213,24 @@ public final class Screenshot implements android.os.Parcelable, com.clover.sdk.v
   }
 
 
-  /**
-   * URL for the app screenshot
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * URL for the small version (80 x 80) of the app screenshot
-   */
-  public java.lang.String getSmall() {
-    return cacheGet(CacheKey.small);
-  }
 
   private java.lang.String extractSmall() {
     return getJSONObject().isNull("small") ? null :
       getJSONObject().optString("small");
   }
 
-  /**
-   * URL for the medium version (200 x 200) of the app screenshot
-   */
-  public java.lang.String getMedium() {
-    return cacheGet(CacheKey.medium);
-  }
 
   private java.lang.String extractMedium() {
     return getJSONObject().isNull("medium") ? null :
       getJSONObject().optString("medium");
   }
 
-  /**
-   * URL for the large version (800 x 800) of the app screenshot
-   */
-  public java.lang.String getLarge() {
-    return cacheGet(CacheKey.large);
-  }
 
   private java.lang.String extractLarge() {
     return getJSONObject().isNull("large") ? null :

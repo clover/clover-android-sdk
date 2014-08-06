@@ -163,25 +163,16 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   @Override
   public void disconnect() {
     mOnActiveEmployeeChangedListener.clear();
-    execute(
-        new EmployeeCallable<Void>() {
-          @Override
-          public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
-            if (mListener != null) {
-              service.removeListener(mListener, status);
-              mListener.destroy();
-              mListener = null;
-            }
-            return null;
-          }
-        }, new EmployeeCallback<Void>() {
-          @Override
-          public void onServiceSuccess(Void result, ResultStatus status) {
-            super.onServiceSuccess(result, status);
-            EmployeeConnector.super.disconnect();
-          }
-        }
-    );
+    if (mListener != null) {
+      try {
+        mService.removeListener(mListener, new ResultStatus());
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+      mListener.destroy();
+      mListener = null;
+    }
+    super.disconnect();
   }
 
   public void getEmployee(EmployeeCallback<Employee> callback) {

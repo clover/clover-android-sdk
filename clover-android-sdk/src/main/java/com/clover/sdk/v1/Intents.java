@@ -126,6 +126,8 @@ public class Intents {
    */
   public static final String ACTION_AUTHENTICATE_EMPLOYEE = "clover.intent.action.AUTHENTICATE_EMPLOYEE";
 
+  public static final String EXTRA_SHOW_CANCEL_BUTTON = "clover.intent.extra.SHOW_CANCEL_BUTTON";
+
 
   /**
    * Intents for barcode scanning preview.

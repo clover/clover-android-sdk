@@ -26,6 +26,31 @@ package com.clover.sdk.v3.base;
 @SuppressWarnings("all")
 public final class Address implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getAddress1() {
+    return cacheGet(CacheKey.address1);
+  }
+  public java.lang.String getAddress2() {
+    return cacheGet(CacheKey.address2);
+  }
+  public java.lang.String getAddress3() {
+    return cacheGet(CacheKey.address3);
+  }
+  public java.lang.String getCity() {
+    return cacheGet(CacheKey.city);
+  }
+  public java.lang.String getCountry() {
+    return cacheGet(CacheKey.country);
+  }
+  public java.lang.String getPhoneNumber() {
+    return cacheGet(CacheKey.phoneNumber);
+  }
+  public java.lang.String getState() {
+    return cacheGet(CacheKey.state);
+  }
+  public java.lang.String getZip() {
+    return cacheGet(CacheKey.zip);
+  }
+
 
   private enum CacheKey {
     address1 {
@@ -224,88 +249,48 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
 
-  /**
-   */
-  public java.lang.String getAddress1() {
-    return cacheGet(CacheKey.address1);
-  }
 
   private java.lang.String extractAddress1() {
     return getJSONObject().isNull("address1") ? null :
       getJSONObject().optString("address1");
   }
 
-  /**
-   */
-  public java.lang.String getAddress2() {
-    return cacheGet(CacheKey.address2);
-  }
 
   private java.lang.String extractAddress2() {
     return getJSONObject().isNull("address2") ? null :
       getJSONObject().optString("address2");
   }
 
-  /**
-   */
-  public java.lang.String getAddress3() {
-    return cacheGet(CacheKey.address3);
-  }
 
   private java.lang.String extractAddress3() {
     return getJSONObject().isNull("address3") ? null :
       getJSONObject().optString("address3");
   }
 
-  /**
-   */
-  public java.lang.String getCity() {
-    return cacheGet(CacheKey.city);
-  }
 
   private java.lang.String extractCity() {
     return getJSONObject().isNull("city") ? null :
       getJSONObject().optString("city");
   }
 
-  /**
-   */
-  public java.lang.String getCountry() {
-    return cacheGet(CacheKey.country);
-  }
 
   private java.lang.String extractCountry() {
     return getJSONObject().isNull("country") ? null :
       getJSONObject().optString("country");
   }
 
-  /**
-   */
-  public java.lang.String getPhoneNumber() {
-    return cacheGet(CacheKey.phoneNumber);
-  }
 
   private java.lang.String extractPhoneNumber() {
     return getJSONObject().isNull("phoneNumber") ? null :
       getJSONObject().optString("phoneNumber");
   }
 
-  /**
-   */
-  public java.lang.String getState() {
-    return cacheGet(CacheKey.state);
-  }
 
   private java.lang.String extractState() {
     return getJSONObject().isNull("state") ? null :
       getJSONObject().optString("state");
   }
 
-  /**
-   */
-  public java.lang.String getZip() {
-    return cacheGet(CacheKey.zip);
-  }
 
   private java.lang.String extractZip() {
     return getJSONObject().isNull("zip") ? null :

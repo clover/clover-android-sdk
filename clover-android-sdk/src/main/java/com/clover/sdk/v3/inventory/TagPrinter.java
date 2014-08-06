@@ -26,6 +26,13 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class TagPrinter implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public com.clover.sdk.v3.inventory.Tag getTag() {
+    return cacheGet(CacheKey.tag);
+  }
+  public com.clover.sdk.v3.printer.Printer getPrinter() {
+    return cacheGet(CacheKey.printer);
+  }
+
 
   private enum CacheKey {
     tag {
@@ -170,13 +177,6 @@ public final class TagPrinter implements android.os.Parcelable, com.clover.sdk.v
   }
 
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.Tag getTag() {
-    return cacheGet(CacheKey.tag);
-  }
 
   private com.clover.sdk.v3.inventory.Tag extractTag() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("tag");
@@ -186,13 +186,6 @@ public final class TagPrinter implements android.os.Parcelable, com.clover.sdk.v
     return null;
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.printer.Printer getPrinter() {
-    return cacheGet(CacheKey.printer);
-  }
 
   private com.clover.sdk.v3.printer.Printer extractPrinter() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("printer");

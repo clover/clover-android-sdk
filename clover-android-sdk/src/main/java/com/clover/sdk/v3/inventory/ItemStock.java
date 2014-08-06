@@ -27,6 +27,25 @@ package com.clover.sdk.v3.inventory;
 /** The class is used to update the item stock */
 public final class ItemStock implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Reference to an item
+  */
+  public com.clover.sdk.v3.base.Reference getItem() {
+    return cacheGet(CacheKey.item);
+  }
+ /**
+   * DEPRECATED: use quantity instead
+  */
+  public java.lang.Long getStockCount() {
+    return cacheGet(CacheKey.stockCount);
+  }
+ /**
+   * Current count of this item in stock
+  */
+  public java.lang.Double getQuantity() {
+    return cacheGet(CacheKey.quantity);
+  }
+
 
   private enum CacheKey {
     item {
@@ -172,14 +191,6 @@ public final class ItemStock implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  /**
-   * Reference to an item
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getItem() {
-    return cacheGet(CacheKey.item);
-  }
 
   private com.clover.sdk.v3.base.Reference extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");
@@ -189,24 +200,12 @@ public final class ItemStock implements android.os.Parcelable, com.clover.sdk.v3
     return null;
   }
 
-  /**
-   * DEPRECATED: use quantity instead
-   */
-  public java.lang.Long getStockCount() {
-    return cacheGet(CacheKey.stockCount);
-  }
 
   private java.lang.Long extractStockCount() {
     return getJSONObject().isNull("stockCount") ? null :
       getJSONObject().optLong("stockCount");
   }
 
-  /**
-   * Current count of this item in stock
-   */
-  public java.lang.Double getQuantity() {
-    return cacheGet(CacheKey.quantity);
-  }
 
   private java.lang.Double extractQuantity() {
     return getJSONObject().isNull("quantity") ? null :

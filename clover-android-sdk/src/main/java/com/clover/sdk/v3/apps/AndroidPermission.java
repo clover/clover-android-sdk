@@ -26,6 +26,16 @@ package com.clover.sdk.v3.apps;
 @SuppressWarnings("all")
 public final class AndroidPermission implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getPermission() {
+    return cacheGet(CacheKey.permission);
+  }
+
 
   private enum CacheKey {
     id {
@@ -170,23 +180,12 @@ public final class AndroidPermission implements android.os.Parcelable, com.clove
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.String getPermission() {
-    return cacheGet(CacheKey.permission);
-  }
 
   private java.lang.String extractPermission() {
     return getJSONObject().isNull("permission") ? null :

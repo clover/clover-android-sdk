@@ -26,6 +26,22 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class TaxableAmountRate implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.Long getTaxableAmount() {
+    return cacheGet(CacheKey.taxableAmount);
+  }
+  public java.lang.Long getRate() {
+    return cacheGet(CacheKey.rate);
+  }
+  public java.lang.Boolean getIsVat() {
+    return cacheGet(CacheKey.isVat);
+  }
+
 
   private enum CacheKey {
     id {
@@ -188,55 +204,30 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.Long getTaxableAmount() {
-    return cacheGet(CacheKey.taxableAmount);
-  }
 
   private java.lang.Long extractTaxableAmount() {
     return getJSONObject().isNull("taxableAmount") ? null :
       getJSONObject().optLong("taxableAmount");
   }
 
-  /**
-   */
-  public java.lang.Long getRate() {
-    return cacheGet(CacheKey.rate);
-  }
 
   private java.lang.Long extractRate() {
     return getJSONObject().isNull("rate") ? null :
       getJSONObject().optLong("rate");
   }
 
-  /**
-   */
-  public java.lang.Boolean getIsVat() {
-    return cacheGet(CacheKey.isVat);
-  }
 
   private java.lang.Boolean extractIsVat() {
     return getJSONObject().isNull("isVat") ? null :

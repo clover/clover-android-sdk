@@ -26,6 +26,112 @@ package com.clover.sdk.v3.merchant;
 @SuppressWarnings("all")
 public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the merchant
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * The account that owns this merchant
+  */
+  public com.clover.sdk.v3.employees.Employee getOwner() {
+    return cacheGet(CacheKey.owner);
+  }
+ /**
+   * The address of the merchant.
+  */
+  public com.clover.sdk.v3.base.Address getAddress() {
+    return cacheGet(CacheKey.address);
+  }
+  public java.lang.String getDefaultCurrency() {
+    return cacheGet(CacheKey.defaultCurrency);
+  }
+  public java.lang.String getPhoneNumber() {
+    return cacheGet(CacheKey.phoneNumber);
+  }
+  public java.lang.String getWebsite() {
+    return cacheGet(CacheKey.website);
+  }
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+  public com.clover.sdk.v3.merchant.MerchantProperties getProperties() {
+    return cacheGet(CacheKey.properties);
+  }
+  public com.clover.sdk.v3.merchant.Gateway getGateway() {
+    return cacheGet(CacheKey.gateway);
+  }
+  public java.util.List<com.clover.sdk.v3.merchant.TipSuggestion> getTipSuggestions() {
+    return cacheGet(CacheKey.tipSuggestions);
+  }
+ /**
+   * This merchant's employees
+  */
+  public java.util.List<com.clover.sdk.v3.employees.Employee> getEmployees() {
+    return cacheGet(CacheKey.employees);
+  }
+ /**
+   * This merchant's inventory items
+  */
+  public java.util.List<com.clover.sdk.v3.inventory.Item> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+ /**
+   * This merchant's inventory tags
+  */
+  public java.util.List<com.clover.sdk.v3.inventory.Tag> getTags() {
+    return cacheGet(CacheKey.tags);
+  }
+ /**
+   * This merchant's supported tenders
+  */
+  public java.util.List<com.clover.sdk.v3.base.Tender> getTenders() {
+    return cacheGet(CacheKey.tenders);
+  }
+ /**
+   * This merchant's employees' shifts
+  */
+  public java.util.List<com.clover.sdk.v3.employees.Shift> getShifts() {
+    return cacheGet(CacheKey.shifts);
+  }
+ /**
+   * This merchant's orders
+  */
+  public java.util.List<com.clover.sdk.v3.order.Order> getOrders() {
+    return cacheGet(CacheKey.orders);
+  }
+ /**
+   * This merchant's order payments
+  */
+  public java.util.List<com.clover.sdk.v3.payments.Payment> getPayments() {
+    return cacheGet(CacheKey.payments);
+  }
+  public java.util.List<com.clover.sdk.v3.inventory.TaxRate> getTaxRates() {
+    return cacheGet(CacheKey.taxRates);
+  }
+  public java.util.List<com.clover.sdk.v3.printer.Printer> getPrinters() {
+    return cacheGet(CacheKey.printers);
+  }
+  public java.util.List<com.clover.sdk.v3.inventory.ModifierGroup> getModifierGroups() {
+    return cacheGet(CacheKey.modifierGroups);
+  }
+  public java.util.List<com.clover.sdk.v3.order.OrderType> getOrderTypes() {
+    return cacheGet(CacheKey.orderTypes);
+  }
+ /**
+   * The merchant's reseller
+  */
+  public com.clover.sdk.v3.base.Reference getReseller() {
+    return cacheGet(CacheKey.reseller);
+  }
+
 
   private enum CacheKey {
     id {
@@ -152,6 +258,18 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
       @Override
       public Object extractValue(Merchant instance) {
         return instance.extractModifierGroups();
+      }
+    },
+    orderTypes {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.extractOrderTypes();
+      }
+    },
+    reseller {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.extractReseller();
       }
     },
     ;
@@ -297,38 +415,18 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the merchant
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * The account that owns this merchant
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Employee getOwner() {
-    return cacheGet(CacheKey.owner);
-  }
 
   private com.clover.sdk.v3.employees.Employee extractOwner() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("owner");
@@ -338,14 +436,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   * The address of the merchant.
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Address getAddress() {
-    return cacheGet(CacheKey.address);
-  }
 
   private com.clover.sdk.v3.base.Address extractAddress() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("address");
@@ -355,57 +445,30 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   */
-  public java.lang.String getDefaultCurrency() {
-    return cacheGet(CacheKey.defaultCurrency);
-  }
 
   private java.lang.String extractDefaultCurrency() {
     return getJSONObject().isNull("defaultCurrency") ? null :
       getJSONObject().optString("defaultCurrency");
   }
 
-  /**
-   */
-  public java.lang.String getPhoneNumber() {
-    return cacheGet(CacheKey.phoneNumber);
-  }
 
   private java.lang.String extractPhoneNumber() {
     return getJSONObject().isNull("phoneNumber") ? null :
       getJSONObject().optString("phoneNumber");
   }
 
-  /**
-   */
-  public java.lang.String getWebsite() {
-    return cacheGet(CacheKey.website);
-  }
 
   private java.lang.String extractWebsite() {
     return getJSONObject().isNull("website") ? null :
       getJSONObject().optString("website");
   }
 
-  /**
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.merchant.MerchantProperties getProperties() {
-    return cacheGet(CacheKey.properties);
-  }
 
   private com.clover.sdk.v3.merchant.MerchantProperties extractProperties() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("properties");
@@ -415,13 +478,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.merchant.Gateway getGateway() {
-    return cacheGet(CacheKey.gateway);
-  }
 
   private com.clover.sdk.v3.merchant.Gateway extractGateway() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("gateway");
@@ -431,13 +487,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return null;
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.merchant.TipSuggestion> getTipSuggestions() {
-    return cacheGet(CacheKey.tipSuggestions);
-  }
 
   private java.util.List<com.clover.sdk.v3.merchant.TipSuggestion> extractTipSuggestions() {
     if (getJSONObject().isNull("tipSuggestions")) {
@@ -460,14 +509,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's employees
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.employees.Employee> getEmployees() {
-    return cacheGet(CacheKey.employees);
-  }
 
   private java.util.List<com.clover.sdk.v3.employees.Employee> extractEmployees() {
     if (getJSONObject().isNull("employees")) {
@@ -490,14 +531,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's inventory items
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.Item> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.Item> extractItems() {
     if (getJSONObject().isNull("items")) {
@@ -520,14 +553,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's inventory tags
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.Tag> getTags() {
-    return cacheGet(CacheKey.tags);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.Tag> extractTags() {
     if (getJSONObject().isNull("tags")) {
@@ -550,14 +575,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's supported tenders
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Tender> getTenders() {
-    return cacheGet(CacheKey.tenders);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Tender> extractTenders() {
     if (getJSONObject().isNull("tenders")) {
@@ -580,14 +597,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's employees' shifts
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.employees.Shift> getShifts() {
-    return cacheGet(CacheKey.shifts);
-  }
 
   private java.util.List<com.clover.sdk.v3.employees.Shift> extractShifts() {
     if (getJSONObject().isNull("shifts")) {
@@ -610,14 +619,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's orders
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.order.Order> getOrders() {
-    return cacheGet(CacheKey.orders);
-  }
 
   private java.util.List<com.clover.sdk.v3.order.Order> extractOrders() {
     if (getJSONObject().isNull("orders")) {
@@ -640,14 +641,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * This merchant's order payments
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.Payment> getPayments() {
-    return cacheGet(CacheKey.payments);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.Payment> extractPayments() {
     if (getJSONObject().isNull("payments")) {
@@ -670,13 +663,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.TaxRate> getTaxRates() {
-    return cacheGet(CacheKey.taxRates);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.TaxRate> extractTaxRates() {
     if (getJSONObject().isNull("taxRates")) {
@@ -699,13 +685,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.printer.Printer> getPrinters() {
-    return cacheGet(CacheKey.printers);
-  }
 
   private java.util.List<com.clover.sdk.v3.printer.Printer> extractPrinters() {
     if (getJSONObject().isNull("printers")) {
@@ -728,13 +707,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.ModifierGroup> getModifierGroups() {
-    return cacheGet(CacheKey.modifierGroups);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.ModifierGroup> extractModifierGroups() {
     if (getJSONObject().isNull("modifierGroups")) {
@@ -755,6 +727,37 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     }
 
     return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
+  private java.util.List<com.clover.sdk.v3.order.OrderType> extractOrderTypes() {
+    if (getJSONObject().isNull("orderTypes")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("orderTypes");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.order.OrderType> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.order.OrderType>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.order.OrderType item = new com.clover.sdk.v3.order.OrderType(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
+  private com.clover.sdk.v3.base.Reference extractReseller() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("reseller");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("reseller"));
+    }
+    return null;
   }
 
 
@@ -918,6 +921,21 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return isNotNullModifierGroups() && !getModifierGroups().isEmpty();
   }
 
+  /** Checks whether the 'orderTypes' field is set and is not null */
+  public boolean isNotNullOrderTypes() {
+    return cacheValueIsNotNull(CacheKey.orderTypes);
+  }
+
+  /** Checks whether the 'orderTypes' field is set and is not null and is not empty */
+  public boolean isNotEmptyOrderTypes() {
+    return isNotNullOrderTypes() && !getOrderTypes().isEmpty();
+  }
+
+  /** Checks whether the 'reseller' field is set and is not null */
+  public boolean isNotNullReseller() {
+    return cacheValueIsNotNull(CacheKey.reseller);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -1022,6 +1040,16 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'modifierGroups' field has been set, however the value could be null */
   public boolean hasModifierGroups() {
     return cacheHasKey(CacheKey.modifierGroups);
+  }
+
+  /** Checks whether the 'orderTypes' field has been set, however the value could be null */
+  public boolean hasOrderTypes() {
+    return cacheHasKey(CacheKey.orderTypes);
+  }
+
+  /** Checks whether the 'reseller' field has been set, however the value could be null */
+  public boolean hasReseller() {
+    return cacheHasKey(CacheKey.reseller);
   }
 
 
@@ -1571,6 +1599,59 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return this;
   }
 
+  /**
+   * Sets the field 'orderTypes'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setOrderTypes(java.util.List<com.clover.sdk.v3.order.OrderType> orderTypes) {
+    logChange("orderTypes");
+
+    try {
+      if (orderTypes == null) {
+        getJSONObject().put("orderTypes", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.orderTypes);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.order.OrderType obj : orderTypes) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("orderTypes", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.orderTypes);
+    return this;
+  }
+
+  /**
+   * Sets the field 'reseller'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setReseller(com.clover.sdk.v3.base.Reference reseller) {
+    logChange("reseller");
+
+    try {
+      getJSONObject().put("reseller",
+          reseller == null ? org.json.JSONObject.NULL : reseller.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.reseller);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1717,6 +1798,20 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     unlogChange("modifierGroups");
     getJSONObject().remove("modifierGroups");
     cacheRemoveValue(CacheKey.modifierGroups);
+  }
+
+  /** Clears the 'orderTypes' field, the 'has' method for this field will now return false */
+  public void clearOrderTypes() {
+    unlogChange("orderTypes");
+    getJSONObject().remove("orderTypes");
+    cacheRemoveValue(CacheKey.orderTypes);
+  }
+
+  /** Clears the 'reseller' field, the 'has' method for this field will now return false */
+  public void clearReseller() {
+    unlogChange("reseller");
+    getJSONObject().remove("reseller");
+    cacheRemoveValue(CacheKey.reseller);
   }
 
 
@@ -1890,6 +1985,10 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     public static final boolean PRINTERS_IS_REQUIRED = false;
 
     public static final boolean MODIFIERGROUPS_IS_REQUIRED = false;
+
+    public static final boolean ORDERTYPES_IS_REQUIRED = false;
+
+    public static final boolean RESELLER_IS_REQUIRED = false;
 
   }
 

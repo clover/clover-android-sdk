@@ -26,6 +26,19 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class LineItemPayment implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier; TBD this is confusing because it's used as either line item id or payment id
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Percent of this line item covered by this payment
+  */
+  public java.lang.Long getPercentage() {
+    return cacheGet(CacheKey.percentage);
+  }
+
 
   private enum CacheKey {
     id {
@@ -167,24 +180,12 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
   }
 
 
-  /**
-   * Unique identifier; TBD this is confusing because it's used as either line item id or payment id
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Percent of this line item covered by this payment
-   */
-  public java.lang.Long getPercentage() {
-    return cacheGet(CacheKey.percentage);
-  }
 
   private java.lang.Long extractPercentage() {
     return getJSONObject().isNull("percentage") ? null :

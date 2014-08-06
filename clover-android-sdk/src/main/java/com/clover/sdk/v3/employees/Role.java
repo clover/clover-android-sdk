@@ -26,6 +26,25 @@ package com.clover.sdk.v3.employees;
 @SuppressWarnings("all")
 public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Full name of the role
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Base System Role
+  */
+  public com.clover.sdk.v3.employees.AccountRole getSystemRole() {
+    return cacheGet(CacheKey.systemRole);
+  }
+
   public static final String AUTHORITY = "com.clover.roles";
 
   private enum CacheKey {
@@ -181,36 +200,18 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Full name of the role
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Base System Role
-   */
-  public com.clover.sdk.v3.employees.AccountRole getSystemRole() {
-    return cacheGet(CacheKey.systemRole);
-  }
 
   private com.clover.sdk.v3.employees.AccountRole extractSystemRole() {
     if (!getJSONObject().isNull("systemRole")) {

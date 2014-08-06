@@ -26,6 +26,40 @@ package com.clover.sdk.v3.billing;
 @SuppressWarnings("all")
 public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * The app that this line item belongs to.
+  */
+  public com.clover.sdk.v3.base.Reference getApp() {
+    return cacheGet(CacheKey.app);
+  }
+ /**
+   * The merchant that this line item belongs to.
+  */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return cacheGet(CacheKey.merchant);
+  }
+  public java.lang.Long getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+  public com.clover.sdk.v3.billing.AppLineItemStatus getStatus() {
+    return cacheGet(CacheKey.status);
+  }
+  public com.clover.sdk.v3.billing.AppLineItemType getType() {
+    return cacheGet(CacheKey.type);
+  }
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
+  public java.util.List<com.clover.sdk.v3.billing.AppMeteredEvent> getAppMeteredEvents() {
+    return cacheGet(CacheKey.appMeteredEvents);
+  }
+
 
   private enum CacheKey {
     id {
@@ -34,16 +68,16 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
         return instance.extractId();
       }
     },
-    merchantApp {
+    app {
       @Override
       public Object extractValue(AppLineItem instance) {
-        return instance.extractMerchantApp();
+        return instance.extractApp();
       }
     },
-    appName {
+    merchant {
       @Override
       public Object extractValue(AppLineItem instance) {
-        return instance.extractAppName();
+        return instance.extractMerchant();
       }
     },
     amount {
@@ -207,8 +241,11 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     java.lang.String id = getId();
     if (id != null && id.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
 
-    com.clover.sdk.v3.base.Reference merchantApp = getMerchantApp();
-    if (merchantApp == null) throw new java.lang.IllegalArgumentException("'merchantApp' is required to be non-null");
+    com.clover.sdk.v3.base.Reference app = getApp();
+    if (app == null) throw new java.lang.IllegalArgumentException("'app' is required to be non-null");
+
+    com.clover.sdk.v3.base.Reference merchant = getMerchant();
+    if (merchant == null) throw new java.lang.IllegalArgumentException("'merchant' is required to be non-null");
 
     java.lang.Long amount = getAmount();
     if (amount == null) throw new java.lang.IllegalArgumentException("'amount' is required to be non-null");
@@ -221,60 +258,36 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getMerchantApp() {
-    return cacheGet(CacheKey.merchantApp);
-  }
 
-  private com.clover.sdk.v3.base.Reference extractMerchantApp() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("merchantApp");
+  private com.clover.sdk.v3.base.Reference extractApp() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");
     if (jsonObj != null) {
-      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("merchantApp"));
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("app"));
     }
     return null;
   }
 
-  /**
-   */
-  public java.lang.String getAppName() {
-    return cacheGet(CacheKey.appName);
+
+  private com.clover.sdk.v3.base.Reference extractMerchant() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("merchant");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("merchant"));
+    }
+    return null;
   }
 
-  private java.lang.String extractAppName() {
-    return getJSONObject().isNull("appName") ? null :
-      getJSONObject().optString("appName");
-  }
-
-  /**
-   */
-  public java.lang.Long getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.billing.AppLineItemStatus getStatus() {
-    return cacheGet(CacheKey.status);
-  }
 
   private com.clover.sdk.v3.billing.AppLineItemStatus extractStatus() {
     if (!getJSONObject().isNull("status")) {
@@ -288,11 +301,6 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.billing.AppLineItemType getType() {
-    return cacheGet(CacheKey.type);
-  }
 
   private com.clover.sdk.v3.billing.AppLineItemType extractType() {
     if (!getJSONObject().isNull("type")) {
@@ -306,35 +314,18 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     return null;
   }
 
-  /**
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   */
-  public java.lang.Long getModifiedTime() {
-    return cacheGet(CacheKey.modifiedTime);
-  }
 
   private java.lang.Long extractModifiedTime() {
     return getJSONObject().isNull("modifiedTime") ? null :
       getJSONObject().optLong("modifiedTime");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.billing.AppMeteredEvent> getAppMeteredEvents() {
-    return cacheGet(CacheKey.appMeteredEvents);
-  }
 
   private java.util.List<com.clover.sdk.v3.billing.AppMeteredEvent> extractAppMeteredEvents() {
     if (getJSONObject().isNull("appMeteredEvents")) {
@@ -363,14 +354,14 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     return cacheValueIsNotNull(CacheKey.id);
   }
 
-  /** Checks whether the 'merchantApp' field is set and is not null */
-  public boolean isNotNullMerchantApp() {
-    return cacheValueIsNotNull(CacheKey.merchantApp);
+  /** Checks whether the 'app' field is set and is not null */
+  public boolean isNotNullApp() {
+    return cacheValueIsNotNull(CacheKey.app);
   }
 
-  /** Checks whether the 'appName' field is set and is not null */
-  public boolean isNotNullAppName() {
-    return cacheValueIsNotNull(CacheKey.appName);
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return cacheValueIsNotNull(CacheKey.merchant);
   }
 
   /** Checks whether the 'amount' field is set and is not null */
@@ -414,14 +405,14 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     return cacheHasKey(CacheKey.id);
   }
 
-  /** Checks whether the 'merchantApp' field has been set, however the value could be null */
-  public boolean hasMerchantApp() {
-    return cacheHasKey(CacheKey.merchantApp);
+  /** Checks whether the 'app' field has been set, however the value could be null */
+  public boolean hasApp() {
+    return cacheHasKey(CacheKey.app);
   }
 
-  /** Checks whether the 'appName' field has been set, however the value could be null */
-  public boolean hasAppName() {
-    return cacheHasKey(CacheKey.appName);
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return cacheHasKey(CacheKey.merchant);
   }
 
   /** Checks whether the 'amount' field has been set, however the value could be null */
@@ -472,37 +463,40 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   }
 
   /**
-   * Sets the field 'merchantApp'.
+   * Sets the field 'app'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public AppLineItem setMerchantApp(com.clover.sdk.v3.base.Reference merchantApp) {
-    logChange("merchantApp");
+  public AppLineItem setApp(com.clover.sdk.v3.base.Reference app) {
+    logChange("app");
 
     try {
-      getJSONObject().put("merchantApp",
-          merchantApp == null ? org.json.JSONObject.NULL : merchantApp.getJSONObject());
+      getJSONObject().put("app",
+          app == null ? org.json.JSONObject.NULL : app.getJSONObject());
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.merchantApp);
+    cacheMarkDirty(CacheKey.app);
     return this;
   }
 
   /**
-   * Sets the field 'appName'.
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public AppLineItem setAppName(java.lang.String appName) {
-    logChange("appName");
+  public AppLineItem setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    logChange("merchant");
 
     try {
-      getJSONObject().put("appName", appName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(appName));
+      getJSONObject().put("merchant",
+          merchant == null ? org.json.JSONObject.NULL : merchant.getJSONObject());
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.appName);
+    cacheMarkDirty(CacheKey.merchant);
     return this;
   }
 
@@ -628,18 +622,18 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     cacheRemoveValue(CacheKey.id);
   }
 
-  /** Clears the 'merchantApp' field, the 'has' method for this field will now return false */
-  public void clearMerchantApp() {
-    unlogChange("merchantApp");
-    getJSONObject().remove("merchantApp");
-    cacheRemoveValue(CacheKey.merchantApp);
+  /** Clears the 'app' field, the 'has' method for this field will now return false */
+  public void clearApp() {
+    unlogChange("app");
+    getJSONObject().remove("app");
+    cacheRemoveValue(CacheKey.app);
   }
 
-  /** Clears the 'appName' field, the 'has' method for this field will now return false */
-  public void clearAppName() {
-    unlogChange("appName");
-    getJSONObject().remove("appName");
-    cacheRemoveValue(CacheKey.appName);
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    unlogChange("merchant");
+    getJSONObject().remove("merchant");
+    cacheRemoveValue(CacheKey.merchant);
   }
 
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
@@ -812,9 +806,9 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
 
-    public static final boolean MERCHANTAPP_IS_REQUIRED = true;
+    public static final boolean APP_IS_REQUIRED = true;
 
-    public static final boolean APPNAME_IS_REQUIRED = false;
+    public static final boolean MERCHANT_IS_REQUIRED = true;
 
     public static final boolean AMOUNT_IS_REQUIRED = true;
 
