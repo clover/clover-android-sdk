@@ -15,4 +15,31 @@
   -->
 
 <resources>
+  <style name="RotateToMerchant">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:src">@drawable/rotate_customer_to_merchant</item>
+  </style>
+
+  <style name="RotateToCustomer">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:src">@drawable/rotate_merchant_to_customer</item>
+  </style>
+
+  <style name="RotateInstructions">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">22sp</item>
+    <item name="android:layout_marginBottom">16dp</item>
+  </style>
+
+  <style name="DialogThemeNoWindow" parent="android:Theme.Holo.Light.Dialog">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
 </resources>

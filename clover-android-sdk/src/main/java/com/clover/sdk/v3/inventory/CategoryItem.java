@@ -26,6 +26,13 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class CategoryItem implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public com.clover.sdk.v3.inventory.Item getItem() {
+    return cacheGet(CacheKey.item);
+  }
+  public com.clover.sdk.v3.inventory.Category getCategory() {
+    return cacheGet(CacheKey.category);
+  }
+
 
   private enum CacheKey {
     item {
@@ -170,13 +177,6 @@ public final class CategoryItem implements android.os.Parcelable, com.clover.sdk
   }
 
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.Item getItem() {
-    return cacheGet(CacheKey.item);
-  }
 
   private com.clover.sdk.v3.inventory.Item extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");
@@ -186,13 +186,6 @@ public final class CategoryItem implements android.os.Parcelable, com.clover.sdk
     return null;
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.Category getCategory() {
-    return cacheGet(CacheKey.category);
-  }
 
   private com.clover.sdk.v3.inventory.Category extractCategory() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("category");

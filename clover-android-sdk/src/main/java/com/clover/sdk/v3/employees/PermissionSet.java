@@ -26,6 +26,40 @@ package com.clover.sdk.v3.employees;
 @SuppressWarnings("all")
 public final class PermissionSet implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Key of the permissionSet
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Label of the permissionSet
+  */
+  public java.lang.String getLabel() {
+    return cacheGet(CacheKey.label);
+  }
+  public com.clover.sdk.v3.base.Reference getApp() {
+    return cacheGet(CacheKey.app);
+  }
+  public java.lang.Boolean getEmployeeDefault() {
+    return cacheGet(CacheKey.employeeDefault);
+  }
+  public java.lang.Boolean getManagerDefault() {
+    return cacheGet(CacheKey.managerDefault);
+  }
+ /**
+   * Bitmap of permissions
+  */
+  public com.clover.sdk.v3.employees.Permissions getPermissions() {
+    return cacheGet(CacheKey.permissions);
+  }
+
   public static final String AUTHORITY = "com.clover.roles";
 
   private enum CacheKey {
@@ -204,49 +238,24 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Key of the permissionSet
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Label of the permissionSet
-   */
-  public java.lang.String getLabel() {
-    return cacheGet(CacheKey.label);
-  }
 
   private java.lang.String extractLabel() {
     return getJSONObject().isNull("label") ? null :
       getJSONObject().optString("label");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getApp() {
-    return cacheGet(CacheKey.app);
-  }
 
   private com.clover.sdk.v3.base.Reference extractApp() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");
@@ -256,36 +265,18 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     return null;
   }
 
-  /**
-   */
-  public java.lang.Boolean getEmployeeDefault() {
-    return cacheGet(CacheKey.employeeDefault);
-  }
 
   private java.lang.Boolean extractEmployeeDefault() {
     return getJSONObject().isNull("employeeDefault") ? null :
       getJSONObject().optBoolean("employeeDefault");
   }
 
-  /**
-   */
-  public java.lang.Boolean getManagerDefault() {
-    return cacheGet(CacheKey.managerDefault);
-  }
 
   private java.lang.Boolean extractManagerDefault() {
     return getJSONObject().isNull("managerDefault") ? null :
       getJSONObject().optBoolean("managerDefault");
   }
 
-  /**
-   * Bitmap of permissions
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Permissions getPermissions() {
-    return cacheGet(CacheKey.permissions);
-  }
 
   private com.clover.sdk.v3.employees.Permissions extractPermissions() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("permissions");

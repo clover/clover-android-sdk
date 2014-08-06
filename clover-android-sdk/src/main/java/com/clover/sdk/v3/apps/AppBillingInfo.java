@@ -26,6 +26,37 @@ package com.clover.sdk.v3.apps;
 @SuppressWarnings("all")
 public final class AppBillingInfo implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Current subscription level of merchant for this app.
+  */
+  public com.clover.sdk.v3.apps.AppSubscription getAppSubscription() {
+    return cacheGet(CacheKey.appSubscription);
+  }
+ /**
+   * Whether merchant is in trial for this app.  Only valid for paid apps that offer trials.  Keep in mind, trials apply to app metereds as well.
+  */
+  public java.lang.Boolean getIsInTrial() {
+    return cacheGet(CacheKey.isInTrial);
+  }
+ /**
+   * When the merchant's trial ends.  Only valid for paid apps that offer trials.
+  */
+  public java.lang.Long getBillingStartTime() {
+    return cacheGet(CacheKey.billingStartTime);
+  }
+ /**
+   * Note, this info is merchant-level, not merchant-app-level, but including here for developer convenience.  Returns active if a merchant has a credit card on file, and if it's currently authorizing properly.  Returns lapsed if their card is absent or most recently declined.  Currently, we only accept credit cards as payment, but may add other payment methods in the future.
+  */
+  public com.clover.sdk.v3.apps.MerchantBillingStatus getStatus() {
+    return cacheGet(CacheKey.status);
+  }
+ /**
+   * If the merchant's account is lapsed, the number of days since it lapsed.
+  */
+  public java.lang.Long getDaysLapsed() {
+    return cacheGet(CacheKey.daysLapsed);
+  }
+
 
   private enum CacheKey {
     appSubscription {
@@ -183,14 +214,6 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
   }
 
 
-  /**
-   * Current subscription level of merchant for this app.
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.apps.AppSubscription getAppSubscription() {
-    return cacheGet(CacheKey.appSubscription);
-  }
 
   private com.clover.sdk.v3.apps.AppSubscription extractAppSubscription() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("appSubscription");
@@ -200,36 +223,18 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
     return null;
   }
 
-  /**
-   * Whether merchant is in trial for this app.  Only valid for paid apps that offer trials.  Keep in mind, trials apply to app metereds as well.
-   */
-  public java.lang.Boolean getIsInTrial() {
-    return cacheGet(CacheKey.isInTrial);
-  }
 
   private java.lang.Boolean extractIsInTrial() {
     return getJSONObject().isNull("isInTrial") ? null :
       getJSONObject().optBoolean("isInTrial");
   }
 
-  /**
-   * When the merchant's trial ends.  Only valid for paid apps that offer trials.
-   */
-  public java.lang.Long getBillingStartTime() {
-    return cacheGet(CacheKey.billingStartTime);
-  }
 
   private java.lang.Long extractBillingStartTime() {
     return getJSONObject().isNull("billingStartTime") ? null :
       getJSONObject().optLong("billingStartTime");
   }
 
-  /**
-   * Note, this info is merchant-level, not merchant-app-level, but including here for developer convenience.  Returns active if a merchant has a credit card on file, and if it's currently authorizing properly.  Returns lapsed if their card is absent or most recently declined.  Currently, we only accept credit cards as payment, but may add other payment methods in the future.
-   */
-  public com.clover.sdk.v3.apps.MerchantBillingStatus getStatus() {
-    return cacheGet(CacheKey.status);
-  }
 
   private com.clover.sdk.v3.apps.MerchantBillingStatus extractStatus() {
     if (!getJSONObject().isNull("status")) {
@@ -243,12 +248,6 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
     return null;
   }
 
-  /**
-   * If the merchant's account is lapsed, the number of days since it lapsed.
-   */
-  public java.lang.Long getDaysLapsed() {
-    return cacheGet(CacheKey.daysLapsed);
-  }
 
   private java.lang.Long extractDaysLapsed() {
     return getJSONObject().isNull("daysLapsed") ? null :

@@ -26,6 +26,22 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the option
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public com.clover.sdk.v3.base.Reference getAttribute() {
+    return cacheGet(CacheKey.attribute);
+  }
+
 
   private enum CacheKey {
     id {
@@ -177,37 +193,18 @@ public final class Option implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the option
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getAttribute() {
-    return cacheGet(CacheKey.attribute);
-  }
 
   private com.clover.sdk.v3.base.Reference extractAttribute() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("attribute");

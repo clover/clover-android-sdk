@@ -26,6 +26,43 @@ package com.clover.sdk.v3.cash;
 @SuppressWarnings("all")
 public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * The type of event that occured
+  */
+  public com.clover.sdk.v3.cash.Type getType() {
+    return cacheGet(CacheKey.type);
+  }
+ /**
+   * The amount that was either added, removed of modified by the event
+  */
+  public java.lang.Long getAmountChange() {
+    return cacheGet(CacheKey.amountChange);
+  }
+ /**
+   * Time at which the event was exectued
+  */
+  public java.lang.Long getTimestamp() {
+    return cacheGet(CacheKey.timestamp);
+  }
+ /**
+   * Any additional information regarding the event
+  */
+  public java.lang.String getNote() {
+    return cacheGet(CacheKey.note);
+  }
+ /**
+   * The employee who performed the event
+  */
+  public com.clover.sdk.v3.employees.Employee getEmployee() {
+    return cacheGet(CacheKey.employee);
+  }
+ /**
+   * The device that initiated the event
+  */
+  public com.clover.sdk.v3.device.Device getDevice() {
+    return cacheGet(CacheKey.device);
+  }
+
 
   private enum CacheKey {
     type {
@@ -189,12 +226,6 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  /**
-   * The type of event that occured
-   */
-  public com.clover.sdk.v3.cash.Type getType() {
-    return cacheGet(CacheKey.type);
-  }
 
   private com.clover.sdk.v3.cash.Type extractType() {
     if (!getJSONObject().isNull("type")) {
@@ -208,50 +239,24 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
     return null;
   }
 
-  /**
-   * The amount that was either added, removed of modified by the event
-   */
-  public java.lang.Long getAmountChange() {
-    return cacheGet(CacheKey.amountChange);
-  }
 
   private java.lang.Long extractAmountChange() {
     return getJSONObject().isNull("amountChange") ? null :
       getJSONObject().optLong("amountChange");
   }
 
-  /**
-   * Time at which the event was exectued
-   */
-  public java.lang.Long getTimestamp() {
-    return cacheGet(CacheKey.timestamp);
-  }
 
   private java.lang.Long extractTimestamp() {
     return getJSONObject().isNull("timestamp") ? null :
       getJSONObject().optLong("timestamp");
   }
 
-  /**
-   * Any additional information regarding the event
-   */
-  public java.lang.String getNote() {
-    return cacheGet(CacheKey.note);
-  }
 
   private java.lang.String extractNote() {
     return getJSONObject().isNull("note") ? null :
       getJSONObject().optString("note");
   }
 
-  /**
-   * The employee who performed the event
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Employee getEmployee() {
-    return cacheGet(CacheKey.employee);
-  }
 
   private com.clover.sdk.v3.employees.Employee extractEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("employee");
@@ -261,14 +266,6 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
     return null;
   }
 
-  /**
-   * The device that initiated the event
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.device.Device getDevice() {
-    return cacheGet(CacheKey.device);
-  }
 
   private com.clover.sdk.v3.device.Device extractDevice() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");

@@ -26,6 +26,67 @@ package com.clover.sdk.v3.employees;
 @SuppressWarnings("all")
 public final class Shift implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * The employee that worked this shift
+  */
+  public com.clover.sdk.v3.employees.Employee getEmployee() {
+    return cacheGet(CacheKey.employee);
+  }
+ /**
+   * Amount of cash tips collected
+  */
+  public java.lang.Long getCashTipsCollected() {
+    return cacheGet(CacheKey.cashTipsCollected);
+  }
+ /**
+   * Whether the employee used server banking
+  */
+  public java.lang.Boolean getServerBanking() {
+    return cacheGet(CacheKey.serverBanking);
+  }
+ /**
+   * Clock in time
+  */
+  public java.lang.Long getInTime() {
+    return cacheGet(CacheKey.inTime);
+  }
+ /**
+   * Overridden clock in time
+  */
+  public java.lang.Long getOverrideInTime() {
+    return cacheGet(CacheKey.overrideInTime);
+  }
+ /**
+   * The employee who overrode the clock in time
+  */
+  public com.clover.sdk.v3.employees.Employee getOverrideInEmployee() {
+    return cacheGet(CacheKey.overrideInEmployee);
+  }
+ /**
+   * Clock out time
+  */
+  public java.lang.Long getOutTime() {
+    return cacheGet(CacheKey.outTime);
+  }
+ /**
+   * Overridden clock out time
+  */
+  public java.lang.Long getOverrideOutTime() {
+    return cacheGet(CacheKey.overrideOutTime);
+  }
+ /**
+   * The employee who overrode the clock out time
+  */
+  public com.clover.sdk.v3.employees.Employee getOverrideOutEmployee() {
+    return cacheGet(CacheKey.overrideOutEmployee);
+  }
+
 
   private enum CacheKey {
     id {
@@ -215,26 +276,12 @@ public final class Shift implements android.os.Parcelable, com.clover.sdk.v3.Val
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * The employee that worked this shift
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Employee getEmployee() {
-    return cacheGet(CacheKey.employee);
-  }
 
   private com.clover.sdk.v3.employees.Employee extractEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("employee");
@@ -244,62 +291,30 @@ public final class Shift implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   * Amount of cash tips collected
-   */
-  public java.lang.Long getCashTipsCollected() {
-    return cacheGet(CacheKey.cashTipsCollected);
-  }
 
   private java.lang.Long extractCashTipsCollected() {
     return getJSONObject().isNull("cashTipsCollected") ? null :
       getJSONObject().optLong("cashTipsCollected");
   }
 
-  /**
-   * Whether the employee used server banking
-   */
-  public java.lang.Boolean getServerBanking() {
-    return cacheGet(CacheKey.serverBanking);
-  }
 
   private java.lang.Boolean extractServerBanking() {
     return getJSONObject().isNull("serverBanking") ? null :
       getJSONObject().optBoolean("serverBanking");
   }
 
-  /**
-   * Clock in time
-   */
-  public java.lang.Long getInTime() {
-    return cacheGet(CacheKey.inTime);
-  }
 
   private java.lang.Long extractInTime() {
     return getJSONObject().isNull("inTime") ? null :
       getJSONObject().optLong("inTime");
   }
 
-  /**
-   * Overridden clock in time
-   */
-  public java.lang.Long getOverrideInTime() {
-    return cacheGet(CacheKey.overrideInTime);
-  }
 
   private java.lang.Long extractOverrideInTime() {
     return getJSONObject().isNull("overrideInTime") ? null :
       getJSONObject().optLong("overrideInTime");
   }
 
-  /**
-   * The employee who overrode the clock in time
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Employee getOverrideInEmployee() {
-    return cacheGet(CacheKey.overrideInEmployee);
-  }
 
   private com.clover.sdk.v3.employees.Employee extractOverrideInEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("overrideInEmployee");
@@ -309,38 +324,18 @@ public final class Shift implements android.os.Parcelable, com.clover.sdk.v3.Val
     return null;
   }
 
-  /**
-   * Clock out time
-   */
-  public java.lang.Long getOutTime() {
-    return cacheGet(CacheKey.outTime);
-  }
 
   private java.lang.Long extractOutTime() {
     return getJSONObject().isNull("outTime") ? null :
       getJSONObject().optLong("outTime");
   }
 
-  /**
-   * Overridden clock out time
-   */
-  public java.lang.Long getOverrideOutTime() {
-    return cacheGet(CacheKey.overrideOutTime);
-  }
 
   private java.lang.Long extractOverrideOutTime() {
     return getJSONObject().isNull("overrideOutTime") ? null :
       getJSONObject().optLong("overrideOutTime");
   }
 
-  /**
-   * The employee who overrode the clock out time
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.employees.Employee getOverrideOutEmployee() {
-    return cacheGet(CacheKey.overrideOutEmployee);
-  }
 
   private com.clover.sdk.v3.employees.Employee extractOverrideOutEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("overrideOutEmployee");

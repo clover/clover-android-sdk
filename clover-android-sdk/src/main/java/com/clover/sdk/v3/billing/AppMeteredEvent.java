@@ -26,6 +26,22 @@ package com.clover.sdk.v3.billing;
 @SuppressWarnings("all")
 public final class AppMeteredEvent implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public com.clover.sdk.v3.apps.AppMetered getAppMetered() {
+    return cacheGet(CacheKey.appMetered);
+  }
+  public java.lang.Long getCount() {
+    return cacheGet(CacheKey.count);
+  }
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
+
 
   private enum CacheKey {
     id {
@@ -191,24 +207,12 @@ public final class AppMeteredEvent implements android.os.Parcelable, com.clover.
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.apps.AppMetered getAppMetered() {
-    return cacheGet(CacheKey.appMetered);
-  }
 
   private com.clover.sdk.v3.apps.AppMetered extractAppMetered() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("appMetered");
@@ -218,33 +222,18 @@ public final class AppMeteredEvent implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public java.lang.Long getCount() {
-    return cacheGet(CacheKey.count);
-  }
 
   private java.lang.Long extractCount() {
     return getJSONObject().isNull("count") ? null :
       getJSONObject().optLong("count");
   }
 
-  /**
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   */
-  public java.lang.Long getModifiedTime() {
-    return cacheGet(CacheKey.modifiedTime);
-  }
 
   private java.lang.Long extractModifiedTime() {
     return getJSONObject().isNull("modifiedTime") ? null :

@@ -1166,4 +1166,56 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public void updateTaxRate(final TaxRate taxRate) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateTaxRate(taxRate, status);
+      }
+    });
+  }
+
+  public void updateTaxRate(final TaxRate taxRate, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateTaxRate(taxRate, status);
+        return null;
+      }
+    }, callback);
+  }
+
+  public void deleteTaxRate(final String taxRateId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteTaxRate(taxRateId, status);
+      }
+    });
+  }
+
+  public void deleteTaxRate(final String taxRateId, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteTaxRate(taxRateId, status);
+        return null;
+      }
+    }, callback);
+  }
+
+  public void createTaxRate(final TaxRate taxRate) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.createTaxRate(taxRate, status);
+      }
+    });
+  }
+
+  public void createTaxRate(final TaxRate taxRate, Callback<Void> callback) {
+    execute(new ServiceCallable<IInventoryService, Void>() {
+      public Void call(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.createTaxRate(taxRate, status);
+        return null;
+      }
+    }, callback);
+  }
+
+
 }

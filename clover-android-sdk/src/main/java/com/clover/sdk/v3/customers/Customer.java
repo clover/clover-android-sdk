@@ -26,6 +26,43 @@ package com.clover.sdk.v3.customers;
 @SuppressWarnings("all")
 public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * First/given name of the customer
+  */
+  public java.lang.String getFirstName() {
+    return cacheGet(CacheKey.firstName);
+  }
+ /**
+   * Last name/surname of the customer
+  */
+  public java.lang.String getLastName() {
+    return cacheGet(CacheKey.lastName);
+  }
+  public java.lang.Boolean getMarketingAllowed() {
+    return cacheGet(CacheKey.marketingAllowed);
+  }
+  public java.lang.Long getCustomerSince() {
+    return cacheGet(CacheKey.customerSince);
+  }
+  public java.util.List<com.clover.sdk.v3.base.Reference> getOrders() {
+    return cacheGet(CacheKey.orders);
+  }
+  public java.util.List<com.clover.sdk.v3.customers.Address> getAddresses() {
+    return cacheGet(CacheKey.addresses);
+  }
+  public java.util.List<com.clover.sdk.v3.customers.EmailAddress> getEmailAddresses() {
+    return cacheGet(CacheKey.emailAddresses);
+  }
+  public java.util.List<com.clover.sdk.v3.customers.PhoneNumber> getPhoneNumbers() {
+    return cacheGet(CacheKey.phoneNumbers);
+  }
+
 
   private enum CacheKey {
     id {
@@ -56,6 +93,12 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
       @Override
       public Object extractValue(Customer instance) {
         return instance.extractCustomerSince();
+      }
+    },
+    orders {
+      @Override
+      public Object extractValue(Customer instance) {
+        return instance.extractOrders();
       }
     },
     addresses {
@@ -203,100 +246,80 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * First/given name of the customer
-   */
-  public java.lang.String getFirstName() {
-    return cacheGet(CacheKey.firstName);
-  }
 
   private java.lang.String extractFirstName() {
     return getJSONObject().isNull("firstName") ? null :
       getJSONObject().optString("firstName");
   }
 
-  /**
-   * Last name/surname of the customer
-   */
-  public java.lang.String getLastName() {
-    return cacheGet(CacheKey.lastName);
-  }
 
   private java.lang.String extractLastName() {
     return getJSONObject().isNull("lastName") ? null :
       getJSONObject().optString("lastName");
   }
 
-  /**
-   */
-  public java.lang.Boolean getMarketingAllowed() {
-    return cacheGet(CacheKey.marketingAllowed);
-  }
 
   private java.lang.Boolean extractMarketingAllowed() {
     return getJSONObject().isNull("marketingAllowed") ? null :
       getJSONObject().optBoolean("marketingAllowed");
   }
 
-  /**
-   */
-  public java.lang.Long getCustomerSince() {
-    return cacheGet(CacheKey.customerSince);
-  }
 
   private java.lang.Long extractCustomerSince() {
     return getJSONObject().isNull("customerSince") ? null :
       getJSONObject().optLong("customerSince");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Address> getAddresses() {
-    return cacheGet(CacheKey.addresses);
-  }
 
-  private java.util.List<com.clover.sdk.v3.base.Address> extractAddresses() {
-    if (getJSONObject().isNull("addresses")) {
+  private java.util.List<com.clover.sdk.v3.base.Reference> extractOrders() {
+    if (getJSONObject().isNull("orders")) {
       return null;
     }
 
-    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("addresses");
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("orders");
     org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-    java.util.List<com.clover.sdk.v3.base.Address> itemList =
-        new java.util.ArrayList<com.clover.sdk.v3.base.Address>(itemArray.length());
+    java.util.List<com.clover.sdk.v3.base.Reference> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.base.Reference>(itemArray.length());
     for (int i = 0; i < itemArray.length(); i++) {
       org.json.JSONObject obj = itemArray.optJSONObject(i);
       if (obj == null) {
         continue;
       }
-      com.clover.sdk.v3.base.Address item = new com.clover.sdk.v3.base.Address(obj);
+      com.clover.sdk.v3.base.Reference item = new com.clover.sdk.v3.base.Reference(obj);
       itemList.add(item);
     }
 
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.customers.EmailAddress> getEmailAddresses() {
-    return cacheGet(CacheKey.emailAddresses);
+
+  private java.util.List<com.clover.sdk.v3.customers.Address> extractAddresses() {
+    if (getJSONObject().isNull("addresses")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("addresses");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.customers.Address> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.customers.Address>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.customers.Address item = new com.clover.sdk.v3.customers.Address(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
   }
+
 
   private java.util.List<com.clover.sdk.v3.customers.EmailAddress> extractEmailAddresses() {
     if (getJSONObject().isNull("emailAddresses")) {
@@ -319,13 +342,6 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.customers.PhoneNumber> getPhoneNumbers() {
-    return cacheGet(CacheKey.phoneNumbers);
-  }
 
   private java.util.List<com.clover.sdk.v3.customers.PhoneNumber> extractPhoneNumbers() {
     if (getJSONObject().isNull("phoneNumbers")) {
@@ -372,6 +388,16 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'customerSince' field is set and is not null */
   public boolean isNotNullCustomerSince() {
     return cacheValueIsNotNull(CacheKey.customerSince);
+  }
+
+  /** Checks whether the 'orders' field is set and is not null */
+  public boolean isNotNullOrders() {
+    return cacheValueIsNotNull(CacheKey.orders);
+  }
+
+  /** Checks whether the 'orders' field is set and is not null and is not empty */
+  public boolean isNotEmptyOrders() {
+    return isNotNullOrders() && !getOrders().isEmpty();
   }
 
   /** Checks whether the 'addresses' field is set and is not null */
@@ -428,6 +454,11 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'customerSince' field has been set, however the value could be null */
   public boolean hasCustomerSince() {
     return cacheHasKey(CacheKey.customerSince);
+  }
+
+  /** Checks whether the 'orders' field has been set, however the value could be null */
+  public boolean hasOrders() {
+    return cacheHasKey(CacheKey.orders);
   }
 
   /** Checks whether the 'addresses' field has been set, however the value could be null */
@@ -527,11 +558,45 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'orders'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Customer setOrders(java.util.List<com.clover.sdk.v3.base.Reference> orders) {
+    logChange("orders");
+
+    try {
+      if (orders == null) {
+        getJSONObject().put("orders", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.orders);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.base.Reference obj : orders) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("orders", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.orders);
+    return this;
+  }
+
+  /**
    * Sets the field 'addresses'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Customer setAddresses(java.util.List<com.clover.sdk.v3.base.Address> addresses) {
+  public Customer setAddresses(java.util.List<com.clover.sdk.v3.customers.Address> addresses) {
     logChange("addresses");
 
     try {
@@ -542,7 +607,7 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
       }
 
       org.json.JSONArray array = new org.json.JSONArray();
-      for (com.clover.sdk.v3.base.Address obj : addresses) {
+      for (com.clover.sdk.v3.customers.Address obj : addresses) {
         if (obj == null) {
           continue;
         }
@@ -662,6 +727,13 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     unlogChange("customerSince");
     getJSONObject().remove("customerSince");
     cacheRemoveValue(CacheKey.customerSince);
+  }
+
+  /** Clears the 'orders' field, the 'has' method for this field will now return false */
+  public void clearOrders() {
+    unlogChange("orders");
+    getJSONObject().remove("orders");
+    cacheRemoveValue(CacheKey.orders);
   }
 
   /** Clears the 'addresses' field, the 'has' method for this field will now return false */
@@ -822,6 +894,8 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     public static final boolean MARKETINGALLOWED_IS_REQUIRED = false;
 
     public static final boolean CUSTOMERSINCE_IS_REQUIRED = false;
+
+    public static final boolean ORDERS_IS_REQUIRED = false;
 
     public static final boolean ADDRESSES_IS_REQUIRED = false;
 

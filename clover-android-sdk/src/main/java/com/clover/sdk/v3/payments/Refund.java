@@ -26,6 +26,55 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Total amount refunded, including tax
+  */
+  public java.lang.Long getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+ /**
+   * Tax amount refunded
+  */
+  public java.lang.Long getTaxAmount() {
+    return cacheGet(CacheKey.taxAmount);
+  }
+ /**
+   * The time when the refund was recorded on the server
+  */
+  public java.lang.Long getCreatedTime() {
+    return cacheGet(CacheKey.createdTime);
+  }
+ /**
+   * The time when the refund was recorded on the client
+  */
+  public java.lang.Long getClientCreatedTime() {
+    return cacheGet(CacheKey.clientCreatedTime);
+  }
+ /**
+   * The payment with which the refund is associated
+  */
+  public com.clover.sdk.v3.base.Reference getPayment() {
+    return cacheGet(CacheKey.payment);
+  }
+  public com.clover.sdk.v3.base.Reference getEmployee() {
+    return cacheGet(CacheKey.employee);
+  }
+  public java.util.List<com.clover.sdk.v3.base.Reference> getLineItems() {
+    return cacheGet(CacheKey.lineItems);
+  }
+ /**
+   * The tender type associated with this payment, e.g. credit card, cash, etc.
+  */
+  public com.clover.sdk.v3.base.Tender getOverrideMerchantTender() {
+    return cacheGet(CacheKey.overrideMerchantTender);
+  }
+  public java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> getTaxableAmountRates() {
+    return cacheGet(CacheKey.taxableAmountRates);
+  }
+  public com.clover.sdk.v3.payments.ServiceChargeAmount getServiceChargeAmount() {
+    return cacheGet(CacheKey.serviceChargeAmount);
+  }
+
 
   private enum CacheKey {
     amount {
@@ -213,62 +262,30 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
-  /**
-   * Total amount refunded, including tax
-   */
-  public java.lang.Long getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
   }
 
-  /**
-   * Tax amount refunded
-   */
-  public java.lang.Long getTaxAmount() {
-    return cacheGet(CacheKey.taxAmount);
-  }
 
   private java.lang.Long extractTaxAmount() {
     return getJSONObject().isNull("taxAmount") ? null :
       getJSONObject().optLong("taxAmount");
   }
 
-  /**
-   * The time when the refund was recorded on the server
-   */
-  public java.lang.Long getCreatedTime() {
-    return cacheGet(CacheKey.createdTime);
-  }
 
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
   }
 
-  /**
-   * The time when the refund was recorded on the client
-   */
-  public java.lang.Long getClientCreatedTime() {
-    return cacheGet(CacheKey.clientCreatedTime);
-  }
 
   private java.lang.Long extractClientCreatedTime() {
     return getJSONObject().isNull("clientCreatedTime") ? null :
       getJSONObject().optLong("clientCreatedTime");
   }
 
-  /**
-   * The payment with which the refund is associated
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getPayment() {
-    return cacheGet(CacheKey.payment);
-  }
 
   private com.clover.sdk.v3.base.Reference extractPayment() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("payment");
@@ -278,13 +295,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return null;
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getEmployee() {
-    return cacheGet(CacheKey.employee);
-  }
 
   private com.clover.sdk.v3.base.Reference extractEmployee() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("employee");
@@ -294,13 +304,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return null;
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getLineItems() {
-    return cacheGet(CacheKey.lineItems);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractLineItems() {
     if (getJSONObject().isNull("lineItems")) {
@@ -323,14 +326,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * The tender type associated with this payment, e.g. credit card, cash, etc.
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Tender getOverrideMerchantTender() {
-    return cacheGet(CacheKey.overrideMerchantTender);
-  }
 
   private com.clover.sdk.v3.base.Tender extractOverrideMerchantTender() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("overrideMerchantTender");
@@ -340,13 +335,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return null;
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> getTaxableAmountRates() {
-    return cacheGet(CacheKey.taxableAmountRates);
-  }
 
   private java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> extractTaxableAmountRates() {
     if (getJSONObject().isNull("taxableAmountRates")) {
@@ -369,13 +357,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.payments.ServiceChargeAmount getServiceChargeAmount() {
-    return cacheGet(CacheKey.serviceChargeAmount);
-  }
 
   private com.clover.sdk.v3.payments.ServiceChargeAmount extractServiceChargeAmount() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("serviceChargeAmount");

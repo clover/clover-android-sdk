@@ -26,8 +26,24 @@ package com.clover.sdk.v3.customers;
 @SuppressWarnings("all")
 public final class EmailAddress implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getEmailAddress() {
+    return cacheGet(CacheKey.emailAddress);
+  }
+  public java.lang.Long getVerifiedTime() {
+    return cacheGet(CacheKey.verifiedTime);
+  }
+
 
   private enum CacheKey {
+    id {
+      @Override
+      public Object extractValue(EmailAddress instance) {
+        return instance.extractId();
+      }
+    },
     emailAddress {
       @Override
       public Object extractValue(EmailAddress instance) {
@@ -162,31 +178,35 @@ public final class EmailAddress implements android.os.Parcelable, com.clover.sdk
 
   @Override
   public void validate() {
+
+    java.lang.String emailAddress = getEmailAddress();
+    if (emailAddress == null) throw new java.lang.IllegalArgumentException("'emailAddress' is required to be non-null");
   }
 
 
-  /**
-   */
-  public java.lang.String getEmailAddress() {
-    return cacheGet(CacheKey.emailAddress);
+
+  private java.lang.String extractId() {
+    return getJSONObject().isNull("id") ? null :
+      getJSONObject().optString("id");
   }
+
 
   private java.lang.String extractEmailAddress() {
     return getJSONObject().isNull("emailAddress") ? null :
       getJSONObject().optString("emailAddress");
   }
 
-  /**
-   */
-  public java.lang.Long getVerifiedTime() {
-    return cacheGet(CacheKey.verifiedTime);
-  }
 
   private java.lang.Long extractVerifiedTime() {
     return getJSONObject().isNull("verifiedTime") ? null :
       getJSONObject().optLong("verifiedTime");
   }
 
+
+  /** Checks whether the 'id' field is set and is not null */
+  public boolean isNotNullId() {
+    return cacheValueIsNotNull(CacheKey.id);
+  }
 
   /** Checks whether the 'emailAddress' field is set and is not null */
   public boolean isNotNullEmailAddress() {
@@ -199,6 +219,11 @@ public final class EmailAddress implements android.os.Parcelable, com.clover.sdk
   }
 
 
+  /** Checks whether the 'id' field has been set, however the value could be null */
+  public boolean hasId() {
+    return cacheHasKey(CacheKey.id);
+  }
+
   /** Checks whether the 'emailAddress' field has been set, however the value could be null */
   public boolean hasEmailAddress() {
     return cacheHasKey(CacheKey.emailAddress);
@@ -209,6 +234,22 @@ public final class EmailAddress implements android.os.Parcelable, com.clover.sdk
     return cacheHasKey(CacheKey.verifiedTime);
   }
 
+
+  /**
+   * Sets the field 'id'.
+   */
+  public EmailAddress setId(java.lang.String id) {
+    logChange("id");
+
+    try {
+      getJSONObject().put("id", id == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(id));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.id);
+    return this;
+  }
 
   /**
    * Sets the field 'emailAddress'.
@@ -242,6 +283,13 @@ public final class EmailAddress implements android.os.Parcelable, com.clover.sdk
     return this;
   }
 
+
+  /** Clears the 'id' field, the 'has' method for this field will now return false */
+  public void clearId() {
+    unlogChange("id");
+    getJSONObject().remove("id");
+    cacheRemoveValue(CacheKey.id);
+  }
 
   /** Clears the 'emailAddress' field, the 'has' method for this field will now return false */
   public void clearEmailAddress() {
@@ -382,7 +430,9 @@ public final class EmailAddress implements android.os.Parcelable, com.clover.sdk
 
   public interface Constraints {
 
-    public static final boolean EMAILADDRESS_IS_REQUIRED = false;
+    public static final boolean ID_IS_REQUIRED = false;
+
+    public static final boolean EMAILADDRESS_IS_REQUIRED = true;
 
     public static final boolean VERIFIEDTIME_IS_REQUIRED = false;
 

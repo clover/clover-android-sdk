@@ -26,6 +26,55 @@ package com.clover.sdk.v3.base;
 @SuppressWarnings("all")
 public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * If this merchant tender is editable
+  */
+  public java.lang.Boolean getEditable() {
+    return cacheGet(CacheKey.editable);
+  }
+ /**
+   * Label Key
+  */
+  public java.lang.String getLabelKey() {
+    return cacheGet(CacheKey.labelKey);
+  }
+ /**
+   * Label Key
+  */
+  public java.lang.String getLabel() {
+    return cacheGet(CacheKey.label);
+  }
+ /**
+   * If this tender opens the cash drawer
+  */
+  public java.lang.Boolean getOpensCashDrawer() {
+    return cacheGet(CacheKey.opensCashDrawer);
+  }
+ /**
+   * If this merchant tender is enabled
+  */
+  public java.lang.Boolean getEnabled() {
+    return cacheGet(CacheKey.enabled);
+  }
+ /**
+   * If this merchant tender is visible
+  */
+  public java.lang.Boolean getVisible() {
+    return cacheGet(CacheKey.visible);
+  }
+ /**
+   * Label Key
+  */
+  public java.lang.String getInstructions() {
+    return cacheGet(CacheKey.instructions);
+  }
+
 
   private enum CacheKey {
     id {
@@ -209,96 +258,48 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * If this merchant tender is editable
-   */
-  public java.lang.Boolean getEditable() {
-    return cacheGet(CacheKey.editable);
-  }
 
   private java.lang.Boolean extractEditable() {
     return getJSONObject().isNull("editable") ? null :
       getJSONObject().optBoolean("editable");
   }
 
-  /**
-   * Label Key
-   */
-  public java.lang.String getLabelKey() {
-    return cacheGet(CacheKey.labelKey);
-  }
 
   private java.lang.String extractLabelKey() {
     return getJSONObject().isNull("labelKey") ? null :
       getJSONObject().optString("labelKey");
   }
 
-  /**
-   * Label Key
-   */
-  public java.lang.String getLabel() {
-    return cacheGet(CacheKey.label);
-  }
 
   private java.lang.String extractLabel() {
     return getJSONObject().isNull("label") ? null :
       getJSONObject().optString("label");
   }
 
-  /**
-   * If this tender opens the cash drawer
-   */
-  public java.lang.Boolean getOpensCashDrawer() {
-    return cacheGet(CacheKey.opensCashDrawer);
-  }
 
   private java.lang.Boolean extractOpensCashDrawer() {
     return getJSONObject().isNull("opensCashDrawer") ? null :
       getJSONObject().optBoolean("opensCashDrawer");
   }
 
-  /**
-   * If this merchant tender is enabled
-   */
-  public java.lang.Boolean getEnabled() {
-    return cacheGet(CacheKey.enabled);
-  }
 
   private java.lang.Boolean extractEnabled() {
     return getJSONObject().isNull("enabled") ? null :
       getJSONObject().optBoolean("enabled");
   }
 
-  /**
-   * If this merchant tender is visible
-   */
-  public java.lang.Boolean getVisible() {
-    return cacheGet(CacheKey.visible);
-  }
 
   private java.lang.Boolean extractVisible() {
     return getJSONObject().isNull("visible") ? null :
       getJSONObject().optBoolean("visible");
   }
 
-  /**
-   * Label Key
-   */
-  public java.lang.String getInstructions() {
-    return cacheGet(CacheKey.instructions);
-  }
 
   private java.lang.String extractInstructions() {
     return getJSONObject().isNull("instructions") ? null :

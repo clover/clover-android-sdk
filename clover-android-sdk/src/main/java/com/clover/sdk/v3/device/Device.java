@@ -26,6 +26,28 @@ package com.clover.sdk.v3.device;
 @SuppressWarnings("all")
 public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the device (if entered)
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.String getModel() {
+    return cacheGet(CacheKey.model);
+  }
+  public java.lang.String getOrderPrefix() {
+    return cacheGet(CacheKey.orderPrefix);
+  }
+  public java.lang.String getSerial() {
+    return cacheGet(CacheKey.serial);
+  }
+
 
   private enum CacheKey {
     id {
@@ -197,57 +219,30 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the device (if entered)
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.String getModel() {
-    return cacheGet(CacheKey.model);
-  }
 
   private java.lang.String extractModel() {
     return getJSONObject().isNull("model") ? null :
       getJSONObject().optString("model");
   }
 
-  /**
-   */
-  public java.lang.String getOrderPrefix() {
-    return cacheGet(CacheKey.orderPrefix);
-  }
 
   private java.lang.String extractOrderPrefix() {
     return getJSONObject().isNull("orderPrefix") ? null :
       getJSONObject().optString("orderPrefix");
   }
 
-  /**
-   */
-  public java.lang.String getSerial() {
-    return cacheGet(CacheKey.serial);
-  }
 
   private java.lang.String extractSerial() {
     return getJSONObject().isNull("serial") ? null :

@@ -26,6 +26,40 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class CardTransaction implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public com.clover.sdk.v3.payments.CardType getCardType() {
+    return cacheGet(CacheKey.cardType);
+  }
+  public com.clover.sdk.v3.payments.CardEntryType getEntryType() {
+    return cacheGet(CacheKey.entryType);
+  }
+ /**
+   * The last four digits of the credit card number
+  */
+  public java.lang.String getLast4() {
+    return cacheGet(CacheKey.last4);
+  }
+  public com.clover.sdk.v3.payments.CardTransactionType getType() {
+    return cacheGet(CacheKey.type);
+  }
+ /**
+   * Authorization code (if successful)
+  */
+  public java.lang.String getAuthCode() {
+    return cacheGet(CacheKey.authCode);
+  }
+  public java.lang.String getReferenceId() {
+    return cacheGet(CacheKey.referenceId);
+  }
+  public com.clover.sdk.v3.payments.CardTransactionState getState() {
+    return cacheGet(CacheKey.state);
+  }
+ /**
+   * Extra info to be stored as part of gateway/card transaction
+  */
+  public java.util.Map<java.lang.String,java.lang.String> getExtra() {
+    return cacheGet(CacheKey.extra);
+  }
+
 
   private enum CacheKey {
     cardType {
@@ -207,11 +241,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
 
-  /**
-   */
-  public com.clover.sdk.v3.payments.CardType getCardType() {
-    return cacheGet(CacheKey.cardType);
-  }
 
   private com.clover.sdk.v3.payments.CardType extractCardType() {
     if (!getJSONObject().isNull("cardType")) {
@@ -225,11 +254,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.payments.CardEntryType getEntryType() {
-    return cacheGet(CacheKey.entryType);
-  }
 
   private com.clover.sdk.v3.payments.CardEntryType extractEntryType() {
     if (!getJSONObject().isNull("entryType")) {
@@ -243,23 +267,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   * The last four digits of the credit card number
-   */
-  public java.lang.String getLast4() {
-    return cacheGet(CacheKey.last4);
-  }
 
   private java.lang.String extractLast4() {
     return getJSONObject().isNull("last4") ? null :
       getJSONObject().optString("last4");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.payments.CardTransactionType getType() {
-    return cacheGet(CacheKey.type);
-  }
 
   private com.clover.sdk.v3.payments.CardTransactionType extractType() {
     if (!getJSONObject().isNull("type")) {
@@ -273,34 +286,18 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   * Authorization code (if successful)
-   */
-  public java.lang.String getAuthCode() {
-    return cacheGet(CacheKey.authCode);
-  }
 
   private java.lang.String extractAuthCode() {
     return getJSONObject().isNull("authCode") ? null :
       getJSONObject().optString("authCode");
   }
 
-  /**
-   */
-  public java.lang.String getReferenceId() {
-    return cacheGet(CacheKey.referenceId);
-  }
 
   private java.lang.String extractReferenceId() {
     return getJSONObject().isNull("referenceId") ? null :
       getJSONObject().optString("referenceId");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.payments.CardTransactionState getState() {
-    return cacheGet(CacheKey.state);
-  }
 
   private com.clover.sdk.v3.payments.CardTransactionState extractState() {
     if (!getJSONObject().isNull("state")) {
@@ -314,12 +311,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   * Extra info to be stored as part of gateway/card transaction
-   */
-  public java.util.Map<java.lang.String,java.lang.String> getExtra() {
-    return cacheGet(CacheKey.extra);
-  }
 
   private java.util.Map<java.lang.String,java.lang.String> extractExtra() {
     if (getJSONObject().isNull("extra")) return null;

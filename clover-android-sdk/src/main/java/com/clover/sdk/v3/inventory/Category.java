@@ -26,6 +26,28 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class Category implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * 
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.Integer getSortOrder() {
+    return cacheGet(CacheKey.sortOrder);
+  }
+ /**
+   * Items associated with this category
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+
 
   private enum CacheKey {
     id {
@@ -183,49 +205,24 @@ public final class Category implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * 
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.Integer getSortOrder() {
-    return cacheGet(CacheKey.sortOrder);
-  }
 
   private java.lang.Integer extractSortOrder() {
     return getJSONObject().isNull("sortOrder") ? null :
       getJSONObject().optInt("sortOrder");
   }
 
-  /**
-   * Items associated with this category
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractItems() {
     if (getJSONObject().isNull("items")) {

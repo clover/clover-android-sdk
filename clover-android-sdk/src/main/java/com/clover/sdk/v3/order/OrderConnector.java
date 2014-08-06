@@ -138,25 +138,16 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
   @Override
   public void disconnect() {
     mOnOrderChangedListener.clear();
-    execute(
-        new ServiceCallable<IOrderService, Void>() {
-          @Override
-          public Void call(IOrderService service, ResultStatus status) throws RemoteException {
-            if (mListener != null) {
-              service.removeOnOrderUpdatedListener(mListener);
-              mListener.destroy();
-              mListener = null;
-            }
-            return null;
-          }
-        }, new ServiceCallback<Void>() {
-          @Override
-          public void onServiceSuccess(Void result, ResultStatus status) {
-            super.onServiceSuccess(result, status);
-            OrderConnector.super.disconnect();
-          }
-        }
-    );
+    if (mListener != null) {
+      try {
+        mService.removeOnOrderUpdatedListener(mListener);
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+      mListener.destroy();
+      mListener = null;
+    }
+    super.disconnect();
   }
 
   public com.clover.sdk.v3.order.Order getOrder(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {

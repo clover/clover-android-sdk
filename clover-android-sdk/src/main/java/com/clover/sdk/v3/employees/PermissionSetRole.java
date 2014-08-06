@@ -26,6 +26,25 @@ package com.clover.sdk.v3.employees;
 @SuppressWarnings("all")
 public final class PermissionSetRole implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * The role
+  */
+  public com.clover.sdk.v3.base.Reference getRole() {
+    return cacheGet(CacheKey.role);
+  }
+ /**
+   * The role
+  */
+  public com.clover.sdk.v3.base.Reference getPermissionSet() {
+    return cacheGet(CacheKey.permissionSet);
+  }
+
   public static final String AUTHORITY = "com.clover.roles";
 
   private enum CacheKey {
@@ -174,26 +193,12 @@ public final class PermissionSetRole implements android.os.Parcelable, com.clove
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * The role
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getRole() {
-    return cacheGet(CacheKey.role);
-  }
 
   private com.clover.sdk.v3.base.Reference extractRole() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("role");
@@ -203,14 +208,6 @@ public final class PermissionSetRole implements android.os.Parcelable, com.clove
     return null;
   }
 
-  /**
-   * The role
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getPermissionSet() {
-    return cacheGet(CacheKey.permissionSet);
-  }
 
   private com.clover.sdk.v3.base.Reference extractPermissionSet() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("permissionSet");

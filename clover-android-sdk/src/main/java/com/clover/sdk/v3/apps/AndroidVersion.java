@@ -26,6 +26,49 @@ package com.clover.sdk.v3.apps;
 @SuppressWarnings("all")
 public final class AndroidVersion implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Creation timestamp
+  */
+  public java.lang.Long getCreatedAt() {
+    return cacheGet(CacheKey.createdAt);
+  }
+ /**
+   * Unique identifier
+  */
+  public java.lang.Long getVersion() {
+    return cacheGet(CacheKey.version);
+  }
+  public java.lang.String getVersionName() {
+    return cacheGet(CacheKey.versionName);
+  }
+  public java.lang.Boolean getApproved() {
+    return cacheGet(CacheKey.approved);
+  }
+  public java.lang.String getHash() {
+    return cacheGet(CacheKey.hash);
+  }
+  public java.lang.String getHashOriginal() {
+    return cacheGet(CacheKey.hashOriginal);
+  }
+  public com.clover.sdk.v3.base.ApprovalStatus getApprovalStatus() {
+    return cacheGet(CacheKey.approvalStatus);
+  }
+ /**
+   * Url to download the APK
+  */
+  public java.lang.String getApkUrl() {
+    return cacheGet(CacheKey.apkUrl);
+  }
+ /**
+   * Reference to app this android version belongs to
+  */
+  public com.clover.sdk.v3.base.Reference getApp() {
+    return cacheGet(CacheKey.app);
+  }
+
 
   private enum CacheKey {
     id {
@@ -224,90 +267,48 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Creation timestamp
-   */
-  public java.lang.Long getCreatedAt() {
-    return cacheGet(CacheKey.createdAt);
-  }
 
   private java.lang.Long extractCreatedAt() {
     return getJSONObject().isNull("createdAt") ? null :
       getJSONObject().optLong("createdAt");
   }
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.Long getVersion() {
-    return cacheGet(CacheKey.version);
-  }
 
   private java.lang.Long extractVersion() {
     return getJSONObject().isNull("version") ? null :
       getJSONObject().optLong("version");
   }
 
-  /**
-   */
-  public java.lang.String getVersionName() {
-    return cacheGet(CacheKey.versionName);
-  }
 
   private java.lang.String extractVersionName() {
     return getJSONObject().isNull("versionName") ? null :
       getJSONObject().optString("versionName");
   }
 
-  /**
-   */
-  public java.lang.Boolean getApproved() {
-    return cacheGet(CacheKey.approved);
-  }
 
   private java.lang.Boolean extractApproved() {
     return getJSONObject().isNull("approved") ? null :
       getJSONObject().optBoolean("approved");
   }
 
-  /**
-   */
-  public java.lang.String getHash() {
-    return cacheGet(CacheKey.hash);
-  }
 
   private java.lang.String extractHash() {
     return getJSONObject().isNull("hash") ? null :
       getJSONObject().optString("hash");
   }
 
-  /**
-   */
-  public java.lang.String getHashOriginal() {
-    return cacheGet(CacheKey.hashOriginal);
-  }
 
   private java.lang.String extractHashOriginal() {
     return getJSONObject().isNull("hashOriginal") ? null :
       getJSONObject().optString("hashOriginal");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.base.ApprovalStatus getApprovalStatus() {
-    return cacheGet(CacheKey.approvalStatus);
-  }
 
   private com.clover.sdk.v3.base.ApprovalStatus extractApprovalStatus() {
     if (!getJSONObject().isNull("approvalStatus")) {
@@ -321,26 +322,12 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
     return null;
   }
 
-  /**
-   * Url to download the APK
-   */
-  public java.lang.String getApkUrl() {
-    return cacheGet(CacheKey.apkUrl);
-  }
 
   private java.lang.String extractApkUrl() {
     return getJSONObject().isNull("apkUrl") ? null :
       getJSONObject().optString("apkUrl");
   }
 
-  /**
-   * Reference to app this android version belongs to
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getApp() {
-    return cacheGet(CacheKey.app);
-  }
 
   private com.clover.sdk.v3.base.Reference extractApp() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");

@@ -26,6 +26,13 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class ItemModifierGroup implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public com.clover.sdk.v3.inventory.Item getItem() {
+    return cacheGet(CacheKey.item);
+  }
+  public com.clover.sdk.v3.inventory.ModifierGroup getModifierGroup() {
+    return cacheGet(CacheKey.modifierGroup);
+  }
+
 
   private enum CacheKey {
     item {
@@ -170,13 +177,6 @@ public final class ItemModifierGroup implements android.os.Parcelable, com.clove
   }
 
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.Item getItem() {
-    return cacheGet(CacheKey.item);
-  }
 
   private com.clover.sdk.v3.inventory.Item extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");
@@ -186,13 +186,6 @@ public final class ItemModifierGroup implements android.os.Parcelable, com.clove
     return null;
   }
 
-  /**
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.ModifierGroup getModifierGroup() {
-    return cacheGet(CacheKey.modifierGroup);
-  }
 
   private com.clover.sdk.v3.inventory.ModifierGroup extractModifierGroup() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("modifierGroup");

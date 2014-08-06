@@ -26,6 +26,34 @@ package com.clover.sdk.v3.apps;
 @SuppressWarnings("all")
 public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.Long getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+ /**
+   * App metered action
+  */
+  public java.lang.String getAction() {
+    return cacheGet(CacheKey.action);
+  }
+ /**
+   * App metered active status
+  */
+  public java.lang.Boolean getActive() {
+    return cacheGet(CacheKey.active);
+  }
+ /**
+   * Reference to app this metered belongs to
+  */
+  public com.clover.sdk.v3.base.Reference getApp() {
+    return cacheGet(CacheKey.app);
+  }
+
 
   private enum CacheKey {
     id {
@@ -192,61 +220,30 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.Long getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
   }
 
-  /**
-   * App metered action
-   */
-  public java.lang.String getAction() {
-    return cacheGet(CacheKey.action);
-  }
 
   private java.lang.String extractAction() {
     return getJSONObject().isNull("action") ? null :
       getJSONObject().optString("action");
   }
 
-  /**
-   * App metered active status
-   */
-  public java.lang.Boolean getActive() {
-    return cacheGet(CacheKey.active);
-  }
 
   private java.lang.Boolean extractActive() {
     return getJSONObject().isNull("active") ? null :
       getJSONObject().optBoolean("active");
   }
 
-  /**
-   * Reference to app this metered belongs to
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getApp() {
-    return cacheGet(CacheKey.app);
-  }
 
   private com.clover.sdk.v3.base.Reference extractApp() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");

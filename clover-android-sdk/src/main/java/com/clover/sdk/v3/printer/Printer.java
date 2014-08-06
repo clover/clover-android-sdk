@@ -26,6 +26,37 @@ package com.clover.sdk.v3.printer;
 @SuppressWarnings("all")
 public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * MAC address of a network printer
+  */
+  public java.lang.String getMac() {
+    return cacheGet(CacheKey.mac);
+  }
+  public java.lang.String getModel() {
+    return cacheGet(CacheKey.model);
+  }
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * IP address of a network printer
+  */
+  public java.lang.String getIpAddress() {
+    return cacheGet(CacheKey.ipAddress);
+  }
+ /**
+   * NETWORK is a printer that's directly connected to the network.  MY_LOCAL represents the printer that's connected to the device that's making the request.
+  */
+  public com.clover.sdk.v3.printer.PrinterType getType() {
+    return cacheGet(CacheKey.type);
+  }
+
 
   private enum CacheKey {
     id {
@@ -203,70 +234,36 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * MAC address of a network printer
-   */
-  public java.lang.String getMac() {
-    return cacheGet(CacheKey.mac);
-  }
 
   private java.lang.String extractMac() {
     return getJSONObject().isNull("mac") ? null :
       getJSONObject().optString("mac");
   }
 
-  /**
-   */
-  public java.lang.String getModel() {
-    return cacheGet(CacheKey.model);
-  }
 
   private java.lang.String extractModel() {
     return getJSONObject().isNull("model") ? null :
       getJSONObject().optString("model");
   }
 
-  /**
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * IP address of a network printer
-   */
-  public java.lang.String getIpAddress() {
-    return cacheGet(CacheKey.ipAddress);
-  }
 
   private java.lang.String extractIpAddress() {
     return getJSONObject().isNull("ipAddress") ? null :
       getJSONObject().optString("ipAddress");
   }
 
-  /**
-   * NETWORK is a printer that's directly connected to the network.  MY_LOCAL represents the printer that's connected to the device that's making the request.
-   */
-  public com.clover.sdk.v3.printer.PrinterType getType() {
-    return cacheGet(CacheKey.type);
-  }
 
   private com.clover.sdk.v3.printer.PrinterType extractType() {
     if (!getJSONObject().isNull("type")) {

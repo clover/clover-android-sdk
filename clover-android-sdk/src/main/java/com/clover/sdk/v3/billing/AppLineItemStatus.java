@@ -9,5 +9,5 @@ package com.clover.sdk.v3.billing;
 
 @SuppressWarnings("all")
 public enum AppLineItemStatus {
-  PENDING, IN_PROGRESS, BILLED;
+  PENDING, IN_PROGRESS, BILLED, CANCELED, REFUND_PENDING, REFUNDED, DISBURSE_PENDING, DISBURSED;
 }

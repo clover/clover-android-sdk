@@ -159,13 +159,8 @@ public class OrderCalc {
 
     @Override
     public Price getAmountDiscount() {
-      long discount = -sumOfAdjustments(line.getDiscounts());
+      long discount = -sumOfAdjustments(line.getPrice(), line.getDiscounts());
       return new Price(discount);
-    }
-
-    @Override
-    public Decimal getPercentDiscount() {
-      return OrderCalc.getPercentDiscount(line.getDiscounts());
     }
 
     @Override
@@ -228,6 +223,7 @@ public class OrderCalc {
     return new Calc(calcOrder, logger);
   }
 
+  //TODO remove with order level discounts.
   private static long sumOfAdjustments(Collection<Discount> discounts) {
     if (discounts == null) {
       return 0;
@@ -237,6 +233,23 @@ public class OrderCalc {
     for (Discount d : discounts) {
       if (d.getAmount() != null) {
         total += d.getAmount();
+      }
+    }
+    return total;
+  }
+
+  private static long sumOfAdjustments(long amount, Collection<Discount> discounts) {
+    if (discounts == null) {
+      return 0;
+    }
+
+    long total = 0;
+    for (Discount d : discounts) {
+      if (d.getAmount() != null) {
+        total += d.getAmount();
+      }
+      if (d.getPercentage() != null) {
+        total -= Math.round((d.getPercentage() * amount)/100.0);
       }
     }
     return total;

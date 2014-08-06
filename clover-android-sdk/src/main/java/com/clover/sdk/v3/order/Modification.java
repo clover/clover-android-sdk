@@ -27,6 +27,25 @@ package com.clover.sdk.v3.order;
 /** Snapshot of a line item modifier at the time that the order was placed. */
 public final class Modification implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.String getAlternateName() {
+    return cacheGet(CacheKey.alternateName);
+  }
+  public java.lang.Long getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+ /**
+   * The modifier object.  Values from the Modifier are copied to the Modification at the time that the order is placed.  Modifier values may change after the order is placed.
+  */
+  public com.clover.sdk.v3.inventory.Modifier getModifier() {
+    return cacheGet(CacheKey.modifier);
+  }
+
 
   private enum CacheKey {
     id {
@@ -192,58 +211,30 @@ public final class Modification implements android.os.Parcelable, com.clover.sdk
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.String getAlternateName() {
-    return cacheGet(CacheKey.alternateName);
-  }
 
   private java.lang.String extractAlternateName() {
     return getJSONObject().isNull("alternateName") ? null :
       getJSONObject().optString("alternateName");
   }
 
-  /**
-   */
-  public java.lang.Long getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
   }
 
-  /**
-   * The modifier object.  Values from the Modifier are copied to the Modification at the time that the order is placed.  Modifier values may change after the order is placed.
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.inventory.Modifier getModifier() {
-    return cacheGet(CacheKey.modifier);
-  }
 
   private com.clover.sdk.v3.inventory.Modifier extractModifier() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("modifier");

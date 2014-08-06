@@ -26,6 +26,40 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class ModifierGroup implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of the modifier group
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+  public java.lang.String getAlternateName() {
+    return cacheGet(CacheKey.alternateName);
+  }
+  public java.lang.Integer getMinRequired() {
+    return cacheGet(CacheKey.minRequired);
+  }
+  public java.lang.Integer getMaxAllowed() {
+    return cacheGet(CacheKey.maxAllowed);
+  }
+  public java.lang.Boolean getShowByDefault() {
+    return cacheGet(CacheKey.showByDefault);
+  }
+  public java.util.List<com.clover.sdk.v3.inventory.Modifier> getModifiers() {
+    return cacheGet(CacheKey.modifiers);
+  }
+ /**
+   * The ordered, comma-separated list of modifier ids in this group.
+  */
+  public java.lang.String getModifierIds() {
+    return cacheGet(CacheKey.modifierIds);
+  }
+  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+
 
   private enum CacheKey {
     id {
@@ -222,80 +256,42 @@ public final class ModifierGroup implements android.os.Parcelable, com.clover.sd
   }
 
 
-  /**
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of the modifier group
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   */
-  public java.lang.String getAlternateName() {
-    return cacheGet(CacheKey.alternateName);
-  }
 
   private java.lang.String extractAlternateName() {
     return getJSONObject().isNull("alternateName") ? null :
       getJSONObject().optString("alternateName");
   }
 
-  /**
-   */
-  public java.lang.Integer getMinRequired() {
-    return cacheGet(CacheKey.minRequired);
-  }
 
   private java.lang.Integer extractMinRequired() {
     return getJSONObject().isNull("minRequired") ? null :
       getJSONObject().optInt("minRequired");
   }
 
-  /**
-   */
-  public java.lang.Integer getMaxAllowed() {
-    return cacheGet(CacheKey.maxAllowed);
-  }
 
   private java.lang.Integer extractMaxAllowed() {
     return getJSONObject().isNull("maxAllowed") ? null :
       getJSONObject().optInt("maxAllowed");
   }
 
-  /**
-   */
-  public java.lang.Boolean getShowByDefault() {
-    return cacheGet(CacheKey.showByDefault);
-  }
 
   private java.lang.Boolean extractShowByDefault() {
     return getJSONObject().isNull("showByDefault") ? null :
       getJSONObject().optBoolean("showByDefault");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.Modifier> getModifiers() {
-    return cacheGet(CacheKey.modifiers);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.Modifier> extractModifiers() {
     if (getJSONObject().isNull("modifiers")) {
@@ -318,25 +314,12 @@ public final class ModifierGroup implements android.os.Parcelable, com.clover.sd
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * The ordered, comma-separated list of modifier ids in this group.
-   */
-  public java.lang.String getModifierIds() {
-    return cacheGet(CacheKey.modifierIds);
-  }
 
   private java.lang.String extractModifierIds() {
     return getJSONObject().isNull("modifierIds") ? null :
       getJSONObject().optString("modifierIds");
   }
 
-  /**
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractItems() {
     if (getJSONObject().isNull("items")) {

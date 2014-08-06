@@ -19,4 +19,8 @@
 
   <string name="title_activity_account_chooser">Clover Accounts</string>
 
+  <!-- rotate back to merchant -->
+  <string name="rotateInstructions">Thanks for your purchase.\nPlease rotate the screen back.</string>
+  <string name="backToRegisterDescription">Rotate to the right back to the merchant</string>
+
 </resources>

@@ -168,25 +168,16 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
 
   @Override
   public void disconnect() {
-    execute(
-        new ServiceCallable<IMerchantService, Void>() {
-          @Override
-          public Void call(IMerchantService service, ResultStatus status) throws RemoteException {
-            if (mListener != null) {
-              service.removeListener(mListener, new ResultStatus());
-              mListener.destroy();
-              mListener = null;
-            }
-            return null;
-          }
-        }, new ServiceCallback<Void>() {
-          @Override
-          public void onServiceSuccess(Void result, ResultStatus status) {
-            super.onServiceSuccess(result, status);
-            MerchantConnector.super.disconnect();
-          }
-        }
-    );
+    if (mListener != null) {
+      try {
+        mService.removeListener(mListener, new ResultStatus());
+      } catch (RemoteException e) {
+        e.printStackTrace();
+      }
+      mListener.destroy();
+      mListener = null;
+    }
+    super.disconnect();
   }
 
   /**

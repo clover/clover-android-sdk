@@ -26,6 +26,223 @@ package com.clover.sdk.v3.pay;
 @SuppressWarnings("all")
 public final class TransactionData implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public com.clover.sdk.v3.pay.TxResult getTxResult() {
+    return cacheGet(CacheKey.txResult);
+  }
+  public com.clover.sdk.v3.pay.ErrorCode getTxError() {
+    return cacheGet(CacheKey.txError);
+  }
+  public java.lang.Double getAmount() {
+    return cacheGet(CacheKey.amount);
+  }
+  public java.lang.Double getTipAmount() {
+    return cacheGet(CacheKey.tipAmount);
+  }
+  public java.lang.Double getCashBackAmount() {
+    return cacheGet(CacheKey.cashBackAmount);
+  }
+  public java.lang.String getErrorCode() {
+    return cacheGet(CacheKey.errorCode);
+  }
+  public java.lang.String getErrorText() {
+    return cacheGet(CacheKey.errorText);
+  }
+  public java.lang.String getTransactionDate() {
+    return cacheGet(CacheKey.transactionDate);
+  }
+  public java.lang.String getTransactionTime() {
+    return cacheGet(CacheKey.transactionTime);
+  }
+  public java.lang.String getMsrContainer() {
+    return cacheGet(CacheKey.msrContainer);
+  }
+  public java.lang.String getMsrMaskedTrack1() {
+    return cacheGet(CacheKey.msrMaskedTrack1);
+  }
+  public java.lang.String getMsrMaskedTrack2() {
+    return cacheGet(CacheKey.msrMaskedTrack2);
+  }
+  public java.lang.String getMaskedManualPan() {
+    return cacheGet(CacheKey.maskedManualPan);
+  }
+  public java.lang.String getSredContainer() {
+    return cacheGet(CacheKey.sredContainer);
+  }
+  public java.lang.String getSred() {
+    return cacheGet(CacheKey.sred);
+  }
+  public java.lang.String getKsn() {
+    return cacheGet(CacheKey.ksn);
+  }
+  public java.lang.String getTransArmorContainer() {
+    return cacheGet(CacheKey.transArmorContainer);
+  }
+  public java.lang.String getTransArmorKey() {
+    return cacheGet(CacheKey.transArmorKey);
+  }
+  public java.lang.String getTransArmorKeyId() {
+    return cacheGet(CacheKey.transArmorKeyId);
+  }
+  public java.lang.String getTransArmorEncryptedTrack1() {
+    return cacheGet(CacheKey.transArmorEncryptedTrack1);
+  }
+  public java.lang.String getTransArmorEncryptedTrack2() {
+    return cacheGet(CacheKey.transArmorEncryptedTrack2);
+  }
+  public java.lang.String getIccContainer() {
+    return cacheGet(CacheKey.iccContainer);
+  }
+  public java.lang.String getIccApplicationInterchangeProfile() {
+    return cacheGet(CacheKey.iccApplicationInterchangeProfile);
+  }
+  public java.lang.String getIccMaskedEmv57() {
+    return cacheGet(CacheKey.iccMaskedEmv57);
+  }
+  public java.lang.String getIccMaskedEmv5A() {
+    return cacheGet(CacheKey.iccMaskedEmv5A);
+  }
+  public java.lang.String getIccApplicationPanSequenceNumber() {
+    return cacheGet(CacheKey.iccApplicationPanSequenceNumber);
+  }
+  public java.lang.String getIccAmountAuthorized() {
+    return cacheGet(CacheKey.iccAmountAuthorized);
+  }
+  public java.lang.String getIccTransactionCurrencyCode() {
+    return cacheGet(CacheKey.iccTransactionCurrencyCode);
+  }
+  public java.lang.String getIccTransactionCurrencyExponent() {
+    return cacheGet(CacheKey.iccTransactionCurrencyExponent);
+  }
+  public java.lang.String getIccApplicationUsageControl() {
+    return cacheGet(CacheKey.iccApplicationUsageControl);
+  }
+  public java.lang.String getIccIssuerActionCodeDefault() {
+    return cacheGet(CacheKey.iccIssuerActionCodeDefault);
+  }
+  public java.lang.String getIccIssuerActionCodeDenial() {
+    return cacheGet(CacheKey.iccIssuerActionCodeDenial);
+  }
+  public java.lang.String getIccIssuerActionCodeOnline() {
+    return cacheGet(CacheKey.iccIssuerActionCodeOnline);
+  }
+  public java.lang.String getIccApplicationLabel() {
+    return cacheGet(CacheKey.iccApplicationLabel);
+  }
+  public java.lang.String getIccApplicationCryptogram() {
+    return cacheGet(CacheKey.iccApplicationCryptogram);
+  }
+  public java.lang.String getIccApplicationIdentifierCard() {
+    return cacheGet(CacheKey.iccApplicationIdentifierCard);
+  }
+  public java.lang.String getIccApplicationIdentifierTerminal() {
+    return cacheGet(CacheKey.iccApplicationIdentifierTerminal);
+  }
+  public java.lang.String getIccApplicationTransactionCounter() {
+    return cacheGet(CacheKey.iccApplicationTransactionCounter);
+  }
+  public java.lang.String getIccApplicationVersionNumber() {
+    return cacheGet(CacheKey.iccApplicationVersionNumber);
+  }
+  public java.lang.String getIccCryptogramInformationData() {
+    return cacheGet(CacheKey.iccCryptogramInformationData);
+  }
+  public java.lang.String getIccCvmResults() {
+    return cacheGet(CacheKey.iccCvmResults);
+  }
+  public java.lang.String getIccInterfaceDeviceSerialNumber() {
+    return cacheGet(CacheKey.iccInterfaceDeviceSerialNumber);
+  }
+  public java.lang.String getIccIssuerApplicationData() {
+    return cacheGet(CacheKey.iccIssuerApplicationData);
+  }
+  public java.lang.String getIccPosEntryModeCode() {
+    return cacheGet(CacheKey.iccPosEntryModeCode);
+  }
+  public java.lang.String getIccTerminalCapabilities() {
+    return cacheGet(CacheKey.iccTerminalCapabilities);
+  }
+  public java.lang.String getIccTerminalCountryCode() {
+    return cacheGet(CacheKey.iccTerminalCountryCode);
+  }
+  public java.lang.String getIccTerminalType() {
+    return cacheGet(CacheKey.iccTerminalType);
+  }
+  public java.lang.String getIccTvr() {
+    return cacheGet(CacheKey.iccTvr);
+  }
+  public java.lang.String getIccTransactionDate() {
+    return cacheGet(CacheKey.iccTransactionDate);
+  }
+  public java.lang.String getIccTsi() {
+    return cacheGet(CacheKey.iccTsi);
+  }
+  public java.lang.String getIccTransactionType() {
+    return cacheGet(CacheKey.iccTransactionType);
+  }
+  public java.lang.String getIccUnpredictableNumber() {
+    return cacheGet(CacheKey.iccUnpredictableNumber);
+  }
+  public java.lang.String getIccTransactionTime() {
+    return cacheGet(CacheKey.iccTransactionTime);
+  }
+  public java.lang.String getIccAdditionalTerminalCapabilities() {
+    return cacheGet(CacheKey.iccAdditionalTerminalCapabilities);
+  }
+  public java.lang.String getIccTransactionCategoryCode() {
+    return cacheGet(CacheKey.iccTransactionCategoryCode);
+  }
+  public java.lang.String getIccIssuerApplicationPreferredName() {
+    return cacheGet(CacheKey.iccIssuerApplicationPreferredName);
+  }
+  public java.lang.String getIccCardholderName() {
+    return cacheGet(CacheKey.iccCardholderName);
+  }
+  public java.lang.String getIccIssuerCodeTableIndex() {
+    return cacheGet(CacheKey.iccIssuerCodeTableIndex);
+  }
+  public java.lang.String getPinBlockContainer() {
+    return cacheGet(CacheKey.pinBlockContainer);
+  }
+  public java.lang.String getPinBlock() {
+    return cacheGet(CacheKey.pinBlock);
+  }
+  public java.lang.String getPinBlockKsn() {
+    return cacheGet(CacheKey.pinBlockKsn);
+  }
+  public java.lang.String getGwContainer() {
+    return cacheGet(CacheKey.gwContainer);
+  }
+  public java.lang.String getGwIssuerAuthenticationData() {
+    return cacheGet(CacheKey.gwIssuerAuthenticationData);
+  }
+  public java.lang.String getGwIssuerScriptTemplate1() {
+    return cacheGet(CacheKey.gwIssuerScriptTemplate1);
+  }
+  public java.lang.String getGwIssuerScriptTemplate2() {
+    return cacheGet(CacheKey.gwIssuerScriptTemplate2);
+  }
+  public java.lang.String getGwIssuerAuthorizationResponseCode() {
+    return cacheGet(CacheKey.gwIssuerAuthorizationResponseCode);
+  }
+  public java.lang.String getGwMessageControlField() {
+    return cacheGet(CacheKey.gwMessageControlField);
+  }
+  public com.clover.sdk.v3.pay.GwTxResult getGwTxResult() {
+    return cacheGet(CacheKey.gwTxResult);
+  }
+  public com.clover.sdk.v3.payments.CvmResult getCvmResult() {
+    return cacheGet(CacheKey.cvmResult);
+  }
+  public com.clover.sdk.v3.pay.ServiceCode1 getServiceCode1() {
+    return cacheGet(CacheKey.serviceCode1);
+  }
+  public com.clover.sdk.v3.pay.ServiceCode2 getServiceCode2() {
+    return cacheGet(CacheKey.serviceCode2);
+  }
+  public com.clover.sdk.v3.pay.ServiceCode3 getServiceCode3() {
+    return cacheGet(CacheKey.serviceCode3);
+  }
+
 
   private enum CacheKey {
     txResult {
@@ -585,11 +802,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
   }
 
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.TxResult getTxResult() {
-    return cacheGet(CacheKey.txResult);
-  }
 
   private com.clover.sdk.v3.pay.TxResult extractTxResult() {
     if (!getJSONObject().isNull("txResult")) {
@@ -603,11 +815,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.ErrorCode getTxError() {
-    return cacheGet(CacheKey.txError);
-  }
 
   private com.clover.sdk.v3.pay.ErrorCode extractTxError() {
     if (!getJSONObject().isNull("txError")) {
@@ -621,726 +828,396 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public java.lang.Double getAmount() {
-    return cacheGet(CacheKey.amount);
-  }
 
   private java.lang.Double extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optDouble("amount");
   }
 
-  /**
-   */
-  public java.lang.Double getTipAmount() {
-    return cacheGet(CacheKey.tipAmount);
-  }
 
   private java.lang.Double extractTipAmount() {
     return getJSONObject().isNull("tipAmount") ? null :
       getJSONObject().optDouble("tipAmount");
   }
 
-  /**
-   */
-  public java.lang.Double getCashBackAmount() {
-    return cacheGet(CacheKey.cashBackAmount);
-  }
 
   private java.lang.Double extractCashBackAmount() {
     return getJSONObject().isNull("cashBackAmount") ? null :
       getJSONObject().optDouble("cashBackAmount");
   }
 
-  /**
-   */
-  public java.lang.String getErrorCode() {
-    return cacheGet(CacheKey.errorCode);
-  }
 
   private java.lang.String extractErrorCode() {
     return getJSONObject().isNull("errorCode") ? null :
       getJSONObject().optString("errorCode");
   }
 
-  /**
-   */
-  public java.lang.String getErrorText() {
-    return cacheGet(CacheKey.errorText);
-  }
 
   private java.lang.String extractErrorText() {
     return getJSONObject().isNull("errorText") ? null :
       getJSONObject().optString("errorText");
   }
 
-  /**
-   */
-  public java.lang.String getTransactionDate() {
-    return cacheGet(CacheKey.transactionDate);
-  }
 
   private java.lang.String extractTransactionDate() {
     return getJSONObject().isNull("transactionDate") ? null :
       getJSONObject().optString("transactionDate");
   }
 
-  /**
-   */
-  public java.lang.String getTransactionTime() {
-    return cacheGet(CacheKey.transactionTime);
-  }
 
   private java.lang.String extractTransactionTime() {
     return getJSONObject().isNull("transactionTime") ? null :
       getJSONObject().optString("transactionTime");
   }
 
-  /**
-   */
-  public java.lang.String getMsrContainer() {
-    return cacheGet(CacheKey.msrContainer);
-  }
 
   private java.lang.String extractMsrContainer() {
     return getJSONObject().isNull("msrContainer") ? null :
       getJSONObject().optString("msrContainer");
   }
 
-  /**
-   */
-  public java.lang.String getMsrMaskedTrack1() {
-    return cacheGet(CacheKey.msrMaskedTrack1);
-  }
 
   private java.lang.String extractMsrMaskedTrack1() {
     return getJSONObject().isNull("msrMaskedTrack1") ? null :
       getJSONObject().optString("msrMaskedTrack1");
   }
 
-  /**
-   */
-  public java.lang.String getMsrMaskedTrack2() {
-    return cacheGet(CacheKey.msrMaskedTrack2);
-  }
 
   private java.lang.String extractMsrMaskedTrack2() {
     return getJSONObject().isNull("msrMaskedTrack2") ? null :
       getJSONObject().optString("msrMaskedTrack2");
   }
 
-  /**
-   */
-  public java.lang.String getMaskedManualPan() {
-    return cacheGet(CacheKey.maskedManualPan);
-  }
 
   private java.lang.String extractMaskedManualPan() {
     return getJSONObject().isNull("maskedManualPan") ? null :
       getJSONObject().optString("maskedManualPan");
   }
 
-  /**
-   */
-  public java.lang.String getSredContainer() {
-    return cacheGet(CacheKey.sredContainer);
-  }
 
   private java.lang.String extractSredContainer() {
     return getJSONObject().isNull("sredContainer") ? null :
       getJSONObject().optString("sredContainer");
   }
 
-  /**
-   */
-  public java.lang.String getSred() {
-    return cacheGet(CacheKey.sred);
-  }
 
   private java.lang.String extractSred() {
     return getJSONObject().isNull("sred") ? null :
       getJSONObject().optString("sred");
   }
 
-  /**
-   */
-  public java.lang.String getKsn() {
-    return cacheGet(CacheKey.ksn);
-  }
 
   private java.lang.String extractKsn() {
     return getJSONObject().isNull("ksn") ? null :
       getJSONObject().optString("ksn");
   }
 
-  /**
-   */
-  public java.lang.String getTransArmorContainer() {
-    return cacheGet(CacheKey.transArmorContainer);
-  }
 
   private java.lang.String extractTransArmorContainer() {
     return getJSONObject().isNull("transArmorContainer") ? null :
       getJSONObject().optString("transArmorContainer");
   }
 
-  /**
-   */
-  public java.lang.String getTransArmorKey() {
-    return cacheGet(CacheKey.transArmorKey);
-  }
 
   private java.lang.String extractTransArmorKey() {
     return getJSONObject().isNull("transArmorKey") ? null :
       getJSONObject().optString("transArmorKey");
   }
 
-  /**
-   */
-  public java.lang.String getTransArmorKeyId() {
-    return cacheGet(CacheKey.transArmorKeyId);
-  }
 
   private java.lang.String extractTransArmorKeyId() {
     return getJSONObject().isNull("transArmorKeyId") ? null :
       getJSONObject().optString("transArmorKeyId");
   }
 
-  /**
-   */
-  public java.lang.String getTransArmorEncryptedTrack1() {
-    return cacheGet(CacheKey.transArmorEncryptedTrack1);
-  }
 
   private java.lang.String extractTransArmorEncryptedTrack1() {
     return getJSONObject().isNull("transArmorEncryptedTrack1") ? null :
       getJSONObject().optString("transArmorEncryptedTrack1");
   }
 
-  /**
-   */
-  public java.lang.String getTransArmorEncryptedTrack2() {
-    return cacheGet(CacheKey.transArmorEncryptedTrack2);
-  }
 
   private java.lang.String extractTransArmorEncryptedTrack2() {
     return getJSONObject().isNull("transArmorEncryptedTrack2") ? null :
       getJSONObject().optString("transArmorEncryptedTrack2");
   }
 
-  /**
-   */
-  public java.lang.String getIccContainer() {
-    return cacheGet(CacheKey.iccContainer);
-  }
 
   private java.lang.String extractIccContainer() {
     return getJSONObject().isNull("iccContainer") ? null :
       getJSONObject().optString("iccContainer");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationInterchangeProfile() {
-    return cacheGet(CacheKey.iccApplicationInterchangeProfile);
-  }
 
   private java.lang.String extractIccApplicationInterchangeProfile() {
     return getJSONObject().isNull("iccApplicationInterchangeProfile") ? null :
       getJSONObject().optString("iccApplicationInterchangeProfile");
   }
 
-  /**
-   */
-  public java.lang.String getIccMaskedEmv57() {
-    return cacheGet(CacheKey.iccMaskedEmv57);
-  }
 
   private java.lang.String extractIccMaskedEmv57() {
     return getJSONObject().isNull("iccMaskedEmv57") ? null :
       getJSONObject().optString("iccMaskedEmv57");
   }
 
-  /**
-   */
-  public java.lang.String getIccMaskedEmv5A() {
-    return cacheGet(CacheKey.iccMaskedEmv5A);
-  }
 
   private java.lang.String extractIccMaskedEmv5A() {
     return getJSONObject().isNull("iccMaskedEmv5A") ? null :
       getJSONObject().optString("iccMaskedEmv5A");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationPanSequenceNumber() {
-    return cacheGet(CacheKey.iccApplicationPanSequenceNumber);
-  }
 
   private java.lang.String extractIccApplicationPanSequenceNumber() {
     return getJSONObject().isNull("iccApplicationPanSequenceNumber") ? null :
       getJSONObject().optString("iccApplicationPanSequenceNumber");
   }
 
-  /**
-   */
-  public java.lang.String getIccAmountAuthorized() {
-    return cacheGet(CacheKey.iccAmountAuthorized);
-  }
 
   private java.lang.String extractIccAmountAuthorized() {
     return getJSONObject().isNull("iccAmountAuthorized") ? null :
       getJSONObject().optString("iccAmountAuthorized");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionCurrencyCode() {
-    return cacheGet(CacheKey.iccTransactionCurrencyCode);
-  }
 
   private java.lang.String extractIccTransactionCurrencyCode() {
     return getJSONObject().isNull("iccTransactionCurrencyCode") ? null :
       getJSONObject().optString("iccTransactionCurrencyCode");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionCurrencyExponent() {
-    return cacheGet(CacheKey.iccTransactionCurrencyExponent);
-  }
 
   private java.lang.String extractIccTransactionCurrencyExponent() {
     return getJSONObject().isNull("iccTransactionCurrencyExponent") ? null :
       getJSONObject().optString("iccTransactionCurrencyExponent");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationUsageControl() {
-    return cacheGet(CacheKey.iccApplicationUsageControl);
-  }
 
   private java.lang.String extractIccApplicationUsageControl() {
     return getJSONObject().isNull("iccApplicationUsageControl") ? null :
       getJSONObject().optString("iccApplicationUsageControl");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerActionCodeDefault() {
-    return cacheGet(CacheKey.iccIssuerActionCodeDefault);
-  }
 
   private java.lang.String extractIccIssuerActionCodeDefault() {
     return getJSONObject().isNull("iccIssuerActionCodeDefault") ? null :
       getJSONObject().optString("iccIssuerActionCodeDefault");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerActionCodeDenial() {
-    return cacheGet(CacheKey.iccIssuerActionCodeDenial);
-  }
 
   private java.lang.String extractIccIssuerActionCodeDenial() {
     return getJSONObject().isNull("iccIssuerActionCodeDenial") ? null :
       getJSONObject().optString("iccIssuerActionCodeDenial");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerActionCodeOnline() {
-    return cacheGet(CacheKey.iccIssuerActionCodeOnline);
-  }
 
   private java.lang.String extractIccIssuerActionCodeOnline() {
     return getJSONObject().isNull("iccIssuerActionCodeOnline") ? null :
       getJSONObject().optString("iccIssuerActionCodeOnline");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationLabel() {
-    return cacheGet(CacheKey.iccApplicationLabel);
-  }
 
   private java.lang.String extractIccApplicationLabel() {
     return getJSONObject().isNull("iccApplicationLabel") ? null :
       getJSONObject().optString("iccApplicationLabel");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationCryptogram() {
-    return cacheGet(CacheKey.iccApplicationCryptogram);
-  }
 
   private java.lang.String extractIccApplicationCryptogram() {
     return getJSONObject().isNull("iccApplicationCryptogram") ? null :
       getJSONObject().optString("iccApplicationCryptogram");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationIdentifierCard() {
-    return cacheGet(CacheKey.iccApplicationIdentifierCard);
-  }
 
   private java.lang.String extractIccApplicationIdentifierCard() {
     return getJSONObject().isNull("iccApplicationIdentifierCard") ? null :
       getJSONObject().optString("iccApplicationIdentifierCard");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationIdentifierTerminal() {
-    return cacheGet(CacheKey.iccApplicationIdentifierTerminal);
-  }
 
   private java.lang.String extractIccApplicationIdentifierTerminal() {
     return getJSONObject().isNull("iccApplicationIdentifierTerminal") ? null :
       getJSONObject().optString("iccApplicationIdentifierTerminal");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationTransactionCounter() {
-    return cacheGet(CacheKey.iccApplicationTransactionCounter);
-  }
 
   private java.lang.String extractIccApplicationTransactionCounter() {
     return getJSONObject().isNull("iccApplicationTransactionCounter") ? null :
       getJSONObject().optString("iccApplicationTransactionCounter");
   }
 
-  /**
-   */
-  public java.lang.String getIccApplicationVersionNumber() {
-    return cacheGet(CacheKey.iccApplicationVersionNumber);
-  }
 
   private java.lang.String extractIccApplicationVersionNumber() {
     return getJSONObject().isNull("iccApplicationVersionNumber") ? null :
       getJSONObject().optString("iccApplicationVersionNumber");
   }
 
-  /**
-   */
-  public java.lang.String getIccCryptogramInformationData() {
-    return cacheGet(CacheKey.iccCryptogramInformationData);
-  }
 
   private java.lang.String extractIccCryptogramInformationData() {
     return getJSONObject().isNull("iccCryptogramInformationData") ? null :
       getJSONObject().optString("iccCryptogramInformationData");
   }
 
-  /**
-   */
-  public java.lang.String getIccCvmResults() {
-    return cacheGet(CacheKey.iccCvmResults);
-  }
 
   private java.lang.String extractIccCvmResults() {
     return getJSONObject().isNull("iccCvmResults") ? null :
       getJSONObject().optString("iccCvmResults");
   }
 
-  /**
-   */
-  public java.lang.String getIccInterfaceDeviceSerialNumber() {
-    return cacheGet(CacheKey.iccInterfaceDeviceSerialNumber);
-  }
 
   private java.lang.String extractIccInterfaceDeviceSerialNumber() {
     return getJSONObject().isNull("iccInterfaceDeviceSerialNumber") ? null :
       getJSONObject().optString("iccInterfaceDeviceSerialNumber");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerApplicationData() {
-    return cacheGet(CacheKey.iccIssuerApplicationData);
-  }
 
   private java.lang.String extractIccIssuerApplicationData() {
     return getJSONObject().isNull("iccIssuerApplicationData") ? null :
       getJSONObject().optString("iccIssuerApplicationData");
   }
 
-  /**
-   */
-  public java.lang.String getIccPosEntryModeCode() {
-    return cacheGet(CacheKey.iccPosEntryModeCode);
-  }
 
   private java.lang.String extractIccPosEntryModeCode() {
     return getJSONObject().isNull("iccPosEntryModeCode") ? null :
       getJSONObject().optString("iccPosEntryModeCode");
   }
 
-  /**
-   */
-  public java.lang.String getIccTerminalCapabilities() {
-    return cacheGet(CacheKey.iccTerminalCapabilities);
-  }
 
   private java.lang.String extractIccTerminalCapabilities() {
     return getJSONObject().isNull("iccTerminalCapabilities") ? null :
       getJSONObject().optString("iccTerminalCapabilities");
   }
 
-  /**
-   */
-  public java.lang.String getIccTerminalCountryCode() {
-    return cacheGet(CacheKey.iccTerminalCountryCode);
-  }
 
   private java.lang.String extractIccTerminalCountryCode() {
     return getJSONObject().isNull("iccTerminalCountryCode") ? null :
       getJSONObject().optString("iccTerminalCountryCode");
   }
 
-  /**
-   */
-  public java.lang.String getIccTerminalType() {
-    return cacheGet(CacheKey.iccTerminalType);
-  }
 
   private java.lang.String extractIccTerminalType() {
     return getJSONObject().isNull("iccTerminalType") ? null :
       getJSONObject().optString("iccTerminalType");
   }
 
-  /**
-   */
-  public java.lang.String getIccTvr() {
-    return cacheGet(CacheKey.iccTvr);
-  }
 
   private java.lang.String extractIccTvr() {
     return getJSONObject().isNull("iccTvr") ? null :
       getJSONObject().optString("iccTvr");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionDate() {
-    return cacheGet(CacheKey.iccTransactionDate);
-  }
 
   private java.lang.String extractIccTransactionDate() {
     return getJSONObject().isNull("iccTransactionDate") ? null :
       getJSONObject().optString("iccTransactionDate");
   }
 
-  /**
-   */
-  public java.lang.String getIccTsi() {
-    return cacheGet(CacheKey.iccTsi);
-  }
 
   private java.lang.String extractIccTsi() {
     return getJSONObject().isNull("iccTsi") ? null :
       getJSONObject().optString("iccTsi");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionType() {
-    return cacheGet(CacheKey.iccTransactionType);
-  }
 
   private java.lang.String extractIccTransactionType() {
     return getJSONObject().isNull("iccTransactionType") ? null :
       getJSONObject().optString("iccTransactionType");
   }
 
-  /**
-   */
-  public java.lang.String getIccUnpredictableNumber() {
-    return cacheGet(CacheKey.iccUnpredictableNumber);
-  }
 
   private java.lang.String extractIccUnpredictableNumber() {
     return getJSONObject().isNull("iccUnpredictableNumber") ? null :
       getJSONObject().optString("iccUnpredictableNumber");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionTime() {
-    return cacheGet(CacheKey.iccTransactionTime);
-  }
 
   private java.lang.String extractIccTransactionTime() {
     return getJSONObject().isNull("iccTransactionTime") ? null :
       getJSONObject().optString("iccTransactionTime");
   }
 
-  /**
-   */
-  public java.lang.String getIccAdditionalTerminalCapabilities() {
-    return cacheGet(CacheKey.iccAdditionalTerminalCapabilities);
-  }
 
   private java.lang.String extractIccAdditionalTerminalCapabilities() {
     return getJSONObject().isNull("iccAdditionalTerminalCapabilities") ? null :
       getJSONObject().optString("iccAdditionalTerminalCapabilities");
   }
 
-  /**
-   */
-  public java.lang.String getIccTransactionCategoryCode() {
-    return cacheGet(CacheKey.iccTransactionCategoryCode);
-  }
 
   private java.lang.String extractIccTransactionCategoryCode() {
     return getJSONObject().isNull("iccTransactionCategoryCode") ? null :
       getJSONObject().optString("iccTransactionCategoryCode");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerApplicationPreferredName() {
-    return cacheGet(CacheKey.iccIssuerApplicationPreferredName);
-  }
 
   private java.lang.String extractIccIssuerApplicationPreferredName() {
     return getJSONObject().isNull("iccIssuerApplicationPreferredName") ? null :
       getJSONObject().optString("iccIssuerApplicationPreferredName");
   }
 
-  /**
-   */
-  public java.lang.String getIccCardholderName() {
-    return cacheGet(CacheKey.iccCardholderName);
-  }
 
   private java.lang.String extractIccCardholderName() {
     return getJSONObject().isNull("iccCardholderName") ? null :
       getJSONObject().optString("iccCardholderName");
   }
 
-  /**
-   */
-  public java.lang.String getIccIssuerCodeTableIndex() {
-    return cacheGet(CacheKey.iccIssuerCodeTableIndex);
-  }
 
   private java.lang.String extractIccIssuerCodeTableIndex() {
     return getJSONObject().isNull("iccIssuerCodeTableIndex") ? null :
       getJSONObject().optString("iccIssuerCodeTableIndex");
   }
 
-  /**
-   */
-  public java.lang.String getPinBlockContainer() {
-    return cacheGet(CacheKey.pinBlockContainer);
-  }
 
   private java.lang.String extractPinBlockContainer() {
     return getJSONObject().isNull("pinBlockContainer") ? null :
       getJSONObject().optString("pinBlockContainer");
   }
 
-  /**
-   */
-  public java.lang.String getPinBlock() {
-    return cacheGet(CacheKey.pinBlock);
-  }
 
   private java.lang.String extractPinBlock() {
     return getJSONObject().isNull("pinBlock") ? null :
       getJSONObject().optString("pinBlock");
   }
 
-  /**
-   */
-  public java.lang.String getPinBlockKsn() {
-    return cacheGet(CacheKey.pinBlockKsn);
-  }
 
   private java.lang.String extractPinBlockKsn() {
     return getJSONObject().isNull("pinBlockKsn") ? null :
       getJSONObject().optString("pinBlockKsn");
   }
 
-  /**
-   */
-  public java.lang.String getGwContainer() {
-    return cacheGet(CacheKey.gwContainer);
-  }
 
   private java.lang.String extractGwContainer() {
     return getJSONObject().isNull("gwContainer") ? null :
       getJSONObject().optString("gwContainer");
   }
 
-  /**
-   */
-  public java.lang.String getGwIssuerAuthenticationData() {
-    return cacheGet(CacheKey.gwIssuerAuthenticationData);
-  }
 
   private java.lang.String extractGwIssuerAuthenticationData() {
     return getJSONObject().isNull("gwIssuerAuthenticationData") ? null :
       getJSONObject().optString("gwIssuerAuthenticationData");
   }
 
-  /**
-   */
-  public java.lang.String getGwIssuerScriptTemplate1() {
-    return cacheGet(CacheKey.gwIssuerScriptTemplate1);
-  }
 
   private java.lang.String extractGwIssuerScriptTemplate1() {
     return getJSONObject().isNull("gwIssuerScriptTemplate1") ? null :
       getJSONObject().optString("gwIssuerScriptTemplate1");
   }
 
-  /**
-   */
-  public java.lang.String getGwIssuerScriptTemplate2() {
-    return cacheGet(CacheKey.gwIssuerScriptTemplate2);
-  }
 
   private java.lang.String extractGwIssuerScriptTemplate2() {
     return getJSONObject().isNull("gwIssuerScriptTemplate2") ? null :
       getJSONObject().optString("gwIssuerScriptTemplate2");
   }
 
-  /**
-   */
-  public java.lang.String getGwIssuerAuthorizationResponseCode() {
-    return cacheGet(CacheKey.gwIssuerAuthorizationResponseCode);
-  }
 
   private java.lang.String extractGwIssuerAuthorizationResponseCode() {
     return getJSONObject().isNull("gwIssuerAuthorizationResponseCode") ? null :
       getJSONObject().optString("gwIssuerAuthorizationResponseCode");
   }
 
-  /**
-   */
-  public java.lang.String getGwMessageControlField() {
-    return cacheGet(CacheKey.gwMessageControlField);
-  }
 
   private java.lang.String extractGwMessageControlField() {
     return getJSONObject().isNull("gwMessageControlField") ? null :
       getJSONObject().optString("gwMessageControlField");
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.GwTxResult getGwTxResult() {
-    return cacheGet(CacheKey.gwTxResult);
-  }
 
   private com.clover.sdk.v3.pay.GwTxResult extractGwTxResult() {
     if (!getJSONObject().isNull("gwTxResult")) {
@@ -1354,11 +1231,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.payments.CvmResult getCvmResult() {
-    return cacheGet(CacheKey.cvmResult);
-  }
 
   private com.clover.sdk.v3.payments.CvmResult extractCvmResult() {
     if (!getJSONObject().isNull("cvmResult")) {
@@ -1372,11 +1244,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.ServiceCode1 getServiceCode1() {
-    return cacheGet(CacheKey.serviceCode1);
-  }
 
   private com.clover.sdk.v3.pay.ServiceCode1 extractServiceCode1() {
     if (!getJSONObject().isNull("serviceCode1")) {
@@ -1390,11 +1257,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.ServiceCode2 getServiceCode2() {
-    return cacheGet(CacheKey.serviceCode2);
-  }
 
   private com.clover.sdk.v3.pay.ServiceCode2 extractServiceCode2() {
     if (!getJSONObject().isNull("serviceCode2")) {
@@ -1408,11 +1270,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return null;
   }
 
-  /**
-   */
-  public com.clover.sdk.v3.pay.ServiceCode3 getServiceCode3() {
-    return cacheGet(CacheKey.serviceCode3);
-  }
 
   private com.clover.sdk.v3.pay.ServiceCode3 extractServiceCode3() {
     if (!getJSONObject().isNull("serviceCode3")) {

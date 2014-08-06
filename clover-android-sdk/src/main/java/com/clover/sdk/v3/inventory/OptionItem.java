@@ -27,6 +27,19 @@ package com.clover.sdk.v3.inventory;
 /** This class represents the association between an item and an option */
 public final class OptionItem implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Reference to an option
+  */
+  public com.clover.sdk.v3.base.Reference getOption() {
+    return cacheGet(CacheKey.option);
+  }
+ /**
+   * Reference to an item
+  */
+  public com.clover.sdk.v3.base.Reference getItem() {
+    return cacheGet(CacheKey.item);
+  }
+
 
   private enum CacheKey {
     option {
@@ -166,14 +179,6 @@ public final class OptionItem implements android.os.Parcelable, com.clover.sdk.v
   }
 
 
-  /**
-   * Reference to an option
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getOption() {
-    return cacheGet(CacheKey.option);
-  }
 
   private com.clover.sdk.v3.base.Reference extractOption() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("option");
@@ -183,14 +188,6 @@ public final class OptionItem implements android.os.Parcelable, com.clover.sdk.v
     return null;
   }
 
-  /**
-   * Reference to an item
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getItem() {
-    return cacheGet(CacheKey.item);
-  }
 
   private com.clover.sdk.v3.base.Reference extractItem() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("item");

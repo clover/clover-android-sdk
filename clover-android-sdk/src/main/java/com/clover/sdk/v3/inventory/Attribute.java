@@ -26,6 +26,31 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Name of this attribute
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * The item group this attribute belongs to
+  */
+  public com.clover.sdk.v3.base.Reference getItemGroup() {
+    return cacheGet(CacheKey.itemGroup);
+  }
+ /**
+   * Options associated with this attribute
+  */
+  public java.util.List<com.clover.sdk.v3.inventory.Option> getOptions() {
+    return cacheGet(CacheKey.options);
+  }
+
 
   private enum CacheKey {
     id {
@@ -186,38 +211,18 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Name of this attribute
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * The item group this attribute belongs to
-   *
-   * The returned object is not a copy so changes to it will be reflected in this instance and vice-versa.
-   */
-  public com.clover.sdk.v3.base.Reference getItemGroup() {
-    return cacheGet(CacheKey.itemGroup);
-  }
 
   private com.clover.sdk.v3.base.Reference extractItemGroup() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("itemGroup");
@@ -227,14 +232,6 @@ public final class Attribute implements android.os.Parcelable, com.clover.sdk.v3
     return null;
   }
 
-  /**
-   * Options associated with this attribute
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.inventory.Option> getOptions() {
-    return cacheGet(CacheKey.options);
-  }
 
   private java.util.List<com.clover.sdk.v3.inventory.Option> extractOptions() {
     if (getJSONObject().isNull("options")) {

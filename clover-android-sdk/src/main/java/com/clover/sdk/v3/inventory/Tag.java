@@ -26,6 +26,31 @@ package com.clover.sdk.v3.inventory;
 @SuppressWarnings("all")
 public final class Tag implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Tag name
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * Items associated with this tag
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
+    return cacheGet(CacheKey.items);
+  }
+ /**
+   * Printers associated with this tag
+  */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getPrinters() {
+    return cacheGet(CacheKey.printers);
+  }
+
 
   private enum CacheKey {
     id {
@@ -183,38 +208,18 @@ public final class Tag implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Tag name
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * Items associated with this tag
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return cacheGet(CacheKey.items);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractItems() {
     if (getJSONObject().isNull("items")) {
@@ -237,14 +242,6 @@ public final class Tag implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return java.util.Collections.unmodifiableList(itemList);
   }
 
-  /**
-   * Printers associated with this tag
-   *
-   * The returned List is unmodifiable and will never contain any nulls, even if the source JSON had null entries.
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getPrinters() {
-    return cacheGet(CacheKey.printers);
-  }
 
   private java.util.List<com.clover.sdk.v3.base.Reference> extractPrinters() {
     if (getJSONObject().isNull("printers")) {

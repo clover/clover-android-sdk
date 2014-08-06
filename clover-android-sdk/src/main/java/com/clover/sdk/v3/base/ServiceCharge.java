@@ -26,6 +26,31 @@ package com.clover.sdk.v3.base;
 @SuppressWarnings("all")
 public final class ServiceCharge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * Service charge name
+  */
+  public java.lang.String getName() {
+    return cacheGet(CacheKey.name);
+  }
+ /**
+   * If this service charge is enabled
+  */
+  public java.lang.Boolean getEnabled() {
+    return cacheGet(CacheKey.enabled);
+  }
+ /**
+   * Percent to charge; TODO: support non-integer service charges, e.g. 12.5%
+  */
+  public java.lang.Long getPercentage() {
+    return cacheGet(CacheKey.percentage);
+  }
+
 
   private enum CacheKey {
     id {
@@ -182,48 +207,24 @@ public final class ServiceCharge implements android.os.Parcelable, com.clover.sd
   }
 
 
-  /**
-   * Unique identifier
-   */
-  public java.lang.String getId() {
-    return cacheGet(CacheKey.id);
-  }
 
   private java.lang.String extractId() {
     return getJSONObject().isNull("id") ? null :
       getJSONObject().optString("id");
   }
 
-  /**
-   * Service charge name
-   */
-  public java.lang.String getName() {
-    return cacheGet(CacheKey.name);
-  }
 
   private java.lang.String extractName() {
     return getJSONObject().isNull("name") ? null :
       getJSONObject().optString("name");
   }
 
-  /**
-   * If this service charge is enabled
-   */
-  public java.lang.Boolean getEnabled() {
-    return cacheGet(CacheKey.enabled);
-  }
 
   private java.lang.Boolean extractEnabled() {
     return getJSONObject().isNull("enabled") ? null :
       getJSONObject().optBoolean("enabled");
   }
 
-  /**
-   * Percent to charge; TODO: support non-integer service charges, e.g. 12.5%
-   */
-  public java.lang.Long getPercentage() {
-    return cacheGet(CacheKey.percentage);
-  }
 
   private java.lang.Long extractPercentage() {
     return getJSONObject().isNull("percentage") ? null :

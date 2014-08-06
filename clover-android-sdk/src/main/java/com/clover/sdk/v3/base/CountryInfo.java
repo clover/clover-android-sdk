@@ -26,6 +26,40 @@ package com.clover.sdk.v3.base;
 @SuppressWarnings("all")
 public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * ISO 3166-1-alpha-2 code
+  */
+  public java.lang.String getCountryCode() {
+    return cacheGet(CacheKey.countryCode);
+  }
+  public java.lang.String getDisplayName() {
+    return cacheGet(CacheKey.displayName);
+  }
+  public java.lang.String getLocalDisplayName() {
+    return cacheGet(CacheKey.localDisplayName);
+  }
+  public java.lang.String getDefaultCurrency() {
+    return cacheGet(CacheKey.defaultCurrency);
+  }
+  public java.lang.String getDefaultTimezone() {
+    return cacheGet(CacheKey.defaultTimezone);
+  }
+ /**
+   * Indicates whether the state/province field is required when creating the address
+  */
+  public java.lang.Boolean getStateProvinceRequired() {
+    return cacheGet(CacheKey.stateProvinceRequired);
+  }
+ /**
+   * Indicates whether the ZIP/Postal code field is required when creating the address
+  */
+  public java.lang.Boolean getZipPostalRequired() {
+    return cacheGet(CacheKey.zipPostalRequired);
+  }
+  public java.lang.String getDefaultLocale() {
+    return cacheGet(CacheKey.defaultLocale);
+  }
+
 
   private enum CacheKey {
     countryCode {
@@ -212,91 +246,48 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
   }
 
 
-  /**
-   * ISO 3166-1-alpha-2 code
-   */
-  public java.lang.String getCountryCode() {
-    return cacheGet(CacheKey.countryCode);
-  }
 
   private java.lang.String extractCountryCode() {
     return getJSONObject().isNull("countryCode") ? null :
       getJSONObject().optString("countryCode");
   }
 
-  /**
-   */
-  public java.lang.String getDisplayName() {
-    return cacheGet(CacheKey.displayName);
-  }
 
   private java.lang.String extractDisplayName() {
     return getJSONObject().isNull("displayName") ? null :
       getJSONObject().optString("displayName");
   }
 
-  /**
-   */
-  public java.lang.String getLocalDisplayName() {
-    return cacheGet(CacheKey.localDisplayName);
-  }
 
   private java.lang.String extractLocalDisplayName() {
     return getJSONObject().isNull("localDisplayName") ? null :
       getJSONObject().optString("localDisplayName");
   }
 
-  /**
-   */
-  public java.lang.String getDefaultCurrency() {
-    return cacheGet(CacheKey.defaultCurrency);
-  }
 
   private java.lang.String extractDefaultCurrency() {
     return getJSONObject().isNull("defaultCurrency") ? null :
       getJSONObject().optString("defaultCurrency");
   }
 
-  /**
-   */
-  public java.lang.String getDefaultTimezone() {
-    return cacheGet(CacheKey.defaultTimezone);
-  }
 
   private java.lang.String extractDefaultTimezone() {
     return getJSONObject().isNull("defaultTimezone") ? null :
       getJSONObject().optString("defaultTimezone");
   }
 
-  /**
-   * Indicates whether the state/province field is required when creating the address
-   */
-  public java.lang.Boolean getStateProvinceRequired() {
-    return cacheGet(CacheKey.stateProvinceRequired);
-  }
 
   private java.lang.Boolean extractStateProvinceRequired() {
     return getJSONObject().isNull("stateProvinceRequired") ? null :
       getJSONObject().optBoolean("stateProvinceRequired");
   }
 
-  /**
-   * Indicates whether the ZIP/Postal code field is required when creating the address
-   */
-  public java.lang.Boolean getZipPostalRequired() {
-    return cacheGet(CacheKey.zipPostalRequired);
-  }
 
   private java.lang.Boolean extractZipPostalRequired() {
     return getJSONObject().isNull("zipPostalRequired") ? null :
       getJSONObject().optBoolean("zipPostalRequired");
   }
 
-  /**
-   */
-  public java.lang.String getDefaultLocale() {
-    return cacheGet(CacheKey.defaultLocale);
-  }
 
   private java.lang.String extractDefaultLocale() {
     return getJSONObject().isNull("defaultLocale") ? null :
