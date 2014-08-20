@@ -10,7 +10,7 @@ clover-android-sdk is an Android library project. To integrate it into your proj
 add the following dependency to your Gradle-enabled project:
 
 dependencies {
-    compile 'com.clover.sdk:clover-android-sdk:1'
+    compile 'com.clover.sdk:clover-android-sdk:42'
 }
 
 clover-android-sdk-examples is an Android application project. To build and install from the command line,
