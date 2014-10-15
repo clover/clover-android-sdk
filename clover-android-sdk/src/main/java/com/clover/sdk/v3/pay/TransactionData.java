@@ -41,6 +41,9 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
   public java.lang.Double getCashBackAmount() {
     return cacheGet(CacheKey.cashBackAmount);
   }
+  public java.lang.Double getAvailableOfflineSpendingAmount() {
+    return cacheGet(CacheKey.availableOfflineSpendingAmount);
+  }
   public java.lang.String getErrorCode() {
     return cacheGet(CacheKey.errorCode);
   }
@@ -273,6 +276,12 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
       @Override
       public Object extractValue(TransactionData instance) {
         return instance.extractCashBackAmount();
+      }
+    },
+    availableOfflineSpendingAmount {
+      @Override
+      public Object extractValue(TransactionData instance) {
+        return instance.extractAvailableOfflineSpendingAmount();
       }
     },
     errorCode {
@@ -682,7 +691,6 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     public abstract Object extractValue(TransactionData instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -701,8 +709,12 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public TransactionData(String json) {
-    this.jsonString = json;
+  public TransactionData(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -717,9 +729,7 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public TransactionData(TransactionData src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -781,17 +791,8 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -844,6 +845,12 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
   private java.lang.Double extractCashBackAmount() {
     return getJSONObject().isNull("cashBackAmount") ? null :
       getJSONObject().optDouble("cashBackAmount");
+  }
+
+
+  private java.lang.Double extractAvailableOfflineSpendingAmount() {
+    return getJSONObject().isNull("availableOfflineSpendingAmount") ? null :
+      getJSONObject().optDouble("availableOfflineSpendingAmount");
   }
 
 
@@ -1309,6 +1316,11 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     return cacheValueIsNotNull(CacheKey.cashBackAmount);
   }
 
+  /** Checks whether the 'availableOfflineSpendingAmount' field is set and is not null */
+  public boolean isNotNullAvailableOfflineSpendingAmount() {
+    return cacheValueIsNotNull(CacheKey.availableOfflineSpendingAmount);
+  }
+
   /** Checks whether the 'errorCode' field is set and is not null */
   public boolean isNotNullErrorCode() {
     return cacheValueIsNotNull(CacheKey.errorCode);
@@ -1668,6 +1680,11 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
   /** Checks whether the 'cashBackAmount' field has been set, however the value could be null */
   public boolean hasCashBackAmount() {
     return cacheHasKey(CacheKey.cashBackAmount);
+  }
+
+  /** Checks whether the 'availableOfflineSpendingAmount' field has been set, however the value could be null */
+  public boolean hasAvailableOfflineSpendingAmount() {
+    return cacheHasKey(CacheKey.availableOfflineSpendingAmount);
   }
 
   /** Checks whether the 'errorCode' field has been set, however the value could be null */
@@ -2083,6 +2100,22 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     }
 
     cacheMarkDirty(CacheKey.cashBackAmount);
+    return this;
+  }
+
+  /**
+   * Sets the field 'availableOfflineSpendingAmount'.
+   */
+  public TransactionData setAvailableOfflineSpendingAmount(java.lang.Double availableOfflineSpendingAmount) {
+    logChange("availableOfflineSpendingAmount");
+
+    try {
+      getJSONObject().put("availableOfflineSpendingAmount", availableOfflineSpendingAmount == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(availableOfflineSpendingAmount));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.availableOfflineSpendingAmount);
     return this;
   }
 
@@ -3194,6 +3227,13 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     cacheRemoveValue(CacheKey.cashBackAmount);
   }
 
+  /** Clears the 'availableOfflineSpendingAmount' field, the 'has' method for this field will now return false */
+  public void clearAvailableOfflineSpendingAmount() {
+    unlogChange("availableOfflineSpendingAmount");
+    getJSONObject().remove("availableOfflineSpendingAmount");
+    cacheRemoveValue(CacheKey.availableOfflineSpendingAmount);
+  }
+
   /** Clears the 'errorCode' field, the 'has' method for this field will now return false */
   public void clearErrorCode() {
     unlogChange("errorCode");
@@ -3734,7 +3774,7 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel
@@ -3797,6 +3837,8 @@ public final class TransactionData implements android.os.Parcelable, com.clover.
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
 
     public static final boolean CASHBACKAMOUNT_IS_REQUIRED = false;
+
+    public static final boolean AVAILABLEOFFLINESPENDINGAMOUNT_IS_REQUIRED = false;
 
     public static final boolean ERRORCODE_IS_REQUIRED = false;
 

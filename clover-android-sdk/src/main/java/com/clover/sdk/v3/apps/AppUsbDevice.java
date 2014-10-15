@@ -24,62 +24,50 @@
 package com.clover.sdk.v3.apps;
 
 @SuppressWarnings("all")
-public final class AppNotification implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
- /**
-   * The app the notification will be sent to. This will be autopopulated by the server.
-  */
+  public java.lang.String getPackageName() {
+    return cacheGet(CacheKey.packageName);
+  }
+  public java.lang.Integer getVendorId() {
+    return cacheGet(CacheKey.vendorId);
+  }
+  public java.lang.Integer getProductId() {
+    return cacheGet(CacheKey.productId);
+  }
   public com.clover.sdk.v3.base.Reference getApp() {
     return cacheGet(CacheKey.app);
-  }
- /**
-   * 
-  */
-  public java.lang.String getEvent() {
-    return cacheGet(CacheKey.event);
-  }
- /**
-   * The time to live of the notification in seconds. By default this is 5 days.
-  */
-  public java.lang.Long getTimeToLive() {
-    return cacheGet(CacheKey.timeToLive);
-  }
- /**
-   * Payload of the notification. This is at most 4000 characters.
-  */
-  public java.lang.String getData() {
-    return cacheGet(CacheKey.data);
   }
 
 
   private enum CacheKey {
+    packageName {
+      @Override
+      public Object extractValue(AppUsbDevice instance) {
+        return instance.extractPackageName();
+      }
+    },
+    vendorId {
+      @Override
+      public Object extractValue(AppUsbDevice instance) {
+        return instance.extractVendorId();
+      }
+    },
+    productId {
+      @Override
+      public Object extractValue(AppUsbDevice instance) {
+        return instance.extractProductId();
+      }
+    },
     app {
       @Override
-      public Object extractValue(AppNotification instance) {
+      public Object extractValue(AppUsbDevice instance) {
         return instance.extractApp();
-      }
-    },
-    event {
-      @Override
-      public Object extractValue(AppNotification instance) {
-        return instance.extractEvent();
-      }
-    },
-    timeToLive {
-      @Override
-      public Object extractValue(AppNotification instance) {
-        return instance.extractTimeToLive();
-      }
-    },
-    data {
-      @Override
-      public Object extractValue(AppNotification instance) {
-        return instance.extractData();
       }
     },
     ;
 
-    public abstract Object extractValue(AppNotification instance);
+    public abstract Object extractValue(AppUsbDevice instance);
   }
 
   private org.json.JSONObject jsonObject = null;
@@ -95,12 +83,12 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   /**
    * Constructs a new empty instance.
    */
-  public AppNotification() { }
+  public AppUsbDevice() { }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public AppNotification(String json) throws java.lang.IllegalArgumentException {
+  public AppUsbDevice(String json) throws java.lang.IllegalArgumentException {
     try {
       this.jsonObject = new org.json.JSONObject(json);
     } catch (org.json.JSONException e) {
@@ -112,14 +100,14 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public AppNotification(org.json.JSONObject jsonObject) {
+  public AppUsbDevice(org.json.JSONObject jsonObject) {
     this.jsonObject = jsonObject;
   }
 
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public AppNotification(AppNotification src) {
+  public AppUsbDevice(AppUsbDevice src) {
     if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
@@ -191,14 +179,34 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
 
   @Override
   public void validate() {
+    java.lang.String packageName = getPackageName();
+    if (packageName != null && packageName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'packageName'");}
 
-    java.lang.String event = getEvent();
-    if (event != null && event.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'event'");}
+    java.lang.Integer vendorId = getVendorId();
+    if (vendorId != null && ( vendorId < 0)) throw new IllegalArgumentException("Invalid value for 'vendorId'");
 
-    java.lang.String data = getData();
-    if (data != null && data.length() > 4000) { throw new IllegalArgumentException("Maximum string length exceeded for 'data'");}
+    java.lang.Integer productId = getProductId();
+    if (productId != null && ( productId < 0)) throw new IllegalArgumentException("Invalid value for 'productId'");
   }
 
+
+
+  private java.lang.String extractPackageName() {
+    return getJSONObject().isNull("packageName") ? null :
+      getJSONObject().optString("packageName");
+  }
+
+
+  private java.lang.Integer extractVendorId() {
+    return getJSONObject().isNull("vendorId") ? null :
+      getJSONObject().optInt("vendorId");
+  }
+
+
+  private java.lang.Integer extractProductId() {
+    return getJSONObject().isNull("productId") ? null :
+      getJSONObject().optInt("productId");
+  }
 
 
   private com.clover.sdk.v3.base.Reference extractApp() {
@@ -210,72 +218,102 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   }
 
 
-  private java.lang.String extractEvent() {
-    return getJSONObject().isNull("event") ? null :
-      getJSONObject().optString("event");
+  /** Checks whether the 'packageName' field is set and is not null */
+  public boolean isNotNullPackageName() {
+    return cacheValueIsNotNull(CacheKey.packageName);
   }
 
-
-  private java.lang.Long extractTimeToLive() {
-    return getJSONObject().isNull("timeToLive") ? null :
-      getJSONObject().optLong("timeToLive");
+  /** Checks whether the 'vendorId' field is set and is not null */
+  public boolean isNotNullVendorId() {
+    return cacheValueIsNotNull(CacheKey.vendorId);
   }
 
-
-  private java.lang.String extractData() {
-    return getJSONObject().isNull("data") ? null :
-      getJSONObject().optString("data");
+  /** Checks whether the 'productId' field is set and is not null */
+  public boolean isNotNullProductId() {
+    return cacheValueIsNotNull(CacheKey.productId);
   }
-
 
   /** Checks whether the 'app' field is set and is not null */
   public boolean isNotNullApp() {
     return cacheValueIsNotNull(CacheKey.app);
   }
 
-  /** Checks whether the 'event' field is set and is not null */
-  public boolean isNotNullEvent() {
-    return cacheValueIsNotNull(CacheKey.event);
+
+  /** Checks whether the 'packageName' field has been set, however the value could be null */
+  public boolean hasPackageName() {
+    return cacheHasKey(CacheKey.packageName);
   }
 
-  /** Checks whether the 'timeToLive' field is set and is not null */
-  public boolean isNotNullTimeToLive() {
-    return cacheValueIsNotNull(CacheKey.timeToLive);
+  /** Checks whether the 'vendorId' field has been set, however the value could be null */
+  public boolean hasVendorId() {
+    return cacheHasKey(CacheKey.vendorId);
   }
 
-  /** Checks whether the 'data' field is set and is not null */
-  public boolean isNotNullData() {
-    return cacheValueIsNotNull(CacheKey.data);
+  /** Checks whether the 'productId' field has been set, however the value could be null */
+  public boolean hasProductId() {
+    return cacheHasKey(CacheKey.productId);
   }
-
 
   /** Checks whether the 'app' field has been set, however the value could be null */
   public boolean hasApp() {
     return cacheHasKey(CacheKey.app);
   }
 
-  /** Checks whether the 'event' field has been set, however the value could be null */
-  public boolean hasEvent() {
-    return cacheHasKey(CacheKey.event);
+
+  /**
+   * Sets the field 'packageName'.
+   */
+  public AppUsbDevice setPackageName(java.lang.String packageName) {
+    logChange("packageName");
+
+    try {
+      getJSONObject().put("packageName", packageName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(packageName));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.packageName);
+    return this;
   }
 
-  /** Checks whether the 'timeToLive' field has been set, however the value could be null */
-  public boolean hasTimeToLive() {
-    return cacheHasKey(CacheKey.timeToLive);
+  /**
+   * Sets the field 'vendorId'.
+   */
+  public AppUsbDevice setVendorId(java.lang.Integer vendorId) {
+    logChange("vendorId");
+
+    try {
+      getJSONObject().put("vendorId", vendorId == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(vendorId));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.vendorId);
+    return this;
   }
 
-  /** Checks whether the 'data' field has been set, however the value could be null */
-  public boolean hasData() {
-    return cacheHasKey(CacheKey.data);
-  }
+  /**
+   * Sets the field 'productId'.
+   */
+  public AppUsbDevice setProductId(java.lang.Integer productId) {
+    logChange("productId");
 
+    try {
+      getJSONObject().put("productId", productId == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(productId));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.productId);
+    return this;
+  }
 
   /**
    * Sets the field 'app'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public AppNotification setApp(com.clover.sdk.v3.base.Reference app) {
+  public AppUsbDevice setApp(com.clover.sdk.v3.base.Reference app) {
     logChange("app");
 
     try {
@@ -289,81 +327,33 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
     return this;
   }
 
-  /**
-   * Sets the field 'event'.
-   */
-  public AppNotification setEvent(java.lang.String event) {
-    logChange("event");
 
-    try {
-      getJSONObject().put("event", event == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(event));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.event);
-    return this;
+  /** Clears the 'packageName' field, the 'has' method for this field will now return false */
+  public void clearPackageName() {
+    unlogChange("packageName");
+    getJSONObject().remove("packageName");
+    cacheRemoveValue(CacheKey.packageName);
   }
 
-  /**
-   * Sets the field 'timeToLive'.
-   */
-  public AppNotification setTimeToLive(java.lang.Long timeToLive) {
-    logChange("timeToLive");
-
-    try {
-      getJSONObject().put("timeToLive", timeToLive == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(timeToLive));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.timeToLive);
-    return this;
+  /** Clears the 'vendorId' field, the 'has' method for this field will now return false */
+  public void clearVendorId() {
+    unlogChange("vendorId");
+    getJSONObject().remove("vendorId");
+    cacheRemoveValue(CacheKey.vendorId);
   }
 
-  /**
-   * Sets the field 'data'.
-   */
-  public AppNotification setData(java.lang.String data) {
-    logChange("data");
-
-    try {
-      getJSONObject().put("data", data == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(data));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.data);
-    return this;
+  /** Clears the 'productId' field, the 'has' method for this field will now return false */
+  public void clearProductId() {
+    unlogChange("productId");
+    getJSONObject().remove("productId");
+    cacheRemoveValue(CacheKey.productId);
   }
-
 
   /** Clears the 'app' field, the 'has' method for this field will now return false */
   public void clearApp() {
     unlogChange("app");
     getJSONObject().remove("app");
     cacheRemoveValue(CacheKey.app);
-  }
-
-  /** Clears the 'event' field, the 'has' method for this field will now return false */
-  public void clearEvent() {
-    unlogChange("event");
-    getJSONObject().remove("event");
-    cacheRemoveValue(CacheKey.event);
-  }
-
-  /** Clears the 'timeToLive' field, the 'has' method for this field will now return false */
-  public void clearTimeToLive() {
-    unlogChange("timeToLive");
-    getJSONObject().remove("timeToLive");
-    cacheRemoveValue(CacheKey.timeToLive);
-  }
-
-  /** Clears the 'data' field, the 'has' method for this field will now return false */
-  public void clearData() {
-    unlogChange("data");
-    getJSONObject().remove("data");
-    cacheRemoveValue(CacheKey.data);
   }
 
 
@@ -397,8 +387,8 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public AppNotification copyChanges() {
-    AppNotification copy = new AppNotification();
+  public AppUsbDevice copyChanges() {
+    AppUsbDevice copy = new AppUsbDevice();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -407,11 +397,11 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(AppNotification src) {
+  public void mergeChanges(AppUsbDevice src) {
     if (src.changeLog != null) {
       try {
         // Make a copy of the source so the destination fields are copies
-        org.json.JSONObject srcObj = new AppNotification(src).getJSONObject();
+        org.json.JSONObject srcObj = new AppUsbDevice(src).getJSONObject();
         org.json.JSONObject dstObj = getJSONObject();
         for (java.lang.String field : src.changeLog.keySet()) {
           dstObj.put(field, srcObj.get(field));
@@ -447,7 +437,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
       changeLog.isEmpty(); // Triggers unparcel
     }
 
-    return "AppNotification{" +
+    return "AppUsbDevice{" +
         "json='" + json + "'" +
         ", bundle=" + bundle +
         ", changeLog=" + changeLog +
@@ -466,40 +456,41 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
     dest.writeBundle(changeLog);
   }
 
-  public static final android.os.Parcelable.Creator<AppNotification> CREATOR = new android.os.Parcelable.Creator<AppNotification>() {
+  public static final android.os.Parcelable.Creator<AppUsbDevice> CREATOR = new android.os.Parcelable.Creator<AppUsbDevice>() {
     @Override
-    public AppNotification createFromParcel(android.os.Parcel in) {
-      AppNotification instance = new AppNotification(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public AppUsbDevice createFromParcel(android.os.Parcel in) {
+      AppUsbDevice instance = new AppUsbDevice(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.bundle = in.readBundle(getClass().getClassLoader());
       instance.changeLog = in.readBundle();
       return instance;
     }
 
     @Override
-    public AppNotification[] newArray(int size) {
-      return new AppNotification[size];
+    public AppUsbDevice[] newArray(int size) {
+      return new AppUsbDevice[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<AppNotification> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppNotification>() {
+  public static final com.clover.sdk.JSONifiable.Creator<AppUsbDevice> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppUsbDevice>() {
     @Override
-    public AppNotification create(org.json.JSONObject jsonObject) {
-      return new AppNotification(jsonObject);
+    public AppUsbDevice create(org.json.JSONObject jsonObject) {
+      return new AppUsbDevice(jsonObject);
     }
   };
 
 
   public interface Constraints {
 
+    public static final boolean PACKAGENAME_IS_REQUIRED = false;
+    public static final long PACKAGENAME_MAX_LEN = 255;
+
+    public static final boolean VENDORID_IS_REQUIRED = false;
+    public static final long VENDORID_MIN = 0;
+
+    public static final boolean PRODUCTID_IS_REQUIRED = false;
+    public static final long PRODUCTID_MIN = 0;
+
     public static final boolean APP_IS_REQUIRED = false;
-
-    public static final boolean EVENT_IS_REQUIRED = false;
-    public static final long EVENT_MAX_LEN = 255;
-
-    public static final boolean TIMETOLIVE_IS_REQUIRED = false;
-
-    public static final boolean DATA_IS_REQUIRED = false;
-    public static final long DATA_MAX_LEN = 4000;
 
   }
 

@@ -106,7 +106,6 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
     public abstract Object extractValue(Address instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -125,8 +124,12 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public Address(String json) {
-    this.jsonString = json;
+  public Address(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -141,9 +144,7 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Address(Address src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -205,17 +206,8 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -226,29 +218,29 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
 
     java.lang.String address1 = getAddress1();
     if (address1 == null) throw new java.lang.IllegalArgumentException("'address1' is required to be non-null");
-    if (address1 != null && address1.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'address1'");
+    if (address1 != null && address1.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'address1'");}
 
     java.lang.String address2 = getAddress2();
-    if (address2 != null && address2.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'address2'");
+    if (address2 != null && address2.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'address2'");}
 
     java.lang.String address3 = getAddress3();
-    if (address3 != null && address3.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'address3'");
+    if (address3 != null && address3.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'address3'");}
 
     java.lang.String city = getCity();
     if (city == null) throw new java.lang.IllegalArgumentException("'city' is required to be non-null");
-    if (city != null && city.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'city'");
+    if (city != null && city.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'city'");}
 
     java.lang.String country = getCountry();
     if (country == null) throw new java.lang.IllegalArgumentException("'country' is required to be non-null");
-    if (country != null && country.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'country'");
+    if (country != null && country.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'country'");}
 
     java.lang.String state = getState();
     if (state == null) throw new java.lang.IllegalArgumentException("'state' is required to be non-null");
-    if (state != null && state.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'state'");
+    if (state != null && state.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'state'");}
 
     java.lang.String zip = getZip();
     if (zip == null) throw new java.lang.IllegalArgumentException("'zip' is required to be non-null");
-    if (zip != null && zip.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'zip'");
+    if (zip != null && zip.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'zip'");}
   }
 
 
@@ -639,7 +631,7 @@ public final class Address implements android.os.Parcelable, com.clover.sdk.v3.V
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel

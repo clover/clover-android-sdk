@@ -22,6 +22,8 @@ public class Intents {
   public static final String ACTION_REFUND = "clover.intent.action.REFUND";
   public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
   public static final String ACTION_MODIFY_ORDER = "clover.intent.action.MODIFY_ORDER";
+  public static final String ACTION_MANUAL_PAY = "clover.intent.action.MANUAL_PAY";
+  public static final String ACTION_MANUAL_REFUND = "clover.intent.action.MANUAL_REFUND";
 
   // Use this intent action to start App Market's App Detail screen
   public static final String ACTION_START_APP_DETAIL = "clover.intent.action.START_APP_DETAIL";
@@ -154,4 +156,26 @@ public class Intents {
   public static final String EXTRA_SCAN_Y = "clover.intent.extra.SCAN_Y";
 
   public static final String EXTRA_ALLOW_FIRE = "clover.intent.extra.ALLOW_FIRE";
+
+  public static final String EXTRA_CURRENT_SHIFT = "clover.intent.extra.CURRENT_SHIFT";
+
+  /**
+   * Intent and extras to start a secure payment flow on Clover Mobile
+   */
+  public static final String ACTION_SECURE_PAY = "clover.intent.action.START_SECURE_PAYMENT";
+  public static final String EXTRA_TAX_AMOUNT = "clover.intent.extra.TAX_AMOUNT";
+  public static final String EXTRA_SERVICE_CHARGE_AMOUNT = "clover.intent.extra.SERVICE_CHARGE_AMOUNT";
+  public static final String EXTRA_TAXABLE_AMOUNTS = "clover.intent.extra.TAXABLE_AMOUNTS";
+  public static final String EXTRA_DISABLE_MANUAL = "clover.intent.extra.DISABLE_MANUAL";
+  public static final String EXTRA_DISABLE_CASHBACK = "clover.intent.extra.DISABLE_CASHBACK";
+  public static final String EXTRA_IS_TESTING = "clover.intent.extra.IS_TESTING";
+  public static final String EXTRA_TRANSACTION_TYPE = "clover.intent.extra.TRANSACTION_TYPE";
+  public static final String EXTRA_TRANSACTION_PAYMENT = "payment";
+  public static final String EXTRA_TRANSACTION_CREDIT = "credit";
+
+  /**
+   * Result extras from Clover Mobile
+   */
+  public static final String EXTRA_PAYMENT = "clover.intent.extra.PAYMENT";
+  public static final String EXTRA_CREDIT = "clover.intent.extra.CREDIT";
 }

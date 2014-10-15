@@ -277,7 +277,6 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     public abstract Object extractValue(Order instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -296,8 +295,12 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public Order(String json) {
-    this.jsonString = json;
+  public Order(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -312,9 +315,7 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Order(Order src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -376,17 +377,8 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -395,10 +387,19 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   @Override
   public void validate() {
     java.lang.String id = getId();
-    if (id != null && id.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
     java.lang.String currency = getCurrency();
-    if (currency != null && currency.length() > 3) throw new IllegalArgumentException("Maximum string length exceeded for 'currency'");
+    if (currency != null && currency.length() > 3) { throw new IllegalArgumentException("Maximum string length exceeded for 'currency'");}
+
+    java.lang.String title = getTitle();
+    if (title != null && title.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'title'");}
+
+    java.lang.String note = getNote();
+    if (note != null && note.length() > 2047) { throw new IllegalArgumentException("Maximum string length exceeded for 'note'");}
+
+    java.lang.String state = getState();
+    if (state != null && state.length() > 31) { throw new IllegalArgumentException("Maximum string length exceeded for 'state'");}
   }
 
 
@@ -1672,7 +1673,7 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel

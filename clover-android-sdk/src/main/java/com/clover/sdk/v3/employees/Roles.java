@@ -20,6 +20,7 @@ public class Roles {
   public static final String ARG_PERMISSION_SET = "permissionSet";
   public static final String ARG_ROLE_ID = "roleId";
   public static final String ARG_EMPLOYEE_ID = "employeeId";
+  public static final String ARG_MINIMUM_ROLE = "minimumRole";
   public static final String ARG_PERMISSION_SET_ID = "permissionSetId";
   public static final String ARG_PERMISSION_SET_NAME = "permissionSetName";
   public static final String ARG_PACKAGE_NAME = "packageName";
@@ -59,6 +60,18 @@ public class Roles {
   }
 
   public boolean isPermissionAllowed(String permissionSetName, String packageName, String employeeId) {
+    return isPermissionAllowed(permissionSetName, packageName, employeeId, null);
+  }
+
+  /**
+   *
+   * @param permissionSetName permission name
+   * @param packageName package name of the app
+   * @param employeeId  employee id to verify the role
+   * @param minimumRole minimum required role to allow access if the permissionSetName is not found
+   * @return  if the employee with employee id is allowed for this permission
+   */
+  public boolean isPermissionAllowed(String permissionSetName, String packageName, String employeeId, AccountRole minimumRole) {
     Bundle extras = new Bundle();
     extras.putParcelable(ARG_ACCOUNT, account);
     extras.putString(ARG_PERMISSION_SET_NAME, permissionSetName);
@@ -67,6 +80,9 @@ public class Roles {
     }
     if (employeeId != null && !employeeId.isEmpty()) {
       extras.putString(ARG_EMPLOYEE_ID, employeeId);
+    }
+    if (minimumRole != null) {
+      extras.putString(ARG_MINIMUM_ROLE, minimumRole.name());
     }
 
     Bundle defaultResult = new Bundle();

@@ -71,8 +71,8 @@ public class OrderCalc {
     }
 
     @Override
-    public Decimal getPercentDiscount() {
-      return OrderCalc.getPercentDiscount(order.getDiscounts());
+    public Collection<Decimal> getPercentDiscounts() {
+      return OrderCalc.getPercentDiscounts(order.getDiscounts());
     }
 
     @Override
@@ -159,8 +159,13 @@ public class OrderCalc {
 
     @Override
     public Price getAmountDiscount() {
-      long discount = -sumOfAdjustments(line.getPrice(), line.getDiscounts());
+      long discount = -sumOfAdjustments(line.getDiscounts());
       return new Price(discount);
+    }
+
+    @Override
+    public Collection<Decimal> getPercentDiscounts() {
+      return OrderCalc.getPercentDiscounts(line.getDiscounts());
     }
 
     @Override
@@ -223,7 +228,6 @@ public class OrderCalc {
     return new Calc(calcOrder, logger);
   }
 
-  //TODO remove with order level discounts.
   private static long sumOfAdjustments(Collection<Discount> discounts) {
     if (discounts == null) {
       return 0;
@@ -238,40 +242,18 @@ public class OrderCalc {
     return total;
   }
 
-  private static long sumOfAdjustments(long amount, Collection<Discount> discounts) {
-    if (discounts == null) {
-      return 0;
+  private static Collection<Decimal> getPercentDiscounts(Collection<Discount> discounts) {
+    if (discounts == null || discounts.isEmpty()) {
+      return Collections.emptyList();
     }
-
-    long total = 0;
+    List<Decimal> result = Lists.newArrayList();
     for (Discount d : discounts) {
-      if (d.getAmount() != null) {
-        total += d.getAmount();
-      }
-      if (d.getPercentage() != null) {
-        total -= Math.round((d.getPercentage() * amount)/100.0);
+      Long percent = d.getPercentage();
+      if (percent != null) {
+        result.add(new Decimal(percent, 0));
       }
     }
-    return total;
-  }
-
-  private static Decimal getPercentDiscount(Collection<Discount> discounts) {
-    if (discounts == null) {
-      return Decimal.ZERO;
-    }
-    long percentTotal = 0;
-    for (Discount d : discounts) {
-      if (d.getPercentage() != null) {
-        percentTotal += d.getPercentage();
-      }
-    }
-    if (percentTotal < 0) {
-      percentTotal = 0;
-    }
-    if (percentTotal > 100) {
-      percentTotal = 100;
-    }
-    return new Decimal(percentTotal);
+    return result;
   }
 
   public long getTax() {

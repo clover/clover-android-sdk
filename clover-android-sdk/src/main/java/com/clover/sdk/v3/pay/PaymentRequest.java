@@ -217,7 +217,6 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
     public abstract Object extractValue(PaymentRequest instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -236,8 +235,12 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public PaymentRequest(String json) {
-    this.jsonString = json;
+  public PaymentRequest(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -252,9 +255,7 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public PaymentRequest(PaymentRequest src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -316,17 +317,8 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -335,19 +327,19 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
   @Override
   public void validate() {
     java.lang.String id = getId();
-    if (id != null && id.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
     java.lang.String orderId = getOrderId();
-    if (orderId != null && orderId.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'orderId'");
+    if (orderId != null && orderId.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'orderId'");}
 
     java.lang.String employeeId = getEmployeeId();
-    if (employeeId != null && employeeId.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'employeeId'");
+    if (employeeId != null && employeeId.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'employeeId'");}
 
     java.lang.String employeeName = getEmployeeName();
-    if (employeeName != null && employeeName.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'employeeName'");
+    if (employeeName != null && employeeName.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'employeeName'");}
 
     java.lang.String externalPaymentId = getExternalPaymentId();
-    if (externalPaymentId != null && externalPaymentId.length() > 32) throw new IllegalArgumentException("Maximum string length exceeded for 'externalPaymentId'");
+    if (externalPaymentId != null && externalPaymentId.length() > 32) { throw new IllegalArgumentException("Maximum string length exceeded for 'externalPaymentId'");}
   }
 
 
@@ -1146,7 +1138,7 @@ public final class PaymentRequest implements android.os.Parcelable, com.clover.s
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel

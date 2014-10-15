@@ -115,7 +115,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     public abstract Object extractValue(CardTransaction instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -134,8 +133,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public CardTransaction(String json) {
-    this.jsonString = json;
+  public CardTransaction(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -150,9 +153,7 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public CardTransaction(CardTransaction src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -214,17 +215,8 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -234,10 +226,10 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   public void validate() {
 
     java.lang.String authCode = getAuthCode();
-    if (authCode != null && authCode.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'authCode'");
+    if (authCode != null && authCode.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'authCode'");}
 
     java.lang.String referenceId = getReferenceId();
-    if (referenceId != null && referenceId.length() > 32) throw new IllegalArgumentException("Maximum string length exceeded for 'referenceId'");
+    if (referenceId != null && referenceId.length() > 32) { throw new IllegalArgumentException("Maximum string length exceeded for 'referenceId'");}
   }
 
 
@@ -662,7 +654,7 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel
