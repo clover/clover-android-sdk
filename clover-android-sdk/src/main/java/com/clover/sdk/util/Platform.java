@@ -24,4 +24,14 @@ public enum Platform {
   public static boolean isClover() {
     return Build.MANUFACTURER.equals(CLOVER);
   }
+
+  public static boolean isCloverMobile() {
+    Platform platform = get();
+
+    if (platform == C200 || platform == C201) {
+      return true;
+    }
+
+    return false;
+  }
 }

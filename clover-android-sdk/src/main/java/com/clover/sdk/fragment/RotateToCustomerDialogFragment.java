@@ -62,7 +62,7 @@ public class RotateToCustomerDialogFragment extends DialogFragment {
 
   @Override
   public void onStart() {
-    if (Platform.get() == Platform.C200) {
+    if (Platform.isCloverMobile()) {
       getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
           WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
@@ -71,7 +71,7 @@ public class RotateToCustomerDialogFragment extends DialogFragment {
       int uiOptions = getDialog().getWindow().getDecorView().getSystemUiVisibility();
       getDialog().getWindow().getDecorView().setSystemUiVisibility(uiOptions
           | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-          | 0x00001000); // View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY use constant when compiling with 19 or greater
+          | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
       // Set the dialog to focusable again.
       getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);

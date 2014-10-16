@@ -137,6 +137,15 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public java.lang.Boolean getUpdateStock() {
     return cacheGet(CacheKey.updateStock);
   }
+  public java.lang.Boolean getAllowClockOutWithOpenOrders() {
+    return cacheGet(CacheKey.allowClockOutWithOpenOrders);
+  }
+  public java.lang.Boolean getLogInClockInPrompt() {
+    return cacheGet(CacheKey.logInClockInPrompt);
+  }
+  public java.lang.String getAccountType() {
+    return cacheGet(CacheKey.accountType);
+  }
 
 
   private enum CacheKey {
@@ -338,12 +347,29 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
         return instance.extractUpdateStock();
       }
     },
+    allowClockOutWithOpenOrders {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractAllowClockOutWithOpenOrders();
+      }
+    },
+    logInClockInPrompt {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractLogInClockInPrompt();
+      }
+    },
+    accountType {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractAccountType();
+      }
+    },
     ;
 
     public abstract Object extractValue(MerchantProperties instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -362,8 +388,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public MerchantProperties(String json) {
-    this.jsonString = json;
+  public MerchantProperties(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -378,9 +408,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public MerchantProperties(MerchantProperties src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -442,17 +470,8 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -461,25 +480,25 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   @Override
   public void validate() {
     java.lang.String defaultCurrency = getDefaultCurrency();
-    if (defaultCurrency != null && defaultCurrency.length() > 3) throw new IllegalArgumentException("Maximum string length exceeded for 'defaultCurrency'");
+    if (defaultCurrency != null && defaultCurrency.length() > 3) { throw new IllegalArgumentException("Maximum string length exceeded for 'defaultCurrency'");}
 
     java.lang.String hardwareProfile = getHardwareProfile();
-    if (hardwareProfile != null && hardwareProfile.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'hardwareProfile'");
+    if (hardwareProfile != null && hardwareProfile.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'hardwareProfile'");}
 
     java.lang.String marketingPreferenceText = getMarketingPreferenceText();
-    if (marketingPreferenceText != null && marketingPreferenceText.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'marketingPreferenceText'");
+    if (marketingPreferenceText != null && marketingPreferenceText.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'marketingPreferenceText'");}
 
     java.lang.String supportPhone = getSupportPhone();
-    if (supportPhone != null && supportPhone.length() > 25) throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhone'");
+    if (supportPhone != null && supportPhone.length() > 25) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhone'");}
 
     java.lang.String supportEmail = getSupportEmail();
-    if (supportEmail != null && supportEmail.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'supportEmail'");
+    if (supportEmail != null && supportEmail.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportEmail'");}
 
     java.lang.String timezone = getTimezone();
-    if (timezone != null && timezone.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'timezone'");
+    if (timezone != null && timezone.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'timezone'");}
 
     java.lang.String vatTaxName = getVatTaxName();
-    if (vatTaxName != null && vatTaxName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'vatTaxName'");
+    if (vatTaxName != null && vatTaxName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'vatTaxName'");}
   }
 
 
@@ -689,6 +708,24 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
 
+  private java.lang.Boolean extractAllowClockOutWithOpenOrders() {
+    return getJSONObject().isNull("allowClockOutWithOpenOrders") ? null :
+      getJSONObject().optBoolean("allowClockOutWithOpenOrders");
+  }
+
+
+  private java.lang.Boolean extractLogInClockInPrompt() {
+    return getJSONObject().isNull("logInClockInPrompt") ? null :
+      getJSONObject().optBoolean("logInClockInPrompt");
+  }
+
+
+  private java.lang.String extractAccountType() {
+    return getJSONObject().isNull("accountType") ? null :
+      getJSONObject().optString("accountType");
+  }
+
+
   /** Checks whether the 'defaultCurrency' field is set and is not null */
   public boolean isNotNullDefaultCurrency() {
     return cacheValueIsNotNull(CacheKey.defaultCurrency);
@@ -852,6 +889,21 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'updateStock' field is set and is not null */
   public boolean isNotNullUpdateStock() {
     return cacheValueIsNotNull(CacheKey.updateStock);
+  }
+
+  /** Checks whether the 'allowClockOutWithOpenOrders' field is set and is not null */
+  public boolean isNotNullAllowClockOutWithOpenOrders() {
+    return cacheValueIsNotNull(CacheKey.allowClockOutWithOpenOrders);
+  }
+
+  /** Checks whether the 'logInClockInPrompt' field is set and is not null */
+  public boolean isNotNullLogInClockInPrompt() {
+    return cacheValueIsNotNull(CacheKey.logInClockInPrompt);
+  }
+
+  /** Checks whether the 'accountType' field is set and is not null */
+  public boolean isNotNullAccountType() {
+    return cacheValueIsNotNull(CacheKey.accountType);
   }
 
 
@@ -1018,6 +1070,21 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'updateStock' field has been set, however the value could be null */
   public boolean hasUpdateStock() {
     return cacheHasKey(CacheKey.updateStock);
+  }
+
+  /** Checks whether the 'allowClockOutWithOpenOrders' field has been set, however the value could be null */
+  public boolean hasAllowClockOutWithOpenOrders() {
+    return cacheHasKey(CacheKey.allowClockOutWithOpenOrders);
+  }
+
+  /** Checks whether the 'logInClockInPrompt' field has been set, however the value could be null */
+  public boolean hasLogInClockInPrompt() {
+    return cacheHasKey(CacheKey.logInClockInPrompt);
+  }
+
+  /** Checks whether the 'accountType' field has been set, however the value could be null */
+  public boolean hasAccountType() {
+    return cacheHasKey(CacheKey.accountType);
   }
 
 
@@ -1549,6 +1616,54 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return this;
   }
 
+  /**
+   * Sets the field 'allowClockOutWithOpenOrders'.
+   */
+  public MerchantProperties setAllowClockOutWithOpenOrders(java.lang.Boolean allowClockOutWithOpenOrders) {
+    logChange("allowClockOutWithOpenOrders");
+
+    try {
+      getJSONObject().put("allowClockOutWithOpenOrders", allowClockOutWithOpenOrders == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(allowClockOutWithOpenOrders));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.allowClockOutWithOpenOrders);
+    return this;
+  }
+
+  /**
+   * Sets the field 'logInClockInPrompt'.
+   */
+  public MerchantProperties setLogInClockInPrompt(java.lang.Boolean logInClockInPrompt) {
+    logChange("logInClockInPrompt");
+
+    try {
+      getJSONObject().put("logInClockInPrompt", logInClockInPrompt == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(logInClockInPrompt));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.logInClockInPrompt);
+    return this;
+  }
+
+  /**
+   * Sets the field 'accountType'.
+   */
+  public MerchantProperties setAccountType(java.lang.String accountType) {
+    logChange("accountType");
+
+    try {
+      getJSONObject().put("accountType", accountType == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(accountType));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.accountType);
+    return this;
+  }
+
 
   /** Clears the 'defaultCurrency' field, the 'has' method for this field will now return false */
   public void clearDefaultCurrency() {
@@ -1781,6 +1896,27 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     cacheRemoveValue(CacheKey.updateStock);
   }
 
+  /** Clears the 'allowClockOutWithOpenOrders' field, the 'has' method for this field will now return false */
+  public void clearAllowClockOutWithOpenOrders() {
+    unlogChange("allowClockOutWithOpenOrders");
+    getJSONObject().remove("allowClockOutWithOpenOrders");
+    cacheRemoveValue(CacheKey.allowClockOutWithOpenOrders);
+  }
+
+  /** Clears the 'logInClockInPrompt' field, the 'has' method for this field will now return false */
+  public void clearLogInClockInPrompt() {
+    unlogChange("logInClockInPrompt");
+    getJSONObject().remove("logInClockInPrompt");
+    cacheRemoveValue(CacheKey.logInClockInPrompt);
+  }
+
+  /** Clears the 'accountType' field, the 'has' method for this field will now return false */
+  public void clearAccountType() {
+    unlogChange("accountType");
+    getJSONObject().remove("accountType");
+    cacheRemoveValue(CacheKey.accountType);
+  }
+
 
   private void logChange(java.lang.String field) {
     if (changeLog == null) {
@@ -1852,7 +1988,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel
@@ -1978,6 +2114,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     public static final boolean TRACKSTOCK_IS_REQUIRED = false;
 
     public static final boolean UPDATESTOCK_IS_REQUIRED = false;
+
+    public static final boolean ALLOWCLOCKOUTWITHOPENORDERS_IS_REQUIRED = false;
+
+    public static final boolean LOGINCLOCKINPROMPT_IS_REQUIRED = false;
+
+    public static final boolean ACCOUNTTYPE_IS_REQUIRED = false;
 
   }
 

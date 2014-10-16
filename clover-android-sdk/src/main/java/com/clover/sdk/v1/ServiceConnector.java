@@ -21,15 +21,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
@@ -52,7 +50,6 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected final Context mContext;
   protected final Account mAccount;
   protected final OnServiceConnectedListener mClient;
-  protected final Executor mExecutor = Executors.newCachedThreadPool();
   protected final Handler mHandler = new Handler(Looper.getMainLooper());
 
   protected S mService;
@@ -221,7 +218,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected <T> void execute(final ServiceCallable<S, T> callable, final Callback<T> callback) {
     connect();
 
-    mExecutor.execute(new Runnable() {
+    AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
       @Override
       public void run() {
         ResultStatus status = new ResultStatus();
@@ -249,7 +246,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected void execute(final ServiceRunnable<S> runnable, final Callback<Void> callback) {
     connect();
 
-    mExecutor.execute(new Runnable() {
+    AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
       @Override
       public void run() {
         ResultStatus status = new ResultStatus();

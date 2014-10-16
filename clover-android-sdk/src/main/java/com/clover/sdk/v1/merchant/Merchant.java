@@ -21,10 +21,13 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -48,6 +51,7 @@ public class Merchant implements Parcelable {
   private static final String KEY_UPDATE_STOCK = "updateStock";
   private static final String KEY_TRACK_STOCK = "trackStock";
   private static final String KEY_PAID_APPS_FREE = "paidAppsFree";
+  private static final String KEY_TIP_SUGGESTIONS = "tipSuggestions";
 
   private final Bundle data;
 
@@ -192,6 +196,24 @@ public class Merchant implements Parcelable {
    */
   public boolean getPaidAppsFree() {
     return data.getBoolean(KEY_PAID_APPS_FREE, false);
+  }
+
+  public List<TipSuggestion> getTipSuggestions() {
+    List<TipSuggestion> suggestions = new ArrayList<TipSuggestion>();
+    String result = data.getString(KEY_TIP_SUGGESTIONS);
+    if (result != null) {
+      try {
+        JSONArray array = new JSONArray(result);
+        for (int i = 0; i < array.length(); i++) {
+          JSONObject object = array.getJSONObject(i);
+          TipSuggestion suggestion = new TipSuggestion(object);
+          suggestions.add(suggestion);
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+    return suggestions;
   }
 
   @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 public class BarcodeScanner {
   private static final String CALL_METHOD_GET_STATE = "getState";
@@ -24,13 +25,23 @@ public class BarcodeScanner {
   // Note: Extras are define in Intents.java
 
   public boolean startScan(Bundle extras) {
-    Bundle response = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_START_SCAN, null, extras);
-    return response!=null;
+    try {
+      Bundle response = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_START_SCAN, null, extras);
+      return response != null;
+    } catch (IllegalArgumentException ex) {
+      Log.e("com.clover.android.sdk", "Failed to start barcode scanner. The scanner is only available on physical devices: " + ex.getLocalizedMessage());
+      return false;
+    }
   }
 
   public boolean stopScan(Bundle extras) {
-    Bundle response = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_STOP_SCAN, null, extras);
-    return response!=null;
+    try {
+      Bundle response = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_STOP_SCAN, null, extras);
+      return response != null;
+    } catch (IllegalArgumentException ex) {
+      Log.e("com.clover.android.sdk", "Failed to stop barcode scanner. The scanner is only available on physical devices: " + ex.getLocalizedMessage());
+      return false;
+    }
   }
 
   public boolean isProcessing() {

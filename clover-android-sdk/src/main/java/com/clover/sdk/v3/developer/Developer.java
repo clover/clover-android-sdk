@@ -93,6 +93,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheGet(CacheKey.state);
   }
  /**
+   * Developer's country
+  */
+  public java.lang.String getCountry() {
+    return cacheGet(CacheKey.country);
+  }
+ /**
    * Developer's postal code
   */
   public java.lang.String getPostalCode() {
@@ -139,6 +145,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   */
   public java.lang.String getBusinessState() {
     return cacheGet(CacheKey.businessState);
+  }
+ /**
+   * Developer's business country
+  */
+  public java.lang.String getBusinessCountry() {
+    return cacheGet(CacheKey.businessCountry);
   }
  /**
    * Developer's business postal code
@@ -278,6 +290,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractState();
       }
     },
+    country {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractCountry();
+      }
+    },
     postalCode {
       @Override
       public Object extractValue(Developer instance) {
@@ -324,6 +342,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
       @Override
       public Object extractValue(Developer instance) {
         return instance.extractBusinessState();
+      }
+    },
+    businessCountry {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractBusinessCountry();
       }
     },
     businessPostalCode {
@@ -403,7 +427,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     public abstract Object extractValue(Developer instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -422,8 +445,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public Developer(String json) {
-    this.jsonString = json;
+  public Developer(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -438,9 +465,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Developer(Developer src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -502,17 +527,8 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -521,79 +537,85 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   @Override
   public void validate() {
     java.lang.String id = getId();
-    if (id != null && id.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
     java.lang.String name = getName();
-    if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    if (name != null && name.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'name'");}
 
     java.lang.String firstName = getFirstName();
-    if (firstName != null && firstName.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'firstName'");
+    if (firstName != null && firstName.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'firstName'");}
 
     java.lang.String lastName = getLastName();
-    if (lastName != null && lastName.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'lastName'");
+    if (lastName != null && lastName.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'lastName'");}
 
     java.lang.String email = getEmail();
-    if (email != null && email.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'email'");
+    if (email != null && email.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'email'");}
 
     java.lang.String phone = getPhone();
-    if (phone != null && phone.length() > 25) throw new IllegalArgumentException("Maximum string length exceeded for 'phone'");
+    if (phone != null && phone.length() > 25) { throw new IllegalArgumentException("Maximum string length exceeded for 'phone'");}
 
     java.lang.String dob = getDob();
-    if (dob != null && dob.length() > 10) throw new IllegalArgumentException("Maximum string length exceeded for 'dob'");
+    if (dob != null && dob.length() > 10) { throw new IllegalArgumentException("Maximum string length exceeded for 'dob'");}
 
     java.lang.String ssn = getSsn();
-    if (ssn != null && ssn.length() > 9) throw new IllegalArgumentException("Maximum string length exceeded for 'ssn'");
+    if (ssn != null && ssn.length() > 9) { throw new IllegalArgumentException("Maximum string length exceeded for 'ssn'");}
 
     java.lang.String address = getAddress();
-    if (address != null && address.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'address'");
+    if (address != null && address.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'address'");}
 
     java.lang.String city = getCity();
-    if (city != null && city.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'city'");
+    if (city != null && city.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'city'");}
 
     java.lang.String state = getState();
-    if (state != null && state.length() > 2) throw new IllegalArgumentException("Maximum string length exceeded for 'state'");
+    if (state != null && state.length() > 2) { throw new IllegalArgumentException("Maximum string length exceeded for 'state'");}
+
+    java.lang.String country = getCountry();
+    if (country != null && country.length() > 2) { throw new IllegalArgumentException("Maximum string length exceeded for 'country'");}
 
     java.lang.String postalCode = getPostalCode();
-    if (postalCode != null && postalCode.length() > 20) throw new IllegalArgumentException("Maximum string length exceeded for 'postalCode'");
+    if (postalCode != null && postalCode.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'postalCode'");}
 
     java.lang.String bankAccountNumber = getBankAccountNumber();
-    if (bankAccountNumber != null && bankAccountNumber.length() > 20) throw new IllegalArgumentException("Maximum string length exceeded for 'bankAccountNumber'");
+    if (bankAccountNumber != null && bankAccountNumber.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'bankAccountNumber'");}
 
     java.lang.String bankRoutingNumber = getBankRoutingNumber();
-    if (bankRoutingNumber != null && bankRoutingNumber.length() > 9) throw new IllegalArgumentException("Maximum string length exceeded for 'bankRoutingNumber'");
+    if (bankRoutingNumber != null && bankRoutingNumber.length() > 9) { throw new IllegalArgumentException("Maximum string length exceeded for 'bankRoutingNumber'");}
 
     java.lang.String businessLegalName = getBusinessLegalName();
-    if (businessLegalName != null && businessLegalName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'businessLegalName'");
+    if (businessLegalName != null && businessLegalName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessLegalName'");}
 
     java.lang.String tin = getTin();
-    if (tin != null && tin.length() > 9) throw new IllegalArgumentException("Maximum string length exceeded for 'tin'");
+    if (tin != null && tin.length() > 9) { throw new IllegalArgumentException("Maximum string length exceeded for 'tin'");}
 
     java.lang.String businessAddress = getBusinessAddress();
-    if (businessAddress != null && businessAddress.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'businessAddress'");
+    if (businessAddress != null && businessAddress.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessAddress'");}
 
     java.lang.String businessCity = getBusinessCity();
-    if (businessCity != null && businessCity.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'businessCity'");
+    if (businessCity != null && businessCity.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessCity'");}
 
     java.lang.String businessState = getBusinessState();
-    if (businessState != null && businessState.length() > 2) throw new IllegalArgumentException("Maximum string length exceeded for 'businessState'");
+    if (businessState != null && businessState.length() > 2) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessState'");}
+
+    java.lang.String businessCountry = getBusinessCountry();
+    if (businessCountry != null && businessCountry.length() > 2) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessCountry'");}
 
     java.lang.String businessPostalCode = getBusinessPostalCode();
-    if (businessPostalCode != null && businessPostalCode.length() > 20) throw new IllegalArgumentException("Maximum string length exceeded for 'businessPostalCode'");
+    if (businessPostalCode != null && businessPostalCode.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessPostalCode'");}
 
     java.lang.String billingStatusMessage = getBillingStatusMessage();
-    if (billingStatusMessage != null && billingStatusMessage.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'billingStatusMessage'");
+    if (billingStatusMessage != null && billingStatusMessage.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'billingStatusMessage'");}
 
     java.lang.String prName = getPrName();
-    if (prName != null && prName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'prName'");
+    if (prName != null && prName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'prName'");}
 
     java.lang.String prEmail = getPrEmail();
-    if (prEmail != null && prEmail.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'prEmail'");
+    if (prEmail != null && prEmail.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'prEmail'");}
 
     java.lang.String prPhone = getPrPhone();
-    if (prPhone != null && prPhone.length() > 25) throw new IllegalArgumentException("Maximum string length exceeded for 'prPhone'");
+    if (prPhone != null && prPhone.length() > 25) { throw new IllegalArgumentException("Maximum string length exceeded for 'prPhone'");}
 
     java.lang.String website = getWebsite();
-    if (website != null && website.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'website'");
+    if (website != null && website.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'website'");}
   }
 
 
@@ -664,6 +686,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
+  private java.lang.String extractCountry() {
+    return getJSONObject().isNull("country") ? null :
+      getJSONObject().optString("country");
+  }
+
+
   private java.lang.String extractPostalCode() {
     return getJSONObject().isNull("postalCode") ? null :
       getJSONObject().optString("postalCode");
@@ -709,6 +737,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   private java.lang.String extractBusinessState() {
     return getJSONObject().isNull("businessState") ? null :
       getJSONObject().optString("businessState");
+  }
+
+
+  private java.lang.String extractBusinessCountry() {
+    return getJSONObject().isNull("businessCountry") ? null :
+      getJSONObject().optString("businessCountry");
   }
 
 
@@ -856,6 +890,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.state);
   }
 
+  /** Checks whether the 'country' field is set and is not null */
+  public boolean isNotNullCountry() {
+    return cacheValueIsNotNull(CacheKey.country);
+  }
+
   /** Checks whether the 'postalCode' field is set and is not null */
   public boolean isNotNullPostalCode() {
     return cacheValueIsNotNull(CacheKey.postalCode);
@@ -894,6 +933,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'businessState' field is set and is not null */
   public boolean isNotNullBusinessState() {
     return cacheValueIsNotNull(CacheKey.businessState);
+  }
+
+  /** Checks whether the 'businessCountry' field is set and is not null */
+  public boolean isNotNullBusinessCountry() {
+    return cacheValueIsNotNull(CacheKey.businessCountry);
   }
 
   /** Checks whether the 'businessPostalCode' field is set and is not null */
@@ -1012,6 +1056,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheHasKey(CacheKey.state);
   }
 
+  /** Checks whether the 'country' field has been set, however the value could be null */
+  public boolean hasCountry() {
+    return cacheHasKey(CacheKey.country);
+  }
+
   /** Checks whether the 'postalCode' field has been set, however the value could be null */
   public boolean hasPostalCode() {
     return cacheHasKey(CacheKey.postalCode);
@@ -1050,6 +1099,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'businessState' field has been set, however the value could be null */
   public boolean hasBusinessState() {
     return cacheHasKey(CacheKey.businessState);
+  }
+
+  /** Checks whether the 'businessCountry' field has been set, however the value could be null */
+  public boolean hasBusinessCountry() {
+    return cacheHasKey(CacheKey.businessCountry);
   }
 
   /** Checks whether the 'businessPostalCode' field has been set, however the value could be null */
@@ -1290,6 +1344,22 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'country'.
+   */
+  public Developer setCountry(java.lang.String country) {
+    logChange("country");
+
+    try {
+      getJSONObject().put("country", country == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(country));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.country);
+    return this;
+  }
+
+  /**
    * Sets the field 'postalCode'.
    */
   public Developer setPostalCode(java.lang.String postalCode) {
@@ -1414,6 +1484,22 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     }
 
     cacheMarkDirty(CacheKey.businessState);
+    return this;
+  }
+
+  /**
+   * Sets the field 'businessCountry'.
+   */
+  public Developer setBusinessCountry(java.lang.String businessCountry) {
+    logChange("businessCountry");
+
+    try {
+      getJSONObject().put("businessCountry", businessCountry == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(businessCountry));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.businessCountry);
     return this;
   }
 
@@ -1690,6 +1776,13 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     cacheRemoveValue(CacheKey.state);
   }
 
+  /** Clears the 'country' field, the 'has' method for this field will now return false */
+  public void clearCountry() {
+    unlogChange("country");
+    getJSONObject().remove("country");
+    cacheRemoveValue(CacheKey.country);
+  }
+
   /** Clears the 'postalCode' field, the 'has' method for this field will now return false */
   public void clearPostalCode() {
     unlogChange("postalCode");
@@ -1744,6 +1837,13 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     unlogChange("businessState");
     getJSONObject().remove("businessState");
     cacheRemoveValue(CacheKey.businessState);
+  }
+
+  /** Clears the 'businessCountry' field, the 'has' method for this field will now return false */
+  public void clearBusinessCountry() {
+    unlogChange("businessCountry");
+    getJSONObject().remove("businessCountry");
+    cacheRemoveValue(CacheKey.businessCountry);
   }
 
   /** Clears the 'businessPostalCode' field, the 'has' method for this field will now return false */
@@ -1901,7 +2001,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel
@@ -1988,6 +2088,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     public static final boolean STATE_IS_REQUIRED = false;
     public static final long STATE_MAX_LEN = 2;
 
+    public static final boolean COUNTRY_IS_REQUIRED = false;
+    public static final long COUNTRY_MAX_LEN = 2;
+
     public static final boolean POSTALCODE_IS_REQUIRED = false;
     public static final long POSTALCODE_MAX_LEN = 20;
 
@@ -2011,6 +2114,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean BUSINESSSTATE_IS_REQUIRED = false;
     public static final long BUSINESSSTATE_MAX_LEN = 2;
+
+    public static final boolean BUSINESSCOUNTRY_IS_REQUIRED = false;
+    public static final long BUSINESSCOUNTRY_MAX_LEN = 2;
 
     public static final boolean BUSINESSPOSTALCODE_IS_REQUIRED = false;
     public static final long BUSINESSPOSTALCODE_MAX_LEN = 20;

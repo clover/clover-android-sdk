@@ -9,5 +9,5 @@ package com.clover.sdk.v3.payments;
 
 @SuppressWarnings("all")
 public enum CvmResult {
-  NO_CVM_REQUIRED, SIGNATURE, PIN, ONLINE_PIN, SIGNATURE_AND_PIN, CVM_FAILED;
+  NO_CVM_REQUIRED, SIGNATURE, PIN, ONLINE_PIN, SIGNATURE_AND_PIN, CVM_FAILED, DEVICE;
 }

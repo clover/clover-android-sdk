@@ -23,7 +23,6 @@ import android.os.RemoteException;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
-import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.Modifier;
@@ -453,6 +452,15 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
       @Override
       public Order call(IOrderService service, ResultStatus status) throws RemoteException {
         return service.deleteRefund(orderId, refundId, status);
+      }
+    });
+  }
+
+  public boolean fire(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Boolean>() {
+      @Override
+      public Boolean call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.fire(orderId , status);
       }
     });
   }

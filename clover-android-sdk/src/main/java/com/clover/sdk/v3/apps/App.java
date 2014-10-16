@@ -195,6 +195,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheGet(CacheKey.availableMetereds);
   }
  /**
+   * USB devices with which this app will communicate
+  */
+  public java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> getUsbDevices() {
+    return cacheGet(CacheKey.usbDevices);
+  }
+ /**
    * This is now derived directly from billingStartTime (if future -> in trial; if past -> not in trial).  So it is now unnecessary.  Please update client code to not use it.
   */
   public java.lang.Boolean getIsMerchantInTrial() {
@@ -527,6 +533,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
         return instance.extractAvailableMetereds();
       }
     },
+    usbDevices {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractUsbDevices();
+      }
+    },
     isMerchantInTrial {
       @Override
       public Object extractValue(App instance) {
@@ -604,7 +616,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     public abstract Object extractValue(App instance);
   }
 
-  private String jsonString = null;
   private org.json.JSONObject jsonObject = null;
   private android.os.Bundle bundle = null;
   private android.os.Bundle changeLog = null;
@@ -623,8 +634,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public App(String json) {
-    this.jsonString = json;
+  public App(String json) throws java.lang.IllegalArgumentException {
+    try {
+      this.jsonObject = new org.json.JSONObject(json);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException("invalid json", e);
+    }
   }
 
   /**
@@ -639,9 +654,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public App(App src) {
-    if (src.jsonString != null) {
-      this.jsonString = src.jsonString;
-    } else {
+    if (src.jsonObject != null) {
       this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
     }
   }
@@ -703,17 +716,8 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    try {
-      if (jsonObject == null) {
-        if (jsonString != null) {
-          jsonObject = new org.json.JSONObject(jsonString);
-          jsonString = null; // null this so it will be recreated if jsonObject is modified
-        } else {
-          jsonObject = new org.json.JSONObject();
-        }
-      }
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
+    if (jsonObject == null) {
+      jsonObject = new org.json.JSONObject();
     }
     return jsonObject;
   }
@@ -722,68 +726,68 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   @Override
   public void validate() {
     java.lang.String id = getId();
-    if (id != null && id.length() > 13) throw new IllegalArgumentException("Maximum string length exceeded for 'id'");
+    if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
     java.lang.String name = getName();
     if (name == null) throw new java.lang.IllegalArgumentException("'name' is required to be non-null");
-    if (name != null && name.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'name'");
+    if (name != null && name.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'name'");}
 
     java.lang.String description = getDescription();
-    if (description != null && description.length() > 2000) throw new IllegalArgumentException("Maximum string length exceeded for 'description'");
+    if (description != null && description.length() > 2000) { throw new IllegalArgumentException("Maximum string length exceeded for 'description'");}
 
     java.lang.String tagline = getTagline();
-    if (tagline != null && tagline.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'tagline'");
+    if (tagline != null && tagline.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'tagline'");}
 
     java.lang.String videoUrl = getVideoUrl();
-    if (videoUrl != null && videoUrl.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'videoUrl'");
+    if (videoUrl != null && videoUrl.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'videoUrl'");}
 
     java.lang.String activationUrl = getActivationUrl();
-    if (activationUrl != null && activationUrl.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'activationUrl'");
+    if (activationUrl != null && activationUrl.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'activationUrl'");}
 
     java.lang.String siteUrl = getSiteUrl();
-    if (siteUrl != null && siteUrl.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'siteUrl'");
+    if (siteUrl != null && siteUrl.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'siteUrl'");}
 
     java.lang.String appDomain = getAppDomain();
-    if (appDomain != null && appDomain.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'appDomain'");
+    if (appDomain != null && appDomain.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'appDomain'");}
 
     java.lang.String packageName = getPackageName();
-    if (packageName != null && packageName.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'packageName'");
+    if (packageName != null && packageName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'packageName'");}
 
     java.lang.String filenameIcon = getFilenameIcon();
-    if (filenameIcon != null && filenameIcon.length() > 100) throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIcon'");
+    if (filenameIcon != null && filenameIcon.length() > 100) { throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIcon'");}
 
     java.lang.String filenameIconSmall = getFilenameIconSmall();
-    if (filenameIconSmall != null && filenameIconSmall.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIconSmall'");
+    if (filenameIconSmall != null && filenameIconSmall.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIconSmall'");}
 
     java.lang.String filenameIconLarge = getFilenameIconLarge();
-    if (filenameIconLarge != null && filenameIconLarge.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIconLarge'");
+    if (filenameIconLarge != null && filenameIconLarge.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'filenameIconLarge'");}
 
     java.lang.String privacyPolicy = getPrivacyPolicy();
-    if (privacyPolicy != null && privacyPolicy.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'privacyPolicy'");
+    if (privacyPolicy != null && privacyPolicy.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'privacyPolicy'");}
 
     java.lang.String eula = getEula();
-    if (eula != null && eula.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'eula'");
+    if (eula != null && eula.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'eula'");}
 
     java.lang.String supportPhone = getSupportPhone();
-    if (supportPhone != null && supportPhone.length() > 25) throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhone'");
+    if (supportPhone != null && supportPhone.length() > 25) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhone'");}
 
     java.lang.String supportPhoneHours = getSupportPhoneHours();
-    if (supportPhoneHours != null && supportPhoneHours.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhoneHours'");
+    if (supportPhoneHours != null && supportPhoneHours.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportPhoneHours'");}
 
     java.lang.String supportEmail = getSupportEmail();
-    if (supportEmail != null && supportEmail.length() > 127) throw new IllegalArgumentException("Maximum string length exceeded for 'supportEmail'");
+    if (supportEmail != null && supportEmail.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportEmail'");}
 
     java.lang.String supportUrl = getSupportUrl();
-    if (supportUrl != null && supportUrl.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'supportUrl'");
+    if (supportUrl != null && supportUrl.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'supportUrl'");}
 
     java.lang.String smartReceiptText = getSmartReceiptText();
-    if (smartReceiptText != null && smartReceiptText.length() > 100) throw new IllegalArgumentException("Maximum string length exceeded for 'smartReceiptText'");
+    if (smartReceiptText != null && smartReceiptText.length() > 100) { throw new IllegalArgumentException("Maximum string length exceeded for 'smartReceiptText'");}
 
     java.lang.String smartReceiptUrl = getSmartReceiptUrl();
-    if (smartReceiptUrl != null && smartReceiptUrl.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'smartReceiptUrl'");
+    if (smartReceiptUrl != null && smartReceiptUrl.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'smartReceiptUrl'");}
 
     java.lang.String appSecret = getAppSecret();
-    if (appSecret != null && appSecret.length() > 255) throw new IllegalArgumentException("Maximum string length exceeded for 'appSecret'");
+    if (appSecret != null && appSecret.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'appSecret'");}
   }
 
 
@@ -1137,6 +1141,28 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
+  private java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> extractUsbDevices() {
+    if (getJSONObject().isNull("usbDevices")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("usbDevices");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.AppUsbDevice>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.AppUsbDevice item = new com.clover.sdk.v3.apps.AppUsbDevice(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   private java.lang.Boolean extractIsMerchantInTrial() {
     return getJSONObject().isNull("isMerchantInTrial") ? null :
       getJSONObject().optBoolean("isMerchantInTrial");
@@ -1466,6 +1492,16 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return isNotNullAvailableMetereds() && !getAvailableMetereds().isEmpty();
   }
 
+  /** Checks whether the 'usbDevices' field is set and is not null */
+  public boolean isNotNullUsbDevices() {
+    return cacheValueIsNotNull(CacheKey.usbDevices);
+  }
+
+  /** Checks whether the 'usbDevices' field is set and is not null and is not empty */
+  public boolean isNotEmptyUsbDevices() {
+    return isNotNullUsbDevices() && !getUsbDevices().isEmpty();
+  }
+
   /** Checks whether the 'isMerchantInTrial' field is set and is not null */
   public boolean isNotNullIsMerchantInTrial() {
     return cacheValueIsNotNull(CacheKey.isMerchantInTrial);
@@ -1745,6 +1781,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'availableMetereds' field has been set, however the value could be null */
   public boolean hasAvailableMetereds() {
     return cacheHasKey(CacheKey.availableMetereds);
+  }
+
+  /** Checks whether the 'usbDevices' field has been set, however the value could be null */
+  public boolean hasUsbDevices() {
+    return cacheHasKey(CacheKey.usbDevices);
   }
 
   /** Checks whether the 'isMerchantInTrial' field has been set, however the value could be null */
@@ -2575,6 +2616,40 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'usbDevices'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setUsbDevices(java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> usbDevices) {
+    logChange("usbDevices");
+
+    try {
+      if (usbDevices == null) {
+        getJSONObject().put("usbDevices", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.usbDevices);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.AppUsbDevice obj : usbDevices) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("usbDevices", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.usbDevices);
+    return this;
+  }
+
+  /**
    * Sets the field 'isMerchantInTrial'.
    */
   public App setIsMerchantInTrial(java.lang.Boolean isMerchantInTrial) {
@@ -3092,6 +3167,13 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     cacheRemoveValue(CacheKey.availableMetereds);
   }
 
+  /** Clears the 'usbDevices' field, the 'has' method for this field will now return false */
+  public void clearUsbDevices() {
+    unlogChange("usbDevices");
+    getJSONObject().remove("usbDevices");
+    cacheRemoveValue(CacheKey.usbDevices);
+  }
+
   /** Clears the 'isMerchantInTrial' field, the 'has' method for this field will now return false */
   public void clearIsMerchantInTrial() {
     unlogChange("isMerchantInTrial");
@@ -3247,7 +3329,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
   @Override
   public String toString() {
-    String json = jsonString != null ? jsonString : getJSONObject().toString();
+    String json = getJSONObject().toString();
 
     if (bundle != null) {
       bundle.isEmpty(); // Triggers unparcel
@@ -3404,6 +3486,8 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     public static final boolean AVAILABLESUBSCRIPTIONS_IS_REQUIRED = false;
 
     public static final boolean AVAILABLEMETEREDS_IS_REQUIRED = false;
+
+    public static final boolean USBDEVICES_IS_REQUIRED = false;
 
     public static final boolean ISMERCHANTINTRIAL_IS_REQUIRED = false;
 

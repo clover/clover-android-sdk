@@ -23,6 +23,7 @@ public class CardTransactionConstants {
   public static final String AVS = "avs";
   public static final String CVV = "cvv";
   public static final String APPLICATION_IDENTIFIER = "applicationIdentifier";
+  public static final String AVAILABLE_OFFLINE_SPENDING_AMOUNT = "availableOfflineSpendingAmount";
   public static final String APPROVAL_CODE = "approvalCode";
   public static final String CVM_RESULT = "cvmResult";
   public static final String STORE_ID = "storeId";
