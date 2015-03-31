@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.employees;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum AccountRole {
+public enum AccountRole implements Parcelable {
   ADMIN, MANAGER, EMPLOYEE;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<AccountRole> CREATOR = new Creator<AccountRole>() {
+    @Override
+    public AccountRole createFromParcel(final Parcel source) {
+      return AccountRole.valueOf(source.readString());
+    }
+
+    @Override
+    public AccountRole[] newArray(final int size) {
+      return new AccountRole[size];
+    }
+  };
 }

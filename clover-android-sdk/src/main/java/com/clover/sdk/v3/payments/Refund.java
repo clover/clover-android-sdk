@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,24 @@ package com.clover.sdk.v3.payments;
 @SuppressWarnings("all")
 public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+ /**
+   * Unique identifier
+  */
+  public java.lang.String getId() {
+    return cacheGet(CacheKey.id);
+  }
+ /**
+   * The order with which the refund is associated
+  */
+  public com.clover.sdk.v3.base.Reference getOrderRef() {
+    return cacheGet(CacheKey.orderRef);
+  }
+ /**
+   * Device which processed the transaction for this refund
+  */
+  public com.clover.sdk.v3.base.Reference getDevice() {
+    return cacheGet(CacheKey.device);
+  }
  /**
    * Total amount refunded, including tax
   */
@@ -77,6 +95,24 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
 
 
   private enum CacheKey {
+    id {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.extractId();
+      }
+    },
+    orderRef {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.extractOrderRef();
+      }
+    },
+    device {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.extractDevice();
+      }
+    },
     amount {
       @Override
       public Object extractValue(Refund instance) {
@@ -255,6 +291,30 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
 
 
 
+  private java.lang.String extractId() {
+    return getJSONObject().isNull("id") ? null :
+      getJSONObject().optString("id");
+  }
+
+
+  private com.clover.sdk.v3.base.Reference extractOrderRef() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("orderRef");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("orderRef"));
+    }
+    return null;
+  }
+
+
+  private com.clover.sdk.v3.base.Reference extractDevice() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("device"));
+    }
+    return null;
+  }
+
+
   private java.lang.Long extractAmount() {
     return getJSONObject().isNull("amount") ? null :
       getJSONObject().optLong("amount");
@@ -359,6 +419,21 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  /** Checks whether the 'id' field is set and is not null */
+  public boolean isNotNullId() {
+    return cacheValueIsNotNull(CacheKey.id);
+  }
+
+  /** Checks whether the 'orderRef' field is set and is not null */
+  public boolean isNotNullOrderRef() {
+    return cacheValueIsNotNull(CacheKey.orderRef);
+  }
+
+  /** Checks whether the 'device' field is set and is not null */
+  public boolean isNotNullDevice() {
+    return cacheValueIsNotNull(CacheKey.device);
+  }
+
   /** Checks whether the 'amount' field is set and is not null */
   public boolean isNotNullAmount() {
     return cacheValueIsNotNull(CacheKey.amount);
@@ -420,6 +495,21 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  /** Checks whether the 'id' field has been set, however the value could be null */
+  public boolean hasId() {
+    return cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'orderRef' field has been set, however the value could be null */
+  public boolean hasOrderRef() {
+    return cacheHasKey(CacheKey.orderRef);
+  }
+
+  /** Checks whether the 'device' field has been set, however the value could be null */
+  public boolean hasDevice() {
+    return cacheHasKey(CacheKey.device);
+  }
+
   /** Checks whether the 'amount' field has been set, however the value could be null */
   public boolean hasAmount() {
     return cacheHasKey(CacheKey.amount);
@@ -470,6 +560,60 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     return cacheHasKey(CacheKey.serviceChargeAmount);
   }
 
+
+  /**
+   * Sets the field 'id'.
+   */
+  public Refund setId(java.lang.String id) {
+    logChange("id");
+
+    try {
+      getJSONObject().put("id", id == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(id));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.id);
+    return this;
+  }
+
+  /**
+   * Sets the field 'orderRef'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Refund setOrderRef(com.clover.sdk.v3.base.Reference orderRef) {
+    logChange("orderRef");
+
+    try {
+      getJSONObject().put("orderRef",
+          orderRef == null ? org.json.JSONObject.NULL : orderRef.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.orderRef);
+    return this;
+  }
+
+  /**
+   * Sets the field 'device'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Refund setDevice(com.clover.sdk.v3.base.Reference device) {
+    logChange("device");
+
+    try {
+      getJSONObject().put("device",
+          device == null ? org.json.JSONObject.NULL : device.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.device);
+    return this;
+  }
 
   /**
    * Sets the field 'amount'.
@@ -680,6 +824,27 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  /** Clears the 'id' field, the 'has' method for this field will now return false */
+  public void clearId() {
+    unlogChange("id");
+    getJSONObject().remove("id");
+    cacheRemoveValue(CacheKey.id);
+  }
+
+  /** Clears the 'orderRef' field, the 'has' method for this field will now return false */
+  public void clearOrderRef() {
+    unlogChange("orderRef");
+    getJSONObject().remove("orderRef");
+    cacheRemoveValue(CacheKey.orderRef);
+  }
+
+  /** Clears the 'device' field, the 'has' method for this field will now return false */
+  public void clearDevice() {
+    unlogChange("device");
+    getJSONObject().remove("device");
+    cacheRemoveValue(CacheKey.device);
+  }
+
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
   public void clearAmount() {
     unlogChange("amount");
@@ -874,6 +1039,12 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
 
 
   public interface Constraints {
+
+    public static final boolean ID_IS_REQUIRED = false;
+
+    public static final boolean ORDERREF_IS_REQUIRED = false;
+
+    public static final boolean DEVICE_IS_REQUIRED = false;
 
     public static final boolean AMOUNT_IS_REQUIRED = false;
 

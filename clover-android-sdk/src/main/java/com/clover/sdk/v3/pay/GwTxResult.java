@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.pay;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum GwTxResult {
+public enum GwTxResult implements Parcelable {
   APPROVED_ONLINE, DECLINED_ONLINE, UNABLE_TO_GO_ONLINE, REFERRAL_ONLINE, REFERRAL_OFFLINE;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<GwTxResult> CREATOR = new Creator<GwTxResult>() {
+    @Override
+    public GwTxResult createFromParcel(final Parcel source) {
+      return GwTxResult.valueOf(source.readString());
+    }
+
+    @Override
+    public GwTxResult[] newArray(final int size) {
+      return new GwTxResult[size];
+    }
+  };
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import android.os.Parcelable;
  * @deprecated See (@link com.clover.sdk.v1.printer.job.StaticOrderBasedPrintJob}
  */
 public abstract class OrderBasedPrintJob extends PrintJob implements Parcelable {
+
+  @Deprecated
   public abstract static class Builder extends PrintJob.Builder {
     protected String orderId;
 
@@ -38,14 +40,20 @@ public abstract class OrderBasedPrintJob extends PrintJob implements Parcelable 
   public final String orderId;
   private static final String BUNDLE_KEY_ORDER_ID = "o";
 
+  @Deprecated
   protected OrderBasedPrintJob(String orderId, int flags) {
     super(flags);
     this.orderId = orderId;
   }
 
+  protected OrderBasedPrintJob(Builder builder) {
+    super(builder);
+    this.orderId = builder.orderId;
+  }
+
   protected OrderBasedPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     orderId = bundle.getString(BUNDLE_KEY_ORDER_ID);
     // Add more data here, but remember old apps might not provide it!
   }

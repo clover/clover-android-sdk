@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,12 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   }
   public java.lang.Long getModifiedTime() {
     return cacheGet(CacheKey.modifiedTime);
+  }
+ /**
+   * This is only filled in if the install that caused this app line item has been uninstalled
+  */
+  public java.lang.Long getAppUninstallTime() {
+    return cacheGet(CacheKey.appUninstallTime);
   }
   public java.util.List<com.clover.sdk.v3.billing.AppMeteredEvent> getAppMeteredEvents() {
     return cacheGet(CacheKey.appMeteredEvents);
@@ -108,6 +114,12 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
       @Override
       public Object extractValue(AppLineItem instance) {
         return instance.extractModifiedTime();
+      }
+    },
+    appUninstallTime {
+      @Override
+      public Object extractValue(AppLineItem instance) {
+        return instance.extractAppUninstallTime();
       }
     },
     appMeteredEvents {
@@ -319,6 +331,12 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   }
 
 
+  private java.lang.Long extractAppUninstallTime() {
+    return getJSONObject().isNull("appUninstallTime") ? null :
+      getJSONObject().optLong("appUninstallTime");
+  }
+
+
   private java.util.List<com.clover.sdk.v3.billing.AppMeteredEvent> extractAppMeteredEvents() {
     if (getJSONObject().isNull("appMeteredEvents")) {
       return null;
@@ -381,6 +399,11 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     return cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'appUninstallTime' field is set and is not null */
+  public boolean isNotNullAppUninstallTime() {
+    return cacheValueIsNotNull(CacheKey.appUninstallTime);
+  }
+
   /** Checks whether the 'appMeteredEvents' field is set and is not null */
   public boolean isNotNullAppMeteredEvents() {
     return cacheValueIsNotNull(CacheKey.appMeteredEvents);
@@ -430,6 +453,11 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return cacheHasKey(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'appUninstallTime' field has been set, however the value could be null */
+  public boolean hasAppUninstallTime() {
+    return cacheHasKey(CacheKey.appUninstallTime);
   }
 
   /** Checks whether the 'appMeteredEvents' field has been set, however the value could be null */
@@ -573,6 +601,22 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
   }
 
   /**
+   * Sets the field 'appUninstallTime'.
+   */
+  public AppLineItem setAppUninstallTime(java.lang.Long appUninstallTime) {
+    logChange("appUninstallTime");
+
+    try {
+      getJSONObject().put("appUninstallTime", appUninstallTime == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(appUninstallTime));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.appUninstallTime);
+    return this;
+  }
+
+  /**
    * Sets the field 'appMeteredEvents'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -661,6 +705,13 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     unlogChange("modifiedTime");
     getJSONObject().remove("modifiedTime");
     cacheRemoveValue(CacheKey.modifiedTime);
+  }
+
+  /** Clears the 'appUninstallTime' field, the 'has' method for this field will now return false */
+  public void clearAppUninstallTime() {
+    unlogChange("appUninstallTime");
+    getJSONObject().remove("appUninstallTime");
+    cacheRemoveValue(CacheKey.appUninstallTime);
   }
 
   /** Clears the 'appMeteredEvents' field, the 'has' method for this field will now return false */
@@ -811,6 +862,8 @@ public final class AppLineItem implements android.os.Parcelable, com.clover.sdk.
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
 
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+
+    public static final boolean APPUNINSTALLTIME_IS_REQUIRED = false;
 
     public static final boolean APPMETEREDEVENTS_IS_REQUIRED = false;
 

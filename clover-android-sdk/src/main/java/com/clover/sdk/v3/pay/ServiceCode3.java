@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.pay;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum ServiceCode3 {
+public enum ServiceCode3 implements Parcelable {
   NO_RESTRICTIONS_PIN_REQUIRED, NO_RESTRICTIONS, GOODS_AND_SERVICES_ONLY_NO_CASH, ATM_ONLY_PIN_REQUIRED, CASH_ONLY, GOODS_AND_SERVICES_ONLY_NO_CASH_PIN_REQUIRED, NO_RESTRICTIONS_USE_PIN_WHERE_FEASIBLE, GOODS_AND_SERVICES_ONLY_NO_CASH_USE_PIN_WHERE_FEASIBLE, UNDEFINED;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<ServiceCode3> CREATOR = new Creator<ServiceCode3>() {
+    @Override
+    public ServiceCode3 createFromParcel(final Parcel source) {
+      return ServiceCode3.valueOf(source.readString());
+    }
+
+    @Override
+    public ServiceCode3[] newArray(final int size) {
+      return new ServiceCode3[size];
+    }
+  };
 }

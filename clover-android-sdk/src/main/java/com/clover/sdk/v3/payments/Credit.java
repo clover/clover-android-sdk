@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,18 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   */
   public java.lang.String getId() {
     return cacheGet(CacheKey.id);
+  }
+ /**
+   * The order with which the credit is associated
+  */
+  public com.clover.sdk.v3.base.Reference getOrderRef() {
+    return cacheGet(CacheKey.orderRef);
+  }
+ /**
+   * Device which processed this credit
+  */
+  public com.clover.sdk.v3.base.Reference getDevice() {
+    return cacheGet(CacheKey.device);
   }
  /**
    * The tender type associated with this payment, e.g. credit card, cash, etc.
@@ -62,6 +74,9 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   public java.lang.Long getTaxAmount() {
     return cacheGet(CacheKey.taxAmount);
   }
+  public java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> getTaxRates() {
+    return cacheGet(CacheKey.taxRates);
+  }
  /**
    * Time payment was recorded on server
   */
@@ -84,6 +99,18 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Credit instance) {
         return instance.extractId();
+      }
+    },
+    orderRef {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.extractOrderRef();
+      }
+    },
+    device {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.extractDevice();
       }
     },
     tender {
@@ -114,6 +141,12 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Credit instance) {
         return instance.extractTaxAmount();
+      }
+    },
+    taxRates {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.extractTaxRates();
       }
     },
     createdTime {
@@ -260,6 +293,24 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  private com.clover.sdk.v3.base.Reference extractOrderRef() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("orderRef");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("orderRef"));
+    }
+    return null;
+  }
+
+
+  private com.clover.sdk.v3.base.Reference extractDevice() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("device"));
+    }
+    return null;
+  }
+
+
   private com.clover.sdk.v3.base.Tender extractTender() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("tender");
     if (jsonObj != null) {
@@ -299,6 +350,28 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  private java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> extractTaxRates() {
+    if (getJSONObject().isNull("taxRates")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("taxRates");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.payments.TaxableAmountRate>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.payments.TaxableAmountRate item = new com.clover.sdk.v3.payments.TaxableAmountRate(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   private java.lang.Long extractCreatedTime() {
     return getJSONObject().isNull("createdTime") ? null :
       getJSONObject().optLong("createdTime");
@@ -323,6 +396,16 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
+  }
+
+  /** Checks whether the 'orderRef' field is set and is not null */
+  public boolean isNotNullOrderRef() {
+    return cacheValueIsNotNull(CacheKey.orderRef);
+  }
+
+  /** Checks whether the 'device' field is set and is not null */
+  public boolean isNotNullDevice() {
+    return cacheValueIsNotNull(CacheKey.device);
   }
 
   /** Checks whether the 'tender' field is set and is not null */
@@ -350,6 +433,16 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     return cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'taxRates' field is set and is not null */
+  public boolean isNotNullTaxRates() {
+    return cacheValueIsNotNull(CacheKey.taxRates);
+  }
+
+  /** Checks whether the 'taxRates' field is set and is not null and is not empty */
+  public boolean isNotEmptyTaxRates() {
+    return isNotNullTaxRates() && !getTaxRates().isEmpty();
+  }
+
   /** Checks whether the 'createdTime' field is set and is not null */
   public boolean isNotNullCreatedTime() {
     return cacheValueIsNotNull(CacheKey.createdTime);
@@ -369,6 +462,16 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'orderRef' field has been set, however the value could be null */
+  public boolean hasOrderRef() {
+    return cacheHasKey(CacheKey.orderRef);
+  }
+
+  /** Checks whether the 'device' field has been set, however the value could be null */
+  public boolean hasDevice() {
+    return cacheHasKey(CacheKey.device);
   }
 
   /** Checks whether the 'tender' field has been set, however the value could be null */
@@ -394,6 +497,11 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return cacheHasKey(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'taxRates' field has been set, however the value could be null */
+  public boolean hasTaxRates() {
+    return cacheHasKey(CacheKey.taxRates);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -425,6 +533,44 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
 
     cacheMarkDirty(CacheKey.id);
+    return this;
+  }
+
+  /**
+   * Sets the field 'orderRef'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setOrderRef(com.clover.sdk.v3.base.Reference orderRef) {
+    logChange("orderRef");
+
+    try {
+      getJSONObject().put("orderRef",
+          orderRef == null ? org.json.JSONObject.NULL : orderRef.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.orderRef);
+    return this;
+  }
+
+  /**
+   * Sets the field 'device'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setDevice(com.clover.sdk.v3.base.Reference device) {
+    logChange("device");
+
+    try {
+      getJSONObject().put("device",
+          device == null ? org.json.JSONObject.NULL : device.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.device);
     return this;
   }
 
@@ -518,6 +664,40 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'taxRates'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Credit setTaxRates(java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> taxRates) {
+    logChange("taxRates");
+
+    try {
+      if (taxRates == null) {
+        getJSONObject().put("taxRates", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.taxRates);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.payments.TaxableAmountRate obj : taxRates) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("taxRates", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.taxRates);
+    return this;
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public Credit setCreatedTime(java.lang.Long createdTime) {
@@ -576,6 +756,20 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     cacheRemoveValue(CacheKey.id);
   }
 
+  /** Clears the 'orderRef' field, the 'has' method for this field will now return false */
+  public void clearOrderRef() {
+    unlogChange("orderRef");
+    getJSONObject().remove("orderRef");
+    cacheRemoveValue(CacheKey.orderRef);
+  }
+
+  /** Clears the 'device' field, the 'has' method for this field will now return false */
+  public void clearDevice() {
+    unlogChange("device");
+    getJSONObject().remove("device");
+    cacheRemoveValue(CacheKey.device);
+  }
+
   /** Clears the 'tender' field, the 'has' method for this field will now return false */
   public void clearTender() {
     unlogChange("tender");
@@ -609,6 +803,13 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     unlogChange("taxAmount");
     getJSONObject().remove("taxAmount");
     cacheRemoveValue(CacheKey.taxAmount);
+  }
+
+  /** Clears the 'taxRates' field, the 'has' method for this field will now return false */
+  public void clearTaxRates() {
+    unlogChange("taxRates");
+    getJSONObject().remove("taxRates");
+    cacheRemoveValue(CacheKey.taxRates);
   }
 
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
@@ -760,6 +961,10 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
 
+    public static final boolean ORDERREF_IS_REQUIRED = false;
+
+    public static final boolean DEVICE_IS_REQUIRED = false;
+
     public static final boolean TENDER_IS_REQUIRED = false;
 
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
@@ -769,6 +974,8 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     public static final boolean AMOUNT_IS_REQUIRED = false;
 
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+
+    public static final boolean TAXRATES_IS_REQUIRED = false;
 
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
 

@@ -22,7 +22,7 @@ public final class Views {
   private Views() { }
 
   // Short enough to always fit in heap, matches seiko printer max height
-  private static final int BITMAP_MAX_HEIGHT = 512;
+  private static final int BITMAP_MAX_HEIGHT = 2048;
 
   // NOTE: All view operations must occur on the main thread, enable strict mode to test
   public static ArrayList<String> writeBitmapChucks(final View view, OutputUriFactory outputUriFactory) throws IOException {
@@ -122,7 +122,9 @@ public final class Views {
 
   private static int getContentHeight(View view) {
     if (view instanceof WebView) {
-      return ((WebView)view).getContentHeight();
+      WebView wv = (WebView)view;
+      float scale = wv.getScale();
+      return (int) (wv.getContentHeight() * scale);
     } else if (view instanceof ScrollView) {
       return ((ScrollView)view).getChildAt(0).getMeasuredHeight();
     } else {

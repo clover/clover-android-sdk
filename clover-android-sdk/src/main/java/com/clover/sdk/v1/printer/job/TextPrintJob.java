@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,16 +42,16 @@ public class TextPrintJob extends PrintJob implements Parcelable {
     }
 
     public TextPrintJob build() {
-      return new TextPrintJob(new ArrayList<String>(lines));
+      return new TextPrintJob(this);
     }
   }
 
   public final ArrayList<String> lines;
   private static final String BUNDLE_KEY_LINES = "l";
 
-  private TextPrintJob(ArrayList<String> lines) {
-    super(FLAG_NONE);
-    this.lines = lines;
+  protected TextPrintJob(Builder builder) {
+    super(builder);
+    this.lines = new ArrayList<String>(builder.lines);
   }
 
   @Override
@@ -72,7 +72,7 @@ public class TextPrintJob extends PrintJob implements Parcelable {
 
   protected TextPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     lines = bundle.getStringArrayList(BUNDLE_KEY_LINES);
     // Add more data here, but remember old apps might not provide it!
   }

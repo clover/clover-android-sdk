@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   */
   public com.clover.sdk.v3.base.Address getAddress() {
     return cacheGet(CacheKey.address);
+  }
+  public com.clover.sdk.v3.merchant.MerchantPlan getMerchantPlan() {
+    return cacheGet(CacheKey.merchantPlan);
   }
   public java.lang.String getDefaultCurrency() {
     return cacheGet(CacheKey.defaultCurrency);
@@ -131,6 +134,12 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   public com.clover.sdk.v3.base.Reference getReseller() {
     return cacheGet(CacheKey.reseller);
   }
+ /**
+   * This merchant's opening hours
+  */
+  public java.util.List<com.clover.sdk.v3.hours.HoursSet> getOpeningHours() {
+    return cacheGet(CacheKey.opening_hours);
+  }
 
 
   private enum CacheKey {
@@ -156,6 +165,12 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
       @Override
       public Object extractValue(Merchant instance) {
         return instance.extractAddress();
+      }
+    },
+    merchantPlan {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.extractMerchantPlan();
       }
     },
     defaultCurrency {
@@ -270,6 +285,12 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
       @Override
       public Object extractValue(Merchant instance) {
         return instance.extractReseller();
+      }
+    },
+    opening_hours {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.extractOpeningHours();
       }
     },
     ;
@@ -433,6 +454,15 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("address");
     if (jsonObj != null) {
       return new com.clover.sdk.v3.base.Address(getJSONObject().optJSONObject("address"));
+    }
+    return null;
+  }
+
+
+  private com.clover.sdk.v3.merchant.MerchantPlan extractMerchantPlan() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("merchantPlan");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.merchant.MerchantPlan(getJSONObject().optJSONObject("merchantPlan"));
     }
     return null;
   }
@@ -753,6 +783,28 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   }
 
 
+  private java.util.List<com.clover.sdk.v3.hours.HoursSet> extractOpeningHours() {
+    if (getJSONObject().isNull("opening_hours")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("opening_hours");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.hours.HoursSet> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.hours.HoursSet>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.hours.HoursSet item = new com.clover.sdk.v3.hours.HoursSet(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
@@ -771,6 +823,11 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'address' field is set and is not null */
   public boolean isNotNullAddress() {
     return cacheValueIsNotNull(CacheKey.address);
+  }
+
+  /** Checks whether the 'merchantPlan' field is set and is not null */
+  public boolean isNotNullMerchantPlan() {
+    return cacheValueIsNotNull(CacheKey.merchantPlan);
   }
 
   /** Checks whether the 'defaultCurrency' field is set and is not null */
@@ -928,6 +985,16 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return cacheValueIsNotNull(CacheKey.reseller);
   }
 
+  /** Checks whether the 'opening_hours' field is set and is not null */
+  public boolean isNotNullOpeningHours() {
+    return cacheValueIsNotNull(CacheKey.opening_hours);
+  }
+
+  /** Checks whether the 'opening_hours' field is set and is not null and is not empty */
+  public boolean isNotEmptyOpeningHours() {
+    return isNotNullOpeningHours() && !getOpeningHours().isEmpty();
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -947,6 +1014,11 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'address' field has been set, however the value could be null */
   public boolean hasAddress() {
     return cacheHasKey(CacheKey.address);
+  }
+
+  /** Checks whether the 'merchantPlan' field has been set, however the value could be null */
+  public boolean hasMerchantPlan() {
+    return cacheHasKey(CacheKey.merchantPlan);
   }
 
   /** Checks whether the 'defaultCurrency' field has been set, however the value could be null */
@@ -1044,6 +1116,11 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return cacheHasKey(CacheKey.reseller);
   }
 
+  /** Checks whether the 'opening_hours' field has been set, however the value could be null */
+  public boolean hasOpeningHours() {
+    return cacheHasKey(CacheKey.opening_hours);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -1112,6 +1189,25 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     }
 
     cacheMarkDirty(CacheKey.address);
+    return this;
+  }
+
+  /**
+   * Sets the field 'merchantPlan'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setMerchantPlan(com.clover.sdk.v3.merchant.MerchantPlan merchantPlan) {
+    logChange("merchantPlan");
+
+    try {
+      getJSONObject().put("merchantPlan",
+          merchantPlan == null ? org.json.JSONObject.NULL : merchantPlan.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.merchantPlan);
     return this;
   }
 
@@ -1644,6 +1740,40 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return this;
   }
 
+  /**
+   * Sets the field 'opening_hours'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setOpeningHours(java.util.List<com.clover.sdk.v3.hours.HoursSet> opening_hours) {
+    logChange("opening_hours");
+
+    try {
+      if (opening_hours == null) {
+        getJSONObject().put("opening_hours", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.opening_hours);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.hours.HoursSet obj : opening_hours) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("opening_hours", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.opening_hours);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1671,6 +1801,13 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     unlogChange("address");
     getJSONObject().remove("address");
     cacheRemoveValue(CacheKey.address);
+  }
+
+  /** Clears the 'merchantPlan' field, the 'has' method for this field will now return false */
+  public void clearMerchantPlan() {
+    unlogChange("merchantPlan");
+    getJSONObject().remove("merchantPlan");
+    cacheRemoveValue(CacheKey.merchantPlan);
   }
 
   /** Clears the 'defaultCurrency' field, the 'has' method for this field will now return false */
@@ -1804,6 +1941,13 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     unlogChange("reseller");
     getJSONObject().remove("reseller");
     cacheRemoveValue(CacheKey.reseller);
+  }
+
+  /** Clears the 'opening_hours' field, the 'has' method for this field will now return false */
+  public void clearOpeningHours() {
+    unlogChange("opening_hours");
+    getJSONObject().remove("opening_hours");
+    cacheRemoveValue(CacheKey.opening_hours);
   }
 
 
@@ -1941,6 +2085,8 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
 
     public static final boolean ADDRESS_IS_REQUIRED = false;
 
+    public static final boolean MERCHANTPLAN_IS_REQUIRED = false;
+
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
 
@@ -1981,6 +2127,8 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     public static final boolean ORDERTYPES_IS_REQUIRED = false;
 
     public static final boolean RESELLER_IS_REQUIRED = false;
+
+    public static final boolean OPENING_HOURS_IS_REQUIRED = false;
 
   }
 

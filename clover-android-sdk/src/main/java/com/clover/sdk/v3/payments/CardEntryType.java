@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.payments;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum CardEntryType {
+public enum CardEntryType implements Parcelable {
   SWIPED, KEYED, VOICE, VAULTED, OFFLINE_SWIPED, OFFLINE_KEYED, EMV_CONTACT, EMV_CONTACTLESS, MSD_CONTACTLESS, PINPAD_MANUAL_ENTRY;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<CardEntryType> CREATOR = new Creator<CardEntryType>() {
+    @Override
+    public CardEntryType createFromParcel(final Parcel source) {
+      return CardEntryType.valueOf(source.readString());
+    }
+
+    @Override
+    public CardEntryType[] newArray(final int size) {
+      return new CardEntryType[size];
+    }
+  };
 }

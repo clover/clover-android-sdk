@@ -15,14 +15,13 @@ public class StaticBillPrintJob extends StaticReceiptPrintJob implements Parcela
 
   public static class Builder extends StaticReceiptPrintJob.Builder {
     protected ArrayList<String> itemIds;
-    private boolean reprintAllowed = false;
     private boolean markPrinted = false;
     private String binName;
 
     public Builder staticBillPrintJob(StaticBillPrintJob pj) {
+      staticReceiptPrintJob(pj);
       this.order = pj.order;
-      this.itemIds = pj.itemIds;
-      this.flags = pj.flags;
+      this.itemIds = new ArrayList<String>(pj.itemIds);
       this.markPrinted = pj.markPrinted;
 
       return this;
@@ -44,7 +43,8 @@ public class StaticBillPrintJob extends StaticReceiptPrintJob implements Parcela
     }
 
     public StaticBillPrintJob build() {
-      return new StaticBillPrintJob(order, itemIds, flags | FLAG_BILL, markPrinted, binName);
+      flags |= FLAG_BILL;
+      return new StaticBillPrintJob(this);
     }
   }
 
@@ -52,11 +52,19 @@ public class StaticBillPrintJob extends StaticReceiptPrintJob implements Parcela
   public final boolean markPrinted;
   public final String binName;
 
+  @Deprecated
   public StaticBillPrintJob(Order order, ArrayList<String> itemIds, int flags, boolean markPrinted, String binName) {
     super(order, flags);
     this.itemIds = itemIds;
     this.markPrinted = markPrinted;
     this.binName = binName;
+  }
+
+  protected StaticBillPrintJob(Builder builder) {
+    super(builder);
+    this.itemIds = builder.itemIds;
+    this.markPrinted = builder.markPrinted;
+    this.binName = builder.binName;
   }
 
   public static final Creator<StaticBillPrintJob> CREATOR = new Creator<StaticBillPrintJob>() {
@@ -71,10 +79,11 @@ public class StaticBillPrintJob extends StaticReceiptPrintJob implements Parcela
 
   protected StaticBillPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle(getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     itemIds = bundle.getStringArrayList(BUNDLE_KEY_ITEM_IDS);
     markPrinted = bundle.getBoolean(BUNDLE_KEY_MARK_PRINTED);
     binName = bundle.getString(BUNDLE_KEY_BIN_NAME);
+    // Add more data here, but remember old apps might not provide it!
   }
 
   @Override

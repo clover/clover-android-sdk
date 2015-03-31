@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.pay;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum ServiceCode1 {
+public enum ServiceCode1 implements Parcelable {
   INTERNATIONAL_INTERCHANGE_OK, INTERNATIONAL_INTERCHANGE_USE_IC_CHIP_WHERE_FEASIBLE, NATIONAL_INTERCHANGE_ONLY_EXCEPT_UNDER_BILATERAL_AGREEMENT, NATIONAL_INTERCHANGE_ONLY_EXCEPT_UNDER_BILATERAL_AGREEMENT_USE_IC_CHIP_WHERE_FEASIBLE, NO_INTERCHANGE_EXCEPT_UNDER_BILATERAL_AGREEMENT, TEST, UNDEFINED;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<ServiceCode1> CREATOR = new Creator<ServiceCode1>() {
+    @Override
+    public ServiceCode1 createFromParcel(final Parcel source) {
+      return ServiceCode1.valueOf(source.readString());
+    }
+
+    @Override
+    public ServiceCode1[] newArray(final int size) {
+      return new ServiceCode1[size];
+    }
+  };
 }

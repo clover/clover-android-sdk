@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,19 @@ public abstract class PrintJob implements Parcelable {
   public static final int FLAG_REFUND = 1 << 3;
   public static final int FLAG_NO_SIGNATURE = 1 << 4;
   public static final int FLAG_FORCE_SIGNATURE = 1 << 5;
+  public static final int FLAG_CUSTOMER = 1 << 6;
+  public static final int FLAG_MERCHANT = 1 << 7;
 
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
+    protected boolean printToAny = false;
+
+    public Builder printJob(PrintJob pj) {
+      this.flags = pj.flags;
+      this.printToAny = pj.printToAny;
+
+      return this;
+    }
 
     @Deprecated
     public Builder flags(int flags) {
@@ -51,14 +61,29 @@ public abstract class PrintJob implements Parcelable {
       return this;
     }
 
+    public Builder printToAny(boolean printToAny) {
+      this.printToAny = printToAny;
+      return this;
+    }
+
     public abstract PrintJob build();
   }
 
-  public final int flags;
   private static final String BUNDLE_KEY_FLAGS = "f";
+  private static final String BUNDLE_KEY_PRINT_TO_ANY = "pta";
 
+  public final int flags;
+  public final boolean printToAny;
+
+  @Deprecated
   protected PrintJob(int flags) {
     this.flags = flags;
+    this.printToAny = false;
+  }
+
+  protected PrintJob(Builder builder) {
+    this.flags = builder.flags;
+    this.printToAny = builder.printToAny;
   }
 
   public abstract Category getPrinterCategory();
@@ -72,7 +97,6 @@ public abstract class PrintJob implements Parcelable {
     intent.putExtra(PrinterIntent.EXTRA_PRINTJOB, this);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
-
     context.startService(intent);
   }
 
@@ -80,8 +104,9 @@ public abstract class PrintJob implements Parcelable {
   }
 
   protected PrintJob(Parcel in) {
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     flags = bundle.getInt(BUNDLE_KEY_FLAGS);
+    printToAny = bundle.getBoolean(BUNDLE_KEY_PRINT_TO_ANY);
     // Add more data here, but remember old apps might not provide it!
   }
 
@@ -94,6 +119,7 @@ public abstract class PrintJob implements Parcelable {
   public void writeToParcel(Parcel dest, int f) {
     Bundle bundle = new Bundle();
     bundle.putInt(BUNDLE_KEY_FLAGS, this.flags);
+    bundle.putBoolean(BUNDLE_KEY_PRINT_TO_ANY, this.printToAny);
     // Add more stuff here
 
     dest.writeBundle(bundle);

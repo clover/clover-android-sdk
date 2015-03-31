@@ -9,5 +9,5 @@ package com.clover.sdk.v3.billing;
 
 @SuppressWarnings("all")
 public enum AppLineItemType {
-  SUBSCRIPTION, PRORATED_SUBSCRIPTION, METERED;
+  SUBSCRIPTION, PRORATED_SUBSCRIPTION, TRIAL_EXPIRATION, METERED;
 }

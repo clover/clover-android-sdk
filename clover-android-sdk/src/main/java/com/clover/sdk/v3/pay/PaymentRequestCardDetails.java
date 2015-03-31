@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,8 +77,8 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
   public java.lang.String getExp() {
     return cacheGet(CacheKey.exp);
   }
-  public java.lang.String getStreetNumber() {
-    return cacheGet(CacheKey.streetNumber);
+  public java.lang.String getStreetAddress() {
+    return cacheGet(CacheKey.streetAddress);
   }
   public java.lang.String getZip() {
     return cacheGet(CacheKey.zip);
@@ -212,10 +212,10 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
         return instance.extractExp();
       }
     },
-    streetNumber {
+    streetAddress {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractStreetNumber();
+        return instance.extractStreetAddress();
       }
     },
     zip {
@@ -506,9 +506,9 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
   }
 
 
-  private java.lang.String extractStreetNumber() {
-    return getJSONObject().isNull("streetNumber") ? null :
-      getJSONObject().optString("streetNumber");
+  private java.lang.String extractStreetAddress() {
+    return getJSONObject().isNull("streetAddress") ? null :
+      getJSONObject().optString("streetAddress");
   }
 
 
@@ -654,9 +654,9 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
     return cacheValueIsNotNull(CacheKey.exp);
   }
 
-  /** Checks whether the 'streetNumber' field is set and is not null */
-  public boolean isNotNullStreetNumber() {
-    return cacheValueIsNotNull(CacheKey.streetNumber);
+  /** Checks whether the 'streetAddress' field is set and is not null */
+  public boolean isNotNullStreetAddress() {
+    return cacheValueIsNotNull(CacheKey.streetAddress);
   }
 
   /** Checks whether the 'zip' field is set and is not null */
@@ -790,9 +790,9 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
     return cacheHasKey(CacheKey.exp);
   }
 
-  /** Checks whether the 'streetNumber' field has been set, however the value could be null */
-  public boolean hasStreetNumber() {
-    return cacheHasKey(CacheKey.streetNumber);
+  /** Checks whether the 'streetAddress' field has been set, however the value could be null */
+  public boolean hasStreetAddress() {
+    return cacheHasKey(CacheKey.streetAddress);
   }
 
   /** Checks whether the 'zip' field has been set, however the value could be null */
@@ -1114,18 +1114,18 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
   }
 
   /**
-   * Sets the field 'streetNumber'.
+   * Sets the field 'streetAddress'.
    */
-  public PaymentRequestCardDetails setStreetNumber(java.lang.String streetNumber) {
-    logChange("streetNumber");
+  public PaymentRequestCardDetails setStreetAddress(java.lang.String streetAddress) {
+    logChange("streetAddress");
 
     try {
-      getJSONObject().put("streetNumber", streetNumber == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(streetNumber));
+      getJSONObject().put("streetAddress", streetAddress == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(streetAddress));
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.streetNumber);
+    cacheMarkDirty(CacheKey.streetAddress);
     return this;
   }
 
@@ -1396,11 +1396,11 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
     cacheRemoveValue(CacheKey.exp);
   }
 
-  /** Clears the 'streetNumber' field, the 'has' method for this field will now return false */
-  public void clearStreetNumber() {
-    unlogChange("streetNumber");
-    getJSONObject().remove("streetNumber");
-    cacheRemoveValue(CacheKey.streetNumber);
+  /** Clears the 'streetAddress' field, the 'has' method for this field will now return false */
+  public void clearStreetAddress() {
+    unlogChange("streetAddress");
+    getJSONObject().remove("streetAddress");
+    cacheRemoveValue(CacheKey.streetAddress);
   }
 
   /** Clears the 'zip' field, the 'has' method for this field will now return false */
@@ -1625,7 +1625,7 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
 
     public static final boolean EXP_IS_REQUIRED = false;
 
-    public static final boolean STREETNUMBER_IS_REQUIRED = false;
+    public static final boolean STREETADDRESS_IS_REQUIRED = false;
 
     public static final boolean ZIP_IS_REQUIRED = false;
 

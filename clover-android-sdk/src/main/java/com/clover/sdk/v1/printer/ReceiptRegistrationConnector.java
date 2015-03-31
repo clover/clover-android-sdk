@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
   public static class ReceiptRegistrationCallback<T> implements Callback<T> {
     @Override
     public void onServiceSuccess(T result, ResultStatus status) {
-      Log.w(TAG, String.format("on service success: %s", status));
+      Log.d(TAG, String.format("on service success: %s", status));
     }
 
     @Override

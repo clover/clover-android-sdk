@@ -294,6 +294,10 @@ public class OrderCalc {
     return getCalc().getLineSubtotal(toCalcLines(lines)).getCents();
   }
 
+  public long getLineSubtotalWithoutDiscounts(Collection<LineItem> lines) {
+    return getCalc().getLineSubtotalWithoutDiscounts(toCalcLines(lines)).getCents();
+  }
+
   public long getServiceCharge() {
     return getCalc().getServiceCharge().getCents();
   }

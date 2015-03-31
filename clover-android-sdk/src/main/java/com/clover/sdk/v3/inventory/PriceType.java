@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.inventory;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum PriceType {
+public enum PriceType implements Parcelable {
   FIXED, VARIABLE, PER_UNIT;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<PriceType> CREATOR = new Creator<PriceType>() {
+    @Override
+    public PriceType createFromParcel(final Parcel source) {
+      return PriceType.valueOf(source.readString());
+    }
+
+    @Override
+    public PriceType[] newArray(final int size) {
+      return new PriceType[size];
+    }
+  };
 }

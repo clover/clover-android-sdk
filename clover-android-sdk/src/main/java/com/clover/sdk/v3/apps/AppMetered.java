@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,26 +32,41 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
   public java.lang.String getId() {
     return cacheGet(CacheKey.id);
   }
+ /**
+   * DEPRECATED: App metered amount.  Per country pricing in meteredCountries.
+  */
   public java.lang.Long getAmount() {
     return cacheGet(CacheKey.amount);
   }
  /**
-   * App metered action
+   * DEPRECATED: App metered action.  Per country pricing in meteredCountries.
   */
   public java.lang.String getAction() {
     return cacheGet(CacheKey.action);
   }
  /**
-   * App metered active status
+   * DEPRECATED: App metered active status.  Per country pricing in meteredCountries.
   */
   public java.lang.Boolean getActive() {
     return cacheGet(CacheKey.active);
+  }
+ /**
+   * Metered country options for this app metered
+  */
+  public java.util.List<com.clover.sdk.v3.apps.AppMeteredCountry> getMeteredCountries() {
+    return cacheGet(CacheKey.meteredCountries);
   }
  /**
    * Reference to app this metered belongs to
   */
   public com.clover.sdk.v3.base.Reference getApp() {
     return cacheGet(CacheKey.app);
+  }
+ /**
+   * App metered label
+  */
+  public java.lang.String getLabel() {
+    return cacheGet(CacheKey.label);
   }
 
 
@@ -80,10 +95,22 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
         return instance.extractActive();
       }
     },
+    meteredCountries {
+      @Override
+      public Object extractValue(AppMetered instance) {
+        return instance.extractMeteredCountries();
+      }
+    },
     app {
       @Override
       public Object extractValue(AppMetered instance) {
         return instance.extractApp();
+      }
+    },
+    label {
+      @Override
+      public Object extractValue(AppMetered instance) {
+        return instance.extractLabel();
       }
     },
     ;
@@ -203,12 +230,11 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     java.lang.String id = getId();
     if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
-    java.lang.Long amount = getAmount();
-    if (amount == null) throw new java.lang.IllegalArgumentException("'amount' is required to be non-null");
-
     java.lang.String action = getAction();
-    if (action == null) throw new java.lang.IllegalArgumentException("'action' is required to be non-null");
     if (action != null && action.length() > 40) { throw new IllegalArgumentException("Maximum string length exceeded for 'action'");}
+
+    java.lang.String label = getLabel();
+    if (label != null && label.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'label'");}
   }
 
 
@@ -237,12 +263,40 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
   }
 
 
+  private java.util.List<com.clover.sdk.v3.apps.AppMeteredCountry> extractMeteredCountries() {
+    if (getJSONObject().isNull("meteredCountries")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("meteredCountries");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.AppMeteredCountry> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.AppMeteredCountry>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.AppMeteredCountry item = new com.clover.sdk.v3.apps.AppMeteredCountry(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   private com.clover.sdk.v3.base.Reference extractApp() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");
     if (jsonObj != null) {
       return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("app"));
     }
     return null;
+  }
+
+
+  private java.lang.String extractLabel() {
+    return getJSONObject().isNull("label") ? null :
+      getJSONObject().optString("label");
   }
 
 
@@ -266,9 +320,24 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     return cacheValueIsNotNull(CacheKey.active);
   }
 
+  /** Checks whether the 'meteredCountries' field is set and is not null */
+  public boolean isNotNullMeteredCountries() {
+    return cacheValueIsNotNull(CacheKey.meteredCountries);
+  }
+
+  /** Checks whether the 'meteredCountries' field is set and is not null and is not empty */
+  public boolean isNotEmptyMeteredCountries() {
+    return isNotNullMeteredCountries() && !getMeteredCountries().isEmpty();
+  }
+
   /** Checks whether the 'app' field is set and is not null */
   public boolean isNotNullApp() {
     return cacheValueIsNotNull(CacheKey.app);
+  }
+
+  /** Checks whether the 'label' field is set and is not null */
+  public boolean isNotNullLabel() {
+    return cacheValueIsNotNull(CacheKey.label);
   }
 
 
@@ -292,9 +361,19 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     return cacheHasKey(CacheKey.active);
   }
 
+  /** Checks whether the 'meteredCountries' field has been set, however the value could be null */
+  public boolean hasMeteredCountries() {
+    return cacheHasKey(CacheKey.meteredCountries);
+  }
+
   /** Checks whether the 'app' field has been set, however the value could be null */
   public boolean hasApp() {
     return cacheHasKey(CacheKey.app);
+  }
+
+  /** Checks whether the 'label' field has been set, however the value could be null */
+  public boolean hasLabel() {
+    return cacheHasKey(CacheKey.label);
   }
 
 
@@ -363,6 +442,40 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'meteredCountries'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public AppMetered setMeteredCountries(java.util.List<com.clover.sdk.v3.apps.AppMeteredCountry> meteredCountries) {
+    logChange("meteredCountries");
+
+    try {
+      if (meteredCountries == null) {
+        getJSONObject().put("meteredCountries", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.meteredCountries);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.AppMeteredCountry obj : meteredCountries) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("meteredCountries", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.meteredCountries);
+    return this;
+  }
+
+  /**
    * Sets the field 'app'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -378,6 +491,22 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     }
 
     cacheMarkDirty(CacheKey.app);
+    return this;
+  }
+
+  /**
+   * Sets the field 'label'.
+   */
+  public AppMetered setLabel(java.lang.String label) {
+    logChange("label");
+
+    try {
+      getJSONObject().put("label", label == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(label));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.label);
     return this;
   }
 
@@ -410,11 +539,25 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     cacheRemoveValue(CacheKey.active);
   }
 
+  /** Clears the 'meteredCountries' field, the 'has' method for this field will now return false */
+  public void clearMeteredCountries() {
+    unlogChange("meteredCountries");
+    getJSONObject().remove("meteredCountries");
+    cacheRemoveValue(CacheKey.meteredCountries);
+  }
+
   /** Clears the 'app' field, the 'has' method for this field will now return false */
   public void clearApp() {
     unlogChange("app");
     getJSONObject().remove("app");
     cacheRemoveValue(CacheKey.app);
+  }
+
+  /** Clears the 'label' field, the 'has' method for this field will now return false */
+  public void clearLabel() {
+    unlogChange("label");
+    getJSONObject().remove("label");
+    cacheRemoveValue(CacheKey.label);
   }
 
 
@@ -545,14 +688,19 @@ public final class AppMetered implements android.os.Parcelable, com.clover.sdk.v
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
 
-    public static final boolean AMOUNT_IS_REQUIRED = true;
+    public static final boolean AMOUNT_IS_REQUIRED = false;
 
-    public static final boolean ACTION_IS_REQUIRED = true;
+    public static final boolean ACTION_IS_REQUIRED = false;
     public static final long ACTION_MAX_LEN = 40;
 
     public static final boolean ACTIVE_IS_REQUIRED = false;
 
+    public static final boolean METEREDCOUNTRIES_IS_REQUIRED = false;
+
     public static final boolean APP_IS_REQUIRED = false;
+
+    public static final boolean LABEL_IS_REQUIRED = false;
+    public static final long LABEL_MAX_LEN = 20;
 
   }
 

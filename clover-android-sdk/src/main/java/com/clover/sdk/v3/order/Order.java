@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,7 +125,14 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   public java.util.List<com.clover.sdk.v3.payments.Credit> getCredits() {
     return cacheGet(CacheKey.credits);
   }
+ /**
+   * Device which created the order
+  */
+  public com.clover.sdk.v3.base.Reference getDevice() {
+    return cacheGet(CacheKey.device);
+  }
 
+  public static final String AUTHORITY = "com.clover.orders";
 
   private enum CacheKey {
     id {
@@ -270,6 +277,12 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Order instance) {
         return instance.extractCredits();
+      }
+    },
+    device {
+      @Override
+      public Object extractValue(Order instance) {
+        return instance.extractDevice();
       }
     },
     ;
@@ -660,6 +673,15 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   }
 
 
+  private com.clover.sdk.v3.base.Reference extractDevice() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("device");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("device"));
+    }
+    return null;
+  }
+
+
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
@@ -810,6 +832,11 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return isNotNullCredits() && !getCredits().isEmpty();
   }
 
+  /** Checks whether the 'device' field is set and is not null */
+  public boolean isNotNullDevice() {
+    return cacheValueIsNotNull(CacheKey.device);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -929,6 +956,11 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
   /** Checks whether the 'credits' field has been set, however the value could be null */
   public boolean hasCredits() {
     return cacheHasKey(CacheKey.credits);
+  }
+
+  /** Checks whether the 'device' field has been set, however the value could be null */
+  public boolean hasDevice() {
+    return cacheHasKey(CacheKey.device);
   }
 
 
@@ -1433,6 +1465,25 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     return this;
   }
 
+  /**
+   * Sets the field 'device'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Order setDevice(com.clover.sdk.v3.base.Reference device) {
+    logChange("device");
+
+    try {
+      getJSONObject().put("device",
+          device == null ? org.json.JSONObject.NULL : device.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.device);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1600,6 +1651,13 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     unlogChange("credits");
     getJSONObject().remove("credits");
     cacheRemoveValue(CacheKey.credits);
+  }
+
+  /** Clears the 'device' field, the 'has' method for this field will now return false */
+  public void clearDevice() {
+    unlogChange("device");
+    getJSONObject().remove("device");
+    cacheRemoveValue(CacheKey.device);
   }
 
 
@@ -1779,6 +1837,8 @@ public final class Order implements android.os.Parcelable, com.clover.sdk.v3.Val
     public static final boolean REFUNDS_IS_REQUIRED = false;
 
     public static final boolean CREDITS_IS_REQUIRED = false;
+
+    public static final boolean DEVICE_IS_REQUIRED = false;
 
   }
 

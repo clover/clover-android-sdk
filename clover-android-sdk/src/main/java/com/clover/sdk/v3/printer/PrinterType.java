@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.printer;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum PrinterType {
+public enum PrinterType implements Parcelable {
   NETWORK, MY_LOCAL;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<PrinterType> CREATOR = new Creator<PrinterType>() {
+    @Override
+    public PrinterType createFromParcel(final Parcel source) {
+      return PrinterType.valueOf(source.readString());
+    }
+
+    @Override
+    public PrinterType[] newArray(final int size) {
+      return new PrinterType[size];
+    }
+  };
 }

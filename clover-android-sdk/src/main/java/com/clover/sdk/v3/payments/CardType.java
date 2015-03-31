@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.payments;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum CardType {
-  VISA, MC, AMEX, DISCOVER, DINERS_CLUB, JCB, MAESTRO, SOLO, LASER, CHINA_UNION_PAY, CARTE_BLANCHE, UNKNOWN;
+public enum CardType implements Parcelable {
+  VISA, MC, AMEX, DISCOVER, JCB, MAESTRO, SOLO, LASER, CHINA_UNION_PAY, DINERS_CLUB, CARTE_BLANCHE, UNKNOWN, GIFT_CARD;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<CardType> CREATOR = new Creator<CardType>() {
+    @Override
+    public CardType createFromParcel(final Parcel source) {
+      return CardType.valueOf(source.readString());
+    }
+
+    @Override
+    public CardType[] newArray(final int size) {
+      return new CardType[size];
+    }
+  };
 }

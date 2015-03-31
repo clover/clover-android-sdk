@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import com.clover.sdk.v1.printer.Category;
  * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticBillPrintJob}
  */
 public class BillPrintJob extends ReceiptPrintJob implements Parcelable {
+
+  @Deprecated
   public static class Builder extends ReceiptPrintJob.Builder {
 
     private String binName;
@@ -36,16 +38,23 @@ public class BillPrintJob extends ReceiptPrintJob implements Parcelable {
     }
 
     public BillPrintJob build() {
-      return new BillPrintJob(orderId, binName, flags | FLAG_BILL);
+      flags |= FLAG_BILL;
+      return new BillPrintJob(this);
     }
   }
 
   public final String binName;
   public static final String BUNDLE_KEY_BIN_NAME = "b";
 
+  @Deprecated
   protected BillPrintJob(String orderId, String binName, int flags) {
     super(orderId, flags);
     this.binName = binName;
+  }
+
+  protected BillPrintJob(Builder builder) {
+    super(builder);
+    this.binName = builder.binName;
   }
 
   @Override
@@ -66,7 +75,7 @@ public class BillPrintJob extends ReceiptPrintJob implements Parcelable {
 
   protected BillPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     binName = bundle.getString(BUNDLE_KEY_BIN_NAME);
     // Add more data here, but remember old apps might not provide it!
   }

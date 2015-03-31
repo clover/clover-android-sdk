@@ -10,19 +10,22 @@ public class StaticGiftReceiptPrintJob extends StaticReceiptPrintJob implements 
   public static class Builder extends StaticReceiptPrintJob.Builder {
 
     public Builder staticGiftReceiptPrintJob(StaticGiftReceiptPrintJob pj) {
-      this.order = pj.order;
-      this.flags = pj.flags;
-
+      staticReceiptPrintJob(pj);
       return this;
     }
 
     public StaticGiftReceiptPrintJob build() {
-      return new StaticGiftReceiptPrintJob(order, flags);
+      return new StaticGiftReceiptPrintJob(this);
     }
   }
 
+  @Deprecated
   public StaticGiftReceiptPrintJob(Order order, int flags) {
     super(order, flags);
+  }
+
+  protected StaticGiftReceiptPrintJob(Builder builder) {
+    super(builder);
   }
 
   public static final Creator<StaticGiftReceiptPrintJob> CREATOR = new Creator<StaticGiftReceiptPrintJob>() {
@@ -37,6 +40,7 @@ public class StaticGiftReceiptPrintJob extends StaticReceiptPrintJob implements 
 
   protected StaticGiftReceiptPrintJob(Parcel in) {
     super(in);
+    // This class cannot contain any data because we forgot to put a Bundle here
   }
 
   @Override
@@ -47,5 +51,6 @@ public class StaticGiftReceiptPrintJob extends StaticReceiptPrintJob implements 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
+    // This class cannot contain any data because we forgot to put a Bundle here
   }
 }

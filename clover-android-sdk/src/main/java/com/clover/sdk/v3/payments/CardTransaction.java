@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,6 +50,9 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   public java.lang.String getReferenceId() {
     return cacheGet(CacheKey.referenceId);
   }
+  public java.lang.String getTransactionNo() {
+    return cacheGet(CacheKey.transactionNo);
+  }
   public com.clover.sdk.v3.payments.CardTransactionState getState() {
     return cacheGet(CacheKey.state);
   }
@@ -58,6 +61,9 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   */
   public java.util.Map<java.lang.String,java.lang.String> getExtra() {
     return cacheGet(CacheKey.extra);
+  }
+  public com.clover.sdk.v3.payments.AVSResult getAvsResult() {
+    return cacheGet(CacheKey.avsResult);
   }
 
 
@@ -98,6 +104,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
         return instance.extractReferenceId();
       }
     },
+    transactionNo {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.extractTransactionNo();
+      }
+    },
     state {
       @Override
       public Object extractValue(CardTransaction instance) {
@@ -108,6 +120,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
       @Override
       public Object extractValue(CardTransaction instance) {
         return instance.extractExtra();
+      }
+    },
+    avsResult {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.extractAvsResult();
       }
     },
     ;
@@ -230,6 +248,9 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
     java.lang.String referenceId = getReferenceId();
     if (referenceId != null && referenceId.length() > 32) { throw new IllegalArgumentException("Maximum string length exceeded for 'referenceId'");}
+
+    java.lang.String transactionNo = getTransactionNo();
+    if (transactionNo != null && transactionNo.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'transactionNo'");}
   }
 
 
@@ -291,6 +312,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
 
+  private java.lang.String extractTransactionNo() {
+    return getJSONObject().isNull("transactionNo") ? null :
+      getJSONObject().optString("transactionNo");
+  }
+
+
   private com.clover.sdk.v3.payments.CardTransactionState extractState() {
     if (!getJSONObject().isNull("state")) {
       try {
@@ -308,6 +335,19 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     if (getJSONObject().isNull("extra")) return null;
     org.json.JSONObject object = getJSONObject().optJSONObject("extra");
     return com.clover.sdk.v3.JsonHelper.toMap(object);
+  }
+
+
+  private com.clover.sdk.v3.payments.AVSResult extractAvsResult() {
+    if (!getJSONObject().isNull("avsResult")) {
+      try {
+        return com.clover.sdk.v3.payments.AVSResult.valueOf(getJSONObject().optString("avsResult"));
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    return null;
   }
 
 
@@ -341,6 +381,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return cacheValueIsNotNull(CacheKey.referenceId);
   }
 
+  /** Checks whether the 'transactionNo' field is set and is not null */
+  public boolean isNotNullTransactionNo() {
+    return cacheValueIsNotNull(CacheKey.transactionNo);
+  }
+
   /** Checks whether the 'state' field is set and is not null */
   public boolean isNotNullState() {
     return cacheValueIsNotNull(CacheKey.state);
@@ -354,6 +399,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'extra' field is set and is not null and is not empty */
   public boolean isNotEmptyExtra() {
     return isNotNullExtra() && !getExtra().isEmpty();
+  }
+
+  /** Checks whether the 'avsResult' field is set and is not null */
+  public boolean isNotNullAvsResult() {
+    return cacheValueIsNotNull(CacheKey.avsResult);
   }
 
 
@@ -387,6 +437,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return cacheHasKey(CacheKey.referenceId);
   }
 
+  /** Checks whether the 'transactionNo' field has been set, however the value could be null */
+  public boolean hasTransactionNo() {
+    return cacheHasKey(CacheKey.transactionNo);
+  }
+
   /** Checks whether the 'state' field has been set, however the value could be null */
   public boolean hasState() {
     return cacheHasKey(CacheKey.state);
@@ -395,6 +450,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'extra' field has been set, however the value could be null */
   public boolean hasExtra() {
     return cacheHasKey(CacheKey.extra);
+  }
+
+  /** Checks whether the 'avsResult' field has been set, however the value could be null */
+  public boolean hasAvsResult() {
+    return cacheHasKey(CacheKey.avsResult);
   }
 
 
@@ -495,6 +555,22 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
   /**
+   * Sets the field 'transactionNo'.
+   */
+  public CardTransaction setTransactionNo(java.lang.String transactionNo) {
+    logChange("transactionNo");
+
+    try {
+      getJSONObject().put("transactionNo", transactionNo == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(transactionNo));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.transactionNo);
+    return this;
+  }
+
+  /**
    * Sets the field 'state'.
    */
   public CardTransaction setState(com.clover.sdk.v3.payments.CardTransactionState state) {
@@ -523,6 +599,22 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     }
 
     cacheMarkDirty(CacheKey.extra);
+    return this;
+  }
+
+  /**
+   * Sets the field 'avsResult'.
+   */
+  public CardTransaction setAvsResult(com.clover.sdk.v3.payments.AVSResult avsResult) {
+    logChange("avsResult");
+
+    try {
+      getJSONObject().put("avsResult", avsResult == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(avsResult));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.avsResult);
     return this;
   }
 
@@ -569,6 +661,13 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     cacheRemoveValue(CacheKey.referenceId);
   }
 
+  /** Clears the 'transactionNo' field, the 'has' method for this field will now return false */
+  public void clearTransactionNo() {
+    unlogChange("transactionNo");
+    getJSONObject().remove("transactionNo");
+    cacheRemoveValue(CacheKey.transactionNo);
+  }
+
   /** Clears the 'state' field, the 'has' method for this field will now return false */
   public void clearState() {
     unlogChange("state");
@@ -581,6 +680,13 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     unlogChange("extra");
     getJSONObject().remove("extra");
     cacheRemoveValue(CacheKey.extra);
+  }
+
+  /** Clears the 'avsResult' field, the 'has' method for this field will now return false */
+  public void clearAvsResult() {
+    unlogChange("avsResult");
+    getJSONObject().remove("avsResult");
+    cacheRemoveValue(CacheKey.avsResult);
   }
 
 
@@ -722,9 +828,14 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     public static final boolean REFERENCEID_IS_REQUIRED = false;
     public static final long REFERENCEID_MAX_LEN = 32;
 
+    public static final boolean TRANSACTIONNO_IS_REQUIRED = false;
+    public static final long TRANSACTIONNO_MAX_LEN = 255;
+
     public static final boolean STATE_IS_REQUIRED = false;
 
     public static final boolean EXTRA_IS_REQUIRED = false;
+
+    public static final boolean AVSRESULT_IS_REQUIRED = false;
 
   }
 

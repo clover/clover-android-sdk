@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,12 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
   public java.lang.Long getPercentage() {
     return cacheGet(CacheKey.percentage);
   }
+ /**
+   * Payment has been refunded
+  */
+  public java.lang.Boolean getRefunded() {
+    return cacheGet(CacheKey.refunded);
+  }
 
 
   private enum CacheKey {
@@ -51,6 +57,12 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
       @Override
       public Object extractValue(LineItemPayment instance) {
         return instance.extractPercentage();
+      }
+    },
+    refunded {
+      @Override
+      public Object extractValue(LineItemPayment instance) {
+        return instance.extractRefunded();
       }
     },
     ;
@@ -185,6 +197,12 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
   }
 
 
+  private java.lang.Boolean extractRefunded() {
+    return getJSONObject().isNull("refunded") ? null :
+      getJSONObject().optBoolean("refunded");
+  }
+
+
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
@@ -193,6 +211,11 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
   /** Checks whether the 'percentage' field is set and is not null */
   public boolean isNotNullPercentage() {
     return cacheValueIsNotNull(CacheKey.percentage);
+  }
+
+  /** Checks whether the 'refunded' field is set and is not null */
+  public boolean isNotNullRefunded() {
+    return cacheValueIsNotNull(CacheKey.refunded);
   }
 
 
@@ -204,6 +227,11 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
   /** Checks whether the 'percentage' field has been set, however the value could be null */
   public boolean hasPercentage() {
     return cacheHasKey(CacheKey.percentage);
+  }
+
+  /** Checks whether the 'refunded' field has been set, however the value could be null */
+  public boolean hasRefunded() {
+    return cacheHasKey(CacheKey.refunded);
   }
 
 
@@ -239,6 +267,22 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
     return this;
   }
 
+  /**
+   * Sets the field 'refunded'.
+   */
+  public LineItemPayment setRefunded(java.lang.Boolean refunded) {
+    logChange("refunded");
+
+    try {
+      getJSONObject().put("refunded", refunded == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(refunded));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.refunded);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -252,6 +296,13 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
     unlogChange("percentage");
     getJSONObject().remove("percentage");
     cacheRemoveValue(CacheKey.percentage);
+  }
+
+  /** Clears the 'refunded' field, the 'has' method for this field will now return false */
+  public void clearRefunded() {
+    unlogChange("refunded");
+    getJSONObject().remove("refunded");
+    cacheRemoveValue(CacheKey.refunded);
   }
 
 
@@ -383,6 +434,8 @@ public final class LineItemPayment implements android.os.Parcelable, com.clover.
     public static final long ID_MAX_LEN = 13;
 
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
+
+    public static final boolean REFUNDED_IS_REQUIRED = false;
 
   }
 

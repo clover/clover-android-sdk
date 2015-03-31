@@ -19,9 +19,11 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
     void onDismiss();
   }
 
+  private static final String EXTRA_TITLE = "title";
   private static final String EXTRA_INSTRUCTION = "instruction";
 
   private Listener mListener;
+  private boolean isDismissed;
 
   public ReturnToMerchantDialogFragment() {
     super();
@@ -37,13 +39,23 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
     return f;
   }
 
+  public static ReturnToMerchantDialogFragment newInstance(String title, String instruction) {
+    ReturnToMerchantDialogFragment f = new ReturnToMerchantDialogFragment();
+
+    Bundle args = new Bundle();
+    args.putString(EXTRA_INSTRUCTION, instruction);
+    args.putString(EXTRA_TITLE, title);
+    f.setArguments(args);
+
+    return f;
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // Pick a style based on the num.
-    int style = DialogFragment.STYLE_NORMAL, theme = R.style.DialogThemeNoWindow;
+
+    setStyle(STYLE_NO_FRAME, android.R.style.Theme_Holo);
     setCancelable(true);
-    setStyle(style, theme);
   }
 
   @Override
@@ -51,7 +63,14 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
     return new Dialog(getActivity(), getTheme()) {
       @Override
       public boolean dispatchTouchEvent(MotionEvent ev) {
-        dismiss();
+        if (!isDismissed) {
+          isDismissed = true;
+          dismiss();
+
+          if (mListener != null) {
+            mListener.onDismiss();
+          }
+        }
         return true;
       }
     };
@@ -61,10 +80,32 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.return_to_merchant_dialog_fragment, container, false);
 
-    String text = getArguments().getString(EXTRA_INSTRUCTION);
-    if (!TextUtils.isEmpty(text)) {
-      ((TextView) v.findViewById(R.id.instruction)).setText(text);
+    if (getArguments() != null) {
+      String title = getArguments().getString(EXTRA_TITLE);
+      if (!TextUtils.isEmpty(title)) {
+        ((TextView) v.findViewById(R.id.title)).setText(title);
+      }
+
+      String instruction = getArguments().getString(EXTRA_INSTRUCTION);
+      if (!TextUtils.isEmpty(instruction)) {
+        ((TextView) v.findViewById(R.id.instruction)).setText(instruction);
+      }
     }
+
+    v.findViewById(R.id.mainLayout).setOnTouchListener(new View.OnTouchListener() {
+      @Override
+      public boolean onTouch(View v, MotionEvent event) {
+        if (!isDismissed) {
+          isDismissed = true;
+          dismiss();
+
+          if (mListener != null) {
+            mListener.onDismiss();
+          }
+        }
+        return true;
+      }
+    });
 
     return v;
   }
@@ -91,7 +132,7 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
   public void onDismiss(DialogInterface dialog) {
     super.onDismiss(dialog);
 
-    if (mListener != null) {
+    if (mListener != null && !isDismissed) {
       mListener.onDismiss();
     }
   }

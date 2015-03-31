@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ public class Tender implements Parcelable {
   private static final String KEY_LABEL_KEY = "labelKey";
   private static final String KEY_ENABLED = "enabled";
   private static final String KEY_OPENS_CASH_DRAWER = "opensCashDrawer";
+  private static final String KEY_SUPPORTS_TIPPING = "supportsTipping";
 
   private final Bundle data;
 
@@ -59,6 +60,10 @@ public class Tender implements Parcelable {
 
   public boolean getOpensCashDrawer() {
     return data.getBoolean(KEY_OPENS_CASH_DRAWER, false);
+  }
+
+  public boolean getSupportsTipping() {
+    return data.getBoolean(KEY_SUPPORTS_TIPPING, false);
   }
 
   @Override

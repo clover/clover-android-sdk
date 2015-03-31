@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 group = 'com.clover.sdk'
-version = '61'
+version = '86'
 
 apply plugin: 'android'
 
@@ -29,7 +29,8 @@ android {
           abortOnError false
       }
   compileSdkVersion 17
-  buildToolsVersion "19.0.3"
+  buildToolsVersion "19.1"
+  useOldManifestMerger true
 
   defaultConfig {
     minSdkVersion 16

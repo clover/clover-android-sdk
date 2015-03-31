@@ -21,6 +21,20 @@ public class CustomerMode {
     ENABLED, DISABLED
   }
 
+  /**
+   * Use with Activity.requestWindowFeature(WINDOW_FEATURE_CUSTOMER_MODE) to enable customer mode button in navigation bar
+   * <p/>
+   * NOTE: doing so overrides the customerMode manifest value if present
+   */
+  public static final int WINDOW_FEATURE_CUSTOMER_MODE = 100;
+
+  /**
+   * Use with Activity.requestWindowFeature(WINDOW_FEATURE_CUSTOMER_MODE) to disable customer mode button in navigation bar
+   * <p/>
+   * NOTE: doing so overrides the customerMode manifest value if present
+   */
+  public static final int WINDOW_FEATURE_NO_CUSTOMER_MODE = 101;
+
   private static final String AUTHORITY = "com.clover.service.provider";
   private static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 

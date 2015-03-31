@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ public class TestReceiptPrintJob extends PrintJob implements Parcelable {
     }
   }
 
+  @Deprecated
   protected TestReceiptPrintJob() {
     super(FLAG_NONE);
   }
@@ -51,7 +52,7 @@ public class TestReceiptPrintJob extends PrintJob implements Parcelable {
 
   protected TestReceiptPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     // Add more data here, but remember old apps might not provide it!
   }
 

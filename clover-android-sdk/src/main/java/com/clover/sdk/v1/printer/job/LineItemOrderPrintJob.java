@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package com.clover.sdk.v1.printer.job;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 @Deprecated
@@ -35,16 +36,22 @@ public class LineItemOrderPrintJob extends OrderPrintJob implements Parcelable {
     }
 
     public LineItemOrderPrintJob build() {
-      return new LineItemOrderPrintJob(orderId, itemIds, flags);
+      return new LineItemOrderPrintJob(this);
     }
   }
 
   public final ArrayList<String> itemIds;
   private static final String BUNDLE_KEY_ITEM_IDS = "i";
 
+  @Deprecated
   protected LineItemOrderPrintJob(String orderId, ArrayList<String> itemIds, int flags) {
     super(orderId, flags);
-    this.itemIds = itemIds;
+    this.itemIds = new ArrayList<String>(itemIds);
+  }
+
+  protected LineItemOrderPrintJob(Builder builder) {
+    super(builder);
+    this.itemIds = builder.itemIds;
   }
 
   public static final Parcelable.Creator<LineItemOrderPrintJob> CREATOR
@@ -60,7 +67,7 @@ public class LineItemOrderPrintJob extends OrderPrintJob implements Parcelable {
 
   protected LineItemOrderPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     itemIds = bundle.getStringArrayList(BUNDLE_KEY_ITEM_IDS);
     // Add more data here, but remember old apps might not provide it!
   }

@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,6 +131,9 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   public com.clover.sdk.v3.inventory.ItemStock getItemStock() {
     return cacheGet(CacheKey.itemStock);
   }
+  public java.lang.Long getModifiedTime() {
+    return cacheGet(CacheKey.modifiedTime);
+  }
 
 
   private enum CacheKey {
@@ -246,6 +249,12 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Item instance) {
         return instance.extractItemStock();
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(Item instance) {
+        return instance.extractModifiedTime();
       }
     },
     ;
@@ -582,6 +591,12 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
 
+  private java.lang.Long extractModifiedTime() {
+    return getJSONObject().isNull("modifiedTime") ? null :
+      getJSONObject().optLong("modifiedTime");
+  }
+
+
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
@@ -697,6 +712,11 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return cacheValueIsNotNull(CacheKey.itemStock);
   }
 
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -791,6 +811,11 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
   /** Checks whether the 'itemStock' field has been set, however the value could be null */
   public boolean hasItemStock() {
     return cacheHasKey(CacheKey.itemStock);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return cacheHasKey(CacheKey.modifiedTime);
   }
 
 
@@ -1176,6 +1201,22 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return this;
   }
 
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public Item setModifiedTime(java.lang.Long modifiedTime) {
+    logChange("modifiedTime");
+
+    try {
+      getJSONObject().put("modifiedTime", modifiedTime == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(modifiedTime));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.modifiedTime);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1308,6 +1349,13 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     unlogChange("itemStock");
     getJSONObject().remove("itemStock");
     cacheRemoveValue(CacheKey.itemStock);
+  }
+
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    unlogChange("modifiedTime");
+    getJSONObject().remove("modifiedTime");
+    cacheRemoveValue(CacheKey.modifiedTime);
   }
 
 
@@ -1469,7 +1517,6 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     public static final boolean ISREVENUE_IS_REQUIRED = false;
 
     public static final boolean STOCKCOUNT_IS_REQUIRED = false;
-    public static final long STOCKCOUNT_MIN = 0;
 
     public static final boolean TAXRATES_IS_REQUIRED = false;
 
@@ -1480,6 +1527,8 @@ public final class Item implements android.os.Parcelable, com.clover.sdk.v3.Vali
     public static final boolean TAGS_IS_REQUIRED = false;
 
     public static final boolean ITEMSTOCK_IS_REQUIRED = false;
+
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }
 

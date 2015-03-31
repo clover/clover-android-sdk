@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,26 @@ import com.clover.sdk.v1.printer.Category;
 
 @Deprecated
 /**
- * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticReceiptPrintJob}
+ * @deprecated Please use {@link com.clover.sdk.v1.printer.job.StaticReceiptPrintJob}
  */
 public class ReceiptPrintJob extends OrderBasedPrintJob implements Parcelable {
+
+  @Deprecated
   public static class Builder extends OrderBasedPrintJob.Builder {
 
     public ReceiptPrintJob build() {
-      return new ReceiptPrintJob(orderId, flags | FLAG_SALE);
+      flags |= FLAG_SALE;
+      return new ReceiptPrintJob(this);
     }
   }
 
+  @Deprecated
   protected ReceiptPrintJob(String orderId, int flags) {
     super(orderId, flags);
+  }
+
+  protected ReceiptPrintJob(Builder builder) {
+    super(builder);
   }
 
   @Override
@@ -55,7 +63,7 @@ public class ReceiptPrintJob extends OrderBasedPrintJob implements Parcelable {
 
   protected ReceiptPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     // Add more data here, but remember old apps might not provide it!
   }
 

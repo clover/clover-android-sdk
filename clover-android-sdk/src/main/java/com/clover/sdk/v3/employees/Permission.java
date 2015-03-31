@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.employees;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum Permission {
+public enum Permission implements Parcelable {
   ORDERS_R, ORDERS_W, INVENTORY_R, INVENTORY_W, PAYMENTS_R, PAYMENTS_W, CUSTOMERS_R, CUSTOMERS_W, EMPLOYEES_R, EMPLOYEES_W, MERCHANT_R, MERCHANT_W;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<Permission> CREATOR = new Creator<Permission>() {
+    @Override
+    public Permission createFromParcel(final Parcel source) {
+      return Permission.valueOf(source.readString());
+    }
+
+    @Override
+    public Permission[] newArray(final int size) {
+      return new Permission[size];
+    }
+  };
 }
