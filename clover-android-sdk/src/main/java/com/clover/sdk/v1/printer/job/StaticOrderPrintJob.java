@@ -19,10 +19,9 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     private boolean markPrinted = false;
 
     public Builder staticOrderPrintJob(StaticOrderPrintJob pj) {
-      this.order = pj.order;
+      staticOrderBasedPrintJob(pj);
       this.itemIds = pj.itemIds;
       this.reprintAllowed = pj.reprintAllowed;
-      this.flags = pj.flags;
       this.markPrinted = pj.markPrinted;
 
       return this;
@@ -44,7 +43,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     }
 
     public StaticOrderPrintJob build() {
-      return new StaticOrderPrintJob(order, itemIds, reprintAllowed, flags, markPrinted);
+      return new StaticOrderPrintJob(this);
     }
   }
 
@@ -52,11 +51,19 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
   public final boolean reprintAllowed;
   public final boolean markPrinted;
 
+  @Deprecated
   public StaticOrderPrintJob(Order order, ArrayList<String> itemIds, boolean reprintAllowed, int flags, boolean markPrinted) {
     super(order, flags);
     this.itemIds = itemIds;
     this.reprintAllowed = reprintAllowed;
     this.markPrinted = markPrinted;
+  }
+
+  protected StaticOrderPrintJob(Builder builder) {
+    super(builder);
+    this.itemIds = builder.itemIds;
+    this.reprintAllowed = builder.reprintAllowed;
+    this.markPrinted = builder.markPrinted;
   }
 
   public static final Creator<StaticOrderPrintJob> CREATOR = new Creator<StaticOrderPrintJob>() {
@@ -71,7 +78,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
 
   protected StaticOrderPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle(getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     itemIds = bundle.getStringArrayList(BUNDLE_KEY_ITEM_IDS);
     reprintAllowed = bundle.getBoolean(BUNDLE_REPRINT_ALLOWED);
     markPrinted = bundle.getBoolean(BUNDLE_KEY_MARK_PRINTED);

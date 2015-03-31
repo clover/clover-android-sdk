@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,6 +56,12 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
   public java.lang.Boolean getZipPostalRequired() {
     return cacheGet(CacheKey.zipPostalRequired);
   }
+ /**
+   * Indicates whether the county field is required when creating the address
+  */
+  public java.lang.Boolean getCountyRequired() {
+    return cacheGet(CacheKey.countyRequired);
+  }
   public java.lang.String getDefaultLocale() {
     return cacheGet(CacheKey.defaultLocale);
   }
@@ -102,6 +108,12 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
       @Override
       public Object extractValue(CountryInfo instance) {
         return instance.extractZipPostalRequired();
+      }
+    },
+    countyRequired {
+      @Override
+      public Object extractValue(CountryInfo instance) {
+        return instance.extractCountyRequired();
       }
     },
     defaultLocale {
@@ -281,6 +293,12 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
   }
 
 
+  private java.lang.Boolean extractCountyRequired() {
+    return getJSONObject().isNull("countyRequired") ? null :
+      getJSONObject().optBoolean("countyRequired");
+  }
+
+
   private java.lang.String extractDefaultLocale() {
     return getJSONObject().isNull("defaultLocale") ? null :
       getJSONObject().optString("defaultLocale");
@@ -322,6 +340,11 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
     return cacheValueIsNotNull(CacheKey.zipPostalRequired);
   }
 
+  /** Checks whether the 'countyRequired' field is set and is not null */
+  public boolean isNotNullCountyRequired() {
+    return cacheValueIsNotNull(CacheKey.countyRequired);
+  }
+
   /** Checks whether the 'defaultLocale' field is set and is not null */
   public boolean isNotNullDefaultLocale() {
     return cacheValueIsNotNull(CacheKey.defaultLocale);
@@ -361,6 +384,11 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
   /** Checks whether the 'zipPostalRequired' field has been set, however the value could be null */
   public boolean hasZipPostalRequired() {
     return cacheHasKey(CacheKey.zipPostalRequired);
+  }
+
+  /** Checks whether the 'countyRequired' field has been set, however the value could be null */
+  public boolean hasCountyRequired() {
+    return cacheHasKey(CacheKey.countyRequired);
   }
 
   /** Checks whether the 'defaultLocale' field has been set, however the value could be null */
@@ -482,6 +510,22 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
   }
 
   /**
+   * Sets the field 'countyRequired'.
+   */
+  public CountryInfo setCountyRequired(java.lang.Boolean countyRequired) {
+    logChange("countyRequired");
+
+    try {
+      getJSONObject().put("countyRequired", countyRequired == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(countyRequired));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.countyRequired);
+    return this;
+  }
+
+  /**
    * Sets the field 'defaultLocale'.
    */
   public CountryInfo setDefaultLocale(java.lang.String defaultLocale) {
@@ -545,6 +589,13 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
     unlogChange("zipPostalRequired");
     getJSONObject().remove("zipPostalRequired");
     cacheRemoveValue(CacheKey.zipPostalRequired);
+  }
+
+  /** Clears the 'countyRequired' field, the 'has' method for this field will now return false */
+  public void clearCountyRequired() {
+    unlogChange("countyRequired");
+    getJSONObject().remove("countyRequired");
+    cacheRemoveValue(CacheKey.countyRequired);
   }
 
   /** Clears the 'defaultLocale' field, the 'has' method for this field will now return false */
@@ -695,6 +746,8 @@ public final class CountryInfo implements android.os.Parcelable, com.clover.sdk.
     public static final boolean STATEPROVINCEREQUIRED_IS_REQUIRED = false;
 
     public static final boolean ZIPPOSTALREQUIRED_IS_REQUIRED = false;
+
+    public static final boolean COUNTYREQUIRED_IS_REQUIRED = false;
 
     public static final boolean DEFAULTLOCALE_IS_REQUIRED = false;
     public static final long DEFAULTLOCALE_MAX_LEN = 5;

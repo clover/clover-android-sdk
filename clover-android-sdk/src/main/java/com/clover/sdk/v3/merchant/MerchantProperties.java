@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,9 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
   public java.lang.Long getSignatureThreshold() {
     return cacheGet(CacheKey.signatureThreshold);
+  }
+  public java.lang.Boolean getHasDefaultEmployee() {
+    return cacheGet(CacheKey.hasDefaultEmployee);
   }
   public java.lang.Integer getTipRateDefault() {
     return cacheGet(CacheKey.tipRateDefault);
@@ -122,14 +125,23 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public java.lang.String getVatTaxName() {
     return cacheGet(CacheKey.vatTaxName);
   }
-  public java.lang.Boolean getAppBillingEnabled() {
-    return cacheGet(CacheKey.appBillingEnabled);
+ /**
+   * Temporary while we are switching US billing systems
+  */
+  public java.lang.String getAppBillingSystem() {
+    return cacheGet(CacheKey.appBillingSystem);
   }
  /**
-   * If this merchant is an internal salesperson, they will get all paid apps for free
+   * The ABA Account Number.  Supplied by First Data.
   */
-  public java.lang.Boolean getPaidAppsFree() {
-    return cacheGet(CacheKey.paidAppsFree);
+  public java.lang.String getAbaAccountNumber() {
+    return cacheGet(CacheKey.abaAccountNumber);
+  }
+ /**
+   * The Masked DDA Account Number.  Supplied by First Data.
+  */
+  public java.lang.String getDdaAccountNumber() {
+    return cacheGet(CacheKey.ddaAccountNumber);
   }
   public java.lang.Boolean getTrackStock() {
     return cacheGet(CacheKey.trackStock);
@@ -146,7 +158,23 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public java.lang.String getAccountType() {
     return cacheGet(CacheKey.accountType);
   }
+  public java.lang.Integer getPinLength() {
+    return cacheGet(CacheKey.pinLength);
+  }
+ /**
+   * Whether cash back is enabled for this merchant
+  */
+  public java.lang.Boolean getCashBackEnabled() {
+    return cacheGet(CacheKey.cashBackEnabled);
+  }
+ /**
+   * The maximum amount of cash back that the customer can select.
+  */
+  public java.lang.Long getMaxCashBack() {
+    return cacheGet(CacheKey.maxCashBack);
+  }
 
+  public static final String AUTHORITY = "com.clover.merchants";
 
   private enum CacheKey {
     defaultCurrency {
@@ -177,6 +205,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.extractSignatureThreshold();
+      }
+    },
+    hasDefaultEmployee {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractHasDefaultEmployee();
       }
     },
     tipRateDefault {
@@ -323,16 +357,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
         return instance.extractVatTaxName();
       }
     },
-    appBillingEnabled {
+    appBillingSystem {
       @Override
       public Object extractValue(MerchantProperties instance) {
-        return instance.extractAppBillingEnabled();
+        return instance.extractAppBillingSystem();
       }
     },
-    paidAppsFree {
+    abaAccountNumber {
       @Override
       public Object extractValue(MerchantProperties instance) {
-        return instance.extractPaidAppsFree();
+        return instance.extractAbaAccountNumber();
+      }
+    },
+    ddaAccountNumber {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractDdaAccountNumber();
       }
     },
     trackStock {
@@ -363,6 +403,24 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.extractAccountType();
+      }
+    },
+    pinLength {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractPinLength();
+      }
+    },
+    cashBackEnabled {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractCashBackEnabled();
+      }
+    },
+    maxCashBack {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.extractMaxCashBack();
       }
     },
     ;
@@ -499,6 +557,15 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
 
     java.lang.String vatTaxName = getVatTaxName();
     if (vatTaxName != null && vatTaxName.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'vatTaxName'");}
+
+    java.lang.String appBillingSystem = getAppBillingSystem();
+    if (appBillingSystem != null && appBillingSystem.length() > 10) { throw new IllegalArgumentException("Maximum string length exceeded for 'appBillingSystem'");}
+
+    java.lang.String abaAccountNumber = getAbaAccountNumber();
+    if (abaAccountNumber != null && abaAccountNumber.length() > 40) { throw new IllegalArgumentException("Maximum string length exceeded for 'abaAccountNumber'");}
+
+    java.lang.String ddaAccountNumber = getDdaAccountNumber();
+    if (ddaAccountNumber != null && ddaAccountNumber.length() > 40) { throw new IllegalArgumentException("Maximum string length exceeded for 'ddaAccountNumber'");}
   }
 
 
@@ -530,6 +597,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   private java.lang.Long extractSignatureThreshold() {
     return getJSONObject().isNull("signatureThreshold") ? null :
       getJSONObject().optLong("signatureThreshold");
+  }
+
+
+  private java.lang.Boolean extractHasDefaultEmployee() {
+    return getJSONObject().isNull("hasDefaultEmployee") ? null :
+      getJSONObject().optBoolean("hasDefaultEmployee");
   }
 
 
@@ -684,15 +757,21 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
 
-  private java.lang.Boolean extractAppBillingEnabled() {
-    return getJSONObject().isNull("appBillingEnabled") ? null :
-      getJSONObject().optBoolean("appBillingEnabled");
+  private java.lang.String extractAppBillingSystem() {
+    return getJSONObject().isNull("appBillingSystem") ? null :
+      getJSONObject().optString("appBillingSystem");
   }
 
 
-  private java.lang.Boolean extractPaidAppsFree() {
-    return getJSONObject().isNull("paidAppsFree") ? null :
-      getJSONObject().optBoolean("paidAppsFree");
+  private java.lang.String extractAbaAccountNumber() {
+    return getJSONObject().isNull("abaAccountNumber") ? null :
+      getJSONObject().optString("abaAccountNumber");
+  }
+
+
+  private java.lang.String extractDdaAccountNumber() {
+    return getJSONObject().isNull("ddaAccountNumber") ? null :
+      getJSONObject().optString("ddaAccountNumber");
   }
 
 
@@ -726,6 +805,24 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
 
+  private java.lang.Integer extractPinLength() {
+    return getJSONObject().isNull("pinLength") ? null :
+      getJSONObject().optInt("pinLength");
+  }
+
+
+  private java.lang.Boolean extractCashBackEnabled() {
+    return getJSONObject().isNull("cashBackEnabled") ? null :
+      getJSONObject().optBoolean("cashBackEnabled");
+  }
+
+
+  private java.lang.Long extractMaxCashBack() {
+    return getJSONObject().isNull("maxCashBack") ? null :
+      getJSONObject().optLong("maxCashBack");
+  }
+
+
   /** Checks whether the 'defaultCurrency' field is set and is not null */
   public boolean isNotNullDefaultCurrency() {
     return cacheValueIsNotNull(CacheKey.defaultCurrency);
@@ -749,6 +846,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'signatureThreshold' field is set and is not null */
   public boolean isNotNullSignatureThreshold() {
     return cacheValueIsNotNull(CacheKey.signatureThreshold);
+  }
+
+  /** Checks whether the 'hasDefaultEmployee' field is set and is not null */
+  public boolean isNotNullHasDefaultEmployee() {
+    return cacheValueIsNotNull(CacheKey.hasDefaultEmployee);
   }
 
   /** Checks whether the 'tipRateDefault' field is set and is not null */
@@ -871,14 +973,19 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheValueIsNotNull(CacheKey.vatTaxName);
   }
 
-  /** Checks whether the 'appBillingEnabled' field is set and is not null */
-  public boolean isNotNullAppBillingEnabled() {
-    return cacheValueIsNotNull(CacheKey.appBillingEnabled);
+  /** Checks whether the 'appBillingSystem' field is set and is not null */
+  public boolean isNotNullAppBillingSystem() {
+    return cacheValueIsNotNull(CacheKey.appBillingSystem);
   }
 
-  /** Checks whether the 'paidAppsFree' field is set and is not null */
-  public boolean isNotNullPaidAppsFree() {
-    return cacheValueIsNotNull(CacheKey.paidAppsFree);
+  /** Checks whether the 'abaAccountNumber' field is set and is not null */
+  public boolean isNotNullAbaAccountNumber() {
+    return cacheValueIsNotNull(CacheKey.abaAccountNumber);
+  }
+
+  /** Checks whether the 'ddaAccountNumber' field is set and is not null */
+  public boolean isNotNullDdaAccountNumber() {
+    return cacheValueIsNotNull(CacheKey.ddaAccountNumber);
   }
 
   /** Checks whether the 'trackStock' field is set and is not null */
@@ -906,6 +1013,21 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheValueIsNotNull(CacheKey.accountType);
   }
 
+  /** Checks whether the 'pinLength' field is set and is not null */
+  public boolean isNotNullPinLength() {
+    return cacheValueIsNotNull(CacheKey.pinLength);
+  }
+
+  /** Checks whether the 'cashBackEnabled' field is set and is not null */
+  public boolean isNotNullCashBackEnabled() {
+    return cacheValueIsNotNull(CacheKey.cashBackEnabled);
+  }
+
+  /** Checks whether the 'maxCashBack' field is set and is not null */
+  public boolean isNotNullMaxCashBack() {
+    return cacheValueIsNotNull(CacheKey.maxCashBack);
+  }
+
 
   /** Checks whether the 'defaultCurrency' field has been set, however the value could be null */
   public boolean hasDefaultCurrency() {
@@ -930,6 +1052,11 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'signatureThreshold' field has been set, however the value could be null */
   public boolean hasSignatureThreshold() {
     return cacheHasKey(CacheKey.signatureThreshold);
+  }
+
+  /** Checks whether the 'hasDefaultEmployee' field has been set, however the value could be null */
+  public boolean hasHasDefaultEmployee() {
+    return cacheHasKey(CacheKey.hasDefaultEmployee);
   }
 
   /** Checks whether the 'tipRateDefault' field has been set, however the value could be null */
@@ -1052,14 +1179,19 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return cacheHasKey(CacheKey.vatTaxName);
   }
 
-  /** Checks whether the 'appBillingEnabled' field has been set, however the value could be null */
-  public boolean hasAppBillingEnabled() {
-    return cacheHasKey(CacheKey.appBillingEnabled);
+  /** Checks whether the 'appBillingSystem' field has been set, however the value could be null */
+  public boolean hasAppBillingSystem() {
+    return cacheHasKey(CacheKey.appBillingSystem);
   }
 
-  /** Checks whether the 'paidAppsFree' field has been set, however the value could be null */
-  public boolean hasPaidAppsFree() {
-    return cacheHasKey(CacheKey.paidAppsFree);
+  /** Checks whether the 'abaAccountNumber' field has been set, however the value could be null */
+  public boolean hasAbaAccountNumber() {
+    return cacheHasKey(CacheKey.abaAccountNumber);
+  }
+
+  /** Checks whether the 'ddaAccountNumber' field has been set, however the value could be null */
+  public boolean hasDdaAccountNumber() {
+    return cacheHasKey(CacheKey.ddaAccountNumber);
   }
 
   /** Checks whether the 'trackStock' field has been set, however the value could be null */
@@ -1085,6 +1217,21 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   /** Checks whether the 'accountType' field has been set, however the value could be null */
   public boolean hasAccountType() {
     return cacheHasKey(CacheKey.accountType);
+  }
+
+  /** Checks whether the 'pinLength' field has been set, however the value could be null */
+  public boolean hasPinLength() {
+    return cacheHasKey(CacheKey.pinLength);
+  }
+
+  /** Checks whether the 'cashBackEnabled' field has been set, however the value could be null */
+  public boolean hasCashBackEnabled() {
+    return cacheHasKey(CacheKey.cashBackEnabled);
+  }
+
+  /** Checks whether the 'maxCashBack' field has been set, however the value could be null */
+  public boolean hasMaxCashBack() {
+    return cacheHasKey(CacheKey.maxCashBack);
   }
 
 
@@ -1165,6 +1312,22 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     }
 
     cacheMarkDirty(CacheKey.signatureThreshold);
+    return this;
+  }
+
+  /**
+   * Sets the field 'hasDefaultEmployee'.
+   */
+  public MerchantProperties setHasDefaultEmployee(java.lang.Boolean hasDefaultEmployee) {
+    logChange("hasDefaultEmployee");
+
+    try {
+      getJSONObject().put("hasDefaultEmployee", hasDefaultEmployee == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(hasDefaultEmployee));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.hasDefaultEmployee);
     return this;
   }
 
@@ -1553,34 +1716,50 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   }
 
   /**
-   * Sets the field 'appBillingEnabled'.
+   * Sets the field 'appBillingSystem'.
    */
-  public MerchantProperties setAppBillingEnabled(java.lang.Boolean appBillingEnabled) {
-    logChange("appBillingEnabled");
+  public MerchantProperties setAppBillingSystem(java.lang.String appBillingSystem) {
+    logChange("appBillingSystem");
 
     try {
-      getJSONObject().put("appBillingEnabled", appBillingEnabled == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(appBillingEnabled));
+      getJSONObject().put("appBillingSystem", appBillingSystem == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(appBillingSystem));
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.appBillingEnabled);
+    cacheMarkDirty(CacheKey.appBillingSystem);
     return this;
   }
 
   /**
-   * Sets the field 'paidAppsFree'.
+   * Sets the field 'abaAccountNumber'.
    */
-  public MerchantProperties setPaidAppsFree(java.lang.Boolean paidAppsFree) {
-    logChange("paidAppsFree");
+  public MerchantProperties setAbaAccountNumber(java.lang.String abaAccountNumber) {
+    logChange("abaAccountNumber");
 
     try {
-      getJSONObject().put("paidAppsFree", paidAppsFree == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(paidAppsFree));
+      getJSONObject().put("abaAccountNumber", abaAccountNumber == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(abaAccountNumber));
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.paidAppsFree);
+    cacheMarkDirty(CacheKey.abaAccountNumber);
+    return this;
+  }
+
+  /**
+   * Sets the field 'ddaAccountNumber'.
+   */
+  public MerchantProperties setDdaAccountNumber(java.lang.String ddaAccountNumber) {
+    logChange("ddaAccountNumber");
+
+    try {
+      getJSONObject().put("ddaAccountNumber", ddaAccountNumber == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(ddaAccountNumber));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.ddaAccountNumber);
     return this;
   }
 
@@ -1664,6 +1843,54 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     return this;
   }
 
+  /**
+   * Sets the field 'pinLength'.
+   */
+  public MerchantProperties setPinLength(java.lang.Integer pinLength) {
+    logChange("pinLength");
+
+    try {
+      getJSONObject().put("pinLength", pinLength == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(pinLength));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.pinLength);
+    return this;
+  }
+
+  /**
+   * Sets the field 'cashBackEnabled'.
+   */
+  public MerchantProperties setCashBackEnabled(java.lang.Boolean cashBackEnabled) {
+    logChange("cashBackEnabled");
+
+    try {
+      getJSONObject().put("cashBackEnabled", cashBackEnabled == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(cashBackEnabled));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.cashBackEnabled);
+    return this;
+  }
+
+  /**
+   * Sets the field 'maxCashBack'.
+   */
+  public MerchantProperties setMaxCashBack(java.lang.Long maxCashBack) {
+    logChange("maxCashBack");
+
+    try {
+      getJSONObject().put("maxCashBack", maxCashBack == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(maxCashBack));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.maxCashBack);
+    return this;
+  }
+
 
   /** Clears the 'defaultCurrency' field, the 'has' method for this field will now return false */
   public void clearDefaultCurrency() {
@@ -1698,6 +1925,13 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     unlogChange("signatureThreshold");
     getJSONObject().remove("signatureThreshold");
     cacheRemoveValue(CacheKey.signatureThreshold);
+  }
+
+  /** Clears the 'hasDefaultEmployee' field, the 'has' method for this field will now return false */
+  public void clearHasDefaultEmployee() {
+    unlogChange("hasDefaultEmployee");
+    getJSONObject().remove("hasDefaultEmployee");
+    cacheRemoveValue(CacheKey.hasDefaultEmployee);
   }
 
   /** Clears the 'tipRateDefault' field, the 'has' method for this field will now return false */
@@ -1868,18 +2102,25 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     cacheRemoveValue(CacheKey.vatTaxName);
   }
 
-  /** Clears the 'appBillingEnabled' field, the 'has' method for this field will now return false */
-  public void clearAppBillingEnabled() {
-    unlogChange("appBillingEnabled");
-    getJSONObject().remove("appBillingEnabled");
-    cacheRemoveValue(CacheKey.appBillingEnabled);
+  /** Clears the 'appBillingSystem' field, the 'has' method for this field will now return false */
+  public void clearAppBillingSystem() {
+    unlogChange("appBillingSystem");
+    getJSONObject().remove("appBillingSystem");
+    cacheRemoveValue(CacheKey.appBillingSystem);
   }
 
-  /** Clears the 'paidAppsFree' field, the 'has' method for this field will now return false */
-  public void clearPaidAppsFree() {
-    unlogChange("paidAppsFree");
-    getJSONObject().remove("paidAppsFree");
-    cacheRemoveValue(CacheKey.paidAppsFree);
+  /** Clears the 'abaAccountNumber' field, the 'has' method for this field will now return false */
+  public void clearAbaAccountNumber() {
+    unlogChange("abaAccountNumber");
+    getJSONObject().remove("abaAccountNumber");
+    cacheRemoveValue(CacheKey.abaAccountNumber);
+  }
+
+  /** Clears the 'ddaAccountNumber' field, the 'has' method for this field will now return false */
+  public void clearDdaAccountNumber() {
+    unlogChange("ddaAccountNumber");
+    getJSONObject().remove("ddaAccountNumber");
+    cacheRemoveValue(CacheKey.ddaAccountNumber);
   }
 
   /** Clears the 'trackStock' field, the 'has' method for this field will now return false */
@@ -1915,6 +2156,27 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     unlogChange("accountType");
     getJSONObject().remove("accountType");
     cacheRemoveValue(CacheKey.accountType);
+  }
+
+  /** Clears the 'pinLength' field, the 'has' method for this field will now return false */
+  public void clearPinLength() {
+    unlogChange("pinLength");
+    getJSONObject().remove("pinLength");
+    cacheRemoveValue(CacheKey.pinLength);
+  }
+
+  /** Clears the 'cashBackEnabled' field, the 'has' method for this field will now return false */
+  public void clearCashBackEnabled() {
+    unlogChange("cashBackEnabled");
+    getJSONObject().remove("cashBackEnabled");
+    cacheRemoveValue(CacheKey.cashBackEnabled);
+  }
+
+  /** Clears the 'maxCashBack' field, the 'has' method for this field will now return false */
+  public void clearMaxCashBack() {
+    unlogChange("maxCashBack");
+    getJSONObject().remove("maxCashBack");
+    cacheRemoveValue(CacheKey.maxCashBack);
   }
 
 
@@ -2053,6 +2315,8 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
 
     public static final boolean SIGNATURETHRESHOLD_IS_REQUIRED = false;
 
+    public static final boolean HASDEFAULTEMPLOYEE_IS_REQUIRED = false;
+
     public static final boolean TIPRATEDEFAULT_IS_REQUIRED = false;
 
     public static final boolean ONPAPERTIPSIGNATURES_IS_REQUIRED = false;
@@ -2107,9 +2371,14 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     public static final boolean VATTAXNAME_IS_REQUIRED = false;
     public static final long VATTAXNAME_MAX_LEN = 255;
 
-    public static final boolean APPBILLINGENABLED_IS_REQUIRED = false;
+    public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;
+    public static final long APPBILLINGSYSTEM_MAX_LEN = 10;
 
-    public static final boolean PAIDAPPSFREE_IS_REQUIRED = false;
+    public static final boolean ABAACCOUNTNUMBER_IS_REQUIRED = false;
+    public static final long ABAACCOUNTNUMBER_MAX_LEN = 40;
+
+    public static final boolean DDAACCOUNTNUMBER_IS_REQUIRED = false;
+    public static final long DDAACCOUNTNUMBER_MAX_LEN = 40;
 
     public static final boolean TRACKSTOCK_IS_REQUIRED = false;
 
@@ -2120,6 +2389,12 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     public static final boolean LOGINCLOCKINPROMPT_IS_REQUIRED = false;
 
     public static final boolean ACCOUNTTYPE_IS_REQUIRED = false;
+
+    public static final boolean PINLENGTH_IS_REQUIRED = false;
+
+    public static final boolean CASHBACKENABLED_IS_REQUIRED = false;
+
+    public static final boolean MAXCASHBACK_IS_REQUIRED = false;
 
   }
 

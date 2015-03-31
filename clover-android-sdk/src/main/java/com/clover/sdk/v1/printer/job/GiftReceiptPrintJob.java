@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,17 @@ public class GiftReceiptPrintJob extends ReceiptPrintJob implements Parcelable {
   public static class Builder extends ReceiptPrintJob.Builder {
 
     public GiftReceiptPrintJob build() {
-      return new GiftReceiptPrintJob(orderId, flags);
+      return new GiftReceiptPrintJob(this);
     }
   }
 
+  @Deprecated
   protected GiftReceiptPrintJob(String orderId, int flags) {
     super(orderId, flags);
+  }
+
+  protected GiftReceiptPrintJob(Builder builder) {
+    super(builder);
   }
 
   public static final Parcelable.Creator<GiftReceiptPrintJob> CREATOR
@@ -50,7 +55,7 @@ public class GiftReceiptPrintJob extends ReceiptPrintJob implements Parcelable {
 
   protected GiftReceiptPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     // Add more data here, but remember old apps might not provide it!
   }
 

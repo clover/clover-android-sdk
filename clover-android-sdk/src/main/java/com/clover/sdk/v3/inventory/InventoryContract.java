@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,6 +99,13 @@ public final class InventoryContract {
      * Type: TEXT
      */
     public static final String UNIT_NAME = "unit_name";
+
+    /**
+     * Modified time
+     *
+     * Type: LONG
+     */
+    public static final String MODIFIED_TIME = "modified_time";
 
     /**
      * Flag to indicate whether or not to use default tax rates; a call to

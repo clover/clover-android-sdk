@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,6 +87,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheGet(CacheKey.city);
   }
  /**
+   * Developer's county
+  */
+  public java.lang.String getCounty() {
+    return cacheGet(CacheKey.county);
+  }
+ /**
    * Developer's state
   */
   public java.lang.String getState() {
@@ -127,6 +133,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   */
   public java.lang.String getTin() {
     return cacheGet(CacheKey.tin);
+  }
+ /**
+   * Developer's VAT Register Number
+  */
+  public java.lang.String getVatRegisterNumber() {
+    return cacheGet(CacheKey.vatRegisterNumber);
   }
  /**
    * Developer's business address
@@ -216,10 +228,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheGet(CacheKey.owner);
   }
  /**
-   * If the developer can apply for pricing or not
+   * Temporary while we are switching US billing systems
   */
-  public java.lang.Boolean getCanApplyForPricing() {
-    return cacheGet(CacheKey.canApplyForPricing);
+  public java.lang.String getAppBillingSystem() {
+    return cacheGet(CacheKey.appBillingSystem);
+  }
+ /**
+   * The Infolease vendor code.  This was generated when the developer was on-boarded on the Infolease system.
+  */
+  public java.lang.String getInfoleaseVendorCode() {
+    return cacheGet(CacheKey.infoleaseVendorCode);
   }
 
 
@@ -284,6 +302,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractCity();
       }
     },
+    county {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractCounty();
+      }
+    },
     state {
       @Override
       public Object extractValue(Developer instance) {
@@ -324,6 +348,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
       @Override
       public Object extractValue(Developer instance) {
         return instance.extractTin();
+      }
+    },
+    vatRegisterNumber {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractVatRegisterNumber();
       }
     },
     businessAddress {
@@ -416,10 +446,16 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.extractOwner();
       }
     },
-    canApplyForPricing {
+    appBillingSystem {
       @Override
       public Object extractValue(Developer instance) {
-        return instance.extractCanApplyForPricing();
+        return instance.extractAppBillingSystem();
+      }
+    },
+    infoleaseVendorCode {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.extractInfoleaseVendorCode();
       }
     },
     ;
@@ -566,6 +602,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     java.lang.String city = getCity();
     if (city != null && city.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'city'");}
 
+    java.lang.String county = getCounty();
+    if (county != null && county.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'county'");}
+
     java.lang.String state = getState();
     if (state != null && state.length() > 2) { throw new IllegalArgumentException("Maximum string length exceeded for 'state'");}
 
@@ -586,6 +625,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     java.lang.String tin = getTin();
     if (tin != null && tin.length() > 9) { throw new IllegalArgumentException("Maximum string length exceeded for 'tin'");}
+
+    java.lang.String vatRegisterNumber = getVatRegisterNumber();
+    if (vatRegisterNumber != null && vatRegisterNumber.length() > 127) { throw new IllegalArgumentException("Maximum string length exceeded for 'vatRegisterNumber'");}
 
     java.lang.String businessAddress = getBusinessAddress();
     if (businessAddress != null && businessAddress.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'businessAddress'");}
@@ -616,6 +658,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     java.lang.String website = getWebsite();
     if (website != null && website.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'website'");}
+
+    java.lang.String appBillingSystem = getAppBillingSystem();
+    if (appBillingSystem != null && appBillingSystem.length() > 10) { throw new IllegalArgumentException("Maximum string length exceeded for 'appBillingSystem'");}
+
+    java.lang.String infoleaseVendorCode = getInfoleaseVendorCode();
+    if (infoleaseVendorCode != null && infoleaseVendorCode.length() > 30) { throw new IllegalArgumentException("Maximum string length exceeded for 'infoleaseVendorCode'");}
   }
 
 
@@ -680,6 +728,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
+  private java.lang.String extractCounty() {
+    return getJSONObject().isNull("county") ? null :
+      getJSONObject().optString("county");
+  }
+
+
   private java.lang.String extractState() {
     return getJSONObject().isNull("state") ? null :
       getJSONObject().optString("state");
@@ -719,6 +773,12 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   private java.lang.String extractTin() {
     return getJSONObject().isNull("tin") ? null :
       getJSONObject().optString("tin");
+  }
+
+
+  private java.lang.String extractVatRegisterNumber() {
+    return getJSONObject().isNull("vatRegisterNumber") ? null :
+      getJSONObject().optString("vatRegisterNumber");
   }
 
 
@@ -829,9 +889,15 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
-  private java.lang.Boolean extractCanApplyForPricing() {
-    return getJSONObject().isNull("canApplyForPricing") ? null :
-      getJSONObject().optBoolean("canApplyForPricing");
+  private java.lang.String extractAppBillingSystem() {
+    return getJSONObject().isNull("appBillingSystem") ? null :
+      getJSONObject().optString("appBillingSystem");
+  }
+
+
+  private java.lang.String extractInfoleaseVendorCode() {
+    return getJSONObject().isNull("infoleaseVendorCode") ? null :
+      getJSONObject().optString("infoleaseVendorCode");
   }
 
 
@@ -885,6 +951,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.city);
   }
 
+  /** Checks whether the 'county' field is set and is not null */
+  public boolean isNotNullCounty() {
+    return cacheValueIsNotNull(CacheKey.county);
+  }
+
   /** Checks whether the 'state' field is set and is not null */
   public boolean isNotNullState() {
     return cacheValueIsNotNull(CacheKey.state);
@@ -918,6 +989,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'tin' field is set and is not null */
   public boolean isNotNullTin() {
     return cacheValueIsNotNull(CacheKey.tin);
+  }
+
+  /** Checks whether the 'vatRegisterNumber' field is set and is not null */
+  public boolean isNotNullVatRegisterNumber() {
+    return cacheValueIsNotNull(CacheKey.vatRegisterNumber);
   }
 
   /** Checks whether the 'businessAddress' field is set and is not null */
@@ -995,9 +1071,14 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheValueIsNotNull(CacheKey.owner);
   }
 
-  /** Checks whether the 'canApplyForPricing' field is set and is not null */
-  public boolean isNotNullCanApplyForPricing() {
-    return cacheValueIsNotNull(CacheKey.canApplyForPricing);
+  /** Checks whether the 'appBillingSystem' field is set and is not null */
+  public boolean isNotNullAppBillingSystem() {
+    return cacheValueIsNotNull(CacheKey.appBillingSystem);
+  }
+
+  /** Checks whether the 'infoleaseVendorCode' field is set and is not null */
+  public boolean isNotNullInfoleaseVendorCode() {
+    return cacheValueIsNotNull(CacheKey.infoleaseVendorCode);
   }
 
 
@@ -1051,6 +1132,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheHasKey(CacheKey.city);
   }
 
+  /** Checks whether the 'county' field has been set, however the value could be null */
+  public boolean hasCounty() {
+    return cacheHasKey(CacheKey.county);
+  }
+
   /** Checks whether the 'state' field has been set, however the value could be null */
   public boolean hasState() {
     return cacheHasKey(CacheKey.state);
@@ -1084,6 +1170,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   /** Checks whether the 'tin' field has been set, however the value could be null */
   public boolean hasTin() {
     return cacheHasKey(CacheKey.tin);
+  }
+
+  /** Checks whether the 'vatRegisterNumber' field has been set, however the value could be null */
+  public boolean hasVatRegisterNumber() {
+    return cacheHasKey(CacheKey.vatRegisterNumber);
   }
 
   /** Checks whether the 'businessAddress' field has been set, however the value could be null */
@@ -1161,9 +1252,14 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     return cacheHasKey(CacheKey.owner);
   }
 
-  /** Checks whether the 'canApplyForPricing' field has been set, however the value could be null */
-  public boolean hasCanApplyForPricing() {
-    return cacheHasKey(CacheKey.canApplyForPricing);
+  /** Checks whether the 'appBillingSystem' field has been set, however the value could be null */
+  public boolean hasAppBillingSystem() {
+    return cacheHasKey(CacheKey.appBillingSystem);
+  }
+
+  /** Checks whether the 'infoleaseVendorCode' field has been set, however the value could be null */
+  public boolean hasInfoleaseVendorCode() {
+    return cacheHasKey(CacheKey.infoleaseVendorCode);
   }
 
 
@@ -1328,6 +1424,22 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'county'.
+   */
+  public Developer setCounty(java.lang.String county) {
+    logChange("county");
+
+    try {
+      getJSONObject().put("county", county == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(county));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.county);
+    return this;
+  }
+
+  /**
    * Sets the field 'state'.
    */
   public Developer setState(java.lang.String state) {
@@ -1436,6 +1548,22 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     }
 
     cacheMarkDirty(CacheKey.tin);
+    return this;
+  }
+
+  /**
+   * Sets the field 'vatRegisterNumber'.
+   */
+  public Developer setVatRegisterNumber(java.lang.String vatRegisterNumber) {
+    logChange("vatRegisterNumber");
+
+    try {
+      getJSONObject().put("vatRegisterNumber", vatRegisterNumber == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(vatRegisterNumber));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.vatRegisterNumber);
     return this;
   }
 
@@ -1683,18 +1811,34 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   }
 
   /**
-   * Sets the field 'canApplyForPricing'.
+   * Sets the field 'appBillingSystem'.
    */
-  public Developer setCanApplyForPricing(java.lang.Boolean canApplyForPricing) {
-    logChange("canApplyForPricing");
+  public Developer setAppBillingSystem(java.lang.String appBillingSystem) {
+    logChange("appBillingSystem");
 
     try {
-      getJSONObject().put("canApplyForPricing", canApplyForPricing == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(canApplyForPricing));
+      getJSONObject().put("appBillingSystem", appBillingSystem == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(appBillingSystem));
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.canApplyForPricing);
+    cacheMarkDirty(CacheKey.appBillingSystem);
+    return this;
+  }
+
+  /**
+   * Sets the field 'infoleaseVendorCode'.
+   */
+  public Developer setInfoleaseVendorCode(java.lang.String infoleaseVendorCode) {
+    logChange("infoleaseVendorCode");
+
+    try {
+      getJSONObject().put("infoleaseVendorCode", infoleaseVendorCode == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(infoleaseVendorCode));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.infoleaseVendorCode);
     return this;
   }
 
@@ -1769,6 +1913,13 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     cacheRemoveValue(CacheKey.city);
   }
 
+  /** Clears the 'county' field, the 'has' method for this field will now return false */
+  public void clearCounty() {
+    unlogChange("county");
+    getJSONObject().remove("county");
+    cacheRemoveValue(CacheKey.county);
+  }
+
   /** Clears the 'state' field, the 'has' method for this field will now return false */
   public void clearState() {
     unlogChange("state");
@@ -1816,6 +1967,13 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     unlogChange("tin");
     getJSONObject().remove("tin");
     cacheRemoveValue(CacheKey.tin);
+  }
+
+  /** Clears the 'vatRegisterNumber' field, the 'has' method for this field will now return false */
+  public void clearVatRegisterNumber() {
+    unlogChange("vatRegisterNumber");
+    getJSONObject().remove("vatRegisterNumber");
+    cacheRemoveValue(CacheKey.vatRegisterNumber);
   }
 
   /** Clears the 'businessAddress' field, the 'has' method for this field will now return false */
@@ -1923,11 +2081,18 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     cacheRemoveValue(CacheKey.owner);
   }
 
-  /** Clears the 'canApplyForPricing' field, the 'has' method for this field will now return false */
-  public void clearCanApplyForPricing() {
-    unlogChange("canApplyForPricing");
-    getJSONObject().remove("canApplyForPricing");
-    cacheRemoveValue(CacheKey.canApplyForPricing);
+  /** Clears the 'appBillingSystem' field, the 'has' method for this field will now return false */
+  public void clearAppBillingSystem() {
+    unlogChange("appBillingSystem");
+    getJSONObject().remove("appBillingSystem");
+    cacheRemoveValue(CacheKey.appBillingSystem);
+  }
+
+  /** Clears the 'infoleaseVendorCode' field, the 'has' method for this field will now return false */
+  public void clearInfoleaseVendorCode() {
+    unlogChange("infoleaseVendorCode");
+    getJSONObject().remove("infoleaseVendorCode");
+    cacheRemoveValue(CacheKey.infoleaseVendorCode);
   }
 
 
@@ -2085,6 +2250,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     public static final boolean CITY_IS_REQUIRED = false;
     public static final long CITY_MAX_LEN = 127;
 
+    public static final boolean COUNTY_IS_REQUIRED = false;
+    public static final long COUNTY_MAX_LEN = 127;
+
     public static final boolean STATE_IS_REQUIRED = false;
     public static final long STATE_MAX_LEN = 2;
 
@@ -2105,6 +2273,9 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean TIN_IS_REQUIRED = false;
     public static final long TIN_MAX_LEN = 9;
+
+    public static final boolean VATREGISTERNUMBER_IS_REQUIRED = false;
+    public static final long VATREGISTERNUMBER_MAX_LEN = 127;
 
     public static final boolean BUSINESSADDRESS_IS_REQUIRED = false;
     public static final long BUSINESSADDRESS_MAX_LEN = 255;
@@ -2146,7 +2317,11 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean OWNER_IS_REQUIRED = false;
 
-    public static final boolean CANAPPLYFORPRICING_IS_REQUIRED = false;
+    public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;
+    public static final long APPBILLINGSYSTEM_MAX_LEN = 10;
+
+    public static final boolean INFOLEASEVENDORCODE_IS_REQUIRED = false;
+    public static final long INFOLEASEVENDORCODE_MAX_LEN = 30;
 
   }
 

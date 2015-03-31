@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import com.clover.sdk.v1.printer.Category;
  * @deprecated Please use (@link com.clover.sdk.v1.printer.job.StaticRefundPrintJob}
  */
 public class RefundPrintJob extends OrderBasedPrintJob implements Parcelable {
+
+  @Deprecated
   public static class Builder extends OrderBasedPrintJob.Builder {
     private String refundId;
 
@@ -35,16 +37,23 @@ public class RefundPrintJob extends OrderBasedPrintJob implements Parcelable {
     }
 
     public RefundPrintJob build() {
-      return new RefundPrintJob(orderId, refundId, flags | FLAG_REFUND);
+      flags |= FLAG_REFUND;
+      return new RefundPrintJob(this);
     }
   }
 
   public final String refundId;
   private static final String BUNDLE_KEY_REFUND_ID = "r";
 
+  @Deprecated
   protected RefundPrintJob(String orderId, String refundId, int flags) {
     super(orderId, flags);
     this.refundId = refundId;
+  }
+
+  protected RefundPrintJob(Builder builder) {
+    super(builder);
+    this.refundId = builder.refundId;
   }
 
   @Override
@@ -65,7 +74,7 @@ public class RefundPrintJob extends OrderBasedPrintJob implements Parcelable {
 
   protected RefundPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     refundId = bundle.getString(BUNDLE_KEY_REFUND_ID);
     // Add more data here, but remember old apps might not provide it!
   }

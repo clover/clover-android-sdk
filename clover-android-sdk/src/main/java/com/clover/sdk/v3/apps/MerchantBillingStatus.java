@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.apps;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum MerchantBillingStatus {
+public enum MerchantBillingStatus implements Parcelable {
   ACTIVE, LAPSED;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<MerchantBillingStatus> CREATOR = new Creator<MerchantBillingStatus>() {
+    @Override
+    public MerchantBillingStatus createFromParcel(final Parcel source) {
+      return MerchantBillingStatus.valueOf(source.readString());
+    }
+
+    @Override
+    public MerchantBillingStatus[] newArray(final int size) {
+      return new MerchantBillingStatus[size];
+    }
+  };
 }

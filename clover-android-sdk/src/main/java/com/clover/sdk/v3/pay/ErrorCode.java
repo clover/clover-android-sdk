@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.pay;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum ErrorCode {
+public enum ErrorCode implements Parcelable {
   TERMINAL_BUSY, TERMINAL_UNAVAILABLE, TERMINAL_GENERAL;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<ErrorCode> CREATOR = new Creator<ErrorCode>() {
+    @Override
+    public ErrorCode createFromParcel(final Parcel source) {
+      return ErrorCode.valueOf(source.readString());
+    }
+
+    @Override
+    public ErrorCode[] newArray(final int size) {
+      return new ErrorCode[size];
+    }
+  };
 }

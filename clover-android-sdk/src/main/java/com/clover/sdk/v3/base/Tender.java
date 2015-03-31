@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,6 +57,12 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
     return cacheGet(CacheKey.opensCashDrawer);
   }
  /**
+   * Allow tipping on payment from tender
+  */
+  public java.lang.Boolean getSupportsTipping() {
+    return cacheGet(CacheKey.supportsTipping);
+  }
+ /**
    * If this merchant tender is enabled
   */
   public java.lang.Boolean getEnabled() {
@@ -105,6 +111,12 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Tender instance) {
         return instance.extractOpensCashDrawer();
+      }
+    },
+    supportsTipping {
+      @Override
+      public Object extractValue(Tender instance) {
+        return instance.extractSupportsTipping();
       }
     },
     enabled {
@@ -281,6 +293,12 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+  private java.lang.Boolean extractSupportsTipping() {
+    return getJSONObject().isNull("supportsTipping") ? null :
+      getJSONObject().optBoolean("supportsTipping");
+  }
+
+
   private java.lang.Boolean extractEnabled() {
     return getJSONObject().isNull("enabled") ? null :
       getJSONObject().optBoolean("enabled");
@@ -324,6 +342,11 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
     return cacheValueIsNotNull(CacheKey.opensCashDrawer);
   }
 
+  /** Checks whether the 'supportsTipping' field is set and is not null */
+  public boolean isNotNullSupportsTipping() {
+    return cacheValueIsNotNull(CacheKey.supportsTipping);
+  }
+
   /** Checks whether the 'enabled' field is set and is not null */
   public boolean isNotNullEnabled() {
     return cacheValueIsNotNull(CacheKey.enabled);
@@ -363,6 +386,11 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'opensCashDrawer' field has been set, however the value could be null */
   public boolean hasOpensCashDrawer() {
     return cacheHasKey(CacheKey.opensCashDrawer);
+  }
+
+  /** Checks whether the 'supportsTipping' field has been set, however the value could be null */
+  public boolean hasSupportsTipping() {
+    return cacheHasKey(CacheKey.supportsTipping);
   }
 
   /** Checks whether the 'enabled' field has been set, however the value could be null */
@@ -462,6 +490,22 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'supportsTipping'.
+   */
+  public Tender setSupportsTipping(java.lang.Boolean supportsTipping) {
+    logChange("supportsTipping");
+
+    try {
+      getJSONObject().put("supportsTipping", supportsTipping == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(supportsTipping));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.supportsTipping);
+    return this;
+  }
+
+  /**
    * Sets the field 'enabled'.
    */
   public Tender setEnabled(java.lang.Boolean enabled) {
@@ -543,6 +587,13 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
     unlogChange("opensCashDrawer");
     getJSONObject().remove("opensCashDrawer");
     cacheRemoveValue(CacheKey.opensCashDrawer);
+  }
+
+  /** Clears the 'supportsTipping' field, the 'has' method for this field will now return false */
+  public void clearSupportsTipping() {
+    unlogChange("supportsTipping");
+    getJSONObject().remove("supportsTipping");
+    cacheRemoveValue(CacheKey.supportsTipping);
   }
 
   /** Clears the 'enabled' field, the 'has' method for this field will now return false */
@@ -703,6 +754,8 @@ public final class Tender implements android.os.Parcelable, com.clover.sdk.v3.Va
     public static final long LABEL_MAX_LEN = 127;
 
     public static final boolean OPENSCASHDRAWER_IS_REQUIRED = false;
+
+    public static final boolean SUPPORTSTIPPING_IS_REQUIRED = false;
 
     public static final boolean ENABLED_IS_REQUIRED = false;
 

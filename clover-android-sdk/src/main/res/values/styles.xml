@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~ Copyright (C) 2015 Clover Network, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
   -->
 
 <resources>
+
   <style name="RotateToMerchant">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
@@ -28,7 +29,7 @@
   </style>
 
   <style name="Instructions">
-  <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center</item>
     <item name="android:layout_centerHorizontal">true</item>
@@ -41,5 +42,26 @@
     <item name="android:windowActionBar">false</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
+  </style>
+
+  <style name="ReturnToMerchantTitle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="android:fontFamily">sans-serif-thin</item>
+    <item name="android:textSize">72sp</item>
+    <item name="android:singleLine">true</item>
+  </style>
+
+  <style name="ReturnToMerchantInstructions">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_centerHorizontal">true</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:textAllCaps">true</item>
   </style>
 </resources>

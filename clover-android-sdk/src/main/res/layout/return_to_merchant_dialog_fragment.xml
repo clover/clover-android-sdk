@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/returnInstructions"
+              android:id="@+id/mainLayout"
               android:layout_height="match_parent"
               android:layout_width="match_parent"
               android:layout_gravity="center"
               android:orientation="vertical"
-              android:padding="16dp">
+              android:background="@color/background_return_to_merchant">
+
+  <TextView
+      style="@style/ReturnToMerchantTitle"
+      android:id="@+id/title"
+      android:text="@string/returnToMerchantTitle"
+      android:layout_marginTop="50dp"
+      android:layout_marginBottom="20dp"/>
+
   <TextView
       android:id="@+id/instruction"
-      style="@style/Instructions"/>
+      style="@style/ReturnToMerchantInstructions"
+      android:text="@string/returnToMerchant"
+      android:layout_marginBottom="20dp"/>
 
-  <!-- temporary dimens and src until final asset is received -->
+  <Space
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:layout_width="match_parent"/>
+
   <ImageView
-      android:layout_height="300dp"
-      android:layout_width="400dp"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
       android:scaleType="fitCenter"
-      android:layout_gravity="center_horizontal"
+      android:layout_gravity="center_horizontal|bottom"
       android:src="@drawable/return_to_merchant"
+      android:layout_marginLeft="30dp"
       android:contentDescription="@string/returnToMerchant"/>
 </LinearLayout>

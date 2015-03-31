@@ -1,10 +1,9 @@
 package com.clover.sdk.util;
 
 import android.os.Build;
-import android.util.Log;
 
 public enum Platform {
-  TF300T, C100, C200, C201, OTHER;
+  TF300T, C100, C200, C201, C300, C301, OTHER;
 
   private static final String TAG = "Platform";
   private static final String CLOVER = "Clover";
@@ -17,7 +16,6 @@ public enum Platform {
       platform = OTHER;
     }
 
-    Log.i(TAG, "platform: " + platform);
     return platform;
   }
 
@@ -25,13 +23,23 @@ public enum Platform {
     return Build.MANUFACTURER.equals(CLOVER);
   }
 
+  public static boolean isCloverStation() {
+    Platform platform = get();
+    return (platform == C100);
+  }
+
   public static boolean isCloverMobile() {
     Platform platform = get();
+    return (platform == C200 || platform == C201);
+  }
 
-    if (platform == C200 || platform == C201) {
-      return true;
-    }
+  public static boolean isCloverMini() {
+    Platform platform = get();
+    return (platform == C300 || platform == C301);
+  }
 
-    return false;
+  public static boolean is3g() {
+    Platform platform = get();
+    return platform == C201 || platform == C301;
   }
 }

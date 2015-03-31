@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.pay;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum TxResult {
+public enum TxResult implements Parcelable {
   ERROR, MSR, EMV_OFFLINE_APPROVED, EMV_OFFLINE_DECLINED, EMV_GO_ONLINE, EMV_APPROVED_ONLINE, EMV_DECLINED_ONLINE, RFID_OFFLINE_APPROVED, RFID_OFFLINE_DECLINED, RFID_GO_ONLINE, RFID_TERMINATED, RFID_MSR, MANUAL;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<TxResult> CREATOR = new Creator<TxResult>() {
+    @Override
+    public TxResult createFromParcel(final Parcel source) {
+      return TxResult.valueOf(source.readString());
+    }
+
+    @Override
+    public TxResult[] newArray(final int size) {
+      return new TxResult[size];
+    }
+  };
 }

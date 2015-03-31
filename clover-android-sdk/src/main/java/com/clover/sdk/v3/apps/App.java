@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
   public com.clover.sdk.v3.developer.Developer getDeveloper() {
     return cacheGet(CacheKey.developer);
+  }
+ /**
+   * Only available when app is installed to a merchant
+  */
+  public com.clover.sdk.v3.merchant.Merchant getMerchant() {
+    return cacheGet(CacheKey.merchant);
   }
  /**
    * App Description
@@ -146,6 +152,9 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public java.lang.Boolean getPermissionEmployeesWrite() {
     return cacheGet(CacheKey.permissionEmployeesWrite);
   }
+  public java.lang.Boolean getPermissionProcessCards() {
+    return cacheGet(CacheKey.permissionProcessCards);
+  }
   public java.lang.String getPrivacyPolicy() {
     return cacheGet(CacheKey.privacyPolicy);
   }
@@ -183,16 +192,28 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheGet(CacheKey.screenshots);
   }
  /**
-   * Subscription options for this app
+   * Available subscription options for this app
   */
   public java.util.List<com.clover.sdk.v3.apps.AppSubscription> getAvailableSubscriptions() {
     return cacheGet(CacheKey.availableSubscriptions);
   }
  /**
-   * Metered options for this app
+   * Subscription options for this app
+  */
+  public java.util.List<com.clover.sdk.v3.apps.AppSubscription> getSubscriptions() {
+    return cacheGet(CacheKey.subscriptions);
+  }
+ /**
+   * Available metered options for this app
   */
   public java.util.List<com.clover.sdk.v3.apps.AppMetered> getAvailableMetereds() {
     return cacheGet(CacheKey.availableMetereds);
+  }
+ /**
+   * Metered options for this app
+  */
+  public java.util.List<com.clover.sdk.v3.apps.AppMetered> getMetereds() {
+    return cacheGet(CacheKey.metereds);
   }
  /**
    * USB devices with which this app will communicate
@@ -201,7 +222,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheGet(CacheKey.usbDevices);
   }
  /**
-   * This is now derived directly from billingStartTime (if future -> in trial; if past -> not in trial).  So it is now unnecessary.  Please update client code to not use it.
+   * DEPRECATED: This is now derived directly from billingStartTime (if future -> in trial; if past -> not in trial).  So it is now unnecessary.  Please update client code to not use it.
   */
   public java.lang.Boolean getIsMerchantInTrial() {
     return cacheGet(CacheKey.isMerchantInTrial);
@@ -272,6 +293,15 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public java.lang.String getAppSecret() {
     return cacheGet(CacheKey.appSecret);
   }
+ /**
+   * App's associated business types
+  */
+  public java.util.List<com.clover.sdk.v3.apps.BusinessType> getBusinessTypes() {
+    return cacheGet(CacheKey.businessTypes);
+  }
+  public java.util.List<com.clover.sdk.v3.merchant.Module> getModules() {
+    return cacheGet(CacheKey.modules);
+  }
 
 
   private enum CacheKey {
@@ -297,6 +327,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
       @Override
       public Object extractValue(App instance) {
         return instance.extractDeveloper();
+      }
+    },
+    merchant {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractMerchant();
       }
     },
     description {
@@ -461,6 +497,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
         return instance.extractPermissionEmployeesWrite();
       }
     },
+    permissionProcessCards {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractPermissionProcessCards();
+      }
+    },
     privacyPolicy {
       @Override
       public Object extractValue(App instance) {
@@ -527,10 +569,22 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
         return instance.extractAvailableSubscriptions();
       }
     },
+    subscriptions {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractSubscriptions();
+      }
+    },
     availableMetereds {
       @Override
       public Object extractValue(App instance) {
         return instance.extractAvailableMetereds();
+      }
+    },
+    metereds {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractMetereds();
       }
     },
     usbDevices {
@@ -609,6 +663,18 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
       @Override
       public Object extractValue(App instance) {
         return instance.extractAppSecret();
+      }
+    },
+    businessTypes {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractBusinessTypes();
+      }
+    },
+    modules {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.extractModules();
       }
     },
     ;
@@ -819,6 +885,15 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
+  private com.clover.sdk.v3.merchant.Merchant extractMerchant() {
+    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("merchant");
+    if (jsonObj != null) {
+      return new com.clover.sdk.v3.merchant.Merchant(getJSONObject().optJSONObject("merchant"));
+    }
+    return null;
+  }
+
+
   private java.lang.String extractDescription() {
     return getJSONObject().isNull("description") ? null :
       getJSONObject().optString("description");
@@ -991,6 +1066,12 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
+  private java.lang.Boolean extractPermissionProcessCards() {
+    return getJSONObject().isNull("permissionProcessCards") ? null :
+      getJSONObject().optBoolean("permissionProcessCards");
+  }
+
+
   private java.lang.String extractPrivacyPolicy() {
     return getJSONObject().isNull("privacyPolicy") ? null :
       getJSONObject().optString("privacyPolicy");
@@ -1119,12 +1200,56 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
+  private java.util.List<com.clover.sdk.v3.apps.AppSubscription> extractSubscriptions() {
+    if (getJSONObject().isNull("subscriptions")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("subscriptions");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.AppSubscription> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.AppSubscription>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.AppSubscription item = new com.clover.sdk.v3.apps.AppSubscription(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   private java.util.List<com.clover.sdk.v3.apps.AppMetered> extractAvailableMetereds() {
     if (getJSONObject().isNull("availableMetereds")) {
       return null;
     }
 
     org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("availableMetereds");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.AppMetered> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.AppMetered>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.AppMetered item = new com.clover.sdk.v3.apps.AppMetered(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
+  private java.util.List<com.clover.sdk.v3.apps.AppMetered> extractMetereds() {
+    if (getJSONObject().isNull("metereds")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("metereds");
     org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
     java.util.List<com.clover.sdk.v3.apps.AppMetered> itemList =
         new java.util.ArrayList<com.clover.sdk.v3.apps.AppMetered>(itemArray.length());
@@ -1257,6 +1382,50 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
 
+  private java.util.List<com.clover.sdk.v3.apps.BusinessType> extractBusinessTypes() {
+    if (getJSONObject().isNull("businessTypes")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("businessTypes");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.BusinessType> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.BusinessType>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.BusinessType item = new com.clover.sdk.v3.apps.BusinessType(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
+  private java.util.List<com.clover.sdk.v3.merchant.Module> extractModules() {
+    if (getJSONObject().isNull("modules")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("modules");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.merchant.Module> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.merchant.Module>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.merchant.Module item = new com.clover.sdk.v3.merchant.Module(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return cacheValueIsNotNull(CacheKey.id);
@@ -1275,6 +1444,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'developer' field is set and is not null */
   public boolean isNotNullDeveloper() {
     return cacheValueIsNotNull(CacheKey.developer);
+  }
+
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return cacheValueIsNotNull(CacheKey.merchant);
   }
 
   /** Checks whether the 'description' field is set and is not null */
@@ -1412,6 +1586,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheValueIsNotNull(CacheKey.permissionEmployeesWrite);
   }
 
+  /** Checks whether the 'permissionProcessCards' field is set and is not null */
+  public boolean isNotNullPermissionProcessCards() {
+    return cacheValueIsNotNull(CacheKey.permissionProcessCards);
+  }
+
   /** Checks whether the 'privacyPolicy' field is set and is not null */
   public boolean isNotNullPrivacyPolicy() {
     return cacheValueIsNotNull(CacheKey.privacyPolicy);
@@ -1482,6 +1661,16 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return isNotNullAvailableSubscriptions() && !getAvailableSubscriptions().isEmpty();
   }
 
+  /** Checks whether the 'subscriptions' field is set and is not null */
+  public boolean isNotNullSubscriptions() {
+    return cacheValueIsNotNull(CacheKey.subscriptions);
+  }
+
+  /** Checks whether the 'subscriptions' field is set and is not null and is not empty */
+  public boolean isNotEmptySubscriptions() {
+    return isNotNullSubscriptions() && !getSubscriptions().isEmpty();
+  }
+
   /** Checks whether the 'availableMetereds' field is set and is not null */
   public boolean isNotNullAvailableMetereds() {
     return cacheValueIsNotNull(CacheKey.availableMetereds);
@@ -1490,6 +1679,16 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'availableMetereds' field is set and is not null and is not empty */
   public boolean isNotEmptyAvailableMetereds() {
     return isNotNullAvailableMetereds() && !getAvailableMetereds().isEmpty();
+  }
+
+  /** Checks whether the 'metereds' field is set and is not null */
+  public boolean isNotNullMetereds() {
+    return cacheValueIsNotNull(CacheKey.metereds);
+  }
+
+  /** Checks whether the 'metereds' field is set and is not null and is not empty */
+  public boolean isNotEmptyMetereds() {
+    return isNotNullMetereds() && !getMetereds().isEmpty();
   }
 
   /** Checks whether the 'usbDevices' field is set and is not null */
@@ -1567,6 +1766,26 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheValueIsNotNull(CacheKey.appSecret);
   }
 
+  /** Checks whether the 'businessTypes' field is set and is not null */
+  public boolean isNotNullBusinessTypes() {
+    return cacheValueIsNotNull(CacheKey.businessTypes);
+  }
+
+  /** Checks whether the 'businessTypes' field is set and is not null and is not empty */
+  public boolean isNotEmptyBusinessTypes() {
+    return isNotNullBusinessTypes() && !getBusinessTypes().isEmpty();
+  }
+
+  /** Checks whether the 'modules' field is set and is not null */
+  public boolean isNotNullModules() {
+    return cacheValueIsNotNull(CacheKey.modules);
+  }
+
+  /** Checks whether the 'modules' field is set and is not null and is not empty */
+  public boolean isNotEmptyModules() {
+    return isNotNullModules() && !getModules().isEmpty();
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -1586,6 +1805,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'developer' field has been set, however the value could be null */
   public boolean hasDeveloper() {
     return cacheHasKey(CacheKey.developer);
+  }
+
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return cacheHasKey(CacheKey.merchant);
   }
 
   /** Checks whether the 'description' field has been set, however the value could be null */
@@ -1723,6 +1947,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheHasKey(CacheKey.permissionEmployeesWrite);
   }
 
+  /** Checks whether the 'permissionProcessCards' field has been set, however the value could be null */
+  public boolean hasPermissionProcessCards() {
+    return cacheHasKey(CacheKey.permissionProcessCards);
+  }
+
   /** Checks whether the 'privacyPolicy' field has been set, however the value could be null */
   public boolean hasPrivacyPolicy() {
     return cacheHasKey(CacheKey.privacyPolicy);
@@ -1778,9 +2007,19 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheHasKey(CacheKey.availableSubscriptions);
   }
 
+  /** Checks whether the 'subscriptions' field has been set, however the value could be null */
+  public boolean hasSubscriptions() {
+    return cacheHasKey(CacheKey.subscriptions);
+  }
+
   /** Checks whether the 'availableMetereds' field has been set, however the value could be null */
   public boolean hasAvailableMetereds() {
     return cacheHasKey(CacheKey.availableMetereds);
+  }
+
+  /** Checks whether the 'metereds' field has been set, however the value could be null */
+  public boolean hasMetereds() {
+    return cacheHasKey(CacheKey.metereds);
   }
 
   /** Checks whether the 'usbDevices' field has been set, however the value could be null */
@@ -1848,6 +2087,16 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return cacheHasKey(CacheKey.appSecret);
   }
 
+  /** Checks whether the 'businessTypes' field has been set, however the value could be null */
+  public boolean hasBusinessTypes() {
+    return cacheHasKey(CacheKey.businessTypes);
+  }
+
+  /** Checks whether the 'modules' field has been set, however the value could be null */
+  public boolean hasModules() {
+    return cacheHasKey(CacheKey.modules);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -1913,6 +2162,25 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
 
     cacheMarkDirty(CacheKey.developer);
+    return this;
+  }
+
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public App setMerchant(com.clover.sdk.v3.merchant.Merchant merchant) {
+    logChange("merchant");
+
+    try {
+      getJSONObject().put("merchant",
+          merchant == null ? org.json.JSONObject.NULL : merchant.getJSONObject());
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.merchant);
     return this;
   }
 
@@ -2352,6 +2620,22 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'permissionProcessCards'.
+   */
+  public App setPermissionProcessCards(java.lang.Boolean permissionProcessCards) {
+    logChange("permissionProcessCards");
+
+    try {
+      getJSONObject().put("permissionProcessCards", permissionProcessCards == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(permissionProcessCards));
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.permissionProcessCards);
+    return this;
+  }
+
+  /**
    * Sets the field 'privacyPolicy'.
    */
   public App setPrivacyPolicy(java.lang.String privacyPolicy) {
@@ -2582,6 +2866,40 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'subscriptions'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setSubscriptions(java.util.List<com.clover.sdk.v3.apps.AppSubscription> subscriptions) {
+    logChange("subscriptions");
+
+    try {
+      if (subscriptions == null) {
+        getJSONObject().put("subscriptions", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.subscriptions);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.AppSubscription obj : subscriptions) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("subscriptions", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.subscriptions);
+    return this;
+  }
+
+  /**
    * Sets the field 'availableMetereds'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -2612,6 +2930,40 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
 
     cacheMarkDirty(CacheKey.availableMetereds);
+    return this;
+  }
+
+  /**
+   * Sets the field 'metereds'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setMetereds(java.util.List<com.clover.sdk.v3.apps.AppMetered> metereds) {
+    logChange("metereds");
+
+    try {
+      if (metereds == null) {
+        getJSONObject().put("metereds", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.metereds);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.AppMetered obj : metereds) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("metereds", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.metereds);
     return this;
   }
 
@@ -2865,6 +3217,74 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return this;
   }
 
+  /**
+   * Sets the field 'businessTypes'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setBusinessTypes(java.util.List<com.clover.sdk.v3.apps.BusinessType> businessTypes) {
+    logChange("businessTypes");
+
+    try {
+      if (businessTypes == null) {
+        getJSONObject().put("businessTypes", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.businessTypes);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.BusinessType obj : businessTypes) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("businessTypes", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.businessTypes);
+    return this;
+  }
+
+  /**
+   * Sets the field 'modules'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setModules(java.util.List<com.clover.sdk.v3.merchant.Module> modules) {
+    logChange("modules");
+
+    try {
+      if (modules == null) {
+        getJSONObject().put("modules", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.modules);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.merchant.Module obj : modules) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("modules", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.modules);
+    return this;
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -2892,6 +3312,13 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     unlogChange("developer");
     getJSONObject().remove("developer");
     cacheRemoveValue(CacheKey.developer);
+  }
+
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    unlogChange("merchant");
+    getJSONObject().remove("merchant");
+    cacheRemoveValue(CacheKey.merchant);
   }
 
   /** Clears the 'description' field, the 'has' method for this field will now return false */
@@ -3083,6 +3510,13 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     cacheRemoveValue(CacheKey.permissionEmployeesWrite);
   }
 
+  /** Clears the 'permissionProcessCards' field, the 'has' method for this field will now return false */
+  public void clearPermissionProcessCards() {
+    unlogChange("permissionProcessCards");
+    getJSONObject().remove("permissionProcessCards");
+    cacheRemoveValue(CacheKey.permissionProcessCards);
+  }
+
   /** Clears the 'privacyPolicy' field, the 'has' method for this field will now return false */
   public void clearPrivacyPolicy() {
     unlogChange("privacyPolicy");
@@ -3160,11 +3594,25 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     cacheRemoveValue(CacheKey.availableSubscriptions);
   }
 
+  /** Clears the 'subscriptions' field, the 'has' method for this field will now return false */
+  public void clearSubscriptions() {
+    unlogChange("subscriptions");
+    getJSONObject().remove("subscriptions");
+    cacheRemoveValue(CacheKey.subscriptions);
+  }
+
   /** Clears the 'availableMetereds' field, the 'has' method for this field will now return false */
   public void clearAvailableMetereds() {
     unlogChange("availableMetereds");
     getJSONObject().remove("availableMetereds");
     cacheRemoveValue(CacheKey.availableMetereds);
+  }
+
+  /** Clears the 'metereds' field, the 'has' method for this field will now return false */
+  public void clearMetereds() {
+    unlogChange("metereds");
+    getJSONObject().remove("metereds");
+    cacheRemoveValue(CacheKey.metereds);
   }
 
   /** Clears the 'usbDevices' field, the 'has' method for this field will now return false */
@@ -3256,6 +3704,20 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     unlogChange("appSecret");
     getJSONObject().remove("appSecret");
     cacheRemoveValue(CacheKey.appSecret);
+  }
+
+  /** Clears the 'businessTypes' field, the 'has' method for this field will now return false */
+  public void clearBusinessTypes() {
+    unlogChange("businessTypes");
+    getJSONObject().remove("businessTypes");
+    cacheRemoveValue(CacheKey.businessTypes);
+  }
+
+  /** Clears the 'modules' field, the 'has' method for this field will now return false */
+  public void clearModules() {
+    unlogChange("modules");
+    getJSONObject().remove("modules");
+    cacheRemoveValue(CacheKey.modules);
   }
 
 
@@ -3393,6 +3855,8 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean DEVELOPER_IS_REQUIRED = false;
 
+    public static final boolean MERCHANT_IS_REQUIRED = false;
+
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 2000;
 
@@ -3457,6 +3921,8 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean PERMISSIONEMPLOYEESWRITE_IS_REQUIRED = false;
 
+    public static final boolean PERMISSIONPROCESSCARDS_IS_REQUIRED = false;
+
     public static final boolean PRIVACYPOLICY_IS_REQUIRED = false;
     public static final long PRIVACYPOLICY_MAX_LEN = 255;
 
@@ -3485,7 +3951,11 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean AVAILABLESUBSCRIPTIONS_IS_REQUIRED = false;
 
+    public static final boolean SUBSCRIPTIONS_IS_REQUIRED = false;
+
     public static final boolean AVAILABLEMETEREDS_IS_REQUIRED = false;
+
+    public static final boolean METEREDS_IS_REQUIRED = false;
 
     public static final boolean USBDEVICES_IS_REQUIRED = false;
 
@@ -3515,6 +3985,10 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean APPSECRET_IS_REQUIRED = false;
     public static final long APPSECRET_MAX_LEN = 255;
+
+    public static final boolean BUSINESSTYPES_IS_REQUIRED = false;
+
+    public static final boolean MODULES_IS_REQUIRED = false;
 
   }
 

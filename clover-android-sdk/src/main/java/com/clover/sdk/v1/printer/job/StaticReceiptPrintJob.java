@@ -8,27 +8,31 @@ import com.clover.sdk.v3.order.Order;
 public class StaticReceiptPrintJob extends StaticOrderBasedPrintJob implements Parcelable {
 
   public static class Builder extends StaticOrderBasedPrintJob.Builder {
-    protected Order order;
-
     public Builder staticReceiptPrintJob(StaticReceiptPrintJob pj) {
-      this.order = pj.order;
-      this.flags = pj.flags;
+      staticOrderBasedPrintJob(pj);
 
       return this;
     }
 
+    // This method isn't needed but kept for backwards compatibility
     public Builder order(Order order) {
-      this.order = order;
+      super.order(order);
       return this;
     }
 
     public StaticReceiptPrintJob build() {
-      return new StaticReceiptPrintJob(order, flags | FLAG_SALE);
+      flags |= FLAG_SALE;
+      return new StaticReceiptPrintJob(this);
     }
   }
 
+  @Deprecated
   public StaticReceiptPrintJob(Order order, int flags) {
     super(order, flags);
+  }
+
+  protected StaticReceiptPrintJob(Builder builder) {
+    super(builder);
   }
 
   public static final Creator<StaticReceiptPrintJob> CREATOR = new Creator<StaticReceiptPrintJob>() {
@@ -43,6 +47,7 @@ public class StaticReceiptPrintJob extends StaticOrderBasedPrintJob implements P
 
   protected StaticReceiptPrintJob(Parcel in) {
     super(in);
+    // This class cannot contain any data because we forgot to put a Bundle here
   }
 
   @Override
@@ -53,5 +58,6 @@ public class StaticReceiptPrintJob extends StaticOrderBasedPrintJob implements P
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
+    // This class cannot contain any data because we forgot to put a Bundle here
   }
 }

@@ -13,6 +13,7 @@ import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.pay.PaymentRequest;
+import com.clover.sdk.v3.order.VoidReason;
 
 interface IOrderService {
   void addOnOrderUpdatedListener(IOnOrderUpdateListener listener);
@@ -88,4 +89,14 @@ interface IOrderService {
   Map createLineItemsFrom(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
 
   boolean fire(String sourceOrderId, out ResultStatus status);
+
+  Payment updatePayment(String orderId, in Payment payment, out ResultStatus status);
+
+  Order voidPayment2(String orderId, String paymentId, String iccContainer, in VoidReason reason, String source, out ResultStatus status);
+
+  Order removePayment(String orderId, String paymentId, out ResultStatus status);
+
+  Refund addRefundOffline(String orderId, in Refund payment, out ResultStatus status);
+
+  Refund refund(String orderId, in Refund payment, out ResultStatus status);
 }

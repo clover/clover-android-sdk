@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,6 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
 
   private static final String TAG = "ImagePrintJob";
 
-  protected static final String KEY_IMAGE_FILE = "imageFile";
-
   public static class Builder extends PrintJob.Builder {
     protected Bitmap bitmap;
 
@@ -63,7 +61,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
 
     @Override
     public PrintJob build() {
-      return new ImagePrintJob(bitmap, flags);
+      return new ImagePrintJob(this);
     }
   }
 
@@ -71,12 +69,17 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
   public final File imageFile;
   private static final String BUNDLE_KEY_IMAGE_FILE = "i";
 
+  @Deprecated
   protected ImagePrintJob(Bitmap bitmap, int flags) {
-    super(flags);
+    this((ImagePrintJob.Builder)new Builder().bitmap(bitmap).flags(flags));
+  }
+
+  protected ImagePrintJob(Builder builder) {
+    super(builder);
     File f = null;
     try {
-      f = writeImageFile(bitmap);
-      bitmap.recycle();
+      f = writeImageFile(builder.bitmap);
+      builder.bitmap.recycle();
     } catch (IOException e) {
       Log.e(TAG, "unable to write image file", e);
     }
@@ -101,7 +104,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
 
   protected ImagePrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     imageFile = new File(bundle.getString(BUNDLE_KEY_IMAGE_FILE));
     // Add more data here, but remember old apps might not provide it!
   }

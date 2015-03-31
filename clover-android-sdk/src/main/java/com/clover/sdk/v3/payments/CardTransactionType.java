@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.payments;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum CardTransactionType {
-  AUTH, PREAUTH, PREAUTHCAPTURE, ADJUST, VOID, VOIDRETURN, RETURN, REFUND, NAKEDREFUND;
+public enum CardTransactionType implements Parcelable {
+  AUTH, PREAUTH, PREAUTHCAPTURE, ADJUST, VOID, VOIDRETURN, RETURN, REFUND, NAKEDREFUND, BATCHCLOSE, ACTIVATE, BALANCE_LOCK, LOAD, CASHOUT, CASHOUT_ACTIVE_STATUS, REDEMPTION, REDEMPTION_UNLOCK, RELOAD;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<CardTransactionType> CREATOR = new Creator<CardTransactionType>() {
+    @Override
+    public CardTransactionType createFromParcel(final Parcel source) {
+      return CardTransactionType.valueOf(source.readString());
+    }
+
+    @Override
+    public CardTransactionType[] newArray(final int size) {
+      return new CardTransactionType[size];
+    }
+  };
 }

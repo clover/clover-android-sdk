@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,28 +33,34 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     return cacheGet(CacheKey.id);
   }
  /**
-   * App subscription name
+   * DEPRECATED: App subscription name.  Per country pricing in subscriptionCountries.
   */
   public java.lang.String getName() {
     return cacheGet(CacheKey.name);
   }
  /**
-   * The cost of the subscription
+   * DEPRECATED: The cost of the subscription.  Per country pricing in subscriptionCountries.
   */
   public java.lang.Long getAmount() {
     return cacheGet(CacheKey.amount);
   }
  /**
-   * App subscription name
+   * DEPRECATED: App subscription name.  Per country pricing in subscriptionCountries.
   */
   public java.lang.String getDescription() {
     return cacheGet(CacheKey.description);
   }
  /**
-   * App subscription active status
+   * DEPRECATED: App subscription active status.  Per country pricing in subscriptionCountries.
   */
   public java.lang.Boolean getActive() {
     return cacheGet(CacheKey.active);
+  }
+ /**
+   * Subscription country options for this app subscription
+  */
+  public java.util.List<com.clover.sdk.v3.apps.AppSubscriptionCountry> getSubscriptionCountries() {
+    return cacheGet(CacheKey.subscriptionCountries);
   }
  /**
    * Reference to app this subscription belongs to
@@ -63,10 +69,10 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     return cacheGet(CacheKey.app);
   }
  /**
-   * The list of merchants that have this app subscription installed
+   * App subscription label
   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getMerchants() {
-    return cacheGet(CacheKey.merchants);
+  public java.lang.String getLabel() {
+    return cacheGet(CacheKey.label);
   }
 
 
@@ -101,16 +107,22 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
         return instance.extractActive();
       }
     },
+    subscriptionCountries {
+      @Override
+      public Object extractValue(AppSubscription instance) {
+        return instance.extractSubscriptionCountries();
+      }
+    },
     app {
       @Override
       public Object extractValue(AppSubscription instance) {
         return instance.extractApp();
       }
     },
-    merchants {
+    label {
       @Override
       public Object extractValue(AppSubscription instance) {
-        return instance.extractMerchants();
+        return instance.extractLabel();
       }
     },
     ;
@@ -231,16 +243,16 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     if (id != null && id.length() > 13) { throw new IllegalArgumentException("Maximum string length exceeded for 'id'");}
 
     java.lang.String name = getName();
-    if (name == null) throw new java.lang.IllegalArgumentException("'name' is required to be non-null");
     if (name != null && name.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'name'");}
 
     java.lang.Long amount = getAmount();
-    if (amount == null) throw new java.lang.IllegalArgumentException("'amount' is required to be non-null");
     if (amount != null && ( amount < 0)) throw new IllegalArgumentException("Invalid value for 'amount'");
 
     java.lang.String description = getDescription();
-    if (description == null) throw new java.lang.IllegalArgumentException("'description' is required to be non-null");
     if (description != null && description.length() > 1024) { throw new IllegalArgumentException("Maximum string length exceeded for 'description'");}
+
+    java.lang.String label = getLabel();
+    if (label != null && label.length() > 20) { throw new IllegalArgumentException("Maximum string length exceeded for 'label'");}
   }
 
 
@@ -275,6 +287,28 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
   }
 
 
+  private java.util.List<com.clover.sdk.v3.apps.AppSubscriptionCountry> extractSubscriptionCountries() {
+    if (getJSONObject().isNull("subscriptionCountries")) {
+      return null;
+    }
+
+    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("subscriptionCountries");
+    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<com.clover.sdk.v3.apps.AppSubscriptionCountry> itemList =
+        new java.util.ArrayList<com.clover.sdk.v3.apps.AppSubscriptionCountry>(itemArray.length());
+    for (int i = 0; i < itemArray.length(); i++) {
+      org.json.JSONObject obj = itemArray.optJSONObject(i);
+      if (obj == null) {
+        continue;
+      }
+      com.clover.sdk.v3.apps.AppSubscriptionCountry item = new com.clover.sdk.v3.apps.AppSubscriptionCountry(obj);
+      itemList.add(item);
+    }
+
+    return java.util.Collections.unmodifiableList(itemList);
+  }
+
+
   private com.clover.sdk.v3.base.Reference extractApp() {
     org.json.JSONObject jsonObj = getJSONObject().optJSONObject("app");
     if (jsonObj != null) {
@@ -284,25 +318,9 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
   }
 
 
-  private java.util.List<com.clover.sdk.v3.base.Reference> extractMerchants() {
-    if (getJSONObject().isNull("merchants")) {
-      return null;
-    }
-
-    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject("merchants");
-    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-    java.util.List<com.clover.sdk.v3.base.Reference> itemList =
-        new java.util.ArrayList<com.clover.sdk.v3.base.Reference>(itemArray.length());
-    for (int i = 0; i < itemArray.length(); i++) {
-      org.json.JSONObject obj = itemArray.optJSONObject(i);
-      if (obj == null) {
-        continue;
-      }
-      com.clover.sdk.v3.base.Reference item = new com.clover.sdk.v3.base.Reference(obj);
-      itemList.add(item);
-    }
-
-    return java.util.Collections.unmodifiableList(itemList);
+  private java.lang.String extractLabel() {
+    return getJSONObject().isNull("label") ? null :
+      getJSONObject().optString("label");
   }
 
 
@@ -331,19 +349,24 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     return cacheValueIsNotNull(CacheKey.active);
   }
 
+  /** Checks whether the 'subscriptionCountries' field is set and is not null */
+  public boolean isNotNullSubscriptionCountries() {
+    return cacheValueIsNotNull(CacheKey.subscriptionCountries);
+  }
+
+  /** Checks whether the 'subscriptionCountries' field is set and is not null and is not empty */
+  public boolean isNotEmptySubscriptionCountries() {
+    return isNotNullSubscriptionCountries() && !getSubscriptionCountries().isEmpty();
+  }
+
   /** Checks whether the 'app' field is set and is not null */
   public boolean isNotNullApp() {
     return cacheValueIsNotNull(CacheKey.app);
   }
 
-  /** Checks whether the 'merchants' field is set and is not null */
-  public boolean isNotNullMerchants() {
-    return cacheValueIsNotNull(CacheKey.merchants);
-  }
-
-  /** Checks whether the 'merchants' field is set and is not null and is not empty */
-  public boolean isNotEmptyMerchants() {
-    return isNotNullMerchants() && !getMerchants().isEmpty();
+  /** Checks whether the 'label' field is set and is not null */
+  public boolean isNotNullLabel() {
+    return cacheValueIsNotNull(CacheKey.label);
   }
 
 
@@ -372,14 +395,19 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     return cacheHasKey(CacheKey.active);
   }
 
+  /** Checks whether the 'subscriptionCountries' field has been set, however the value could be null */
+  public boolean hasSubscriptionCountries() {
+    return cacheHasKey(CacheKey.subscriptionCountries);
+  }
+
   /** Checks whether the 'app' field has been set, however the value could be null */
   public boolean hasApp() {
     return cacheHasKey(CacheKey.app);
   }
 
-  /** Checks whether the 'merchants' field has been set, however the value could be null */
-  public boolean hasMerchants() {
-    return cacheHasKey(CacheKey.merchants);
+  /** Checks whether the 'label' field has been set, however the value could be null */
+  public boolean hasLabel() {
+    return cacheHasKey(CacheKey.label);
   }
 
 
@@ -464,6 +492,40 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
   }
 
   /**
+   * Sets the field 'subscriptionCountries'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public AppSubscription setSubscriptionCountries(java.util.List<com.clover.sdk.v3.apps.AppSubscriptionCountry> subscriptionCountries) {
+    logChange("subscriptionCountries");
+
+    try {
+      if (subscriptionCountries == null) {
+        getJSONObject().put("subscriptionCountries", org.json.JSONObject.NULL);
+        cacheMarkDirty(CacheKey.subscriptionCountries);
+        return this;
+      }
+
+      org.json.JSONArray array = new org.json.JSONArray();
+      for (com.clover.sdk.v3.apps.AppSubscriptionCountry obj : subscriptionCountries) {
+        if (obj == null) {
+          continue;
+        }
+        array.put(obj.getJSONObject());
+      }
+
+      org.json.JSONObject elementsContainer = new org.json.JSONObject();
+      elementsContainer.put("elements", array);
+      getJSONObject().put("subscriptionCountries", elementsContainer);
+    } catch (org.json.JSONException e) {
+      throw new java.lang.IllegalArgumentException(e);
+    }
+
+    cacheMarkDirty(CacheKey.subscriptionCountries);
+    return this;
+  }
+
+  /**
    * Sets the field 'app'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -483,36 +545,18 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
   }
 
   /**
-   * Sets the field 'merchants'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   * Sets the field 'label'.
    */
-  public AppSubscription setMerchants(java.util.List<com.clover.sdk.v3.base.Reference> merchants) {
-    logChange("merchants");
+  public AppSubscription setLabel(java.lang.String label) {
+    logChange("label");
 
     try {
-      if (merchants == null) {
-        getJSONObject().put("merchants", org.json.JSONObject.NULL);
-        cacheMarkDirty(CacheKey.merchants);
-        return this;
-      }
-
-      org.json.JSONArray array = new org.json.JSONArray();
-      for (com.clover.sdk.v3.base.Reference obj : merchants) {
-        if (obj == null) {
-          continue;
-        }
-        array.put(obj.getJSONObject());
-      }
-
-      org.json.JSONObject elementsContainer = new org.json.JSONObject();
-      elementsContainer.put("elements", array);
-      getJSONObject().put("merchants", elementsContainer);
+      getJSONObject().put("label", label == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(label));
     } catch (org.json.JSONException e) {
       throw new java.lang.IllegalArgumentException(e);
     }
 
-    cacheMarkDirty(CacheKey.merchants);
+    cacheMarkDirty(CacheKey.label);
     return this;
   }
 
@@ -552,6 +596,13 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     cacheRemoveValue(CacheKey.active);
   }
 
+  /** Clears the 'subscriptionCountries' field, the 'has' method for this field will now return false */
+  public void clearSubscriptionCountries() {
+    unlogChange("subscriptionCountries");
+    getJSONObject().remove("subscriptionCountries");
+    cacheRemoveValue(CacheKey.subscriptionCountries);
+  }
+
   /** Clears the 'app' field, the 'has' method for this field will now return false */
   public void clearApp() {
     unlogChange("app");
@@ -559,11 +610,11 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     cacheRemoveValue(CacheKey.app);
   }
 
-  /** Clears the 'merchants' field, the 'has' method for this field will now return false */
-  public void clearMerchants() {
-    unlogChange("merchants");
-    getJSONObject().remove("merchants");
-    cacheRemoveValue(CacheKey.merchants);
+  /** Clears the 'label' field, the 'has' method for this field will now return false */
+  public void clearLabel() {
+    unlogChange("label");
+    getJSONObject().remove("label");
+    cacheRemoveValue(CacheKey.label);
   }
 
 
@@ -694,20 +745,23 @@ public final class AppSubscription implements android.os.Parcelable, com.clover.
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
 
-    public static final boolean NAME_IS_REQUIRED = true;
+    public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 20;
 
-    public static final boolean AMOUNT_IS_REQUIRED = true;
+    public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final long AMOUNT_MIN = 0;
 
-    public static final boolean DESCRIPTION_IS_REQUIRED = true;
+    public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 1024;
 
     public static final boolean ACTIVE_IS_REQUIRED = false;
 
+    public static final boolean SUBSCRIPTIONCOUNTRIES_IS_REQUIRED = false;
+
     public static final boolean APP_IS_REQUIRED = false;
 
-    public static final boolean MERCHANTS_IS_REQUIRED = false;
+    public static final boolean LABEL_IS_REQUIRED = false;
+    public static final long LABEL_MAX_LEN = 20;
 
   }
 

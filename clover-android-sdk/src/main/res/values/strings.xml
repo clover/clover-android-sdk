@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~ Copyright (C) 2015 Clover Network, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@
   <string name="backToRegisterDescription">Rotate to the right back to the merchant</string>
 
   <!-- return to merchant -->
-  <string name="returnToMerchantPaymentSuccessful">Thank you for your purchase.\nPlease return this device to the merchant.</string>
-  <string name="returnToMerchant">Please return this device to the merchant.</string>
+  <string name="returnToMerchantPaymentSuccessful">Thank you for your purchase. Please return this device to an employee</string>
+  <string name="returnToMerchantTitle">All Done!</string>
+  <string name="returnToMerchant">Please return this device to an employee</string>
 
 </resources>

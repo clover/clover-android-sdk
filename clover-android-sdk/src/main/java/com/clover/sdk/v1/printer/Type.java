@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@ public enum Type implements Parcelable {
   STAR_TSP100_USB("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100USB", "Star TSP100U", true, true, true),
   STAR_TSP700_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarSP700Ethernet", "Star SP700", false, true, true),
   SEIKO_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.Seiko", "Station", true, true, true),
-  FIGLEAF_BT("com.clover.engine.services.ReceiptPrinterPlugins.figleaf.Figleaf", "Mobile", true, true, false);
+  FIGLEAF_BT("com.clover.engine.services.ReceiptPrinterPlugins.figleaf.Figleaf", "Mobile", true, true, false),
+  SEIKO_MINI_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoMini", "Mini", true, true, true);
 
   public final String baseClassName;
   public final String model;

@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.developer;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum DeveloperBillingStatus {
+public enum DeveloperBillingStatus implements Parcelable {
   PENDING, APPROVED, DECLINED, ERROR;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<DeveloperBillingStatus> CREATOR = new Creator<DeveloperBillingStatus>() {
+    @Override
+    public DeveloperBillingStatus createFromParcel(final Parcel source) {
+      return DeveloperBillingStatus.valueOf(source.readString());
+    }
+
+    @Override
+    public DeveloperBillingStatus[] newArray(final int size) {
+      return new DeveloperBillingStatus[size];
+    }
+  };
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -411,11 +411,30 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     });
   }
 
+  public Order removePayment(final String orderId, final String paymentId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Order>() {
+      @Override
+      public Order call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.removePayment(orderId, paymentId, status);
+      }
+    });
+  }
+
+  @Deprecated
   public Order voidPayment(final String orderId, final String paymentId) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderService, Order>() {
       @Override
       public Order call(IOrderService service, ResultStatus status) throws RemoteException {
         return service.voidPayment(orderId, paymentId, status);
+      }
+    });
+  }
+
+  public Order voidPayment2(final String orderId, final String paymentId, final String iccContainer, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Order>() {
+      @Override
+      public Order call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.voidPayment2(orderId, paymentId, iccContainer, reason, source, status);
       }
     });
   }
@@ -465,6 +484,15 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     });
   }
 
+  public Payment updatePayment(final String orderId, final Payment payment) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Payment>() {
+      @Override
+      public Payment call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.updatePayment(orderId, payment, status);
+      }
+    });
+  }
+
   public void addOnOrderChangedListener(OnOrderUpdateListener listener) {
     mOnOrderChangedListener.add(new WeakReference<OnOrderUpdateListener>(listener));
   }
@@ -483,5 +511,23 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
         mOnOrderChangedListener.remove(listenerWeakReference);
       }
     }
+  }
+
+  public Refund addRefundOffline(final String orderId, final Refund refund) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Refund>() {
+      @Override
+      public Refund call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addRefundOffline(orderId, refund, status);
+      }
+    });
+  }
+
+  public Refund refund(final String orderId, final Refund refund) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Refund>() {
+      @Override
+      public Refund call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.refund(orderId, refund, status);
+      }
+    });
   }
 }

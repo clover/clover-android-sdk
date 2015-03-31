@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,17 @@ public class OrderPrintJob extends OrderBasedPrintJob implements Parcelable {
   public static class Builder extends OrderBasedPrintJob.Builder {
 
     public OrderPrintJob build() {
-      return new OrderPrintJob(orderId, flags);
+      return new OrderPrintJob(this);
     }
   }
 
+  @Deprecated
   protected OrderPrintJob(String orderId, int flags) {
     super(orderId, flags);
+  }
+
+  protected OrderPrintJob(Builder builder) {
+    super(builder);
   }
 
   @Override
@@ -55,7 +60,7 @@ public class OrderPrintJob extends OrderBasedPrintJob implements Parcelable {
 
   protected OrderPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     // Add more data here, but remember old apps might not provide it!
   }
 

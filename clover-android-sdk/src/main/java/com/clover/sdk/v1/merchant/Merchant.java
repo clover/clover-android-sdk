@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,14 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -51,7 +54,11 @@ public class Merchant implements Parcelable {
   private static final String KEY_UPDATE_STOCK = "updateStock";
   private static final String KEY_TRACK_STOCK = "trackStock";
   private static final String KEY_PAID_APPS_FREE = "paidAppsFree";
+  private static final String KEY_APP_BILLING_SYSTEM = "appBillingSystem";
+  private static final String KEY_ABA_ACCOUNT_NUMBER = "abaAccountNumber";
+  private static final String KEY_DDA_ACCOUNT_NUMBER = "ddaAccountNumber";
   private static final String KEY_TIP_SUGGESTIONS = "tipSuggestions";
+  private static final String KEY_MODULES = "modules";
 
   private final Bundle data;
 
@@ -138,6 +145,47 @@ public class Merchant implements Parcelable {
     return null;
   }
 
+  public List<Module> getModules() {
+    String moduleJson = data.getString(KEY_MODULES, null);
+    if (moduleJson != null) {
+      try {
+        JSONArray moduleObj = new JSONArray(moduleJson);
+
+        if (moduleObj != null) {
+          List<Module> modules = new ArrayList<Module>();
+          for (int i = 0; i < moduleObj.length(); i++) {
+            try {
+              modules.add(Module.valueOf(moduleObj.getString(i).toUpperCase()));
+            } catch (IllegalArgumentException e) {
+              Log.e(Merchant.class.getName(), "Module name " + moduleObj.getString(i) + " is not defined in Module enum");
+            }
+          }
+          return modules;
+        }
+      } catch (JSONException ex) {
+        ex.printStackTrace();
+      }
+    }
+
+    return Arrays.asList(Module.values());
+  }
+
+  /**
+   * @return return merchant gateway closingTime property
+   */
+  public String getGatewayClosingTime() {
+    String gateway = data.getString(KEY_MERCHANT_GATEWAY, null);
+    if (gateway != null) {
+      try {
+        JSONObject gateWayObj = new JSONObject(gateway);
+        return gateWayObj.optString("closingTime", null);
+      } catch (Exception ex) {
+        return null;
+      }
+    }
+    return null;
+  }
+
   /**
    * Returns whether this merchant is in a region using VAT
    */
@@ -196,6 +244,18 @@ public class Merchant implements Parcelable {
    */
   public boolean getPaidAppsFree() {
     return data.getBoolean(KEY_PAID_APPS_FREE, false);
+  }
+
+  public String getAppBillingSystem() {
+    return data.getString(KEY_APP_BILLING_SYSTEM, null);
+  }
+
+  public String getAbaAccountNumber() {
+    return data.getString(KEY_ABA_ACCOUNT_NUMBER, null);
+  }
+
+  public String getDdaAccountNumber() {
+    return data.getString(KEY_DDA_ACCOUNT_NUMBER, null);
   }
 
   public List<TipSuggestion> getTipSuggestions() {

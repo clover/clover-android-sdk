@@ -7,7 +7,32 @@
 
 package com.clover.sdk.v3.base;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 @SuppressWarnings("all")
-public enum ApprovalStatus {
+public enum ApprovalStatus implements Parcelable {
   NEW, PENDING, APPROVED, DENIED, PUBLISHED;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<ApprovalStatus> CREATOR = new Creator<ApprovalStatus>() {
+    @Override
+    public ApprovalStatus createFromParcel(final Parcel source) {
+      return ApprovalStatus.valueOf(source.readString());
+    }
+
+    @Override
+    public ApprovalStatus[] newArray(final int size) {
+      return new ApprovalStatus[size];
+    }
+  };
 }

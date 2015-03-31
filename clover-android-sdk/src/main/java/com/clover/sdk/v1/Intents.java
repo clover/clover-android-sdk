@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,27 @@ public class Intents {
   public static final String ACTION_REFUND = "clover.intent.action.REFUND";
   public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
   public static final String ACTION_MODIFY_ORDER = "clover.intent.action.MODIFY_ORDER";
+  public static final String ACTION_MODIFY_AMOUNT = "clover.intent.action.MODIFY_AMOUNT";
   public static final String ACTION_MANUAL_PAY = "clover.intent.action.MANUAL_PAY";
   public static final String ACTION_MANUAL_REFUND = "clover.intent.action.MANUAL_REFUND";
+  public static final String ACTION_BILL_SPLIT = "com.clover.intent.action.BILL_SPLIT";
 
   // Use this intent action to start App Market's App Detail screen
   public static final String ACTION_START_APP_DETAIL = "clover.intent.action.START_APP_DETAIL";
+
+  // add tip - merchant facing
+  public static final String ACTION_ADD_TIP = "clover.intent.action.ADD_TIP";
+
+  // add tip - customer facing
+  public static final String ACTION_CUSTOMER_ADD_TIP = "clover.intent.action.CUSTOMER_ADD_TIP";
+
+  /** use this to start Closeout app */
+  public static final String ACTION_CLOSEOUT = "clover.intent.action.CLOSEOUT";
+
+  // launch transaction detail
+  public static final String ACTION_START_TRANSACTION_DETAIL = "clover.intent.action.START_TRANSACTION_DETAIL";
+
+  public static final String EXTRA_TRANSACTION = "clover.intent.extra.TRANSACTION";
 
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
   public static final String EXTRA_CLOVER_ORDER_ID = "com.clover.intent.extra.ORDER_ID";
@@ -34,8 +50,10 @@ public class Intents {
   public static final String EXTRA_CURRENCY = "clover.intent.extra.CURRENCY";
   public static final String EXTRA_MERCHANT_ID = "clover.intent.extra.MERCHANT_ID";
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
+  public static final String EXTRA_PAYMENT_IDS = "clover.intent.extra.PAYMENT_IDS";
   public static final String EXTRA_NOTE = "clover.intent.extra.NOTE";
   public static final String EXTRA_LINE_ITEM_IDS = "clover.intent.extra.LINE_ITEM_IDS";
+  public static final String EXTRA_LINE_ITEM_PAYMENTS = "clover.intent.extra.LINE_ITEM_PAYMENTS";
 
   public static final String EXTRA_CUSTOMER_ID = "clover.intent.extra.CUSTOMER_ID";
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
@@ -116,7 +134,6 @@ public class Intents {
    * <li>{@link #EXTRA_ACCOUNT} if not set then use current account
    * <li>{@link #EXTRA_EMPLOYEE_ID} String. if set then authenticate this particular employee, if not set then authenticate any employee and return id in result
    * <li>{@link #EXTRA_REASON} String custom title (optional)
-   * <li>{@link #EXTRA_DIALOG} Boolean extra value, false by default. if True then use Dialog theme.
    *
    * <li>{@link #EXTRA_PERMISSIONS} String value, if set then you must authenticate an employee with this particular permission
    * <li>{@link #EXTRA_PACKAGE} Optional String packageName. Works in conjunction with {@link #EXTRA_PERMISSIONS}
@@ -127,6 +144,27 @@ public class Intents {
    *
    */
   public static final String ACTION_AUTHENTICATE_EMPLOYEE = "clover.intent.action.AUTHENTICATE_EMPLOYEE";
+
+  /**
+   * start Activity to enter pin number for requested role
+   * <p>Input:
+   * <li>{@link #EXTRA_ROLE} requested {@link com.clover.sdk.v3.employees.AccountRole}. Could be admin, manager or employee.
+   * <li>{@link #EXTRA_TITLE} String custom title (optional)
+   *
+   * <p>Output: The returned result code will be {@link android.app.Activity#RESULT_OK} on success
+   */
+  public static final String ACTION_REQUEST_ROLE = "com.clover.intent.action.REQUEST_ROLE";
+
+  /**
+   * Used as a {@link com.clover.sdk.v3.employees.AccountRole} extra field with {@link #ACTION_REQUEST_ROLE}
+   */
+  public static final java.lang.String EXTRA_ROLE = "com.clover.intent.extra.ROLE";
+
+  /**
+   * Used as a String extra field with {@link #ACTION_REQUEST_ROLE}
+   */
+  public static final java.lang.String EXTRA_TITLE = "com.clover.intent.extra.TITLE";
+
 
   public static final String EXTRA_SHOW_CANCEL_BUTTON = "clover.intent.extra.SHOW_CANCEL_BUTTON";
 
@@ -160,22 +198,82 @@ public class Intents {
   public static final String EXTRA_CURRENT_SHIFT = "clover.intent.extra.CURRENT_SHIFT";
 
   /**
-   * Intent and extras to start a secure payment flow on Clover Mobile
+   * Action to start a secure payment flow on devices that support it.
    */
   public static final String ACTION_SECURE_PAY = "clover.intent.action.START_SECURE_PAYMENT";
+  /**
+   * Action to securely capture card data on devices that support it.
+   */
+  public static final String ACTION_SECURE_CARD_DATA = "clover.intent.action.START_SECURE_CARD_DATA";
+  /** A long */
   public static final String EXTRA_TAX_AMOUNT = "clover.intent.extra.TAX_AMOUNT";
+  /** A {@link com.clover.sdk.v3.payments.ServiceChargeAmount} */
   public static final String EXTRA_SERVICE_CHARGE_AMOUNT = "clover.intent.extra.SERVICE_CHARGE_AMOUNT";
+  /** An ArrayList of {@link com.clover.sdk.v3.payments.TaxableAmountRate} for this payment */
   public static final String EXTRA_TAXABLE_AMOUNTS = "clover.intent.extra.TAXABLE_AMOUNTS";
-  public static final String EXTRA_DISABLE_MANUAL = "clover.intent.extra.DISABLE_MANUAL";
+  /** A int of bitwise-ored CARD_ENTRY_METHOD values, when not included in the intent all methods will be allowed */
+  public static final String EXTRA_CARD_ENTRY_METHODS = "clover.intent.extra.CARD_ENTRY_METHODS";
+  /** A boolean, set to disable cashback option during payment */
   public static final String EXTRA_DISABLE_CASHBACK = "clover.intent.extra.DISABLE_CASHBACK";
+  /** A String */
+  public static final String EXTRA_VOICE_AUTH_CODE = "clover.intent.extra.VOICE_AUTH_CODE";
   public static final String EXTRA_IS_TESTING = "clover.intent.extra.IS_TESTING";
+  /** A required String, one of TRANSACTION_TYPE values */
   public static final String EXTRA_TRANSACTION_TYPE = "clover.intent.extra.TRANSACTION_TYPE";
-  public static final String EXTRA_TRANSACTION_PAYMENT = "payment";
-  public static final String EXTRA_TRANSACTION_CREDIT = "credit";
+  /** A value for EXTRA_TRANSACTION_TYPE */
+  public static final String TRANSACTION_TYPE_PAYMENT = "payment";
+  /** A value for EXTRA_TRANSACTION_TYPE */
+  public static final String TRANSACTION_TYPE_CREDIT = "credit";
+  /** A value for EXTRA_TRANSACTION_TYPE */
+  public static final String TRANSACTION_TYPE_AUTH = "auth";
+  /** A value for TRANSACTION_TYPE_CARD_DATA */
+  public static final String TRANSACTION_TYPE_CARD_DATA = "cardData";
+  /** A boolean */
+  public static final String EXTRA_CARD_NOT_PRESENT = "clover.intent.extra.CARD_NOT_PRESENT";
+  /** A String */
+  public static final String EXTRA_AVS_STREET_ADDRESS = "clover.intent.extra.AVS_STREET_ADDRESS";
+  /** A String */
+  public static final String EXTRA_AVS_POSTAL_CODE = "clover.intent.extra.AVS_POSTAL_CODE";
+  /** A PaymentRequestCardDetails */
+  public static final String EXTRA_CARD_DATA = "cardData";
+
+  /** A bit value for EXTRA_CARD_ENTRY_METHODS, can be bitwise-ored with other CARD_ENTRY_METHOD values */
+  public static final int CARD_ENTRY_METHOD_MAG_STRIPE = 0x01;
+  /** A bit value for EXTRA_CARD_ENTRY_METHODS, can be bitwise-ored with other CARD_ENTRY_METHOD values */
+  public static final int CARD_ENTRY_METHOD_ICC_CONTACT = 0x02;
+  /** A bit value for EXTRA_CARD_ENTRY_METHODS, can be bitwise-ored with other CARD_ENTRY_METHOD values */
+  public static final int CARD_ENTRY_METHOD_NFC_CONTACTLESS = 0x04;
+  /** A bit value for EXTRA_CARD_ENTRY_METHODS, can be bitwise-ored with other CARD_ENTRY_METHOD values */
+  public static final int CARD_ENTRY_METHOD_MANUAL = 0x08;
 
   /**
-   * Result extras from Clover Mobile
+   * A {@link com.clover.sdk.v3.payments.Payment} returned by secure payment
    */
   public static final String EXTRA_PAYMENT = "clover.intent.extra.PAYMENT";
+  /**
+   * A {@link com.clover.sdk.v3.payments.Credit} returned by secure payment
+   */
   public static final String EXTRA_CREDIT = "clover.intent.extra.CREDIT";
+  /**
+   * A {@link com.clover.sdk.v3.payments.Refund}
+   */
+  public static final String EXTRA_REFUND = "clover.intent.extra.REFUND";
+  /**
+   * A {@link com.clover.sdk.v3.payments.Authorization}
+   */
+  public static final String EXTRA_AUTHORIZATION = "clover.intent.extra.AUTHORIZATION";
+  public static final String EXTRA_SHOW_REMAINING = "clover.intent.extra.SHOW_REMAINING";
+
+  /**
+   * print receipt extras
+   */
+  public static final String EXTRA_PRINT_RECEIPT_ONLY = "clover.intent.extra_PRINT_RECEIPT_ONLY";
+  public static final String EXTRA_RECEIPT_FLAG = "clover.intent.extra.RECEIPT_FLAG";
+
+  /**
+   * Broadcast action indicating the active order in Register
+   * Use with extra EXTRA_ORDER_ID
+   */
+  public static final String ACTION_ACTIVE_REGISTER_ORDER = "clover.intent.action.ACTIVE_REGISTER_ORDER";
+
 }

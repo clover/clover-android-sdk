@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,12 @@
  */
 
 group = 'com.clover.sdk'
-version = '61'
+version = '86'
 
-apply plugin: 'android-library'
-apply plugin: 'android-maven'
+apply from: file("${androidBuild}/lib.gradle")
 
 dependencies {
-  compile files('lib/calc.jar')
+    compile files('lib/calc.jar')
 }
 
 ant.importBuild 'javadoc.xml'
@@ -35,8 +34,8 @@ android {
   lintOptions {
     abortOnError false
   }
-  compileSdkVersion 17
-  buildToolsVersion "19.0.3"
+  compileSdkVersion 19
+  buildToolsVersion "19.1"
 
   defaultConfig {
     minSdkVersion 16

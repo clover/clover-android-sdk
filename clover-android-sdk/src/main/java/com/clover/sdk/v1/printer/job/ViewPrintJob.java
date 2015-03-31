@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,18 +50,24 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
 
     @Override
     public ViewPrintJob build() {
-      return new ViewPrintJob(view, flags);
+      return new ViewPrintJob(this);
     }
   }
 
   public final ArrayList<String> imageFiles;
   private static final String BUNDLE_KEY_IMAGE_FILES = "i";
 
+  @Deprecated
   protected ViewPrintJob(View view, int flags) {
-    super(flags);
+    this((ViewPrintJob.Builder) new Builder().view(view).flags(flags));
+
+  }
+
+  protected ViewPrintJob(Builder builder) {
+    super(builder);
     ArrayList<String> files = null;
     try {
-      files = Views.writeBitmapChucks(view, new ReceiptFileOutputFactory(view.getContext()));
+      files = Views.writeBitmapChucks(builder.view, new ReceiptFileOutputFactory(builder.view.getContext()));
     } catch (Exception e) {
       Log.e(TAG, "Unable to produce image files for print", e);
     }
@@ -86,7 +92,7 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
 
   protected ViewPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle();
+    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
     imageFiles = bundle.getStringArrayList(BUNDLE_KEY_IMAGE_FILES);
     // Add more data here, but remember old apps might not provide it!
   }
