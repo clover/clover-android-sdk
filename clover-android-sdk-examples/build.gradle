@@ -21,8 +21,6 @@ apply plugin: 'android'
 
 repositories {
   mavenLocal()
-  maven { url "http://bulldog.corp.clover.com:8081/artifactory/libs-release" }
-  maven { url "http://bulldog.corp.clover.com:8081/artifactory/libs-snapshot" }
   mavenCentral()
 }
 
@@ -42,5 +40,4 @@ android {
 
 dependencies {
   compile project(':clover-android-sdk')
-  compile 'com.clover:calc:108'
 }
