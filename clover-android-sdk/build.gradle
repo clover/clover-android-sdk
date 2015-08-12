@@ -17,13 +17,8 @@
 group = 'com.clover.sdk'
 version = '86'
 
-apply from: file("${androidBuild}/lib.gradle")
-
-dependencies {
-    compile files('lib/calc.jar')
-}
-
-ant.importBuild 'javadoc.xml'
+apply plugin: 'android-library'
+apply plugin: 'android-maven'
 
 repositories {
   mavenLocal()
@@ -41,4 +36,22 @@ android {
     minSdkVersion 16
     targetSdkVersion 17
   }
+
+  packagingOptions {
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+  }
+
+  // tell Android studio that the instrumentTest source set is located in the unit test source set
+  sourceSets {
+    main {
+      manifest.srcFile 'src/main/AndroidManifest.xml'
+    }
+  }
 }
+
+dependencies {
+    compile files('lib/calc.jar')
+}
+
+ant.importBuild 'javadoc.xml'
