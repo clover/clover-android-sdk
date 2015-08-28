@@ -9,6 +9,7 @@ import com.clover.sdk.v3.order.Modification;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderSummary;
 import com.clover.sdk.v3.order.IOnOrderUpdateListener;
+import com.clover.sdk.v3.order.IOnOrderUpdateListener2;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.Payment;
@@ -99,4 +100,8 @@ interface IOrderService {
   Refund addRefundOffline(String orderId, in Refund payment, out ResultStatus status);
 
   Refund refund(String orderId, in Refund payment, out ResultStatus status);
+
+  void addOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
+
+  void removeOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
 }

@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2013 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,125 +23,157 @@
 
 package com.clover.sdk.v3.payments;
 
+import com.clover.sdk.GenericClient;
+
 @SuppressWarnings("all")
 public final class CardTransaction implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public com.clover.sdk.v3.payments.CardType getCardType() {
-    return cacheGet(CacheKey.cardType);
+    return genClient.cacheGet(CacheKey.cardType);
   }
+
   public com.clover.sdk.v3.payments.CardEntryType getEntryType() {
-    return cacheGet(CacheKey.entryType);
+    return genClient.cacheGet(CacheKey.entryType);
   }
- /**
+
+  /**
    * The last four digits of the credit card number
-  */
-  public java.lang.String getLast4() {
-    return cacheGet(CacheKey.last4);
+   */
+  public String getLast4() {
+    return genClient.cacheGet(CacheKey.last4);
   }
+
   public com.clover.sdk.v3.payments.CardTransactionType getType() {
-    return cacheGet(CacheKey.type);
+    return genClient.cacheGet(CacheKey.type);
   }
- /**
+
+  /**
    * Authorization code (if successful)
-  */
-  public java.lang.String getAuthCode() {
-    return cacheGet(CacheKey.authCode);
+   */
+  public String getAuthCode() {
+    return genClient.cacheGet(CacheKey.authCode);
   }
-  public java.lang.String getReferenceId() {
-    return cacheGet(CacheKey.referenceId);
+
+  public String getReferenceId() {
+    return genClient.cacheGet(CacheKey.referenceId);
   }
-  public java.lang.String getTransactionNo() {
-    return cacheGet(CacheKey.transactionNo);
+
+  public String getTransactionNo() {
+    return genClient.cacheGet(CacheKey.transactionNo);
   }
+
   public com.clover.sdk.v3.payments.CardTransactionState getState() {
-    return cacheGet(CacheKey.state);
+    return genClient.cacheGet(CacheKey.state);
   }
- /**
+
+  /**
    * Extra info to be stored as part of gateway/card transaction
-  */
-  public java.util.Map<java.lang.String,java.lang.String> getExtra() {
-    return cacheGet(CacheKey.extra);
+   */
+  public java.util.Map<String,String> getExtra() {
+    return genClient.cacheGet(CacheKey.extra);
   }
+
+  public Long getBegBalance() {
+    return genClient.cacheGet(CacheKey.begBalance);
+  }
+
+  public Long getEndBalance() {
+    return genClient.cacheGet(CacheKey.endBalance);
+  }
+
   public com.clover.sdk.v3.payments.AVSResult getAvsResult() {
-    return cacheGet(CacheKey.avsResult);
+    return genClient.cacheGet(CacheKey.avsResult);
+  }
+
+  public String getCardholderName() {
+    return genClient.cacheGet(CacheKey.cardholderName);
   }
 
 
-  private enum CacheKey {
+
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CardTransaction> {
     cardType {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractCardType();
+        return instance.genClient.extractEnum("cardType", com.clover.sdk.v3.payments.CardType.class);
       }
     },
     entryType {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractEntryType();
+        return instance.genClient.extractEnum("entryType", com.clover.sdk.v3.payments.CardEntryType.class);
       }
     },
     last4 {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractLast4();
+        return instance.genClient.extractOther("last4", String.class);
       }
     },
     type {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractType();
+        return instance.genClient.extractEnum("type", com.clover.sdk.v3.payments.CardTransactionType.class);
       }
     },
     authCode {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractAuthCode();
+        return instance.genClient.extractOther("authCode", String.class);
       }
     },
     referenceId {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractReferenceId();
+        return instance.genClient.extractOther("referenceId", String.class);
       }
     },
     transactionNo {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractTransactionNo();
+        return instance.genClient.extractOther("transactionNo", String.class);
       }
     },
     state {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractState();
+        return instance.genClient.extractEnum("state", com.clover.sdk.v3.payments.CardTransactionState.class);
       }
     },
     extra {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractExtra();
+        return instance.genClient.extractMap("extra");
+      }
+    },
+    begBalance {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractOther("begBalance", Long.class);
+      }
+    },
+    endBalance {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractOther("endBalance", Long.class);
       }
     },
     avsResult {
       @Override
       public Object extractValue(CardTransaction instance) {
-        return instance.extractAvsResult();
+        return instance.genClient.extractEnum("avsResult", com.clover.sdk.v3.payments.AVSResult.class);
+      }
+    },
+    cardholderName {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractOther("cardholderName", String.class);
       }
     },
     ;
-
-    public abstract Object extractValue(CardTransaction instance);
   }
 
-  private org.json.JSONObject jsonObject = null;
-  private android.os.Bundle bundle = null;
-  private android.os.Bundle changeLog = null;
-  private Object[] cache = null;
-  private byte[] cacheState = null;
-
-  private static final byte STATE_NOT_CACHED = 0;
-  private static final byte STATE_CACHED_NO_VALUE = 1;
-  private static final byte STATE_CACHED_VALUE = 2;
+  private GenericClient<CardTransaction> genClient = new GenericClient<CardTransaction>(this);
 
   /**
    * Constructs a new empty instance.
@@ -151,11 +183,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public CardTransaction(String json) throws java.lang.IllegalArgumentException {
+  public CardTransaction(String json) throws IllegalArgumentException {
     try {
-      this.jsonObject = new org.json.JSONObject(json);
+      genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException("invalid json", e);
+      throw new IllegalArgumentException("invalid json", e);
     }
   }
 
@@ -164,67 +196,15 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public CardTransaction(org.json.JSONObject jsonObject) {
-    this.jsonObject = jsonObject;
+    genClient.setJsonObject(jsonObject);
   }
 
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public CardTransaction(CardTransaction src) {
-    if (src.jsonObject != null) {
-      this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
-    }
-  }
-
-  private <T> T cacheGet(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return (T) cache[index];
-  }
-
-  private boolean cacheValueIsNotNull(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cache[index] != null;
-  }
-
-  private boolean cacheHasKey(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cacheState[index] == STATE_CACHED_VALUE;
-  }
-
-  private void cacheRemoveValue(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    cache[index] = null;
-    cacheState[index] = STATE_CACHED_NO_VALUE;
-  }
-
-  private void cacheMarkDirty(CacheKey key) {
-    if (cache != null) {
-      int index = key.ordinal();
-      cache[index] = null;
-      cacheState[index] = STATE_NOT_CACHED;
-    }
-  }
-
-  private void populateCache(int index) {
-    if (cache == null) {
-      int size = CacheKey.values().length;
-      cache = new Object[size];
-      cacheState = new byte[size];
-    }
-
-    if (cacheState[index] == STATE_NOT_CACHED) {
-      CacheKey key = CacheKey.values()[index];
-
-      if (getJSONObject().has(key.name())) {
-        cache[index] = key.extractValue(this);
-        cacheState[index] = STATE_CACHED_VALUE;
-      } else {
-        cacheState[index] = STATE_CACHED_NO_VALUE;
-      }
+    if (src.genClient.getJsonObject() != null) {
+      genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
   }
 
@@ -233,228 +213,152 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    if (jsonObject == null) {
-      jsonObject = new org.json.JSONObject();
-    }
-    return jsonObject;
+    return genClient.getJSONObject();
   }
 
 
   @Override
   public void validate() {
 
-    java.lang.String authCode = getAuthCode();
-    if (authCode != null && authCode.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'authCode'");}
+    genClient.validateLength(getAuthCode(), 255);
 
-    java.lang.String referenceId = getReferenceId();
-    if (referenceId != null && referenceId.length() > 32) { throw new IllegalArgumentException("Maximum string length exceeded for 'referenceId'");}
+    genClient.validateLength(getReferenceId(), 32);
 
-    java.lang.String transactionNo = getTransactionNo();
-    if (transactionNo != null && transactionNo.length() > 255) { throw new IllegalArgumentException("Maximum string length exceeded for 'transactionNo'");}
+    genClient.validateLength(getTransactionNo(), 255);
   }
-
-
-
-  private com.clover.sdk.v3.payments.CardType extractCardType() {
-    if (!getJSONObject().isNull("cardType")) {
-      try {
-        return com.clover.sdk.v3.payments.CardType.valueOf(getJSONObject().optString("cardType"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private com.clover.sdk.v3.payments.CardEntryType extractEntryType() {
-    if (!getJSONObject().isNull("entryType")) {
-      try {
-        return com.clover.sdk.v3.payments.CardEntryType.valueOf(getJSONObject().optString("entryType"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private java.lang.String extractLast4() {
-    return getJSONObject().isNull("last4") ? null :
-      getJSONObject().optString("last4");
-  }
-
-
-  private com.clover.sdk.v3.payments.CardTransactionType extractType() {
-    if (!getJSONObject().isNull("type")) {
-      try {
-        return com.clover.sdk.v3.payments.CardTransactionType.valueOf(getJSONObject().optString("type"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private java.lang.String extractAuthCode() {
-    return getJSONObject().isNull("authCode") ? null :
-      getJSONObject().optString("authCode");
-  }
-
-
-  private java.lang.String extractReferenceId() {
-    return getJSONObject().isNull("referenceId") ? null :
-      getJSONObject().optString("referenceId");
-  }
-
-
-  private java.lang.String extractTransactionNo() {
-    return getJSONObject().isNull("transactionNo") ? null :
-      getJSONObject().optString("transactionNo");
-  }
-
-
-  private com.clover.sdk.v3.payments.CardTransactionState extractState() {
-    if (!getJSONObject().isNull("state")) {
-      try {
-        return com.clover.sdk.v3.payments.CardTransactionState.valueOf(getJSONObject().optString("state"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private java.util.Map<java.lang.String,java.lang.String> extractExtra() {
-    if (getJSONObject().isNull("extra")) return null;
-    org.json.JSONObject object = getJSONObject().optJSONObject("extra");
-    return com.clover.sdk.v3.JsonHelper.toMap(object);
-  }
-
-
-  private com.clover.sdk.v3.payments.AVSResult extractAvsResult() {
-    if (!getJSONObject().isNull("avsResult")) {
-      try {
-        return com.clover.sdk.v3.payments.AVSResult.valueOf(getJSONObject().optString("avsResult"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
 
   /** Checks whether the 'cardType' field is set and is not null */
   public boolean isNotNullCardType() {
-    return cacheValueIsNotNull(CacheKey.cardType);
+    return genClient.cacheValueIsNotNull(CacheKey.cardType);
   }
 
   /** Checks whether the 'entryType' field is set and is not null */
   public boolean isNotNullEntryType() {
-    return cacheValueIsNotNull(CacheKey.entryType);
+    return genClient.cacheValueIsNotNull(CacheKey.entryType);
   }
 
   /** Checks whether the 'last4' field is set and is not null */
   public boolean isNotNullLast4() {
-    return cacheValueIsNotNull(CacheKey.last4);
+    return genClient.cacheValueIsNotNull(CacheKey.last4);
   }
 
   /** Checks whether the 'type' field is set and is not null */
   public boolean isNotNullType() {
-    return cacheValueIsNotNull(CacheKey.type);
+    return genClient.cacheValueIsNotNull(CacheKey.type);
   }
 
   /** Checks whether the 'authCode' field is set and is not null */
   public boolean isNotNullAuthCode() {
-    return cacheValueIsNotNull(CacheKey.authCode);
+    return genClient.cacheValueIsNotNull(CacheKey.authCode);
   }
 
   /** Checks whether the 'referenceId' field is set and is not null */
   public boolean isNotNullReferenceId() {
-    return cacheValueIsNotNull(CacheKey.referenceId);
+    return genClient.cacheValueIsNotNull(CacheKey.referenceId);
   }
 
   /** Checks whether the 'transactionNo' field is set and is not null */
   public boolean isNotNullTransactionNo() {
-    return cacheValueIsNotNull(CacheKey.transactionNo);
+    return genClient.cacheValueIsNotNull(CacheKey.transactionNo);
   }
 
   /** Checks whether the 'state' field is set and is not null */
   public boolean isNotNullState() {
-    return cacheValueIsNotNull(CacheKey.state);
+    return genClient.cacheValueIsNotNull(CacheKey.state);
   }
 
   /** Checks whether the 'extra' field is set and is not null */
   public boolean isNotNullExtra() {
-    return cacheValueIsNotNull(CacheKey.extra);
+    return genClient.cacheValueIsNotNull(CacheKey.extra);
   }
 
   /** Checks whether the 'extra' field is set and is not null and is not empty */
-  public boolean isNotEmptyExtra() {
-    return isNotNullExtra() && !getExtra().isEmpty();
+  public boolean isNotEmptyExtra() { return isNotNullExtra() && !getExtra().isEmpty(); }
+
+  /** Checks whether the 'begBalance' field is set and is not null */
+  public boolean isNotNullBegBalance() {
+    return genClient.cacheValueIsNotNull(CacheKey.begBalance);
+  }
+
+  /** Checks whether the 'endBalance' field is set and is not null */
+  public boolean isNotNullEndBalance() {
+    return genClient.cacheValueIsNotNull(CacheKey.endBalance);
   }
 
   /** Checks whether the 'avsResult' field is set and is not null */
   public boolean isNotNullAvsResult() {
-    return cacheValueIsNotNull(CacheKey.avsResult);
+    return genClient.cacheValueIsNotNull(CacheKey.avsResult);
+  }
+
+  /** Checks whether the 'cardholderName' field is set and is not null */
+  public boolean isNotNullCardholderName() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardholderName);
   }
 
 
   /** Checks whether the 'cardType' field has been set, however the value could be null */
   public boolean hasCardType() {
-    return cacheHasKey(CacheKey.cardType);
+    return genClient.cacheHasKey(CacheKey.cardType);
   }
 
   /** Checks whether the 'entryType' field has been set, however the value could be null */
   public boolean hasEntryType() {
-    return cacheHasKey(CacheKey.entryType);
+    return genClient.cacheHasKey(CacheKey.entryType);
   }
 
   /** Checks whether the 'last4' field has been set, however the value could be null */
   public boolean hasLast4() {
-    return cacheHasKey(CacheKey.last4);
+    return genClient.cacheHasKey(CacheKey.last4);
   }
 
   /** Checks whether the 'type' field has been set, however the value could be null */
   public boolean hasType() {
-    return cacheHasKey(CacheKey.type);
+    return genClient.cacheHasKey(CacheKey.type);
   }
 
   /** Checks whether the 'authCode' field has been set, however the value could be null */
   public boolean hasAuthCode() {
-    return cacheHasKey(CacheKey.authCode);
+    return genClient.cacheHasKey(CacheKey.authCode);
   }
 
   /** Checks whether the 'referenceId' field has been set, however the value could be null */
   public boolean hasReferenceId() {
-    return cacheHasKey(CacheKey.referenceId);
+    return genClient.cacheHasKey(CacheKey.referenceId);
   }
 
   /** Checks whether the 'transactionNo' field has been set, however the value could be null */
   public boolean hasTransactionNo() {
-    return cacheHasKey(CacheKey.transactionNo);
+    return genClient.cacheHasKey(CacheKey.transactionNo);
   }
 
   /** Checks whether the 'state' field has been set, however the value could be null */
   public boolean hasState() {
-    return cacheHasKey(CacheKey.state);
+    return genClient.cacheHasKey(CacheKey.state);
   }
 
   /** Checks whether the 'extra' field has been set, however the value could be null */
   public boolean hasExtra() {
-    return cacheHasKey(CacheKey.extra);
+    return genClient.cacheHasKey(CacheKey.extra);
+  }
+
+  /** Checks whether the 'begBalance' field has been set, however the value could be null */
+  public boolean hasBegBalance() {
+    return genClient.cacheHasKey(CacheKey.begBalance);
+  }
+
+  /** Checks whether the 'endBalance' field has been set, however the value could be null */
+  public boolean hasEndBalance() {
+    return genClient.cacheHasKey(CacheKey.endBalance);
   }
 
   /** Checks whether the 'avsResult' field has been set, however the value could be null */
   public boolean hasAvsResult() {
-    return cacheHasKey(CacheKey.avsResult);
+    return genClient.cacheHasKey(CacheKey.avsResult);
+  }
+
+  /** Checks whether the 'cardholderName' field has been set, however the value could be null */
+  public boolean hasCardholderName() {
+    return genClient.cacheHasKey(CacheKey.cardholderName);
   }
 
 
@@ -462,259 +366,160 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * Sets the field 'cardType'.
    */
   public CardTransaction setCardType(com.clover.sdk.v3.payments.CardType cardType) {
-    logChange("cardType");
-
-    try {
-      getJSONObject().put("cardType", cardType == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(cardType));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.cardType);
-    return this;
+    return genClient.setOther(cardType, CacheKey.cardType);
   }
 
   /**
    * Sets the field 'entryType'.
    */
   public CardTransaction setEntryType(com.clover.sdk.v3.payments.CardEntryType entryType) {
-    logChange("entryType");
-
-    try {
-      getJSONObject().put("entryType", entryType == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(entryType));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.entryType);
-    return this;
+    return genClient.setOther(entryType, CacheKey.entryType);
   }
 
   /**
    * Sets the field 'last4'.
    */
-  public CardTransaction setLast4(java.lang.String last4) {
-    logChange("last4");
-
-    try {
-      getJSONObject().put("last4", last4 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(last4));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.last4);
-    return this;
+  public CardTransaction setLast4(String last4) {
+    return genClient.setOther(last4, CacheKey.last4);
   }
 
   /**
    * Sets the field 'type'.
    */
   public CardTransaction setType(com.clover.sdk.v3.payments.CardTransactionType type) {
-    logChange("type");
-
-    try {
-      getJSONObject().put("type", type == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(type));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.type);
-    return this;
+    return genClient.setOther(type, CacheKey.type);
   }
 
   /**
    * Sets the field 'authCode'.
    */
-  public CardTransaction setAuthCode(java.lang.String authCode) {
-    logChange("authCode");
-
-    try {
-      getJSONObject().put("authCode", authCode == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(authCode));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.authCode);
-    return this;
+  public CardTransaction setAuthCode(String authCode) {
+    return genClient.setOther(authCode, CacheKey.authCode);
   }
 
   /**
    * Sets the field 'referenceId'.
    */
-  public CardTransaction setReferenceId(java.lang.String referenceId) {
-    logChange("referenceId");
-
-    try {
-      getJSONObject().put("referenceId", referenceId == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(referenceId));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.referenceId);
-    return this;
+  public CardTransaction setReferenceId(String referenceId) {
+    return genClient.setOther(referenceId, CacheKey.referenceId);
   }
 
   /**
    * Sets the field 'transactionNo'.
    */
-  public CardTransaction setTransactionNo(java.lang.String transactionNo) {
-    logChange("transactionNo");
-
-    try {
-      getJSONObject().put("transactionNo", transactionNo == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(transactionNo));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.transactionNo);
-    return this;
+  public CardTransaction setTransactionNo(String transactionNo) {
+    return genClient.setOther(transactionNo, CacheKey.transactionNo);
   }
 
   /**
    * Sets the field 'state'.
    */
   public CardTransaction setState(com.clover.sdk.v3.payments.CardTransactionState state) {
-    logChange("state");
-
-    try {
-      getJSONObject().put("state", state == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(state));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.state);
-    return this;
+    return genClient.setOther(state, CacheKey.state);
   }
 
   /**
    * Sets the field 'extra'.
    */
-  public CardTransaction setExtra(java.util.Map<java.lang.String,java.lang.String> extra) {
-    logChange("extra");
+  public CardTransaction setExtra(java.util.Map<String,String> extra) {
+    return genClient.setOther(extra, CacheKey.extra);
+  }
 
-    try {
-      getJSONObject().put("extra", extra == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(extra));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
+  /**
+   * Sets the field 'begBalance'.
+   */
+  public CardTransaction setBegBalance(Long begBalance) {
+    return genClient.setOther(begBalance, CacheKey.begBalance);
+  }
 
-    cacheMarkDirty(CacheKey.extra);
-    return this;
+  /**
+   * Sets the field 'endBalance'.
+   */
+  public CardTransaction setEndBalance(Long endBalance) {
+    return genClient.setOther(endBalance, CacheKey.endBalance);
   }
 
   /**
    * Sets the field 'avsResult'.
    */
   public CardTransaction setAvsResult(com.clover.sdk.v3.payments.AVSResult avsResult) {
-    logChange("avsResult");
+    return genClient.setOther(avsResult, CacheKey.avsResult);
+  }
 
-    try {
-      getJSONObject().put("avsResult", avsResult == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(avsResult));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.avsResult);
-    return this;
+  /**
+   * Sets the field 'cardholderName'.
+   */
+  public CardTransaction setCardholderName(String cardholderName) {
+    return genClient.setOther(cardholderName, CacheKey.cardholderName);
   }
 
 
   /** Clears the 'cardType' field, the 'has' method for this field will now return false */
   public void clearCardType() {
-    unlogChange("cardType");
-    getJSONObject().remove("cardType");
-    cacheRemoveValue(CacheKey.cardType);
+    genClient.clear(CacheKey.cardType);
   }
-
   /** Clears the 'entryType' field, the 'has' method for this field will now return false */
   public void clearEntryType() {
-    unlogChange("entryType");
-    getJSONObject().remove("entryType");
-    cacheRemoveValue(CacheKey.entryType);
+    genClient.clear(CacheKey.entryType);
   }
-
   /** Clears the 'last4' field, the 'has' method for this field will now return false */
   public void clearLast4() {
-    unlogChange("last4");
-    getJSONObject().remove("last4");
-    cacheRemoveValue(CacheKey.last4);
+    genClient.clear(CacheKey.last4);
   }
-
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
-    unlogChange("type");
-    getJSONObject().remove("type");
-    cacheRemoveValue(CacheKey.type);
+    genClient.clear(CacheKey.type);
   }
-
   /** Clears the 'authCode' field, the 'has' method for this field will now return false */
   public void clearAuthCode() {
-    unlogChange("authCode");
-    getJSONObject().remove("authCode");
-    cacheRemoveValue(CacheKey.authCode);
+    genClient.clear(CacheKey.authCode);
   }
-
   /** Clears the 'referenceId' field, the 'has' method for this field will now return false */
   public void clearReferenceId() {
-    unlogChange("referenceId");
-    getJSONObject().remove("referenceId");
-    cacheRemoveValue(CacheKey.referenceId);
+    genClient.clear(CacheKey.referenceId);
   }
-
   /** Clears the 'transactionNo' field, the 'has' method for this field will now return false */
   public void clearTransactionNo() {
-    unlogChange("transactionNo");
-    getJSONObject().remove("transactionNo");
-    cacheRemoveValue(CacheKey.transactionNo);
+    genClient.clear(CacheKey.transactionNo);
   }
-
   /** Clears the 'state' field, the 'has' method for this field will now return false */
   public void clearState() {
-    unlogChange("state");
-    getJSONObject().remove("state");
-    cacheRemoveValue(CacheKey.state);
+    genClient.clear(CacheKey.state);
   }
-
   /** Clears the 'extra' field, the 'has' method for this field will now return false */
   public void clearExtra() {
-    unlogChange("extra");
-    getJSONObject().remove("extra");
-    cacheRemoveValue(CacheKey.extra);
+    genClient.clear(CacheKey.extra);
   }
-
+  /** Clears the 'begBalance' field, the 'has' method for this field will now return false */
+  public void clearBegBalance() {
+    genClient.clear(CacheKey.begBalance);
+  }
+  /** Clears the 'endBalance' field, the 'has' method for this field will now return false */
+  public void clearEndBalance() {
+    genClient.clear(CacheKey.endBalance);
+  }
   /** Clears the 'avsResult' field, the 'has' method for this field will now return false */
   public void clearAvsResult() {
-    unlogChange("avsResult");
-    getJSONObject().remove("avsResult");
-    cacheRemoveValue(CacheKey.avsResult);
+    genClient.clear(CacheKey.avsResult);
+  }
+  /** Clears the 'cardholderName' field, the 'has' method for this field will now return false */
+  public void clearCardholderName() {
+    genClient.clear(CacheKey.cardholderName);
   }
 
-
-  private void logChange(java.lang.String field) {
-    if (changeLog == null) {
-      changeLog = new android.os.Bundle();
-    }
-    changeLog.putString(field, null);
-  }
-
-  private void unlogChange(java.lang.String field) {
-    if (changeLog != null) {
-      changeLog.remove(field);
-    }
-  }
 
   /**
    * Returns true if this instance has any changes.
    */
   public boolean containsChanges() {
-    return changeLog != null;
+    return genClient.containsChanges();
   }
 
   /**
    * Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.
    */
   public void resetChangeLog() {
-    changeLog = null;
+    genClient.resetChangeLog();
   }
 
   /**
@@ -731,50 +536,22 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    * Copy all the changed fields from the given source to this instance.
    */
   public void mergeChanges(CardTransaction src) {
-    if (src.changeLog != null) {
-      try {
-        // Make a copy of the source so the destination fields are copies
-        org.json.JSONObject srcObj = new CardTransaction(src).getJSONObject();
-        org.json.JSONObject dstObj = getJSONObject();
-        for (java.lang.String field : src.changeLog.keySet()) {
-          dstObj.put(field, srcObj.get(field));
-          logChange(field);
-        }
-      } catch (org.json.JSONException e) {
-        throw new java.lang.IllegalArgumentException(e);
-      }
+    if (src.genClient.getChangeLog() != null) {
+      genClient.mergeChanges(new CardTransaction(src).getJSONObject(), src.genClient);
     }
   }
-
 
   /**
    * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
    * parcelled but not jsonified.
    */
   public android.os.Bundle getBundle() {
-    if (bundle == null) {
-      bundle = new android.os.Bundle();
-    }
-    return bundle;
+    return genClient.getBundle();
   }
 
   @Override
   public String toString() {
-    String json = getJSONObject().toString();
-
-    if (bundle != null) {
-      bundle.isEmpty(); // Triggers unparcel
-    }
-
-    if (changeLog != null) {
-      changeLog.isEmpty(); // Triggers unparcel
-    }
-
-    return "CardTransaction{" +
-        "json='" + json + "'" +
-        ", bundle=" + bundle +
-        ", changeLog=" + changeLog +
-        '}';
+    return genClient.toString();
   }
 
   @Override
@@ -784,17 +561,15 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
   @Override
   public void writeToParcel(android.os.Parcel dest, int flags) {
-	  com.clover.sdk.v3.JsonParcelHelper.wrap(getJSONObject()).writeToParcel(dest, 0);
-    dest.writeBundle(bundle);
-    dest.writeBundle(changeLog);
+    genClient.writeToParcel(dest, flags);
   }
 
   public static final android.os.Parcelable.Creator<CardTransaction> CREATOR = new android.os.Parcelable.Creator<CardTransaction>() {
     @Override
     public CardTransaction createFromParcel(android.os.Parcel in) {
       CardTransaction instance = new CardTransaction(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle(getClass().getClassLoader());
-      instance.changeLog = in.readBundle();
+      instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
+      instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
@@ -835,7 +610,13 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
     public static final boolean EXTRA_IS_REQUIRED = false;
 
+    public static final boolean BEGBALANCE_IS_REQUIRED = false;
+
+    public static final boolean ENDBALANCE_IS_REQUIRED = false;
+
     public static final boolean AVSRESULT_IS_REQUIRED = false;
+
+    public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
 
   }
 

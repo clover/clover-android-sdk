@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2015 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.clover.sdk.fragment;
 
 import android.app.Activity;
@@ -5,6 +20,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,10 +35,15 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
     void onDismiss();
   }
 
+  public interface Listener2 {
+    void onDismiss(int id, Parcelable tag);
+  }
+
+  private static final String EXTRA_ID = "id";
+  private static final String EXTRA_TAG = "tag";
   private static final String EXTRA_TITLE = "title";
   private static final String EXTRA_INSTRUCTION = "instruction";
 
-  private Listener mListener;
   private boolean isDismissed;
 
   public ReturnToMerchantDialogFragment() {
@@ -50,6 +71,23 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
     return f;
   }
 
+  public static ReturnToMerchantDialogFragment newInstance(int id, Parcelable tag, String instruction) {
+    return newInstance(id, tag, null, instruction);
+  }
+
+  public static ReturnToMerchantDialogFragment newInstance(int id, Parcelable tag, String title, String instruction) {
+    ReturnToMerchantDialogFragment f = new ReturnToMerchantDialogFragment();
+
+    Bundle args = new Bundle();
+    args.putInt(EXTRA_ID, id);
+    args.putParcelable(EXTRA_TAG, tag);
+    args.putString(EXTRA_INSTRUCTION, instruction);
+    args.putString(EXTRA_TITLE, title);
+    f.setArguments(args);
+
+    return f;
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -66,10 +104,7 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
         if (!isDismissed) {
           isDismissed = true;
           dismiss();
-
-          if (mListener != null) {
-            mListener.onDismiss();
-          }
+          callOnDismiss();
         }
         return true;
       }
@@ -98,10 +133,7 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
         if (!isDismissed) {
           isDismissed = true;
           dismiss();
-
-          if (mListener != null) {
-            mListener.onDismiss();
-          }
+          callOnDismiss();
         }
         return true;
       }
@@ -111,29 +143,21 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
   }
 
   @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    if (activity instanceof Listener) {
-      mListener = (Listener) activity;
-    } else {
-      mListener = null;
+  public void onDismiss(DialogInterface dialog) {
+    super.onDismiss(dialog);
+    if (!isDismissed) {
+      isDismissed = true;
+      callOnDismiss();
     }
   }
 
-  @Override
-  public void onDetach() {
-    super.onDetach();
-
-    mListener = null;
-  }
-
-  @Override
-  public void onDismiss(DialogInterface dialog) {
-    super.onDismiss(dialog);
-
-    if (mListener != null && !isDismissed) {
-      mListener.onDismiss();
+  private void callOnDismiss() {
+    Activity a = getActivity();
+    if (a instanceof Listener) {
+      ((Listener) a).onDismiss();
+    }
+    if (a instanceof Listener2 && getArguments().containsKey(EXTRA_ID)) {
+      ((Listener2) a).onDismiss(getArguments().getInt(EXTRA_ID), getArguments().getParcelable(EXTRA_TAG));
     }
   }
 }

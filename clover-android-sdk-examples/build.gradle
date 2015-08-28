@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 group = 'com.clover.sdk'
-version = '86'
+version = '112'
 
 apply plugin: 'android'
 
@@ -28,9 +27,8 @@ android {
       lintOptions {
           abortOnError false
       }
-  compileSdkVersion 17
-  buildToolsVersion "19.1"
-  useOldManifestMerger true
+  compileSdkVersion 21
+  buildToolsVersion "22.0.1"
 
   defaultConfig {
     minSdkVersion 16
@@ -40,4 +38,5 @@ android {
 
 dependencies {
   compile project(':clover-android-sdk')
+  compile files('lib/calc.jar')
 }

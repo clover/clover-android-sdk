@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2013 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,8 @@ interface ICustomerService {
     void setEmailAddress(in String customerId, in String emailAddressId, in String emailAddress, out ResultStatus resultStatus);
     void deleteEmailAddress(in String customerId, in String emailAddressId, out ResultStatus resultStatus);
 
-    Address addAddress(in String customerId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
+    com.clover.sdk.v1.customer.Address addAddress(in String customerId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
     void setAddress(in String customerId, in String addressId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
     void deleteAddress(in String customerId, in String addressId, out ResultStatus resultStatus);
+    void deleteCustomer(in String customerId, out ResultStatus resultStatus);
 }

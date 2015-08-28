@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2013 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,269 +23,358 @@
 
 package com.clover.sdk.v3.pay;
 
+import com.clover.sdk.GenericClient;
+
 @SuppressWarnings("all")
 public final class PaymentRequestCardDetails implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  public String getTrack1() {
+    return genClient.cacheGet(CacheKey.track1);
+  }
+
+  public String getTrack2() {
+    return genClient.cacheGet(CacheKey.track2);
+  }
+
+  public String getTrack3() {
+    return genClient.cacheGet(CacheKey.track3);
+  }
+
+  public Boolean getEncrypted() {
+    return genClient.cacheGet(CacheKey.encrypted);
+  }
+
+  public String getMaskedTrack1() {
+    return genClient.cacheGet(CacheKey.maskedTrack1);
+  }
+
+  public String getMaskedTrack2() {
+    return genClient.cacheGet(CacheKey.maskedTrack2);
+  }
+
+  public String getMaskedTrack3() {
+    return genClient.cacheGet(CacheKey.maskedTrack3);
+  }
+
+  public String getUniqueToken() {
+    return genClient.cacheGet(CacheKey.uniqueToken);
+  }
+
+  public String getPan() {
+    return genClient.cacheGet(CacheKey.pan);
+  }
+
+  public String getFirstName() {
+    return genClient.cacheGet(CacheKey.firstName);
+  }
+
+  public String getLastName() {
+    return genClient.cacheGet(CacheKey.lastName);
+  }
+
+  public String getCountryCode() {
+    return genClient.cacheGet(CacheKey.countryCode);
+  }
+
+  public String getExp() {
+    return genClient.cacheGet(CacheKey.exp);
+  }
+
+  public String getStreetAddress() {
+    return genClient.cacheGet(CacheKey.streetAddress);
+  }
+
+  public String getZip() {
+    return genClient.cacheGet(CacheKey.zip);
+  }
+
+  public String getCvv() {
+    return genClient.cacheGet(CacheKey.cvv);
+  }
+
+  public String getLast4() {
+    return genClient.cacheGet(CacheKey.last4);
+  }
+
+  public String getFirst4() {
+    return genClient.cacheGet(CacheKey.first4);
+  }
+
+  public String getDukptSerial() {
+    return genClient.cacheGet(CacheKey.dukptSerial);
+  }
+
+  public String getSwipeStatus() {
+    return genClient.cacheGet(CacheKey.swipeStatus);
+  }
+
+  public String getFingerprint() {
+    return genClient.cacheGet(CacheKey.fingerprint);
+  }
+
+  public String getDeviceSerial() {
+    return genClient.cacheGet(CacheKey.deviceSerial);
+  }
+
+  public Boolean getManualEntered() {
+    return genClient.cacheGet(CacheKey.manualEntered);
+  }
+
+  public Boolean getAsync() {
+    return genClient.cacheGet(CacheKey.async);
+  }
+
+  public Boolean getIsFallback() {
+    return genClient.cacheGet(CacheKey.isFallback);
+  }
+
+  public Boolean getIsAuth() {
+    return genClient.cacheGet(CacheKey.isAuth);
+  }
+
+  public Boolean getIsPrepaid() {
+    return genClient.cacheGet(CacheKey.isPrepaid);
+  }
+
+  public CardFunction getCardFunction() {
+    return genClient.cacheGet(CacheKey.cardFunction);
+  }
+
+  public Boolean getQrCode() {
+    return genClient.cacheGet(CacheKey.qrCode);
+  }
+
   public com.clover.sdk.v3.payments.CardType getCardType() {
-    return cacheGet(CacheKey.cardType);
+    return genClient.cacheGet(CacheKey.cardType);
   }
+
   public com.clover.sdk.v3.payments.CardEntryType getEntryType() {
-    return cacheGet(CacheKey.entryType);
+    return genClient.cacheGet(CacheKey.entryType);
   }
-  public java.lang.String getTrack1() {
-    return cacheGet(CacheKey.track1);
+
+  public String getTransactionNo() {
+    return genClient.cacheGet(CacheKey.transactionNo);
   }
-  public java.lang.String getTrack2() {
-    return cacheGet(CacheKey.track2);
+
+  public String getCardholderName() {
+    return genClient.cacheGet(CacheKey.cardholderName);
   }
-  public java.lang.String getTrack3() {
-    return cacheGet(CacheKey.track3);
-  }
-  public java.lang.Boolean getEncrypted() {
-    return cacheGet(CacheKey.encrypted);
-  }
-  public java.lang.Boolean getManualEntered() {
-    return cacheGet(CacheKey.manualEntered);
-  }
-  public java.lang.Boolean getAsync() {
-    return cacheGet(CacheKey.async);
-  }
-  public java.lang.String getMaskedTrack1() {
-    return cacheGet(CacheKey.maskedTrack1);
-  }
-  public java.lang.String getMaskedTrack2() {
-    return cacheGet(CacheKey.maskedTrack2);
-  }
-  public java.lang.String getMaskedTrack3() {
-    return cacheGet(CacheKey.maskedTrack3);
-  }
-  public java.lang.String getUniqueToken() {
-    return cacheGet(CacheKey.uniqueToken);
-  }
-  public java.lang.String getPan() {
-    return cacheGet(CacheKey.pan);
-  }
-  public java.lang.String getFirstName() {
-    return cacheGet(CacheKey.firstName);
-  }
-  public java.lang.String getLastName() {
-    return cacheGet(CacheKey.lastName);
-  }
-  public java.lang.String getCountryCode() {
-    return cacheGet(CacheKey.countryCode);
-  }
-  public java.lang.String getExp() {
-    return cacheGet(CacheKey.exp);
-  }
-  public java.lang.String getStreetAddress() {
-    return cacheGet(CacheKey.streetAddress);
-  }
-  public java.lang.String getZip() {
-    return cacheGet(CacheKey.zip);
-  }
-  public java.lang.String getCvv() {
-    return cacheGet(CacheKey.cvv);
-  }
-  public java.lang.String getLast4() {
-    return cacheGet(CacheKey.last4);
-  }
-  public java.lang.String getFirst4() {
-    return cacheGet(CacheKey.first4);
-  }
-  public java.lang.String getDukptSerial() {
-    return cacheGet(CacheKey.dukptSerial);
-  }
-  public java.lang.String getSwipeStatus() {
-    return cacheGet(CacheKey.swipeStatus);
-  }
-  public java.lang.String getFingerprint() {
-    return cacheGet(CacheKey.fingerprint);
-  }
-  public java.lang.String getDeviceSerial() {
-    return cacheGet(CacheKey.deviceSerial);
-  }
-  public com.clover.sdk.v3.pay.TransactionData getTransactionData() {
-    return cacheGet(CacheKey.transactionData);
+
+  public TransactionData getTransactionData() {
+    return genClient.cacheGet(CacheKey.transactionData);
   }
 
 
-  private enum CacheKey {
-    cardType {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractCardType();
-      }
-    },
-    entryType {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractEntryType();
-      }
-    },
+
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentRequestCardDetails> {
     track1 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractTrack1();
+        return instance.genClient.extractOther("track1", String.class);
       }
     },
     track2 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractTrack2();
+        return instance.genClient.extractOther("track2", String.class);
       }
     },
     track3 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractTrack3();
+        return instance.genClient.extractOther("track3", String.class);
       }
     },
     encrypted {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractEncrypted();
-      }
-    },
-    manualEntered {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractManualEntered();
-      }
-    },
-    async {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractAsync();
+        return instance.genClient.extractOther("encrypted", Boolean.class);
       }
     },
     maskedTrack1 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractMaskedTrack1();
+        return instance.genClient.extractOther("maskedTrack1", String.class);
       }
     },
     maskedTrack2 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractMaskedTrack2();
+        return instance.genClient.extractOther("maskedTrack2", String.class);
       }
     },
     maskedTrack3 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractMaskedTrack3();
+        return instance.genClient.extractOther("maskedTrack3", String.class);
       }
     },
     uniqueToken {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractUniqueToken();
+        return instance.genClient.extractOther("uniqueToken", String.class);
       }
     },
     pan {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractPan();
+        return instance.genClient.extractOther("pan", String.class);
       }
     },
     firstName {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractFirstName();
+        return instance.genClient.extractOther("firstName", String.class);
       }
     },
     lastName {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractLastName();
+        return instance.genClient.extractOther("lastName", String.class);
       }
     },
     countryCode {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractCountryCode();
+        return instance.genClient.extractOther("countryCode", String.class);
       }
     },
     exp {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractExp();
+        return instance.genClient.extractOther("exp", String.class);
       }
     },
     streetAddress {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractStreetAddress();
+        return instance.genClient.extractOther("streetAddress", String.class);
       }
     },
     zip {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractZip();
+        return instance.genClient.extractOther("zip", String.class);
       }
     },
     cvv {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractCvv();
+        return instance.genClient.extractOther("cvv", String.class);
       }
     },
     last4 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractLast4();
+        return instance.genClient.extractOther("last4", String.class);
       }
     },
     first4 {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractFirst4();
+        return instance.genClient.extractOther("first4", String.class);
       }
     },
     dukptSerial {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractDukptSerial();
+        return instance.genClient.extractOther("dukptSerial", String.class);
       }
     },
     swipeStatus {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractSwipeStatus();
+        return instance.genClient.extractOther("swipeStatus", String.class);
       }
     },
     fingerprint {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractFingerprint();
+        return instance.genClient.extractOther("fingerprint", String.class);
       }
     },
     deviceSerial {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractDeviceSerial();
+        return instance.genClient.extractOther("deviceSerial", String.class);
+      }
+    },
+    manualEntered {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("manualEntered", Boolean.class);
+      }
+    },
+    async {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("async", Boolean.class);
+      }
+    },
+    isFallback {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("isFallback", Boolean.class);
+      }
+    },
+    isAuth {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("isAuth", Boolean.class);
+      }
+    },
+    isPrepaid {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("isPrepaid", Boolean.class);
+      }
+    },
+    cardFunction {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractEnum("cardFunction", CardFunction.class);
+      }
+    },
+    qrCode {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("qrCode", Boolean.class);
+      }
+    },
+    cardType {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractEnum("cardType", com.clover.sdk.v3.payments.CardType.class);
+      }
+    },
+    entryType {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractEnum("entryType", com.clover.sdk.v3.payments.CardEntryType.class);
+      }
+    },
+    transactionNo {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("transactionNo", String.class);
+      }
+    },
+    cardholderName {
+      @Override
+      public Object extractValue(PaymentRequestCardDetails instance) {
+        return instance.genClient.extractOther("cardholderName", String.class);
       }
     },
     transactionData {
       @Override
       public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.extractTransactionData();
+        return instance.genClient.extractRecord("transactionData", TransactionData.JSON_CREATOR);
       }
     },
     ;
-
-    public abstract Object extractValue(PaymentRequestCardDetails instance);
   }
 
-  private org.json.JSONObject jsonObject = null;
-  private android.os.Bundle bundle = null;
-  private android.os.Bundle changeLog = null;
-  private Object[] cache = null;
-  private byte[] cacheState = null;
-
-  private static final byte STATE_NOT_CACHED = 0;
-  private static final byte STATE_CACHED_NO_VALUE = 1;
-  private static final byte STATE_CACHED_VALUE = 2;
+  private GenericClient<PaymentRequestCardDetails> genClient = new GenericClient<PaymentRequestCardDetails>(this);
 
   /**
    * Constructs a new empty instance.
@@ -295,11 +384,11 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public PaymentRequestCardDetails(String json) throws java.lang.IllegalArgumentException {
+  public PaymentRequestCardDetails(String json) throws IllegalArgumentException {
     try {
-      this.jsonObject = new org.json.JSONObject(json);
+      genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException("invalid json", e);
+      throw new IllegalArgumentException("invalid json", e);
     }
   }
 
@@ -308,67 +397,15 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
    * reflected in this instance and vice-versa.
    */
   public PaymentRequestCardDetails(org.json.JSONObject jsonObject) {
-    this.jsonObject = jsonObject;
+    genClient.setJsonObject(jsonObject);
   }
 
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public PaymentRequestCardDetails(PaymentRequestCardDetails src) {
-    if (src.jsonObject != null) {
-      this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
-    }
-  }
-
-  private <T> T cacheGet(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return (T) cache[index];
-  }
-
-  private boolean cacheValueIsNotNull(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cache[index] != null;
-  }
-
-  private boolean cacheHasKey(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cacheState[index] == STATE_CACHED_VALUE;
-  }
-
-  private void cacheRemoveValue(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    cache[index] = null;
-    cacheState[index] = STATE_CACHED_NO_VALUE;
-  }
-
-  private void cacheMarkDirty(CacheKey key) {
-    if (cache != null) {
-      int index = key.ordinal();
-      cache[index] = null;
-      cacheState[index] = STATE_NOT_CACHED;
-    }
-  }
-
-  private void populateCache(int index) {
-    if (cache == null) {
-      int size = CacheKey.values().length;
-      cache = new Object[size];
-      cacheState = new byte[size];
-    }
-
-    if (cacheState[index] == STATE_NOT_CACHED) {
-      CacheKey key = CacheKey.values()[index];
-
-      if (getJSONObject().has(key.name())) {
-        cache[index] = key.extractValue(this);
-        cacheState[index] = STATE_CACHED_VALUE;
-      } else {
-        cacheState[index] = STATE_CACHED_NO_VALUE;
-      }
+    if (src.genClient.getJsonObject() != null) {
+      genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
   }
 
@@ -377,10 +414,7 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    if (jsonObject == null) {
-      jsonObject = new org.json.JSONObject();
-    }
-    return jsonObject;
+    return genClient.getJSONObject();
   }
 
 
@@ -388,873 +422,577 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
   public void validate() {
   }
 
-
-
-  private com.clover.sdk.v3.payments.CardType extractCardType() {
-    if (!getJSONObject().isNull("cardType")) {
-      try {
-        return com.clover.sdk.v3.payments.CardType.valueOf(getJSONObject().optString("cardType"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private com.clover.sdk.v3.payments.CardEntryType extractEntryType() {
-    if (!getJSONObject().isNull("entryType")) {
-      try {
-        return com.clover.sdk.v3.payments.CardEntryType.valueOf(getJSONObject().optString("entryType"));
-      } catch(Exception e) {
-        e.printStackTrace();
-      }
-    }
-
-    return null;
-  }
-
-
-  private java.lang.String extractTrack1() {
-    return getJSONObject().isNull("track1") ? null :
-      getJSONObject().optString("track1");
-  }
-
-
-  private java.lang.String extractTrack2() {
-    return getJSONObject().isNull("track2") ? null :
-      getJSONObject().optString("track2");
-  }
-
-
-  private java.lang.String extractTrack3() {
-    return getJSONObject().isNull("track3") ? null :
-      getJSONObject().optString("track3");
-  }
-
-
-  private java.lang.Boolean extractEncrypted() {
-    return getJSONObject().isNull("encrypted") ? null :
-      getJSONObject().optBoolean("encrypted");
-  }
-
-
-  private java.lang.Boolean extractManualEntered() {
-    return getJSONObject().isNull("manualEntered") ? null :
-      getJSONObject().optBoolean("manualEntered");
-  }
-
-
-  private java.lang.Boolean extractAsync() {
-    return getJSONObject().isNull("async") ? null :
-      getJSONObject().optBoolean("async");
-  }
-
-
-  private java.lang.String extractMaskedTrack1() {
-    return getJSONObject().isNull("maskedTrack1") ? null :
-      getJSONObject().optString("maskedTrack1");
-  }
-
-
-  private java.lang.String extractMaskedTrack2() {
-    return getJSONObject().isNull("maskedTrack2") ? null :
-      getJSONObject().optString("maskedTrack2");
-  }
-
-
-  private java.lang.String extractMaskedTrack3() {
-    return getJSONObject().isNull("maskedTrack3") ? null :
-      getJSONObject().optString("maskedTrack3");
-  }
-
-
-  private java.lang.String extractUniqueToken() {
-    return getJSONObject().isNull("uniqueToken") ? null :
-      getJSONObject().optString("uniqueToken");
-  }
-
-
-  private java.lang.String extractPan() {
-    return getJSONObject().isNull("pan") ? null :
-      getJSONObject().optString("pan");
-  }
-
-
-  private java.lang.String extractFirstName() {
-    return getJSONObject().isNull("firstName") ? null :
-      getJSONObject().optString("firstName");
-  }
-
-
-  private java.lang.String extractLastName() {
-    return getJSONObject().isNull("lastName") ? null :
-      getJSONObject().optString("lastName");
-  }
-
-
-  private java.lang.String extractCountryCode() {
-    return getJSONObject().isNull("countryCode") ? null :
-      getJSONObject().optString("countryCode");
-  }
-
-
-  private java.lang.String extractExp() {
-    return getJSONObject().isNull("exp") ? null :
-      getJSONObject().optString("exp");
-  }
-
-
-  private java.lang.String extractStreetAddress() {
-    return getJSONObject().isNull("streetAddress") ? null :
-      getJSONObject().optString("streetAddress");
-  }
-
-
-  private java.lang.String extractZip() {
-    return getJSONObject().isNull("zip") ? null :
-      getJSONObject().optString("zip");
-  }
-
-
-  private java.lang.String extractCvv() {
-    return getJSONObject().isNull("cvv") ? null :
-      getJSONObject().optString("cvv");
-  }
-
-
-  private java.lang.String extractLast4() {
-    return getJSONObject().isNull("last4") ? null :
-      getJSONObject().optString("last4");
-  }
-
-
-  private java.lang.String extractFirst4() {
-    return getJSONObject().isNull("first4") ? null :
-      getJSONObject().optString("first4");
-  }
-
-
-  private java.lang.String extractDukptSerial() {
-    return getJSONObject().isNull("dukptSerial") ? null :
-      getJSONObject().optString("dukptSerial");
-  }
-
-
-  private java.lang.String extractSwipeStatus() {
-    return getJSONObject().isNull("swipeStatus") ? null :
-      getJSONObject().optString("swipeStatus");
-  }
-
-
-  private java.lang.String extractFingerprint() {
-    return getJSONObject().isNull("fingerprint") ? null :
-      getJSONObject().optString("fingerprint");
-  }
-
-
-  private java.lang.String extractDeviceSerial() {
-    return getJSONObject().isNull("deviceSerial") ? null :
-      getJSONObject().optString("deviceSerial");
-  }
-
-
-  private com.clover.sdk.v3.pay.TransactionData extractTransactionData() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("transactionData");
-    if (jsonObj != null) {
-      return new com.clover.sdk.v3.pay.TransactionData(getJSONObject().optJSONObject("transactionData"));
-    }
-    return null;
-  }
-
-
-  /** Checks whether the 'cardType' field is set and is not null */
-  public boolean isNotNullCardType() {
-    return cacheValueIsNotNull(CacheKey.cardType);
-  }
-
-  /** Checks whether the 'entryType' field is set and is not null */
-  public boolean isNotNullEntryType() {
-    return cacheValueIsNotNull(CacheKey.entryType);
-  }
-
   /** Checks whether the 'track1' field is set and is not null */
   public boolean isNotNullTrack1() {
-    return cacheValueIsNotNull(CacheKey.track1);
+    return genClient.cacheValueIsNotNull(CacheKey.track1);
   }
 
   /** Checks whether the 'track2' field is set and is not null */
   public boolean isNotNullTrack2() {
-    return cacheValueIsNotNull(CacheKey.track2);
+    return genClient.cacheValueIsNotNull(CacheKey.track2);
   }
 
   /** Checks whether the 'track3' field is set and is not null */
   public boolean isNotNullTrack3() {
-    return cacheValueIsNotNull(CacheKey.track3);
+    return genClient.cacheValueIsNotNull(CacheKey.track3);
   }
 
   /** Checks whether the 'encrypted' field is set and is not null */
   public boolean isNotNullEncrypted() {
-    return cacheValueIsNotNull(CacheKey.encrypted);
-  }
-
-  /** Checks whether the 'manualEntered' field is set and is not null */
-  public boolean isNotNullManualEntered() {
-    return cacheValueIsNotNull(CacheKey.manualEntered);
-  }
-
-  /** Checks whether the 'async' field is set and is not null */
-  public boolean isNotNullAsync() {
-    return cacheValueIsNotNull(CacheKey.async);
+    return genClient.cacheValueIsNotNull(CacheKey.encrypted);
   }
 
   /** Checks whether the 'maskedTrack1' field is set and is not null */
   public boolean isNotNullMaskedTrack1() {
-    return cacheValueIsNotNull(CacheKey.maskedTrack1);
+    return genClient.cacheValueIsNotNull(CacheKey.maskedTrack1);
   }
 
   /** Checks whether the 'maskedTrack2' field is set and is not null */
   public boolean isNotNullMaskedTrack2() {
-    return cacheValueIsNotNull(CacheKey.maskedTrack2);
+    return genClient.cacheValueIsNotNull(CacheKey.maskedTrack2);
   }
 
   /** Checks whether the 'maskedTrack3' field is set and is not null */
   public boolean isNotNullMaskedTrack3() {
-    return cacheValueIsNotNull(CacheKey.maskedTrack3);
+    return genClient.cacheValueIsNotNull(CacheKey.maskedTrack3);
   }
 
   /** Checks whether the 'uniqueToken' field is set and is not null */
   public boolean isNotNullUniqueToken() {
-    return cacheValueIsNotNull(CacheKey.uniqueToken);
+    return genClient.cacheValueIsNotNull(CacheKey.uniqueToken);
   }
 
   /** Checks whether the 'pan' field is set and is not null */
   public boolean isNotNullPan() {
-    return cacheValueIsNotNull(CacheKey.pan);
+    return genClient.cacheValueIsNotNull(CacheKey.pan);
   }
 
   /** Checks whether the 'firstName' field is set and is not null */
   public boolean isNotNullFirstName() {
-    return cacheValueIsNotNull(CacheKey.firstName);
+    return genClient.cacheValueIsNotNull(CacheKey.firstName);
   }
 
   /** Checks whether the 'lastName' field is set and is not null */
   public boolean isNotNullLastName() {
-    return cacheValueIsNotNull(CacheKey.lastName);
+    return genClient.cacheValueIsNotNull(CacheKey.lastName);
   }
 
   /** Checks whether the 'countryCode' field is set and is not null */
   public boolean isNotNullCountryCode() {
-    return cacheValueIsNotNull(CacheKey.countryCode);
+    return genClient.cacheValueIsNotNull(CacheKey.countryCode);
   }
 
   /** Checks whether the 'exp' field is set and is not null */
   public boolean isNotNullExp() {
-    return cacheValueIsNotNull(CacheKey.exp);
+    return genClient.cacheValueIsNotNull(CacheKey.exp);
   }
 
   /** Checks whether the 'streetAddress' field is set and is not null */
   public boolean isNotNullStreetAddress() {
-    return cacheValueIsNotNull(CacheKey.streetAddress);
+    return genClient.cacheValueIsNotNull(CacheKey.streetAddress);
   }
 
   /** Checks whether the 'zip' field is set and is not null */
   public boolean isNotNullZip() {
-    return cacheValueIsNotNull(CacheKey.zip);
+    return genClient.cacheValueIsNotNull(CacheKey.zip);
   }
 
   /** Checks whether the 'cvv' field is set and is not null */
   public boolean isNotNullCvv() {
-    return cacheValueIsNotNull(CacheKey.cvv);
+    return genClient.cacheValueIsNotNull(CacheKey.cvv);
   }
 
   /** Checks whether the 'last4' field is set and is not null */
   public boolean isNotNullLast4() {
-    return cacheValueIsNotNull(CacheKey.last4);
+    return genClient.cacheValueIsNotNull(CacheKey.last4);
   }
 
   /** Checks whether the 'first4' field is set and is not null */
   public boolean isNotNullFirst4() {
-    return cacheValueIsNotNull(CacheKey.first4);
+    return genClient.cacheValueIsNotNull(CacheKey.first4);
   }
 
   /** Checks whether the 'dukptSerial' field is set and is not null */
   public boolean isNotNullDukptSerial() {
-    return cacheValueIsNotNull(CacheKey.dukptSerial);
+    return genClient.cacheValueIsNotNull(CacheKey.dukptSerial);
   }
 
   /** Checks whether the 'swipeStatus' field is set and is not null */
   public boolean isNotNullSwipeStatus() {
-    return cacheValueIsNotNull(CacheKey.swipeStatus);
+    return genClient.cacheValueIsNotNull(CacheKey.swipeStatus);
   }
 
   /** Checks whether the 'fingerprint' field is set and is not null */
   public boolean isNotNullFingerprint() {
-    return cacheValueIsNotNull(CacheKey.fingerprint);
+    return genClient.cacheValueIsNotNull(CacheKey.fingerprint);
   }
 
   /** Checks whether the 'deviceSerial' field is set and is not null */
   public boolean isNotNullDeviceSerial() {
-    return cacheValueIsNotNull(CacheKey.deviceSerial);
+    return genClient.cacheValueIsNotNull(CacheKey.deviceSerial);
+  }
+
+  /** Checks whether the 'manualEntered' field is set and is not null */
+  public boolean isNotNullManualEntered() {
+    return genClient.cacheValueIsNotNull(CacheKey.manualEntered);
+  }
+
+  /** Checks whether the 'async' field is set and is not null */
+  public boolean isNotNullAsync() {
+    return genClient.cacheValueIsNotNull(CacheKey.async);
+  }
+
+  /** Checks whether the 'isFallback' field is set and is not null */
+  public boolean isNotNullIsFallback() {
+    return genClient.cacheValueIsNotNull(CacheKey.isFallback);
+  }
+
+  /** Checks whether the 'isAuth' field is set and is not null */
+  public boolean isNotNullIsAuth() {
+    return genClient.cacheValueIsNotNull(CacheKey.isAuth);
+  }
+
+  /** Checks whether the 'isPrepaid' field is set and is not null */
+  public boolean isNotNullIsPrepaid() {
+    return genClient.cacheValueIsNotNull(CacheKey.isPrepaid);
+  }
+
+  /** Checks whether the 'cardFunction' field is set and is not null */
+  public boolean isNotNullCardFunction() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardFunction);
+  }
+
+  /** Checks whether the 'qrCode' field is set and is not null */
+  public boolean isNotNullQrCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.qrCode);
+  }
+
+  /** Checks whether the 'cardType' field is set and is not null */
+  public boolean isNotNullCardType() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardType);
+  }
+
+  /** Checks whether the 'entryType' field is set and is not null */
+  public boolean isNotNullEntryType() {
+    return genClient.cacheValueIsNotNull(CacheKey.entryType);
+  }
+
+  /** Checks whether the 'transactionNo' field is set and is not null */
+  public boolean isNotNullTransactionNo() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionNo);
+  }
+
+  /** Checks whether the 'cardholderName' field is set and is not null */
+  public boolean isNotNullCardholderName() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardholderName);
   }
 
   /** Checks whether the 'transactionData' field is set and is not null */
   public boolean isNotNullTransactionData() {
-    return cacheValueIsNotNull(CacheKey.transactionData);
+    return genClient.cacheValueIsNotNull(CacheKey.transactionData);
   }
 
-
-  /** Checks whether the 'cardType' field has been set, however the value could be null */
-  public boolean hasCardType() {
-    return cacheHasKey(CacheKey.cardType);
-  }
-
-  /** Checks whether the 'entryType' field has been set, however the value could be null */
-  public boolean hasEntryType() {
-    return cacheHasKey(CacheKey.entryType);
-  }
 
   /** Checks whether the 'track1' field has been set, however the value could be null */
   public boolean hasTrack1() {
-    return cacheHasKey(CacheKey.track1);
+    return genClient.cacheHasKey(CacheKey.track1);
   }
 
   /** Checks whether the 'track2' field has been set, however the value could be null */
   public boolean hasTrack2() {
-    return cacheHasKey(CacheKey.track2);
+    return genClient.cacheHasKey(CacheKey.track2);
   }
 
   /** Checks whether the 'track3' field has been set, however the value could be null */
   public boolean hasTrack3() {
-    return cacheHasKey(CacheKey.track3);
+    return genClient.cacheHasKey(CacheKey.track3);
   }
 
   /** Checks whether the 'encrypted' field has been set, however the value could be null */
   public boolean hasEncrypted() {
-    return cacheHasKey(CacheKey.encrypted);
-  }
-
-  /** Checks whether the 'manualEntered' field has been set, however the value could be null */
-  public boolean hasManualEntered() {
-    return cacheHasKey(CacheKey.manualEntered);
-  }
-
-  /** Checks whether the 'async' field has been set, however the value could be null */
-  public boolean hasAsync() {
-    return cacheHasKey(CacheKey.async);
+    return genClient.cacheHasKey(CacheKey.encrypted);
   }
 
   /** Checks whether the 'maskedTrack1' field has been set, however the value could be null */
   public boolean hasMaskedTrack1() {
-    return cacheHasKey(CacheKey.maskedTrack1);
+    return genClient.cacheHasKey(CacheKey.maskedTrack1);
   }
 
   /** Checks whether the 'maskedTrack2' field has been set, however the value could be null */
   public boolean hasMaskedTrack2() {
-    return cacheHasKey(CacheKey.maskedTrack2);
+    return genClient.cacheHasKey(CacheKey.maskedTrack2);
   }
 
   /** Checks whether the 'maskedTrack3' field has been set, however the value could be null */
   public boolean hasMaskedTrack3() {
-    return cacheHasKey(CacheKey.maskedTrack3);
+    return genClient.cacheHasKey(CacheKey.maskedTrack3);
   }
 
   /** Checks whether the 'uniqueToken' field has been set, however the value could be null */
   public boolean hasUniqueToken() {
-    return cacheHasKey(CacheKey.uniqueToken);
+    return genClient.cacheHasKey(CacheKey.uniqueToken);
   }
 
   /** Checks whether the 'pan' field has been set, however the value could be null */
   public boolean hasPan() {
-    return cacheHasKey(CacheKey.pan);
+    return genClient.cacheHasKey(CacheKey.pan);
   }
 
   /** Checks whether the 'firstName' field has been set, however the value could be null */
   public boolean hasFirstName() {
-    return cacheHasKey(CacheKey.firstName);
+    return genClient.cacheHasKey(CacheKey.firstName);
   }
 
   /** Checks whether the 'lastName' field has been set, however the value could be null */
   public boolean hasLastName() {
-    return cacheHasKey(CacheKey.lastName);
+    return genClient.cacheHasKey(CacheKey.lastName);
   }
 
   /** Checks whether the 'countryCode' field has been set, however the value could be null */
   public boolean hasCountryCode() {
-    return cacheHasKey(CacheKey.countryCode);
+    return genClient.cacheHasKey(CacheKey.countryCode);
   }
 
   /** Checks whether the 'exp' field has been set, however the value could be null */
   public boolean hasExp() {
-    return cacheHasKey(CacheKey.exp);
+    return genClient.cacheHasKey(CacheKey.exp);
   }
 
   /** Checks whether the 'streetAddress' field has been set, however the value could be null */
   public boolean hasStreetAddress() {
-    return cacheHasKey(CacheKey.streetAddress);
+    return genClient.cacheHasKey(CacheKey.streetAddress);
   }
 
   /** Checks whether the 'zip' field has been set, however the value could be null */
   public boolean hasZip() {
-    return cacheHasKey(CacheKey.zip);
+    return genClient.cacheHasKey(CacheKey.zip);
   }
 
   /** Checks whether the 'cvv' field has been set, however the value could be null */
   public boolean hasCvv() {
-    return cacheHasKey(CacheKey.cvv);
+    return genClient.cacheHasKey(CacheKey.cvv);
   }
 
   /** Checks whether the 'last4' field has been set, however the value could be null */
   public boolean hasLast4() {
-    return cacheHasKey(CacheKey.last4);
+    return genClient.cacheHasKey(CacheKey.last4);
   }
 
   /** Checks whether the 'first4' field has been set, however the value could be null */
   public boolean hasFirst4() {
-    return cacheHasKey(CacheKey.first4);
+    return genClient.cacheHasKey(CacheKey.first4);
   }
 
   /** Checks whether the 'dukptSerial' field has been set, however the value could be null */
   public boolean hasDukptSerial() {
-    return cacheHasKey(CacheKey.dukptSerial);
+    return genClient.cacheHasKey(CacheKey.dukptSerial);
   }
 
   /** Checks whether the 'swipeStatus' field has been set, however the value could be null */
   public boolean hasSwipeStatus() {
-    return cacheHasKey(CacheKey.swipeStatus);
+    return genClient.cacheHasKey(CacheKey.swipeStatus);
   }
 
   /** Checks whether the 'fingerprint' field has been set, however the value could be null */
   public boolean hasFingerprint() {
-    return cacheHasKey(CacheKey.fingerprint);
+    return genClient.cacheHasKey(CacheKey.fingerprint);
   }
 
   /** Checks whether the 'deviceSerial' field has been set, however the value could be null */
   public boolean hasDeviceSerial() {
-    return cacheHasKey(CacheKey.deviceSerial);
+    return genClient.cacheHasKey(CacheKey.deviceSerial);
+  }
+
+  /** Checks whether the 'manualEntered' field has been set, however the value could be null */
+  public boolean hasManualEntered() {
+    return genClient.cacheHasKey(CacheKey.manualEntered);
+  }
+
+  /** Checks whether the 'async' field has been set, however the value could be null */
+  public boolean hasAsync() {
+    return genClient.cacheHasKey(CacheKey.async);
+  }
+
+  /** Checks whether the 'isFallback' field has been set, however the value could be null */
+  public boolean hasIsFallback() {
+    return genClient.cacheHasKey(CacheKey.isFallback);
+  }
+
+  /** Checks whether the 'isAuth' field has been set, however the value could be null */
+  public boolean hasIsAuth() {
+    return genClient.cacheHasKey(CacheKey.isAuth);
+  }
+
+  /** Checks whether the 'isPrepaid' field has been set, however the value could be null */
+  public boolean hasIsPrepaid() {
+    return genClient.cacheHasKey(CacheKey.isPrepaid);
+  }
+
+  /** Checks whether the 'cardFunction' field has been set, however the value could be null */
+  public boolean hasCardFunction() {
+    return genClient.cacheHasKey(CacheKey.cardFunction);
+  }
+
+  /** Checks whether the 'qrCode' field has been set, however the value could be null */
+  public boolean hasQrCode() {
+    return genClient.cacheHasKey(CacheKey.qrCode);
+  }
+
+  /** Checks whether the 'cardType' field has been set, however the value could be null */
+  public boolean hasCardType() {
+    return genClient.cacheHasKey(CacheKey.cardType);
+  }
+
+  /** Checks whether the 'entryType' field has been set, however the value could be null */
+  public boolean hasEntryType() {
+    return genClient.cacheHasKey(CacheKey.entryType);
+  }
+
+  /** Checks whether the 'transactionNo' field has been set, however the value could be null */
+  public boolean hasTransactionNo() {
+    return genClient.cacheHasKey(CacheKey.transactionNo);
+  }
+
+  /** Checks whether the 'cardholderName' field has been set, however the value could be null */
+  public boolean hasCardholderName() {
+    return genClient.cacheHasKey(CacheKey.cardholderName);
   }
 
   /** Checks whether the 'transactionData' field has been set, however the value could be null */
   public boolean hasTransactionData() {
-    return cacheHasKey(CacheKey.transactionData);
+    return genClient.cacheHasKey(CacheKey.transactionData);
   }
 
+
+  /**
+   * Sets the field 'track1'.
+   */
+  public PaymentRequestCardDetails setTrack1(String track1) {
+    return genClient.setOther(track1, CacheKey.track1);
+  }
+
+  /**
+   * Sets the field 'track2'.
+   */
+  public PaymentRequestCardDetails setTrack2(String track2) {
+    return genClient.setOther(track2, CacheKey.track2);
+  }
+
+  /**
+   * Sets the field 'track3'.
+   */
+  public PaymentRequestCardDetails setTrack3(String track3) {
+    return genClient.setOther(track3, CacheKey.track3);
+  }
+
+  /**
+   * Sets the field 'encrypted'.
+   */
+  public PaymentRequestCardDetails setEncrypted(Boolean encrypted) {
+    return genClient.setOther(encrypted, CacheKey.encrypted);
+  }
+
+  /**
+   * Sets the field 'maskedTrack1'.
+   */
+  public PaymentRequestCardDetails setMaskedTrack1(String maskedTrack1) {
+    return genClient.setOther(maskedTrack1, CacheKey.maskedTrack1);
+  }
+
+  /**
+   * Sets the field 'maskedTrack2'.
+   */
+  public PaymentRequestCardDetails setMaskedTrack2(String maskedTrack2) {
+    return genClient.setOther(maskedTrack2, CacheKey.maskedTrack2);
+  }
+
+  /**
+   * Sets the field 'maskedTrack3'.
+   */
+  public PaymentRequestCardDetails setMaskedTrack3(String maskedTrack3) {
+    return genClient.setOther(maskedTrack3, CacheKey.maskedTrack3);
+  }
+
+  /**
+   * Sets the field 'uniqueToken'.
+   */
+  public PaymentRequestCardDetails setUniqueToken(String uniqueToken) {
+    return genClient.setOther(uniqueToken, CacheKey.uniqueToken);
+  }
+
+  /**
+   * Sets the field 'pan'.
+   */
+  public PaymentRequestCardDetails setPan(String pan) {
+    return genClient.setOther(pan, CacheKey.pan);
+  }
+
+  /**
+   * Sets the field 'firstName'.
+   */
+  public PaymentRequestCardDetails setFirstName(String firstName) {
+    return genClient.setOther(firstName, CacheKey.firstName);
+  }
+
+  /**
+   * Sets the field 'lastName'.
+   */
+  public PaymentRequestCardDetails setLastName(String lastName) {
+    return genClient.setOther(lastName, CacheKey.lastName);
+  }
+
+  /**
+   * Sets the field 'countryCode'.
+   */
+  public PaymentRequestCardDetails setCountryCode(String countryCode) {
+    return genClient.setOther(countryCode, CacheKey.countryCode);
+  }
+
+  /**
+   * Sets the field 'exp'.
+   */
+  public PaymentRequestCardDetails setExp(String exp) {
+    return genClient.setOther(exp, CacheKey.exp);
+  }
+
+  /**
+   * Sets the field 'streetAddress'.
+   */
+  public PaymentRequestCardDetails setStreetAddress(String streetAddress) {
+    return genClient.setOther(streetAddress, CacheKey.streetAddress);
+  }
+
+  /**
+   * Sets the field 'zip'.
+   */
+  public PaymentRequestCardDetails setZip(String zip) {
+    return genClient.setOther(zip, CacheKey.zip);
+  }
+
+  /**
+   * Sets the field 'cvv'.
+   */
+  public PaymentRequestCardDetails setCvv(String cvv) {
+    return genClient.setOther(cvv, CacheKey.cvv);
+  }
+
+  /**
+   * Sets the field 'last4'.
+   */
+  public PaymentRequestCardDetails setLast4(String last4) {
+    return genClient.setOther(last4, CacheKey.last4);
+  }
+
+  /**
+   * Sets the field 'first4'.
+   */
+  public PaymentRequestCardDetails setFirst4(String first4) {
+    return genClient.setOther(first4, CacheKey.first4);
+  }
+
+  /**
+   * Sets the field 'dukptSerial'.
+   */
+  public PaymentRequestCardDetails setDukptSerial(String dukptSerial) {
+    return genClient.setOther(dukptSerial, CacheKey.dukptSerial);
+  }
+
+  /**
+   * Sets the field 'swipeStatus'.
+   */
+  public PaymentRequestCardDetails setSwipeStatus(String swipeStatus) {
+    return genClient.setOther(swipeStatus, CacheKey.swipeStatus);
+  }
+
+  /**
+   * Sets the field 'fingerprint'.
+   */
+  public PaymentRequestCardDetails setFingerprint(String fingerprint) {
+    return genClient.setOther(fingerprint, CacheKey.fingerprint);
+  }
+
+  /**
+   * Sets the field 'deviceSerial'.
+   */
+  public PaymentRequestCardDetails setDeviceSerial(String deviceSerial) {
+    return genClient.setOther(deviceSerial, CacheKey.deviceSerial);
+  }
+
+  /**
+   * Sets the field 'manualEntered'.
+   */
+  public PaymentRequestCardDetails setManualEntered(Boolean manualEntered) {
+    return genClient.setOther(manualEntered, CacheKey.manualEntered);
+  }
+
+  /**
+   * Sets the field 'async'.
+   */
+  public PaymentRequestCardDetails setAsync(Boolean async) {
+    return genClient.setOther(async, CacheKey.async);
+  }
+
+  /**
+   * Sets the field 'isFallback'.
+   */
+  public PaymentRequestCardDetails setIsFallback(Boolean isFallback) {
+    return genClient.setOther(isFallback, CacheKey.isFallback);
+  }
+
+  /**
+   * Sets the field 'isAuth'.
+   */
+  public PaymentRequestCardDetails setIsAuth(Boolean isAuth) {
+    return genClient.setOther(isAuth, CacheKey.isAuth);
+  }
+
+  /**
+   * Sets the field 'isPrepaid'.
+   */
+  public PaymentRequestCardDetails setIsPrepaid(Boolean isPrepaid) {
+    return genClient.setOther(isPrepaid, CacheKey.isPrepaid);
+  }
+
+  /**
+   * Sets the field 'cardFunction'.
+   */
+  public PaymentRequestCardDetails setCardFunction(CardFunction cardFunction) {
+    return genClient.setOther(cardFunction, CacheKey.cardFunction);
+  }
+
+  /**
+   * Sets the field 'qrCode'.
+   */
+  public PaymentRequestCardDetails setQrCode(Boolean qrCode) {
+    return genClient.setOther(qrCode, CacheKey.qrCode);
+  }
 
   /**
    * Sets the field 'cardType'.
    */
   public PaymentRequestCardDetails setCardType(com.clover.sdk.v3.payments.CardType cardType) {
-    logChange("cardType");
-
-    try {
-      getJSONObject().put("cardType", cardType == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(cardType));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.cardType);
-    return this;
+    return genClient.setOther(cardType, CacheKey.cardType);
   }
 
   /**
    * Sets the field 'entryType'.
    */
   public PaymentRequestCardDetails setEntryType(com.clover.sdk.v3.payments.CardEntryType entryType) {
-    logChange("entryType");
-
-    try {
-      getJSONObject().put("entryType", entryType == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(entryType));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.entryType);
-    return this;
+    return genClient.setOther(entryType, CacheKey.entryType);
   }
 
   /**
-   * Sets the field 'track1'.
+   * Sets the field 'transactionNo'.
    */
-  public PaymentRequestCardDetails setTrack1(java.lang.String track1) {
-    logChange("track1");
-
-    try {
-      getJSONObject().put("track1", track1 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(track1));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.track1);
-    return this;
+  public PaymentRequestCardDetails setTransactionNo(String transactionNo) {
+    return genClient.setOther(transactionNo, CacheKey.transactionNo);
   }
 
   /**
-   * Sets the field 'track2'.
+   * Sets the field 'cardholderName'.
    */
-  public PaymentRequestCardDetails setTrack2(java.lang.String track2) {
-    logChange("track2");
-
-    try {
-      getJSONObject().put("track2", track2 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(track2));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.track2);
-    return this;
-  }
-
-  /**
-   * Sets the field 'track3'.
-   */
-  public PaymentRequestCardDetails setTrack3(java.lang.String track3) {
-    logChange("track3");
-
-    try {
-      getJSONObject().put("track3", track3 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(track3));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.track3);
-    return this;
-  }
-
-  /**
-   * Sets the field 'encrypted'.
-   */
-  public PaymentRequestCardDetails setEncrypted(java.lang.Boolean encrypted) {
-    logChange("encrypted");
-
-    try {
-      getJSONObject().put("encrypted", encrypted == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(encrypted));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.encrypted);
-    return this;
-  }
-
-  /**
-   * Sets the field 'manualEntered'.
-   */
-  public PaymentRequestCardDetails setManualEntered(java.lang.Boolean manualEntered) {
-    logChange("manualEntered");
-
-    try {
-      getJSONObject().put("manualEntered", manualEntered == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(manualEntered));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.manualEntered);
-    return this;
-  }
-
-  /**
-   * Sets the field 'async'.
-   */
-  public PaymentRequestCardDetails setAsync(java.lang.Boolean async) {
-    logChange("async");
-
-    try {
-      getJSONObject().put("async", async == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(async));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.async);
-    return this;
-  }
-
-  /**
-   * Sets the field 'maskedTrack1'.
-   */
-  public PaymentRequestCardDetails setMaskedTrack1(java.lang.String maskedTrack1) {
-    logChange("maskedTrack1");
-
-    try {
-      getJSONObject().put("maskedTrack1", maskedTrack1 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(maskedTrack1));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.maskedTrack1);
-    return this;
-  }
-
-  /**
-   * Sets the field 'maskedTrack2'.
-   */
-  public PaymentRequestCardDetails setMaskedTrack2(java.lang.String maskedTrack2) {
-    logChange("maskedTrack2");
-
-    try {
-      getJSONObject().put("maskedTrack2", maskedTrack2 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(maskedTrack2));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.maskedTrack2);
-    return this;
-  }
-
-  /**
-   * Sets the field 'maskedTrack3'.
-   */
-  public PaymentRequestCardDetails setMaskedTrack3(java.lang.String maskedTrack3) {
-    logChange("maskedTrack3");
-
-    try {
-      getJSONObject().put("maskedTrack3", maskedTrack3 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(maskedTrack3));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.maskedTrack3);
-    return this;
-  }
-
-  /**
-   * Sets the field 'uniqueToken'.
-   */
-  public PaymentRequestCardDetails setUniqueToken(java.lang.String uniqueToken) {
-    logChange("uniqueToken");
-
-    try {
-      getJSONObject().put("uniqueToken", uniqueToken == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(uniqueToken));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.uniqueToken);
-    return this;
-  }
-
-  /**
-   * Sets the field 'pan'.
-   */
-  public PaymentRequestCardDetails setPan(java.lang.String pan) {
-    logChange("pan");
-
-    try {
-      getJSONObject().put("pan", pan == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(pan));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.pan);
-    return this;
-  }
-
-  /**
-   * Sets the field 'firstName'.
-   */
-  public PaymentRequestCardDetails setFirstName(java.lang.String firstName) {
-    logChange("firstName");
-
-    try {
-      getJSONObject().put("firstName", firstName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(firstName));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.firstName);
-    return this;
-  }
-
-  /**
-   * Sets the field 'lastName'.
-   */
-  public PaymentRequestCardDetails setLastName(java.lang.String lastName) {
-    logChange("lastName");
-
-    try {
-      getJSONObject().put("lastName", lastName == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(lastName));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.lastName);
-    return this;
-  }
-
-  /**
-   * Sets the field 'countryCode'.
-   */
-  public PaymentRequestCardDetails setCountryCode(java.lang.String countryCode) {
-    logChange("countryCode");
-
-    try {
-      getJSONObject().put("countryCode", countryCode == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(countryCode));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.countryCode);
-    return this;
-  }
-
-  /**
-   * Sets the field 'exp'.
-   */
-  public PaymentRequestCardDetails setExp(java.lang.String exp) {
-    logChange("exp");
-
-    try {
-      getJSONObject().put("exp", exp == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(exp));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.exp);
-    return this;
-  }
-
-  /**
-   * Sets the field 'streetAddress'.
-   */
-  public PaymentRequestCardDetails setStreetAddress(java.lang.String streetAddress) {
-    logChange("streetAddress");
-
-    try {
-      getJSONObject().put("streetAddress", streetAddress == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(streetAddress));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.streetAddress);
-    return this;
-  }
-
-  /**
-   * Sets the field 'zip'.
-   */
-  public PaymentRequestCardDetails setZip(java.lang.String zip) {
-    logChange("zip");
-
-    try {
-      getJSONObject().put("zip", zip == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(zip));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.zip);
-    return this;
-  }
-
-  /**
-   * Sets the field 'cvv'.
-   */
-  public PaymentRequestCardDetails setCvv(java.lang.String cvv) {
-    logChange("cvv");
-
-    try {
-      getJSONObject().put("cvv", cvv == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(cvv));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.cvv);
-    return this;
-  }
-
-  /**
-   * Sets the field 'last4'.
-   */
-  public PaymentRequestCardDetails setLast4(java.lang.String last4) {
-    logChange("last4");
-
-    try {
-      getJSONObject().put("last4", last4 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(last4));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.last4);
-    return this;
-  }
-
-  /**
-   * Sets the field 'first4'.
-   */
-  public PaymentRequestCardDetails setFirst4(java.lang.String first4) {
-    logChange("first4");
-
-    try {
-      getJSONObject().put("first4", first4 == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(first4));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.first4);
-    return this;
-  }
-
-  /**
-   * Sets the field 'dukptSerial'.
-   */
-  public PaymentRequestCardDetails setDukptSerial(java.lang.String dukptSerial) {
-    logChange("dukptSerial");
-
-    try {
-      getJSONObject().put("dukptSerial", dukptSerial == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(dukptSerial));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.dukptSerial);
-    return this;
-  }
-
-  /**
-   * Sets the field 'swipeStatus'.
-   */
-  public PaymentRequestCardDetails setSwipeStatus(java.lang.String swipeStatus) {
-    logChange("swipeStatus");
-
-    try {
-      getJSONObject().put("swipeStatus", swipeStatus == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(swipeStatus));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.swipeStatus);
-    return this;
-  }
-
-  /**
-   * Sets the field 'fingerprint'.
-   */
-  public PaymentRequestCardDetails setFingerprint(java.lang.String fingerprint) {
-    logChange("fingerprint");
-
-    try {
-      getJSONObject().put("fingerprint", fingerprint == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(fingerprint));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.fingerprint);
-    return this;
-  }
-
-  /**
-   * Sets the field 'deviceSerial'.
-   */
-  public PaymentRequestCardDetails setDeviceSerial(java.lang.String deviceSerial) {
-    logChange("deviceSerial");
-
-    try {
-      getJSONObject().put("deviceSerial", deviceSerial == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(deviceSerial));
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.deviceSerial);
-    return this;
+  public PaymentRequestCardDetails setCardholderName(String cardholderName) {
+    return genClient.setOther(cardholderName, CacheKey.cardholderName);
   }
 
   /**
@@ -1262,236 +1000,161 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public PaymentRequestCardDetails setTransactionData(com.clover.sdk.v3.pay.TransactionData transactionData) {
-    logChange("transactionData");
-
-    try {
-      getJSONObject().put("transactionData",
-          transactionData == null ? org.json.JSONObject.NULL : transactionData.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new java.lang.IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.transactionData);
-    return this;
+  public PaymentRequestCardDetails setTransactionData(TransactionData transactionData) {
+    return genClient.setRecord(transactionData, CacheKey.transactionData);
   }
 
-
-  /** Clears the 'cardType' field, the 'has' method for this field will now return false */
-  public void clearCardType() {
-    unlogChange("cardType");
-    getJSONObject().remove("cardType");
-    cacheRemoveValue(CacheKey.cardType);
-  }
-
-  /** Clears the 'entryType' field, the 'has' method for this field will now return false */
-  public void clearEntryType() {
-    unlogChange("entryType");
-    getJSONObject().remove("entryType");
-    cacheRemoveValue(CacheKey.entryType);
-  }
 
   /** Clears the 'track1' field, the 'has' method for this field will now return false */
   public void clearTrack1() {
-    unlogChange("track1");
-    getJSONObject().remove("track1");
-    cacheRemoveValue(CacheKey.track1);
+    genClient.clear(CacheKey.track1);
   }
-
   /** Clears the 'track2' field, the 'has' method for this field will now return false */
   public void clearTrack2() {
-    unlogChange("track2");
-    getJSONObject().remove("track2");
-    cacheRemoveValue(CacheKey.track2);
+    genClient.clear(CacheKey.track2);
   }
-
   /** Clears the 'track3' field, the 'has' method for this field will now return false */
   public void clearTrack3() {
-    unlogChange("track3");
-    getJSONObject().remove("track3");
-    cacheRemoveValue(CacheKey.track3);
+    genClient.clear(CacheKey.track3);
   }
-
   /** Clears the 'encrypted' field, the 'has' method for this field will now return false */
   public void clearEncrypted() {
-    unlogChange("encrypted");
-    getJSONObject().remove("encrypted");
-    cacheRemoveValue(CacheKey.encrypted);
+    genClient.clear(CacheKey.encrypted);
   }
-
-  /** Clears the 'manualEntered' field, the 'has' method for this field will now return false */
-  public void clearManualEntered() {
-    unlogChange("manualEntered");
-    getJSONObject().remove("manualEntered");
-    cacheRemoveValue(CacheKey.manualEntered);
-  }
-
-  /** Clears the 'async' field, the 'has' method for this field will now return false */
-  public void clearAsync() {
-    unlogChange("async");
-    getJSONObject().remove("async");
-    cacheRemoveValue(CacheKey.async);
-  }
-
   /** Clears the 'maskedTrack1' field, the 'has' method for this field will now return false */
   public void clearMaskedTrack1() {
-    unlogChange("maskedTrack1");
-    getJSONObject().remove("maskedTrack1");
-    cacheRemoveValue(CacheKey.maskedTrack1);
+    genClient.clear(CacheKey.maskedTrack1);
   }
-
   /** Clears the 'maskedTrack2' field, the 'has' method for this field will now return false */
   public void clearMaskedTrack2() {
-    unlogChange("maskedTrack2");
-    getJSONObject().remove("maskedTrack2");
-    cacheRemoveValue(CacheKey.maskedTrack2);
+    genClient.clear(CacheKey.maskedTrack2);
   }
-
   /** Clears the 'maskedTrack3' field, the 'has' method for this field will now return false */
   public void clearMaskedTrack3() {
-    unlogChange("maskedTrack3");
-    getJSONObject().remove("maskedTrack3");
-    cacheRemoveValue(CacheKey.maskedTrack3);
+    genClient.clear(CacheKey.maskedTrack3);
   }
-
   /** Clears the 'uniqueToken' field, the 'has' method for this field will now return false */
   public void clearUniqueToken() {
-    unlogChange("uniqueToken");
-    getJSONObject().remove("uniqueToken");
-    cacheRemoveValue(CacheKey.uniqueToken);
+    genClient.clear(CacheKey.uniqueToken);
   }
-
   /** Clears the 'pan' field, the 'has' method for this field will now return false */
   public void clearPan() {
-    unlogChange("pan");
-    getJSONObject().remove("pan");
-    cacheRemoveValue(CacheKey.pan);
+    genClient.clear(CacheKey.pan);
   }
-
   /** Clears the 'firstName' field, the 'has' method for this field will now return false */
   public void clearFirstName() {
-    unlogChange("firstName");
-    getJSONObject().remove("firstName");
-    cacheRemoveValue(CacheKey.firstName);
+    genClient.clear(CacheKey.firstName);
   }
-
   /** Clears the 'lastName' field, the 'has' method for this field will now return false */
   public void clearLastName() {
-    unlogChange("lastName");
-    getJSONObject().remove("lastName");
-    cacheRemoveValue(CacheKey.lastName);
+    genClient.clear(CacheKey.lastName);
   }
-
   /** Clears the 'countryCode' field, the 'has' method for this field will now return false */
   public void clearCountryCode() {
-    unlogChange("countryCode");
-    getJSONObject().remove("countryCode");
-    cacheRemoveValue(CacheKey.countryCode);
+    genClient.clear(CacheKey.countryCode);
   }
-
   /** Clears the 'exp' field, the 'has' method for this field will now return false */
   public void clearExp() {
-    unlogChange("exp");
-    getJSONObject().remove("exp");
-    cacheRemoveValue(CacheKey.exp);
+    genClient.clear(CacheKey.exp);
   }
-
   /** Clears the 'streetAddress' field, the 'has' method for this field will now return false */
   public void clearStreetAddress() {
-    unlogChange("streetAddress");
-    getJSONObject().remove("streetAddress");
-    cacheRemoveValue(CacheKey.streetAddress);
+    genClient.clear(CacheKey.streetAddress);
   }
-
   /** Clears the 'zip' field, the 'has' method for this field will now return false */
   public void clearZip() {
-    unlogChange("zip");
-    getJSONObject().remove("zip");
-    cacheRemoveValue(CacheKey.zip);
+    genClient.clear(CacheKey.zip);
   }
-
   /** Clears the 'cvv' field, the 'has' method for this field will now return false */
   public void clearCvv() {
-    unlogChange("cvv");
-    getJSONObject().remove("cvv");
-    cacheRemoveValue(CacheKey.cvv);
+    genClient.clear(CacheKey.cvv);
   }
-
   /** Clears the 'last4' field, the 'has' method for this field will now return false */
   public void clearLast4() {
-    unlogChange("last4");
-    getJSONObject().remove("last4");
-    cacheRemoveValue(CacheKey.last4);
+    genClient.clear(CacheKey.last4);
   }
-
   /** Clears the 'first4' field, the 'has' method for this field will now return false */
   public void clearFirst4() {
-    unlogChange("first4");
-    getJSONObject().remove("first4");
-    cacheRemoveValue(CacheKey.first4);
+    genClient.clear(CacheKey.first4);
   }
-
   /** Clears the 'dukptSerial' field, the 'has' method for this field will now return false */
   public void clearDukptSerial() {
-    unlogChange("dukptSerial");
-    getJSONObject().remove("dukptSerial");
-    cacheRemoveValue(CacheKey.dukptSerial);
+    genClient.clear(CacheKey.dukptSerial);
   }
-
   /** Clears the 'swipeStatus' field, the 'has' method for this field will now return false */
   public void clearSwipeStatus() {
-    unlogChange("swipeStatus");
-    getJSONObject().remove("swipeStatus");
-    cacheRemoveValue(CacheKey.swipeStatus);
+    genClient.clear(CacheKey.swipeStatus);
   }
-
   /** Clears the 'fingerprint' field, the 'has' method for this field will now return false */
   public void clearFingerprint() {
-    unlogChange("fingerprint");
-    getJSONObject().remove("fingerprint");
-    cacheRemoveValue(CacheKey.fingerprint);
+    genClient.clear(CacheKey.fingerprint);
   }
-
   /** Clears the 'deviceSerial' field, the 'has' method for this field will now return false */
   public void clearDeviceSerial() {
-    unlogChange("deviceSerial");
-    getJSONObject().remove("deviceSerial");
-    cacheRemoveValue(CacheKey.deviceSerial);
+    genClient.clear(CacheKey.deviceSerial);
   }
-
+  /** Clears the 'manualEntered' field, the 'has' method for this field will now return false */
+  public void clearManualEntered() {
+    genClient.clear(CacheKey.manualEntered);
+  }
+  /** Clears the 'async' field, the 'has' method for this field will now return false */
+  public void clearAsync() {
+    genClient.clear(CacheKey.async);
+  }
+  /** Clears the 'isFallback' field, the 'has' method for this field will now return false */
+  public void clearIsFallback() {
+    genClient.clear(CacheKey.isFallback);
+  }
+  /** Clears the 'isAuth' field, the 'has' method for this field will now return false */
+  public void clearIsAuth() {
+    genClient.clear(CacheKey.isAuth);
+  }
+  /** Clears the 'isPrepaid' field, the 'has' method for this field will now return false */
+  public void clearIsPrepaid() {
+    genClient.clear(CacheKey.isPrepaid);
+  }
+  /** Clears the 'cardFunction' field, the 'has' method for this field will now return false */
+  public void clearCardFunction() {
+    genClient.clear(CacheKey.cardFunction);
+  }
+  /** Clears the 'qrCode' field, the 'has' method for this field will now return false */
+  public void clearQrCode() {
+    genClient.clear(CacheKey.qrCode);
+  }
+  /** Clears the 'cardType' field, the 'has' method for this field will now return false */
+  public void clearCardType() {
+    genClient.clear(CacheKey.cardType);
+  }
+  /** Clears the 'entryType' field, the 'has' method for this field will now return false */
+  public void clearEntryType() {
+    genClient.clear(CacheKey.entryType);
+  }
+  /** Clears the 'transactionNo' field, the 'has' method for this field will now return false */
+  public void clearTransactionNo() {
+    genClient.clear(CacheKey.transactionNo);
+  }
+  /** Clears the 'cardholderName' field, the 'has' method for this field will now return false */
+  public void clearCardholderName() {
+    genClient.clear(CacheKey.cardholderName);
+  }
   /** Clears the 'transactionData' field, the 'has' method for this field will now return false */
   public void clearTransactionData() {
-    unlogChange("transactionData");
-    getJSONObject().remove("transactionData");
-    cacheRemoveValue(CacheKey.transactionData);
+    genClient.clear(CacheKey.transactionData);
   }
 
-
-  private void logChange(java.lang.String field) {
-    if (changeLog == null) {
-      changeLog = new android.os.Bundle();
-    }
-    changeLog.putString(field, null);
-  }
-
-  private void unlogChange(java.lang.String field) {
-    if (changeLog != null) {
-      changeLog.remove(field);
-    }
-  }
 
   /**
    * Returns true if this instance has any changes.
    */
   public boolean containsChanges() {
-    return changeLog != null;
+    return genClient.containsChanges();
   }
 
   /**
    * Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.
    */
   public void resetChangeLog() {
-    changeLog = null;
+    genClient.resetChangeLog();
   }
 
   /**
@@ -1508,50 +1171,22 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
    * Copy all the changed fields from the given source to this instance.
    */
   public void mergeChanges(PaymentRequestCardDetails src) {
-    if (src.changeLog != null) {
-      try {
-        // Make a copy of the source so the destination fields are copies
-        org.json.JSONObject srcObj = new PaymentRequestCardDetails(src).getJSONObject();
-        org.json.JSONObject dstObj = getJSONObject();
-        for (java.lang.String field : src.changeLog.keySet()) {
-          dstObj.put(field, srcObj.get(field));
-          logChange(field);
-        }
-      } catch (org.json.JSONException e) {
-        throw new java.lang.IllegalArgumentException(e);
-      }
+    if (src.genClient.getChangeLog() != null) {
+      genClient.mergeChanges(new PaymentRequestCardDetails(src).getJSONObject(), src.genClient);
     }
   }
-
 
   /**
    * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
    * parcelled but not jsonified.
    */
   public android.os.Bundle getBundle() {
-    if (bundle == null) {
-      bundle = new android.os.Bundle();
-    }
-    return bundle;
+    return genClient.getBundle();
   }
 
   @Override
   public String toString() {
-    String json = getJSONObject().toString();
-
-    if (bundle != null) {
-      bundle.isEmpty(); // Triggers unparcel
-    }
-
-    if (changeLog != null) {
-      changeLog.isEmpty(); // Triggers unparcel
-    }
-
-    return "PaymentRequestCardDetails{" +
-        "json='" + json + "'" +
-        ", bundle=" + bundle +
-        ", changeLog=" + changeLog +
-        '}';
+    return genClient.toString();
   }
 
   @Override
@@ -1561,17 +1196,15 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
 
   @Override
   public void writeToParcel(android.os.Parcel dest, int flags) {
-	  com.clover.sdk.v3.JsonParcelHelper.wrap(getJSONObject()).writeToParcel(dest, 0);
-    dest.writeBundle(bundle);
-    dest.writeBundle(changeLog);
+    genClient.writeToParcel(dest, flags);
   }
 
   public static final android.os.Parcelable.Creator<PaymentRequestCardDetails> CREATOR = new android.os.Parcelable.Creator<PaymentRequestCardDetails>() {
     @Override
     public PaymentRequestCardDetails createFromParcel(android.os.Parcel in) {
       PaymentRequestCardDetails instance = new PaymentRequestCardDetails(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle(getClass().getClassLoader());
-      instance.changeLog = in.readBundle();
+      instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
+      instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
@@ -1591,10 +1224,6 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
 
   public interface Constraints {
 
-    public static final boolean CARDTYPE_IS_REQUIRED = false;
-
-    public static final boolean ENTRYTYPE_IS_REQUIRED = false;
-
     public static final boolean TRACK1_IS_REQUIRED = false;
 
     public static final boolean TRACK2_IS_REQUIRED = false;
@@ -1602,10 +1231,6 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
     public static final boolean TRACK3_IS_REQUIRED = false;
 
     public static final boolean ENCRYPTED_IS_REQUIRED = false;
-
-    public static final boolean MANUALENTERED_IS_REQUIRED = false;
-
-    public static final boolean ASYNC_IS_REQUIRED = false;
 
     public static final boolean MASKEDTRACK1_IS_REQUIRED = false;
 
@@ -1642,6 +1267,28 @@ public final class PaymentRequestCardDetails implements android.os.Parcelable, c
     public static final boolean FINGERPRINT_IS_REQUIRED = false;
 
     public static final boolean DEVICESERIAL_IS_REQUIRED = false;
+
+    public static final boolean MANUALENTERED_IS_REQUIRED = false;
+
+    public static final boolean ASYNC_IS_REQUIRED = false;
+
+    public static final boolean ISFALLBACK_IS_REQUIRED = false;
+
+    public static final boolean ISAUTH_IS_REQUIRED = false;
+
+    public static final boolean ISPREPAID_IS_REQUIRED = false;
+
+    public static final boolean CARDFUNCTION_IS_REQUIRED = false;
+
+    public static final boolean QRCODE_IS_REQUIRED = false;
+
+    public static final boolean CARDTYPE_IS_REQUIRED = false;
+
+    public static final boolean ENTRYTYPE_IS_REQUIRED = false;
+
+    public static final boolean TRANSACTIONNO_IS_REQUIRED = false;
+
+    public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
 
     public static final boolean TRANSACTIONDATA_IS_REQUIRED = false;
 

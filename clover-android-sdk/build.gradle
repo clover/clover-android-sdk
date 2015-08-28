@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 group = 'com.clover.sdk'
-version = '86'
+version = '112'
+
 
 apply plugin: 'android-library'
-apply plugin: 'android-maven'
 
 repositories {
   mavenLocal()
   mavenCentral()
 }
+apply plugin: 'android-maven'
 
 android {
   lintOptions {
     abortOnError false
   }
-  compileSdkVersion 19
-  buildToolsVersion "19.1"
+  compileSdkVersion 21
+  buildToolsVersion "22.0.1"
 
   defaultConfig {
     minSdkVersion 16
@@ -49,9 +49,77 @@ android {
     }
   }
 }
-
 dependencies {
     compile files('lib/calc.jar')
 }
 
 ant.importBuild 'javadoc.xml'
+
+apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "${upload_release_url}") {
+        authentication(userName: "${upload_user}", password: "${upload_password}")
+      }
+      snapshotRepository(url: "${upload_snapshot_url}") {
+        authentication(userName: "${upload_user}", password: "${upload_password}")
+      }
+
+      pom.project {
+        parent {
+          groupId 'org.sonatype.oss'
+          artifactId 'oss-parent'
+          version '7'
+        }
+
+        name 'Clover Android SDK'
+        description 'Android services and objects used for interacting with Clover Services'
+        url 'http://www.clover.com/'
+
+        licenses {
+          license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0'
+            distribution 'repo'
+          }
+        }
+
+        scm {
+          url "https://github.com/clover/clover-android-sdk"
+          connection "https://github.com/clover/clover-android-sdk.git"
+          developerConnection "git@github.com:clover/clover-android-sdk.git"
+        }
+
+        developers {
+          developer {
+            name 'Clover Engineering Team'
+            url 'https://www.clover.com/team'
+          }
+        }
+      }
+    }
+  }
+}
+
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+  archives sourcesJar
+}
+
+signing {
+   required = { gradle.taskGraph.hasTask("uploadArchives") }
+   sign configurations.archives
+}
+
+nexusStaging {
+  packageGroup = "com.clover" //optional if packageGroup == project.getGroup() ------>  NOTE: project.getGroup() returns com.clover.sdk
+}

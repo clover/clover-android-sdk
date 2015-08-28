@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+old_version = ARGV[0]
+new_version = ARGV[1]
+
+puts "Updating version " + old_version + " to " + new_version
+`find .. -name "build.gradle" -exec perl -pi -e "s|com\.clover\.sdk:clover-android-sdk:#{old_version}|com\.clover\.sdk:clover-android-sdk:#{new_version}|g" {} \\;`

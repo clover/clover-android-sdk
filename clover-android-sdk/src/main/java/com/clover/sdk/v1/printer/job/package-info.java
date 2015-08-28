@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * This package contains classes for printing to Clover connected printers. The name of the class
  * describes the type of print job. For example, {@link com.clover.sdk.v1.printer.job.BillPrintJob}
