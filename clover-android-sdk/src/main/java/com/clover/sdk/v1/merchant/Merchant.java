@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clover.sdk.v1.merchant;
 
 import android.accounts.Account;
@@ -59,6 +58,8 @@ public class Merchant implements Parcelable {
   private static final String KEY_DDA_ACCOUNT_NUMBER = "ddaAccountNumber";
   private static final String KEY_TIP_SUGGESTIONS = "tipSuggestions";
   private static final String KEY_MODULES = "modules";
+  private static final String KEY_IS_BILLABLE = "isBillable";
+  private static final String KEY_MERCHANT_PLAN_ID = "merchantPlanId";
 
   private final Bundle data;
 
@@ -185,6 +186,25 @@ public class Merchant implements Parcelable {
     }
     return null;
   }
+  /**
+   * @return merchant gateway batchCloseEnabled property
+   */
+  public Boolean getNewBatchCloseEnabled() {
+    String gateway = data.getString(KEY_MERCHANT_GATEWAY, null);
+    if (gateway != null) {
+      try {
+        JSONObject gateWayObj = new JSONObject(gateway);
+        if (gateWayObj.has("newBatchCloseEnabled")) {
+          return gateWayObj.optBoolean("newBatchCloseEnabled", false);
+        } else {
+          return null;
+        }
+      } catch (Exception ex) {
+        return null;
+      }
+    }
+    return null;
+  }
 
   /**
    * Returns whether this merchant is in a region using VAT
@@ -256,6 +276,14 @@ public class Merchant implements Parcelable {
 
   public String getDdaAccountNumber() {
     return data.getString(KEY_DDA_ACCOUNT_NUMBER, null);
+  }
+
+  public Boolean getIsBillable() {
+    return data.getBoolean(KEY_IS_BILLABLE);
+  }
+
+  public String getMerchantPlanId() {
+    return data.getString(KEY_MERCHANT_PLAN_ID, null);
   }
 
   public List<TipSuggestion> getTipSuggestions() {

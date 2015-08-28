@@ -1,3 +1,18 @@
+/**
+ * Copyright (C) 2015 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.clover.sdk.v1.printer.job;
 
 import android.os.Bundle;
@@ -26,13 +41,17 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     }
 
     public Builder order(Order order) {
-      this.order = new Order(order);
+      if (order != null) {
+        this.order = new Order(order);
+      }
       return this;
     }
   }
 
   public final Order order;
-  public final String reason;
+  // yes, this is not final
+  // reason is that for backwards compat we needed subclass to possible write this value in the unparceling ctor
+  public String reason;
 
   @Deprecated
   public StaticOrderBasedPrintJob(Order order, int flags) {

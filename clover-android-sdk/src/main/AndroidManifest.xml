@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2015 Clover Network, Inc.
+  ~ Copyright (C) 2013 Clover Network, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
           package="com.clover.android.sdk"
           android:versionCode="1"
           android:versionName="1.0">
@@ -24,9 +25,6 @@
       android:minSdkVersion="16"
       android:targetSdkVersion="17"/>
 
-  <application
-      android:allowBackup="true"
-      android:label="">
-  </application>
+  <application/>
 
 </manifest>

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clover.sdk.v1.customer;
 
 import android.accounts.Account;
@@ -291,6 +290,19 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
     execute(new ServiceRunnable<ICustomerService>() {
       public void run(ICustomerService service, ResultStatus status) throws RemoteException {
         service.deleteAddress(customerId, addressId, status);
+      }
+    });
+  }
+
+  /**
+   * Deletes a given customer from the merchant.
+   *
+   * @param customerId The id of the customer.
+   */
+  public void deleteCustomer(final String customerId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<ICustomerService>() {
+      public void run(ICustomerService service, ResultStatus status) throws RemoteException {
+        service.deleteCustomer(customerId, status);
       }
     });
   }
