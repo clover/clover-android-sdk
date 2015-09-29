@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clover.sdk.v1;
 
 public class Intents {
@@ -45,6 +44,7 @@ public class Intents {
   public static final String EXTRA_TRANSACTION = "clover.intent.extra.TRANSACTION";
 
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
+  public static final String EXTRA_ORDER = "clover.intent.extra.ORDER";
   public static final String EXTRA_CLOVER_ORDER_ID = "com.clover.intent.extra.ORDER_ID";
   public static final String EXTRA_AMOUNT = "clover.intent.extra.AMOUNT";
   public static final String EXTRA_CURRENCY = "clover.intent.extra.CURRENCY";
@@ -212,27 +212,56 @@ public class Intents {
    *
    * The following extras are passed,
    * <ul>
-   * <li>{@link #EXTRA_AMOUNT}</li>
-   * <li>{@link #EXTRA_TAX_AMOUNT}</li>
-   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT}</li>
-   * <li>{@link #EXTRA_ORDER_ID}</li>
-   * <li>{@link #EXTRA_EMPLOYEE_ID}</li>
-   * <li>{@link #EXTRA_IS_TESTING}</li>
-   * <li>{@link #EXTRA_TRANSACTION_NO}</li>
-   * <li>{@link #EXTRA_TRANSACTION_TYPE}</li>
-   * <li>{@link #EXTRA_TENDER}
-   * <li>{@link #EXTRA_CLIENT_ID}
-   * <li>{@link #EXTRA_NOTE}
+   * <li>{@link #EXTRA_AMOUNT}, the transaction amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_CURRENCY}, the transaction currency, a {@link java.util.Currency}</li>
+   * <li>{@link #EXTRA_TAX_AMOUNT}, the transaction's tax amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_TAXABLE_AMOUNTS}, transaction's taxable amounts, a {@link java.util.List} of {@link com.clover.sdk.v3.payments.TaxableAmountRate}</li>
+   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT}, the transactions' service charge amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_ORDER_ID}, the Clover order ID, a {@link java.lang.String}</li>
+   * <li>{@link #EXTRA_EMPLOYEE_ID}, the ID of the employee which initiated the payment, a {@link java.lang.String}</li>
+   * <li>{@link #EXTRA_TENDER}, the tender for the transaction, a {@link com.clover.sdk.v3.base.Tender}
    * </ul>
    *
    * Result data must include the following,
    * <ul>
-   * <li>a {@link com.clover.sdk.v3.payments.Payment}</li>
+   * <li>a (Required) {@link #EXTRA_AMOUNT}</li>, the approved transaction amount, a {@link java.lang.Long}
+   * <li>a (Optional) {@link #EXTRA_CLIENT_ID}, the client ID / external payment ID, a {@link java.lang.String}</li>
+   * <li>a (Optional) {@link #EXTRA_NOTE}, the payment note, a {@link java.lang.String}</li>
    * </ul>
    *
+   * @see #ACTION_MERCHANT_TENDER
    * @see #META_CUSTOMER_TENDER_IMAGE
    */
   public static final String ACTION_CUSTOMER_TENDER = "clover.intent.action.CUSTOMER_TENDER";
+
+  /**
+   * Action to start a merchant-facing tender.
+   *
+   * The following extras are passed,
+   * <ul>
+   * <li>{@link #EXTRA_AMOUNT}, the transaction amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_CURRENCY}, the transaction currency, a {@link java.util.Currency}</li>
+   * <li>{@link #EXTRA_TAX_AMOUNT}, the transaction's tax amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_TAXABLE_AMOUNTS}, transaction's taxable amounts, a {@link java.util.List} of {@link com.clover.sdk.v3.payments.TaxableAmountRate}</li>
+   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT}, the transactions' service charge amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_ORDER_ID}, the Clover order ID, a {@link java.lang.String}</li>
+   * <li>{@link #EXTRA_EMPLOYEE_ID}, the ID of the employee which initiated the payment, a {@link java.lang.String}</li>
+   * <li>{@link #EXTRA_TENDER}, the tender for the transaction, a {@link com.clover.sdk.v3.base.Tender}
+   * <li>{@link #EXTRA_ORDER}, the order for the transaction, a {@link com.clover.sdk.v3.order.Order}
+   * <li>{@link #EXTRA_NOTE}, the order note for the transaction, a {@link java.lang.String}
+   * </ul>
+   *
+   * Result data must include the following,
+   * <ul>
+   * <li>a (Required) {@link #EXTRA_AMOUNT}</li>, the approved transaction amount, a {@link java.lang.Long}
+   * <li>a (Optional) {@link #EXTRA_CLIENT_ID}, the client ID / external payment ID, a {@link java.lang.String}</li>
+   * <li>a (Optional) {@link #EXTRA_NOTE}, the payment note, a {@link java.lang.String}</li>
+   * </ul>
+   *
+   * @see #ACTION_CUSTOMER_TENDER
+   * @see #META_CUSTOMER_TENDER_IMAGE
+   */
+  public static final String ACTION_MERCHANT_TENDER = "clover.intent.action.MERCHANT_TENDER";
 
   /** A long */
   public static final String EXTRA_TAX_AMOUNT = "clover.intent.extra.TAX_AMOUNT";
@@ -382,4 +411,9 @@ public class Intents {
    * A drawable resource ID, the image to be displayed on the customer-facing tender button.
    */
   public static final String META_CUSTOMER_TENDER_IMAGE = "clover.intent.meta.CUSTOMER_TENDER_IMAGE";
+
+  /**
+   * A drawable resource ID, the image to be displayed on the merchant-facing tender button.
+   */
+  public static final String META_MERCHANT_TENDER_IMAGE = "clover.intent.meta.MERCHANT_TENDER_IMAGE";
 }

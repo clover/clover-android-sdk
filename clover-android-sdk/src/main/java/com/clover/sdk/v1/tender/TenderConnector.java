@@ -124,6 +124,36 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     }, callback);
   }
 
+  public void deleteTender(final String tenderId) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new TenderCallable<Void>() {
+      @Override
+      public Void call(ITenderService service, ResultStatus status) throws RemoteException {
+        service.delete(tenderId, status);
+        return null;
+      }
+    });
+  }
+
+  public void setOpensCashDrawer(final String tenderId, final boolean opensCashDrawer) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new TenderCallable<Void>() {
+      @Override
+      public Void call(ITenderService service, ResultStatus status) throws RemoteException {
+        service.setOpensCashDrawer(tenderId, opensCashDrawer, status);
+        return null;
+      }
+    });
+  }
+
+  public void setLabel(final String tenderId, final String tenderLabel) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new TenderCallable<Void>() {
+      @Override
+      public Void call(ITenderService service, ResultStatus status) throws RemoteException {
+        service.setLabel(tenderId, tenderLabel, status);
+        return null;
+      }
+    });
+  }
+
   /**
    * Will set a merchant tenders visibility
    */
