@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '112'
+version = '117'
 
 
 apply plugin: 'android-library'
+apply plugin: 'android-maven'
 
 repositories {
   mavenLocal()
   mavenCentral()
 }
-apply plugin: 'android-maven'
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
+}
 
 android {
   lintOptions {
@@ -56,6 +61,15 @@ dependencies {
 ant.importBuild 'javadoc.xml'
 
 apply plugin: 'signing'
+
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3'
+  }
+}
 apply plugin: 'io.codearte.nexus-staging'
 
 uploadArchives {
