@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2015 Clover Network, Inc.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -144,32 +144,21 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   }
 
   @Override
-  protected void notifyServiceConnected(OnServiceConnectedListener client) {
-    super.notifyServiceConnected(client);
-
-    execute(new EmployeeCallable<Void>() {
-      @Override
-      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
-        if (mListener == null) {
-          mListener = new OnEmployeeListenerParent(EmployeeConnector.this);
-        }
-        service.addListener(mListener, status);
-        return null;
-      }
-    }, new EmployeeCallback<Void>());
-  }
-
-  @Override
   public void disconnect() {
     mOnActiveEmployeeChangedListener.clear();
-    if (mListener != null) {
-      try {
-        mService.removeListener(mListener, new ResultStatus());
-      } catch (RemoteException e) {
-        e.printStackTrace();
+
+    synchronized (this) {
+      if (mListener != null) {
+        if (mService != null) {
+          try {
+            mService.removeListener(mListener, new ResultStatus());
+          } catch (RemoteException e) {
+            e.printStackTrace();
+          }
+        }
+        mListener.destroy();
+        mListener = null;
       }
-      mListener.destroy();
-      mListener = null;
     }
     super.disconnect();
   }
@@ -350,6 +339,20 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   }
 
   public void addOnActiveEmployeeChangedListener(OnActiveEmployeeChangedListener listener) {
+    if (mOnActiveEmployeeChangedListener.isEmpty()) {
+      execute(new EmployeeCallable<Void>() {
+        @Override
+        public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+          synchronized (EmployeeConnector.this) {
+            if (mListener == null) {
+              mListener = new OnEmployeeListenerParent(EmployeeConnector.this);
+              service.addListener(mListener, status);
+            }
+          }
+          return null;
+        }
+      }, new EmployeeCallback<Void>());
+    }
     mOnActiveEmployeeChangedListener.add(new WeakReference<OnActiveEmployeeChangedListener>(listener));
   }
 
@@ -365,6 +368,20 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       }
       if (listenerWeakReference != null) {
         mOnActiveEmployeeChangedListener.remove(listenerWeakReference);
+      }
+
+      if (mOnActiveEmployeeChangedListener.isEmpty()) {
+        synchronized (EmployeeConnector.this) {
+          if (isConnected() && mListener != null) {
+            try {
+              mService.removeListener(mListener, new ResultStatus());
+              mListener.destroy();
+              mListener = null;
+            } catch (RemoteException e) {
+              e.printStackTrace();
+            }
+          }
+        }
       }
     }
   }

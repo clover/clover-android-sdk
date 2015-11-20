@@ -116,7 +116,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
         intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(Intents.EXTRA_VERSION, getServiceIntentVersion());
         result = mContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
-        mConnected = true;
+        mConnected = result;
       }
     }
     return result;
@@ -138,23 +138,21 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   }
 
   protected synchronized S waitForConnection() throws BindingException {
-    if (!isConnected()) {
 
-      int retryCount = 0;
-      boolean result = false;
+    int retryCount = 0;
+    boolean result;
 
-      while (!result && retryCount < MAX_RETRY_ATTEMPTS) {
-        result = connect();
-        // wait for ServiceConnection callback to notify
-        try {
-          wait(SERVICE_CONNECTION_TIMEOUT);
-        } catch (InterruptedException e) {
-          Log.i(TAG, "waitForConnection interrupted...");
-          return null;
-        }
-        retryCount++;
+    while (!isConnected() && retryCount < MAX_RETRY_ATTEMPTS) {
+      result = connect();
+
+      try {
+        wait(SERVICE_CONNECTION_TIMEOUT);
+      } catch (InterruptedException e) {
+        Log.i(TAG, "waitForConnection interrupted...");
+        return null;
       }
       Log.i(TAG, "waitForConnection result: " + result + ", retryCount: " + retryCount);
+      retryCount++;
     }
 
     S service = getService();
