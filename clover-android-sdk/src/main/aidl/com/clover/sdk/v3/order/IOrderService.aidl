@@ -104,4 +104,8 @@ interface IOrderService {
   void addOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
 
   void removeOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
+
+  Discount addDiscount2(String orderId, in Discount discount, out ResultStatus status);
+
+  Discount addLineItemDiscount2(String orderId, String lineItemId, in Discount discount, out ResultStatus status);
 }

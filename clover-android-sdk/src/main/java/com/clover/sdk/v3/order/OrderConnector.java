@@ -364,6 +364,15 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     });
   }
 
+  public Discount addDiscount2(final String orderId, final Discount discount) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Discount>() {
+      @Override
+      public Discount call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addDiscount2(orderId, discount, status);
+      }
+    });
+  }
+
   public Order deleteDiscounts(final String orderId, final List<String> discountIds) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderService, Order>() {
       @Override
@@ -381,6 +390,16 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
       }
     });
   }
+
+  public Discount addLineItemDiscount2(final String orderId, final String lineItemId, final Discount discount) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Discount>() {
+      @Override
+      public Discount call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addLineItemDiscount2(orderId, lineItemId, discount, status);
+      }
+    });
+  }
+
 
   public Order addBatchLineItemDiscounts(final String orderId, final List<String> lineItemIds, final List<Discount> discounts) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderService, Order>() {

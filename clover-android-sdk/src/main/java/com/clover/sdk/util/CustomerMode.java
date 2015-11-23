@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,18 +62,20 @@ public class CustomerMode {
   private static final String EXTRA_REQUIRE_PIN = "requirePin";
 
   public static void enable(Context context) {
-    try {
-      context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null);
-    } catch (IllegalArgumentException e) {
-      e.printStackTrace();
+    if (Platform.isCloverMobile() || Platform.isCloverMini()) {
+      try {
+        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null);
+      } catch (IllegalArgumentException e) {
+      }
     }
   }
 
   public static void disable(Context context) {
-    try {
-      context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), null);
-    } catch (IllegalArgumentException e) {
-      e.printStackTrace();
+    if (Platform.isCloverMobile() || Platform.isCloverMini()) {
+      try {
+        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), null);
+      } catch (IllegalArgumentException e) {
+      }
     }
   }
 

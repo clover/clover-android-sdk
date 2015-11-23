@@ -215,8 +215,8 @@ public class Intents {
    * <li>{@link #EXTRA_AMOUNT}, the transaction amount, a {@link java.lang.Long}</li>
    * <li>{@link #EXTRA_CURRENCY}, the transaction currency, a {@link java.util.Currency}</li>
    * <li>{@link #EXTRA_TAX_AMOUNT}, the transaction's tax amount, a {@link java.lang.Long}</li>
-   * <li>{@link #EXTRA_TAXABLE_AMOUNTS}, transaction's taxable amounts, a {@link java.util.List} of {@link com.clover.sdk.v3.payments.TaxableAmountRate}</li>
    * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT}, the transactions' service charge amount, a {@link java.lang.Long}</li>
+   * <li>{@link #EXTRA_TIP_AMOUNT}, the transactions' tip amount, a {@link java.lang.Long}</li>
    * <li>{@link #EXTRA_ORDER_ID}, the Clover order ID, a {@link java.lang.String}</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID}, the ID of the employee which initiated the payment, a {@link java.lang.String}</li>
    * <li>{@link #EXTRA_TENDER}, the tender for the transaction, a {@link com.clover.sdk.v3.base.Tender}
@@ -242,7 +242,6 @@ public class Intents {
    * <li>{@link #EXTRA_AMOUNT}, the transaction amount, a {@link java.lang.Long}</li>
    * <li>{@link #EXTRA_CURRENCY}, the transaction currency, a {@link java.util.Currency}</li>
    * <li>{@link #EXTRA_TAX_AMOUNT}, the transaction's tax amount, a {@link java.lang.Long}</li>
-   * <li>{@link #EXTRA_TAXABLE_AMOUNTS}, transaction's taxable amounts, a {@link java.util.List} of {@link com.clover.sdk.v3.payments.TaxableAmountRate}</li>
    * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT}, the transactions' service charge amount, a {@link java.lang.Long}</li>
    * <li>{@link #EXTRA_ORDER_ID}, the Clover order ID, a {@link java.lang.String}</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID}, the ID of the employee which initiated the payment, a {@link java.lang.String}</li>
@@ -307,6 +306,9 @@ public class Intents {
   public static final String EXTRA_TRANSACTION_NO = "transactionNo";
   /** A boolean, force pin entry on swipe */
   public static final String EXTRA_FORCE_SWIPE_PIN_ENTRY = "forceSwipePinEntry";
+  /** A boolean, when a transaction fails, do NOT restart it */
+  public static final String EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED = "disableRestartTransactionWhenFailed";
+
   /** A String, an error string. */
   public static final String EXTRA_DECLINE_REASON = "clover.intent.extra.DECLINE_REASON";
   /** A {@link com.clover.sdk.v3.base.Tender} */
