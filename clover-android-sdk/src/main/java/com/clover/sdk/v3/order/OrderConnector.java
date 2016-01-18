@@ -83,18 +83,20 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
 
     @Override
     public void onOrderUpdated(String orderId, boolean selfChange) throws RemoteException {
-      if (mConnector == null) {
+      final OrderConnector orderConnector = mConnector;
+
+      if (orderConnector == null) {
         return; // Shouldn't get here, but bail just in case
       }
-      if (mConnector.mOnOrderChangedListener != null && !mConnector.mOnOrderChangedListener.isEmpty()) {
+      if (orderConnector.mOnOrderChangedListener != null && !orderConnector.mOnOrderChangedListener.isEmpty()) {
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
         // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
         // array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed
         // not to throw ConcurrentModificationException.
-        for (WeakReference<OnOrderUpdateListener> weakReference : mConnector.mOnOrderChangedListener) {
+        for (WeakReference<OnOrderUpdateListener> weakReference : orderConnector.mOnOrderChangedListener) {
           OnOrderUpdateListener listener = weakReference.get();
           if (listener != null) {
-            mConnector.postOnOrderUpdated(orderId, selfChange, listener);
+            orderConnector.postOnOrderUpdated(orderId, selfChange, listener);
           }
         }
       }

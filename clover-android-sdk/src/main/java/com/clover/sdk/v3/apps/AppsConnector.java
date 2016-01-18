@@ -78,6 +78,28 @@ public class AppsConnector extends ServiceConnector<IAppsService> {
     });
   }
 
+  public void setSmartReceiptText(final String text) throws RemoteException, ServiceException, BindingException, ClientException {
+    execute(new AppCallable<Void>() {
+      @Override
+      public Void call(IAppsService service, ResultStatus status) throws RemoteException {
+        service.setSmartReceiptText(text, status);
+
+        return null;
+      }
+    });
+  }
+
+  public void setSmartReceiptUrl(final String url) throws RemoteException, ServiceException, BindingException, ClientException {
+    execute(new AppCallable<Void>() {
+      @Override
+      public Void call(IAppsService service, ResultStatus status) throws RemoteException {
+        service.setSmartReceiptUrl(url, status);
+
+        return null;
+      }
+    });
+  }
+
   private abstract static class AppCallable<T> implements ServiceCallable<IAppsService, T> {
   }
 }

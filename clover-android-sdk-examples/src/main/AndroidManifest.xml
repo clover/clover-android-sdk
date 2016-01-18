@@ -107,6 +107,10 @@ tools:replace="android:label"
             android:label="@string/printer_test" >
         </activity>
         <activity
+            android:name=".PrintJobsTestActivity"
+            android:label="@string/printjob_test" >
+        </activity>
+        <activity
             android:name="com.clover.android.sdk.examples.PrintTestActivity"
             android:label="@string/print_test" >
         </activity>

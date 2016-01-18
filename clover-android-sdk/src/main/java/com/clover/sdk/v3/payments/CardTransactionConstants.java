@@ -28,7 +28,9 @@ public class CardTransactionConstants {
   public static final String APPROVAL_CODE = "approvalCode";
   public static final String CVM_RESULT = "cvmResult";
   public static final String STORE_ID = "storeId";
-
+  public static final String AUTHORIZING_NETWORK_NAME = "authorizingNetworkName";
+  public static final String ROUTING_INDICATOR = "routingIndicator";
+  public static final String SIGNATURE_INDICATOR = "signatureIndicator";
   public static final String GERMANY_RECEIPT_TYPE = "gerReceiptType";
   public static final String GERMANY_CONFIG_PRODUCT_LABEL = "gerConfigProductLabel";
   public static final String GERMANY_TRANSACTION_TYPE = "gerTransactionType";
