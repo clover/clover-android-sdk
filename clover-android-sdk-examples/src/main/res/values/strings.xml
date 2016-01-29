@@ -34,6 +34,7 @@
     <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
     <string name="cashevent_test">Cash Event Test</string>
     <string name="printer_test">Printer Test</string>
+    <string name="printjob_test">Print Job Test</string>
     <string name="print_test">Print Test</string>
     <string name="receipt_registration_test">Receipt Registration Test</string>
     <string name="authenticate_employee">Authenticate Employee</string>

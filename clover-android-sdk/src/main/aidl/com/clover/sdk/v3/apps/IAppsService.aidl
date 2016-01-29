@@ -14,4 +14,8 @@ interface IAppsService {
     void logMetered(String meteredId, int numberOfEvent, out ResultStatus resultStatus);
 
     AppBillingInfo getAppBillingInfo(out ResultStatus resultStatus);
+
+    void setSmartReceiptText(String text, out ResultStatus resultStatus);
+
+    void setSmartReceiptUrl(String url, out ResultStatus resultStatus);
 }

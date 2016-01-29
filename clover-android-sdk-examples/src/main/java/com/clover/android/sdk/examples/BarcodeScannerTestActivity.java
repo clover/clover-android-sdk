@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import com.clover.sdk.v1.Intents;
+import com.clover.sdk.v3.scanner.BarcodeResult;
 import com.clover.sdk.v3.scanner.BarcodeScanner;
 
 
@@ -43,8 +44,12 @@ public class BarcodeScannerTestActivity extends Activity {
   private BroadcastReceiver barcodeReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
-      String barcode = intent.getStringExtra("Barcode");
-      resultTV.setText("Result: " + barcode);
+      BarcodeResult barcodeResult = new BarcodeResult(intent);
+
+      if (barcodeResult.isBarcodeAction()) {
+        String barcode = barcodeResult.getBarcode();
+        resultTV.setText("Result: " + barcode);
+      }
     }
   };
 
@@ -97,7 +102,7 @@ public class BarcodeScannerTestActivity extends Activity {
   }
 
   private void registerBarcodeScanner() {
-    registerReceiver(barcodeReceiver, new IntentFilter("com.clover.stripes.BarcodeBroadcast"));
+    registerReceiver(barcodeReceiver, new IntentFilter(BarcodeResult.INTENT_ACTION));
   }
 
   private void unregisterBarcodeScanner() {

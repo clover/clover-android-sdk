@@ -97,18 +97,20 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
 
     @Override
     public void onActiveEmployeeChanged(final Employee employee) {
-      if (mConnector == null) {
+      final EmployeeConnector employeeConnector = mConnector;
+
+      if (employeeConnector == null) {
         return; // Shouldn't get here, but bail just in case
       }
-      if (mConnector.mOnActiveEmployeeChangedListener != null && !mConnector.mOnActiveEmployeeChangedListener.isEmpty()) {
+      if (employeeConnector.mOnActiveEmployeeChangedListener != null && !employeeConnector.mOnActiveEmployeeChangedListener.isEmpty()) {
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
         // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
         // array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed
         // not to throw ConcurrentModificationException.
-        for (WeakReference<OnActiveEmployeeChangedListener> weakReference : mConnector.mOnActiveEmployeeChangedListener) {
+        for (WeakReference<OnActiveEmployeeChangedListener> weakReference : employeeConnector.mOnActiveEmployeeChangedListener) {
           OnActiveEmployeeChangedListener listener = weakReference.get();
           if (listener != null) {
-            mConnector.postOnActiveEmployeeChanged(employee, listener);
+            employeeConnector.postOnActiveEmployeeChanged(employee, listener);
           }
         }
       }

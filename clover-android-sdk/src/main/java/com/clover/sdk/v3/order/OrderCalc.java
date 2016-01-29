@@ -37,6 +37,7 @@ public class OrderCalc {
 
   private static final String TAG = OrderCalc.class.getSimpleName();
   private static final Decimal TAX_RATE_DIVISOR = new Decimal(100000);
+  private static final Decimal SERVICE_CHARGE_DIVISOR = new Decimal(10000);
   private static final Decimal UNIT_QUANTITY_DIVISOR = new Decimal(1000);
   private static final Decimal HUNDRED = new Decimal(100);
 
@@ -106,10 +107,18 @@ public class OrderCalc {
     @Override
     public Decimal getPercentServiceCharge() {
       ServiceCharge sc = order.getServiceCharge();
-      if (sc == null || sc.getPercentage() == null) {
+      Decimal percentageDecimal = null;
+      if (sc != null) {
+        if (sc.getPercentageDecimal() != null) {
+          percentageDecimal = new Decimal(sc.getPercentageDecimal()).divide(SERVICE_CHARGE_DIVISOR);
+        } else if (sc.getPercentage() != null) {
+          percentageDecimal = new Decimal(sc.getPercentage());
+        }
+      }
+      if (sc == null || percentageDecimal == null) {
         return Decimal.ZERO;
       }
-      return new Decimal(sc.getPercentage());
+      return percentageDecimal;
     }
   }
 

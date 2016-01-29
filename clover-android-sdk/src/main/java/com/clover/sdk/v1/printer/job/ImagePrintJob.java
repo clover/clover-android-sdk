@@ -51,9 +51,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
       float scale = (float) WIDTH_MAX / width;
       int scaledHeight = (int) (height * scale);
 
-      Bitmap resized = Bitmap.createScaledBitmap(bitmap, WIDTH_MAX, scaledHeight, false);
-      bitmap.recycle();
-      bitmap = resized;
+      bitmap = Bitmap.createScaledBitmap(bitmap, WIDTH_MAX, scaledHeight, false);
 
       return this;
     }
