@@ -130,6 +130,21 @@ public class Customer implements Parcelable {
     return Collections.emptyList();
   }
 
+  public List<Card> getCards() {
+    try {
+      JSONArray array = data.optJSONArray("cards");
+      if (array != null) {
+        List<Card> cards = new ArrayList<Card>();
+        for (int i = 0; i < array.length(); i++) {
+          JSONObject cardObject = array.getJSONObject(i);
+          cards.add(new Card(cardObject));
+        }
+        return cards;
+      }
+    } catch (JSONException ex) {
+    }
+    return Collections.emptyList();
+  }
 
   @Override
   public int describeContents() {

@@ -18,7 +18,53 @@ package com.clover.sdk.v1;
 public class Intents {
 
   /**
-   * Launch Pay app with active order (Register payments)
+   * Launch Register app's point of sale activity
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_ORDER_ID} - The UUID of the order opened in Register</li>
+   * <li>{@link #EXTRA_CUSTOMER_V3} - a customer object to be associated with the order</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   */
+  public static final String ACTION_START_REGISTER = "com.clover.intent.action.START_REGISTER";
+
+  /**
+   * Launch the Print Reciepts activity, to show receipt printing and sending options for an order
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_ORDER_ID} - The UUID of the target order (Required)</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   */
+  public static final String ACTION_START_PRINT_RECEIPTS = "com.clover.intent.action.START_PRINT_RECEIPTS";
+
+  /**
+   * Launch the Customer Profile activity
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CUSTOMER_ID} - The UUID of the target customer (Required)</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   */
+  public static final String ACTION_START_CUSTOMER_PROFILE = "com.clover.intent.action.START_CUSTOMER_PROFILE";
+
+  /**
+   * Launch Pay activity with active order (Register payments)
    * <p>
    * Extras passed:
    * <ul>
@@ -128,7 +174,7 @@ public class Intents {
    * <p>
    * Extras passed:
    * <ul>
-   * <li>{@link #EXTRA_ORDER_ID} - the UUID of the order to be shown</li>
+   * <li>{@link #EXTRA_ORDER_ID} - the UUID of the order to be shown (REQUIRED)</li>
    * </ul>
    * <p>
    * Result data includes:
@@ -469,6 +515,18 @@ public class Intents {
   /** {@link String}, the UUID of an Order object */
   public static final String EXTRA_CLOVER_ORDER_ID = "com.clover.intent.extra.ORDER_ID";
 
+  /** {@link String}, the UUID of a LineItem object */
+  public static final String EXTRA_CLOVER_LINE_ITEM_ID = "com.clover.intent.extra.LINE_ITEM_ID";
+
+  /** {@link String}, the UUID of an Item object */
+  public static final String EXTRA_CLOVER_ITEM_ID = "com.clover.intent.extra.ITEM_ID";
+
+  /** {@link String}, the UUID of a Payment object */
+  public static final String EXTRA_CLOVER_PAYMENT_ID = "com.clover.intent.extra.PAYMENT_ID";
+
+  /** {@link String}, the labelKey of a Tender type */
+  public static final String EXTRA_CLOVER_TENDER_LABEL_KEY = "com.clover.intent.extra.TENDER";
+
   /** {@link Long}, a monetary amount */
   public static final String EXTRA_AMOUNT = "clover.intent.extra.AMOUNT";
 
@@ -504,6 +562,9 @@ public class Intents {
 
   /** {@link String}, UUID of a customer */
   public static final String EXTRA_CUSTOMER_ID = "clover.intent.extra.CUSTOMER_ID";
+
+  /** {@link com.clover.sdk.v3.customers.Customer}, a customer object */
+  public static final String EXTRA_CUSTOMER_V3 = "com.clover.intent.extra.CUSTOMERV3";
 
   /** {@link String}, the UUID of an Employee object */
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
@@ -681,6 +742,8 @@ public class Intents {
 
   /** {@link String}, external payment id, used for integration with other POS platforms*/
   public static final String EXTRA_EXTERNAL_PAYMENT_ID = "externalPaymentId";
+  /** A com.clover.sdk.v3.payments.VaultedCard object that contains a multi-pay token to support paying with card-on-file */
+  public static final String EXTRA_VAULTED_CARD = "vaultedCard";
 
   /** {@link String}, an error description */
   public static final String EXTRA_DECLINE_REASON = "clover.intent.extra.DECLINE_REASON";
@@ -756,7 +819,51 @@ public class Intents {
 
   /** {@link int}, representation of bit flags from {@link com.clover.sdk.v1.printer.job.PrintJob} */
   public static final String EXTRA_RECEIPT_FLAG = "clover.intent.extra.RECEIPT_FLAG";
-  
+
+  /**
+   * Broadcast from Clover, indicating an order was created
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of created order (note that this order may or may not be saved) </li>
+   * </ul>
+   */
+  public static final String ACTION_ORDER_CREATED = "com.clover.intent.action.ORDER_CREATED";
+
+  /**
+   * Broadcast from Clover, indicating a lineItem has been added to an order
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOVER_LINE_ITEM_ID} - the UUID of the created LineItem</li>
+   * <li>{@link #EXTRA_CLOVER_ITEM_ID} - the UUID of the Item associated with the LineItem</li>
+   * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of the order associated with the LineItem</li>
+   * </ul>
+   */
+  public static final String ACTION_LINE_ITEM_ADDED = "com.clover.intent.action.LINE_ITEM_ADDED";
+
+  /**
+   * Broadcast from Clover, indicating a payment has been successfully processed
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOVER_PAYMENT_ID} - the UUID of the processed Payment</li>
+   * <li>{@link #EXTRA_CLOVER_TENDER_LABEL_KEY} - the LabelKey of the Tender used</li>
+   * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of the order associated with the Payment</li>
+   * </ul>
+   */
+  public static final String ACTION_PAYMENT_PROCESSED = "com.clover.intent.action.PAYMENT_PROCESSED";
+
+  /**
+   * Broadcast from Clover, indicating an Order has been saved for later processing
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of saved Order</li>
+   * </ul>
+   */
+  public static final String ACTION_ORDER_SAVED = "com.clover.intent.action.ORDER_SAVED";
+
   /**
    * Broadcast from Clover, indicating the active order in Register
    * <p>

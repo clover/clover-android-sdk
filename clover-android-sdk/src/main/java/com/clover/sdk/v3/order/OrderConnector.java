@@ -612,18 +612,21 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     }
 
     private void postChange(final ListenerRunnable listenerRunnable) {
-      if (mConnector == null) {
+      final OrderConnector orderConnector = mConnector;
+
+      if (orderConnector == null) {
         return; // Shouldn't get here, but bail just in case
       }
-      if (mConnector.mOnOrderChangedListener2 != null && !mConnector.mOnOrderChangedListener2.isEmpty()) {
+
+      if (orderConnector.mOnOrderChangedListener2 != null && !orderConnector.mOnOrderChangedListener2.isEmpty()) {
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to perform the dispatching. The
         // iterator is a safe guard against listeners that could mutate the list by calling the add/remove methods. This
         // array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed
         // not to throw ConcurrentModificationException.
-        for (WeakReference<OnOrderUpdateListener2> weakReference : mConnector.mOnOrderChangedListener2) {
+        for (WeakReference<OnOrderUpdateListener2> weakReference : orderConnector.mOnOrderChangedListener2) {
           final OnOrderUpdateListener2 listener = weakReference.get();
           if (listener != null) {
-            mConnector.mHandler.post(new Runnable() {
+            orderConnector.mHandler.post(new Runnable() {
               public void run() {
                 listenerRunnable.run(listener);
               }
