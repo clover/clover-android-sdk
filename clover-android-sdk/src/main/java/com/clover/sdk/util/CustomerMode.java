@@ -71,9 +71,15 @@ public class CustomerMode {
   }
 
   public static void disable(Context context) {
+    disable(context, false);
+  }
+
+  public static void disable(Context context, boolean requirePin) {
     if (Platform.isCloverMobile() || Platform.isCloverMini()) {
       try {
-        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), null);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(EXTRA_REQUIRE_PIN, requirePin);
+        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), bundle);
       } catch (IllegalArgumentException e) {
       }
     }
@@ -100,6 +106,9 @@ public class CustomerMode {
     return State.DISABLED;
   }
 
+  /**
+   * @deprecated
+   */
   public static boolean getRequirePinOnExit(Context context) {
     try {
       Bundle result = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_GET_CUSTOMER_MODE_REQUIRE_PIN, null, null);
@@ -110,6 +119,9 @@ public class CustomerMode {
     return false;
   }
 
+  /**
+   * @deprecated
+   */
   public static void setRequirePinOnExit(Context context, boolean requirePinOnExit) {
     try {
       Bundle bundle = new Bundle();

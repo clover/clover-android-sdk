@@ -306,4 +306,50 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
       }
     });
   }
+
+  /**
+   * Creates a new vaulted credit/debit card record and adds it to the specified customer
+   * <p/>
+   * This call will return immediately with the new Card object
+   *
+   * @param customerId   The id of the customer.
+   * @param card         The card info.
+   * @return A {@link com.clover.sdk.v1.customer.Card} object.
+   */
+  public Card addCard(final String customerId, final Card card) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<ICustomerService, Card>() {
+      public Card call(ICustomerService service, ResultStatus status) throws RemoteException {
+        return service.addCard(customerId, card, status);
+      }
+    });
+  }
+
+  /**
+   * Updates a given debit/credit card record for a customer.
+   *
+   * @param customerId     The id of the customer.
+   * @param cardId         The id of the credit/debit card.
+   * @param card           The new card info.
+   */
+  public void setCard(final String customerId, final String cardId, final Card card) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<ICustomerService>() {
+      public void run(ICustomerService service, ResultStatus status) throws RemoteException {
+        service.setCard(customerId, cardId, card, status);
+      }
+    });
+  }
+
+  /**
+   * Deletes a given email address from the customer.
+   *
+   * @param customerId     The id of the customer.
+   * @param cardId         The id of the credit/debit card.
+   */
+  public void deleteCard(final String customerId, final String cardId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<ICustomerService>() {
+      public void run(ICustomerService service, ResultStatus status) throws RemoteException {
+        service.deleteCard(customerId, cardId, status);
+      }
+    });
+  }
 }

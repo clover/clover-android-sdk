@@ -1,5 +1,6 @@
 package com.clover.sdk.v1.customer;
 
+import com.clover.sdk.v1.customer.Card;
 import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v1.customer.PhoneNumber;
 import com.clover.sdk.v1.customer.EmailAddress;
@@ -26,4 +27,8 @@ interface ICustomerService {
     void setAddress(in String customerId, in String addressId, in String address1, in String address2, in String address3, in String city, in String state, in String zip, out ResultStatus resultStatus);
     void deleteAddress(in String customerId, in String addressId, out ResultStatus resultStatus);
     void deleteCustomer(in String customerId, out ResultStatus resultStatus);
+
+    Card addCard(in String customerId, in Card card, out ResultStatus resultStatus);
+    void setCard(in String customerId, in String cardId, in Card card, out ResultStatus resultStatus);
+    void deleteCard(in String customerId, in String cardId, out ResultStatus resultStatus);
 }
