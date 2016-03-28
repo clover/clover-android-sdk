@@ -52,14 +52,14 @@ Ex: <https://www.clover.com/developers/dev-apks>
 Targeting an Emulator or Tablet to a new environment
 -----------------------
 
-Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).
+Currently, some of the dev-apks do not target the environment corresponding to the `baseURL` they were downloaded from (such as with Sandbox).
 
-Please run the following script: [target_new_environment](scripts/target_new_environment)
+In those cases, please run the following script: [target_new_environment](scripts/target_new_environment)
 
 ```
 $ pwd
 /Users/mmaietta/Desktop/clover-android-sdk/scripts
-$  target_new_environment
+$ target_new_environment
 
 This script is meant to re-target a non-Clover device's environment.
 
