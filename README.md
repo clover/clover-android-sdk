@@ -42,6 +42,49 @@ $ gradle clean assemble doc-clean doc
 Latest Apps for Testing
 =======================
 
-If you are testing on your own tablet then you will need the latest apps. Please run the kickstart.py script to get the minimum apps. All apps can be downloaded at:
+If you are testing on your own emulator or tablet then you will need the latest apps. All apps can be downloaded at:
 
-<https://www.clover.com/docs/dev-apks>
+```
+{baseURL}/developers/dev-apks
+```
+Ex: <https://www.clover.com/developers/dev-apks>
+
+Targeting an Emulator or Tablet to a new environment
+-----------------------
+
+Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).
+
+Please run the following script: [target_new_environment](scripts/target_new_environment)
+
+```
+$ pwd
+/Users/mmaietta/Desktop/clover-android-sdk/scripts
+$  target_new_environment
+
+This script is meant to re-target a non-Clover device's environment.
+
+Do not attempt to run this on a Clover device.
+
+Please select a connected device
+1) 192.168.57.101:5555
+2) C021UQ53170436
+3) C010UC43010546
+4) C021UQ50430029
+#? 1
+
+Selected device:
+
+192.168.57.101:5555
+
+Please select your desired target environment:
+1) Prod-US
+2) Prod-EU
+3) Sandbox
+4) Localhost
+#? 3
+
+Updating target to https://apisandbox.dev.clover.com/
+
+You will need to 'Add Account' via Settings to set up your device
+Success
+```
