@@ -1,0 +1,79 @@
+#!/bin/bash -e
+#author: mike.maietta
+
+function pp {
+	printf "\n%s\n" "$@"
+}
+
+pp "This script is meant to re-target a non-Clover device's environment." "Do not attempt to run this on a Clover device."
+
+URL=""
+TARGET=""
+DEVICE=""
+DATABASE="/data/data/com.android.providers.settings/databases/settings.db"
+
+DEVICES=(`adb devices | tail -n +2 | perl -nle 'print $& if m{.+(?=\Wdevice)}'`)
+DEVICE_COUNT=${#DEVICES[@]}
+if [ $DEVICE_COUNT -eq 0 ]; then
+	echo "No Android devices detected"
+	exit
+fi
+
+if [ $DEVICE_COUNT -eq 1 ]; then
+	DEVICE=${DEVICES[0]}
+else
+	pp "Please select a connected device"
+	for (( i = 1; i <= $DEVICE_COUNT; i++ )); do
+		echo "$i) ${DEVICES[ $((i - 1)) ]}"
+	done
+	echo -n "#? "
+	read INPUT
+	if [ $INPUT -gt $DEVICE_COUNT ] & [ $INPUT -lt 1 ]; then
+		pp "Invalid input"
+		exit
+	fi
+	DEVICE="${DEVICES[ $((INPUT - 1)) ]}"
+fi
+pp "Selected device:" "${DEVICES}"
+
+pp "Please select your desired target environment:"
+select environment in "Prod-US" "Prod-EU" "Sandbox" "Localhost"; do
+	case $environment in
+		Prod-US )
+			URL="https://api.clover.com/"
+			TARGET="prod"
+			break;;
+		Prod-EU )
+			URL="https://api.eu.clover.com/"
+			TARGET="prod-eu"
+			break;;
+		Sandbox )
+			URL="https://apisandbox.dev.clover.com/"
+			TARGET="dev"
+			break;;
+		Localhost )
+			MYIP=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p' | head -n1)
+			URL="http://$MYIP"
+			TARGET="local"
+			break;;
+	esac
+done
+
+pp "Updating target to ${URL}"
+
+COMMAND=`adb -s "$DEVICE" shell "
+sqlite3 -header -line ${DATABASE} \
+\"delete from secure where name = 'clover_cloud_url';
+delete from secure where name = 'clover_target';
+insert into secure (name, value) values ('clover_cloud_url','${URL}');
+insert into secure (name, value) values ('clover_target','${TARGET}');\""`
+
+# COMMAND_RESULT=`echo "$COMMAND" | tail -1`
+
+if echo "$COMMAND" | grep "/system/bin/sh: sqlite3: not found"; then
+	pp "Unable to update device target.  sqlite3 is not accessible on the device."
+else
+	pp "You will need to 'Add Account' via Settings to set up your device"
+	adb -s "$DEVICE" shell pm clear com.clover.engine
+fi
+
