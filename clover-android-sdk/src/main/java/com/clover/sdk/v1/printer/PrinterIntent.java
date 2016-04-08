@@ -55,4 +55,9 @@ public class PrinterIntent {
    * A {@link com.clover.sdk.v1.printer.Printer}.
    */
   public static final String EXTRA_PRINTER = "clover.intent.extra.PRINTER";
+  /**
+   * A {@link java.lang.Boolean}, whether to open the cash drawer on the first configured printer, if multiple
+   * receipt printers are configured.
+   */
+  public static final String EXTRA_OPEN_ANY = "clover.intent.extra.OPEN_ANY";
 }

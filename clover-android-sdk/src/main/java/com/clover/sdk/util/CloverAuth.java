@@ -35,31 +35,44 @@ public class CloverAuth {
    * Authenticates with the Clover service.  This method makes a network call to the
    * Clover service.  It should be run on a background thread.
    *
-   * @param activity the activity that initiated the authentication
-   * @param account  the account used for authentication
+   * @param activity           the activity that initiated the authentication
+   * @param account            the account used for authentication
+   * @param forceValidateToken flag for if token should be validated against API.  Increases response latency, use only when necessary.
    */
-  public static AuthResult authenticate(Activity activity, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
-      Log.d(TAG, "Authenticating " + account);
-      AccountManager accountManager = AccountManager.get(activity);
-      AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, "com.clover.account.token.app", null, activity, null, null);
-      Bundle result = future.getResult();
-      Log.v(TAG, "Bundle result returned from account manager: ");
-      for (String key : result.keySet()) {
-        Log.v(TAG, key + " => " + result.get(key));
-      }
-      return new AuthResult(result);
-  }
-
-  public static AuthResult authenticate(Context context, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
+  public static AuthResult authenticate(Activity activity, Account account, boolean forceValidateToken) throws OperationCanceledException, AuthenticatorException, IOException {
     Log.d(TAG, "Authenticating " + account);
-    AccountManager accountManager = AccountManager.get(context);
-    AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, "com.clover.account.token.app", false, null, null);
+    final Bundle options = new Bundle();
+    options.putBoolean(CloverAccount.KEY_FORCE_VALIDATE, forceValidateToken);
+    AccountManager accountManager = AccountManager.get(activity);
+    AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, CloverAccount.CLOVER_AUTHTOKEN_TYPE, options, activity, null, null);
     Bundle result = future.getResult();
     Log.v(TAG, "Bundle result returned from account manager: ");
     for (String key : result.keySet()) {
       Log.v(TAG, key + " => " + result.get(key));
     }
     return new AuthResult(result);
+  }
+
+  public static AuthResult authenticate(Context context, Account account, boolean forceValidateToken) throws OperationCanceledException, AuthenticatorException, IOException {
+    Log.d(TAG, "Authenticating " + account);
+    final Bundle options = new Bundle();
+    options.putBoolean(CloverAccount.KEY_FORCE_VALIDATE, forceValidateToken);
+    AccountManager accountManager = AccountManager.get(context);
+    AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, CloverAccount.CLOVER_AUTHTOKEN_TYPE, options, false, null, null);
+    Bundle result = future.getResult();
+    Log.v(TAG, "Bundle result returned from account manager: ");
+    for (String key : result.keySet()) {
+      Log.v(TAG, key + " => " + result.get(key));
+    }
+    return new AuthResult(result);
+  }
+
+  public static AuthResult authenticate(Activity activity, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
+    return authenticate(activity, account, false);
+  }
+
+  public static AuthResult authenticate(Context context, Account account) throws OperationCanceledException, AuthenticatorException, IOException {
+    return authenticate(context, account, false);
   }
 
   /**

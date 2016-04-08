@@ -19,9 +19,11 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import com.clover.sdk.JSONifiable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class Printer implements Parcelable {
-
+public class Printer implements Parcelable, JSONifiable {
   public static class Builder {
     private String uuid = null;
     private Type type = null;
@@ -261,7 +263,7 @@ public class Printer implements Parcelable {
     out.writeParcelable(category, 0);
   }
 
-  public static final Creator<Printer> CREATOR = new Creator<Printer>() {
+  public static final Parcelable.Creator<Printer> CREATOR = new Parcelable.Creator<Printer>() {
     public Printer createFromParcel(Parcel in) {
       return new Printer(in);
     }
@@ -270,4 +272,40 @@ public class Printer implements Parcelable {
       return new Printer[size];
     }
   };
+
+  public static final JSONifiable.Creator<Printer> JSON_CREATOR = new JSONifiable.Creator<Printer>() {
+    @Override
+    public Printer create(JSONObject obj) {
+      try {
+        String uuid = obj.getString("uuid");
+        Type type = Type.valueOf(obj.getString("type"));
+        String name = obj.getString("name");
+        String ip = obj.has("ip") ? obj.getString("ip") : null;
+        String mac = obj.has("mac") ? obj.getString("mac") : null;
+        Category cat = Category.valueOf(obj.getString("category"));
+
+        return new Printer(uuid, type, name, mac, ip, cat);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      return null;
+    }
+  };
+
+  @Override
+  public JSONObject getJSONObject() {
+    try {
+      JSONObject obj = new JSONObject();
+      obj.put("uuid", uuid);
+      obj.put("type", type.name());
+      obj.put("name", name);
+      obj.put("ip", ip);
+      obj.put("mac", mac);
+      obj.put("category", category.name());
+      return obj;
+    } catch (JSONException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

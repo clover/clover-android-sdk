@@ -108,4 +108,8 @@ interface IOrderService {
   Discount addDiscount2(String orderId, in Discount discount, out ResultStatus status);
 
   Discount addLineItemDiscount2(String orderId, String lineItemId, in Discount discount, out ResultStatus status);
+
+  Order addPayment2(String orderId, in Payment payment, in List<LineItem> lineItems, out ResultStatus status);
+
+  boolean fire2(String sourceOrderid, boolean requireAllItems, out ResultStatus status);
 }

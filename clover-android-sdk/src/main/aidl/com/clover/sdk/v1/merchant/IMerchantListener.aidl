@@ -22,6 +22,6 @@ import com.clover.sdk.v1.merchant.Merchant;
  * @see com.clover.sdk.v1.merchant.IMerchantService#removeListener(IMerchantListener,ResultStatus)
  * @see com.clover.sdk.v1.merchant.MerchantConnector
  */
-oneway interface IMerchantListener {
+interface IMerchantListener {
     void onMerchantChanged(in Merchant merchant);
 }

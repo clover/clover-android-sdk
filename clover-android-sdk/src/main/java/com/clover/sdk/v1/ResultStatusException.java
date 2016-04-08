@@ -15,6 +15,8 @@
  */
 package com.clover.sdk.v1;
 
+import android.text.TextUtils;
+
 /**
  * An exception that wraps a {@link com.clover.sdk.v1.ResultStatus}. Subclasses of this
  * class are thrown from service connector methods, wrapping the "out" parameter
@@ -24,7 +26,7 @@ public class ResultStatusException extends Exception {
   private ResultStatus resultStatus;
 
   public ResultStatusException(ResultStatus resultStatus) {
-    super(resultStatus.getStatusMessage());
+    super("status code: " + resultStatus.getStatusCode() + (!TextUtils.isEmpty(resultStatus.getStatusMessage()) ? " " + resultStatus.getStatusMessage() : ""));
     this.resultStatus = resultStatus;
   }
 

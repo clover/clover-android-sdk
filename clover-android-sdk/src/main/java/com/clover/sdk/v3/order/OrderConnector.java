@@ -439,11 +439,39 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
     });
   }
 
+  /**
+   * @deprecated Use {@link #addPayment2(String, Payment, List)}.
+   * If necessary, use other methods to open the cash drawer and log cash events.
+   */
   public Order addPayment(final String orderId, final Payment payment, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderService, Order>() {
       @Override
       public Order call(IOrderService service, ResultStatus status) throws RemoteException {
         return service.addPayment(orderId, payment, lineItems, status);
+      }
+    });  }
+
+  /**
+   * Add a payment to an order. The payment is only added to the local DB: the change is not persisted on the server.
+   * This method differs from {@link #addPayment(String, Payment, List)} in that it does not add cash events or
+   * open the cash drawer.
+   *
+   * @param orderId, the order ID.
+   * @param payment, the payment.
+   * @param lineItems, the line items that were paid by this payment.
+
+   * @return the updated order.
+   *
+   * @throws RemoteException
+   * @throws ClientException
+   * @throws ServiceException
+   * @throws BindingException
+   */
+  public Order addPayment2(final String orderId, final Payment payment, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Order>() {
+      @Override
+      public Order call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addPayment2(orderId, payment, lineItems, status);
       }
     });
   }
@@ -799,5 +827,14 @@ public class OrderConnector extends ServiceConnector<IOrderService> {
         mOnOrderChangedListener.remove(listenerWeakReference);
       }
     }
+  }
+
+  public boolean fire2(final String orderId, final boolean requireAllItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Boolean>() {
+      @Override
+      public Boolean call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.fire2(orderId, requireAllItems, status);
+      }
+    });
   }
 }

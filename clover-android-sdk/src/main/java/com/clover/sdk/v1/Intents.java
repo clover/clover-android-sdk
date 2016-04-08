@@ -18,7 +18,7 @@ package com.clover.sdk.v1;
 public class Intents {
 
   /**
-   * Launch Register app's point of sale activity
+   * Launch Register Point of Sale activity
    * <p>
    * Extras passed:
    * <ul>
@@ -34,7 +34,22 @@ public class Intents {
   public static final String ACTION_START_REGISTER = "com.clover.intent.action.START_REGISTER";
 
   /**
-   * Launch the Print Reciepts activity, to show receipt printing and sending options for an order
+   * Launch Register Select Item activity, allowing an employee to add or remove items from an order
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_ORDER_ID} - The UUID of the order to be modified (Required)</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   */
+  public static final String ACTION_ITEM_SELECT = "com.clover.intent.action.ITEM_SELECT";
+
+  /**
+   * Launch the Print Receipts activity, to show receipt printing and sending options for an order
    * <p>
    * Extras passed:
    * <ul>
@@ -64,7 +79,7 @@ public class Intents {
   public static final String ACTION_START_CUSTOMER_PROFILE = "com.clover.intent.action.START_CUSTOMER_PROFILE";
 
   /**
-   * Launch Pay activity with active order (Register payments)
+   * Launch Pay activity with active order (Register Payments)
    * <p>
    * Extras passed:
    * <ul>
@@ -239,6 +254,34 @@ public class Intents {
   public static final String ACTION_CLOSEOUT = "clover.intent.action.CLOSEOUT";
 
   /**
+   * Launch activity to closeout sales and refunds batch
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOSEOUT_ALLOW_OPEN_TABS} - a boolean flag indicating if a closeout can proceed if open tabs are found (defaults to false)</li>
+   * <li>{@link #EXTRA_CLOSEOUT_BATCHID} - the id of the batch to close (Optional - defaults to the current open batch )</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   *
+   */
+  public static final String ACTION_CLOSEOUT_BATCH = "clover.intent.action.CLOSEOUT_BATCH";
+
+  /**
+   * Broadcast from Clover, indicating a closeout has been scheduled
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOSEOUT_BATCH} the scheduled batch, only set when scheduled </li>
+   * <li>{@link #EXTRA_FAILURE_MESSAGE} a message indicating status when scheduling fails </li>
+   * </ul>
+   */
+  public static final String ACTION_CLOSEOUT_BATCH_SCHEDULED = "clover.intent.action.CLOSEOUT_BATCH_SCHEDULED";
+
+  /**
    * Launch Transactions detail activity
    * <p>
    * Extras passed (Must include one of the following: {@link #EXTRA_PAYMENT} or {@link #EXTRA_CREDIT} or {@link #EXTRA_REFUND}):
@@ -338,7 +381,7 @@ public class Intents {
   public static final String ACTION_REQUEST_ROLE = "com.clover.intent.action.REQUEST_ROLE";
 
   /**
-   * Launch the secure payment activity (Requires that your app has "clover.permission.ACTION_PAY" in it's AndroidManifest.xml file)
+   * Launch the secure payment activity (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
    * <p>
    * Extras passed:
    * <ul>
@@ -377,7 +420,7 @@ public class Intents {
   public static final String ACTION_SECURE_PAY = "clover.intent.action.START_SECURE_PAYMENT";
 
   /**
-   * Launch activity to securely capture card data on Mobile or Mini (Requires that your app has "clover.permission.ACTION_PAY" in it's AndroidManifest.xml file)
+   * Launch activity to securely capture card data on Mobile or Mini (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
    * <p>
    * Extras passed:
    * <ul>
@@ -514,6 +557,12 @@ public class Intents {
 
   /** {@link String}, the UUID of an Order object */
   public static final String EXTRA_CLOVER_ORDER_ID = "com.clover.intent.extra.ORDER_ID";
+
+  /** {@link boolean}, true indicates that a closeout can proceed if open tabs are found */
+  public static final String EXTRA_CLOSEOUT_ALLOW_OPEN_TABS = "clover.intent.extra.CLOSEOUT_ALLOW_OPEN_TABS";
+
+  /** {@link String}, the UUID of a Batch object */
+  public static final String EXTRA_CLOSEOUT_BATCHID = "clover.intent.extra.CLOSEOUT_BATCHID";
 
   /** {@link String}, the UUID of a LineItem object */
   public static final String EXTRA_CLOVER_LINE_ITEM_ID = "com.clover.intent.extra.LINE_ITEM_ID";
@@ -713,6 +762,12 @@ public class Intents {
   /** {@link Boolean}, card not present, used during manual card entry */
   public static final String EXTRA_CARD_NOT_PRESENT = "clover.intent.extra.CARD_NOT_PRESENT";
 
+  /** {@Link Boolean}, allow payments to be accepted offline */
+  public static final String EXTRA_ALLOW_OFFLINE_ACCEPTANCE = "clover.intent.extra.ALLOW_OFFLINE_ACCEPTANCE";
+
+  /** {@Link Boolean}, allow offline payments to be accepted without an approval prompt */
+  public static final String EXTRA_OFFLINE_NO_PROMPT = "clover.intent.extra.OFFLINE_NO_PROMPT";
+
   /** {@link String}, street address for use with AVS */
   public static final String EXTRA_AVS_STREET_ADDRESS = "clover.intent.extra.AVS_STREET_ADDRESS";
 
@@ -789,6 +844,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.payments.Payment}, v3 Payment object */
   public static final String EXTRA_PAYMENT = "clover.intent.extra.PAYMENT";
+
+  /** {@link com.clover.sdk.v3.payments.Batch}, v3 Batch object */
+  public static final String EXTRA_CLOSEOUT_BATCH = "clover.intent.extra.BATCH";
 
   /** {@link java.util.ArrayList} of {@link com.clover.sdk.v3.payments.Payment} objects */
   public static final String EXTRA_PAYMENTS = "clover.intent.extra.PAYMENTS";
@@ -875,7 +933,7 @@ public class Intents {
   public static final String ACTION_ACTIVE_REGISTER_ORDER = "clover.intent.action.ACTIVE_REGISTER_ORDER";
 
   /**
-   * Broadcast from Clover, indicating the active order in the Register Pay Activity
+   * Broadcast from Clover, indicating the active order in the Register Pay activity
    * <p>
    * Extras passed:
    * <ul>
@@ -975,4 +1033,5 @@ public class Intents {
 
   /** {@link int}, A drawable resource ID, the image to be displayed on the merchant-facing tender button*/
   public static final String META_MERCHANT_TENDER_IMAGE = "clover.intent.meta.MERCHANT_TENDER_IMAGE";
+
 }

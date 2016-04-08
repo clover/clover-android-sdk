@@ -15,11 +15,16 @@
  */
 package com.clover.sdk.v1.printer.job;
 
+import android.accounts.Account;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.util.Pair;
+import com.clover.sdk.internal.util.BitmapUtils;
 import com.clover.sdk.v1.printer.Category;
 
 import java.io.File;
@@ -31,12 +36,21 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
   private static final int WIDTH_MAX = 600;
 
   private static final String TAG = "ImagePrintJob";
+  public static final int MAX_RECEIPT_WIDTH = 576;
+
+  private static BitmapUtils mBitmapUtils = new BitmapUtils();
 
   public static class Builder extends PrintJob.Builder {
     protected Bitmap bitmap;
+    protected String urlString;
 
     public Builder bitmap(Bitmap bitmap) {
       this.bitmap = bitmap;
+      return this;
+    }
+
+    public Builder urlString(String urlString) {
+      this.urlString = urlString;
       return this;
     }
 
@@ -64,6 +78,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
 
   // FIXME: This is not a safe way to transfer file data, we should be using ContentProvider file methods instead
   public final File imageFile;
+  protected String urlString;
   private static final String BUNDLE_KEY_IMAGE_FILE = "i";
 
   @Deprecated
@@ -73,12 +88,22 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
 
   protected ImagePrintJob(Builder builder) {
     super(builder);
+    this.urlString = builder.urlString;
+
     File f = null;
-    try {
-      f = writeImageFile(builder.bitmap);
-      builder.bitmap.recycle();
-    } catch (IOException e) {
-      Log.e(TAG, "unable to write image file", e);
+    if(builder.bitmap != null) {
+      try {
+        f = writeImageFile(builder.bitmap);
+        builder.bitmap.recycle();
+      } catch (IOException e) {
+        Log.e(TAG, "unable to write image file", e);
+      }
+    } else {
+      try {
+        f = generateImageFileObject();
+      } catch (IOException e) {
+        Log.e(TAG, "unable to create image file", e);
+      }
     }
     imageFile = f;
   }
@@ -86,6 +111,36 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
   @Override
   public Category getPrinterCategory() {
     return Category.RECEIPT;
+  }
+
+  public void print(Context context, Account account) {
+    Pair<Context, Account> params = new Pair<>(context,account);
+    if(this.urlString != null){
+      new AsyncTask<Pair<Context, Account>, Void, Pair<Context, Account>>() {
+        @Override
+        protected Pair<Context, Account> doInBackground(Pair<Context, Account>... params) {
+          try {
+            Bitmap bitmap = mBitmapUtils.decodeSampledBitmapFromURL(urlString, MAX_RECEIPT_WIDTH);
+            writeImageFile(imageFile, bitmap);
+            return params[0];
+          } catch(Exception excep) {
+            Log.e(TAG, "Error writing image to disk from url - " + urlString, excep);
+          }
+          return null;
+        }
+        @Override
+        protected void onPostExecute(Pair<Context, Account> pair) {
+          if(pair != null) {
+            ImagePrintJob.super.print(pair.first, pair.second, null);
+          } else {
+            Log.e(TAG, "Print job aborted, error writing image to disk.");
+          }
+        }
+      }.execute(params);
+
+    } else {
+      super.print(context, account, null);
+    }
   }
 
   public static final Parcelable.Creator<ImagePrintJob> CREATOR
@@ -116,18 +171,26 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
     dest.writeBundle(bundle);
   }
 
+  private static File generateImageFileObject() throws IOException {
+    File dir = new File("/sdcard", "clover" + File.separator + "image-print");
+    if (!dir.exists()) {
+      dir.mkdirs();
+    }
+    File imageFile = File.createTempFile("image-", ".png", dir);
+    return imageFile;
+  }
+
   private static File writeImageFile(Bitmap bitmap) throws IOException {
+    File imageFile = generateImageFileObject();
+    writeImageFile(imageFile, bitmap);
+    return imageFile;
+  }
+
+  private static void writeImageFile(File imageFile, Bitmap bitmap) throws IOException {
     OutputStream os = null;
     try {
-      //File dir = new File(Environment.getExternalStorageDirectory(), "clover" + File.separator + "image-print");
-      File dir = new File("/sdcard", "clover" + File.separator + "image-print");
-      if (!dir.exists()) {
-        dir.mkdirs();
-      }
-      File imageFile = File.createTempFile("image-", ".png", dir);
       os = new FileOutputStream(imageFile);
       bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
-      return imageFile;
     } finally {
       if (os != null) {
         try {

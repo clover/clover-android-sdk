@@ -2,7 +2,7 @@ package com.clover.sdk.v3.order;
 
 import com.clover.sdk.v3.order.Order;
 
-oneway interface IOnOrderUpdateListener2 {
+interface IOnOrderUpdateListener2 {
   void onOrderUpdated(String orderId, boolean selfChange);
   void onOrderCreated(String orderId);
   void onOrderDeleted(String orderId);

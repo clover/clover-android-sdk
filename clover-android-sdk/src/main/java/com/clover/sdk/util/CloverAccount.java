@@ -36,6 +36,7 @@ public class CloverAccount {
   public static final String KEY_BASE_URL = "base_url";
   public static final String KEY_MERCHANT_ID = "merchant_id";
   public static final String KEY_APP_ID = "app_id";
+  public static final String KEY_FORCE_VALIDATE = "force_validate";
 
   private CloverAccount() {
   }
