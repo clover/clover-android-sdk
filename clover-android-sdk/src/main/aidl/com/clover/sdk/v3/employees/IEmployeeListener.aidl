@@ -22,6 +22,6 @@ import com.clover.sdk.v3.employees.Employee;
  * @see com.clover.sdk.v1.employee.IEmployeeService#removeListener(IEmployeeListener,ResultStatus)
  * @see com.clover.sdk.v1.employee.EmployeeConnector
  */
-oneway interface IEmployeeListener {
+interface IEmployeeListener {
     void onActiveEmployeeChanged(in Employee employee);
 }

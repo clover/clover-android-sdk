@@ -44,6 +44,7 @@ public class Merchant implements Parcelable {
   private static final String KEY_ACCOUNT = "account";
   private static final String KEY_DEVICE_ID = "deviceId";
   private static final String KEY_PHONE_NUMBER = "phoneNumber";
+  private static final String KEY_WEBSITE = "website";
   private static final String KEY_MERCHANT_GATEWAY = "merchantGateway";
   private static final String KEY_MID = "mid";
   private static final String KEY_IS_VAT = "isVat";
@@ -128,6 +129,13 @@ public class Merchant implements Parcelable {
    */
   public String getPhoneNumber() {
     return data.getString(KEY_PHONE_NUMBER, null);
+  }
+
+  /**
+   * Get the merchant website.
+   */
+  public String getWebsite() {
+    return data.getString(KEY_WEBSITE, null);
   }
 
   /**

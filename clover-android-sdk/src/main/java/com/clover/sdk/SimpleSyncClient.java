@@ -22,8 +22,10 @@ import android.os.Bundle;
 public abstract class SimpleSyncClient {
   public static final String METHOD_GET = "get";
   public static final String METHOD_PUT = "put";
+  public static final String METHOD_UPDATE = "update";
 
   public static final String EXTRA_DATA = "data";
+  public static final String EXTRA_ITEM_ID = "itemId";
 
   protected final Context context;
 
@@ -36,7 +38,26 @@ public abstract class SimpleSyncClient {
     if (result == null) {
       return null;
     }
-    return result.getByteArray("data");
+    return result.getByteArray(EXTRA_DATA);
+  }
+
+  protected void putData(byte[] data) {
+    Bundle extras = new Bundle();
+    extras.putByteArray(EXTRA_DATA, data);
+    context.getContentResolver().call(getAuthorityUri(), METHOD_PUT, null, null);
+  }
+
+  public void updateData(byte[] data) {
+    Bundle extras = new Bundle();
+    extras.putByteArray(EXTRA_DATA, data);
+    context.getContentResolver().call(getAuthorityUri(), METHOD_UPDATE, null, extras);
+  }
+
+  public void updateData(String itemId, byte[] data) {
+    Bundle extras = new Bundle();
+    extras.putByteArray(EXTRA_DATA, data);
+    extras.putString(EXTRA_ITEM_ID, itemId);
+    context.getContentResolver().call(getAuthorityUri(), METHOD_UPDATE, null, extras);
   }
 
   protected abstract String getAuthority();

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '133'
+version = '137'
 
 apply plugin: 'android'
 

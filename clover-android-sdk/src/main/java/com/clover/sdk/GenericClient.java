@@ -84,9 +84,9 @@ public final class GenericClient<D> {
   }
 
   private void populateCache(int index, ValueExtractorEnum<D> cacheKey) {
-    if (cache == null) {
-      synchronized(LOCK) {
-        if (cache == null) {
+    if (cache == null || cacheState == null) {
+      synchronized (LOCK) {
+        if (cache == null || cacheState == null) {
           int size = cacheKey.getDeclaringClass().getEnumConstants().length;
           cache = new Object[size];
           cacheState = new byte[size];

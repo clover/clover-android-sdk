@@ -8,7 +8,7 @@ import com.clover.sdk.v1.ResultStatus;
  * service is a bound AIDL service.
  */
 
- interface ITenderService {
+interface ITenderService {
     List<Tender> getTenders(out ResultStatus resultStatus);
     Tender checkAndCreateTender(String label, String labelKey, boolean enabled, boolean opensCashDrawer, out ResultStatus resultStatus);
 

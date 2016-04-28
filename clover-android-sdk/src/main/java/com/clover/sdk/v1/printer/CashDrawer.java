@@ -39,6 +39,19 @@ public class CashDrawer {
   }
 
   /**
+   * Open a cash drawer connected to a printer.
+   *
+   * @param context A context.
+   * @param account A Clover account.
+   * @param openAny If multiple receipt printers are configured and false, the system will prompt
+   *                the user to select the printer. If true, the system will open the cash drawer
+   *                on the first configured receipt printer.
+   */
+  public static void open(Context context, Account account, boolean openAny) {
+    open(context, account, null, openAny);
+  }
+
+  /**
    * Open a cash drawer connected to the designated printer.
    *
    * @param context A context.
@@ -46,9 +59,14 @@ public class CashDrawer {
    * @param printer The printer to which the cash drawer is connected.
    */
   public static void open(Context context, Account account, Printer printer) {
+    open(context, account, printer, false);
+  }
+
+  private static void open(Context context, Account account, Printer printer, boolean openAny) {
     Intent intent = new Intent(PrinterIntent.ACTION_OPEN_CASH_DRAWER_SERVICE);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
+    intent.putExtra(PrinterIntent.EXTRA_OPEN_ANY, openAny);
 
     context.startService(intent);
   }
