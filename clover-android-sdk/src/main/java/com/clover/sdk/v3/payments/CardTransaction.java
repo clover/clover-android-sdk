@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2015 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,14 +37,7 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
   /**
-   * The first four digits of the card number
-   */
-  public java.lang.String getFirst6() {
-    return genClient.cacheGet(CacheKey.first6);
-  }
-
-  /**
-   * The last four digits of the card number
+   * The last four digits of the credit card number
    */
   public java.lang.String getLast4() {
     return genClient.cacheGet(CacheKey.last4);
@@ -113,12 +106,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
       @Override
       public Object extractValue(CardTransaction instance) {
         return instance.genClient.extractEnum("entryType", com.clover.sdk.v3.payments.CardEntryType.class);
-      }
-    },
-    first6 {
-      @Override
-      public Object extractValue(CardTransaction instance) {
-        return instance.genClient.extractOther("first6", java.lang.String.class);
       }
     },
     last4 {
@@ -243,10 +230,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   @Override
   public void validate() {
 
-    genClient.validateLength(getFirst6(), 6);
-
-    genClient.validateLength(getLast4(), 4);
-
     genClient.validateLength(getAuthCode(), 255);
 
     genClient.validateLength(getReferenceId(), 32);
@@ -264,11 +247,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'entryType' field is set and is not null */
   public boolean isNotNullEntryType() {
     return genClient.cacheValueIsNotNull(CacheKey.entryType);
-  }
-
-  /** Checks whether the 'first6' field is set and is not null */
-  public boolean isNotNullFirst6() {
-    return genClient.cacheValueIsNotNull(CacheKey.first6);
   }
 
   /** Checks whether the 'last4' field is set and is not null */
@@ -345,11 +323,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.cacheHasKey(CacheKey.entryType);
   }
 
-  /** Checks whether the 'first6' field has been set, however the value could be null */
-  public boolean hasFirst6() {
-    return genClient.cacheHasKey(CacheKey.first6);
-  }
-
   /** Checks whether the 'last4' field has been set, however the value could be null */
   public boolean hasLast4() {
     return genClient.cacheHasKey(CacheKey.last4);
@@ -423,13 +396,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    */
   public CardTransaction setEntryType(com.clover.sdk.v3.payments.CardEntryType entryType) {
     return genClient.setOther(entryType, CacheKey.entryType);
-  }
-
-  /**
-   * Sets the field 'first6'.
-   */
-  public CardTransaction setFirst6(java.lang.String first6) {
-    return genClient.setOther(first6, CacheKey.first6);
   }
 
   /**
@@ -524,10 +490,6 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Clears the 'entryType' field, the 'has' method for this field will now return false */
   public void clearEntryType() {
     genClient.clear(CacheKey.entryType);
-  }
-  /** Clears the 'first6' field, the 'has' method for this field will now return false */
-  public void clearFirst6() {
-    genClient.clear(CacheKey.first6);
   }
   /** Clears the 'last4' field, the 'has' method for this field will now return false */
   public void clearLast4() {
@@ -664,11 +626,7 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
     public static final boolean ENTRYTYPE_IS_REQUIRED = false;
 
-    public static final boolean FIRST6_IS_REQUIRED = false;
-    public static final long FIRST6_MAX_LEN = 6;
-
     public static final boolean LAST4_IS_REQUIRED = false;
-    public static final long LAST4_MAX_LEN = 4;
 
     public static final boolean TYPE_IS_REQUIRED = false;
 
