@@ -49,7 +49,7 @@ If you are testing on your own emulator or tablet then you will need the latest 
 Ex: <https://www.clover.com/developers/dev-apks>  
 Ex: <https://sandbox.dev.clover.com/developers/dev-apks>
 
-If you are developing on sandbox please use the current version of the engine.  
+If you are developing on sandbox please use the current or greater version of the engine.  
 Current version: com.clover.engine-1821.apk  
 
 If you are using the list current engine version you do not need to do the following steps.
