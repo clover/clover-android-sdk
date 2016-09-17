@@ -63,7 +63,7 @@ Currently, some of the dev-apks are not pointing to the environment correspondin
 You will need to have installed adb to be able to use the script and it must also be in your path. 
 Reference: https://developer.android.com/studio/command-line/adb.html
 
-Please run the following shell script on your developer machine: [target_new_environment](scripts/target_new_environment)
+Please run the following bash script on your developer/host machine: [target_new_environment](scripts/target_new_environment)
 
 ```
 This script is meant to re-target a non-Clover device's environment.
