@@ -17,7 +17,6 @@ dependencies {
 clover-android-sdk-examples is an Android application project. To build and install from the command line,
 
 ```
-$ pwd
 .../clover-android-sdk/clover-android-sdk-examples
 $ gradle clean installDebug
 ```
@@ -52,7 +51,7 @@ Ex: <https://sandbox.dev.clover.com/developers/dev-apks>
 If you are developing on sandbox please use the current or greater version of the engine.  
 Current version: com.clover.engine-1821.apk  
 
-If you are using the list current engine version you do not need to do the following steps.
+If you are using the current or greater engine version you do not need to do the following steps.
 ======
 
 Targeting an Emulator or Tablet to a new environment
