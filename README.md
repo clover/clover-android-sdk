@@ -41,24 +41,30 @@ $ gradle clean assemble doc-clean doc
 
 Latest Apps for Testing
 =======================
-
 If you are testing on your own emulator or tablet then you will need the latest apps. All apps can be downloaded at:
 
 ```
 {baseURL}/developers/dev-apks
 ```
-Ex: <https://www.clover.com/developers/dev-apks>
+Ex: <https://www.clover.com/developers/dev-apks>  
+Ex: <https://sandbox.dev.clover.com/developers/dev-apks>
+
+If you are developing on sandbox please use the current version of the engine.  
+Current version: com.clover.engine-1821.apk  
+
+If you are using the list current engine version you do not need to do the following steps.
+======
 
 Targeting an Emulator or Tablet to a new environment
 -----------------------
 
 Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).
 
-Please run the following script: [target_new_environment](scripts/target_new_environment)
+Please run the following script on your developer machine: [target_new_environment](scripts/target_new_environment)
 
 ```
 $ pwd
-/Users/mmaietta/Desktop/clover-android-sdk/scripts
+../clover-android-sdk/scripts
 $  target_new_environment
 
 This script is meant to re-target a non-Clover device's environment.
