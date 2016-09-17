@@ -58,15 +58,14 @@ If you are using the list current engine version you do not need to do the follo
 Targeting an Emulator or Tablet to a new environment
 -----------------------
 
-Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).
+Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).  
 
-Please run the following script on your developer machine: [target_new_environment](scripts/target_new_environment)
+You will need to have installed adb to be able to use the script and it must also be in your path. 
+Reference: https://developer.android.com/studio/command-line/adb.html
+
+Please run the following shell script on your developer machine: [target_new_environment](scripts/target_new_environment)
 
 ```
-$ pwd
-../clover-android-sdk/scripts
-$  target_new_environment
-
 This script is meant to re-target a non-Clover device's environment.
 
 Do not attempt to run this on a Clover device.
