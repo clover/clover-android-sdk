@@ -9,9 +9,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Created by michaelhampton on 2/15/16.
- */
 public class BitmapUtils {
 
   public static final String TAG = "BitmapUtils";

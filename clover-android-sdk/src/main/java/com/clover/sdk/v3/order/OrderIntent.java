@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.clover.sdk.v1.Intents;
 
 public class OrderIntent {
   public static final String ACTION_ORDER_SERVICE_V3 = "com.clover.intent.action.ORDER_SERVICE_V3";
+  public static final String ACTION_ORDER_SERVICE_V3_1 = "com.clover.intent.action.ORDER_SERVICE_V3_1";
 
   public static Account getAccount(Intent intent) {
     return intent.getParcelableExtra(Intents.EXTRA_ACCOUNT);

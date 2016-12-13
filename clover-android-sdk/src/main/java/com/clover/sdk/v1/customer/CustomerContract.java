@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,20 +41,20 @@ public final class CustomerContract {
   public interface SummaryColumns {
     /**
      * UUID for this customer
-     * <p/>
+     * <p>
      * Type: TEXT
      */
 
     public static final String ID = "id";
 
     /**
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String LAST_NAME = "last_name";
 
     /**
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String FIRST_NAME = "first_name";
@@ -103,20 +103,20 @@ public final class CustomerContract {
   public interface DataColumns {
     /**
      * UUID for this customer
-     * <p/>
+     * <p>
      * Type: TEXT
      */
 
     public static final String ID = "id";
 
     /**
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String KEY = "key";
 
     /**
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String VALUE = "value";

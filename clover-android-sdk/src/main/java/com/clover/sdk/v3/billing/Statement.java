@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,17 @@ package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getYear year}</li>
+ * <li>{@link #getMonth month}</li>
+ * <li>{@link #getAmount amount}</li>
+ * <li>{@link #getTax tax}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class Statement implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -116,7 +127,6 @@ public final class Statement implements android.os.Parcelable, com.clover.sdk.v3
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -210,7 +220,6 @@ public final class Statement implements android.os.Parcelable, com.clover.sdk.v3
     genClient.clear(CacheKey.tax);
   }
 
-
   /**
    * Returns true if this instance has any changes.
    */
@@ -288,7 +297,6 @@ public final class Statement implements android.os.Parcelable, com.clover.sdk.v3
       return new Statement(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

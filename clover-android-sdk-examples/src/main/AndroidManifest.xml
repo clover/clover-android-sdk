@@ -111,27 +111,20 @@ tools:replace="android:label"
             android:label="@string/printjob_test" >
         </activity>
         <activity
-            android:name="com.clover.android.sdk.examples.PrintTestActivity"
-            android:label="@string/print_test" >
-        </activity>
-        <activity
-            android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
-            android:label="@string/receipt_registration_test" >
-        </activity>
-        <activity
             android:name="com.clover.android.sdk.examples.AuthenticateEmployeeTestActivity"
             android:label="@string/authenticate_employee" >
         </activity>
-
-        <provider
-            android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestProvider"
-            android:authorities="com.clover.android.sdk.examples.receipt"
-            android:exported="true" />
 
         <activity
             android:name="com.clover.android.sdk.examples.BarcodeScannerTestActivity"
             android:label="@string/title_activity_barcode_scanner_test" >
         </activity>
+
+        <activity
+            android:name=".OrderPaidActivity"
+            android:label="Order Paid Example" >
+        </activity>
+
     </application>
 
 </manifest>

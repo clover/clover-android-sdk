@@ -1,0 +1,49 @@
+<project name="ydoc.test" default="help" basedir="../..">
+
+    <!-- help: list important targets -->
+    <target name="help">
+        <echo>test-javadoc - builds sample docs using only javadoc</echo>
+        <echo>test-ydoc    - builds sample docs using yDoc</echo>
+    </target>
+
+    <target name="test-javadoc">
+        <javadoc
+            source="1.5"
+            destdir="doc/api"
+            author="true"
+            additionalparam="-breakiterator">
+            <packageset dir="doc">
+                <include name="examples/**"/>
+            </packageset>
+        </javadoc>
+    </target>
+
+    <target name="test-ydoc">
+        <property name="ps" value="${path.separator}"/>
+
+        <javadoc
+            source="1.5"
+            destdir="doc/api"
+            additionalparam="-breakiterator">
+            <packageset dir="doc">
+                <include name="examples/**"/>
+            </packageset>
+            <doclet
+                name="ydoc.doclets.YStandard"
+                path="./lib/ydoc.jar${ps}./resources${ps}./doc">
+                <param name="-author"/>
+                <param name="-generic"/>
+                <param name="-umlautogen"/>
+                <param name="-filterpath" value="./lib/ydoc.jar"/>
+                <param name="-filter"     value="ydoc.filters.ExcludeFilter"/>
+                <param name="-tag" value="y.precondition"/>
+                <param name="-tag" value="y.postcondition"/>
+                <param name="-tag" value="y.complexity"/>
+                <param name="-tag" value="param"/>
+                <param name="-tag" value="return"/>
+                <param name="-tag" value="see"/>
+                <param name="-tag" value="y.uml"/>
+            </doclet>
+        </javadoc>
+    </target>
+</project>

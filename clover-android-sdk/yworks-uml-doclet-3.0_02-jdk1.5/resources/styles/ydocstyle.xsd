@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.yworks.com/xml/ydocstyle"
+    xmlns="http://www.yworks.com/xml/ydocstyle"
+    elementFormDefault="qualified">
+
+    <xs:simpleType name="arrowType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="circle"/>
+            <xs:enumeration value="transparent_circle"/>
+            <xs:enumeration value="transparent_semi_circle"/>
+            <xs:enumeration value="white_circle"/>
+            
+            <xs:enumeration value="uml"/>
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="short"/>
+            <xs:enumeration value="standard"/>
+            
+            <xs:enumeration value="delta"/>
+            <xs:enumeration value="white_delta"/>
+            <xs:enumeration value="diamond"/>
+            <xs:enumeration value="white_diamond"/>
+        </xs:restriction>
+    </xs:simpleType>
+ 
+    <xs:simpleType name="colorType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="#[a-f0-9]{6}|#[a-f0-9]{8}|"/>
+        </xs:restriction>
+    </xs:simpleType>
+ 
+    <xs:simpleType name="fontType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value=".*-(bold|italic|bolditalic|plain)-[1-9]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+ 
+    <xs:simpleType name="lineType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(dashed|dotted|line)_[1-9]"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:attributeGroup name="edgeStyleAttributes">
+        <xs:attribute
+            name="source.arrow"
+            type="arrowType"
+            use="optional"/>
+        <xs:attribute
+            name="target.arrow"
+            type="arrowType"
+            use="optional"/>
+        
+        <xs:attribute
+            name="line.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="line.stroke" 
+            type="lineType"
+            use="optional"/>
+
+         <xs:attribute
+             name="bend.style"
+             use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="angled"/>
+                    <xs:enumeration value="smooth"/>
+                </xs:restriction>
+              </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="nodeStyleAttributes">
+        <xs:attribute
+            name="shadow.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="shadow.width" 
+            type="xs:byte"
+            use="optional"/>
+        <xs:attribute
+            name="shadow.height" 
+            type="xs:byte"
+            use="optional"/>
+        <xs:attribute
+            name="shadow.style"
+            use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="solid"/>
+                    <xs:enumeration value="soft"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute
+            name="line.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="line.stroke"
+            type="lineType"
+            use="optional"/>
+        
+        <xs:attribute name="header.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="header.gradient.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="header.style"
+            use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="iconified"/>
+                    <xs:enumeration value="span_section"/>
+                    <xs:enumeration value="left_tab"/>
+                    <xs:enumeration value="center_tab"/>
+                    <xs:enumeration value="right_tab"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute
+            name="icon.style"
+            use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="vectorgraphics"/>
+                    <xs:enumeration value="ascii"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute
+            name="separator.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="separator.style"
+            use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="dynamic"/>
+                    <xs:enumeration value="fixed"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute
+            name="shape"
+            use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="ellipse"/>
+                    <xs:enumeration value="oval"/>
+                    <xs:enumeration value="circle"/>
+                    <xs:enumeration value="rectangle"/>
+                    <xs:enumeration value="triangle"/>
+                    <xs:enumeration value="parallelogram"/>
+                    <xs:enumeration value="hexagon"/>
+                    <xs:enumeration value="diamond"/>
+                    <xs:enumeration value="octagon"/>
+                    <xs:enumeration value="roundrectangle"/>
+                    <xs:enumeration value="rectangle3d"/>
+                    <xs:enumeration value="trapezoid"/>
+                    <xs:enumeration value="trapezoid2"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute
+            name="section.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="section.gradient.color"
+            type="colorType"
+            use="optional"/>
+        
+        <xs:attribute
+            name="constraint.label.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="constraint.label.text"
+            type="xs:string"
+            use="optional"/>
+        <xs:attribute
+            name="constraint.label.text.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="name.label.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="name.label.text.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="stereotype.label.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="stereotype.label.text"
+            type="xs:string"
+            use="optional"/>
+        <xs:attribute
+            name="stereotype.label.text.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="type.label.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="type.label.text"
+            type="xs:string"
+            use="optional"/>
+        <xs:attribute
+            name="type.label.text.color"
+            type="colorType"
+            use="optional"/>
+
+        <xs:attribute
+            name="fields.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="fields.gradient.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="fields.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="fields.text.color"
+            type="colorType"
+            use="optional"/>
+        
+        <xs:attribute
+            name="constructors.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="constructors.gradient.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="constructors.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="constructors.text.color"
+            type="colorType"
+            use="optional"/>
+
+        <xs:attribute
+            name="methods.fill.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="methods.gradient.color"
+            type="colorType"
+            use="optional"/>
+        <xs:attribute
+            name="methods.font"
+            type="fontType"
+            use="optional"/>
+        <xs:attribute
+            name="methods.text.color"
+            type="colorType"
+            use="optional"/>
+    </xs:attributeGroup>
+ 
+
+    <xs:complexType name="nodeStyleType">
+        <xs:attribute
+            name="styleRef"
+            type="xs:string"
+            use="optional"/>
+        <xs:attributeGroup ref="nodeStyleAttributes"/>
+    </xs:complexType>
+
+    <xs:element name="StyleDefinition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice maxOccurs="unbounded">
+                    <xs:element name="EdgeStyle">
+                        <xs:complexType>
+                            <xs:attribute
+                                name="styleId"
+                                type="xs:string"
+                                use="required"/>
+                            <xs:attribute
+                                name="styleRef"
+                                type="xs:string"
+                                use="optional"/>
+                            <xs:attributeGroup ref="edgeStyleAttributes"/>
+                        </xs:complexType>
+                    </xs:element>
+                    
+                    <xs:element name="NodeStyle">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="nodeStyleType">
+                                    <xs:attribute
+                                        name="styleId"
+                                        type="xs:string"
+                                        use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>              
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

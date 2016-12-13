@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,11 +76,11 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Returns a single customer for the merchant bound to the service.
-   * <p/>
+   * <p>
    * This call will return immediately with the local version of the customer if one exists on the device,
    * it will then contact the server to check for an updated version. If a new version exists a
    * {@link com.clover.sdk.v1.customer.CustomerIntent#ACTION_CUSTOMER_UPDATE} broadcast will be sent.
-   * <p/>
+   * <p>
    * If no local version of the customer is available then the service will go directly to the server
    * to fetch the customer.
    *
@@ -97,7 +97,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Creates a new customer for the merchant bound to the service.
-   * <p/>
+   * <p>
    * This call will return immediately with the new customer.
    *
    * @param firstName        The first name of the customer, can be null.
@@ -148,7 +148,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Creates a new phone number and adds it to the specified customer
-   * <p/>
+   * <p>
    * This call will return immediately with the new phone number object..
    *
    * @param customerId  The id of the customer.
@@ -194,7 +194,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Creates a new email address and adds it to the specified customer
-   * <p/>
+   * <p>
    * This call will return immediately with the new email address object..
    *
    * @param customerId   The id of the customer.
@@ -240,7 +240,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Creates an address and adds it to the specified customer
-   * <p/>
+   * <p>
    * This call will return immediately with the new address object..
    *
    * @param customerId The id of the customer.
@@ -309,7 +309,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
 
   /**
    * Creates a new vaulted credit/debit card record and adds it to the specified customer
-   * <p/>
+   * <p>
    * This call will return immediately with the new Card object
    *
    * @param customerId   The id of the customer.

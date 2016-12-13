@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,12 @@ import com.clover.sdk.v1.Intents;
  * @see com.clover.sdk.v3.employees.IEmployeeService
  */
 public class EmployeeIntent {
+
   /**
    * Service action: bind to the employee service.
    */
   public static final String ACTION_EMPLOYEE_SERVICE_V3 = "com.clover.sdk.employee.intent.action.EMPLOYEE_SERVICE_V3";
+
   /**
    * Broadcast action: the active employee has changed. Intents received with this action will contain extra
    * {@link com.clover.sdk.v1.Intents#EXTRA_ACCOUNT}

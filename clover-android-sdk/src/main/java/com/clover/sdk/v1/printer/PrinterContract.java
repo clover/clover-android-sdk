@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ import android.provider.BaseColumns;
 
 /**
  * Contract defining printers for use in Clover applications.
- * <p/>
+ * <p>
  * The printers contract is composed of two tables and one view. The <code>Devices</code> table
  * lists all known printer devices. The <code>Categories</code> table maps a printer device
  * to a printing category, either receipt or order.
- * <p/>
+ * <p>
  * Conceptually, the
  * {@link com.clover.sdk.v1.printer.PrinterContract.Devices}
  * class represents the printers that are configured
@@ -34,7 +34,7 @@ import android.provider.BaseColumns;
  * class maps a printer
  * device to a printer category, and represents the printer devices that are configured
  * on this device.
- * <p/>
+ * <p>
  * The
  * {@link com.clover.sdk.v1.printer.PrinterContract.DeviceCategories}
  * class is a join of the

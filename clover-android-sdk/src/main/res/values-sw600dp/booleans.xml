@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <bool name="return_to_merchant_single_line">true</bool>
+  <bool name="return_to_merchant_all_caps">true</bool>
+</resources>

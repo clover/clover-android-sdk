@@ -10,8 +10,8 @@ import com.clover.sdk.v1.ResultStatus;
  * <pre>
  * <code>
  * Intent serviceIntent = new Intent(EmployeeIntent.ACTION_EMPLOYEE_SERVICE);
- * serviceIntent.putExtra(EmployeeIntent.EXTRA_ACCOUNT, CloverAccount.getAccount(context));
- * serviceIntent.putExtra(EmployeeIntent.EXTRA_VERSION, 1);
+ * serviceIntent.putExtra(Intents.EXTRA_ACCOUNT, CloverAccount.getAccount(context));
+ * serviceIntent.putExtra(Intents.EXTRA_VERSION, 1);
  * context.bindService(serviceIntent);
  * </code>
  * </pre>
@@ -22,14 +22,15 @@ import com.clover.sdk.v1.ResultStatus;
  * </a>.
  * <br/><br/>
  * You may also interact with the employee service through the
- * {@link com.clover.sdk.v1.employee.EmployeeConnector} class, which handles binding and
+ * {@link com.clover.sdk.v3.employee.EmployeeConnector} class, which handles binding and
  * asynchronous invocation of service methods.
  *
- * @see com.clover.sdk.v1.employee.EmployeeIntent
+ * @see com.clover.sdk.v3.employee.EmployeeIntent
  * @see com.clover.sdk.util.CloverAccount
- * @see com.clover.sdk.v1.employee.EmployeeConnector
+ * @see com.clover.sdk.v3.employee.EmployeeConnector
  */
 interface IEmployeeService {
+
     Employee getActiveEmployee(out ResultStatus resultStatus);
 
     Employee getEmployee(String id, out ResultStatus resultStatus);
@@ -51,4 +52,5 @@ interface IEmployeeService {
     void addListener(IEmployeeListener listener, out ResultStatus resultStatus);
 
     void removeListener(IEmployeeListener listener, out ResultStatus resultStatus);
+
 }

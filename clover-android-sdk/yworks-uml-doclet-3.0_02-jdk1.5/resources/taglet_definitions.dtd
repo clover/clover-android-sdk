@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD for taglet definitions -->
+
+<!ELEMENT taglet-list (taglet+)>
+<!ELEMENT taglet (usage, headline)>
+<!ELEMENT usage EMPTY>
+<!ELEMENT headline (singular, plural*)>
+<!ELEMENT singular (#PCDATA)>
+<!ELEMENT plural (#PCDATA)>
+
+<!ATTLIST taglet
+          name              CDATA        #REQUIRED
+	  template          CDATA        #REQUIRED
+	  allowMultipleTags (true|false) #REQUIRED>
+<!ATTLIST usage
+          inField        (true|false) #REQUIRED
+  	  inConstructor  (true|false) #REQUIRED
+  	  inMethod       (true|false) #REQUIRED
+  	  inOverview     (true|false) #REQUIRED
+  	  inPackage      (true|false) #REQUIRED
+  	  inType         (true|false) #REQUIRED
+  	  isInlineTag    (true|false) #REQUIRED>

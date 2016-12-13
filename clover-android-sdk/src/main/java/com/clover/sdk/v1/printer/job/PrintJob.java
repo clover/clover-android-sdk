@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,16 +26,28 @@ import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.PrinterIntent;
 
+/**
+ * Base class for print jobs. Flags may be added to a PrintJob to alter the results. Subclasses may
+ * automatically add some flags. Some flags are incompatible.
+ */
 public abstract class PrintJob implements Parcelable {
 
   public static final int FLAG_NONE = 0;
+  /** Indicate this is a reprint on the print out */
   public static final int FLAG_REPRINT = 1 << 0;
+  /** Indicate this print out is a bill of sale, transaction such as payments will not print out */
   public static final int FLAG_BILL = 1 << 1;
+  @Deprecated
   public static final int FLAG_SALE = 1 << 2;
+  /** Indicate this print job is for a refund, additional refund information will be included on print out */
   public static final int FLAG_REFUND = 1 << 3;
+  /** Do not show customer signature line on print out even if normally required */
   public static final int FLAG_NO_SIGNATURE = 1 << 4;
+  /** Force customer signature line on print out even if normally not required */
   public static final int FLAG_FORCE_SIGNATURE = 1 << 5;
+  /** Print receipt for the customer with appropriate verbiage and without signature line */
   public static final int FLAG_CUSTOMER = 1 << 6;
+  /** Print receipt for the merchant with signature line if required*/
   public static final int FLAG_MERCHANT = 1 << 7;
 
   public abstract static class Builder {
@@ -49,17 +61,27 @@ public abstract class PrintJob implements Parcelable {
       return this;
     }
 
+    /**
+     * DEPRECATED: override all flags with given value.
+     */
     @Deprecated
     public Builder flags(int flags) {
       this.flags = flags;
       return this;
     }
 
+    /**
+     * Appends a flag to this PrintJob.
+     */
     public Builder flag(int flag) {
       this.flags |= flag;
       return this;
     }
 
+    /**
+     * Indicate that this job should be printed to any available printer in case the default is
+     * not available. Defaults to false.
+     */
     public Builder printToAny(boolean printToAny) {
       this.printToAny = printToAny;
       return this;
@@ -72,6 +94,11 @@ public abstract class PrintJob implements Parcelable {
   private static final String BUNDLE_KEY_PRINT_TO_ANY = "pta";
 
   public final int flags;
+
+  /**
+   * Indicate that this job should be printed to any available printer in case the default is
+   * not available. Defaults to false.
+   */
   public final boolean printToAny;
 
   @Deprecated
@@ -87,10 +114,16 @@ public abstract class PrintJob implements Parcelable {
 
   public abstract Category getPrinterCategory();
 
+  /**
+   * Send this PrintJob to the default printer.
+   */
   public void print(Context context, Account account) {
     print(context, account, null);
   }
 
+  /**
+   * Send this PrintJob to the specified printer.
+   */
   public void print(Context context, Account account, Printer printer) {
     Intent intent = new Intent(PrinterIntent.ACTION_PRINT_SERVICE);
     intent.putExtra(PrinterIntent.EXTRA_PRINTJOB, this);

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class ImagePrintJob extends PrintJob implements Parcelable {
+
   private static final int WIDTH_MAX = 600;
 
   private static final String TAG = "ImagePrintJob";

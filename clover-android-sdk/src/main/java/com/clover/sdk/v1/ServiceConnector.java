@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,17 +30,19 @@ import android.util.Log;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
- * a bound AIDL service.  Subclasses of this class implement methods that are specific to the
- * service that they're interacting with.<p/>
- * <p/>
- * Connection with the service happens implicitly.  However, the user of a {@code ServiceConnector}
- * <em>must</em> call {@link #disconnect} when he or she is done with the instance.  For example,
+ * a bound AIDL service. Subclasses of this class implement methods that are specific to the
+ * service that they're interacting with.
+ * <p>
+ * Connection with the service happens implicitly. However, the user of a {@code ServiceConnector}
+ * <em>must</em> call {@link #disconnect} when he or she is done with the instance. For example,
  * when using a {@code ServiceConnector} in an {@code Activity}, call {@link #disconnect()} from
  * {@code onPause()} or {@code onDestroy()}.
+ * <p>
  *
  * @param <S> The service interface that is being encapsulated.
  */
 public abstract class ServiceConnector<S extends IInterface> implements ServiceConnection {
+
   private static final String TAG = "ServiceConnector";
 
   private static final int SERVICE_CONNECTION_TIMEOUT = 3000;

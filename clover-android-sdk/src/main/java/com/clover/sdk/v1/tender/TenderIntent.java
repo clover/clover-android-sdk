@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +21,27 @@ import com.clover.sdk.v1.Intents;
 
 /**
  * Definition of actions and extras for communicating with
- * {@link com.clover.sdk.v1.merchant.ITenderService}.
+ * {@link com.clover.sdk.v1.tender.ITenderService}.
  *
- * @see com.clover.sdk.v1.merchant.ITenderService
+ * @see com.clover.sdk.v1.tender.ITenderService
  */
 public class TenderIntent {
-  private TenderIntent() {
 
+  private TenderIntent() {
   }
 
   /**
    * Service action: bind to the merchant service.
    */
   public static final String ACTION_TENDER_SERVICE = "com.clover.sdk.tender.intent.action.TENDER_SERVICE";
+
   /**
    * Broadcast action: the merchant has changed. Intents received with this action will contain extra
    * {@link com.clover.sdk.v1.Intents#EXTRA_ACCOUNT}
    * and {@link com.clover.sdk.v1.Intents#EXTRA_MERCHANT_ID}.
+   * @deprecated
    */
+  @Deprecated
   public static final String ACTION_MERCHANT_CHANGED = "com.clover.sdk.tender.intent.action.TENDER_CHANGED";
 
   /**

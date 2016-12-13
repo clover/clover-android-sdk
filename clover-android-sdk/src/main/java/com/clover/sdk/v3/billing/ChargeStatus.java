@@ -5,11 +5,30 @@
  */
 
 
+/*
+ * Copyright (C) 2016 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.clover.sdk.v3.billing;
 
 import android.os.Parcelable;
 import android.os.Parcel;
 
+/**
+ * This is an auto-generated Clover data enum.
+ */
 @SuppressWarnings("all")
 public enum ChargeStatus implements Parcelable {
   PENDING, IN_PROGRESS, ACH_REJECT, BILLED, CANCELED, REFUND_PENDING, REFUND_PENDING_IF_BILLED, REFUND_IN_PROGRESS, REFUNDED, REFUND_DOWNGRADE_PENDING, REFUND_DOWNGRADE_IN_PROGRESS, REFUND_DOWNGRADE_CANCELED, REFUNDED_DOWNGRADE, DISBURSED;

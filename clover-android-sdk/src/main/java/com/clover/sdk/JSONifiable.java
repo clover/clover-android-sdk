@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 package com.clover.sdk;
 
 /**
- * An interface to get a JSONObject.
+ * An interface to get a org.json.JSONObject.
  */
 public interface JSONifiable {
 
   public org.json.JSONObject getJSONObject();
 
   /**
-   * An interface for a factory that creates objects from JSONObject.
+   * An interface for a class with a factory method that creates an instance from a JSONObject.
    */
   public interface Creator<T> {
 

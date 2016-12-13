@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,126 +42,126 @@ public final class OrderContract {
   public interface SummaryColumns {
     /**
      * Order Id.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String ID = "id";
 
     /**
      * Timestamp when order was created, in a {@link System#currentTimeMillis()} time base.
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String CREATED = "created_time";
 
     /**
      * Timestamp when order was last modified, in a {@link System#currentTimeMillis()} time base.
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String LAST_MODIFIED = "last_modified";
 
     /**
      * Order total. Values are stored in cents ($1.99 is stored as 199).
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String TOTAL = "total";
 
     /**
      * Order amount paid. Values are stored in cents ($1.99 is stored as 199).
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String AMOUNT_PAID = "amount_paid";
 
     /**
      * Order amount refunded. Values are stored in cents ($1.99 is stored as 199).
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String AMOUNT_REFUNDED = "amount_refunded";
 
     /**
      * Order amount credited. Values are stored in cents ($1.99 is stored as 199).
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String AMOUNT_CREDITED = "amount_credited";
 
     /**
      * Order currency.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String CURRENCY = "currency";
 
     /**
      * Order customer id.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String CUSTOMER_ID = "customer_id";
 
     /**
      * Order customer name.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String CUSTOMER_NAME = "customer_name";
 
     /**
      * Order employee name.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String EMPLOYEE_NAME = "employee_name";
 
     /**
      * Order title (order number, order name etc).
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String TITLE = "title";
 
     /**
      * Order note.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String NOTE = "note";
 
     /**
      * Order deleted flag.
-     * <p/>
+     * <p>
      * Type: INTEGER
      */
     public static final String DELETED = "deleted";
 
     /**
      * Order state.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String STATE = "state";
 
     /**
      * Order payment state.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String PAYMENT_STATE = "payment_state";
 
     /**
      * Order payment types.
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String TENDERS = "tenders";
 
     /**
      * Order type (UUID).
-     * <p/>
+     * <p>
      * Type: TEXT
      */
     public static final String ORDER_TYPE = "order_type";

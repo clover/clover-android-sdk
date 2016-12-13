@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,71 +23,80 @@
 
 package com.clover.sdk.v3.report;
 
+import com.clover.sdk.GenericClient;
+
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getNum num}</li>
+ * <li>{@link #getAmount amount}</li>
+ * <li>{@link #getTipAmount tipAmount}</li>
+ * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public Long getNum() {
-    return cacheGet(CacheKey.num);
+  public java.lang.Long getNum() {
+    return genClient.cacheGet(CacheKey.num);
   }
-  public Long getAmount() {
-    return cacheGet(CacheKey.amount);
+
+  public java.lang.Long getAmount() {
+    return genClient.cacheGet(CacheKey.amount);
   }
-  public Long getTipAmount() {
-    return cacheGet(CacheKey.tipAmount);
+
+  public java.lang.Long getTipAmount() {
+    return genClient.cacheGet(CacheKey.tipAmount);
   }
-  public Long getTaxAmount() {
-    return cacheGet(CacheKey.taxAmount);
+
+  public java.lang.Long getTaxAmount() {
+    return genClient.cacheGet(CacheKey.taxAmount);
   }
-  public Long getServiceChargeAmount() {
-    return cacheGet(CacheKey.serviceChargeAmount);
+
+  public java.lang.Long getServiceChargeAmount() {
+    return genClient.cacheGet(CacheKey.serviceChargeAmount);
   }
 
 
-  private enum CacheKey {
+
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Summary> {
     num {
       @Override
       public Object extractValue(Summary instance) {
-        return instance.extractNum();
+        return instance.genClient.extractOther("num", java.lang.Long.class);
       }
     },
     amount {
       @Override
       public Object extractValue(Summary instance) {
-        return instance.extractAmount();
+        return instance.genClient.extractOther("amount", java.lang.Long.class);
       }
     },
     tipAmount {
       @Override
       public Object extractValue(Summary instance) {
-        return instance.extractTipAmount();
+        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
       }
     },
     taxAmount {
       @Override
       public Object extractValue(Summary instance) {
-        return instance.extractTaxAmount();
+        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
       }
     },
     serviceChargeAmount {
       @Override
       public Object extractValue(Summary instance) {
-        return instance.extractServiceChargeAmount();
+        return instance.genClient.extractOther("serviceChargeAmount", java.lang.Long.class);
       }
     },
     ;
-
-    public abstract Object extractValue(Summary instance);
   }
 
-  private org.json.JSONObject jsonObject = null;
-  private android.os.Bundle bundle = null;
-  private android.os.Bundle changeLog = null;
-  private Object[] cache = null;
-  private byte[] cacheState = null;
-
-  private static final byte STATE_NOT_CACHED = 0;
-  private static final byte STATE_CACHED_NO_VALUE = 1;
-  private static final byte STATE_CACHED_VALUE = 2;
+  private GenericClient<Summary> genClient = new GenericClient<Summary>(this);
 
   /**
    * Constructs a new empty instance.
@@ -99,7 +108,7 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    */
   public Summary(String json) throws IllegalArgumentException {
     try {
-      this.jsonObject = new org.json.JSONObject(json);
+      genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
       throw new IllegalArgumentException("invalid json", e);
     }
@@ -110,67 +119,15 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public Summary(org.json.JSONObject jsonObject) {
-    this.jsonObject = jsonObject;
+    genClient.setJsonObject(jsonObject);
   }
 
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Summary(Summary src) {
-    if (src.jsonObject != null) {
-      this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
-    }
-  }
-
-  private <T> T cacheGet(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return (T) cache[index];
-  }
-
-  private boolean cacheValueIsNotNull(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cache[index] != null;
-  }
-
-  private boolean cacheHasKey(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cacheState[index] == STATE_CACHED_VALUE;
-  }
-
-  private void cacheRemoveValue(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    cache[index] = null;
-    cacheState[index] = STATE_CACHED_NO_VALUE;
-  }
-
-  private void cacheMarkDirty(CacheKey key) {
-    if (cache != null) {
-      int index = key.ordinal();
-      cache[index] = null;
-      cacheState[index] = STATE_NOT_CACHED;
-    }
-  }
-
-  private void populateCache(int index) {
-    if (cache == null) {
-      int size = CacheKey.values().length;
-      cache = new Object[size];
-      cacheState = new byte[size];
-    }
-
-    if (cacheState[index] == STATE_NOT_CACHED) {
-      CacheKey key = CacheKey.values()[index];
-
-      if (getJSONObject().has(key.name())) {
-        cache[index] = key.extractValue(this);
-        cacheState[index] = STATE_CACHED_VALUE;
-      } else {
-        cacheState[index] = STATE_CACHED_NO_VALUE;
-      }
+    if (src.genClient.getJsonObject() != null) {
+      genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
   }
 
@@ -179,243 +136,134 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    if (jsonObject == null) {
-      jsonObject = new org.json.JSONObject();
-    }
-    return jsonObject;
+    return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
   }
 
-
-
-  private Long extractNum() {
-    return getJSONObject().isNull("num") ? null :
-      getJSONObject().optLong("num");
-  }
-
-
-  private Long extractAmount() {
-    return getJSONObject().isNull("amount") ? null :
-      getJSONObject().optLong("amount");
-  }
-
-
-  private Long extractTipAmount() {
-    return getJSONObject().isNull("tipAmount") ? null :
-      getJSONObject().optLong("tipAmount");
-  }
-
-
-  private Long extractTaxAmount() {
-    return getJSONObject().isNull("taxAmount") ? null :
-      getJSONObject().optLong("taxAmount");
-  }
-
-
-  private Long extractServiceChargeAmount() {
-    return getJSONObject().isNull("serviceChargeAmount") ? null :
-      getJSONObject().optLong("serviceChargeAmount");
-  }
-
-
   /** Checks whether the 'num' field is set and is not null */
   public boolean isNotNullNum() {
-    return cacheValueIsNotNull(CacheKey.num);
+    return genClient.cacheValueIsNotNull(CacheKey.num);
   }
 
   /** Checks whether the 'amount' field is set and is not null */
   public boolean isNotNullAmount() {
-    return cacheValueIsNotNull(CacheKey.amount);
+    return genClient.cacheValueIsNotNull(CacheKey.amount);
   }
 
   /** Checks whether the 'tipAmount' field is set and is not null */
   public boolean isNotNullTipAmount() {
-    return cacheValueIsNotNull(CacheKey.tipAmount);
+    return genClient.cacheValueIsNotNull(CacheKey.tipAmount);
   }
 
   /** Checks whether the 'taxAmount' field is set and is not null */
   public boolean isNotNullTaxAmount() {
-    return cacheValueIsNotNull(CacheKey.taxAmount);
+    return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
   /** Checks whether the 'serviceChargeAmount' field is set and is not null */
   public boolean isNotNullServiceChargeAmount() {
-    return cacheValueIsNotNull(CacheKey.serviceChargeAmount);
+    return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
   }
 
 
   /** Checks whether the 'num' field has been set, however the value could be null */
   public boolean hasNum() {
-    return cacheHasKey(CacheKey.num);
+    return genClient.cacheHasKey(CacheKey.num);
   }
 
   /** Checks whether the 'amount' field has been set, however the value could be null */
   public boolean hasAmount() {
-    return cacheHasKey(CacheKey.amount);
+    return genClient.cacheHasKey(CacheKey.amount);
   }
 
   /** Checks whether the 'tipAmount' field has been set, however the value could be null */
   public boolean hasTipAmount() {
-    return cacheHasKey(CacheKey.tipAmount);
+    return genClient.cacheHasKey(CacheKey.tipAmount);
   }
 
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
-    return cacheHasKey(CacheKey.taxAmount);
+    return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
   /** Checks whether the 'serviceChargeAmount' field has been set, however the value could be null */
   public boolean hasServiceChargeAmount() {
-    return cacheHasKey(CacheKey.serviceChargeAmount);
+    return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
   }
 
 
   /**
    * Sets the field 'num'.
    */
-  public Summary setNum(Long num) {
-    logChange("num");
-
-    try {
-      getJSONObject().put("num", num == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(num));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.num);
-    return this;
+  public Summary setNum(java.lang.Long num) {
+    return genClient.setOther(num, CacheKey.num);
   }
 
   /**
    * Sets the field 'amount'.
    */
-  public Summary setAmount(Long amount) {
-    logChange("amount");
-
-    try {
-      getJSONObject().put("amount", amount == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(amount));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.amount);
-    return this;
+  public Summary setAmount(java.lang.Long amount) {
+    return genClient.setOther(amount, CacheKey.amount);
   }
 
   /**
    * Sets the field 'tipAmount'.
    */
-  public Summary setTipAmount(Long tipAmount) {
-    logChange("tipAmount");
-
-    try {
-      getJSONObject().put("tipAmount", tipAmount == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(tipAmount));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.tipAmount);
-    return this;
+  public Summary setTipAmount(java.lang.Long tipAmount) {
+    return genClient.setOther(tipAmount, CacheKey.tipAmount);
   }
 
   /**
    * Sets the field 'taxAmount'.
    */
-  public Summary setTaxAmount(Long taxAmount) {
-    logChange("taxAmount");
-
-    try {
-      getJSONObject().put("taxAmount", taxAmount == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(taxAmount));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.taxAmount);
-    return this;
+  public Summary setTaxAmount(java.lang.Long taxAmount) {
+    return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
   /**
    * Sets the field 'serviceChargeAmount'.
    */
-  public Summary setServiceChargeAmount(Long serviceChargeAmount) {
-    logChange("serviceChargeAmount");
-
-    try {
-      getJSONObject().put("serviceChargeAmount", serviceChargeAmount == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(serviceChargeAmount));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.serviceChargeAmount);
-    return this;
+  public Summary setServiceChargeAmount(java.lang.Long serviceChargeAmount) {
+    return genClient.setOther(serviceChargeAmount, CacheKey.serviceChargeAmount);
   }
 
 
   /** Clears the 'num' field, the 'has' method for this field will now return false */
   public void clearNum() {
-    unlogChange("num");
-    getJSONObject().remove("num");
-    cacheRemoveValue(CacheKey.num);
+    genClient.clear(CacheKey.num);
   }
-
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
   public void clearAmount() {
-    unlogChange("amount");
-    getJSONObject().remove("amount");
-    cacheRemoveValue(CacheKey.amount);
+    genClient.clear(CacheKey.amount);
   }
-
   /** Clears the 'tipAmount' field, the 'has' method for this field will now return false */
   public void clearTipAmount() {
-    unlogChange("tipAmount");
-    getJSONObject().remove("tipAmount");
-    cacheRemoveValue(CacheKey.tipAmount);
+    genClient.clear(CacheKey.tipAmount);
   }
-
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
-    unlogChange("taxAmount");
-    getJSONObject().remove("taxAmount");
-    cacheRemoveValue(CacheKey.taxAmount);
+    genClient.clear(CacheKey.taxAmount);
   }
-
   /** Clears the 'serviceChargeAmount' field, the 'has' method for this field will now return false */
   public void clearServiceChargeAmount() {
-    unlogChange("serviceChargeAmount");
-    getJSONObject().remove("serviceChargeAmount");
-    cacheRemoveValue(CacheKey.serviceChargeAmount);
-  }
-
-
-  private void logChange(String field) {
-    if (changeLog == null) {
-      changeLog = new android.os.Bundle();
-    }
-    changeLog.putString(field, null);
-  }
-
-  private void unlogChange(String field) {
-    if (changeLog != null) {
-      changeLog.remove(field);
-    }
+    genClient.clear(CacheKey.serviceChargeAmount);
   }
 
   /**
    * Returns true if this instance has any changes.
    */
   public boolean containsChanges() {
-    return changeLog != null;
+    return genClient.containsChanges();
   }
 
   /**
    * Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.
    */
   public void resetChangeLog() {
-    changeLog = null;
+    genClient.resetChangeLog();
   }
 
   /**
@@ -432,50 +280,22 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    * Copy all the changed fields from the given source to this instance.
    */
   public void mergeChanges(Summary src) {
-    if (src.changeLog != null) {
-      try {
-        // Make a copy of the source so the destination fields are copies
-        org.json.JSONObject srcObj = new Summary(src).getJSONObject();
-        org.json.JSONObject dstObj = getJSONObject();
-        for (String field : src.changeLog.keySet()) {
-          dstObj.put(field, srcObj.get(field));
-          logChange(field);
-        }
-      } catch (org.json.JSONException e) {
-        throw new IllegalArgumentException(e);
-      }
+    if (src.genClient.getChangeLog() != null) {
+      genClient.mergeChanges(new Summary(src).getJSONObject(), src.genClient);
     }
   }
-
 
   /**
    * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
    * parcelled but not jsonified.
    */
   public android.os.Bundle getBundle() {
-    if (bundle == null) {
-      bundle = new android.os.Bundle();
-    }
-    return bundle;
+    return genClient.getBundle();
   }
 
   @Override
   public String toString() {
-    String json = getJSONObject().toString();
-
-    if (bundle != null) {
-      bundle.isEmpty(); // Triggers unparcel
-    }
-
-    if (changeLog != null) {
-      changeLog.isEmpty(); // Triggers unparcel
-    }
-
-    return "Summary{" +
-        "json='" + json + "'" +
-        ", bundle=" + bundle +
-        ", changeLog=" + changeLog +
-        '}';
+    return genClient.toString();
   }
 
   @Override
@@ -485,17 +305,15 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
 
   @Override
   public void writeToParcel(android.os.Parcel dest, int flags) {
-	  com.clover.sdk.v3.JsonParcelHelper.wrap(getJSONObject()).writeToParcel(dest, 0);
-    dest.writeBundle(bundle);
-    dest.writeBundle(changeLog);
+    genClient.writeToParcel(dest, flags);
   }
 
   public static final android.os.Parcelable.Creator<Summary> CREATOR = new android.os.Parcelable.Creator<Summary>() {
     @Override
     public Summary createFromParcel(android.os.Parcel in) {
       Summary instance = new Summary(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle(getClass().getClassLoader());
-      instance.changeLog = in.readBundle();
+      instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
+      instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
@@ -511,7 +329,6 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
       return new Summary(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

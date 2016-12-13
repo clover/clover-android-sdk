@@ -45,7 +45,7 @@ select environment in "Prod-US" "Prod-EU" "Sandbox" "Localhost"; do
 			break;;
 		Prod-EU )
 			URL="https://api.eu.clover.com/"
-			TARGET="prod_eu"
+			TARGET="prod-eu"
 			break;;
 		Sandbox )
 			URL="https://apisandbox.dev.clover.com/"

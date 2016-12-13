@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <dimen name="return_to_merchant_title_text_size">28sp</dimen>
+  <dimen name="return_to_merchant_instr_text_size">22sp</dimen>
+  <dimen name="return_to_merchant_title_margin_top">80dp</dimen>
+  <dimen name="return_to_merchant_title_margin_bottom">16dp</dimen>
+  <dimen name="return_to_merchant_icon_margin_left">0dp</dimen>
+
+</resources>

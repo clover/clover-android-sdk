@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import android.util.Log;
  * @see android.accounts.AccountManager
  */
 public class CloverAccount {
+
   private static final String TAG = CloverAccount.class.getSimpleName();
   /**
    * The account type string for Clover accounts.
@@ -42,11 +43,13 @@ public class CloverAccount {
   }
 
   /**
-   * Get the Clover account on the device. If there are multiple Clover accounts, only the
-   * first is returned.
+   * Get the Clover Account on the device. If there are multiple Clover accounts, only the
+   * first is returned. Requires your Android Manifest include
+   * <code>android.permission.GET_ACCOUNTS</code>. The Clover Account is needed by most Clover
+   * service connectors.
    *
-   * @param context the context
-   * @return the first Clover account on the device.
+   * @param context the context from your Android application or component
+   * @return the Clover account on the device, should never return null
    */
   public static Account getAccount(Context context) {
     Account[] accounts = getAccounts(context);
@@ -57,10 +60,12 @@ public class CloverAccount {
   }
 
   /**
-   * Get all Clover accounts on the device.
+   * @deprecated Use {@link #getAccount(Context)} instead.
    *
-   * @param context the context
+   * Very early versions of Clover software supported multiple Clover Accounts on a single device,
+   * but this is no longer the case, there is now always a single Clover Account on each device.
    */
+  @Deprecated
   public static Account[] getAccounts(Context context) {
     try {
       AccountManager mgr = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);

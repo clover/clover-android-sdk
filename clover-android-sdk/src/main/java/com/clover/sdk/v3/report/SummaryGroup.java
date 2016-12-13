@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,71 +23,80 @@
 
 package com.clover.sdk.v3.report;
 
+import com.clover.sdk.GenericClient;
+
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getSummaryObject summaryObject}</li>
+ * <li>{@link #getPaymentsSummary paymentsSummary}</li>
+ * <li>{@link #getRefundsSummary refundsSummary}</li>
+ * <li>{@link #getCreditsSummary creditsSummary}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public String getId() {
-    return cacheGet(CacheKey.id);
+  public java.lang.String getId() {
+    return genClient.cacheGet(CacheKey.id);
   }
+
   public com.clover.sdk.v3.base.Reference getSummaryObject() {
-    return cacheGet(CacheKey.summaryObject);
+    return genClient.cacheGet(CacheKey.summaryObject);
   }
-  public Summary getPaymentsSummary() {
-    return cacheGet(CacheKey.paymentsSummary);
+
+  public com.clover.sdk.v3.report.Summary getPaymentsSummary() {
+    return genClient.cacheGet(CacheKey.paymentsSummary);
   }
-  public Summary getRefundsSummary() {
-    return cacheGet(CacheKey.refundsSummary);
+
+  public com.clover.sdk.v3.report.Summary getRefundsSummary() {
+    return genClient.cacheGet(CacheKey.refundsSummary);
   }
-  public Summary getCreditsSummary() {
-    return cacheGet(CacheKey.creditsSummary);
+
+  public com.clover.sdk.v3.report.Summary getCreditsSummary() {
+    return genClient.cacheGet(CacheKey.creditsSummary);
   }
 
 
-  private enum CacheKey {
+
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<SummaryGroup> {
     id {
       @Override
       public Object extractValue(SummaryGroup instance) {
-        return instance.extractId();
+        return instance.genClient.extractOther("id", java.lang.String.class);
       }
     },
     summaryObject {
       @Override
       public Object extractValue(SummaryGroup instance) {
-        return instance.extractSummaryObject();
+        return instance.genClient.extractRecord("summaryObject", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
     paymentsSummary {
       @Override
       public Object extractValue(SummaryGroup instance) {
-        return instance.extractPaymentsSummary();
+        return instance.genClient.extractRecord("paymentsSummary", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
       }
     },
     refundsSummary {
       @Override
       public Object extractValue(SummaryGroup instance) {
-        return instance.extractRefundsSummary();
+        return instance.genClient.extractRecord("refundsSummary", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
       }
     },
     creditsSummary {
       @Override
       public Object extractValue(SummaryGroup instance) {
-        return instance.extractCreditsSummary();
+        return instance.genClient.extractRecord("creditsSummary", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
       }
     },
     ;
-
-    public abstract Object extractValue(SummaryGroup instance);
   }
 
-  private org.json.JSONObject jsonObject = null;
-  private android.os.Bundle bundle = null;
-  private android.os.Bundle changeLog = null;
-  private Object[] cache = null;
-  private byte[] cacheState = null;
-
-  private static final byte STATE_NOT_CACHED = 0;
-  private static final byte STATE_CACHED_NO_VALUE = 1;
-  private static final byte STATE_CACHED_VALUE = 2;
+  private GenericClient<SummaryGroup> genClient = new GenericClient<SummaryGroup>(this);
 
   /**
    * Constructs a new empty instance.
@@ -99,7 +108,7 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    */
   public SummaryGroup(String json) throws IllegalArgumentException {
     try {
-      this.jsonObject = new org.json.JSONObject(json);
+      genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
       throw new IllegalArgumentException("invalid json", e);
     }
@@ -110,67 +119,15 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    * reflected in this instance and vice-versa.
    */
   public SummaryGroup(org.json.JSONObject jsonObject) {
-    this.jsonObject = jsonObject;
+    genClient.setJsonObject(jsonObject);
   }
 
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public SummaryGroup(SummaryGroup src) {
-    if (src.jsonObject != null) {
-      this.jsonObject = com.clover.sdk.v3.JsonHelper.deepCopy(src.getJSONObject());
-    }
-  }
-
-  private <T> T cacheGet(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return (T) cache[index];
-  }
-
-  private boolean cacheValueIsNotNull(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cache[index] != null;
-  }
-
-  private boolean cacheHasKey(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    return cacheState[index] == STATE_CACHED_VALUE;
-  }
-
-  private void cacheRemoveValue(CacheKey key) {
-    int index = key.ordinal();
-    populateCache(index);
-    cache[index] = null;
-    cacheState[index] = STATE_CACHED_NO_VALUE;
-  }
-
-  private void cacheMarkDirty(CacheKey key) {
-    if (cache != null) {
-      int index = key.ordinal();
-      cache[index] = null;
-      cacheState[index] = STATE_NOT_CACHED;
-    }
-  }
-
-  private void populateCache(int index) {
-    if (cache == null) {
-      int size = CacheKey.values().length;
-      cache = new Object[size];
-      cacheState = new byte[size];
-    }
-
-    if (cacheState[index] == STATE_NOT_CACHED) {
-      CacheKey key = CacheKey.values()[index];
-
-      if (getJSONObject().has(key.name())) {
-        cache[index] = key.extractValue(this);
-        cacheState[index] = STATE_CACHED_VALUE;
-      } else {
-        cacheState[index] = STATE_CACHED_NO_VALUE;
-      }
+    if (src.genClient.getJsonObject() != null) {
+      genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
   }
 
@@ -179,127 +136,70 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    * reflected in this instance and vice-versa.
    */
   public org.json.JSONObject getJSONObject() {
-    if (jsonObject == null) {
-      jsonObject = new org.json.JSONObject();
-    }
-    return jsonObject;
+    return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
   }
 
-
-
-  private String extractId() {
-    return getJSONObject().isNull("id") ? null :
-      getJSONObject().optString("id");
-  }
-
-
-  private com.clover.sdk.v3.base.Reference extractSummaryObject() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("summaryObject");
-    if (jsonObj != null) {
-      return new com.clover.sdk.v3.base.Reference(getJSONObject().optJSONObject("summaryObject"));
-    }
-    return null;
-  }
-
-
-  private Summary extractPaymentsSummary() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("paymentsSummary");
-    if (jsonObj != null) {
-      return new Summary(getJSONObject().optJSONObject("paymentsSummary"));
-    }
-    return null;
-  }
-
-
-  private Summary extractRefundsSummary() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("refundsSummary");
-    if (jsonObj != null) {
-      return new Summary(getJSONObject().optJSONObject("refundsSummary"));
-    }
-    return null;
-  }
-
-
-  private Summary extractCreditsSummary() {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject("creditsSummary");
-    if (jsonObj != null) {
-      return new Summary(getJSONObject().optJSONObject("creditsSummary"));
-    }
-    return null;
-  }
-
-
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
-    return cacheValueIsNotNull(CacheKey.id);
+    return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
   /** Checks whether the 'summaryObject' field is set and is not null */
   public boolean isNotNullSummaryObject() {
-    return cacheValueIsNotNull(CacheKey.summaryObject);
+    return genClient.cacheValueIsNotNull(CacheKey.summaryObject);
   }
 
   /** Checks whether the 'paymentsSummary' field is set and is not null */
   public boolean isNotNullPaymentsSummary() {
-    return cacheValueIsNotNull(CacheKey.paymentsSummary);
+    return genClient.cacheValueIsNotNull(CacheKey.paymentsSummary);
   }
 
   /** Checks whether the 'refundsSummary' field is set and is not null */
   public boolean isNotNullRefundsSummary() {
-    return cacheValueIsNotNull(CacheKey.refundsSummary);
+    return genClient.cacheValueIsNotNull(CacheKey.refundsSummary);
   }
 
   /** Checks whether the 'creditsSummary' field is set and is not null */
   public boolean isNotNullCreditsSummary() {
-    return cacheValueIsNotNull(CacheKey.creditsSummary);
+    return genClient.cacheValueIsNotNull(CacheKey.creditsSummary);
   }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
-    return cacheHasKey(CacheKey.id);
+    return genClient.cacheHasKey(CacheKey.id);
   }
 
   /** Checks whether the 'summaryObject' field has been set, however the value could be null */
   public boolean hasSummaryObject() {
-    return cacheHasKey(CacheKey.summaryObject);
+    return genClient.cacheHasKey(CacheKey.summaryObject);
   }
 
   /** Checks whether the 'paymentsSummary' field has been set, however the value could be null */
   public boolean hasPaymentsSummary() {
-    return cacheHasKey(CacheKey.paymentsSummary);
+    return genClient.cacheHasKey(CacheKey.paymentsSummary);
   }
 
   /** Checks whether the 'refundsSummary' field has been set, however the value could be null */
   public boolean hasRefundsSummary() {
-    return cacheHasKey(CacheKey.refundsSummary);
+    return genClient.cacheHasKey(CacheKey.refundsSummary);
   }
 
   /** Checks whether the 'creditsSummary' field has been set, however the value could be null */
   public boolean hasCreditsSummary() {
-    return cacheHasKey(CacheKey.creditsSummary);
+    return genClient.cacheHasKey(CacheKey.creditsSummary);
   }
 
 
   /**
    * Sets the field 'id'.
    */
-  public SummaryGroup setId(String id) {
-    logChange("id");
-
-    try {
-      getJSONObject().put("id", id == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(id));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.id);
-    return this;
+  public SummaryGroup setId(java.lang.String id) {
+    return genClient.setOther(id, CacheKey.id);
   }
 
   /**
@@ -308,17 +208,7 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
   public SummaryGroup setSummaryObject(com.clover.sdk.v3.base.Reference summaryObject) {
-    logChange("summaryObject");
-
-    try {
-      getJSONObject().put("summaryObject",
-          summaryObject == null ? org.json.JSONObject.NULL : summaryObject.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.summaryObject);
-    return this;
+    return genClient.setRecord(summaryObject, CacheKey.summaryObject);
   }
 
   /**
@@ -326,18 +216,8 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public SummaryGroup setPaymentsSummary(Summary paymentsSummary) {
-    logChange("paymentsSummary");
-
-    try {
-      getJSONObject().put("paymentsSummary",
-          paymentsSummary == null ? org.json.JSONObject.NULL : paymentsSummary.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.paymentsSummary);
-    return this;
+  public SummaryGroup setPaymentsSummary(com.clover.sdk.v3.report.Summary paymentsSummary) {
+    return genClient.setRecord(paymentsSummary, CacheKey.paymentsSummary);
   }
 
   /**
@@ -345,18 +225,8 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public SummaryGroup setRefundsSummary(Summary refundsSummary) {
-    logChange("refundsSummary");
-
-    try {
-      getJSONObject().put("refundsSummary",
-          refundsSummary == null ? org.json.JSONObject.NULL : refundsSummary.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.refundsSummary);
-    return this;
+  public SummaryGroup setRefundsSummary(com.clover.sdk.v3.report.Summary refundsSummary) {
+    return genClient.setRecord(refundsSummary, CacheKey.refundsSummary);
   }
 
   /**
@@ -364,82 +234,44 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public SummaryGroup setCreditsSummary(Summary creditsSummary) {
-    logChange("creditsSummary");
-
-    try {
-      getJSONObject().put("creditsSummary",
-          creditsSummary == null ? org.json.JSONObject.NULL : creditsSummary.getJSONObject());
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException(e);
-    }
-
-    cacheMarkDirty(CacheKey.creditsSummary);
-    return this;
+  public SummaryGroup setCreditsSummary(com.clover.sdk.v3.report.Summary creditsSummary) {
+    return genClient.setRecord(creditsSummary, CacheKey.creditsSummary);
   }
 
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
-    unlogChange("id");
-    getJSONObject().remove("id");
-    cacheRemoveValue(CacheKey.id);
+    genClient.clear(CacheKey.id);
   }
-
   /** Clears the 'summaryObject' field, the 'has' method for this field will now return false */
   public void clearSummaryObject() {
-    unlogChange("summaryObject");
-    getJSONObject().remove("summaryObject");
-    cacheRemoveValue(CacheKey.summaryObject);
+    genClient.clear(CacheKey.summaryObject);
   }
-
   /** Clears the 'paymentsSummary' field, the 'has' method for this field will now return false */
   public void clearPaymentsSummary() {
-    unlogChange("paymentsSummary");
-    getJSONObject().remove("paymentsSummary");
-    cacheRemoveValue(CacheKey.paymentsSummary);
+    genClient.clear(CacheKey.paymentsSummary);
   }
-
   /** Clears the 'refundsSummary' field, the 'has' method for this field will now return false */
   public void clearRefundsSummary() {
-    unlogChange("refundsSummary");
-    getJSONObject().remove("refundsSummary");
-    cacheRemoveValue(CacheKey.refundsSummary);
+    genClient.clear(CacheKey.refundsSummary);
   }
-
   /** Clears the 'creditsSummary' field, the 'has' method for this field will now return false */
   public void clearCreditsSummary() {
-    unlogChange("creditsSummary");
-    getJSONObject().remove("creditsSummary");
-    cacheRemoveValue(CacheKey.creditsSummary);
-  }
-
-
-  private void logChange(String field) {
-    if (changeLog == null) {
-      changeLog = new android.os.Bundle();
-    }
-    changeLog.putString(field, null);
-  }
-
-  private void unlogChange(String field) {
-    if (changeLog != null) {
-      changeLog.remove(field);
-    }
+    genClient.clear(CacheKey.creditsSummary);
   }
 
   /**
    * Returns true if this instance has any changes.
    */
   public boolean containsChanges() {
-    return changeLog != null;
+    return genClient.containsChanges();
   }
 
   /**
    * Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.
    */
   public void resetChangeLog() {
-    changeLog = null;
+    genClient.resetChangeLog();
   }
 
   /**
@@ -456,50 +288,22 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
    * Copy all the changed fields from the given source to this instance.
    */
   public void mergeChanges(SummaryGroup src) {
-    if (src.changeLog != null) {
-      try {
-        // Make a copy of the source so the destination fields are copies
-        org.json.JSONObject srcObj = new SummaryGroup(src).getJSONObject();
-        org.json.JSONObject dstObj = getJSONObject();
-        for (String field : src.changeLog.keySet()) {
-          dstObj.put(field, srcObj.get(field));
-          logChange(field);
-        }
-      } catch (org.json.JSONException e) {
-        throw new IllegalArgumentException(e);
-      }
+    if (src.genClient.getChangeLog() != null) {
+      genClient.mergeChanges(new SummaryGroup(src).getJSONObject(), src.genClient);
     }
   }
-
 
   /**
    * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
    * parcelled but not jsonified.
    */
   public android.os.Bundle getBundle() {
-    if (bundle == null) {
-      bundle = new android.os.Bundle();
-    }
-    return bundle;
+    return genClient.getBundle();
   }
 
   @Override
   public String toString() {
-    String json = getJSONObject().toString();
-
-    if (bundle != null) {
-      bundle.isEmpty(); // Triggers unparcel
-    }
-
-    if (changeLog != null) {
-      changeLog.isEmpty(); // Triggers unparcel
-    }
-
-    return "SummaryGroup{" +
-        "json='" + json + "'" +
-        ", bundle=" + bundle +
-        ", changeLog=" + changeLog +
-        '}';
+    return genClient.toString();
   }
 
   @Override
@@ -509,17 +313,15 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
 
   @Override
   public void writeToParcel(android.os.Parcel dest, int flags) {
-	  com.clover.sdk.v3.JsonParcelHelper.wrap(getJSONObject()).writeToParcel(dest, 0);
-    dest.writeBundle(bundle);
-    dest.writeBundle(changeLog);
+    genClient.writeToParcel(dest, flags);
   }
 
   public static final android.os.Parcelable.Creator<SummaryGroup> CREATOR = new android.os.Parcelable.Creator<SummaryGroup>() {
     @Override
     public SummaryGroup createFromParcel(android.os.Parcel in) {
       SummaryGroup instance = new SummaryGroup(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
-      instance.bundle = in.readBundle(getClass().getClassLoader());
-      instance.changeLog = in.readBundle();
+      instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
+      instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
@@ -535,7 +337,6 @@ public final class SummaryGroup implements android.os.Parcelable, com.clover.sdk
       return new SummaryGroup(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

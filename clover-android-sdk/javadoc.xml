@@ -17,12 +17,13 @@
 <project name="clover-android-sdk" default="doc" basedir=".">
   <property environment="env"/>
   <property name="src.dir" location="src/main/java"/>
-  <property name="src.aidl.dir" location="build/generated/source/aidl/debug"/>
-  <property name="src.r.dir" location="build/generated/source/r/debug"/>
+  <property name="src.aidl.dir" location="build/generated/source/aidl/release"/>
+  <property name="src.r.dir" location="build/generated/source/r/release"/>
   <property name="lib.dir" location="lib"/>
   <property name="build.dir" location="build"/>
   <property name="doc.dir" location="${build.dir}/doc/"/>
   <property name="android.home" location="${env.ANDROID_HOME}"/>
+  <property name="ydoc.dir" location="yworks-uml-doclet-3.0_02-jdk1.5"/>
 
   <target name="init">
     <tstamp/>
@@ -34,7 +35,7 @@
         destdir="${doc.dir}"
         classpath="${android.home}/platforms/android-17/android.jar"
         overview="overview.html">
-        <!-- stylesheetfile="javadoc-style.css"> -->
+      <!-- stylesheetfile="javadoc-style.css"> -->
       <packageset dir="${src.dir}" defaultexcludes="yes">
         <include name="com/clover/sdk/**"/>
         <exclude name="com/clover/sdk/impl/**"/>
@@ -47,10 +48,10 @@
         <pathelement location="${android.home}/platforms/android-17/android.jar"/>
         <pathelement path="${build.dir}/intermediates/classes/debug"/>
         <!-- In case lib directory does not exist -->
-        <fileset dir="${lib.dir}/.." includes="${lib.dir}/*.jar" />
+        <fileset dir="${lib.dir}/.." includes="${lib.dir}/*.jar"/>
       </classpath>
       <doctitle><![CDATA[<h1>Clover SDK for Android</h1>]]></doctitle>
-      <bottom><![CDATA[<i>Copyright &#169; 2015 Clover Network, Inc. All Rights Reserved.</i>]]></bottom>
+      <bottom><![CDATA[<i>Copyright &#169; 2016 Clover Network, Inc. All Rights Reserved.</i>]]></bottom>
       <link offline="true" href="http://d.android.com/reference" packagelistLoc="${android.home}/docs/reference"/>
     </javadoc>
   </target>

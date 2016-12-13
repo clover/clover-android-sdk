@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,33 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+/**
+ * This class allows an app to check and update the state of customer mode. Customer mode is a
+ * feature available on Clover devices (except Station) that allows an Activity run fullscreen
+ * without the navigation bar or status bar and without the ability to do an offscreen swipe down
+ * to bring them back.
+ * <p>
+ * You should ensure that your application always has some way to exit customer mode so the user
+ * cannot get stuck.
+ * <p>
+ * If you are writing an application for Clover Station, this class won't function properly.
+ * Instead using the following code snippet to get Clover Station into customer mode.
+ * <code>
+ *       getWindow().getDecorView().setSystemUiVisibility(
+ *           View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+ *           | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+ *           | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+ *           | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+ *           | View.SYSTEM_UI_FLAG_LOW_PROFILE
+ *           | View.SYSTEM_UI_FLAG_FULLSCREEN
+ *           | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+ * </code>
+ */
 public class CustomerMode {
 
   /**
-   * Broadcast Action:  This is a sticky broadcast containing the customer mode state.
-   * <p/>
+   * Broadcast Action: This is a sticky broadcast containing the customer mode state.
+   * <p>
    * NOTE: this is a protected intent that can only be sent by the system.
    */
   public static final String ACTION_CUSTOMER_MODE = "clover.intent.action.CUSTOMER_MODE";
@@ -41,14 +63,14 @@ public class CustomerMode {
 
   /**
    * Use with Activity.requestWindowFeature(WINDOW_FEATURE_CUSTOMER_MODE) to enable customer mode button in navigation bar
-   * <p/>
+   * <p>
    * NOTE: doing so overrides the customerMode manifest value if present
    */
   public static final int WINDOW_FEATURE_CUSTOMER_MODE = 100;
 
   /**
    * Use with Activity.requestWindowFeature(WINDOW_FEATURE_CUSTOMER_MODE) to disable customer mode button in navigation bar
-   * <p/>
+   * <p>
    * NOTE: doing so overrides the customerMode manifest value if present
    */
   public static final int WINDOW_FEATURE_NO_CUSTOMER_MODE = 101;
@@ -61,8 +83,11 @@ public class CustomerMode {
   private static final String CALL_METHOD_SET_CUSTOMER_MODE_REQUIRE_PIN = "setCustomerModeRequirePin";
   private static final String EXTRA_REQUIRE_PIN = "requirePin";
 
+  /**
+   * Enable customer mode. Hide the navigation bar and status bar.
+   */
   public static void enable(Context context) {
-    if (Platform.isCloverMobile() || Platform.isCloverMini()) {
+    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
       try {
         context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null);
       } catch (IllegalArgumentException e) {
@@ -70,12 +95,20 @@ public class CustomerMode {
     }
   }
 
+  /**
+   * Disable customer mode. Bring back the navigation bar and status bar.
+   */
   public static void disable(Context context) {
     disable(context, false);
   }
 
+  /**
+   * Disable customer mode. Bring back the navigation bar and status bar.
+   *
+   * @param requirePin true if you want to force the employee lockscreen to appear without the "default employee" option
+   */
   public static void disable(Context context, boolean requirePin) {
-    if (Platform.isCloverMobile() || Platform.isCloverMini()) {
+    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
       try {
         Bundle bundle = new Bundle();
         bundle.putBoolean(EXTRA_REQUIRE_PIN, requirePin);
@@ -85,6 +118,9 @@ public class CustomerMode {
     }
   }
 
+  /**
+   * Returns the current state of customer mode, either ENABLED or DISABLED.
+   */
   public static CustomerMode.State getState(Context context) {
     IntentFilter filter = new IntentFilter(ACTION_CUSTOMER_MODE);
     Intent intent = context.registerReceiver(null, filter);
@@ -109,6 +145,7 @@ public class CustomerMode {
   /**
    * @deprecated
    */
+  @Deprecated
   public static boolean getRequirePinOnExit(Context context) {
     try {
       Bundle result = context.getContentResolver().call(AUTHORITY_URI, CALL_METHOD_GET_CUSTOMER_MODE_REQUIRE_PIN, null, null);
@@ -122,6 +159,7 @@ public class CustomerMode {
   /**
    * @deprecated
    */
+  @Deprecated
   public static void setRequirePinOnExit(Context context, boolean requirePinOnExit) {
     try {
       Bundle bundle = new Bundle();

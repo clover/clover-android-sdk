@@ -1,0 +1,19 @@
+-d doc/api
+-source 1.5
+-sourcepath doc
+-breakiterator
+-author
+-umlautogen
+-generic
+-docletpath ./lib/ydoc.jar:./resources:./doc
+-doclet ydoc.doclets.YStandard
+-filterpath ./lib/ydoc.jar
+-filter ydoc.filters.ExcludeFilter
+-tag y.precondition
+-tag y.postcondition
+-tag y.complexity
+-tag param
+-tag return
+-tag see
+-tag y.uml
+-subpackages examples

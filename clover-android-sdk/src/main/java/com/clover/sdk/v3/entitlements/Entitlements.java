@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Entitlements extends SimpleSyncClient {
+
   public static final String AUTHORITY = "com.clover.entitlements";
   public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 

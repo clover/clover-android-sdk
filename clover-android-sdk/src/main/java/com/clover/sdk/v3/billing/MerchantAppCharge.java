@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,23 @@ package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getCharge charge}</li>
+ * <li>{@link #getApp app}</li>
+ * <li>{@link #getMerchant merchant}</li>
+ * <li>{@link #getAppSubscription appSubscription}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getAppInstallTime appInstallTime}</li>
+ * <li>{@link #getAppUninstallTime appUninstallTime}</li>
+ * <li>{@link #getAppMeteredEvents appMeteredEvents}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class MerchantAppCharge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -44,10 +61,14 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   }
 
   /**
-   * The merchant that this line item belongs to.
+   * The merchant that belongs to this line item.
    */
   public com.clover.sdk.v3.base.Reference getMerchant() {
     return genClient.cacheGet(CacheKey.merchant);
+  }
+
+  public com.clover.sdk.v3.base.Reference getAppSubscription() {
+    return genClient.cacheGet(CacheKey.appSubscription);
   }
 
   public java.lang.Long getCreatedTime() {
@@ -101,6 +122,12 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
       @Override
       public Object extractValue(MerchantAppCharge instance) {
         return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    appSubscription {
+      @Override
+      public Object extractValue(MerchantAppCharge instance) {
+        return instance.genClient.extractRecord("appSubscription", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
     createdTime {
@@ -179,7 +206,6 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
@@ -207,6 +233,11 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   /** Checks whether the 'merchant' field is set and is not null */
   public boolean isNotNullMerchant() {
     return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
+  /** Checks whether the 'appSubscription' field is set and is not null */
+  public boolean isNotNullAppSubscription() {
+    return genClient.cacheValueIsNotNull(CacheKey.appSubscription);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -256,6 +287,11 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   /** Checks whether the 'merchant' field has been set, however the value could be null */
   public boolean hasMerchant() {
     return genClient.cacheHasKey(CacheKey.merchant);
+  }
+
+  /** Checks whether the 'appSubscription' field has been set, however the value could be null */
+  public boolean hasAppSubscription() {
+    return genClient.cacheHasKey(CacheKey.appSubscription);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -319,6 +355,15 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   }
 
   /**
+   * Sets the field 'appSubscription'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public MerchantAppCharge setAppSubscription(com.clover.sdk.v3.base.Reference appSubscription) {
+    return genClient.setRecord(appSubscription, CacheKey.appSubscription);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public MerchantAppCharge setCreatedTime(java.lang.Long createdTime) {
@@ -372,6 +417,10 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   public void clearMerchant() {
     genClient.clear(CacheKey.merchant);
   }
+  /** Clears the 'appSubscription' field, the 'has' method for this field will now return false */
+  public void clearAppSubscription() {
+    genClient.clear(CacheKey.appSubscription);
+  }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
@@ -392,7 +441,6 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
   public void clearAppMeteredEvents() {
     genClient.clear(CacheKey.appMeteredEvents);
   }
-
 
   /**
    * Returns true if this instance has any changes.
@@ -472,7 +520,6 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
@@ -483,6 +530,8 @@ public final class MerchantAppCharge implements android.os.Parcelable, com.clove
     public static final boolean APP_IS_REQUIRED = true;
 
     public static final boolean MERCHANT_IS_REQUIRED = true;
+
+    public static final boolean APPSUBSCRIPTION_IS_REQUIRED = false;
 
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
 
