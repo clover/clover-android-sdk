@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,9 @@ import com.clover.sdk.v1.Intents;
 
 /**
  * Class for interacting with connected cash drawers.
+ *
+ * This class interacts with cash drawers that are connected via configured Clover printers. For a more generalized
+ * API for working with cash drawers, consider using {@link com.clover.sdk.cashdrawer}.
  */
 public class CashDrawer {
   private CashDrawer() {

@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,29 @@ package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getCurrency currency}</li>
+ * <li>{@link #getAmount amount}</li>
+ * <li>{@link #getTax tax}</li>
+ * <li>{@link #getDeveloperPortion developerPortion}</li>
+ * <li>{@link #getStatus status}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getTaxClassificationCode taxClassificationCode}</li>
+ * <li>{@link #getStartDate startDate}</li>
+ * <li>{@link #getEndDate endDate}</li>
+ * <li>{@link #getExportMonth exportMonth}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getMerchantAppCharge merchantAppCharge}</li>
+ * <li>{@link #getMerchantPlanCharge merchantPlanCharge}</li>
+ * <li>{@link #getInfoleaseChargeAttempts infoleaseChargeAttempts}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -56,6 +79,10 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     return genClient.cacheGet(CacheKey.type);
   }
 
+  public java.lang.String getTaxClassificationCode() {
+    return genClient.cacheGet(CacheKey.taxClassificationCode);
+  }
+
   public java.lang.Long getStartDate() {
     return genClient.cacheGet(CacheKey.startDate);
   }
@@ -77,14 +104,14 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
-   * 
+   * Object which includes the charge object and some details regarding the app charge
    */
   public com.clover.sdk.v3.base.Reference getMerchantAppCharge() {
     return genClient.cacheGet(CacheKey.merchantAppCharge);
   }
 
   /**
-   * 
+   * Object which includes the charge object and some details regarding the plan charge
    */
   public com.clover.sdk.v3.base.Reference getMerchantPlanCharge() {
     return genClient.cacheGet(CacheKey.merchantPlanCharge);
@@ -140,6 +167,12 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Charge instance) {
         return instance.genClient.extractEnum("type", com.clover.sdk.v3.billing.ChargeType.class);
+      }
+    },
+    taxClassificationCode {
+      @Override
+      public Object extractValue(Charge instance) {
+        return instance.genClient.extractOther("taxClassificationCode", java.lang.String.class);
       }
     },
     startDate {
@@ -236,7 +269,6 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
@@ -283,6 +315,11 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'type' field is set and is not null */
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
+  /** Checks whether the 'taxClassificationCode' field is set and is not null */
+  public boolean isNotNullTaxClassificationCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxClassificationCode);
   }
 
   /** Checks whether the 'startDate' field is set and is not null */
@@ -362,6 +399,11 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'type' field has been set, however the value could be null */
   public boolean hasType() {
     return genClient.cacheHasKey(CacheKey.type);
+  }
+
+  /** Checks whether the 'taxClassificationCode' field has been set, however the value could be null */
+  public boolean hasTaxClassificationCode() {
+    return genClient.cacheHasKey(CacheKey.taxClassificationCode);
   }
 
   /** Checks whether the 'startDate' field has been set, however the value could be null */
@@ -455,6 +497,13 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'taxClassificationCode'.
+   */
+  public Charge setTaxClassificationCode(java.lang.String taxClassificationCode) {
+    return genClient.setOther(taxClassificationCode, CacheKey.taxClassificationCode);
+  }
+
+  /**
    * Sets the field 'startDate'.
    */
   public Charge setStartDate(java.lang.Long startDate) {
@@ -545,6 +594,10 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void clearType() {
     genClient.clear(CacheKey.type);
   }
+  /** Clears the 'taxClassificationCode' field, the 'has' method for this field will now return false */
+  public void clearTaxClassificationCode() {
+    genClient.clear(CacheKey.taxClassificationCode);
+  }
   /** Clears the 'startDate' field, the 'has' method for this field will now return false */
   public void clearStartDate() {
     genClient.clear(CacheKey.startDate);
@@ -577,7 +630,6 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void clearInfoleaseChargeAttempts() {
     genClient.clear(CacheKey.infoleaseChargeAttempts);
   }
-
 
   /**
    * Returns true if this instance has any changes.
@@ -657,7 +709,6 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
@@ -675,6 +726,8 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     public static final boolean STATUS_IS_REQUIRED = true;
 
     public static final boolean TYPE_IS_REQUIRED = true;
+
+    public static final boolean TAXCLASSIFICATIONCODE_IS_REQUIRED = false;
 
     public static final boolean STARTDATE_IS_REQUIRED = false;
 

@@ -1,12 +1,12 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
- * <p/>
+ * Copyright (C) 2016 Clover Network, Inc.
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,13 +34,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * A class that encapsulates interaction with {@link com.clover.sdk.v3.employees.IEmployeeService}.
  * This class automatically binds and provides both synchronous and asynchronous service
  * method invocation.
- * <p/>
+ * <p>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
- * <p/>
+ * <p>
  * For all service methods, this class provides both synchronous and asynchronous call options.
  * The synchronous methods must not be called on the UI thread.
+ *
+ * @see com.clover.sdk.v3.employees.IEmployeeService
  */
 public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   private static final String TAG = "EmployeeConnector";
@@ -64,7 +66,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
    * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
    * for receiving asynchronous results from {@link com.clover.sdk.v3.employees.EmployeeConnector}
    * methods that provides default method implementations.
-   * <p/>
+   * <p>
    * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
    * invocation.
    *

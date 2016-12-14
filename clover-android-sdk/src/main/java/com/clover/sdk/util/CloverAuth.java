@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class CloverAuth {
 
-  private static String TAG = CloverAuth.class.getSimpleName();
+  private static final String TAG = CloverAuth.class.getSimpleName();
 
   /**
    * Authenticates with the Clover service.  This method makes a network call to the

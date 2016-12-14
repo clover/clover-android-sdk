@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,29 @@ package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getCardType cardType}</li>
+ * <li>{@link #getEntryType entryType}</li>
+ * <li>{@link #getFirst6 first6}</li>
+ * <li>{@link #getLast4 last4}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getAuthCode authCode}</li>
+ * <li>{@link #getReferenceId referenceId}</li>
+ * <li>{@link #getTransactionNo transactionNo}</li>
+ * <li>{@link #getState state}</li>
+ * <li>{@link #getExtra extra}</li>
+ * <li>{@link #getBegBalance begBalance}</li>
+ * <li>{@link #getEndBalance endBalance}</li>
+ * <li>{@link #getAvsResult avsResult}</li>
+ * <li>{@link #getCardholderName cardholderName}</li>
+ * <li>{@link #getToken token}</li>
+ * <li>{@link #getVaultedCard vaultedCard}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class CardTransaction implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -37,7 +60,14 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   }
 
   /**
-   * The last four digits of the credit card number
+   * The first four digits of the card number
+   */
+  public java.lang.String getFirst6() {
+    return genClient.cacheGet(CacheKey.first6);
+  }
+
+  /**
+   * The last four digits of the card number
    */
   public java.lang.String getLast4() {
     return genClient.cacheGet(CacheKey.last4);
@@ -93,6 +123,13 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.cacheGet(CacheKey.token);
   }
 
+  /**
+   * Vaulted card which can be used for subsequent transactions
+   */
+  public com.clover.sdk.v3.payments.VaultedCard getVaultedCard() {
+    return genClient.cacheGet(CacheKey.vaultedCard);
+  }
+
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CardTransaction> {
@@ -106,6 +143,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
       @Override
       public Object extractValue(CardTransaction instance) {
         return instance.genClient.extractEnum("entryType", com.clover.sdk.v3.payments.CardEntryType.class);
+      }
+    },
+    first6 {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractOther("first6", java.lang.String.class);
       }
     },
     last4 {
@@ -180,6 +223,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
         return instance.genClient.extractOther("token", java.lang.String.class);
       }
     },
+    vaultedCard {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractRecord("vaultedCard", com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR);
+      }
+    },
     ;
   }
 
@@ -226,9 +275,12 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
+
+    genClient.validateLength(getFirst6(), 6);
+
+    genClient.validateLength(getLast4(), 4);
 
     genClient.validateLength(getAuthCode(), 255);
 
@@ -247,6 +299,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'entryType' field is set and is not null */
   public boolean isNotNullEntryType() {
     return genClient.cacheValueIsNotNull(CacheKey.entryType);
+  }
+
+  /** Checks whether the 'first6' field is set and is not null */
+  public boolean isNotNullFirst6() {
+    return genClient.cacheValueIsNotNull(CacheKey.first6);
   }
 
   /** Checks whether the 'last4' field is set and is not null */
@@ -312,6 +369,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.token);
   }
 
+  /** Checks whether the 'vaultedCard' field is set and is not null */
+  public boolean isNotNullVaultedCard() {
+    return genClient.cacheValueIsNotNull(CacheKey.vaultedCard);
+  }
+
 
   /** Checks whether the 'cardType' field has been set, however the value could be null */
   public boolean hasCardType() {
@@ -321,6 +383,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Checks whether the 'entryType' field has been set, however the value could be null */
   public boolean hasEntryType() {
     return genClient.cacheHasKey(CacheKey.entryType);
+  }
+
+  /** Checks whether the 'first6' field has been set, however the value could be null */
+  public boolean hasFirst6() {
+    return genClient.cacheHasKey(CacheKey.first6);
   }
 
   /** Checks whether the 'last4' field has been set, however the value could be null */
@@ -383,6 +450,11 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.cacheHasKey(CacheKey.token);
   }
 
+  /** Checks whether the 'vaultedCard' field has been set, however the value could be null */
+  public boolean hasVaultedCard() {
+    return genClient.cacheHasKey(CacheKey.vaultedCard);
+  }
+
 
   /**
    * Sets the field 'cardType'.
@@ -396,6 +468,13 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
    */
   public CardTransaction setEntryType(com.clover.sdk.v3.payments.CardEntryType entryType) {
     return genClient.setOther(entryType, CacheKey.entryType);
+  }
+
+  /**
+   * Sets the field 'first6'.
+   */
+  public CardTransaction setFirst6(java.lang.String first6) {
+    return genClient.setOther(first6, CacheKey.first6);
   }
 
   /**
@@ -482,6 +561,15 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     return genClient.setOther(token, CacheKey.token);
   }
 
+  /**
+   * Sets the field 'vaultedCard'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public CardTransaction setVaultedCard(com.clover.sdk.v3.payments.VaultedCard vaultedCard) {
+    return genClient.setRecord(vaultedCard, CacheKey.vaultedCard);
+  }
+
 
   /** Clears the 'cardType' field, the 'has' method for this field will now return false */
   public void clearCardType() {
@@ -490,6 +578,10 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   /** Clears the 'entryType' field, the 'has' method for this field will now return false */
   public void clearEntryType() {
     genClient.clear(CacheKey.entryType);
+  }
+  /** Clears the 'first6' field, the 'has' method for this field will now return false */
+  public void clearFirst6() {
+    genClient.clear(CacheKey.first6);
   }
   /** Clears the 'last4' field, the 'has' method for this field will now return false */
   public void clearLast4() {
@@ -539,7 +631,10 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
   public void clearToken() {
     genClient.clear(CacheKey.token);
   }
-
+  /** Clears the 'vaultedCard' field, the 'has' method for this field will now return false */
+  public void clearVaultedCard() {
+    genClient.clear(CacheKey.vaultedCard);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -619,14 +714,17 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean CARDTYPE_IS_REQUIRED = false;
 
     public static final boolean ENTRYTYPE_IS_REQUIRED = false;
 
+    public static final boolean FIRST6_IS_REQUIRED = false;
+    public static final long FIRST6_MAX_LEN = 6;
+
     public static final boolean LAST4_IS_REQUIRED = false;
+    public static final long LAST4_MAX_LEN = 4;
 
     public static final boolean TYPE_IS_REQUIRED = false;
 
@@ -653,6 +751,8 @@ public final class CardTransaction implements android.os.Parcelable, com.clover.
 
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
+
+    public static final boolean VAULTEDCARD_IS_REQUIRED = false;
 
   }
 

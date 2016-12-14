@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,23 @@ import com.clover.sdk.v1.ServiceException;
 
 import java.util.List;
 
+/**
+ * Service connector for {@link IInventoryService}. Please see that class for documentation on the
+ * RPC methods.
+ *
+ * @see IInventoryService
+ * @see ServiceConnector
+ * @see Item
+ * @see Category
+ * @see Tag
+ * @see ItemGroup
+ * @see Modifier
+ * @see ModifierGroup
+ * @see Option
+ * @see Attribute
+ */
 public class InventoryConnector extends ServiceConnector<IInventoryService> {
+
   public InventoryConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
   }
@@ -35,8 +51,6 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
   protected String getServiceIntentAction() {
     return InventoryIntent.ACTION_INVENTORY_SERVICE_V3;
   }
-
-
 
   @Override
   protected int getServiceIntentVersion() {

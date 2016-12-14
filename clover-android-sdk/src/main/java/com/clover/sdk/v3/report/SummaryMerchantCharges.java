@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,19 @@ package com.clover.sdk.v3.report;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getCurrency currency}</li>
+ * <li>{@link #getNum num}</li>
+ * <li>{@link #getTotalAmount totalAmount}</li>
+ * <li>{@link #getTotalTax totalTax}</li>
+ * <li>{@link #getTotalDeveloperPortion totalDeveloperPortion}</li>
+ * <li>{@link #getNumOfMerchants numOfMerchants}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class SummaryMerchantCharges implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -46,6 +59,10 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
 
   public java.lang.Long getTotalDeveloperPortion() {
     return genClient.cacheGet(CacheKey.totalDeveloperPortion);
+  }
+
+  public java.lang.Integer getNumOfMerchants() {
+    return genClient.cacheGet(CacheKey.numOfMerchants);
   }
 
 
@@ -79,6 +96,12 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
       @Override
       public Object extractValue(SummaryMerchantCharges instance) {
         return instance.genClient.extractOther("totalDeveloperPortion", java.lang.Long.class);
+      }
+    },
+    numOfMerchants {
+      @Override
+      public Object extractValue(SummaryMerchantCharges instance) {
+        return instance.genClient.extractOther("numOfMerchants", java.lang.Integer.class);
       }
     },
     ;
@@ -127,7 +150,6 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
   }
@@ -157,6 +179,11 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
     return genClient.cacheValueIsNotNull(CacheKey.totalDeveloperPortion);
   }
 
+  /** Checks whether the 'numOfMerchants' field is set and is not null */
+  public boolean isNotNullNumOfMerchants() {
+    return genClient.cacheValueIsNotNull(CacheKey.numOfMerchants);
+  }
+
 
   /** Checks whether the 'currency' field has been set, however the value could be null */
   public boolean hasCurrency() {
@@ -181,6 +208,11 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
   /** Checks whether the 'totalDeveloperPortion' field has been set, however the value could be null */
   public boolean hasTotalDeveloperPortion() {
     return genClient.cacheHasKey(CacheKey.totalDeveloperPortion);
+  }
+
+  /** Checks whether the 'numOfMerchants' field has been set, however the value could be null */
+  public boolean hasNumOfMerchants() {
+    return genClient.cacheHasKey(CacheKey.numOfMerchants);
   }
 
 
@@ -219,6 +251,13 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
     return genClient.setOther(totalDeveloperPortion, CacheKey.totalDeveloperPortion);
   }
 
+  /**
+   * Sets the field 'numOfMerchants'.
+   */
+  public SummaryMerchantCharges setNumOfMerchants(java.lang.Integer numOfMerchants) {
+    return genClient.setOther(numOfMerchants, CacheKey.numOfMerchants);
+  }
+
 
   /** Clears the 'currency' field, the 'has' method for this field will now return false */
   public void clearCurrency() {
@@ -240,7 +279,10 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
   public void clearTotalDeveloperPortion() {
     genClient.clear(CacheKey.totalDeveloperPortion);
   }
-
+  /** Clears the 'numOfMerchants' field, the 'has' method for this field will now return false */
+  public void clearNumOfMerchants() {
+    genClient.clear(CacheKey.numOfMerchants);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -320,7 +362,6 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean CURRENCY_IS_REQUIRED = false;
@@ -332,6 +373,8 @@ public final class SummaryMerchantCharges implements android.os.Parcelable, com.
     public static final boolean TOTALTAX_IS_REQUIRED = false;
 
     public static final boolean TOTALDEVELOPERPORTION_IS_REQUIRED = false;
+
+    public static final boolean NUMOFMERCHANTS_IS_REQUIRED = false;
 
   }
 

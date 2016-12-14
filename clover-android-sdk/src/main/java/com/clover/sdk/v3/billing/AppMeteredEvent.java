@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,19 @@ package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getAppMetered appMetered}</li>
+ * <li>{@link #getCount count}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getCharge charge}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class AppMeteredEvent implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -136,7 +149,6 @@ public final class AppMeteredEvent implements android.os.Parcelable, com.clover.
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -281,7 +293,6 @@ public final class AppMeteredEvent implements android.os.Parcelable, com.clover.
     genClient.clear(CacheKey.charge);
   }
 
-
   /**
    * Returns true if this instance has any changes.
    */
@@ -359,7 +370,6 @@ public final class AppMeteredEvent implements android.os.Parcelable, com.clover.
       return new AppMeteredEvent(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

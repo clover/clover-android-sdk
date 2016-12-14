@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,43 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-defaultTasks 'clean', 'install'
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
+
+def mavenPlugin = "com.github.dcendents:android-maven-plugin:1.2"
+def androidPlugin = "com.android.tools.build:gradle:1.2.3"
+def printVersions = false
+
+def gradleVersions = gradle.gradleVersion.split('\\.')
+def gradleMajorVersion = gradleVersions[0].toInteger()
+def gradleMinorVersion = gradleVersions[1].toInteger()
+def gradleMaintenanceVersion = 0
+if (gradleVersions.length >= 3) {
+  gradleMaintenanceVersion = gradleVersions[2].toInteger()
+}
+
+if (gradleMajorVersion == 2 && gradleMinorVersion >= 4 && gradleMinorVersion < 14) {
+  mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:1.3"
+} else if (gradleMajorVersion == 2 && gradleMinorVersion >= 14) {
+  mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:1.4.1"
+} else if (gradleMajorVersion == 3) {
+  mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:1.5"
+}
+if (gradleMajorVersion == 2 && gradleMinorVersion >= 10 && gradleMinorVersion <= 14 && gradleMaintenanceVersion == 0) {
+  androidPlugin = "com.android.tools.build:gradle:2.1.0"
+} else if (gradleMajorVersion == 2 && gradleMinorVersion >= 14 && gradleMaintenanceVersion >= 1) {
+  androidPlugin = "com.android.tools.build:gradle:2.1.3"
+} else if (gradleMajorVersion == 3) {
+  androidPlugin = "com.android.tools.build:gradle:2.2.3"
+}
+project.ext.set("mavenPlugin",mavenPlugin)
+project.ext.set("androidPlugin",androidPlugin)
+
   repositories {
+    mavenLocal()
+    if (project.properties.containsKey("localArtifactoryUrl")) {
+      maven { url localArtifactoryUrl }
+    }
     mavenCentral()
     jcenter()
   }
-  def mavenPlugin = "com.github.dcendents:android-maven-plugin:1.2"
-  if (gradle.gradleVersion.equals("2.7")) {
-    mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:1.3"
-  }
+
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath androidPlugin
     classpath mavenPlugin
-    classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
   }
 }
 
-apply plugin: 'license'
-
-license {
-  //excludes(["**/*.png", "**/*.iml", "**/*.aidl", "**/*.class", "**/*.jar", "**/*.MF", "**/*.store", "**/*.xml", "**/*.css"])
-  excludes(["**/build/**"])
-  includes(["**/*.java","**/*.html","**/*.gradle"])
-  mapping {
-    gradle='JAVADOC_STYLE'
-  }
-  sourceSets {
-    main {
-      java {
-        srcDir '.'
-      }
-    }
-  }
-  strictCheck true
-  header rootProject.file('LICENSE')
-  ext.year = Calendar.getInstance().get(Calendar.YEAR)
-  ext.name = 'Clover Network, Inc.'
-}
+defaultTasks 'clean', 'install'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.

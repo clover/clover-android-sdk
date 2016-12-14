@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,6 @@ import com.clover.android.sdk.R;
 import com.clover.sdk.internal.util.Strings;
 import com.clover.sdk.util.Platform;
 
-/**
- * Created by lausier on 10/29/13.
- */
 public class RotateToMerchantDialogFragment extends DialogFragment {
 
   private static final String TAG = RotateToMerchantDialogFragment.class.getSimpleName();
@@ -77,7 +74,7 @@ public class RotateToMerchantDialogFragment extends DialogFragment {
 
   @Override
   public void onStart() {
-    if (Platform.isCloverMobile() || Platform.isCloverMini()) {
+    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
       getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
           WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
@@ -90,10 +87,12 @@ public class RotateToMerchantDialogFragment extends DialogFragment {
 
       // Set the dialog to focusable again.
       getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-    } else {
+    } else if (Platform.isCloverStation()){
       // station
       super.onStart();
       getDialog().getWindow().getDecorView().findViewById(android.R.id.content).setSystemUiVisibility(0x10000000);  // magic :)
+    } else {
+      super.onStart();
     }
   }
 }

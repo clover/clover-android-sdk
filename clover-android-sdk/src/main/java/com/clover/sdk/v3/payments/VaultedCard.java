@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,18 @@ package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getFirst6 first6}</li>
+ * <li>{@link #getLast4 last4}</li>
+ * <li>{@link #getCardholderName cardholderName}</li>
+ * <li>{@link #getExpirationDate expirationDate}</li>
+ * <li>{@link #getToken token}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -126,7 +138,6 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -252,7 +263,6 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
     genClient.clear(CacheKey.token);
   }
 
-
   /**
    * Returns true if this instance has any changes.
    */
@@ -330,7 +340,6 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
       return new VaultedCard(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,22 @@ import com.clover.sdk.v1.ServiceException;
 
 import java.util.List;
 
+/**
+ * A class that encapsulates interaction with {@link com.clover.sdk.v1.tender.ITenderService}.
+ * This class automatically binds and provides both synchronous and asynchronous service
+ * method invocation.
+ * <p>
+ * Clients of this class may optionally call {@link #connect()} to force
+ * pre-binding to the underlying service, and must call {@link #disconnect()}
+ * when finished interacting with the underlying service.
+ * <p>
+ * For all service methods, this class provides both synchronous and asynchronous call options.
+ * The synchronous methods must not be called on the UI thread.
+ *
+ * @see com.clover.sdk.v1.tender.ITenderService
+ */
 public class TenderConnector extends ServiceConnector<ITenderService> {
+
   private static final String TAG = "TenderConnector";
 
   private abstract static class TenderCallable<T> implements ServiceCallable<ITenderService, T> {
@@ -80,11 +95,6 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     }
   }
 
-  ;
-
-  /**
-   * Get the merchant tenders
-   */
   public List<Tender> getTenders() throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new TenderCallable<List<Tender>>() {
       @Override
@@ -103,9 +113,6 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     }, callback);
   }
 
-  /**
-   * Will create a merchant tender for if a tender with the label key.
-   */
   public Tender checkAndCreateTender(final String label, final String labelKey, final boolean enabled, final boolean opensCashDrawer) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new TenderCallable<Tender>() {
       @Override
@@ -154,9 +161,6 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     });
   }
 
-  /**
-   * Will set a merchant tenders visibility
-   */
   public Tender setEnabled(final String tenderId, final boolean enabled) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new TenderCallable<Tender>() {
       @Override

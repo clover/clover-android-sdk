@@ -12,8 +12,8 @@
       style="@style/ReturnToMerchantTitle"
       android:id="@+id/title"
       android:text="@string/returnToMerchantTitle"
-      android:layout_marginTop="50dp"
-      android:layout_marginBottom="20dp"/>
+      android:layout_marginTop="@dimen/return_to_merchant_title_margin_top"
+      android:layout_marginBottom="@dimen/return_to_merchant_title_margin_bottom"/>
 
   <TextView
       android:id="@+id/instruction"
@@ -32,6 +32,6 @@
       android:scaleType="fitCenter"
       android:layout_gravity="center_horizontal|bottom"
       android:src="@drawable/return_to_merchant"
-      android:layout_marginLeft="30dp"
+      android:layout_marginLeft="@dimen/return_to_merchant_icon_margin_left"
       android:contentDescription="@string/returnToMerchant"/>
 </LinearLayout>

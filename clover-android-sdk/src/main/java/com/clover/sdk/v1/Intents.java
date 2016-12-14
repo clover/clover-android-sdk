@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,15 @@
  */
 package com.clover.sdk.v1;
 
+import android.content.Intent;
+
+/**
+ * This class contains most of the Clover specific intents available to developer apps. These
+ * intents allow apps to listen for events and start Clover activities. See Android documentation
+ * for information about how to use Intents:
+ * <a href="https://developer.android.com/guide/components/intents-filters.html" target="_blank>
+ *   Intents and Intent Filters</a>
+ */
 public class Intents {
 
   /**
@@ -474,6 +483,7 @@ public class Intents {
    *
    * @see #ACTION_MERCHANT_TENDER
    * @see #META_CUSTOMER_TENDER_IMAGE
+   * @see #ACTION_REFUND
    */
   public static final String ACTION_CUSTOMER_TENDER = "clover.intent.action.CUSTOMER_TENDER";
 
@@ -497,9 +507,9 @@ public class Intents {
    * <p>
    * Result data must include:
    * <ul>
-   * <li>a (Required) {@link #EXTRA_AMOUNT} - the approved transaction amount </li>
-   * <li>a (Optional) {@link #EXTRA_CLIENT_ID} - the client ID / external payment ID</li>
-   * <li>a (Optional) {@link #EXTRA_NOTE} - the payment note</li>
+   * <li>(Required) {@link #EXTRA_AMOUNT} - the approved transaction amount </li>
+   * <li>(Optional) {@link #EXTRA_CLIENT_ID} - the client ID / external payment ID</li>
+   * <li>(Optional) {@link #EXTRA_NOTE} - the payment note</li>
    * </ul>
    * <p>
    * Result codes:
@@ -510,9 +520,39 @@ public class Intents {
    *
    * @see #ACTION_CUSTOMER_TENDER
    * @see #META_CUSTOMER_TENDER_IMAGE
+   * @see #ACTION_REFUND
    */
   public static final String ACTION_MERCHANT_TENDER = "clover.intent.action.MERCHANT_TENDER";
-  
+
+  /**
+   * Intent passed to start your app's extensible tender refund activity
+   * <p>
+   * Extras passed:
+   * <ul>
+   * 		<li>{@link #EXTRA_MERCHANT_ID}</li>
+   * 		<li>{@link #EXTRA_CURRENCY}</li>
+   * 		<li>{@link #EXTRA_ORDER_ID}</li>
+   * 		<li>{@link #EXTRA_PAYMENT_ID}</li>
+   * 		<li>{@link #EXTRA_CLIENT_ID}</li>
+   * 		<li>{@link #EXTRA_LINE_ITEM_IDS}</li>
+   * 		<li>{@link #EXTRA_AMOUNT}</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * 		<li>(Required) {@link #EXTRA_AMOUNT}</li>
+   * 		<li>(Required) {@link #EXTRA_ORDER_ID}</li>
+   * 		<li>(Required) {@link #EXTRA_PAYMENT_ID}</li>
+   * 		<li>(Optional) {@link #EXTRA_LINE_ITEM_IDS}</li>
+   * </ul>
+   * Result codes:
+   * <ul>
+   *    <li>{@link android.app.Activity#RESULT_OK} - refund processed</li>
+   *    <li>{@link android.app.Activity#RESULT_CANCELED} - refund canceled</li>
+   * </ul>
+   */
+  public static final String ACTION_REFUND = "clover.intent.action.REFUND";
+
   /**
    * Broadcast to start barcode scanner service on Station or Mini (Mobile scanner must be activated via physical trigger)
    * <p>
@@ -531,6 +571,33 @@ public class Intents {
    */
   public static final String ACTION_SCAN = "clover.intent.action.BARCODE_SCAN";
 
+  /**
+   * A service intent that signifies that your app was installed or updated to a new version.
+   * Note that this is a service intent, not a broadcast intent. It must be
+   * received by a service, not a broadcast receiver.
+   * <pre>
+   * {@code
+   * <service
+   *     android:name=".MyAppInstalledService"
+   *     android:exported="true">
+   *   <intent-filter>
+   *     <action android:name="com.clover.intent.action.APP_INSTALL_DONE"/>
+   *   </intent-filter>
+   * </service>
+   * }
+   * </pre>
+   * Your service implementation is started with {@link android.content.Context#startService(Intent)}.
+   * It can be any manner of Android service, including an {@link android.app.IntentService}.
+   * <p/>
+   * Android apps may not receive broadcasts until they have had an activity or service
+   * explicitly started by the user or another app. Once this service intent is received,
+   * your app maye receive broadcasts.
+   * <p/>
+   * This service intent is only received by the app that was installed. That is, you will
+   * not receive this service intent when other apps are installed or updated.
+   */
+  public static final String ACTION_APP_INSTALL_DONE = "com.clover.intent.action.APP_INSTALL_DONE";
+
   /** @deprecated Replaced by {@link #ACTION_MERCHANT_TENDER} and {@link #ACTION_CUSTOMER_TENDER} */
   public static final String ACTION_PAY = "clover.intent.action.PAY";
 
@@ -539,9 +606,6 @@ public class Intents {
 
   /** @deprecated  */
   public static final String ACTION_GIFT_CARD_TX = "clover.intent.action.GIFT_CARD_TX";
-
-  /** @deprecated  */
-  public static final String ACTION_REFUND = "clover.intent.action.REFUND";
 
   /** @deprecated  */
   public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
@@ -648,6 +712,18 @@ public class Intents {
   /** {@link int}, the version of the service */
   public static final String EXTRA_VERSION = "clover.intent.extra.VERSION";
 
+  /** {@link int}, does this intent need remote payment confirmation i.e. RemotePay */
+  public static final String EXTRA_REQUIRES_REMOTE_CONFIRMATION = "clover.intent.extra.REQUIRES_REMOTE_CONFIRMATION";
+
+  /** {@link int}, does this intent need remote payment confirmation i.e. RemotePay */
+  public static final String EXTRA_APP_TRACKING_ID = "clover.intent.extra.APP_TRACKING_ID";
+
+  /** {@link int}, does this payment need remote offline payment confirmation */
+  public static final String EXTRA_OFFLINE_PAYMENT_CONFIRMATION = "clover.intent.extra.OFFLINE_PAYMENT_CONFIRMATION";
+
+  /** {@link int}, does this payment need remote duplicate payment confirmation */
+  public static final String EXTRA_DUPLICATE_PAYMENT_CONFIRMATION = "clover.intent.extra.DUPLICATE_PAYMENT_CONFIRMATION";
+
   /** {@link android.widget.RemoteViews}, RemoteViews sent to Register Payment activity */
   public static final String EXTRA_REMOTE_VIEWS = "clover.intent.extra.REMOTE_VIEWS";
 
@@ -743,7 +819,7 @@ public class Intents {
   /** {@link String}, the voice auth code for payment by voice authorization */
   public static final String EXTRA_VOICE_AUTH_CODE = "clover.intent.extra.VOICE_AUTH_CODE";
 
-  /** {@link Boolean}, true if this is just a test transaction */
+  /**  @deprecated */
   public static final String EXTRA_IS_TESTING = "clover.intent.extra.IS_TESTING";
 
   /** {@link String}, a TRANSACTION_TYPE value */
@@ -758,14 +834,19 @@ public class Intents {
   public static final String TRANSACTION_TYPE_CARD_DATA = "cardData";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final String TRANSACTION_TYPE_BALANCE_INQUIRY = "balanceInquiry";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT = "manualReversalPayment";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND  = "manualReversalRefund";
+
 
   /** {@link Boolean}, card not present, used during manual card entry */
   public static final String EXTRA_CARD_NOT_PRESENT = "clover.intent.extra.CARD_NOT_PRESENT";
 
-  /** {@Link Boolean}, allow payments to be accepted offline */
+  /** {@link Boolean}, allow payments to be accepted offline */
   public static final String EXTRA_ALLOW_OFFLINE_ACCEPTANCE = "clover.intent.extra.ALLOW_OFFLINE_ACCEPTANCE";
 
-  /** {@Link Boolean}, allow offline payments to be accepted without an approval prompt */
+  /** {@link Boolean}, allow offline payments to be accepted without an approval prompt */
   public static final String EXTRA_OFFLINE_NO_PROMPT = "clover.intent.extra.OFFLINE_NO_PROMPT";
 
   /** {@link String}, street address for use with AVS */

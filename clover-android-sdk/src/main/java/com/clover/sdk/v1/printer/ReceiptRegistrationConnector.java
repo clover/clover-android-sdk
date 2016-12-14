@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,11 +34,11 @@ import java.util.List;
  * {@link com.clover.sdk.v1.printer.IReceiptRegistrationService}.
  * This class automatically binds and provides both synchronous and asynchronous service
  * method invocation.
- * <p/>
+ * <p>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
- * <p/>
+ * <p>
  * For all service methods, this class provides both synchronous and asynchronous call options.
  * The synchronous methods must not be called on the UI thread.
  */
@@ -55,7 +55,7 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
    * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
    * for receiving asynchronous results from {@link com.clover.sdk.v1.printer.ReceiptRegistrationConnector}
    * methods that provides default method implementations.
-   * <p/>
+   * <p>
    * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
    * invocation.
    *

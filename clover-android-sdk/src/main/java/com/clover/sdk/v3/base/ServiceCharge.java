@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,18 @@ package com.clover.sdk.v3.base;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getName name}</li>
+ * <li>{@link #getEnabled enabled}</li>
+ * <li>{@link #getPercentage percentage}</li>
+ * <li>{@link #getPercentageDecimal percentageDecimal}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class ServiceCharge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -141,7 +153,6 @@ public final class ServiceCharge implements android.os.Parcelable, com.clover.sd
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -263,7 +274,6 @@ public final class ServiceCharge implements android.os.Parcelable, com.clover.sd
     genClient.clear(CacheKey.percentageDecimal);
   }
 
-
   /**
    * Returns true if this instance has any changes.
    */
@@ -341,7 +351,6 @@ public final class ServiceCharge implements android.os.Parcelable, com.clover.sd
       return new ServiceCharge(jsonObject);
     }
   };
-
 
   public interface Constraints {
 

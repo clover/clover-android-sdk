@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD for taglet templates -->
+
+<!ELEMENT template-list (template+)>
+<!ELEMENT template (headline, content)>
+<!ELEMENT headline (#PCDATA)>
+<!ELEMENT content (content-sep?, content-start?, content-item, content-end?)>
+<!ELEMENT content-sep (#PCDATA)>
+<!ELEMENT content-start (#PCDATA)>
+<!ELEMENT content-item (#PCDATA)>
+<!ELEMENT content-end (#PCDATA)>
+
+<!ATTLIST template
+          name  CDATA  #REQUIRED>
+<!ATTLIST content
+          separator  CDATA  #IMPLIED>

@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,21 +25,43 @@ package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getDisplayName displayName}</li>
+ * <li>{@link #getName name}</li>
+ * <li>{@link #getCountryCode countryCode}</li>
+ * <li>{@link #getReseller reseller}</li>
+ * <li>{@link #getMerchantGroup merchantGroup}</li>
+ * <li>{@link #getMaxSize maxSize}</li>
+ * <li>{@link #getSortOrder sortOrder}</li>
+ * <li>{@link #getViewAllButton viewAllButton}</li>
+ * <li>{@link #getResultLabel resultLabel}</li>
+ * <li>{@link #getCarouselApps carouselApps}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
-  public String getName() {
+  public java.lang.String getDisplayName() {
+    return genClient.cacheGet(CacheKey.displayName);
+  }
+
+  public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
-  public String getCountryCode() {
+  public java.lang.String getCountryCode() {
     return genClient.cacheGet(CacheKey.countryCode);
   }
 
@@ -47,8 +69,24 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     return genClient.cacheGet(CacheKey.reseller);
   }
 
-  public Integer getMaxSize() {
+  public com.clover.sdk.v3.base.Reference getMerchantGroup() {
+    return genClient.cacheGet(CacheKey.merchantGroup);
+  }
+
+  public java.lang.Integer getMaxSize() {
     return genClient.cacheGet(CacheKey.maxSize);
+  }
+
+  public java.lang.Integer getSortOrder() {
+    return genClient.cacheGet(CacheKey.sortOrder);
+  }
+
+  public java.lang.String getViewAllButton() {
+    return genClient.cacheGet(CacheKey.viewAllButton);
+  }
+
+  public java.lang.String getResultLabel() {
+    return genClient.cacheGet(CacheKey.resultLabel);
   }
 
   public java.util.List<com.clover.sdk.v3.base.Reference> getCarouselApps() {
@@ -61,19 +99,25 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     id {
       @Override
       public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("id", String.class);
+        return instance.genClient.extractOther("id", java.lang.String.class);
+      }
+    },
+    displayName {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractOther("displayName", java.lang.String.class);
       }
     },
     name {
       @Override
       public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("name", String.class);
+        return instance.genClient.extractOther("name", java.lang.String.class);
       }
     },
     countryCode {
       @Override
       public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("countryCode", String.class);
+        return instance.genClient.extractOther("countryCode", java.lang.String.class);
       }
     },
     reseller {
@@ -82,10 +126,34 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
         return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
+    merchantGroup {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractRecord("merchantGroup", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
     maxSize {
       @Override
       public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("maxSize", Integer.class);
+        return instance.genClient.extractOther("maxSize", java.lang.Integer.class);
+      }
+    },
+    sortOrder {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractOther("sortOrder", java.lang.Integer.class);
+      }
+    },
+    viewAllButton {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractOther("viewAllButton", java.lang.String.class);
+      }
+    },
+    resultLabel {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractOther("resultLabel", java.lang.String.class);
       }
     },
     carouselApps {
@@ -140,19 +208,29 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
 
+    genClient.validateLength(getDisplayName(), 127);
+
     genClient.validateLength(getName(), 127);
 
     genClient.validateLength(getCountryCode(), 2);
+
+    genClient.validateLength(getViewAllButton(), 127);
+
+    genClient.validateLength(getResultLabel(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return genClient.cacheValueIsNotNull(CacheKey.id);
+  }
+
+  /** Checks whether the 'displayName' field is set and is not null */
+  public boolean isNotNullDisplayName() {
+    return genClient.cacheValueIsNotNull(CacheKey.displayName);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -170,9 +248,29 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.reseller);
   }
 
+  /** Checks whether the 'merchantGroup' field is set and is not null */
+  public boolean isNotNullMerchantGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantGroup);
+  }
+
   /** Checks whether the 'maxSize' field is set and is not null */
   public boolean isNotNullMaxSize() {
     return genClient.cacheValueIsNotNull(CacheKey.maxSize);
+  }
+
+  /** Checks whether the 'sortOrder' field is set and is not null */
+  public boolean isNotNullSortOrder() {
+    return genClient.cacheValueIsNotNull(CacheKey.sortOrder);
+  }
+
+  /** Checks whether the 'viewAllButton' field is set and is not null */
+  public boolean isNotNullViewAllButton() {
+    return genClient.cacheValueIsNotNull(CacheKey.viewAllButton);
+  }
+
+  /** Checks whether the 'resultLabel' field is set and is not null */
+  public boolean isNotNullResultLabel() {
+    return genClient.cacheValueIsNotNull(CacheKey.resultLabel);
   }
 
   /** Checks whether the 'carouselApps' field is set and is not null */
@@ -187,6 +285,11 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'displayName' field has been set, however the value could be null */
+  public boolean hasDisplayName() {
+    return genClient.cacheHasKey(CacheKey.displayName);
   }
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -204,9 +307,29 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     return genClient.cacheHasKey(CacheKey.reseller);
   }
 
+  /** Checks whether the 'merchantGroup' field has been set, however the value could be null */
+  public boolean hasMerchantGroup() {
+    return genClient.cacheHasKey(CacheKey.merchantGroup);
+  }
+
   /** Checks whether the 'maxSize' field has been set, however the value could be null */
   public boolean hasMaxSize() {
     return genClient.cacheHasKey(CacheKey.maxSize);
+  }
+
+  /** Checks whether the 'sortOrder' field has been set, however the value could be null */
+  public boolean hasSortOrder() {
+    return genClient.cacheHasKey(CacheKey.sortOrder);
+  }
+
+  /** Checks whether the 'viewAllButton' field has been set, however the value could be null */
+  public boolean hasViewAllButton() {
+    return genClient.cacheHasKey(CacheKey.viewAllButton);
+  }
+
+  /** Checks whether the 'resultLabel' field has been set, however the value could be null */
+  public boolean hasResultLabel() {
+    return genClient.cacheHasKey(CacheKey.resultLabel);
   }
 
   /** Checks whether the 'carouselApps' field has been set, however the value could be null */
@@ -218,21 +341,28 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
   /**
    * Sets the field 'id'.
    */
-  public AppCarousel setId(String id) {
+  public AppCarousel setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'displayName'.
+   */
+  public AppCarousel setDisplayName(java.lang.String displayName) {
+    return genClient.setOther(displayName, CacheKey.displayName);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public AppCarousel setName(String name) {
+  public AppCarousel setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'countryCode'.
    */
-  public AppCarousel setCountryCode(String countryCode) {
+  public AppCarousel setCountryCode(java.lang.String countryCode) {
     return genClient.setOther(countryCode, CacheKey.countryCode);
   }
 
@@ -246,10 +376,40 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
   }
 
   /**
+   * Sets the field 'merchantGroup'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public AppCarousel setMerchantGroup(com.clover.sdk.v3.base.Reference merchantGroup) {
+    return genClient.setRecord(merchantGroup, CacheKey.merchantGroup);
+  }
+
+  /**
    * Sets the field 'maxSize'.
    */
-  public AppCarousel setMaxSize(Integer maxSize) {
+  public AppCarousel setMaxSize(java.lang.Integer maxSize) {
     return genClient.setOther(maxSize, CacheKey.maxSize);
+  }
+
+  /**
+   * Sets the field 'sortOrder'.
+   */
+  public AppCarousel setSortOrder(java.lang.Integer sortOrder) {
+    return genClient.setOther(sortOrder, CacheKey.sortOrder);
+  }
+
+  /**
+   * Sets the field 'viewAllButton'.
+   */
+  public AppCarousel setViewAllButton(java.lang.String viewAllButton) {
+    return genClient.setOther(viewAllButton, CacheKey.viewAllButton);
+  }
+
+  /**
+   * Sets the field 'resultLabel'.
+   */
+  public AppCarousel setResultLabel(java.lang.String resultLabel) {
+    return genClient.setOther(resultLabel, CacheKey.resultLabel);
   }
 
   /**
@@ -266,6 +426,10 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
   public void clearId() {
     genClient.clear(CacheKey.id);
   }
+  /** Clears the 'displayName' field, the 'has' method for this field will now return false */
+  public void clearDisplayName() {
+    genClient.clear(CacheKey.displayName);
+  }
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
@@ -278,15 +442,30 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
   public void clearReseller() {
     genClient.clear(CacheKey.reseller);
   }
+  /** Clears the 'merchantGroup' field, the 'has' method for this field will now return false */
+  public void clearMerchantGroup() {
+    genClient.clear(CacheKey.merchantGroup);
+  }
   /** Clears the 'maxSize' field, the 'has' method for this field will now return false */
   public void clearMaxSize() {
     genClient.clear(CacheKey.maxSize);
+  }
+  /** Clears the 'sortOrder' field, the 'has' method for this field will now return false */
+  public void clearSortOrder() {
+    genClient.clear(CacheKey.sortOrder);
+  }
+  /** Clears the 'viewAllButton' field, the 'has' method for this field will now return false */
+  public void clearViewAllButton() {
+    genClient.clear(CacheKey.viewAllButton);
+  }
+  /** Clears the 'resultLabel' field, the 'has' method for this field will now return false */
+  public void clearResultLabel() {
+    genClient.clear(CacheKey.resultLabel);
   }
   /** Clears the 'carouselApps' field, the 'has' method for this field will now return false */
   public void clearCarouselApps() {
     genClient.clear(CacheKey.carouselApps);
   }
-
 
   /**
    * Returns true if this instance has any changes.
@@ -366,11 +545,13 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+
+    public static final boolean DISPLAYNAME_IS_REQUIRED = false;
+    public static final long DISPLAYNAME_MAX_LEN = 127;
 
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
@@ -380,7 +561,17 @@ public final class AppCarousel implements android.os.Parcelable, com.clover.sdk.
 
     public static final boolean RESELLER_IS_REQUIRED = false;
 
+    public static final boolean MERCHANTGROUP_IS_REQUIRED = false;
+
     public static final boolean MAXSIZE_IS_REQUIRED = false;
+
+    public static final boolean SORTORDER_IS_REQUIRED = false;
+
+    public static final boolean VIEWALLBUTTON_IS_REQUIRED = false;
+    public static final long VIEWALLBUTTON_MAX_LEN = 127;
+
+    public static final boolean RESULTLABEL_IS_REQUIRED = false;
+    public static final long RESULTLABEL_MAX_LEN = 127;
 
     public static final boolean CAROUSELAPPS_IS_REQUIRED = false;
 

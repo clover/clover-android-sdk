@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
- * Create a PrintJob from a given {@link android.view.View}. This may take time, must not be built on the main thread.
+ * Create a PrintJob from a given {@link android.view.View}. This may take time, must not be built
+ * on the main thread.
  */
 public class ViewPrintJob extends PrintJob implements Parcelable {
 
@@ -42,6 +43,9 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
   public static class Builder extends PrintJob.Builder {
     protected View view;
 
+    /**
+     * The view to print in this PrintJob.
+     */
     public Builder view(View view) {
       this.view = view;
       return this;
@@ -59,7 +63,6 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
   @Deprecated
   protected ViewPrintJob(View view, int flags) {
     this((ViewPrintJob.Builder) new Builder().view(view).flags(flags));
-
   }
 
   protected ViewPrintJob(Builder builder) {

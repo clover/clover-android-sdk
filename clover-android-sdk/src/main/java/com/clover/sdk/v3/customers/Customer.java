@@ -6,7 +6,7 @@
 
 
 /*
- * Copyright (C) 2015 Clover Network, Inc.
+ * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,23 @@ package com.clover.sdk.v3.customers;
 
 import com.clover.sdk.GenericClient;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getFirstName firstName}</li>
+ * <li>{@link #getLastName lastName}</li>
+ * <li>{@link #getMarketingAllowed marketingAllowed}</li>
+ * <li>{@link #getCustomerSince customerSince}</li>
+ * <li>{@link #getOrders orders}</li>
+ * <li>{@link #getAddresses addresses}</li>
+ * <li>{@link #getEmailAddresses emailAddresses}</li>
+ * <li>{@link #getPhoneNumbers phoneNumbers}</li>
+ * <li>{@link #getCards cards}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
 public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
@@ -185,7 +202,6 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -435,7 +451,6 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     genClient.clear(CacheKey.cards);
   }
 
-
   /**
    * Returns true if this instance has any changes.
    */
@@ -513,7 +528,6 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
       return new Customer(jsonObject);
     }
   };
-
 
   public interface Constraints {
 
