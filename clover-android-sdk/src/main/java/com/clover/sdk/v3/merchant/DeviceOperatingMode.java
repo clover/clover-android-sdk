@@ -25,5 +25,5 @@ package com.clover.sdk.v3.merchant;
 
 @SuppressWarnings("all")
 public enum DeviceOperatingMode {
-POS_MODE, CFM_MODE;
+POS_MODE, CFD_MODE;
 }

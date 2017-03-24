@@ -25,10 +25,6 @@
       android:minSdkVersion="16"
       android:targetSdkVersion="17"/>
 
-  <permission
-      android:name="clover.permission.POP_CASH_DRAWER"
-      android:protectionLevel="normal"/>
-
   <application/>
 
 </manifest>
