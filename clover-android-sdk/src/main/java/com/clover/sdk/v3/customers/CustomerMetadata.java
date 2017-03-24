@@ -33,7 +33,9 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getBusinessName businessName}</li>
  * <li>{@link #getNote note}</li>
- * <li>{@link #getDateOfBirth dateOfBirth}</li>
+ * <li>{@link #getDobYear dobYear}</li>
+ * <li>{@link #getDobMonth dobMonth}</li>
+ * <li>{@link #getDobDay dobDay}</li>
  * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
@@ -55,10 +57,24 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   }
 
   /**
-   * The date of birth of the customer.
+   * The year part of the date of birth for this customer. This part of the date of birth is optional, i.e., it's possible that only dobMonth and dobDay are populated.
    */
-  public java.lang.Long getDateOfBirth() {
-    return genClient.cacheGet(CacheKey.dateOfBirth);
+  public java.lang.Integer getDobYear() {
+    return genClient.cacheGet(CacheKey.dobYear);
+  }
+
+  /**
+   * The month part of the date of birth for this customer.
+   */
+  public java.lang.Integer getDobMonth() {
+    return genClient.cacheGet(CacheKey.dobMonth);
+  }
+
+  /**
+   * The day part of the date of birth for this customer.
+   */
+  public java.lang.Integer getDobDay() {
+    return genClient.cacheGet(CacheKey.dobDay);
   }
 
   /**
@@ -84,10 +100,22 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
         return instance.genClient.extractOther("note", java.lang.String.class);
       }
     },
-    dateOfBirth {
+    dobYear {
       @Override
       public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("dateOfBirth", java.lang.Long.class);
+        return instance.genClient.extractOther("dobYear", java.lang.Integer.class);
+      }
+    },
+    dobMonth {
+      @Override
+      public Object extractValue(CustomerMetadata instance) {
+        return instance.genClient.extractOther("dobMonth", java.lang.Integer.class);
+      }
+    },
+    dobDay {
+      @Override
+      public Object extractValue(CustomerMetadata instance) {
+        return instance.genClient.extractOther("dobDay", java.lang.Integer.class);
       }
     },
     customer {
@@ -176,9 +204,19 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.note);
   }
 
-  /** Checks whether the 'dateOfBirth' field is set and is not null */
-  public boolean isNotNullDateOfBirth() {
-    return genClient.cacheValueIsNotNull(CacheKey.dateOfBirth);
+  /** Checks whether the 'dobYear' field is set and is not null */
+  public boolean isNotNullDobYear() {
+    return genClient.cacheValueIsNotNull(CacheKey.dobYear);
+  }
+
+  /** Checks whether the 'dobMonth' field is set and is not null */
+  public boolean isNotNullDobMonth() {
+    return genClient.cacheValueIsNotNull(CacheKey.dobMonth);
+  }
+
+  /** Checks whether the 'dobDay' field is set and is not null */
+  public boolean isNotNullDobDay() {
+    return genClient.cacheValueIsNotNull(CacheKey.dobDay);
   }
 
   /** Checks whether the 'customer' field is set and is not null */
@@ -198,9 +236,19 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     return genClient.cacheHasKey(CacheKey.note);
   }
 
-  /** Checks whether the 'dateOfBirth' field has been set, however the value could be null */
-  public boolean hasDateOfBirth() {
-    return genClient.cacheHasKey(CacheKey.dateOfBirth);
+  /** Checks whether the 'dobYear' field has been set, however the value could be null */
+  public boolean hasDobYear() {
+    return genClient.cacheHasKey(CacheKey.dobYear);
+  }
+
+  /** Checks whether the 'dobMonth' field has been set, however the value could be null */
+  public boolean hasDobMonth() {
+    return genClient.cacheHasKey(CacheKey.dobMonth);
+  }
+
+  /** Checks whether the 'dobDay' field has been set, however the value could be null */
+  public boolean hasDobDay() {
+    return genClient.cacheHasKey(CacheKey.dobDay);
   }
 
   /** Checks whether the 'customer' field has been set, however the value could be null */
@@ -224,10 +272,24 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   }
 
   /**
-   * Sets the field 'dateOfBirth'.
+   * Sets the field 'dobYear'.
    */
-  public CustomerMetadata setDateOfBirth(java.lang.Long dateOfBirth) {
-    return genClient.setOther(dateOfBirth, CacheKey.dateOfBirth);
+  public CustomerMetadata setDobYear(java.lang.Integer dobYear) {
+    return genClient.setOther(dobYear, CacheKey.dobYear);
+  }
+
+  /**
+   * Sets the field 'dobMonth'.
+   */
+  public CustomerMetadata setDobMonth(java.lang.Integer dobMonth) {
+    return genClient.setOther(dobMonth, CacheKey.dobMonth);
+  }
+
+  /**
+   * Sets the field 'dobDay'.
+   */
+  public CustomerMetadata setDobDay(java.lang.Integer dobDay) {
+    return genClient.setOther(dobDay, CacheKey.dobDay);
   }
 
   /**
@@ -248,9 +310,17 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   public void clearNote() {
     genClient.clear(CacheKey.note);
   }
-  /** Clears the 'dateOfBirth' field, the 'has' method for this field will now return false */
-  public void clearDateOfBirth() {
-    genClient.clear(CacheKey.dateOfBirth);
+  /** Clears the 'dobYear' field, the 'has' method for this field will now return false */
+  public void clearDobYear() {
+    genClient.clear(CacheKey.dobYear);
+  }
+  /** Clears the 'dobMonth' field, the 'has' method for this field will now return false */
+  public void clearDobMonth() {
+    genClient.clear(CacheKey.dobMonth);
+  }
+  /** Clears the 'dobDay' field, the 'has' method for this field will now return false */
+  public void clearDobDay() {
+    genClient.clear(CacheKey.dobDay);
   }
   /** Clears the 'customer' field, the 'has' method for this field will now return false */
   public void clearCustomer() {
@@ -319,7 +389,9 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     public static final long BUSINESSNAME_MAX_LEN = 127;
     public static final boolean NOTE_IS_REQUIRED = false;
     public static final long NOTE_MAX_LEN = 2000;
-    public static final boolean DATEOFBIRTH_IS_REQUIRED = false;
+    public static final boolean DOBYEAR_IS_REQUIRED = false;
+    public static final boolean DOBMONTH_IS_REQUIRED = false;
+    public static final boolean DOBDAY_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }
