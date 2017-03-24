@@ -43,7 +43,7 @@ import java.util.List;
  * @see com.clover.sdk.v1.tender.ITenderService
  */
 public class TenderConnector extends ServiceConnector<ITenderService> {
-
+  private static final String SERVICE_HOST = "com.clover.engine";
   private static final String TAG = "TenderConnector";
 
   private abstract static class TenderCallable<T> implements ServiceCallable<ITenderService, T> {
@@ -66,6 +66,11 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
   @Override
   protected String getServiceIntentAction() {
     return TenderIntent.ACTION_TENDER_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

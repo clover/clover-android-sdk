@@ -53,6 +53,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @see LineItem
  */
 public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
+  private static final String SERVICE_HOST = "com.clover.payment.builder.pay";
 
   private final List<WeakReference<PaymentServiceListener>> mPaymentServiceListener = new CopyOnWriteArrayList<WeakReference<PaymentServiceListener>>();
   private PaymentServiceListenerParent mListener;
@@ -92,6 +93,11 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
   @Override
   protected String getServiceIntentAction() {
     return PaymentIntent.ACTION_PAYMENT_SERVICE_V3;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

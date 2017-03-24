@@ -42,6 +42,7 @@ import java.util.List;
  */
 public class PrinterConnector extends ServiceConnector<IPrinterService> {
   private static final String TAG = "PrinterConnector";
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   private abstract static class PrinterCallable<T> implements ServiceCallable<IPrinterService, T> {
   }
@@ -90,6 +91,11 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
   @Override
   protected String getServiceIntentAction() {
     return PrinterIntent.ACTION_PRINTER_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

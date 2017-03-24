@@ -52,6 +52,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @see LineItem
  */
 public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   private final List<WeakReference<OnOrderUpdateListener>> mOnOrderChangedListener = new CopyOnWriteArrayList<WeakReference<OnOrderUpdateListener>>();
   private final List<WeakReference<OnOrderUpdateListener2>> mOnOrderChangedListener2 = new CopyOnWriteArrayList<WeakReference<OnOrderUpdateListener2>>();
@@ -72,6 +73,11 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
   @Override
   protected String getServiceIntentAction() {
     return OrderIntent.ACTION_ORDER_SERVICE_V3_1;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

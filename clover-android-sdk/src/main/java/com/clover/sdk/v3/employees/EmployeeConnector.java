@@ -46,6 +46,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   private static final String TAG = "EmployeeConnector";
+  private static final String SERVICE_HOST = "com.clover.engine";
+
 
   private final List<WeakReference<OnActiveEmployeeChangedListener>> mOnActiveEmployeeChangedListener = new CopyOnWriteArrayList<WeakReference<OnActiveEmployeeChangedListener>>();
 
@@ -135,6 +137,11 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   @Override
   protected String getServiceIntentAction() {
     return EmployeeIntent.ACTION_EMPLOYEE_SERVICE_V3;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

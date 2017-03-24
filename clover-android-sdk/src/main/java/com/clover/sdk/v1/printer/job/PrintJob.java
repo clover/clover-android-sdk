@@ -31,6 +31,7 @@ import com.clover.sdk.v1.printer.PrinterIntent;
  * automatically add some flags. Some flags are incompatible.
  */
 public abstract class PrintJob implements Parcelable {
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   public static final int FLAG_NONE = 0;
   /** Indicate this is a reprint on the print out */
@@ -129,6 +130,7 @@ public abstract class PrintJob implements Parcelable {
     intent.putExtra(PrinterIntent.EXTRA_PRINTJOB, this);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
+    intent.setPackage(SERVICE_HOST);
     context.startService(intent);
   }
 

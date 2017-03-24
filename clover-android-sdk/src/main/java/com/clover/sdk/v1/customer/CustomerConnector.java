@@ -28,6 +28,8 @@ import com.clover.sdk.v1.ServiceException;
 import java.util.List;
 
 public class CustomerConnector extends ServiceConnector<ICustomerService> {
+  private static final String SERVICE_HOST = "com.clover.engine";
+
   public CustomerConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
   }
@@ -35,6 +37,11 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
   @Override
   protected String getServiceIntentAction() {
     return CustomerIntent.ACTION_CUSTOMER_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

@@ -244,6 +244,7 @@ public class InventoryTestActivity extends Activity {
 
     Account account = CloverAccount.getAccount(this);
     Intent intent = new Intent(InventoryIntent.ACTION_INVENTORY_SERVICE_V3);
+    intent.setPackage("com.clover.engine");
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
   }
