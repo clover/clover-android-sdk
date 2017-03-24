@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -72,7 +73,6 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getSupportPhoneHours supportPhoneHours}</li>
  * <li>{@link #getSupportEmail supportEmail}</li>
  * <li>{@link #getSupportUrl supportUrl}</li>
- * <li>{@link #getProductType productType}</li>
  * <li>{@link #getApprovalStatus approvalStatus}</li>
  * <li>{@link #getAndroidPermissions androidPermissions}</li>
  * <li>{@link #getScreenshots screenshots}</li>
@@ -99,10 +99,12 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getTaxClassificationCode taxClassificationCode}</li>
  * <li>{@link #getApplicationId applicationId}</li>
  * <li>{@link #getNonCloverBilling nonCloverBilling}</li>
+ * <li>{@link #getEquipmentCode equipmentCode}</li>
+ * <li>{@link #getEquipmentName equipmentName}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class App implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class App extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -478,6 +480,21 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public java.lang.Boolean getNonCloverBilling() {
     return genClient.cacheGet(CacheKey.nonCloverBilling);
   }
+
+  /**
+   * Used to associate this developer/app combination with a specific equipment code in First Data back office systems
+   */
+  public java.lang.String getEquipmentCode() {
+    return genClient.cacheGet(CacheKey.equipmentCode);
+  }
+
+  /**
+   * Used to associate this developer/app combination with a specific equipment code in First Data back office systems
+   */
+  public java.lang.String getEquipmentName() {
+    return genClient.cacheGet(CacheKey.equipmentName);
+  }
+
 
 
 
@@ -896,20 +913,47 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
         return instance.genClient.extractOther("nonCloverBilling", java.lang.Boolean.class);
       }
     },
-    ;
+    equipmentCode {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("equipmentCode", java.lang.String.class);
+      }
+    },
+    equipmentName {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("equipmentName", java.lang.String.class);
+      }
+    },
+      ;
   }
 
-  private GenericClient<App> genClient = new GenericClient<App>(this);
+  private GenericClient<App> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public App() { }
+  * Constructs a new empty instance.
+  */
+  public App() {
+    genClient = new GenericClient<App>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected App(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public App(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -922,6 +966,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * reflected in this instance and vice-versa.
    */
   public App(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -929,6 +974,7 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public App(App src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -1366,6 +1412,17 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.nonCloverBilling);
   }
 
+  /** Checks whether the 'equipmentCode' field is set and is not null */
+  public boolean isNotNullEquipmentCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.equipmentCode);
+  }
+
+  /** Checks whether the 'equipmentName' field is set and is not null */
+  public boolean isNotNullEquipmentName() {
+    return genClient.cacheValueIsNotNull(CacheKey.equipmentName);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -1710,6 +1767,16 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'nonCloverBilling' field has been set, however the value could be null */
   public boolean hasNonCloverBilling() {
     return genClient.cacheHasKey(CacheKey.nonCloverBilling);
+  }
+
+  /** Checks whether the 'equipmentCode' field has been set, however the value could be null */
+  public boolean hasEquipmentCode() {
+    return genClient.cacheHasKey(CacheKey.equipmentCode);
+  }
+
+  /** Checks whether the 'equipmentName' field has been set, however the value could be null */
+  public boolean hasEquipmentName() {
+    return genClient.cacheHasKey(CacheKey.equipmentName);
   }
 
 
@@ -2228,6 +2295,20 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return genClient.setOther(nonCloverBilling, CacheKey.nonCloverBilling);
   }
 
+  /**
+   * Sets the field 'equipmentCode'.
+   */
+  public App setEquipmentCode(java.lang.String equipmentCode) {
+    return genClient.setOther(equipmentCode, CacheKey.equipmentCode);
+  }
+
+  /**
+   * Sets the field 'equipmentName'.
+   */
+  public App setEquipmentName(java.lang.String equipmentName) {
+    return genClient.setOther(equipmentName, CacheKey.equipmentName);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -2505,6 +2586,15 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public void clearNonCloverBilling() {
     genClient.clear(CacheKey.nonCloverBilling);
   }
+  /** Clears the 'equipmentCode' field, the 'has' method for this field will now return false */
+  public void clearEquipmentCode() {
+    genClient.clear(CacheKey.equipmentCode);
+  }
+  /** Clears the 'equipmentName' field, the 'has' method for this field will now return false */
+  public void clearEquipmentName() {
+    genClient.clear(CacheKey.equipmentName);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -2539,29 +2629,6 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<App> CREATOR = new android.os.Parcelable.Creator<App>() {
     @Override
     public App createFromParcel(android.os.Parcel in) {
@@ -2588,162 +2655,98 @@ public final class App implements android.os.Parcelable, com.clover.sdk.v3.Valid
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean PUBLISHED_IS_REQUIRED = false;
-
     public static final boolean DEVELOPER_IS_REQUIRED = false;
-
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 2000;
-
     public static final boolean TAGLINE_IS_REQUIRED = false;
     public static final long TAGLINE_MAX_LEN = 255;
-
     public static final boolean VIDEOURL_IS_REQUIRED = false;
     public static final long VIDEOURL_MAX_LEN = 255;
-
     public static final boolean ACTIVATIONURL_IS_REQUIRED = false;
     public static final long ACTIVATIONURL_MAX_LEN = 255;
-
     public static final boolean SITEURL_IS_REQUIRED = false;
     public static final long SITEURL_MAX_LEN = 255;
-
     public static final boolean DEFAULTRESPONSETYPE_IS_REQUIRED = false;
-
     public static final boolean APPDOMAIN_IS_REQUIRED = false;
     public static final long APPDOMAIN_MAX_LEN = 255;
-
     public static final boolean ANDROIDVERSION_IS_REQUIRED = false;
-
     public static final boolean PACKAGENAME_IS_REQUIRED = false;
     public static final long PACKAGENAME_MAX_LEN = 255;
-
     public static final boolean APPROVED_IS_REQUIRED = false;
-
     public static final boolean SYSTEMAPP_IS_REQUIRED = false;
-
     public static final boolean HIDDEN_IS_REQUIRED = false;
-
     public static final boolean FILENAMEICON_IS_REQUIRED = false;
     public static final long FILENAMEICON_MAX_LEN = 100;
-
     public static final boolean FILENAMEICONSMALL_IS_REQUIRED = false;
     public static final long FILENAMEICONSMALL_MAX_LEN = 255;
-
     public static final boolean FILENAMEICONLARGE_IS_REQUIRED = false;
     public static final long FILENAMEICONLARGE_MAX_LEN = 255;
-
     public static final boolean INSTALLCOUNT_IS_REQUIRED = false;
-
     public static final boolean SORTORDER_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONMERCHANTREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONMERCHANTWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONCUSTOMERSREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONCUSTOMERSWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONINVENTORYREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONINVENTORYWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONORDERSREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONORDERSWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONPAYMENTSREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONPAYMENTSWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONEMPLOYEESREAD_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONEMPLOYEESWRITE_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONPROCESSCARDS_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONMIDREAD_IS_REQUIRED = false;
-
     public static final boolean PRIVACYPOLICY_IS_REQUIRED = false;
     public static final long PRIVACYPOLICY_MAX_LEN = 255;
-
     public static final boolean EULA_IS_REQUIRED = false;
     public static final long EULA_MAX_LEN = 255;
-
     public static final boolean SUPPORTPHONE_IS_REQUIRED = false;
     public static final long SUPPORTPHONE_MAX_LEN = 25;
-
     public static final boolean SUPPORTPHONEHOURS_IS_REQUIRED = false;
     public static final long SUPPORTPHONEHOURS_MAX_LEN = 127;
-
     public static final boolean SUPPORTEMAIL_IS_REQUIRED = false;
     public static final long SUPPORTEMAIL_MAX_LEN = 127;
-
     public static final boolean SUPPORTURL_IS_REQUIRED = false;
     public static final long SUPPORTURL_MAX_LEN = 255;
 
     public static final boolean PRODUCTTYPE_IS_REQUIRED = false;
 
     public static final boolean APPROVALSTATUS_IS_REQUIRED = false;
-
     public static final boolean ANDROIDPERMISSIONS_IS_REQUIRED = false;
-
     public static final boolean SCREENSHOTS_IS_REQUIRED = false;
-
     public static final boolean AVAILABLESUBSCRIPTIONS_IS_REQUIRED = false;
-
     public static final boolean SUBSCRIPTIONS_IS_REQUIRED = false;
-
     public static final boolean AVAILABLEMETEREDS_IS_REQUIRED = false;
-
     public static final boolean METEREDS_IS_REQUIRED = false;
-
     public static final boolean USBDEVICES_IS_REQUIRED = false;
-
     public static final boolean ISMERCHANTINTRIAL_IS_REQUIRED = false;
-
     public static final boolean CURRENTSUBSCRIPTION_IS_REQUIRED = false;
-
     public static final boolean WEBHOOK_IS_REQUIRED = false;
-
     public static final boolean ANDROIDVERSIONS_IS_REQUIRED = false;
-
     public static final boolean INSTALLED_IS_REQUIRED = false;
-
     public static final boolean INSTALLEDTIME_IS_REQUIRED = false;
-
     public static final boolean PAIDAPPHASTRIAL_IS_REQUIRED = false;
-
     public static final boolean APPROVALSTATUSMODIFIEDTIME_IS_REQUIRED = false;
-
     public static final boolean SMARTRECEIPTTEXT_IS_REQUIRED = false;
     public static final long SMARTRECEIPTTEXT_MAX_LEN = 100;
-
     public static final boolean SMARTRECEIPTURL_IS_REQUIRED = false;
     public static final long SMARTRECEIPTURL_MAX_LEN = 255;
-
     public static final boolean BILLINGSTARTTIME_IS_REQUIRED = false;
-
     public static final boolean APPSECRET_IS_REQUIRED = false;
     public static final long APPSECRET_MAX_LEN = 255;
-
     public static final boolean BUSINESSTYPES_IS_REQUIRED = false;
-
     public static final boolean DEVICETYPES_IS_REQUIRED = false;
-
     public static final boolean MODULES_IS_REQUIRED = false;
-
     public static final boolean TAXCLASSIFICATIONCODE_IS_REQUIRED = false;
-
     public static final boolean APPLICATIONID_IS_REQUIRED = false;
-
     public static final boolean NONCLOVERBILLING_IS_REQUIRED = false;
+    public static final boolean EQUIPMENTCODE_IS_REQUIRED = false;
+    public static final boolean EQUIPMENTNAME_IS_REQUIRED = false;
 
   }
 

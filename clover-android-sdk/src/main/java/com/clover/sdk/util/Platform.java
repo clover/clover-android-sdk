@@ -33,9 +33,16 @@ public enum Platform {
   C201("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY),
   C300("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
   C301("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
-  /* TODO: Update with marketing name */
-  C400("Clover C400", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  OTHER("Other", null),
+  // C400 is deprecated, and should only be set for devices with pre-PVT roms
+  @Deprecated
+  C400("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
+  C400U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
+  C400E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
+  C401U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
+  C401E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
+  // FIXME: add customer mode, secure payments, default employee features as they are implemented
+  C500("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET),
+  OTHER("Other", Orientation.LANDSCAPE),
   ;
 
   private static final String CLOVER_MANUFACTURER = "Clover";
@@ -74,6 +81,14 @@ public enum Platform {
     ETHERNET
   }
 
+  /**
+   * List of secure processor platforms
+   */
+  public enum SecureProcessorPlatform {
+    BROADCOM,
+    MAXIM
+  }
+
   /** The default orientation for this device, not the current orientation. */
   public enum Orientation {
     LANDSCAPE,
@@ -108,7 +123,6 @@ public enum Platform {
    * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
    * forward compatibility with new Clover hardware.
    */
-  @Deprecated
   public static boolean isCloverStation() {
     return get() == C100;
   }
@@ -119,7 +133,6 @@ public enum Platform {
    * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
    * forward compatibility with new Clover hardware.
    */
-  @Deprecated
   public static boolean isCloverMobile() {
     Platform platform = get();
     return (platform == C200 || platform == C201);
@@ -131,10 +144,27 @@ public enum Platform {
    * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
    * forward compatibility with new Clover hardware.
    */
-  @Deprecated
   public static boolean isCloverMini() {
     Platform platform = get();
     return (platform == C300 || platform == C301);
+  }
+
+  /**
+   * @deprecated Use {@link #isCloverFlex()}.
+   */
+  @Deprecated
+  public static boolean isCloverOne() {
+    return isCloverFlex();
+  }
+
+  public static SecureProcessorPlatform getSecureProcessorPlatform() {
+    if (isCloverFlex() || get() == C500) {
+      return SecureProcessorPlatform.BROADCOM;
+    }
+    if (isCloverMini() || isCloverMobile()) {
+      return SecureProcessorPlatform.MAXIM;
+    }
+    return null;
   }
 
   /**
@@ -142,12 +172,10 @@ public enum Platform {
    * {@code android.util.DisplayMetrics} to check display size or using
    * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
    * forward compatibility with new Clover hardware.
-   *
-   * @y.exclude
    */
-  @Deprecated
-  public static boolean isCloverBayleaf() {
-    return get() == C400;
+  public static boolean isCloverFlex() {
+    Platform p = get();
+    return  p == C400 || p == C400U || p == C400E || p == C401U || p == C401E;
   }
 
   /**
@@ -183,7 +211,7 @@ public enum Platform {
    */
   @Deprecated
   public static boolean isSupportsCustomerMode() {
-    return isCloverMini() || isCloverMobile() || get() == C400;
+    return isCloverMini() || isCloverMobile() || isCloverFlex();
   }
 
   /**
@@ -246,3 +274,4 @@ public enum Platform {
     return productName;
   }
 }
+

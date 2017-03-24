@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -35,6 +36,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getDevice device}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getClientCreatedTime clientCreatedTime}</li>
  * <li>{@link #getPayment payment}</li>
@@ -46,7 +48,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Refund extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -70,7 +72,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
   /**
-   * Total amount refunded, including tax
+   * Total amount refunded, including tax and tip
    */
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
@@ -81,6 +83,13 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
    */
   public java.lang.Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
+  }
+
+  /**
+   * Tip amount refunded
+   */
+  public java.lang.Long getTipAmount() {
+    return genClient.cacheGet(CacheKey.tipAmount);
   }
 
   /**
@@ -129,6 +138,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Refund> {
     id {
       @Override
@@ -158,6 +168,12 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Refund instance) {
         return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
+      }
+    },
+    tipAmount {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
       }
     },
     createdTime {
@@ -208,20 +224,35 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
         return instance.genClient.extractRecord("serviceChargeAmount", com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Refund> genClient = new GenericClient<Refund>(this);
+  private GenericClient<Refund> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Refund() { }
+  * Constructs a new empty instance.
+  */
+  public Refund() {
+    genClient = new GenericClient<Refund>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Refund(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Refund(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -234,6 +265,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
    * reflected in this instance and vice-versa.
    */
   public Refund(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -241,6 +273,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Refund(Refund src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -281,6 +314,11 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'taxAmount' field is set and is not null */
   public boolean isNotNullTaxAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'tipAmount' field is set and is not null */
+  public boolean isNotNullTipAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.tipAmount);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -330,6 +368,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   }
 
 
+
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
@@ -353,6 +392,11 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return genClient.cacheHasKey(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'tipAmount' field has been set, however the value could be null */
+  public boolean hasTipAmount() {
+    return genClient.cacheHasKey(CacheKey.tipAmount);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -433,6 +477,13 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
    */
   public Refund setTaxAmount(java.lang.Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
+  }
+
+  /**
+   * Sets the field 'tipAmount'.
+   */
+  public Refund setTipAmount(java.lang.Long tipAmount) {
+    return genClient.setOther(tipAmount, CacheKey.tipAmount);
   }
 
   /**
@@ -524,6 +575,10 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
   }
+  /** Clears the 'tipAmount' field, the 'has' method for this field will now return false */
+  public void clearTipAmount() {
+    genClient.clear(CacheKey.tipAmount);
+  }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
@@ -556,6 +611,7 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
   }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -590,29 +646,6 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Refund> CREATOR = new android.os.Parcelable.Creator<Refund>() {
     @Override
     public Refund createFromParcel(android.os.Parcel in) {
@@ -638,29 +671,18 @@ public final class Refund implements android.os.Parcelable, com.clover.sdk.v3.Va
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
-
     public static final boolean ORDERREF_IS_REQUIRED = false;
-
     public static final boolean DEVICE_IS_REQUIRED = false;
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
-
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
-
+    public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean PAYMENT_IS_REQUIRED = false;
-
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
-
     public static final boolean LINEITEMS_IS_REQUIRED = false;
-
     public static final boolean OVERRIDEMERCHANTTENDER_IS_REQUIRED = false;
-
     public static final boolean TAXABLEAMOUNTRATES_IS_REQUIRED = false;
-
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
 
   }

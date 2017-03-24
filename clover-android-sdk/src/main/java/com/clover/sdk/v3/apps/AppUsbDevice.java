@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +39,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getPackageName() {
     return genClient.cacheGet(CacheKey.packageName);
@@ -59,6 +60,7 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
   public java.lang.Boolean getOpenAppMarketIfNotInstalled() {
     return genClient.cacheGet(CacheKey.openAppMarketIfNotInstalled);
   }
+
 
 
 
@@ -93,20 +95,35 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
         return instance.genClient.extractOther("openAppMarketIfNotInstalled", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<AppUsbDevice> genClient = new GenericClient<AppUsbDevice>(this);
+  private GenericClient<AppUsbDevice> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public AppUsbDevice() { }
+  * Constructs a new empty instance.
+  */
+  public AppUsbDevice() {
+    genClient = new GenericClient<AppUsbDevice>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected AppUsbDevice(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public AppUsbDevice(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -119,6 +136,7 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
    * reflected in this instance and vice-versa.
    */
   public AppUsbDevice(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -126,6 +144,7 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public AppUsbDevice(AppUsbDevice src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -172,6 +191,7 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
   public boolean isNotNullOpenAppMarketIfNotInstalled() {
     return genClient.cacheValueIsNotNull(CacheKey.openAppMarketIfNotInstalled);
   }
+
 
 
   /** Checks whether the 'packageName' field has been set, however the value could be null */
@@ -259,6 +279,7 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
     genClient.clear(CacheKey.openAppMarketIfNotInstalled);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -292,29 +313,6 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<AppUsbDevice> CREATOR = new android.os.Parcelable.Creator<AppUsbDevice>() {
     @Override
     public AppUsbDevice createFromParcel(android.os.Parcel in) {
@@ -341,15 +339,11 @@ public final class AppUsbDevice implements android.os.Parcelable, com.clover.sdk
 
     public static final boolean PACKAGENAME_IS_REQUIRED = false;
     public static final long PACKAGENAME_MAX_LEN = 255;
-
     public static final boolean VENDORID_IS_REQUIRED = false;
     public static final long VENDORID_MIN = 0;
-
     public static final boolean PRODUCTID_IS_REQUIRED = false;
     public static final long PRODUCTID_MIN = 0;
-
     public static final boolean APP_IS_REQUIRED = false;
-
     public static final boolean OPENAPPMARKETIFNOTINSTALLED_IS_REQUIRED = false;
 
   }

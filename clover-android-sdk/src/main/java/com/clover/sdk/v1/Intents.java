@@ -718,6 +718,12 @@ public class Intents {
   /** {@link int}, does this intent need remote payment confirmation i.e. RemotePay */
   public static final String EXTRA_APP_TRACKING_ID = "clover.intent.extra.APP_TRACKING_ID";
 
+  /** {@link int}, is partial authorization allowed (if it occurs)? */
+  public static final String EXTRA_ALLOW_PARTIAL_AUTH = "clover.intent.extra.ALLOW_PARTIAL_AUTH";
+
+  /** {@link int}, does this intent need german info */
+  public static final String GERMAN_INFO = "clover.intent.extra.GERMAN_INFO";
+
   /** {@link int}, does this payment need remote offline payment confirmation */
   public static final String EXTRA_OFFLINE_PAYMENT_CONFIRMATION = "clover.intent.extra.OFFLINE_PAYMENT_CONFIRMATION";
 
@@ -958,6 +964,40 @@ public class Intents {
 
   /** {@link int}, representation of bit flags from {@link com.clover.sdk.v1.printer.job.PrintJob} */
   public static final String EXTRA_RECEIPT_FLAG = "clover.intent.extra.RECEIPT_FLAG";
+
+  /** Transaction Settings Section Start */
+  public static final String EXTRA_TRANSACTION_SETTINGS = "clover.intent.extra.TRANSACTION_SETTINGS";
+
+  /** {@link Boolean}, are tips enabled for this transaction */
+  public static final String EXTRA_TIPS_ENABLED = "clover.intent.extra.TIPS_ENABLED";
+
+  /** {@link Boolean}, is the receipt options screen disabled for this transaction */
+  public static final String EXTRA_DISABLE_RECEIPT_OPTIONS = "clover.intent.extra.DISABLE_RECEIPT_OPTIONS";
+
+  /** {@link com.clover.sdk.v3.payments.TipMode}, where tips are entered/provided (e.g. on screen
+   * after/before, on paper, provided or no tip) for this transaction */
+  public static final String EXTRA_TIP_MODE = "clover.intent.extra.TIP_MODE";
+  /** A value for {@link #EXTRA_TIP_MODE} */
+  public static final String TIP_MODE_ON_SCREEN_BEFORE_PAYMENT = "ON_SCREEN_BEFORE_PAYMENT";
+  /** A value for {@link #EXTRA_TIP_MODE} */
+  public static final String TIP_MODE_ON_SCREEN_AFTER_PAYMENT = "ON_SCREEN_AFTER_PAYMENT";
+  /** A value for {@link #EXTRA_TIP_MODE} */
+  public static final String TIP_MODE_ON_PAPER = "ON_PAPER";
+  /** A value for {@link #EXTRA_TIP_MODE} */
+  public static final String TIP_MODE_NO_TIP = "NO_TIP";
+
+  /** {@link com.clover.sdk.v3.payments.DataEntryLocation}, where signatures are entered (e.g. on screen, on paper, none) for this transaction */
+  public static final String EXTRA_SIGNATURE_ENTRY_LOCATION = "clover.intent.extra.SIGNATURE_ENTRY_LOCATION";
+  /** A value for {@link #EXTRA_SIGNATURE_ENTRY_LOCATION} */
+  public static final String DATA_ENTRY_LOCATION_ON_SCREEN = "ON_SCREEN";
+  /** A value for {@link #EXTRA_SIGNATURE_ENTRY_LOCATION} */
+  public static final String DATA_ENTRY_LOCATION_ON_PAPER = "ON_PAPER";
+  /** A value for {@link #EXTRA_SIGNATURE_ENTRY_LOCATION} */
+  public static final String DATA_ENTRY_LOCATION_NONE = "NONE";
+
+  /** {@link Long}, what is the signature threshold for this transaction */
+  public static final String EXTRA_SIGNATURE_THRESHOLD = "clover.intent.extra.SIGNATURE_THRESHOLD";
+  /** Transaction Settings Section End */
 
   /**
    * Broadcast from Clover, indicating an order was created

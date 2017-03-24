@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.customers;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,10 +39,11 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getExpirationDate expirationDate}</li>
  * <li>{@link #getCardType cardType}</li>
  * <li>{@link #getToken token}</li>
+ * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Card extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -74,6 +76,14 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
   public java.lang.String getToken() {
     return genClient.cacheGet(CacheKey.token);
   }
+
+  /**
+   * Customer who this card belongs to.
+   */
+  public com.clover.sdk.v3.base.Reference getCustomer() {
+    return genClient.cacheGet(CacheKey.customer);
+  }
+
 
 
 
@@ -126,20 +136,41 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
         return instance.genClient.extractOther("token", java.lang.String.class);
       }
     },
-    ;
+    customer {
+      @Override
+      public Object extractValue(Card instance) {
+        return instance.genClient.extractRecord("customer", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
-  private GenericClient<Card> genClient = new GenericClient<Card>(this);
+  private GenericClient<Card> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Card() { }
+  * Constructs a new empty instance.
+  */
+  public Card() {
+    genClient = new GenericClient<Card>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Card(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Card(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -152,6 +183,7 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
    * reflected in this instance and vice-versa.
    */
   public Card(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -159,6 +191,7 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Card(Card src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -230,6 +263,12 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.token);
   }
 
+  /** Checks whether the 'customer' field is set and is not null */
+  public boolean isNotNullCustomer() {
+    return genClient.cacheValueIsNotNull(CacheKey.customer);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -269,6 +308,11 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
   /** Checks whether the 'token' field has been set, however the value could be null */
   public boolean hasToken() {
     return genClient.cacheHasKey(CacheKey.token);
+  }
+
+  /** Checks whether the 'customer' field has been set, however the value could be null */
+  public boolean hasCustomer() {
+    return genClient.cacheHasKey(CacheKey.customer);
   }
 
 
@@ -328,6 +372,15 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
     return genClient.setOther(token, CacheKey.token);
   }
 
+  /**
+   * Sets the field 'customer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Card setCustomer(com.clover.sdk.v3.base.Reference customer) {
+    return genClient.setRecord(customer, CacheKey.customer);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -361,6 +414,11 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
   public void clearToken() {
     genClient.clear(CacheKey.token);
   }
+  /** Clears the 'customer' field, the 'has' method for this field will now return false */
+  public void clearCustomer() {
+    genClient.clear(CacheKey.customer);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -395,29 +453,6 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Card> CREATOR = new android.os.Parcelable.Creator<Card>() {
     @Override
     public Card createFromParcel(android.os.Parcel in) {
@@ -443,26 +478,20 @@ public final class Card implements android.os.Parcelable, com.clover.sdk.v3.Vali
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
-
     public static final boolean FIRST6_IS_REQUIRED = true;
     public static final long FIRST6_MAX_LEN = 6;
-
     public static final boolean LAST4_IS_REQUIRED = true;
     public static final long LAST4_MAX_LEN = 4;
-
     public static final boolean FIRSTNAME_IS_REQUIRED = false;
     public static final long FIRSTNAME_MAX_LEN = 64;
-
     public static final boolean LASTNAME_IS_REQUIRED = false;
     public static final long LASTNAME_MAX_LEN = 64;
-
     public static final boolean EXPIRATIONDATE_IS_REQUIRED = false;
     public static final long EXPIRATIONDATE_MAX_LEN = 4;
-
     public static final boolean CARDTYPE_IS_REQUIRED = false;
-
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
+    public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }
 

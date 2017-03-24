@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.developer;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -74,7 +75,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Developer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Developer extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -362,6 +363,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Developer> {
     id {
       @Override
@@ -609,20 +611,35 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
         return instance.genClient.extractOther("emergencyEmail", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Developer> genClient = new GenericClient<Developer>(this);
+  private GenericClient<Developer> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Developer() { }
+  * Constructs a new empty instance.
+  */
+  public Developer() {
+    genClient = new GenericClient<Developer>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Developer(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Developer(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -635,6 +652,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
    * reflected in this instance and vice-versa.
    */
   public Developer(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -642,6 +660,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Developer(Developer src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -932,6 +951,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
   public boolean isNotNullEmergencyEmail() {
     return genClient.cacheValueIsNotNull(CacheKey.emergencyEmail);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1595,6 +1615,7 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     genClient.clear(CacheKey.emergencyEmail);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1628,29 +1649,6 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Developer> CREATOR = new android.os.Parcelable.Creator<Developer>() {
     @Override
     public Developer createFromParcel(android.os.Parcel in) {
@@ -1677,118 +1675,78 @@ public final class Developer implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean FIRSTNAME_IS_REQUIRED = false;
     public static final long FIRSTNAME_MAX_LEN = 127;
-
     public static final boolean LASTNAME_IS_REQUIRED = false;
     public static final long LASTNAME_MAX_LEN = 127;
-
     public static final boolean EMAIL_IS_REQUIRED = false;
     public static final long EMAIL_MAX_LEN = 127;
-
     public static final boolean PHONE_IS_REQUIRED = false;
     public static final long PHONE_MAX_LEN = 25;
-
     public static final boolean DOB_IS_REQUIRED = false;
     public static final long DOB_MAX_LEN = 10;
-
     public static final boolean SSN_IS_REQUIRED = false;
     public static final long SSN_MAX_LEN = 9;
-
     public static final boolean ADDRESS_IS_REQUIRED = false;
     public static final long ADDRESS_MAX_LEN = 255;
-
     public static final boolean CITY_IS_REQUIRED = false;
     public static final long CITY_MAX_LEN = 127;
-
     public static final boolean COUNTY_IS_REQUIRED = false;
     public static final long COUNTY_MAX_LEN = 127;
-
     public static final boolean STATE_IS_REQUIRED = false;
     public static final long STATE_MAX_LEN = 127;
-
     public static final boolean COUNTRY_IS_REQUIRED = false;
     public static final long COUNTRY_MAX_LEN = 2;
-
     public static final boolean POSTALCODE_IS_REQUIRED = false;
     public static final long POSTALCODE_MAX_LEN = 20;
-
     public static final boolean BANKACCOUNTNUMBER_IS_REQUIRED = false;
     public static final long BANKACCOUNTNUMBER_MAX_LEN = 34;
-
     public static final boolean BANKROUTINGNUMBER_IS_REQUIRED = false;
     public static final long BANKROUTINGNUMBER_MAX_LEN = 40;
-
     public static final boolean BUSINESSLEGALNAME_IS_REQUIRED = false;
     public static final long BUSINESSLEGALNAME_MAX_LEN = 255;
-
     public static final boolean TIN_IS_REQUIRED = false;
     public static final long TIN_MAX_LEN = 9;
-
     public static final boolean VATREGISTERNUMBER_IS_REQUIRED = false;
     public static final long VATREGISTERNUMBER_MAX_LEN = 127;
-
     public static final boolean BUSINESSADDRESS_IS_REQUIRED = false;
     public static final long BUSINESSADDRESS_MAX_LEN = 255;
-
     public static final boolean BUSINESSCITY_IS_REQUIRED = false;
     public static final long BUSINESSCITY_MAX_LEN = 127;
-
     public static final boolean BUSINESSSTATE_IS_REQUIRED = false;
     public static final long BUSINESSSTATE_MAX_LEN = 127;
-
     public static final boolean BUSINESSCOUNTRY_IS_REQUIRED = false;
     public static final long BUSINESSCOUNTRY_MAX_LEN = 2;
-
     public static final boolean BUSINESSPOSTALCODE_IS_REQUIRED = false;
     public static final long BUSINESSPOSTALCODE_MAX_LEN = 20;
-
     public static final boolean BILLINGSTATUS_IS_REQUIRED = false;
-
     public static final boolean BILLINGSTATUSMESSAGE_IS_REQUIRED = false;
     public static final long BILLINGSTATUSMESSAGE_MAX_LEN = 127;
-
     public static final boolean APPROVALSTATUS_IS_REQUIRED = false;
-
     public static final boolean ACCEPTEDAGREEMENT_IS_REQUIRED = false;
-
     public static final boolean PRNAME_IS_REQUIRED = false;
     public static final long PRNAME_MAX_LEN = 255;
-
     public static final boolean PREMAIL_IS_REQUIRED = false;
     public static final long PREMAIL_MAX_LEN = 127;
-
     public static final boolean PRPHONE_IS_REQUIRED = false;
     public static final long PRPHONE_MAX_LEN = 25;
-
     public static final boolean WEBSITE_IS_REQUIRED = false;
     public static final long WEBSITE_MAX_LEN = 255;
-
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
     public static final boolean OWNER_IS_REQUIRED = false;
-
     public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;
     public static final long APPBILLINGSYSTEM_MAX_LEN = 10;
-
     public static final boolean INFOLEASEVENDORCODE_IS_REQUIRED = false;
     public static final long INFOLEASEVENDORCODE_MAX_LEN = 30;
-
     public static final boolean INFOLEASEGLCODE_IS_REQUIRED = false;
     public static final long INFOLEASEGLCODE_MAX_LEN = 10;
-
     public static final boolean SIGNORNAME_IS_REQUIRED = false;
     public static final long SIGNORNAME_MAX_LEN = 127;
-
     public static final boolean SIGNORTITLE_IS_REQUIRED = false;
     public static final long SIGNORTITLE_MAX_LEN = 127;
-
     public static final boolean REFERRALSUBMISSIONTIME_IS_REQUIRED = false;
-
     public static final boolean EMERGENCYEMAIL_IS_REQUIRED = false;
     public static final long EMERGENCYEMAIL_MAX_LEN = 127;
 

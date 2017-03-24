@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.order;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -53,7 +54,7 @@ import com.clover.sdk.GenericClient;
  * @see com.clover.sdk.v3.order.IOrderService
  */
 @SuppressWarnings("all")
-public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -176,6 +177,7 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
   }
 
 
+
   public static final String AUTHORITY = "com.clover.merchants";
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<OrderType> {
@@ -287,20 +289,35 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
         return instance.genClient.extractListRecord("categories", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<OrderType> genClient = new GenericClient<OrderType>(this);
+  private GenericClient<OrderType> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public OrderType() { }
+  * Constructs a new empty instance.
+  */
+  public OrderType() {
+    genClient = new GenericClient<OrderType>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected OrderType(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public OrderType(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -313,6 +330,7 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
    * reflected in this instance and vice-versa.
    */
   public OrderType(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -320,6 +338,7 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public OrderType(OrderType src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -446,6 +465,7 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
 
   /** Checks whether the 'categories' field is set and is not null and is not empty */
   public boolean isNotEmptyCategories() { return isNotNullCategories() && !getCategories().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -743,6 +763,7 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
     genClient.clear(CacheKey.categories);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -776,29 +797,6 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<OrderType> CREATOR = new android.os.Parcelable.Creator<OrderType>() {
     @Override
     public OrderType createFromParcel(android.os.Parcel in) {
@@ -825,47 +823,30 @@ public final class OrderType implements android.os.Parcelable, com.clover.sdk.v3
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean LABELKEY_IS_REQUIRED = false;
     public static final long LABELKEY_MAX_LEN = 127;
-
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 127;
-
     public static final boolean TAXABLE_IS_REQUIRED = false;
-
     public static final boolean ISDEFAULT_IS_REQUIRED = false;
-
     public static final boolean FILTERCATEGORIES_IS_REQUIRED = false;
-
     public static final boolean ISHIDDEN_IS_REQUIRED = false;
-
     public static final boolean FEE_IS_REQUIRED = false;
     public static final long FEE_MIN = 0;
-
     public static final boolean MINORDERAMOUNT_IS_REQUIRED = false;
     public static final long MINORDERAMOUNT_MIN = 0;
-
     public static final boolean MAXORDERAMOUNT_IS_REQUIRED = false;
     public static final long MAXORDERAMOUNT_MIN = 0;
-
     public static final boolean MAXRADIUS_IS_REQUIRED = false;
     public static final long MAXRADIUS_MIN = 0;
-
     public static final boolean AVGORDERTIME_IS_REQUIRED = false;
     public static final long AVGORDERTIME_MIN = 0;
-
     public static final boolean HOURSAVAILABLE_IS_REQUIRED = false;
-
     public static final boolean CUSTOMERIDMETHOD_IS_REQUIRED = false;
-
     public static final boolean ISDELETED_IS_REQUIRED = false;
-
     public static final boolean SYSTEMORDERTYPEID_IS_REQUIRED = false;
     public static final long SYSTEMORDERTYPEID_MAX_LEN = 13;
-
     public static final boolean HOURS_IS_REQUIRED = false;
-
     public static final boolean CATEGORIES_IS_REQUIRED = false;
 
   }

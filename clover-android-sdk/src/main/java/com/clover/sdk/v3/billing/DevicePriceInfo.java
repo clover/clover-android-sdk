@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -35,7 +36,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class DevicePriceInfo implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.Long getPrice() {
     return genClient.cacheGet(CacheKey.price);
@@ -44,6 +45,7 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
   public com.clover.sdk.v3.billing.DeviceCountInfo getDeviceCountInfo() {
     return genClient.cacheGet(CacheKey.deviceCountInfo);
   }
+
 
 
 
@@ -60,20 +62,35 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
         return instance.genClient.extractRecord("deviceCountInfo", com.clover.sdk.v3.billing.DeviceCountInfo.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<DevicePriceInfo> genClient = new GenericClient<DevicePriceInfo>(this);
+  private GenericClient<DevicePriceInfo> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public DevicePriceInfo() { }
+  * Constructs a new empty instance.
+  */
+  public DevicePriceInfo() {
+    genClient = new GenericClient<DevicePriceInfo>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected DevicePriceInfo(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public DevicePriceInfo(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -86,6 +103,7 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public DevicePriceInfo(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -93,6 +111,7 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public DevicePriceInfo(DevicePriceInfo src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -119,6 +138,7 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
   public boolean isNotNullDeviceCountInfo() {
     return genClient.cacheValueIsNotNull(CacheKey.deviceCountInfo);
   }
+
 
 
   /** Checks whether the 'price' field has been set, however the value could be null */
@@ -158,6 +178,7 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
     genClient.clear(CacheKey.deviceCountInfo);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -191,29 +212,6 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<DevicePriceInfo> CREATOR = new android.os.Parcelable.Creator<DevicePriceInfo>() {
     @Override
     public DevicePriceInfo createFromParcel(android.os.Parcel in) {
@@ -239,7 +237,6 @@ public final class DevicePriceInfo implements android.os.Parcelable, com.clover.
   public interface Constraints {
 
     public static final boolean PRICE_IS_REQUIRED = false;
-
     public static final boolean DEVICECOUNTINFO_IS_REQUIRED = false;
 
   }

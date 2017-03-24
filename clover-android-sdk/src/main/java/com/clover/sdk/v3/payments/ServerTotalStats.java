@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -42,7 +43,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class ServerTotalStats implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class ServerTotalStats extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Employee corresponding to these stats
@@ -82,6 +83,7 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
   public com.clover.sdk.v3.payments.BatchTotalType getTips() {
     return genClient.cacheGet(CacheKey.tips);
   }
+
 
 
 
@@ -140,20 +142,35 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
         return instance.genClient.extractRecord("tips", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<ServerTotalStats> genClient = new GenericClient<ServerTotalStats>(this);
+  private GenericClient<ServerTotalStats> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public ServerTotalStats() { }
+  * Constructs a new empty instance.
+  */
+  public ServerTotalStats() {
+    genClient = new GenericClient<ServerTotalStats>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected ServerTotalStats(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public ServerTotalStats(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -166,6 +183,7 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
    * reflected in this instance and vice-versa.
    */
   public ServerTotalStats(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -173,6 +191,7 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public ServerTotalStats(ServerTotalStats src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -235,6 +254,7 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
   public boolean isNotNullTips() {
     return genClient.cacheValueIsNotNull(CacheKey.tips);
   }
+
 
 
   /** Checks whether the 'employeeId' field has been set, however the value could be null */
@@ -398,6 +418,7 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
     genClient.clear(CacheKey.tips);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -431,29 +452,6 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<ServerTotalStats> CREATOR = new android.os.Parcelable.Creator<ServerTotalStats>() {
     @Override
     public ServerTotalStats createFromParcel(android.os.Parcel in) {
@@ -480,21 +478,13 @@ public final class ServerTotalStats implements android.os.Parcelable, com.clover
 
     public static final boolean EMPLOYEEID_IS_REQUIRED = false;
     public static final long EMPLOYEEID_MAX_LEN = 13;
-
     public static final boolean EMPLOYEENAME_IS_REQUIRED = false;
-
     public static final boolean SALES_IS_REQUIRED = false;
-
     public static final boolean REFUNDS_IS_REQUIRED = false;
-
     public static final boolean NET_IS_REQUIRED = false;
-
     public static final boolean GIFTCARDLOADS_IS_REQUIRED = false;
-
     public static final boolean GIFTCARDCASHOUTS_IS_REQUIRED = false;
-
     public static final boolean TAX_IS_REQUIRED = false;
-
     public static final boolean TIPS_IS_REQUIRED = false;
 
   }

@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.employees;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,10 +39,11 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getManagerDefault managerDefault}</li>
  * <li>{@link #getPermissions permissions}</li>
  * <li>{@link #getRoles roles}</li>
+ * <li>{@link #getModule module}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class PermissionSet implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class PermissionSet extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -89,6 +91,14 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   public java.util.List<com.clover.sdk.v3.base.Reference> getRoles() {
     return genClient.cacheGet(CacheKey.roles);
   }
+
+  /**
+   * The module associated with this permission set (if any)
+   */
+  public com.clover.sdk.v3.base.Reference getModule() {
+    return genClient.cacheGet(CacheKey.module);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.roles";
@@ -142,20 +152,41 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
         return instance.genClient.extractListRecord("roles", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+    module {
+      @Override
+      public Object extractValue(PermissionSet instance) {
+        return instance.genClient.extractRecord("module", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
-  private GenericClient<PermissionSet> genClient = new GenericClient<PermissionSet>(this);
+  private GenericClient<PermissionSet> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public PermissionSet() { }
+  * Constructs a new empty instance.
+  */
+  public PermissionSet() {
+    genClient = new GenericClient<PermissionSet>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected PermissionSet(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public PermissionSet(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -168,6 +199,7 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
    * reflected in this instance and vice-versa.
    */
   public PermissionSet(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -175,6 +207,7 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public PermissionSet(PermissionSet src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -240,6 +273,12 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   /** Checks whether the 'roles' field is set and is not null and is not empty */
   public boolean isNotEmptyRoles() { return isNotNullRoles() && !getRoles().isEmpty(); }
 
+  /** Checks whether the 'module' field is set and is not null */
+  public boolean isNotNullModule() {
+    return genClient.cacheValueIsNotNull(CacheKey.module);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -279,6 +318,11 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   /** Checks whether the 'roles' field has been set, however the value could be null */
   public boolean hasRoles() {
     return genClient.cacheHasKey(CacheKey.roles);
+  }
+
+  /** Checks whether the 'module' field has been set, however the value could be null */
+  public boolean hasModule() {
+    return genClient.cacheHasKey(CacheKey.module);
   }
 
 
@@ -344,6 +388,15 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     return genClient.setArrayRecord(roles, CacheKey.roles);
   }
 
+  /**
+   * Sets the field 'module'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PermissionSet setModule(com.clover.sdk.v3.base.Reference module) {
+    return genClient.setRecord(module, CacheKey.module);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -377,6 +430,11 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
   public void clearRoles() {
     genClient.clear(CacheKey.roles);
   }
+  /** Clears the 'module' field, the 'has' method for this field will now return false */
+  public void clearModule() {
+    genClient.clear(CacheKey.module);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -411,29 +469,6 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<PermissionSet> CREATOR = new android.os.Parcelable.Creator<PermissionSet>() {
     @Override
     public PermissionSet createFromParcel(android.os.Parcel in) {
@@ -460,22 +495,16 @@ public final class PermissionSet implements android.os.Parcelable, com.clover.sd
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 127;
-
     public static final boolean APP_IS_REQUIRED = false;
-
     public static final boolean EMPLOYEEDEFAULT_IS_REQUIRED = false;
-
     public static final boolean MANAGERDEFAULT_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONS_IS_REQUIRED = false;
-
     public static final boolean ROLES_IS_REQUIRED = false;
+    public static final boolean MODULE_IS_REQUIRED = false;
 
   }
 

@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.hours;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -43,7 +44,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -90,6 +91,7 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
   public java.util.List<com.clover.sdk.v3.hours.HourRange> getSaturday() {
     return genClient.cacheGet(CacheKey.saturday);
   }
+
 
 
 
@@ -154,20 +156,35 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
         return instance.genClient.extractListRecord("saturday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<HoursSet> genClient = new GenericClient<HoursSet>(this);
+  private GenericClient<HoursSet> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public HoursSet() { }
+  * Constructs a new empty instance.
+  */
+  public HoursSet() {
+    genClient = new GenericClient<HoursSet>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected HoursSet(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public HoursSet(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -180,6 +197,7 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public HoursSet(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -187,6 +205,7 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public HoursSet(HoursSet src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -277,6 +296,7 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
 
   /** Checks whether the 'saturday' field is set and is not null and is not empty */
   public boolean isNotEmptySaturday() { return isNotNullSaturday() && !getSaturday().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -458,6 +478,7 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
     genClient.clear(CacheKey.saturday);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -491,29 +512,6 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<HoursSet> CREATOR = new android.os.Parcelable.Creator<HoursSet>() {
     @Override
     public HoursSet createFromParcel(android.os.Parcel in) {
@@ -540,24 +538,15 @@ public final class HoursSet implements android.os.Parcelable, com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 20;
-
     public static final boolean REFERENCE_IS_REQUIRED = false;
-
     public static final boolean SUNDAY_IS_REQUIRED = false;
-
     public static final boolean MONDAY_IS_REQUIRED = false;
-
     public static final boolean TUESDAY_IS_REQUIRED = false;
-
     public static final boolean WEDNESDAY_IS_REQUIRED = false;
-
     public static final boolean THURSDAY_IS_REQUIRED = false;
-
     public static final boolean FRIDAY_IS_REQUIRED = false;
-
     public static final boolean SATURDAY_IS_REQUIRED = false;
 
   }

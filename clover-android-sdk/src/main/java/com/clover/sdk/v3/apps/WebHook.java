@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -45,7 +46,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getUrl() {
     return genClient.cacheGet(CacheKey.url);
@@ -100,6 +101,7 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
   public java.lang.Boolean getExports() {
     return genClient.cacheGet(CacheKey.exports);
   }
+
 
 
 
@@ -176,20 +178,35 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractOther("exports", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<WebHook> genClient = new GenericClient<WebHook>(this);
+  private GenericClient<WebHook> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public WebHook() { }
+  * Constructs a new empty instance.
+  */
+  public WebHook() {
+    genClient = new GenericClient<WebHook>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected WebHook(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public WebHook(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -202,6 +219,7 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public WebHook(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -209,6 +227,7 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public WebHook(WebHook src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -290,6 +309,7 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
   public boolean isNotNullExports() {
     return genClient.cacheValueIsNotNull(CacheKey.exports);
   }
+
 
 
   /** Checks whether the 'url' field has been set, however the value could be null */
@@ -487,6 +507,7 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
     genClient.clear(CacheKey.exports);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -520,29 +541,6 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<WebHook> CREATOR = new android.os.Parcelable.Creator<WebHook>() {
     @Override
     public WebHook createFromParcel(android.os.Parcel in) {
@@ -569,29 +567,18 @@ public final class WebHook implements android.os.Parcelable, com.clover.sdk.v3.V
 
     public static final boolean URL_IS_REQUIRED = false;
     public static final long URL_MAX_LEN = 1023;
-
     public static final boolean SECRET_IS_REQUIRED = false;
     public static final long SECRET_MAX_LEN = 36;
-
     public static final boolean VALID_IS_REQUIRED = false;
-
     public static final boolean VERIFICATION_IS_REQUIRED = false;
     public static final long VERIFICATION_MAX_LEN = 36;
-
     public static final boolean ORDERS_IS_REQUIRED = false;
-
     public static final boolean APP_IS_REQUIRED = false;
-
     public static final boolean PAYMENTS_IS_REQUIRED = false;
-
     public static final boolean INVENTORY_IS_REQUIRED = false;
-
     public static final boolean CUSTOMERS_IS_REQUIRED = false;
-
     public static final boolean MERCHANTS_IS_REQUIRED = false;
-
     public static final boolean CASHADJUSTMENT_IS_REQUIRED = false;
-
     public static final boolean EXPORTS_IS_REQUIRED = false;
 
   }

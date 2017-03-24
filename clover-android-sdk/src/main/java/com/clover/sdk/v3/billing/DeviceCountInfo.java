@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -34,10 +35,11 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getNumStations numStations}</li>
  * <li>{@link #getNumMobiles numMobiles}</li>
  * <li>{@link #getNumMinis numMinis}</li>
+ * <li>{@link #getNumBayleafs numBayleafs}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class DeviceCountInfo implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.Long getTotalDevices() {
     return genClient.cacheGet(CacheKey.totalDevices);
@@ -54,6 +56,11 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
   public java.lang.Long getNumMinis() {
     return genClient.cacheGet(CacheKey.numMinis);
   }
+
+  public java.lang.Long getNumBayleafs() {
+    return genClient.cacheGet(CacheKey.numBayleafs);
+  }
+
 
 
 
@@ -82,20 +89,41 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
         return instance.genClient.extractOther("numMinis", java.lang.Long.class);
       }
     },
-    ;
+    numBayleafs {
+      @Override
+      public Object extractValue(DeviceCountInfo instance) {
+        return instance.genClient.extractOther("numBayleafs", java.lang.Long.class);
+      }
+    },
+      ;
   }
 
-  private GenericClient<DeviceCountInfo> genClient = new GenericClient<DeviceCountInfo>(this);
+  private GenericClient<DeviceCountInfo> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public DeviceCountInfo() { }
+  * Constructs a new empty instance.
+  */
+  public DeviceCountInfo() {
+    genClient = new GenericClient<DeviceCountInfo>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected DeviceCountInfo(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public DeviceCountInfo(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -108,6 +136,7 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public DeviceCountInfo(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -115,6 +144,7 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public DeviceCountInfo(DeviceCountInfo src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -152,6 +182,12 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.numMinis);
   }
 
+  /** Checks whether the 'numBayleafs' field is set and is not null */
+  public boolean isNotNullNumBayleafs() {
+    return genClient.cacheValueIsNotNull(CacheKey.numBayleafs);
+  }
+
+
 
   /** Checks whether the 'totalDevices' field has been set, however the value could be null */
   public boolean hasTotalDevices() {
@@ -171,6 +207,11 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
   /** Checks whether the 'numMinis' field has been set, however the value could be null */
   public boolean hasNumMinis() {
     return genClient.cacheHasKey(CacheKey.numMinis);
+  }
+
+  /** Checks whether the 'numBayleafs' field has been set, however the value could be null */
+  public boolean hasNumBayleafs() {
+    return genClient.cacheHasKey(CacheKey.numBayleafs);
   }
 
 
@@ -202,6 +243,13 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
     return genClient.setOther(numMinis, CacheKey.numMinis);
   }
 
+  /**
+   * Sets the field 'numBayleafs'.
+   */
+  public DeviceCountInfo setNumBayleafs(java.lang.Long numBayleafs) {
+    return genClient.setOther(numBayleafs, CacheKey.numBayleafs);
+  }
+
 
   /** Clears the 'totalDevices' field, the 'has' method for this field will now return false */
   public void clearTotalDevices() {
@@ -219,6 +267,11 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
   public void clearNumMinis() {
     genClient.clear(CacheKey.numMinis);
   }
+  /** Clears the 'numBayleafs' field, the 'has' method for this field will now return false */
+  public void clearNumBayleafs() {
+    genClient.clear(CacheKey.numBayleafs);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -253,29 +306,6 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<DeviceCountInfo> CREATOR = new android.os.Parcelable.Creator<DeviceCountInfo>() {
     @Override
     public DeviceCountInfo createFromParcel(android.os.Parcel in) {
@@ -301,12 +331,10 @@ public final class DeviceCountInfo implements android.os.Parcelable, com.clover.
   public interface Constraints {
 
     public static final boolean TOTALDEVICES_IS_REQUIRED = false;
-
     public static final boolean NUMSTATIONS_IS_REQUIRED = false;
-
     public static final boolean NUMMOBILES_IS_REQUIRED = false;
-
     public static final boolean NUMMINIS_IS_REQUIRED = false;
+    public static final boolean NUMBAYLEAFS_IS_REQUIRED = false;
 
   }
 

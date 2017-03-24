@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -41,7 +42,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class MerchantPlanCharge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class MerchantPlanCharge extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -80,6 +81,7 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
   public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
+
 
 
 
@@ -132,20 +134,35 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
         return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<MerchantPlanCharge> genClient = new GenericClient<MerchantPlanCharge>(this);
+  private GenericClient<MerchantPlanCharge> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public MerchantPlanCharge() { }
+  * Constructs a new empty instance.
+  */
+  public MerchantPlanCharge() {
+    genClient = new GenericClient<MerchantPlanCharge>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected MerchantPlanCharge(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public MerchantPlanCharge(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -158,6 +175,7 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
    * reflected in this instance and vice-versa.
    */
   public MerchantPlanCharge(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -165,6 +183,7 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public MerchantPlanCharge(MerchantPlanCharge src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -222,6 +241,7 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -361,6 +381,7 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
     genClient.clear(CacheKey.modifiedTime);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -394,29 +415,6 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<MerchantPlanCharge> CREATOR = new android.os.Parcelable.Creator<MerchantPlanCharge>() {
     @Override
     public MerchantPlanCharge createFromParcel(android.os.Parcel in) {
@@ -443,19 +441,12 @@ public final class MerchantPlanCharge implements android.os.Parcelable, com.clov
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean CHARGE_IS_REQUIRED = false;
-
     public static final boolean PLANCHARGETYPE_IS_REQUIRED = false;
-
     public static final boolean NUMOFDEVICES_IS_REQUIRED = false;
-
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
     public static final boolean MERCHANTPLAN_IS_REQUIRED = false;
-
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }

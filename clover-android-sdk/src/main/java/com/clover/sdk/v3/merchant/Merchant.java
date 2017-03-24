@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.merchant;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -61,10 +62,11 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getIsBillable isBillable}</li>
  * <li>{@link #getDevices devices}</li>
  * <li>{@link #getMerchantGroups merchantGroups}</li>
+ * <li>{@link #getPartnerApp partnerApp}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -243,6 +245,14 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   public java.util.List<com.clover.sdk.v3.base.Reference> getMerchantGroups() {
     return genClient.cacheGet(CacheKey.merchantGroups);
   }
+
+  /**
+   * The partner app/solution with which this merchant is primarily associated
+   */
+  public com.clover.sdk.v3.base.Reference getPartnerApp() {
+    return genClient.cacheGet(CacheKey.partnerApp);
+  }
+
 
 
 
@@ -433,20 +443,41 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
         return instance.genClient.extractListRecord("merchantGroups", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+    partnerApp {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractRecord("partnerApp", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
-  private GenericClient<Merchant> genClient = new GenericClient<Merchant>(this);
+  private GenericClient<Merchant> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Merchant() { }
+  * Constructs a new empty instance.
+  */
+  public Merchant() {
+    genClient = new GenericClient<Merchant>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Merchant(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Merchant(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -459,6 +490,7 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public Merchant(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -466,6 +498,7 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Merchant(Merchant src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -700,6 +733,12 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'merchantGroups' field is set and is not null and is not empty */
   public boolean isNotEmptyMerchantGroups() { return isNotNullMerchantGroups() && !getMerchantGroups().isEmpty(); }
 
+  /** Checks whether the 'partnerApp' field is set and is not null */
+  public boolean isNotNullPartnerApp() {
+    return genClient.cacheValueIsNotNull(CacheKey.partnerApp);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -854,6 +893,11 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'merchantGroups' field has been set, however the value could be null */
   public boolean hasMerchantGroups() {
     return genClient.cacheHasKey(CacheKey.merchantGroups);
+  }
+
+  /** Checks whether the 'partnerApp' field has been set, however the value could be null */
+  public boolean hasPartnerApp() {
+    return genClient.cacheHasKey(CacheKey.partnerApp);
   }
 
 
@@ -1118,6 +1162,15 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     return genClient.setArrayRecord(merchantGroups, CacheKey.merchantGroups);
   }
 
+  /**
+   * Sets the field 'partnerApp'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setPartnerApp(com.clover.sdk.v3.base.Reference partnerApp) {
+    return genClient.setRecord(partnerApp, CacheKey.partnerApp);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1243,6 +1296,11 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
   public void clearMerchantGroups() {
     genClient.clear(CacheKey.merchantGroups);
   }
+  /** Clears the 'partnerApp' field, the 'has' method for this field will now return false */
+  public void clearPartnerApp() {
+    genClient.clear(CacheKey.partnerApp);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1277,29 +1335,6 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Merchant> CREATOR = new android.os.Parcelable.Creator<Merchant>() {
     @Override
     public Merchant createFromParcel(android.os.Parcel in) {
@@ -1326,71 +1361,42 @@ public final class Merchant implements android.os.Parcelable, com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean OWNER_IS_REQUIRED = true;
-
     public static final boolean ADDRESS_IS_REQUIRED = false;
-
     public static final boolean MERCHANTPLAN_IS_REQUIRED = false;
-
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
-
     public static final boolean PHONENUMBER_IS_REQUIRED = false;
     public static final long PHONENUMBER_MAX_LEN = 21;
-
     public static final boolean WEBSITE_IS_REQUIRED = false;
     public static final long WEBSITE_MAX_LEN = 255;
-
     public static final boolean CUSTOMERCONTACTEMAIL_IS_REQUIRED = false;
     public static final long CUSTOMERCONTACTEMAIL_MAX_LEN = 127;
-
     public static final boolean LOGOS_IS_REQUIRED = false;
-
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean PROPERTIES_IS_REQUIRED = false;
-
     public static final boolean GATEWAY_IS_REQUIRED = false;
-
     public static final boolean TIPSUGGESTIONS_IS_REQUIRED = false;
-
     public static final boolean EMPLOYEES_IS_REQUIRED = false;
-
     public static final boolean ITEMS_IS_REQUIRED = false;
-
     public static final boolean TAGS_IS_REQUIRED = false;
-
     public static final boolean TENDERS_IS_REQUIRED = false;
-
     public static final boolean SHIFTS_IS_REQUIRED = false;
-
     public static final boolean ORDERS_IS_REQUIRED = false;
-
     public static final boolean PAYMENTS_IS_REQUIRED = false;
-
     public static final boolean TAXRATES_IS_REQUIRED = false;
-
     public static final boolean PRINTERS_IS_REQUIRED = false;
-
     public static final boolean MODIFIERGROUPS_IS_REQUIRED = false;
-
     public static final boolean ORDERTYPES_IS_REQUIRED = false;
-
     public static final boolean RESELLER_IS_REQUIRED = false;
-
     public static final boolean OPENING_HOURS_IS_REQUIRED = false;
-
     public static final boolean BUSINESSTYPECODE_IS_REQUIRED = false;
-
     public static final boolean ISBILLABLE_IS_REQUIRED = false;
-
     public static final boolean DEVICES_IS_REQUIRED = false;
-
     public static final boolean MERCHANTGROUPS_IS_REQUIRED = false;
+    public static final boolean PARTNERAPP_IS_REQUIRED = false;
 
   }
 

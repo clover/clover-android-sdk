@@ -90,6 +90,7 @@ public final class RolesContract {
     public static final String LABEL = "label";
     public static final String APP_ID = "app_id";
     public static final String BITS = "bits";
+    public static final String MODULE = "module";
 
     public static String ROLE_IDS = "(SELECT group_concat(" + RolesContract.Roles.CONTENT_DIRECTORY + "." + RolesContract.Roles.UUID + ",',') "
         + "FROM " + RolesContract.PermissionSetRoles.CONTENT_DIRECTORY + " "
@@ -140,6 +141,9 @@ public final class RolesContract {
       if (permissionSet.hasPermissions()) {
         values.put(BITS, permissionSet.getPermissions().getBits());
       }
+      if (permissionSet.hasModule()) {
+        values.put(MODULE, permissionSet.getModule().toString());
+      }
       return values;
     }
 
@@ -161,6 +165,9 @@ public final class RolesContract {
       }
       if (c.getColumnIndex(APP_ID) != -1) {
         permissionSet.setApp(toReference(c, APP_ID));
+      }
+      if (c.getColumnIndex(MODULE) != -1) {
+        permissionSet.setModule(toReference(c, MODULE));
       }
 
       return permissionSet;
@@ -235,6 +242,7 @@ public final class RolesContract {
     public static final String PERMISSION_SET_LABEL = "permission_set_label";
     public static final String PERMISSION_SET_APP_ID = "permission_set_app_id";
     public static final String PERMISSION_SET_BITS = "permission_set_bits";
+    public static final String PERMISSION_SET_MODULE = "permission_set_module";
     public static final String ROLE_ID = "role_id";
     public static final String ROLE_NAME = "role_name";
   }
@@ -275,6 +283,9 @@ public final class RolesContract {
       }
       if (c.getColumnIndex(PERMISSION_SET_APP_ID) != -1) {
         permissionSet.setApp(toReference(c, PERMISSION_SET_APP_ID));
+      }
+      if (c.getColumnIndex(PERMISSION_SET_MODULE) != -1) {
+        permissionSet.setModule(toReference(c, PERMISSION_SET_MODULE));
       }
 
       Role role = new Role();

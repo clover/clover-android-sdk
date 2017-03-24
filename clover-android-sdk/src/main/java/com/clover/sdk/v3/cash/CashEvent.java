@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.cash;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -39,7 +40,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * The type of event that occured
@@ -85,6 +86,7 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CashEvent> {
     type {
       @Override
@@ -122,20 +124,35 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
         return instance.genClient.extractRecord("device", com.clover.sdk.v3.device.Device.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<CashEvent> genClient = new GenericClient<CashEvent>(this);
+  private GenericClient<CashEvent> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public CashEvent() { }
+  * Constructs a new empty instance.
+  */
+  public CashEvent() {
+    genClient = new GenericClient<CashEvent>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected CashEvent(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public CashEvent(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -148,6 +165,7 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
    * reflected in this instance and vice-versa.
    */
   public CashEvent(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -155,6 +173,7 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public CashEvent(CashEvent src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -201,6 +220,7 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
   public boolean isNotNullDevice() {
     return genClient.cacheValueIsNotNull(CacheKey.device);
   }
+
 
 
   /** Checks whether the 'type' field has been set, however the value could be null */
@@ -306,6 +326,7 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
     genClient.clear(CacheKey.device);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -339,29 +360,6 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<CashEvent> CREATOR = new android.os.Parcelable.Creator<CashEvent>() {
     @Override
     public CashEvent createFromParcel(android.os.Parcel in) {
@@ -387,15 +385,10 @@ public final class CashEvent implements android.os.Parcelable, com.clover.sdk.v3
   public interface Constraints {
 
     public static final boolean TYPE_IS_REQUIRED = false;
-
     public static final boolean AMOUNTCHANGE_IS_REQUIRED = false;
-
     public static final boolean TIMESTAMP_IS_REQUIRED = false;
-
     public static final boolean NOTE_IS_REQUIRED = false;
-
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
-
     public static final boolean DEVICE_IS_REQUIRED = false;
 
   }

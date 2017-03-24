@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Track 2 Card Data
@@ -66,6 +67,7 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<GiftCard> {
     track2 {
       @Override
@@ -91,20 +93,35 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
         return instance.genClient.extractOther("deviceSerial", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<GiftCard> genClient = new GenericClient<GiftCard>(this);
+  private GenericClient<GiftCard> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public GiftCard() { }
+  * Constructs a new empty instance.
+  */
+  public GiftCard() {
+    genClient = new GenericClient<GiftCard>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected GiftCard(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public GiftCard(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -117,6 +134,7 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public GiftCard(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -124,6 +142,7 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public GiftCard(GiftCard src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -160,6 +179,7 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
   public boolean isNotNullDeviceSerial() {
     return genClient.cacheValueIsNotNull(CacheKey.deviceSerial);
   }
+
 
 
   /** Checks whether the 'track2' field has been set, however the value could be null */
@@ -229,6 +249,7 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
     genClient.clear(CacheKey.deviceSerial);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -262,29 +283,6 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<GiftCard> CREATOR = new android.os.Parcelable.Creator<GiftCard>() {
     @Override
     public GiftCard createFromParcel(android.os.Parcel in) {
@@ -310,11 +308,8 @@ public final class GiftCard implements android.os.Parcelable, com.clover.sdk.v3.
   public interface Constraints {
 
     public static final boolean TRACK2_IS_REQUIRED = false;
-
     public static final boolean CARDNUMBER_IS_REQUIRED = false;
-
     public static final boolean ISMANUALLYENTERED_IS_REQUIRED = false;
-
     public static final boolean DEVICESERIAL_IS_REQUIRED = false;
 
   }
