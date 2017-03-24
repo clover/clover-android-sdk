@@ -26,10 +26,24 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class CloverAuth {
-
   private static final String TAG = CloverAuth.class.getSimpleName();
+
+  /**
+   * Authenticates with the Clover service.  This method makes a network call to the
+   * Clover service.  It should be run on a background thread.
+   * <p/>
+   * This method will block indefinitely for a result.
+   *
+   * @deprecated Use {@link #authenticate(Activity, Account, boolean, Long, TimeUnit)}
+   * and gracefully handle {@link OperationCanceledException}.
+   *
+   */
+  public static AuthResult authenticate(Activity activity, Account account, boolean forceValidateToken) throws OperationCanceledException, AuthenticatorException, IOException {
+    return authenticate(activity, account, forceValidateToken, null, null);
+  }
 
   /**
    * Authenticates with the Clover service.  This method makes a network call to the
@@ -38,14 +52,23 @@ public class CloverAuth {
    * @param activity           the activity that initiated the authentication
    * @param account            the account used for authentication
    * @param forceValidateToken flag for if token should be validated against API.  Increases response latency, use only when necessary.
+   * @param timeout the maximum time to wait
+   * @param unit the time unit of the timeout argument. This must not be null.
    */
-  public static AuthResult authenticate(Activity activity, Account account, boolean forceValidateToken) throws OperationCanceledException, AuthenticatorException, IOException {
+  public static AuthResult authenticate(Activity activity, Account account, boolean forceValidateToken, Long timeout, TimeUnit unit) throws OperationCanceledException, AuthenticatorException, IOException {
     Log.d(TAG, "Authenticating " + account);
     final Bundle options = new Bundle();
     options.putBoolean(CloverAccount.KEY_FORCE_VALIDATE, forceValidateToken);
     AccountManager accountManager = AccountManager.get(activity);
     AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, CloverAccount.CLOVER_AUTHTOKEN_TYPE, options, activity, null, null);
-    Bundle result = future.getResult();
+    Bundle result;
+    if (timeout != null && unit != null) {
+      Log.d(TAG, "Getting result with timeout " + timeout + " (" + unit + ")");
+      result = future.getResult(timeout, unit);
+    } else {
+      Log.d(TAG, "Getting result (no timeout)");
+      result = future.getResult();
+    }
     Log.v(TAG, "Bundle result returned from account manager: ");
     for (String key : result.keySet()) {
       Log.v(TAG, key + " => " + result.get(key));
@@ -53,13 +76,28 @@ public class CloverAuth {
     return new AuthResult(result);
   }
 
+  /**
+   * @deprecated Use {@link #authenticate(Context, Account, boolean, Long, TimeUnit)} and gracefully
+   * handle {@link OperationCanceledException}.
+   */
   public static AuthResult authenticate(Context context, Account account, boolean forceValidateToken) throws OperationCanceledException, AuthenticatorException, IOException {
+    return authenticate(context, account, forceValidateToken, null, null);
+  }
+
+  public static AuthResult authenticate(Context context, Account account, boolean forceValidateToken, Long timeout, TimeUnit unit) throws OperationCanceledException, AuthenticatorException, IOException {
     Log.d(TAG, "Authenticating " + account);
     final Bundle options = new Bundle();
     options.putBoolean(CloverAccount.KEY_FORCE_VALIDATE, forceValidateToken);
     AccountManager accountManager = AccountManager.get(context);
     AccountManagerFuture<Bundle> future = accountManager.getAuthToken(account, CloverAccount.CLOVER_AUTHTOKEN_TYPE, options, false, null, null);
-    Bundle result = future.getResult();
+    Bundle result;
+    if (timeout != null && unit != null) {
+      Log.d(TAG, "Getting result with timeout " + timeout + " (" + unit + ")");
+      result = future.getResult(timeout, unit);
+    } else {
+      Log.d(TAG, "Getting result (no timeout)");
+      result = future.getResult();
+    }
     Log.v(TAG, "Bundle result returned from account manager: ");
     for (String key : result.keySet()) {
       Log.v(TAG, key + " => " + result.get(key));

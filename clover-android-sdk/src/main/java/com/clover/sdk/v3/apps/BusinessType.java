@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class BusinessType implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class BusinessType extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public com.clover.sdk.v3.apps.BusinessTypeGroupCode getBusinessTypeGroupCode() {
     return genClient.cacheGet(CacheKey.businessTypeGroupCode);
@@ -60,6 +61,7 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
+
 
 
 
@@ -88,20 +90,35 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
         return instance.genClient.extractOther("name", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<BusinessType> genClient = new GenericClient<BusinessType>(this);
+  private GenericClient<BusinessType> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public BusinessType() { }
+  * Constructs a new empty instance.
+  */
+  public BusinessType() {
+    genClient = new GenericClient<BusinessType>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected BusinessType(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public BusinessType(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -114,6 +131,7 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
    * reflected in this instance and vice-versa.
    */
   public BusinessType(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -121,6 +139,7 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public BusinessType(BusinessType src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -157,6 +176,7 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
   public boolean isNotNullName() {
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
+
 
 
   /** Checks whether the 'businessTypeGroupCode' field has been set, however the value could be null */
@@ -226,6 +246,7 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
     genClient.clear(CacheKey.name);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -259,29 +280,6 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<BusinessType> CREATOR = new android.os.Parcelable.Creator<BusinessType>() {
     @Override
     public BusinessType createFromParcel(android.os.Parcel in) {
@@ -307,11 +305,8 @@ public final class BusinessType implements android.os.Parcelable, com.clover.sdk
   public interface Constraints {
 
     public static final boolean BUSINESSTYPEGROUPCODE_IS_REQUIRED = false;
-
     public static final boolean BUSINESSTYPEGROUPNAME_IS_REQUIRED = false;
-
     public static final boolean CODE_IS_REQUIRED = false;
-
     public static final boolean NAME_IS_REQUIRED = false;
 
   }

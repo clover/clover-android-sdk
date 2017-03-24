@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.billing;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -49,7 +50,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Charge extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -123,6 +124,7 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
   public java.util.List<com.clover.sdk.v3.billing.InfoleaseChargeAttempt> getInfoleaseChargeAttempts() {
     return genClient.cacheGet(CacheKey.infoleaseChargeAttempts);
   }
+
 
 
 
@@ -223,20 +225,35 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
         return instance.genClient.extractListRecord("infoleaseChargeAttempts", com.clover.sdk.v3.billing.InfoleaseChargeAttempt.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Charge> genClient = new GenericClient<Charge>(this);
+  private GenericClient<Charge> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Charge() { }
+  * Constructs a new empty instance.
+  */
+  public Charge() {
+    genClient = new GenericClient<Charge>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Charge(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Charge(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -249,6 +266,7 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
    * reflected in this instance and vice-versa.
    */
   public Charge(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -256,6 +274,7 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Charge(Charge src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -364,6 +383,7 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
 
   /** Checks whether the 'infoleaseChargeAttempts' field is set and is not null and is not empty */
   public boolean isNotEmptyInfoleaseChargeAttempts() { return isNotNullInfoleaseChargeAttempts() && !getInfoleaseChargeAttempts().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -631,6 +651,7 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     genClient.clear(CacheKey.infoleaseChargeAttempts);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -664,29 +685,6 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Charge> CREATOR = new android.os.Parcelable.Creator<Charge>() {
     @Override
     public Charge createFromParcel(android.os.Parcel in) {
@@ -713,36 +711,21 @@ public final class Charge implements android.os.Parcelable, com.clover.sdk.v3.Va
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean CURRENCY_IS_REQUIRED = false;
     public static final long CURRENCY_MAX_LEN = 3;
-
     public static final boolean AMOUNT_IS_REQUIRED = true;
-
     public static final boolean TAX_IS_REQUIRED = false;
-
     public static final boolean DEVELOPERPORTION_IS_REQUIRED = false;
-
     public static final boolean STATUS_IS_REQUIRED = true;
-
     public static final boolean TYPE_IS_REQUIRED = true;
-
     public static final boolean TAXCLASSIFICATIONCODE_IS_REQUIRED = false;
-
     public static final boolean STARTDATE_IS_REQUIRED = false;
-
     public static final boolean ENDDATE_IS_REQUIRED = false;
-
     public static final boolean EXPORTMONTH_IS_REQUIRED = false;
-
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
     public static final boolean MERCHANTAPPCHARGE_IS_REQUIRED = false;
-
     public static final boolean MERCHANTPLANCHARGE_IS_REQUIRED = false;
-
     public static final boolean INFOLEASECHARGEATTEMPTS_IS_REQUIRED = false;
 
   }

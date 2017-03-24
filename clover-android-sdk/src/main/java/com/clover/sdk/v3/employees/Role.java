@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.employees;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Role extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -68,6 +69,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
   }
 
 
+
   public static final String AUTHORITY = "com.clover.roles";
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Role> {
@@ -95,20 +97,35 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
         return instance.genClient.extractListRecord("employeesRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Role> genClient = new GenericClient<Role>(this);
+  private GenericClient<Role> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Role() { }
+  * Constructs a new empty instance.
+  */
+  public Role() {
+    genClient = new GenericClient<Role>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Role(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Role(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -121,6 +138,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
    * reflected in this instance and vice-versa.
    */
   public Role(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -128,6 +146,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Role(Role src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -173,6 +192,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
 
   /** Checks whether the 'employeesRef' field is set and is not null and is not empty */
   public boolean isNotEmptyEmployeesRef() { return isNotNullEmployeesRef() && !getEmployeesRef().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -244,6 +264,7 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     genClient.clear(CacheKey.employeesRef);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -277,29 +298,6 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Role> CREATOR = new android.os.Parcelable.Creator<Role>() {
     @Override
     public Role createFromParcel(android.os.Parcel in) {
@@ -326,12 +324,9 @@ public final class Role implements android.os.Parcelable, com.clover.sdk.v3.Vali
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean SYSTEMROLE_IS_REQUIRED = true;
-
     public static final boolean EMPLOYEESREF_IS_REQUIRED = false;
 
   }

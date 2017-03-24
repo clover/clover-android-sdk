@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.customers;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -40,10 +41,11 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getEmailAddresses emailAddresses}</li>
  * <li>{@link #getPhoneNumbers phoneNumbers}</li>
  * <li>{@link #getCards cards}</li>
+ * <li>{@link #getMetadata metadata}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Customer extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -93,6 +95,14 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   public java.util.List<com.clover.sdk.v3.customers.Card> getCards() {
     return genClient.cacheGet(CacheKey.cards);
   }
+
+  /**
+   * Additional information about the customer.
+   */
+  public com.clover.sdk.v3.customers.CustomerMetadata getMetadata() {
+    return genClient.cacheGet(CacheKey.metadata);
+  }
+
 
 
 
@@ -157,20 +167,41 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
         return instance.genClient.extractListRecord("cards", com.clover.sdk.v3.customers.Card.JSON_CREATOR);
       }
     },
-    ;
+    metadata {
+      @Override
+      public Object extractValue(Customer instance) {
+        return instance.genClient.extractRecord("metadata", com.clover.sdk.v3.customers.CustomerMetadata.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
-  private GenericClient<Customer> genClient = new GenericClient<Customer>(this);
+  private GenericClient<Customer> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Customer() { }
+  * Constructs a new empty instance.
+  */
+  public Customer() {
+    genClient = new GenericClient<Customer>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Customer(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Customer(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -183,6 +214,7 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public Customer(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -190,6 +222,7 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Customer(Customer src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -277,6 +310,12 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'cards' field is set and is not null and is not empty */
   public boolean isNotEmptyCards() { return isNotNullCards() && !getCards().isEmpty(); }
 
+  /** Checks whether the 'metadata' field is set and is not null */
+  public boolean isNotNullMetadata() {
+    return genClient.cacheValueIsNotNull(CacheKey.metadata);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -326,6 +365,11 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   /** Checks whether the 'cards' field has been set, however the value could be null */
   public boolean hasCards() {
     return genClient.cacheHasKey(CacheKey.cards);
+  }
+
+  /** Checks whether the 'metadata' field has been set, however the value could be null */
+  public boolean hasMetadata() {
+    return genClient.cacheHasKey(CacheKey.metadata);
   }
 
 
@@ -409,6 +453,15 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     return genClient.setArrayRecord(cards, CacheKey.cards);
   }
 
+  /**
+   * Sets the field 'metadata'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Customer setMetadata(com.clover.sdk.v3.customers.CustomerMetadata metadata) {
+    return genClient.setRecord(metadata, CacheKey.metadata);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -450,6 +503,11 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
   public void clearCards() {
     genClient.clear(CacheKey.cards);
   }
+  /** Clears the 'metadata' field, the 'has' method for this field will now return false */
+  public void clearMetadata() {
+    genClient.clear(CacheKey.metadata);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -484,29 +542,6 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Customer> CREATOR = new android.os.Parcelable.Creator<Customer>() {
     @Override
     public Customer createFromParcel(android.os.Parcel in) {
@@ -533,26 +568,18 @@ public final class Customer implements android.os.Parcelable, com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean FIRSTNAME_IS_REQUIRED = false;
     public static final long FIRSTNAME_MAX_LEN = 64;
-
     public static final boolean LASTNAME_IS_REQUIRED = false;
     public static final long LASTNAME_MAX_LEN = 64;
-
     public static final boolean MARKETINGALLOWED_IS_REQUIRED = false;
-
     public static final boolean CUSTOMERSINCE_IS_REQUIRED = false;
-
     public static final boolean ORDERS_IS_REQUIRED = false;
-
     public static final boolean ADDRESSES_IS_REQUIRED = false;
-
     public static final boolean EMAILADDRESSES_IS_REQUIRED = false;
-
     public static final boolean PHONENUMBERS_IS_REQUIRED = false;
-
     public static final boolean CARDS_IS_REQUIRED = false;
+    public static final boolean METADATA_IS_REQUIRED = false;
 
   }
 

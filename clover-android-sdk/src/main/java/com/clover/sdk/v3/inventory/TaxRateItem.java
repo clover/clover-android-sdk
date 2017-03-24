@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.inventory;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * @see com.clover.sdk.v3.inventory.IInventoryService
  */
 @SuppressWarnings("all")
-public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public com.clover.sdk.v3.inventory.TaxRate getTaxRate() {
     return genClient.cacheGet(CacheKey.taxRate);
@@ -46,6 +47,7 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
   public com.clover.sdk.v3.inventory.Item getItem() {
     return genClient.cacheGet(CacheKey.item);
   }
+
 
 
 
@@ -62,20 +64,35 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
         return instance.genClient.extractRecord("item", com.clover.sdk.v3.inventory.Item.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<TaxRateItem> genClient = new GenericClient<TaxRateItem>(this);
+  private GenericClient<TaxRateItem> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public TaxRateItem() { }
+  * Constructs a new empty instance.
+  */
+  public TaxRateItem() {
+    genClient = new GenericClient<TaxRateItem>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected TaxRateItem(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public TaxRateItem(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -88,6 +105,7 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
    * reflected in this instance and vice-versa.
    */
   public TaxRateItem(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -95,6 +113,7 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public TaxRateItem(TaxRateItem src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -124,6 +143,7 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
   public boolean isNotNullItem() {
     return genClient.cacheValueIsNotNull(CacheKey.item);
   }
+
 
 
   /** Checks whether the 'taxRate' field has been set, however the value could be null */
@@ -165,6 +185,7 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
     genClient.clear(CacheKey.item);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -198,29 +219,6 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<TaxRateItem> CREATOR = new android.os.Parcelable.Creator<TaxRateItem>() {
     @Override
     public TaxRateItem createFromParcel(android.os.Parcel in) {
@@ -246,7 +244,6 @@ public final class TaxRateItem implements android.os.Parcelable, com.clover.sdk.
   public interface Constraints {
 
     public static final boolean TAXRATE_IS_REQUIRED = true;
-
     public static final boolean ITEM_IS_REQUIRED = true;
 
   }

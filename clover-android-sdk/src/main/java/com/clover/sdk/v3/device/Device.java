@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.device;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -65,7 +66,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Device extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -221,6 +222,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
   public java.util.List<com.clover.sdk.v3.base.Reference> getSecureReports() {
     return genClient.cacheGet(CacheKey.secureReports);
   }
+
 
 
 
@@ -417,20 +419,35 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
         return instance.genClient.extractListRecord("secureReports", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Device> genClient = new GenericClient<Device>(this);
+  private GenericClient<Device> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Device() { }
+  * Constructs a new empty instance.
+  */
+  public Device() {
+    genClient = new GenericClient<Device>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Device(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Device(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -443,6 +460,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
    * reflected in this instance and vice-versa.
    */
   public Device(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -450,6 +468,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Device(Device src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -467,7 +486,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void validate() {
     genClient.validateLength(getId(), 36);
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(getName(), 255);
 
     genClient.validateLength(getModel(), 64);
 
@@ -652,6 +671,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
 
   /** Checks whether the 'secureReports' field is set and is not null and is not empty */
   public boolean isNotEmptySecureReports() { return isNotNullSecureReports() && !getSecureReports().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1173,6 +1193,7 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
     genClient.clear(CacheKey.secureReports);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1206,29 +1227,6 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Device> CREATOR = new android.os.Parcelable.Creator<Device>() {
     @Override
     public Device createFromParcel(android.os.Parcel in) {
@@ -1255,78 +1253,47 @@ public final class Device implements android.os.Parcelable, com.clover.sdk.v3.Va
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 36;
-
     public static final boolean NAME_IS_REQUIRED = false;
-    public static final long NAME_MAX_LEN = 127;
-
+    public static final long NAME_MAX_LEN = 255;
     public static final boolean MODEL_IS_REQUIRED = false;
     public static final long MODEL_MAX_LEN = 64;
-
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
     public static final boolean ORDERPREFIX_IS_REQUIRED = false;
     public static final long ORDERPREFIX_MAX_LEN = 1;
-
     public static final boolean TERMINALPREFIX_IS_REQUIRED = false;
-
     public static final boolean SERIAL_IS_REQUIRED = false;
     public static final long SERIAL_MAX_LEN = 32;
-
     public static final boolean BUILDNUMBER_IS_REQUIRED = false;
-
     public static final boolean SECUREID_IS_REQUIRED = false;
     public static final long SECUREID_MAX_LEN = 32;
-
     public static final boolean BUILDTYPE_IS_REQUIRED = false;
-
     public static final boolean CPUID_IS_REQUIRED = false;
     public static final long CPUID_MAX_LEN = 32;
-
     public static final boolean IMEI_IS_REQUIRED = false;
     public static final long IMEI_MAX_LEN = 15;
-
     public static final boolean IMSI_IS_REQUIRED = false;
     public static final long IMSI_MAX_LEN = 22;
-
     public static final boolean SIMICCID_IS_REQUIRED = false;
     public static final long SIMICCID_MAX_LEN = 22;
-
     public static final boolean DEVICECERTIFICATE_IS_REQUIRED = false;
     public static final long DEVICECERTIFICATE_MAX_LEN = 1600;
-
     public static final boolean PEDCERTIFICATE_IS_REQUIRED = false;
     public static final long PEDCERTIFICATE_MAX_LEN = 1600;
-
     public static final boolean DEVICETYPENAME_IS_REQUIRED = false;
-
     public static final boolean PINDISABLED_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTS_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSALL_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSLIMIT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSPROMPTTHRESHOLD_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSTOTALPAYMENTSLIMIT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSLIMITDEFAULT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSPROMPTTHRESHOLDDEFAULT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSTOTALPAYMENTSLIMITDEFAULT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSMAXLIMIT_IS_REQUIRED = false;
-
     public static final boolean OFFLINEPAYMENTSMAXTOTALPAYMENTSLIMIT_IS_REQUIRED = false;
-
     public static final boolean SHOWOFFLINEPAYMENTS_IS_REQUIRED = false;
-
     public static final boolean MAXOFFLINEDAYS_IS_REQUIRED = false;
-
     public static final boolean ALLOWSTOREANDFORWARD_IS_REQUIRED = false;
-
     public static final boolean SECUREREPORTS_IS_REQUIRED = false;
 
   }

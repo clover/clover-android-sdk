@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.entitlements;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +39,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class MerchantGatewayEntitlement implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class MerchantGatewayEntitlement extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -68,6 +69,7 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
   public java.lang.String getAlphaID() {
     return genClient.cacheGet(CacheKey.alphaID);
   }
+
 
 
 
@@ -102,20 +104,35 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
         return instance.genClient.extractOther("alphaID", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<MerchantGatewayEntitlement> genClient = new GenericClient<MerchantGatewayEntitlement>(this);
+  private GenericClient<MerchantGatewayEntitlement> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public MerchantGatewayEntitlement() { }
+  * Constructs a new empty instance.
+  */
+  public MerchantGatewayEntitlement() {
+    genClient = new GenericClient<MerchantGatewayEntitlement>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected MerchantGatewayEntitlement(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public MerchantGatewayEntitlement(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -128,6 +145,7 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
    * reflected in this instance and vice-versa.
    */
   public MerchantGatewayEntitlement(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -135,6 +153,7 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public MerchantGatewayEntitlement(MerchantGatewayEntitlement src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -186,6 +205,7 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
   public boolean isNotNullAlphaID() {
     return genClient.cacheValueIsNotNull(CacheKey.alphaID);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -271,6 +291,7 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
     genClient.clear(CacheKey.alphaID);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -304,29 +325,6 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<MerchantGatewayEntitlement> CREATOR = new android.os.Parcelable.Creator<MerchantGatewayEntitlement>() {
     @Override
     public MerchantGatewayEntitlement createFromParcel(android.os.Parcel in) {
@@ -353,16 +351,12 @@ public final class MerchantGatewayEntitlement implements android.os.Parcelable, 
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 128;
-
     public static final boolean SERVICEENTITLEMENTNUMBER_IS_REQUIRED = false;
     public static final long SERVICEENTITLEMENTNUMBER_MAX_LEN = 128;
-
     public static final boolean SERVICETYPE_IS_REQUIRED = false;
     public static final long SERVICETYPE_MAX_LEN = 128;
-
     public static final boolean ALPHAID_IS_REQUIRED = false;
     public static final long ALPHAID_MAX_LEN = 1;
 

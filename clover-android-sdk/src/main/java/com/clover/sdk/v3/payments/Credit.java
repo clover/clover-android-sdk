@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -45,10 +46,13 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getVoided voided}</li>
  * <li>{@link #getVoidReason voidReason}</li>
  * <li>{@link #getDccInfo dccInfo}</li>
+ * <li>{@link #getTransactionSettings transactionSettings}</li>
+ * <li>{@link #getGermanInfo germanInfo}</li>
+ * <li>{@link #getAppTracking appTracking}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Credit extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -143,6 +147,28 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     return genClient.cacheGet(CacheKey.dccInfo);
   }
 
+  /**
+   * Per transaction settings for the payment
+   */
+  public com.clover.sdk.v3.payments.TransactionSettings getTransactionSettings() {
+    return genClient.cacheGet(CacheKey.transactionSettings);
+  }
+
+  /**
+   * German region-specific information
+   */
+  public com.clover.sdk.v3.payments.GermanInfo getGermanInfo() {
+    return genClient.cacheGet(CacheKey.germanInfo);
+  }
+
+  /**
+   * Tracking information for the app that created this payment.
+   */
+  public com.clover.sdk.v3.apps.AppTracking getAppTracking() {
+    return genClient.cacheGet(CacheKey.appTracking);
+  }
+
+
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Credit> {
@@ -236,20 +262,53 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
         return instance.genClient.extractRecord("dccInfo", com.clover.sdk.v3.payments.DCCInfo.JSON_CREATOR);
       }
     },
-    ;
+    transactionSettings {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.genClient.extractRecord("transactionSettings", com.clover.sdk.v3.payments.TransactionSettings.JSON_CREATOR);
+      }
+    },
+    germanInfo {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.genClient.extractRecord("germanInfo", com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR);
+      }
+    },
+    appTracking {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.genClient.extractRecord("appTracking", com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
-  private GenericClient<Credit> genClient = new GenericClient<Credit>(this);
+  private GenericClient<Credit> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Credit() { }
+  * Constructs a new empty instance.
+  */
+  public Credit() {
+    genClient = new GenericClient<Credit>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Credit(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Credit(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -262,6 +321,7 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
    * reflected in this instance and vice-versa.
    */
   public Credit(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -269,6 +329,7 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Credit(Credit src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -365,6 +426,22 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.dccInfo);
   }
 
+  /** Checks whether the 'transactionSettings' field is set and is not null */
+  public boolean isNotNullTransactionSettings() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionSettings);
+  }
+
+  /** Checks whether the 'germanInfo' field is set and is not null */
+  public boolean isNotNullGermanInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.germanInfo);
+  }
+
+  /** Checks whether the 'appTracking' field is set and is not null */
+  public boolean isNotNullAppTracking() {
+    return genClient.cacheValueIsNotNull(CacheKey.appTracking);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -439,6 +516,21 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   /** Checks whether the 'dccInfo' field has been set, however the value could be null */
   public boolean hasDccInfo() {
     return genClient.cacheHasKey(CacheKey.dccInfo);
+  }
+
+  /** Checks whether the 'transactionSettings' field has been set, however the value could be null */
+  public boolean hasTransactionSettings() {
+    return genClient.cacheHasKey(CacheKey.transactionSettings);
+  }
+
+  /** Checks whether the 'germanInfo' field has been set, however the value could be null */
+  public boolean hasGermanInfo() {
+    return genClient.cacheHasKey(CacheKey.germanInfo);
+  }
+
+  /** Checks whether the 'appTracking' field has been set, however the value could be null */
+  public boolean hasAppTracking() {
+    return genClient.cacheHasKey(CacheKey.appTracking);
   }
 
 
@@ -563,6 +655,33 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     return genClient.setRecord(dccInfo, CacheKey.dccInfo);
   }
 
+  /**
+   * Sets the field 'transactionSettings'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setTransactionSettings(com.clover.sdk.v3.payments.TransactionSettings transactionSettings) {
+    return genClient.setRecord(transactionSettings, CacheKey.transactionSettings);
+  }
+
+  /**
+   * Sets the field 'germanInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setGermanInfo(com.clover.sdk.v3.payments.GermanInfo germanInfo) {
+    return genClient.setRecord(germanInfo, CacheKey.germanInfo);
+  }
+
+  /**
+   * Sets the field 'appTracking'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setAppTracking(com.clover.sdk.v3.apps.AppTracking appTracking) {
+    return genClient.setRecord(appTracking, CacheKey.appTracking);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -624,6 +743,19 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
   public void clearDccInfo() {
     genClient.clear(CacheKey.dccInfo);
   }
+  /** Clears the 'transactionSettings' field, the 'has' method for this field will now return false */
+  public void clearTransactionSettings() {
+    genClient.clear(CacheKey.transactionSettings);
+  }
+  /** Clears the 'germanInfo' field, the 'has' method for this field will now return false */
+  public void clearGermanInfo() {
+    genClient.clear(CacheKey.germanInfo);
+  }
+  /** Clears the 'appTracking' field, the 'has' method for this field will now return false */
+  public void clearAppTracking() {
+    genClient.clear(CacheKey.appTracking);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -658,29 +790,6 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Credit> CREATOR = new android.os.Parcelable.Creator<Credit>() {
     @Override
     public Credit createFromParcel(android.os.Parcel in) {
@@ -707,34 +816,23 @@ public final class Credit implements android.os.Parcelable, com.clover.sdk.v3.Va
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean ORDERREF_IS_REQUIRED = false;
-
     public static final boolean DEVICE_IS_REQUIRED = false;
-
     public static final boolean TENDER_IS_REQUIRED = false;
-
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
-
     public static final boolean CUSTOMERS_IS_REQUIRED = false;
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
-
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
-
     public static final boolean TAXRATES_IS_REQUIRED = false;
-
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
-
     public static final boolean CARDTRANSACTION_IS_REQUIRED = false;
-
     public static final boolean VOIDED_IS_REQUIRED = false;
-
     public static final boolean VOIDREASON_IS_REQUIRED = false;
-
     public static final boolean DCCINFO_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONSETTINGS_IS_REQUIRED = false;
+    public static final boolean GERMANINFO_IS_REQUIRED = false;
+    public static final boolean APPTRACKING_IS_REQUIRED = false;
 
   }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '152.9'
+version = '166.1'
 
 
 apply plugin: 'android-library'
@@ -25,7 +25,7 @@ android {
     abortOnError false
   }
   compileSdkVersion 21
-  buildToolsVersion "22.0.1"
+  buildToolsVersion "25.0.2"
 
   defaultConfig {
     minSdkVersion 16

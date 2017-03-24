@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.merchant;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class TipSuggestion implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -60,6 +61,7 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
   public java.lang.Boolean getIsEnabled() {
     return genClient.cacheGet(CacheKey.isEnabled);
   }
+
 
 
 
@@ -88,20 +90,35 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
         return instance.genClient.extractOther("isEnabled", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<TipSuggestion> genClient = new GenericClient<TipSuggestion>(this);
+  private GenericClient<TipSuggestion> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public TipSuggestion() { }
+  * Constructs a new empty instance.
+  */
+  public TipSuggestion() {
+    genClient = new GenericClient<TipSuggestion>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected TipSuggestion(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public TipSuggestion(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -114,6 +131,7 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
    * reflected in this instance and vice-versa.
    */
   public TipSuggestion(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -121,6 +139,7 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public TipSuggestion(TipSuggestion src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -163,6 +182,7 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
   public boolean isNotNullIsEnabled() {
     return genClient.cacheValueIsNotNull(CacheKey.isEnabled);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -232,6 +252,7 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
     genClient.clear(CacheKey.isEnabled);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -265,29 +286,6 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<TipSuggestion> CREATOR = new android.os.Parcelable.Creator<TipSuggestion>() {
     @Override
     public TipSuggestion createFromParcel(android.os.Parcel in) {
@@ -314,14 +312,11 @@ public final class TipSuggestion implements android.os.Parcelable, com.clover.sd
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 24;
-
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final long PERCENTAGE_MIN = 0;
     public static final long PERCENTAGE_MAX = 1000;
-
     public static final boolean ISENABLED_IS_REQUIRED = false;
 
   }

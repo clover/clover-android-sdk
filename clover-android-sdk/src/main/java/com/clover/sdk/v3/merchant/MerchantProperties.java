@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.merchant;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -84,7 +85,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class MerchantProperties implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class MerchantProperties extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public com.clover.sdk.v3.base.Reference getMerchantRef() {
     return genClient.cacheGet(CacheKey.merchantRef);
@@ -325,6 +326,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public java.lang.Boolean getHasConsented() {
     return genClient.cacheGet(CacheKey.hasConsented);
   }
+
 
 
   public static final String AUTHORITY = "com.clover.merchants";
@@ -636,20 +638,35 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
         return instance.genClient.extractOther("hasConsented", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<MerchantProperties> genClient = new GenericClient<MerchantProperties>(this);
+  private GenericClient<MerchantProperties> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public MerchantProperties() { }
+  * Constructs a new empty instance.
+  */
+  public MerchantProperties() {
+    genClient = new GenericClient<MerchantProperties>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected MerchantProperties(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public MerchantProperties(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -662,6 +679,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
    * reflected in this instance and vice-versa.
    */
   public MerchantProperties(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -669,6 +687,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public MerchantProperties(MerchantProperties src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -962,6 +981,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public boolean isNotNullHasConsented() {
     return genClient.cacheValueIsNotNull(CacheKey.hasConsented);
   }
+
 
 
   /** Checks whether the 'merchantRef' field has been set, however the value could be null */
@@ -1785,6 +1805,7 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     genClient.clear(CacheKey.hasConsented);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1818,29 +1839,6 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<MerchantProperties> CREATOR = new android.os.Parcelable.Creator<MerchantProperties>() {
     @Override
     public MerchantProperties createFromParcel(android.os.Parcel in) {
@@ -1866,116 +1864,66 @@ public final class MerchantProperties implements android.os.Parcelable, com.clov
   public interface Constraints {
 
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
-
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
-
     public static final boolean TIPSENABLED_IS_REQUIRED = false;
-
     public static final boolean RECEIPTPROPERTIES_IS_REQUIRED = false;
-
     public static final boolean SUMMARYHOUR_IS_REQUIRED = false;
-
     public static final boolean SIGNATURETHRESHOLD_IS_REQUIRED = false;
-
     public static final boolean HASDEFAULTEMPLOYEE_IS_REQUIRED = false;
-
     public static final boolean TIPRATEDEFAULT_IS_REQUIRED = false;
-
     public static final boolean ONPAPERTIPSIGNATURES_IS_REQUIRED = false;
-
     public static final boolean AUTOLOGOUT_IS_REQUIRED = false;
-
     public static final boolean ORDERTITLE_IS_REQUIRED = false;
-
     public static final boolean ORDERTITLEMAX_IS_REQUIRED = false;
-
     public static final boolean RESETONREPORTINGTIME_IS_REQUIRED = false;
-
     public static final boolean NOTESONORDERS_IS_REQUIRED = false;
-
     public static final boolean DELETEORDERS_IS_REQUIRED = false;
-
     public static final boolean REMOVETAXENABLED_IS_REQUIRED = false;
-
     public static final boolean GROUPLINEITEMS_IS_REQUIRED = false;
-
     public static final boolean ALTERNATEINVENTORYNAMES_IS_REQUIRED = false;
-
     public static final boolean AUTOPRINT_IS_REQUIRED = false;
-
     public static final boolean HARDWAREPROFILE_IS_REQUIRED = false;
     public static final long HARDWAREPROFILE_MAX_LEN = 127;
-
     public static final boolean INFOLEASESUPPRESSBILLING_IS_REQUIRED = false;
-
     public static final boolean INFOLEASESUPPRESSPLANBILLING_IS_REQUIRED = false;
-
     public static final boolean SHIPPINGADDRESS_IS_REQUIRED = false;
-
     public static final boolean MARKETINGENABLED_IS_REQUIRED = false;
-
     public static final boolean MARKETINGPREFERENCETEXT_IS_REQUIRED = false;
     public static final long MARKETINGPREFERENCETEXT_MAX_LEN = 255;
-
     public static final boolean BANKMARKER_IS_REQUIRED = false;
-
     public static final boolean SUPPORTPHONE_IS_REQUIRED = false;
     public static final long SUPPORTPHONE_MAX_LEN = 25;
-
     public static final boolean SUPPORTEMAIL_IS_REQUIRED = false;
     public static final long SUPPORTEMAIL_MAX_LEN = 127;
-
     public static final boolean MANUALCLOSEOUT_IS_REQUIRED = false;
-
     public static final boolean SHOWCLOSEOUTORDERS_IS_REQUIRED = false;
-
     public static final boolean SENDCLOSEOUTEMAIL_IS_REQUIRED = false;
-
     public static final boolean STAYINCATEGORY_IS_REQUIRED = false;
-
     public static final boolean LOCALE_IS_REQUIRED = false;
-
     public static final boolean TIMEZONE_IS_REQUIRED = false;
     public static final long TIMEZONE_MAX_LEN = 255;
-
     public static final boolean VAT_IS_REQUIRED = false;
-
     public static final boolean VATTAXNAME_IS_REQUIRED = false;
     public static final long VATTAXNAME_MAX_LEN = 255;
-
     public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;
     public static final long APPBILLINGSYSTEM_MAX_LEN = 10;
-
     public static final boolean ABAACCOUNTNUMBER_IS_REQUIRED = false;
     public static final long ABAACCOUNTNUMBER_MAX_LEN = 40;
-
     public static final boolean DDAACCOUNTNUMBER_IS_REQUIRED = false;
     public static final long DDAACCOUNTNUMBER_MAX_LEN = 40;
-
     public static final boolean TRACKSTOCK_IS_REQUIRED = false;
-
     public static final boolean UPDATESTOCK_IS_REQUIRED = false;
-
     public static final boolean ALLOWCLOCKOUTWITHOPENORDERS_IS_REQUIRED = false;
-
     public static final boolean LOGINCLOCKINPROMPT_IS_REQUIRED = false;
-
     public static final boolean ACCOUNTTYPE_IS_REQUIRED = false;
-
     public static final boolean BUSINESSTYPECODE_IS_REQUIRED = false;
-
     public static final boolean PINLENGTH_IS_REQUIRED = false;
-
     public static final boolean CASHBACKENABLED_IS_REQUIRED = false;
-
     public static final boolean CASHBACKOPTIONS_IS_REQUIRED = false;
-
     public static final boolean MAXCASHBACK_IS_REQUIRED = false;
-
     public static final boolean HIERARCHY_IS_REQUIRED = false;
     public static final long HIERARCHY_MAX_LEN = 127;
-
     public static final boolean HASCONSENTED_IS_REQUIRED = false;
 
   }

@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.merchant;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,12 +38,16 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getAccountName accountName}</li>
  * <li>{@link #getAltMid altMid}</li>
  * <li>{@link #getMid mid}</li>
+ * <li>{@link #getFns fns}</li>
  * <li>{@link #getTid tid}</li>
  * <li>{@link #getStoreId storeId}</li>
  * <li>{@link #getSupportsTipping supportsTipping}</li>
  * <li>{@link #getFrontendMid frontendMid}</li>
  * <li>{@link #getBackendMid backendMid}</li>
  * <li>{@link #getMcc mcc}</li>
+ * <li>{@link #getTokenType tokenType}</li>
+ * <li>{@link #getGroupId groupId}</li>
+ * <li>{@link #getDebitKeyCode debitKeyCode}</li>
  * <li>{@link #getSupportsTipAdjust supportsTipAdjust}</li>
  * <li>{@link #getSupportsNakedCredit supportsNakedCredit}</li>
  * <li>{@link #getSupportsMultiPayToken supportsMultiPayToken}</li>
@@ -51,7 +56,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getPaymentProcessorName() {
     return genClient.cacheGet(CacheKey.paymentProcessorName);
@@ -81,6 +86,10 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheGet(CacheKey.mid);
   }
 
+  public java.lang.String getFns() {
+    return genClient.cacheGet(CacheKey.fns);
+  }
+
   public java.lang.String getTid() {
     return genClient.cacheGet(CacheKey.tid);
   }
@@ -108,6 +117,18 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheGet(CacheKey.mcc);
   }
 
+  public java.lang.String getTokenType() {
+    return genClient.cacheGet(CacheKey.tokenType);
+  }
+
+  public java.lang.String getGroupId() {
+    return genClient.cacheGet(CacheKey.groupId);
+  }
+
+  public java.lang.String getDebitKeyCode() {
+    return genClient.cacheGet(CacheKey.debitKeyCode);
+  }
+
   public java.lang.Boolean getSupportsTipAdjust() {
     return genClient.cacheGet(CacheKey.supportsTipAdjust);
   }
@@ -127,6 +148,7 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   public java.lang.Boolean getNewBatchCloseEnabled() {
     return genClient.cacheGet(CacheKey.newBatchCloseEnabled);
   }
+
 
 
 
@@ -173,6 +195,12 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractOther("mid", java.lang.String.class);
       }
     },
+    fns {
+      @Override
+      public Object extractValue(Gateway instance) {
+        return instance.genClient.extractOther("fns", java.lang.String.class);
+      }
+    },
     tid {
       @Override
       public Object extractValue(Gateway instance) {
@@ -209,6 +237,24 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractOther("mcc", java.lang.String.class);
       }
     },
+    tokenType {
+      @Override
+      public Object extractValue(Gateway instance) {
+        return instance.genClient.extractOther("tokenType", java.lang.String.class);
+      }
+    },
+    groupId {
+      @Override
+      public Object extractValue(Gateway instance) {
+        return instance.genClient.extractOther("groupId", java.lang.String.class);
+      }
+    },
+    debitKeyCode {
+      @Override
+      public Object extractValue(Gateway instance) {
+        return instance.genClient.extractOther("debitKeyCode", java.lang.String.class);
+      }
+    },
     supportsTipAdjust {
       @Override
       public Object extractValue(Gateway instance) {
@@ -239,20 +285,35 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractOther("newBatchCloseEnabled", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Gateway> genClient = new GenericClient<Gateway>(this);
+  private GenericClient<Gateway> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Gateway() { }
+  * Constructs a new empty instance.
+  */
+  public Gateway() {
+    genClient = new GenericClient<Gateway>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Gateway(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Gateway(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -265,6 +326,7 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public Gateway(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -272,6 +334,7 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Gateway(Gateway src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -329,6 +392,11 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.mid);
   }
 
+  /** Checks whether the 'fns' field is set and is not null */
+  public boolean isNotNullFns() {
+    return genClient.cacheValueIsNotNull(CacheKey.fns);
+  }
+
   /** Checks whether the 'tid' field is set and is not null */
   public boolean isNotNullTid() {
     return genClient.cacheValueIsNotNull(CacheKey.tid);
@@ -359,6 +427,21 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.mcc);
   }
 
+  /** Checks whether the 'tokenType' field is set and is not null */
+  public boolean isNotNullTokenType() {
+    return genClient.cacheValueIsNotNull(CacheKey.tokenType);
+  }
+
+  /** Checks whether the 'groupId' field is set and is not null */
+  public boolean isNotNullGroupId() {
+    return genClient.cacheValueIsNotNull(CacheKey.groupId);
+  }
+
+  /** Checks whether the 'debitKeyCode' field is set and is not null */
+  public boolean isNotNullDebitKeyCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.debitKeyCode);
+  }
+
   /** Checks whether the 'supportsTipAdjust' field is set and is not null */
   public boolean isNotNullSupportsTipAdjust() {
     return genClient.cacheValueIsNotNull(CacheKey.supportsTipAdjust);
@@ -383,6 +466,7 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   public boolean isNotNullNewBatchCloseEnabled() {
     return genClient.cacheValueIsNotNull(CacheKey.newBatchCloseEnabled);
   }
+
 
 
   /** Checks whether the 'paymentProcessorName' field has been set, however the value could be null */
@@ -420,6 +504,11 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheHasKey(CacheKey.mid);
   }
 
+  /** Checks whether the 'fns' field has been set, however the value could be null */
+  public boolean hasFns() {
+    return genClient.cacheHasKey(CacheKey.fns);
+  }
+
   /** Checks whether the 'tid' field has been set, however the value could be null */
   public boolean hasTid() {
     return genClient.cacheHasKey(CacheKey.tid);
@@ -448,6 +537,21 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   /** Checks whether the 'mcc' field has been set, however the value could be null */
   public boolean hasMcc() {
     return genClient.cacheHasKey(CacheKey.mcc);
+  }
+
+  /** Checks whether the 'tokenType' field has been set, however the value could be null */
+  public boolean hasTokenType() {
+    return genClient.cacheHasKey(CacheKey.tokenType);
+  }
+
+  /** Checks whether the 'groupId' field has been set, however the value could be null */
+  public boolean hasGroupId() {
+    return genClient.cacheHasKey(CacheKey.groupId);
+  }
+
+  /** Checks whether the 'debitKeyCode' field has been set, however the value could be null */
+  public boolean hasDebitKeyCode() {
+    return genClient.cacheHasKey(CacheKey.debitKeyCode);
   }
 
   /** Checks whether the 'supportsTipAdjust' field has been set, however the value could be null */
@@ -526,6 +630,13 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   }
 
   /**
+   * Sets the field 'fns'.
+   */
+  public Gateway setFns(java.lang.String fns) {
+    return genClient.setOther(fns, CacheKey.fns);
+  }
+
+  /**
    * Sets the field 'tid'.
    */
   public Gateway setTid(java.lang.String tid) {
@@ -565,6 +676,27 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
    */
   public Gateway setMcc(java.lang.String mcc) {
     return genClient.setOther(mcc, CacheKey.mcc);
+  }
+
+  /**
+   * Sets the field 'tokenType'.
+   */
+  public Gateway setTokenType(java.lang.String tokenType) {
+    return genClient.setOther(tokenType, CacheKey.tokenType);
+  }
+
+  /**
+   * Sets the field 'groupId'.
+   */
+  public Gateway setGroupId(java.lang.String groupId) {
+    return genClient.setOther(groupId, CacheKey.groupId);
+  }
+
+  /**
+   * Sets the field 'debitKeyCode'.
+   */
+  public Gateway setDebitKeyCode(java.lang.String debitKeyCode) {
+    return genClient.setOther(debitKeyCode, CacheKey.debitKeyCode);
   }
 
   /**
@@ -631,6 +763,10 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   public void clearMid() {
     genClient.clear(CacheKey.mid);
   }
+  /** Clears the 'fns' field, the 'has' method for this field will now return false */
+  public void clearFns() {
+    genClient.clear(CacheKey.fns);
+  }
   /** Clears the 'tid' field, the 'has' method for this field will now return false */
   public void clearTid() {
     genClient.clear(CacheKey.tid);
@@ -655,6 +791,18 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   public void clearMcc() {
     genClient.clear(CacheKey.mcc);
   }
+  /** Clears the 'tokenType' field, the 'has' method for this field will now return false */
+  public void clearTokenType() {
+    genClient.clear(CacheKey.tokenType);
+  }
+  /** Clears the 'groupId' field, the 'has' method for this field will now return false */
+  public void clearGroupId() {
+    genClient.clear(CacheKey.groupId);
+  }
+  /** Clears the 'debitKeyCode' field, the 'has' method for this field will now return false */
+  public void clearDebitKeyCode() {
+    genClient.clear(CacheKey.debitKeyCode);
+  }
   /** Clears the 'supportsTipAdjust' field, the 'has' method for this field will now return false */
   public void clearSupportsTipAdjust() {
     genClient.clear(CacheKey.supportsTipAdjust);
@@ -675,6 +823,7 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
   public void clearNewBatchCloseEnabled() {
     genClient.clear(CacheKey.newBatchCloseEnabled);
   }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -709,29 +858,6 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Gateway> CREATOR = new android.os.Parcelable.Creator<Gateway>() {
     @Override
     public Gateway createFromParcel(android.os.Parcel in) {
@@ -758,41 +884,28 @@ public final class Gateway implements android.os.Parcelable, com.clover.sdk.v3.V
 
     public static final boolean PAYMENTPROCESSORNAME_IS_REQUIRED = false;
     public static final long PAYMENTPROCESSORNAME_MAX_LEN = 127;
-
     public static final boolean AUTHORIZATIONFRONTEND_IS_REQUIRED = false;
     public static final long AUTHORIZATIONFRONTEND_MAX_LEN = 10;
-
     public static final boolean ACQUIRINGBACKEND_IS_REQUIRED = false;
     public static final long ACQUIRINGBACKEND_MAX_LEN = 10;
-
     public static final boolean PAYMENTGATEWAYAPI_IS_REQUIRED = false;
-
     public static final boolean ACCOUNTNAME_IS_REQUIRED = false;
-
     public static final boolean ALTMID_IS_REQUIRED = false;
-
     public static final boolean MID_IS_REQUIRED = false;
-
+    public static final boolean FNS_IS_REQUIRED = false;
     public static final boolean TID_IS_REQUIRED = false;
-
     public static final boolean STOREID_IS_REQUIRED = false;
-
     public static final boolean SUPPORTSTIPPING_IS_REQUIRED = false;
-
     public static final boolean FRONTENDMID_IS_REQUIRED = false;
-
     public static final boolean BACKENDMID_IS_REQUIRED = false;
-
     public static final boolean MCC_IS_REQUIRED = false;
-
+    public static final boolean TOKENTYPE_IS_REQUIRED = false;
+    public static final boolean GROUPID_IS_REQUIRED = false;
+    public static final boolean DEBITKEYCODE_IS_REQUIRED = false;
     public static final boolean SUPPORTSTIPADJUST_IS_REQUIRED = false;
-
     public static final boolean SUPPORTSNAKEDCREDIT_IS_REQUIRED = false;
-
     public static final boolean SUPPORTSMULTIPAYTOKEN_IS_REQUIRED = false;
-
     public static final boolean CLOSINGTIME_IS_REQUIRED = false;
-
     public static final boolean NEWBATCHCLOSEENABLED_IS_REQUIRED = false;
 
   }

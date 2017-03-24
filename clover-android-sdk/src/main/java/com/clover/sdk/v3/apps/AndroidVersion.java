@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -51,7 +52,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class AndroidVersion implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class AndroidVersion extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -157,6 +158,7 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
   public java.util.List<com.clover.sdk.v3.base.Reference> getMerchantGroups() {
     return genClient.cacheGet(CacheKey.merchantGroups);
   }
+
 
 
 
@@ -269,20 +271,35 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
         return instance.genClient.extractListRecord("merchantGroups", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<AndroidVersion> genClient = new GenericClient<AndroidVersion>(this);
+  private GenericClient<AndroidVersion> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public AndroidVersion() { }
+  * Constructs a new empty instance.
+  */
+  public AndroidVersion() {
+    genClient = new GenericClient<AndroidVersion>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected AndroidVersion(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public AndroidVersion(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -295,6 +312,7 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
    * reflected in this instance and vice-versa.
    */
   public AndroidVersion(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -302,6 +320,7 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public AndroidVersion(AndroidVersion src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -421,6 +440,7 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
 
   /** Checks whether the 'merchantGroups' field is set and is not null and is not empty */
   public boolean isNotEmptyMerchantGroups() { return isNotNullMerchantGroups() && !getMerchantGroups().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -722,6 +742,7 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
     genClient.clear(CacheKey.merchantGroups);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -755,29 +776,6 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<AndroidVersion> CREATOR = new android.os.Parcelable.Creator<AndroidVersion>() {
     @Override
     public AndroidVersion createFromParcel(android.os.Parcel in) {
@@ -804,42 +802,25 @@ public final class AndroidVersion implements android.os.Parcelable, com.clover.s
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean CREATEDAT_IS_REQUIRED = false;
-
     public static final boolean VERSION_IS_REQUIRED = false;
-
     public static final boolean VERSIONNAME_IS_REQUIRED = false;
     public static final long VERSIONNAME_MAX_LEN = 255;
-
     public static final boolean APPROVED_IS_REQUIRED = false;
-
     public static final boolean HASH_IS_REQUIRED = false;
     public static final long HASH_MAX_LEN = 64;
-
     public static final boolean DEVICEINSTALLCOUNT_IS_REQUIRED = false;
-
     public static final boolean HASHORIGINAL_IS_REQUIRED = false;
     public static final long HASHORIGINAL_MAX_LEN = 64;
-
     public static final boolean APPROVALSTATUS_IS_REQUIRED = false;
-
     public static final boolean SCANSTATUS_IS_REQUIRED = false;
-
     public static final boolean SCANID_IS_REQUIRED = false;
-
     public static final boolean MINSDKVERSION_IS_REQUIRED = false;
-
     public static final boolean DIGESTALG_IS_REQUIRED = false;
-
     public static final boolean APKURL_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONS_IS_REQUIRED = false;
-
     public static final boolean APP_IS_REQUIRED = false;
-
     public static final boolean RELEASENOTE_IS_REQUIRED = false;
-
     public static final boolean MERCHANTGROUPS_IS_REQUIRED = false;
 
   }

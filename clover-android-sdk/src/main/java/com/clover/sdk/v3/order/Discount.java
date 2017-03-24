@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.order;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -40,7 +41,7 @@ import com.clover.sdk.GenericClient;
  * @see com.clover.sdk.v3.order.IOrderService
  */
 @SuppressWarnings("all")
-public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Discount extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -79,6 +80,7 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Discount> {
     id {
       @Override
@@ -110,20 +112,35 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
         return instance.genClient.extractOther("percentage", java.lang.Long.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Discount> genClient = new GenericClient<Discount>(this);
+  private GenericClient<Discount> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Discount() { }
+  * Constructs a new empty instance.
+  */
+  public Discount() {
+    genClient = new GenericClient<Discount>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Discount(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Discount(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -136,6 +153,7 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public Discount(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -143,6 +161,7 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Discount(Discount src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -192,6 +211,7 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
   public boolean isNotNullPercentage() {
     return genClient.cacheValueIsNotNull(CacheKey.percentage);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -279,6 +299,7 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
     genClient.clear(CacheKey.percentage);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -312,29 +333,6 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Discount> CREATOR = new android.os.Parcelable.Creator<Discount>() {
     @Override
     public Discount createFromParcel(android.os.Parcel in) {
@@ -361,15 +359,11 @@ public final class Discount implements android.os.Parcelable, com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean DISCOUNT_IS_REQUIRED = false;
-
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 64;
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final long AMOUNT_MAX = 0;
-
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final long PERCENTAGE_MIN = 0;
 

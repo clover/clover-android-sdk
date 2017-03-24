@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.report;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -35,10 +36,12 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * <li>{@link #getStartTimestamp startTimestamp}</li>
+ * <li>{@link #getEndTimestamp endTimestamp}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Summary extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.Long getNum() {
     return genClient.cacheGet(CacheKey.num);
@@ -59,6 +62,21 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
   public java.lang.Long getServiceChargeAmount() {
     return genClient.cacheGet(CacheKey.serviceChargeAmount);
   }
+
+  /**
+   * Beginning of the time period for this summary
+   */
+  public java.lang.Long getStartTimestamp() {
+    return genClient.cacheGet(CacheKey.startTimestamp);
+  }
+
+  /**
+   * End of the time period for this summary
+   */
+  public java.lang.Long getEndTimestamp() {
+    return genClient.cacheGet(CacheKey.endTimestamp);
+  }
+
 
 
 
@@ -93,20 +111,47 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractOther("serviceChargeAmount", java.lang.Long.class);
       }
     },
-    ;
+    startTimestamp {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("startTimestamp", java.lang.Long.class);
+      }
+    },
+    endTimestamp {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("endTimestamp", java.lang.Long.class);
+      }
+    },
+      ;
   }
 
-  private GenericClient<Summary> genClient = new GenericClient<Summary>(this);
+  private GenericClient<Summary> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Summary() { }
+  * Constructs a new empty instance.
+  */
+  public Summary() {
+    genClient = new GenericClient<Summary>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Summary(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Summary(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -119,6 +164,7 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public Summary(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -126,6 +172,7 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Summary(Summary src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -168,6 +215,17 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
   }
 
+  /** Checks whether the 'startTimestamp' field is set and is not null */
+  public boolean isNotNullStartTimestamp() {
+    return genClient.cacheValueIsNotNull(CacheKey.startTimestamp);
+  }
+
+  /** Checks whether the 'endTimestamp' field is set and is not null */
+  public boolean isNotNullEndTimestamp() {
+    return genClient.cacheValueIsNotNull(CacheKey.endTimestamp);
+  }
+
+
 
   /** Checks whether the 'num' field has been set, however the value could be null */
   public boolean hasNum() {
@@ -192,6 +250,16 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
   /** Checks whether the 'serviceChargeAmount' field has been set, however the value could be null */
   public boolean hasServiceChargeAmount() {
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'startTimestamp' field has been set, however the value could be null */
+  public boolean hasStartTimestamp() {
+    return genClient.cacheHasKey(CacheKey.startTimestamp);
+  }
+
+  /** Checks whether the 'endTimestamp' field has been set, however the value could be null */
+  public boolean hasEndTimestamp() {
+    return genClient.cacheHasKey(CacheKey.endTimestamp);
   }
 
 
@@ -230,6 +298,20 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
     return genClient.setOther(serviceChargeAmount, CacheKey.serviceChargeAmount);
   }
 
+  /**
+   * Sets the field 'startTimestamp'.
+   */
+  public Summary setStartTimestamp(java.lang.Long startTimestamp) {
+    return genClient.setOther(startTimestamp, CacheKey.startTimestamp);
+  }
+
+  /**
+   * Sets the field 'endTimestamp'.
+   */
+  public Summary setEndTimestamp(java.lang.Long endTimestamp) {
+    return genClient.setOther(endTimestamp, CacheKey.endTimestamp);
+  }
+
 
   /** Clears the 'num' field, the 'has' method for this field will now return false */
   public void clearNum() {
@@ -251,6 +333,15 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
   }
+  /** Clears the 'startTimestamp' field, the 'has' method for this field will now return false */
+  public void clearStartTimestamp() {
+    genClient.clear(CacheKey.startTimestamp);
+  }
+  /** Clears the 'endTimestamp' field, the 'has' method for this field will now return false */
+  public void clearEndTimestamp() {
+    genClient.clear(CacheKey.endTimestamp);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -285,29 +376,6 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Summary> CREATOR = new android.os.Parcelable.Creator<Summary>() {
     @Override
     public Summary createFromParcel(android.os.Parcel in) {
@@ -333,14 +401,12 @@ public final class Summary implements android.os.Parcelable, com.clover.sdk.v3.V
   public interface Constraints {
 
     public static final boolean NUM_IS_REQUIRED = false;
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
-
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
-
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
-
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean STARTTIMESTAMP_IS_REQUIRED = false;
+    public static final boolean ENDTIMESTAMP_IS_REQUIRED = false;
 
   }
 

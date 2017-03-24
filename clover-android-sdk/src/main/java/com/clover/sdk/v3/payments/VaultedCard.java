@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +39,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class VaultedCard extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getFirst6() {
     return genClient.cacheGet(CacheKey.first6);
@@ -59,6 +60,7 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
   public java.lang.String getToken() {
     return genClient.cacheGet(CacheKey.token);
   }
+
 
 
 
@@ -93,20 +95,35 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
         return instance.genClient.extractOther("token", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<VaultedCard> genClient = new GenericClient<VaultedCard>(this);
+  private GenericClient<VaultedCard> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public VaultedCard() { }
+  * Constructs a new empty instance.
+  */
+  public VaultedCard() {
+    genClient = new GenericClient<VaultedCard>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected VaultedCard(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public VaultedCard(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -119,6 +136,7 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
    * reflected in this instance and vice-versa.
    */
   public VaultedCard(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -126,6 +144,7 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public VaultedCard(VaultedCard src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -178,6 +197,7 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
   public boolean isNotNullToken() {
     return genClient.cacheValueIsNotNull(CacheKey.token);
   }
+
 
 
   /** Checks whether the 'first6' field has been set, however the value could be null */
@@ -263,6 +283,7 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
     genClient.clear(CacheKey.token);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -296,29 +317,6 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<VaultedCard> CREATOR = new android.os.Parcelable.Creator<VaultedCard>() {
     @Override
     public VaultedCard createFromParcel(android.os.Parcel in) {
@@ -345,16 +343,12 @@ public final class VaultedCard implements android.os.Parcelable, com.clover.sdk.
 
     public static final boolean FIRST6_IS_REQUIRED = true;
     public static final long FIRST6_MAX_LEN = 6;
-
     public static final boolean LAST4_IS_REQUIRED = true;
     public static final long LAST4_MAX_LEN = 4;
-
     public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
     public static final long CARDHOLDERNAME_MAX_LEN = 26;
-
     public static final boolean EXPIRATIONDATE_IS_REQUIRED = false;
     public static final long EXPIRATIONDATE_MAX_LEN = 4;
-
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
 

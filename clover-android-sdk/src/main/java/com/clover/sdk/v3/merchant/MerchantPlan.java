@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.merchant;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -40,7 +41,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -81,6 +82,7 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
   public java.lang.String getPlanCode() {
     return genClient.cacheGet(CacheKey.planCode);
   }
+
 
 
 
@@ -127,20 +129,35 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
         return instance.genClient.extractOther("planCode", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<MerchantPlan> genClient = new GenericClient<MerchantPlan>(this);
+  private GenericClient<MerchantPlan> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public MerchantPlan() { }
+  * Constructs a new empty instance.
+  */
+  public MerchantPlan() {
+    genClient = new GenericClient<MerchantPlan>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected MerchantPlan(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public MerchantPlan(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -153,6 +170,7 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
    * reflected in this instance and vice-versa.
    */
   public MerchantPlan(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -160,6 +178,7 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public MerchantPlan(MerchantPlan src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -221,6 +240,7 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
   public boolean isNotNullPlanCode() {
     return genClient.cacheValueIsNotNull(CacheKey.planCode);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -342,6 +362,7 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
     genClient.clear(CacheKey.planCode);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -375,29 +396,6 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<MerchantPlan> CREATOR = new android.os.Parcelable.Creator<MerchantPlan>() {
     @Override
     public MerchantPlan createFromParcel(android.os.Parcel in) {
@@ -424,19 +422,13 @@ public final class MerchantPlan implements android.os.Parcelable, com.clover.sdk
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 31;
-
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 2047;
-
     public static final boolean PRICE_IS_REQUIRED = false;
-
     public static final boolean MODULES_IS_REQUIRED = false;
-
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
-
     public static final boolean PLANCODE_IS_REQUIRED = false;
     public static final long PLANCODE_MAX_LEN = 50;
 

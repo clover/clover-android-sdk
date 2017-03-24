@@ -48,4 +48,5 @@ public class CardTransactionConstants {
   public static final String GERMANY_HOST_PRINT_DATA_BM60 = "gerHostResponsePrintDataBM60";
   public static final String GERMANY_HOST_AID_PAR_BMP53 = "gerHostResponseAidParBMP53";
   public static final String GERMANY_TERMINAL_ID = "gerTerminalID";
+  public static final String FUNC = "func";
 }

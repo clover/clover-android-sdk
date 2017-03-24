@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.printer;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -39,7 +40,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Printer extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -76,6 +77,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
   public com.clover.sdk.v3.printer.PrinterType getType() {
     return genClient.cacheGet(CacheKey.type);
   }
+
 
 
 
@@ -116,20 +118,35 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
         return instance.genClient.extractEnum("type", com.clover.sdk.v3.printer.PrinterType.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<Printer> genClient = new GenericClient<Printer>(this);
+  private GenericClient<Printer> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public Printer() { }
+  * Constructs a new empty instance.
+  */
+  public Printer() {
+    genClient = new GenericClient<Printer>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected Printer(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Printer(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -142,6 +159,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
    * reflected in this instance and vice-versa.
    */
   public Printer(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -149,6 +167,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Printer(Printer src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -204,6 +223,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -305,6 +325,7 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
     genClient.clear(CacheKey.type);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -338,29 +359,6 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Printer> CREATOR = new android.os.Parcelable.Creator<Printer>() {
     @Override
     public Printer createFromParcel(android.os.Parcel in) {
@@ -387,19 +385,14 @@ public final class Printer implements android.os.Parcelable, com.clover.sdk.v3.V
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean MAC_IS_REQUIRED = false;
     public static final long MAC_MAX_LEN = 30;
-
     public static final boolean MODEL_IS_REQUIRED = false;
     public static final long MODEL_MAX_LEN = 20;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 30;
-
     public static final boolean IPADDRESS_IS_REQUIRED = false;
     public static final long IPADDRESS_MAX_LEN = 30;
-
     public static final boolean TYPE_IS_REQUIRED = false;
 
   }

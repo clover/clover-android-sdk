@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.developer;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -41,7 +42,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class DeveloperRole implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class DeveloperRole extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -74,6 +75,7 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
   public com.clover.sdk.v3.base.Reference getDeveloperRef() {
     return genClient.cacheGet(CacheKey.developerRef);
   }
+
 
 
 
@@ -126,20 +128,35 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
         return instance.genClient.extractRecord("developerRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<DeveloperRole> genClient = new GenericClient<DeveloperRole>(this);
+  private GenericClient<DeveloperRole> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public DeveloperRole() { }
+  * Constructs a new empty instance.
+  */
+  public DeveloperRole() {
+    genClient = new GenericClient<DeveloperRole>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected DeveloperRole(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public DeveloperRole(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -152,6 +169,7 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
    * reflected in this instance and vice-versa.
    */
   public DeveloperRole(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -159,6 +177,7 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public DeveloperRole(DeveloperRole src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -224,6 +243,7 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
   public boolean isNotNullDeveloperRef() {
     return genClient.cacheValueIsNotNull(CacheKey.developerRef);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -365,6 +385,7 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
     genClient.clear(CacheKey.developerRef);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -398,29 +419,6 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<DeveloperRole> CREATOR = new android.os.Parcelable.Creator<DeveloperRole>() {
     @Override
     public DeveloperRole createFromParcel(android.os.Parcel in) {
@@ -447,20 +445,13 @@ public final class DeveloperRole implements android.os.Parcelable, com.clover.sd
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
-
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 127;
-
     public static final boolean SYSTEM_IS_REQUIRED = false;
-
     public static final boolean TEMPLATEROLE_IS_REQUIRED = false;
-
     public static final boolean ACCOUNTS_IS_REQUIRED = false;
-
     public static final boolean PERMISSIONS_IS_REQUIRED = false;
-
     public static final boolean DEVELOPERREF_IS_REQUIRED = false;
 
   }

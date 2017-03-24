@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -37,7 +38,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class AppNotification implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class AppNotification extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * The app the notification will be sent to. This will be autopopulated by the server.
@@ -69,6 +70,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppNotification> {
     app {
       @Override
@@ -94,20 +96,35 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
         return instance.genClient.extractOther("data", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<AppNotification> genClient = new GenericClient<AppNotification>(this);
+  private GenericClient<AppNotification> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public AppNotification() { }
+  * Constructs a new empty instance.
+  */
+  public AppNotification() {
+    genClient = new GenericClient<AppNotification>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected AppNotification(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public AppNotification(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -120,6 +137,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
    * reflected in this instance and vice-versa.
    */
   public AppNotification(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -127,6 +145,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public AppNotification(AppNotification src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -167,6 +186,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   public boolean isNotNullData() {
     return genClient.cacheValueIsNotNull(CacheKey.data);
   }
+
 
 
   /** Checks whether the 'app' field has been set, however the value could be null */
@@ -238,6 +258,7 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
     genClient.clear(CacheKey.data);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -271,29 +292,6 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<AppNotification> CREATOR = new android.os.Parcelable.Creator<AppNotification>() {
     @Override
     public AppNotification createFromParcel(android.os.Parcel in) {
@@ -319,12 +317,9 @@ public final class AppNotification implements android.os.Parcelable, com.clover.
   public interface Constraints {
 
     public static final boolean APP_IS_REQUIRED = false;
-
     public static final boolean EVENT_IS_REQUIRED = false;
     public static final long EVENT_MAX_LEN = 255;
-
     public static final boolean TIMETOLIVE_IS_REQUIRED = false;
-
     public static final boolean DATA_IS_REQUIRED = false;
     public static final long DATA_MAX_LEN = 4000;
 

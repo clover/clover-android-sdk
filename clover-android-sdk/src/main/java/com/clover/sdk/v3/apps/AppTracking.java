@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -32,6 +33,7 @@ import com.clover.sdk.GenericClient;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getDeveloperAppId developerAppId}</li>
  * <li>{@link #getApplicationID applicationID}</li>
  * <li>{@link #getApplicationVersion applicationVersion}</li>
  * <li>{@link #getSourceSDK sourceSDK}</li>
@@ -39,7 +41,14 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class AppTracking implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+
+  /**
+   * The uuid from the developer application.  This is typically populated and used only on the back end.
+   */
+  public java.lang.String getDeveloperAppId() {
+    return genClient.cacheGet(CacheKey.developerAppId);
+  }
 
   /**
    * A string representing an application
@@ -71,7 +80,14 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppTracking> {
+    developerAppId {
+      @Override
+      public Object extractValue(AppTracking instance) {
+        return instance.genClient.extractOther("developerAppId", java.lang.String.class);
+      }
+    },
     applicationID {
       @Override
       public Object extractValue(AppTracking instance) {
@@ -96,20 +112,35 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
         return instance.genClient.extractOther("sourceSDKVersion", java.lang.String.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<AppTracking> genClient = new GenericClient<AppTracking>(this);
+  private GenericClient<AppTracking> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public AppTracking() { }
+  * Constructs a new empty instance.
+  */
+  public AppTracking() {
+    genClient = new GenericClient<AppTracking>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected AppTracking(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public AppTracking(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -122,6 +153,7 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
    * reflected in this instance and vice-versa.
    */
   public AppTracking(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -129,6 +161,7 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public AppTracking(AppTracking src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -144,6 +177,11 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
 
   @Override
   public void validate() {
+  }
+
+  /** Checks whether the 'developerAppId' field is set and is not null */
+  public boolean isNotNullDeveloperAppId() {
+    return genClient.cacheValueIsNotNull(CacheKey.developerAppId);
   }
 
   /** Checks whether the 'applicationID' field is set and is not null */
@@ -167,6 +205,12 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
   }
 
 
+
+  /** Checks whether the 'developerAppId' field has been set, however the value could be null */
+  public boolean hasDeveloperAppId() {
+    return genClient.cacheHasKey(CacheKey.developerAppId);
+  }
+
   /** Checks whether the 'applicationID' field has been set, however the value could be null */
   public boolean hasApplicationID() {
     return genClient.cacheHasKey(CacheKey.applicationID);
@@ -187,6 +231,13 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
     return genClient.cacheHasKey(CacheKey.sourceSDKVersion);
   }
 
+
+  /**
+   * Sets the field 'developerAppId'.
+   */
+  public AppTracking setDeveloperAppId(java.lang.String developerAppId) {
+    return genClient.setOther(developerAppId, CacheKey.developerAppId);
+  }
 
   /**
    * Sets the field 'applicationID'.
@@ -217,6 +268,10 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
   }
 
 
+  /** Clears the 'developerAppId' field, the 'has' method for this field will now return false */
+  public void clearDeveloperAppId() {
+    genClient.clear(CacheKey.developerAppId);
+  }
   /** Clears the 'applicationID' field, the 'has' method for this field will now return false */
   public void clearApplicationID() {
     genClient.clear(CacheKey.applicationID);
@@ -233,6 +288,7 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
   public void clearSourceSDKVersion() {
     genClient.clear(CacheKey.sourceSDKVersion);
   }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -267,29 +323,6 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<AppTracking> CREATOR = new android.os.Parcelable.Creator<AppTracking>() {
     @Override
     public AppTracking createFromParcel(android.os.Parcel in) {
@@ -314,12 +347,10 @@ public final class AppTracking implements android.os.Parcelable, com.clover.sdk.
 
   public interface Constraints {
 
+    public static final boolean DEVELOPERAPPID_IS_REQUIRED = false;
     public static final boolean APPLICATIONID_IS_REQUIRED = false;
-
     public static final boolean APPLICATIONVERSION_IS_REQUIRED = false;
-
     public static final boolean SOURCESDK_IS_REQUIRED = false;
-
     public static final boolean SOURCESDKVERSION_IS_REQUIRED = false;
 
   }

@@ -1,5 +1,25 @@
 package com.clover.common2.payments;
 
+/*
+  This class contains code to assist in building a PayIntent object.  The Builder class can construct a PayIntent
+  using a variety of input sources.
+
+  Some of the Builder setters contain "** Backward Compatibility **" comments that indicate specialized coding to handle
+  the deprecated PayIntent fields that were moved into the TransactionSettings object.  The purpose of the code is
+  to handle keeping the TransactionSettings object in sync with updates to the deprecated fields.  This can be
+  tricky, as a Builder taking an Intent as input (which builds a TransactionSettings object from the intent) and
+  then chain on additional setters against any/all of the deprecated fields.  This could produce inconsistencies
+  between the deprecated values and the TransactionSettings values.  Since the point of moving these fields to the
+  TransactionSettings object was to isolate fields that directly effect the flow or calculation of a payment, we want
+  to get rid of the individual field-level extras at some future point and use only the values from the
+  TransactionSettings to make decisions or calculations.
+
+  Also note that the TransactionSettingsResolver should be utilized for any field/decision level logic involving the
+  TransactionSettings fields.  Never use the TransactionSettings object directly.  This is so that Clover Merchant
+  defaults and any other relevant factors involving the TransactionSettings overrides are applied consistently across
+  the code base.
+*/
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -7,9 +27,11 @@ import android.os.Parcelable;
 
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v3.apps.AppTracking;
+import com.clover.sdk.v3.payments.GermanInfo;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.ServiceChargeAmount;
 import com.clover.sdk.v3.payments.TaxableAmountRate;
+import com.clover.sdk.v3.payments.TransactionSettings;
 import com.clover.sdk.v3.payments.VaultedCard;
 
 import java.util.ArrayList;
@@ -46,6 +68,7 @@ public class PayIntent implements Parcelable {
   public static class Builder {
     private String action;
     private Long amount;
+    @Deprecated // Please use TransactionSettings
     private Long tippableAmount;
     private Long tipAmount;
     private Long taxAmount;
@@ -55,25 +78,35 @@ public class PayIntent implements Parcelable {
     private TransactionType transactionType;
     private ArrayList<TaxableAmountRate> taxableAmountRates;
     private ServiceChargeAmount serviceChargeAmount;
+    @Deprecated // Please use TransactionSettings
     private boolean isDisableCashBack;
     private boolean isTesting;
+    @Deprecated // Please use TransactionSettings
     private int cardEntryMethods;
     private String voiceAuthCode;
     private String postalCode;
     private String streetAddress;
     private boolean isCardNotPresent;
     private String cardDataMessage;
+    @Deprecated // Please use TransactionSettings
     private boolean remotePrint;
     private String transactionNo;
+    @Deprecated // Please use TransactionSettings
     private boolean isForceSwipePinEntry;
+    @Deprecated // Please use TransactionSettings
     private boolean disableRestartTransactionWhenFailed;
     // Can be set to the properly formatted uuid for a payment (
     private String externalPaymentId;
     private VaultedCard vaultedCard;
+    @Deprecated // Please use TransactionSettings
     private Boolean allowOfflinePayment;
+    @Deprecated // Please use TransactionSettings
     private Boolean approveOfflinePaymentWithoutPrompt;
     private Boolean requiresRemoteConfirmation;
     private AppTracking applicationTracking;
+    private Boolean allowPartialAuth = true;
+    private GermanInfo germanInfo;
+    private TransactionSettings transactionSettings;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -90,14 +123,14 @@ public class PayIntent implements Parcelable {
         transactionType = TransactionType.PAYMENT;
       }
 
-      if (intent.getExtras().containsKey(Intents.EXTRA_ORDER_ID)) {
+      if (intent.hasExtra(Intents.EXTRA_ORDER_ID)) {
         orderId = intent.getStringExtra(Intents.EXTRA_ORDER_ID);
       }
-      if(intent.getExtras().containsKey(Intents.EXTRA_PAYMENT_ID)){
+      if (intent.hasExtra(Intents.EXTRA_PAYMENT_ID)){
         paymentId = intent.getStringExtra(Intents.EXTRA_PAYMENT_ID);
       }
 
-      if (intent.getExtras().containsKey(Intents.EXTRA_EMPLOYEE_ID)) {
+      if (intent.hasExtra(Intents.EXTRA_EMPLOYEE_ID)) {
         employeeId = intent.getStringExtra(Intents.EXTRA_EMPLOYEE_ID);
       }
       tipAmount = intent.hasExtra(Intents.EXTRA_TIP_AMOUNT) ? intent.getLongExtra(Intents.EXTRA_TIP_AMOUNT, 0L) : null;
@@ -122,20 +155,102 @@ public class PayIntent implements Parcelable {
           Intents.EXTRA_EXTERNAL_PAYMENT_ID);
       vaultedCard = intent.getParcelableExtra(Intents.EXTRA_VAULTED_CARD);
 
-      if(intent.getExtras().containsKey(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
+      if (intent.hasExtra(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
         allowOfflinePayment = (Boolean) intent.getExtras().get(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE);
       }
-      if(intent.getExtras().containsKey(Intents.EXTRA_OFFLINE_NO_PROMPT)) {
+      if (intent.hasExtra(Intents.EXTRA_OFFLINE_NO_PROMPT)) {
         approveOfflinePaymentWithoutPrompt = (Boolean) intent.getExtras().get(Intents.EXTRA_OFFLINE_NO_PROMPT);
       }
-      if(intent.getExtras().containsKey(Intents.EXTRA_REQUIRES_REMOTE_CONFIRMATION)) {
+      if (intent.hasExtra(Intents.EXTRA_REQUIRES_REMOTE_CONFIRMATION)) {
         requiresRemoteConfirmation = (Boolean) intent.getExtras().get(Intents.EXTRA_REQUIRES_REMOTE_CONFIRMATION);
       }
-      if(intent.getExtras().containsKey(Intents.EXTRA_APP_TRACKING_ID)) {
+      if (intent.hasExtra(Intents.EXTRA_APP_TRACKING_ID)) {
         applicationTracking = intent.getParcelableExtra(Intents.EXTRA_APP_TRACKING_ID);
+      }
+      if (intent.hasExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
+        allowPartialAuth = intent.getBooleanExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, true);
+      }
+      if (intent.hasExtra(Intents.GERMAN_INFO)) {
+        germanInfo = intent.getParcelableExtra(Intents.GERMAN_INFO);
+      }
+      if (intent.hasExtra(Intents.EXTRA_TRANSACTION_SETTINGS)) {
+        transactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
+      } else { //move the settings into the transactionSettings object for deprecated intents ** TEMPORARY
+        transactionSettings = buildTransactionSettingsFromIntentValues();
+      }
+      if (intent.hasExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
+        allowPartialAuth = intent.getBooleanExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, true);
+      }
+      if (intent.hasExtra(Intents.GERMAN_INFO)) {
+        germanInfo = intent.getParcelableExtra(Intents.GERMAN_INFO);
       }
 
       return this;
+    }
+
+    private TransactionSettings buildTransactionSettingsFromIntentValues() {
+      TransactionSettings transactionSettings = new TransactionSettings();
+
+      transactionSettings.setCloverShouldHandleReceipts(!remotePrint);
+      transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailed);
+      transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntry);
+      transactionSettings.setDisableCashBack(isDisableCashBack);
+      transactionSettings.setAllowOfflinePayment(allowOfflinePayment);
+      transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPrompt);
+      transactionSettings.setCardEntryMethods(cardEntryMethods);
+      transactionSettings.setDisableDuplicateCheck(false);
+      transactionSettings.setDisableReceiptSelection(false);
+      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
+      transactionSettings.setTipMode(null); // will default to clover setting
+      transactionSettings.setTippableAmount(tippableAmount);
+
+      return transactionSettings;
+    }
+
+    public TransactionSettings buildTransactionSettingsFromIntent(Intent intent) {
+
+      TransactionSettings transactionSettings = new TransactionSettings();
+
+      if (intent.hasExtra(Intents.EXTRA_AMOUNT)) {
+        amount = intent.getLongExtra(Intents.EXTRA_AMOUNT, 0L);
+      }
+      transactionSettings.setCloverShouldHandleReceipts(!intent.getBooleanExtra(Intents.EXTRA_REMOTE_PRINT, false));
+      transactionSettings.setDisableRestartTransactionOnFailure(intent.getBooleanExtra(
+          Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, false));
+      transactionSettings.setForcePinEntryOnSwipe(intent.getBooleanExtra(Intents.EXTRA_FORCE_SWIPE_PIN_ENTRY, false));
+      transactionSettings.setDisableCashBack(intent.getBooleanExtra(Intents.EXTRA_DISABLE_CASHBACK, false));
+      if(intent.hasExtra(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
+        transactionSettings.setAllowOfflinePayment((Boolean) intent.getExtras().get(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE));
+      }
+      if (intent.hasExtra(Intents.EXTRA_OFFLINE_NO_PROMPT)) {
+        transactionSettings.setApproveOfflinePaymentWithoutPrompt((Boolean) intent.getExtras().get(Intents.EXTRA_OFFLINE_NO_PROMPT));
+      }
+      transactionSettings.setCardEntryMethods(intent.getIntExtra(Intents.EXTRA_CARD_ENTRY_METHODS, Intents.CARD_ENTRY_METHOD_ALL));
+      transactionSettings.setDisableDuplicateCheck(false);
+      transactionSettings.setDisableReceiptSelection(false);
+      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
+      transactionSettings.setTipMode(null); // will default to clover setting
+
+      return transactionSettings;
+    }
+
+    public TransactionSettings buildTransactionSettingsFromPayIntent(PayIntent payIntent) {
+      TransactionSettings transactionSettings = new TransactionSettings();
+
+      transactionSettings.setCloverShouldHandleReceipts(!payIntent.remotePrint);
+      transactionSettings.setDisableRestartTransactionOnFailure(payIntent.disableRestartTransactionWhenFailed);
+      transactionSettings.setForcePinEntryOnSwipe(payIntent.isForceSwipePinEntry);
+      transactionSettings.setDisableCashBack(payIntent.isDisableCashBack);
+      transactionSettings.setAllowOfflinePayment(payIntent.allowOfflinePayment);
+      transactionSettings.setApproveOfflinePaymentWithoutPrompt(payIntent.approveOfflinePaymentWithoutPrompt);
+      transactionSettings.setCardEntryMethods(payIntent.cardEntryMethods);
+      transactionSettings.setDisableDuplicateCheck(false); // default
+      transactionSettings.setDisableReceiptSelection(false); // default
+      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
+      transactionSettings.setTipMode(null); // will default to clover setting
+      transactionSettings.setTippableAmount(payIntent.tippableAmount);
+
+      return transactionSettings;
     }
 
     public Builder payment(Payment payment) {
@@ -144,7 +259,7 @@ public class PayIntent implements Parcelable {
       this.taxAmount = payment.getTaxAmount();
       this.employeeId = payment.getEmployee().getId();
       this.transactionNo = payment.hasCardTransaction() ? payment.getCardTransaction().getTransactionNo() : null;
-
+      this.transactionSettings = payment.getTransactionSettings();
       return this;
     }
 
@@ -178,6 +293,15 @@ public class PayIntent implements Parcelable {
       this.approveOfflinePaymentWithoutPrompt = payIntent.approveOfflinePaymentWithoutPrompt;
       this.requiresRemoteConfirmation = payIntent.requiresRemoteConfirmation;
       this.applicationTracking = payIntent.applicationTracking;
+      this.allowPartialAuth = payIntent.allowPartialAuth;
+      this.germanInfo = payIntent.germanInfo;
+      if (payIntent.transactionSettings != null) {
+        this.transactionSettings = payIntent.transactionSettings;
+      } else {
+        this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
+      }
+      this.allowPartialAuth = payIntent.allowPartialAuth;
+      this.germanInfo = payIntent.germanInfo;
 
       return this;
     }
@@ -192,8 +316,12 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    @Deprecated
     public Builder tippableAmount(long tippableAmount) {
       this.tippableAmount = tippableAmount;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setTippableAmount(tippableAmount);
+      }
       return this;
     }
 
@@ -217,6 +345,7 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    @Deprecated
     public Builder cardEntryMethods(int cardEntryMethods) {
       this.cardEntryMethods = cardEntryMethods;
       return this;
@@ -247,13 +376,21 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    @Deprecated
     public Builder remotePrint(boolean remotePrint) {
       this.remotePrint = remotePrint;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setCloverShouldHandleReceipts(!remotePrint);
+      }
       return this;
     }
 
+    @Deprecated
     public Builder disableCashback(boolean disableCashBack) {
       this.isDisableCashBack = disableCashBack;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setDisableCashBack(disableCashBack);
+      }
       return this;
     }
 
@@ -262,13 +399,21 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    @Deprecated
     public Builder forceSwipePinEntry(boolean isForceSwipePinEntry) {
       this.isForceSwipePinEntry = isForceSwipePinEntry;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntry);
+      }
       return this;
     }
 
+    @Deprecated
     public Builder disableRestartTransactionWhenFailed(boolean disableRestartTransactionWhenFailed) {
       this.disableRestartTransactionWhenFailed = disableRestartTransactionWhenFailed;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailed);
+      }
       return this;
     }
 
@@ -282,13 +427,21 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    @Deprecated
     public Builder allowOfflinePayment(Boolean allowOfflinePayment) {
       this.allowOfflinePayment = allowOfflinePayment;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setAllowOfflinePayment(allowOfflinePayment);
+      }
       return this;
     }
 
+    @Deprecated
     public Builder approveOfflinePaymentWithoutPrompt(Boolean approveOfflinePaymentWithoutPrompt) {
       this.approveOfflinePaymentWithoutPrompt = approveOfflinePaymentWithoutPrompt;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPrompt);
+      }
       return this;
     }
 
@@ -302,6 +455,20 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder allowPartialAuth(boolean allowPartialAuth) {
+      this.allowPartialAuth = allowPartialAuth;
+      return this;
+    }
+
+    public Builder germanInfo(GermanInfo germanInfo) {
+      this.germanInfo = germanInfo;
+      return this;
+    }
+
+    public Builder transactionSettings(TransactionSettings transactionSettings) {
+      this.transactionSettings = transactionSettings;
+      return this;
+    }
 
     public Builder cardNotPresent(boolean cardNotPresent) {
       this.isCardNotPresent = cardNotPresent;
@@ -313,12 +480,14 @@ public class PayIntent implements Parcelable {
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
           voiceAuthCode, postalCode, streetAddress, isCardNotPresent, cardDataMessage, remotePrint, transactionNo,
           isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, vaultedCard, allowOfflinePayment,
-          approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking);
+          approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, germanInfo,
+          transactionSettings);
     }
   }
 
   public final String action;
   public final Long amount;
+  @Deprecated // Please use TransactionSettings
   public final Long tippableAmount;
   public final Long tipAmount;
   public final Long taxAmount;
@@ -328,24 +497,34 @@ public class PayIntent implements Parcelable {
   public final TransactionType transactionType;
   public final ArrayList<TaxableAmountRate> taxableAmountRateList;
   public final ServiceChargeAmount serviceChargeAmount;
+  @Deprecated // Please use TransactionSettings
   public final boolean isDisableCashBack;
   public final boolean isTesting;
+  @Deprecated // Please use TransactionSettings
   public final int cardEntryMethods;
   public final String voiceAuthCode;
   public final String postalCode;
   public final String streetAddress;
   public final boolean isCardNotPresent;
   public final String cardDataMessage;
+  @Deprecated // Please use TransactionSettings
   public final boolean remotePrint;
   public final String transactionNo;
+  @Deprecated // Please use TransactionSettings
   public final boolean isForceSwipePinEntry;
+  @Deprecated // Please use TransactionSettings
   public final boolean disableRestartTransactionWhenFailed;
   public final String externalPaymentId;
   public final VaultedCard vaultedCard;
+  @Deprecated // Please use TransactionSettings
   public final Boolean allowOfflinePayment;
+  @Deprecated // Please use TransactionSettings
   public final Boolean approveOfflinePaymentWithoutPrompt;
   public final Boolean requiresRemoteConfirmation;
   public final AppTracking applicationTracking;
+  public final boolean allowPartialAuth;
+  public final GermanInfo germanInfo;
+  public final TransactionSettings transactionSettings;
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, String orderId, String paymentId, String employeeId,
@@ -355,7 +534,8 @@ public class PayIntent implements Parcelable {
                     boolean isCardNotPresent, String cardDataMessage, boolean remotePrint, String transactionNo,
                     boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
-                    Boolean requiresRemoteConfirmation, AppTracking applicationTracking) {
+                    Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth,
+                    GermanInfo germanInfo, TransactionSettings transactionSettings) {
 
     this.action = action;
     this.amount = amount;
@@ -386,7 +566,39 @@ public class PayIntent implements Parcelable {
     this.approveOfflinePaymentWithoutPrompt = approveOfflinePaymentWithoutPrompt;
     this.requiresRemoteConfirmation = requiresRemoteConfirmation;
     this.applicationTracking = applicationTracking;
+    this.allowPartialAuth = allowPartialAuth;
+    this.germanInfo = germanInfo;
+    if (transactionSettings != null) {
+      this.transactionSettings = transactionSettings;
+    } else {
+      this.transactionSettings = buildTransactionSettingsPrivate(tippableAmount, isDisableCashBack,
+          cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
+          approveOfflinePaymentWithoutPrompt);
+    }
   }
+
+  private TransactionSettings buildTransactionSettingsPrivate(Long tippableAmountIn, boolean isDisableCashBackIn, int cardEntryMethodsIn,
+                                                              boolean remotePrintIn, boolean isForceSwipePinEntryIn,
+                                                              boolean disableRestartTransactionWhenFailedIn, Boolean allowOfflinePaymentIn,
+                                                              Boolean approveOfflinePaymentWithoutPromptIn) {
+    TransactionSettings transactionSettings = new TransactionSettings();
+
+    transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
+    transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);
+    transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntryIn);
+    transactionSettings.setDisableCashBack(isDisableCashBackIn);
+    transactionSettings.setAllowOfflinePayment(allowOfflinePaymentIn);
+    transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPromptIn);
+    transactionSettings.setCardEntryMethods(cardEntryMethodsIn);
+    transactionSettings.setDisableDuplicateCheck(false);
+    transactionSettings.setDisableReceiptSelection(false);
+    transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
+    transactionSettings.setTipMode(null); // will default to clover setting
+    transactionSettings.setTippableAmount(tippableAmountIn);
+
+    return transactionSettings;
+  }
+
 
   public String toLogMessage() {
     StringBuilder s = new StringBuilder();
@@ -477,41 +689,60 @@ public class PayIntent implements Parcelable {
     if (applicationTracking != null) {
       intent.putExtra(Intents.EXTRA_APP_TRACKING_ID, applicationTracking);
     }
+    intent.putExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
+
+    if (germanInfo != null) {
+      intent.putExtra(Intents.GERMAN_INFO, germanInfo);
+    }
+    if (transactionSettings != null) {
+      intent.putExtra(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
+    }
+
+    intent.putExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
+
+    if (germanInfo != null) {
+      intent.putExtra(Intents.GERMAN_INFO, germanInfo);
+    }
   }
 
   @Override
   public String toString() {
     return "PayIntent{" +
-        "action='" + action + '\'' +
-        ", amount=" + amount +
-        ", tippableAmount=" + tippableAmount +
-        ", tipAmount=" + tipAmount +
-        ", taxAmount=" + taxAmount +
-        ", orderId='" + orderId + '\'' +
-        ", paymentId='" + paymentId + '\'' +
-        ", employeeId='" + employeeId + '\'' +
-        ", transactionType=" + transactionType +
-        ", taxableAmountRateList=" + taxableAmountRateList +
-        ", serviceChargeAmount=" + serviceChargeAmount +
-        ", isDisableCashBack=" + isDisableCashBack +
-        ", isTesting=" + isTesting +
-        ", cardEntryMethods=" + cardEntryMethods +
-        ", voiceAuthCode='" + voiceAuthCode + '\'' +
-        ", postalCode='" + postalCode + '\'' +
-        ", streetAddress='" + streetAddress + '\'' +
-        ", isCardNotPresent=" + isCardNotPresent +
-        ", cardDataMessage='" + cardDataMessage + '\'' +
-        ", remotePrint=" + remotePrint +
-        ", transactionNo='" + transactionNo + '\'' +
-        ", isForceSwipePinEntry=" + isForceSwipePinEntry +
-        ", disableRestartTransactionWhenFailed=" + disableRestartTransactionWhenFailed +
-        ", externalPaymentId='" + externalPaymentId + '\'' +
-        ", vaultedCard=" + vaultedCard + '\'' +
-        ", allowOfflinePayment=" + allowOfflinePayment + '\'' +
-        ", approveOfflinePaymentWithoutPrompt=" + approveOfflinePaymentWithoutPrompt +
-        ", requiresRemoteConfirmation=" + requiresRemoteConfirmation +
-        ", applicationTracking=" + applicationTracking +
-        '}';
+           "action='" + action + '\'' +
+           ", amount=" + amount +
+           ", tippableAmount=" + tippableAmount +
+           ", tipAmount=" + tipAmount +
+           ", taxAmount=" + taxAmount +
+           ", orderId='" + orderId + '\'' +
+           ", paymentId='" + paymentId + '\'' +
+           ", employeeId='" + employeeId + '\'' +
+           ", transactionType=" + transactionType +
+           ", taxableAmountRateList=" + taxableAmountRateList +
+           ", serviceChargeAmount=" + serviceChargeAmount +
+           ", isDisableCashBack=" + isDisableCashBack +
+           ", isTesting=" + isTesting +
+           ", cardEntryMethods=" + cardEntryMethods +
+           ", voiceAuthCode='" + voiceAuthCode + '\'' +
+           ", postalCode='" + postalCode + '\'' +
+           ", streetAddress='" + streetAddress + '\'' +
+           ", isCardNotPresent=" + isCardNotPresent +
+           ", cardDataMessage='" + cardDataMessage + '\'' +
+           ", remotePrint=" + remotePrint +
+           ", transactionNo='" + transactionNo + '\'' +
+           ", isForceSwipePinEntry=" + isForceSwipePinEntry +
+           ", disableRestartTransactionWhenFailed=" + disableRestartTransactionWhenFailed +
+           ", externalPaymentId='" + externalPaymentId + '\'' +
+           ", vaultedCard=" + vaultedCard + '\'' +
+           ", allowOfflinePayment=" + allowOfflinePayment + '\'' +
+           ", approveOfflinePaymentWithoutPrompt=" + approveOfflinePaymentWithoutPrompt +
+           ", requiresRemoteConfirmation=" + requiresRemoteConfirmation +
+           ", applicationTracking=" + applicationTracking + ", allowPartialAuth=" + allowPartialAuth +
+           ", germanInfo=" + germanInfo +
+           ", applicationTracking=" + applicationTracking +
+           ", transactionSettings=" + transactionSettings +
+           ", allowPartialAuth=" + allowPartialAuth +
+           ", germanInfo=" + germanInfo +
+           '}';
   }
 
   // Parcelable interface impl
@@ -602,15 +833,30 @@ public class PayIntent implements Parcelable {
       bundle.putParcelable(Intents.EXTRA_APP_TRACKING_ID, applicationTracking);
     }
 
+    bundle.putBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
+
+    if (germanInfo != null) {
+      bundle.putParcelable(Intents.GERMAN_INFO, germanInfo);
+    }
+    if (transactionSettings != null) {
+      bundle.putParcelable(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
+    }
+
+    bundle.putBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
+
+    if (germanInfo != null) {
+      bundle.putParcelable(Intents.GERMAN_INFO, germanInfo);
+    }
+
     // write out
     out.writeBundle(bundle);
   }
 
-  public static final Parcelable.Creator<PayIntent> CREATOR = new Parcelable.Creator<PayIntent>() {
+  public static final Creator<PayIntent> CREATOR = new Creator<PayIntent>() {
     public PayIntent createFromParcel(Parcel in) {
       final Bundle bundle = in.readBundle(PayIntent.class.getClassLoader());
 
-      final PayIntent.Builder builder = new PayIntent.Builder();
+      final Builder builder = new Builder();
 
       builder.action(bundle.getString(BUNDLE_KEY_ACTION));
 
@@ -629,7 +875,7 @@ public class PayIntent implements Parcelable {
       if (bundle.containsKey(Intents.EXTRA_ORDER_ID)) {
         builder.orderId(bundle.getString(Intents.EXTRA_ORDER_ID));
       }
-      if(bundle.containsKey(Intents.EXTRA_PAYMENT_ID)){
+      if (bundle.containsKey(Intents.EXTRA_PAYMENT_ID)){
         builder.paymentId(bundle.getString(Intents.EXTRA_PAYMENT_ID));
       }
       if (bundle.containsKey(Intents.EXTRA_EMPLOYEE_ID)) {
@@ -697,6 +943,34 @@ public class PayIntent implements Parcelable {
         final Parcelable applicationTracking = bundle.getParcelable(Intents.EXTRA_APP_TRACKING_ID);
         if (applicationTracking instanceof AppTracking) {
           builder.applicationTracking((AppTracking)applicationTracking);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
+        builder.allowPartialAuth(bundle.getBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH));
+      }
+
+      if (bundle.containsKey(Intents.GERMAN_INFO)) {
+        final Parcelable germanInfo = bundle.getParcelable(Intents.GERMAN_INFO);
+        if (germanInfo instanceof GermanInfo) {
+          builder.germanInfo((GermanInfo) germanInfo);
+        }
+      }
+      if (bundle.containsKey(Intents.EXTRA_TRANSACTION_SETTINGS)) {
+        final Parcelable transactionSettings = bundle.getParcelable(Intents.EXTRA_TRANSACTION_SETTINGS);
+        if (transactionSettings instanceof TransactionSettings) {
+          builder.transactionSettings((TransactionSettings) transactionSettings);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
+        builder.allowPartialAuth(bundle.getBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH));
+      }
+
+      if (bundle.containsKey(Intents.GERMAN_INFO)) {
+        final Parcelable germanInfo = bundle.getParcelable(Intents.GERMAN_INFO);
+        if (germanInfo instanceof GermanInfo) {
+          builder.germanInfo((GermanInfo)germanInfo);
         }
       }
       // build

@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.apps;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +39,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class AppBillingInfo implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Current subscription level of the merchant for this app
@@ -77,6 +78,7 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
 
 
 
+
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppBillingInfo> {
     appSubscription {
       @Override
@@ -108,20 +110,35 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
         return instance.genClient.extractOther("daysLapsed", java.lang.Long.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<AppBillingInfo> genClient = new GenericClient<AppBillingInfo>(this);
+  private GenericClient<AppBillingInfo> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public AppBillingInfo() { }
+  * Constructs a new empty instance.
+  */
+  public AppBillingInfo() {
+    genClient = new GenericClient<AppBillingInfo>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected AppBillingInfo(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public AppBillingInfo(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -134,6 +151,7 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
    * reflected in this instance and vice-versa.
    */
   public AppBillingInfo(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -141,6 +159,7 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public AppBillingInfo(AppBillingInfo src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -182,6 +201,7 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
   public boolean isNotNullDaysLapsed() {
     return genClient.cacheValueIsNotNull(CacheKey.daysLapsed);
   }
+
 
 
   /** Checks whether the 'appSubscription' field has been set, however the value could be null */
@@ -269,6 +289,7 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
     genClient.clear(CacheKey.daysLapsed);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -302,29 +323,6 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<AppBillingInfo> CREATOR = new android.os.Parcelable.Creator<AppBillingInfo>() {
     @Override
     public AppBillingInfo createFromParcel(android.os.Parcel in) {
@@ -350,13 +348,9 @@ public final class AppBillingInfo implements android.os.Parcelable, com.clover.s
   public interface Constraints {
 
     public static final boolean APPSUBSCRIPTION_IS_REQUIRED = false;
-
     public static final boolean ISINTRIAL_IS_REQUIRED = false;
-
     public static final boolean BILLINGSTARTTIME_IS_REQUIRED = false;
-
     public static final boolean STATUS_IS_REQUIRED = false;
-
     public static final boolean DAYSLAPSED_IS_REQUIRED = false;
 
   }

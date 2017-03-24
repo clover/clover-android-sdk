@@ -24,6 +24,7 @@
 package com.clover.sdk.v3.payments;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +39,7 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public final class TaxableAmountRate implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class TaxableAmountRate extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -59,6 +60,7 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
   public java.lang.Boolean getIsVat() {
     return genClient.cacheGet(CacheKey.isVat);
   }
+
 
 
 
@@ -93,20 +95,35 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
         return instance.genClient.extractOther("isVat", java.lang.Boolean.class);
       }
     },
-    ;
+      ;
   }
 
-  private GenericClient<TaxableAmountRate> genClient = new GenericClient<TaxableAmountRate>(this);
+  private GenericClient<TaxableAmountRate> genClient;
 
   /**
-   * Constructs a new empty instance.
-   */
-  public TaxableAmountRate() { }
+  * Constructs a new empty instance.
+  */
+  public TaxableAmountRate() {
+    genClient = new GenericClient<TaxableAmountRate>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+  * Constructs a new empty instance.
+  */
+  protected TaxableAmountRate(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public TaxableAmountRate(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -119,6 +136,7 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
    * reflected in this instance and vice-versa.
    */
   public TaxableAmountRate(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -126,6 +144,7 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public TaxableAmountRate(TaxableAmountRate src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -170,6 +189,7 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
   public boolean isNotNullIsVat() {
     return genClient.cacheValueIsNotNull(CacheKey.isVat);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -255,6 +275,7 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
     genClient.clear(CacheKey.isVat);
   }
 
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -288,29 +309,6 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<TaxableAmountRate> CREATOR = new android.os.Parcelable.Creator<TaxableAmountRate>() {
     @Override
     public TaxableAmountRate createFromParcel(android.os.Parcel in) {
@@ -337,14 +335,10 @@ public final class TaxableAmountRate implements android.os.Parcelable, com.clove
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
-
     public static final boolean TAXABLEAMOUNT_IS_REQUIRED = false;
-
     public static final boolean RATE_IS_REQUIRED = false;
-
     public static final boolean ISVAT_IS_REQUIRED = false;
 
   }
