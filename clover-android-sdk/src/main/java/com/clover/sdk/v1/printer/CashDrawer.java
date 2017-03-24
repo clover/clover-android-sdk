@@ -27,6 +27,8 @@ import com.clover.sdk.v1.Intents;
  * API for working with cash drawers, consider using {@link com.clover.sdk.cashdrawer}.
  */
 public class CashDrawer {
+  private static final String SERVICE_HOST = "com.clover.engine";
+
   private CashDrawer() {
   }
 
@@ -67,6 +69,7 @@ public class CashDrawer {
 
   private static void open(Context context, Account account, Printer printer, boolean openAny) {
     Intent intent = new Intent(PrinterIntent.ACTION_OPEN_CASH_DRAWER_SERVICE);
+    intent.setPackage(SERVICE_HOST);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
     intent.putExtra(PrinterIntent.EXTRA_OPEN_ANY, openAny);

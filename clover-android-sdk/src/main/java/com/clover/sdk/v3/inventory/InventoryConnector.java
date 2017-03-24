@@ -43,6 +43,7 @@ import java.util.List;
  * @see Attribute
  */
 public class InventoryConnector extends ServiceConnector<IInventoryService> {
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   public InventoryConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
@@ -50,6 +51,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
 
   protected String getServiceIntentAction() {
     return InventoryIntent.ACTION_INVENTORY_SERVICE_V3;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

@@ -27,6 +27,7 @@ import android.os.IInterface;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
+import com.clover.sdk.internal.util.Strings;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
@@ -101,6 +102,16 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   protected abstract String getServiceIntentAction();
 
+  /**
+   * The package which hosts the service to connect to.
+   *
+   * Returning null is OK for api target < 21.
+   * Once you try to build with 21 or higher returning null will cause an illegal argument exception
+   */
+  protected String getServiceIntentPackage() {
+    return null;
+  }
+
   @Deprecated
   protected int getServiceIntentVersion() {
     return 1;
@@ -117,6 +128,10 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
         Intent intent = new Intent(getServiceIntentAction());
         intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(Intents.EXTRA_VERSION, getServiceIntentVersion());
+        if (!Strings.isNullOrEmpty(getServiceIntentPackage())) {
+          intent.setPackage(getServiceIntentPackage());
+        }
+
         result = mContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
         mConnected = result;
       }

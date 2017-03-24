@@ -44,6 +44,7 @@ import java.util.List;
  */
 public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegistrationService> {
   private static final String TAG = "ReceiptRegistrationConnector";
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   private abstract static class ReceiptRegistrationCallable<T> implements ServiceCallable<IReceiptRegistrationService, T> {
   }
@@ -92,6 +93,11 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
   @Override
   protected String getServiceIntentAction() {
     return PrinterIntent.ACTION_RECEIPT_REGISTRATION_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

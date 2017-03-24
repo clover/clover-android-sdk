@@ -178,13 +178,6 @@ public class PayIntent implements Parcelable {
       } else { //move the settings into the transactionSettings object for deprecated intents ** TEMPORARY
         transactionSettings = buildTransactionSettingsFromIntentValues();
       }
-      if (intent.hasExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
-        allowPartialAuth = intent.getBooleanExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, true);
-      }
-      if (intent.hasExtra(Intents.GERMAN_INFO)) {
-        germanInfo = intent.getParcelableExtra(Intents.GERMAN_INFO);
-      }
-
       return this;
     }
 
@@ -300,9 +293,6 @@ public class PayIntent implements Parcelable {
       } else {
         this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
       }
-      this.allowPartialAuth = payIntent.allowPartialAuth;
-      this.germanInfo = payIntent.germanInfo;
-
       return this;
     }
 
@@ -690,18 +680,11 @@ public class PayIntent implements Parcelable {
       intent.putExtra(Intents.EXTRA_APP_TRACKING_ID, applicationTracking);
     }
     intent.putExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
-
     if (germanInfo != null) {
       intent.putExtra(Intents.GERMAN_INFO, germanInfo);
     }
     if (transactionSettings != null) {
       intent.putExtra(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
-    }
-
-    intent.putExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
-
-    if (germanInfo != null) {
-      intent.putExtra(Intents.GERMAN_INFO, germanInfo);
     }
   }
 
@@ -738,10 +721,7 @@ public class PayIntent implements Parcelable {
            ", requiresRemoteConfirmation=" + requiresRemoteConfirmation +
            ", applicationTracking=" + applicationTracking + ", allowPartialAuth=" + allowPartialAuth +
            ", germanInfo=" + germanInfo +
-           ", applicationTracking=" + applicationTracking +
            ", transactionSettings=" + transactionSettings +
-           ", allowPartialAuth=" + allowPartialAuth +
-           ", germanInfo=" + germanInfo +
            '}';
   }
 
@@ -841,13 +821,6 @@ public class PayIntent implements Parcelable {
     if (transactionSettings != null) {
       bundle.putParcelable(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
     }
-
-    bundle.putBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
-
-    if (germanInfo != null) {
-      bundle.putParcelable(Intents.GERMAN_INFO, germanInfo);
-    }
-
     // write out
     out.writeBundle(bundle);
   }
@@ -960,17 +933,6 @@ public class PayIntent implements Parcelable {
         final Parcelable transactionSettings = bundle.getParcelable(Intents.EXTRA_TRANSACTION_SETTINGS);
         if (transactionSettings instanceof TransactionSettings) {
           builder.transactionSettings((TransactionSettings) transactionSettings);
-        }
-      }
-
-      if (bundle.containsKey(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
-        builder.allowPartialAuth(bundle.getBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH));
-      }
-
-      if (bundle.containsKey(Intents.GERMAN_INFO)) {
-        final Parcelable germanInfo = bundle.getParcelable(Intents.GERMAN_INFO);
-        if (germanInfo instanceof GermanInfo) {
-          builder.germanInfo((GermanInfo)germanInfo);
         }
       }
       // build

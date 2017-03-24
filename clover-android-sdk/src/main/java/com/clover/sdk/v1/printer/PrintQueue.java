@@ -24,6 +24,8 @@ import com.clover.sdk.v1.Intents;
  * Class for interacting with the Clover print queue.
  */
 public class PrintQueue {
+  private static final String SERVICE_HOST = "com.clover.engine";
+
   private PrintQueue() {
   }
 
@@ -39,6 +41,7 @@ public class PrintQueue {
     Intent intent = new Intent(PrinterIntent.ACTION_PRINT_NOTIFY_SERVICE);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
     intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
+    intent.setPackage(SERVICE_HOST);
 
     context.startService(intent);
   }

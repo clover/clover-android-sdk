@@ -30,6 +30,7 @@ import com.clover.sdk.v1.ServiceException;
  */
 public class AppsConnector extends ServiceConnector<IAppsService> {
   private static final String TAG = "AppsConnector";
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   public AppsConnector(Context context, Account account) {
     super(context, account, null);
@@ -43,6 +44,11 @@ public class AppsConnector extends ServiceConnector<IAppsService> {
   @Override
   protected String getServiceIntentAction() {
     return AppsIntent.ACTION_APPS_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

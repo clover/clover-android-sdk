@@ -41,6 +41,7 @@ import com.clover.sdk.v1.ServiceException;
  */
 public class MerchantConnector extends ServiceConnector<IMerchantService> {
   private static final String TAG = "MerchantConnector";
+  private static final String SERVICE_HOST = "com.clover.engine";
 
   /**
    * A listener that is invoked when the merchant changes.
@@ -135,6 +136,11 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   @Override
   protected String getServiceIntentAction() {
     return MerchantIntent.ACTION_MERCHANT_SERVICE;
+  }
+
+  @Override
+  protected String getServiceIntentPackage() {
+    return SERVICE_HOST;
   }
 
   @Override

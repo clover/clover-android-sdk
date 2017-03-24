@@ -452,6 +452,28 @@ public class Intents {
   public static final String ACTION_SECURE_CARD_DATA = "clover.intent.action.START_SECURE_CARD_DATA";
 
   /**
+   * Launch activity to check credt/debit card balance on Mobile, Mini, or Flex (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_TRANSACTION_TYPE} - must be set to {@link #TRANSACTION_TYPE_BALANCE_INQUIRY} (Required)</li>
+   * <li>{@link #EXTRA_CARD_ENTRY_METHODS} - allowed payment types, default all allowed</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>{@link #EXTRA_PAYMENT} - payment object with balance info populated if supported by card/returned by gateway</li>
+   * <li>{@link #EXTRA_CARD_DATA} - captured card data</li>
+   * </ul>
+   * <p>
+   * Result codes:
+   * <ul>
+   *     <li>{@link android.app.Activity#RESULT_OK} - balance request successful</li>
+   *     <li>{@link android.app.Activity#RESULT_CANCELED} - balance request not successful</li>
+   * </ul>
+   */
+  public static final String ACTION_SECURE_BALANCE_CHECK = "clover.intent.action.START_SECURE_BALANCE_CHECK";
+  /**
    * Intent passed to start your app's customer-facing extensible tender activity (See <a href="https://github.com/clover/android-examples/tree/master/extensibletenderexample">Example Usage</a>)
    *
    *<p>

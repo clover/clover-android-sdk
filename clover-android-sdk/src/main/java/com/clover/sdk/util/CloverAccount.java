@@ -39,6 +39,26 @@ public class CloverAccount {
   public static final String KEY_APP_ID = "app_id";
   public static final String KEY_FORCE_VALIDATE = "force_validate";
 
+  /**
+   * {@link AccountManager#KEY_ERROR_CODE} indicating that an unknown error occurred retrieving
+   * a Clover app auth token.
+   */
+  public static final int GET_AUTH_TOKEN_ERROR_CODE_UNKNOWN = -1;
+  /**
+   * {@link AccountManager#KEY_ERROR_CODE} indicating that a network-related error occurred
+   * retrieving a Clover app auth token.
+   */
+  public static final int GET_AUTH_TOKEN_ERROR_CODE_NETWORK = -2;
+  /**
+   * {@link AccountManager#KEY_ERROR_CODE} indicating that no app token existed for the calling
+   * application.
+   */
+  public static final int GET_AUTH_TOKEN_ERROR_CODE_NO_TOKEN = -3;
+  /**
+   * {@link AccountManager#KEY_ERROR_CODE} indicating that an undefined account type was passed.
+   */
+  public static final int GET_AUTH_TOKEN_ERROR_CODE_INVALID_TYPE = -4;
+
   private CloverAccount() {
   }
 
