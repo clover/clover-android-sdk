@@ -47,6 +47,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getShifts shifts}</li>
  * <li>{@link #getPayments payments}</li>
  * <li>{@link #getOrders orders}</li>
+ * <li>{@link #getEmployeeCards employeeCards}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -161,6 +162,13 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.orders);
   }
 
+  /**
+   * This employee's employee cards
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getEmployeeCards() {
+    return genClient.cacheGet(CacheKey.employeeCards);
+  }
+
 
 
 
@@ -259,6 +267,12 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Employee instance) {
         return instance.genClient.extractListRecord("orders", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    employeeCards {
+      @Override
+      public Object extractValue(Employee instance) {
+        return instance.genClient.extractListRecord("employeeCards", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
       ;
@@ -432,6 +446,14 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'orders' field is set and is not null and is not empty */
   public boolean isNotEmptyOrders() { return isNotNullOrders() && !getOrders().isEmpty(); }
 
+  /** Checks whether the 'employeeCards' field is set and is not null */
+  public boolean isNotNullEmployeeCards() {
+    return genClient.cacheValueIsNotNull(CacheKey.employeeCards);
+  }
+
+  /** Checks whether the 'employeeCards' field is set and is not null and is not empty */
+  public boolean isNotEmptyEmployeeCards() { return isNotNullEmployeeCards() && !getEmployeeCards().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -512,6 +534,11 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'orders' field has been set, however the value could be null */
   public boolean hasOrders() {
     return genClient.cacheHasKey(CacheKey.orders);
+  }
+
+  /** Checks whether the 'employeeCards' field has been set, however the value could be null */
+  public boolean hasEmployeeCards() {
+    return genClient.cacheHasKey(CacheKey.employeeCards);
   }
 
 
@@ -635,6 +662,15 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setArrayRecord(orders, CacheKey.orders);
   }
 
+  /**
+   * Sets the field 'employeeCards'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Employee setEmployeeCards(java.util.List<com.clover.sdk.v3.base.Reference> employeeCards) {
+    return genClient.setArrayRecord(employeeCards, CacheKey.employeeCards);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -699,6 +735,10 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'orders' field, the 'has' method for this field will now return false */
   public void clearOrders() {
     genClient.clear(CacheKey.orders);
+  }
+  /** Clears the 'employeeCards' field, the 'has' method for this field will now return false */
+  public void clearEmployeeCards() {
+    genClient.clear(CacheKey.employeeCards);
   }
 
 
@@ -781,6 +821,7 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean SHIFTS_IS_REQUIRED = false;
     public static final boolean PAYMENTS_IS_REQUIRED = false;
     public static final boolean ORDERS_IS_REQUIRED = false;
+    public static final boolean EMPLOYEECARDS_IS_REQUIRED = false;
 
   }
 

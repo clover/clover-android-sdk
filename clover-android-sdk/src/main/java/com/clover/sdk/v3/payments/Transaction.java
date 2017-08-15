@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPayment payment}</li>
  * <li>{@link #getRefund refund}</li>
  * <li>{@link #getCredit credit}</li>
+ * <li>{@link #getCreditRefund creditRefund}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +66,10 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
 
   public com.clover.sdk.v3.payments.Credit getCredit() {
     return genClient.cacheGet(CacheKey.credit);
+  }
+
+  public com.clover.sdk.v3.payments.CreditRefund getCreditRefund() {
+    return genClient.cacheGet(CacheKey.creditRefund);
   }
 
 
@@ -99,6 +104,12 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
       @Override
       public Object extractValue(Transaction instance) {
         return instance.genClient.extractRecord("credit", com.clover.sdk.v3.payments.Credit.JSON_CREATOR);
+      }
+    },
+    creditRefund {
+      @Override
+      public Object extractValue(Transaction instance) {
+        return instance.genClient.extractRecord("creditRefund", com.clover.sdk.v3.payments.CreditRefund.JSON_CREATOR);
       }
     },
       ;
@@ -193,6 +204,11 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.credit);
   }
 
+  /** Checks whether the 'creditRefund' field is set and is not null */
+  public boolean isNotNullCreditRefund() {
+    return genClient.cacheValueIsNotNull(CacheKey.creditRefund);
+  }
+
 
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -218,6 +234,11 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'credit' field has been set, however the value could be null */
   public boolean hasCredit() {
     return genClient.cacheHasKey(CacheKey.credit);
+  }
+
+  /** Checks whether the 'creditRefund' field has been set, however the value could be null */
+  public boolean hasCreditRefund() {
+    return genClient.cacheHasKey(CacheKey.creditRefund);
   }
 
 
@@ -262,6 +283,15 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.setRecord(credit, CacheKey.credit);
   }
 
+  /**
+   * Sets the field 'creditRefund'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Transaction setCreditRefund(com.clover.sdk.v3.payments.CreditRefund creditRefund) {
+    return genClient.setRecord(creditRefund, CacheKey.creditRefund);
+  }
+
 
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -282,6 +312,10 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'credit' field, the 'has' method for this field will now return false */
   public void clearCredit() {
     genClient.clear(CacheKey.credit);
+  }
+  /** Clears the 'creditRefund' field, the 'has' method for this field will now return false */
+  public void clearCreditRefund() {
+    genClient.clear(CacheKey.creditRefund);
   }
 
 
@@ -347,6 +381,7 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean CREDIT_IS_REQUIRED = false;
+    public static final boolean CREDITREFUND_IS_REQUIRED = false;
 
   }
 

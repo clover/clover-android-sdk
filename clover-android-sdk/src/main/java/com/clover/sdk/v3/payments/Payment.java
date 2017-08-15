@@ -58,6 +58,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTransactionSettings transactionSettings}</li>
  * <li>{@link #getGermanInfo germanInfo}</li>
  * <li>{@link #getAppTracking appTracking}</li>
+ * <li>{@link #getCashAdvanceExtra cashAdvanceExtra}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -228,6 +229,12 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.appTracking);
   }
 
+  /**
+   * Information specific to cash advance transactions.
+   */
+  public CashAdvanceExtra getCashAdvanceExtra() {
+    return genClient.cacheGet(CacheKey.cashAdvanceExtra);
+  }
 
 
 
@@ -394,7 +401,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
         return instance.genClient.extractRecord("appTracking", com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR);
       }
     },
-      ;
+    cashAdvanceExtra {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractRecord("cashAdvanceExtra", CashAdvanceExtra.JSON_CREATOR);
+      }
+    },
+    ;
   }
 
   private GenericClient<Payment> genClient;
@@ -610,6 +623,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.appTracking);
   }
 
+  /** Checks whether the 'cashAdvanceExtra' field is set and is not null */
+  public boolean isNotNullCashAdvanceExtra() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashAdvanceExtra);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -745,6 +762,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'appTracking' field has been set, however the value could be null */
   public boolean hasAppTracking() {
     return genClient.cacheHasKey(CacheKey.appTracking);
+  }
+
+  /** Checks whether the 'cashAdvanceExtra' field has been set, however the value could be null */
+  public boolean hasCashAdvanceExtra() {
+    return genClient.cacheHasKey(CacheKey.cashAdvanceExtra);
   }
 
 
@@ -963,6 +985,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setRecord(appTracking, CacheKey.appTracking);
   }
 
+  /**
+   * Sets the field 'cashAdvanceExtra'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setCashAdvanceExtra(CashAdvanceExtra cashAdvanceExtra) {
+    return genClient.setRecord(cashAdvanceExtra, CacheKey.cashAdvanceExtra);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1072,7 +1103,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearAppTracking() {
     genClient.clear(CacheKey.appTracking);
   }
-
+  /** Clears the 'cashAdvanceExtra' field, the 'has' method for this field will now return false */
+  public void clearCashAdvanceExtra() {
+    genClient.clear(CacheKey.cashAdvanceExtra);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1161,6 +1195,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean TRANSACTIONSETTINGS_IS_REQUIRED = false;
     public static final boolean GERMANINFO_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
+    public static final boolean CASHADVANCEEXTRA_IS_REQUIRED = false;
 
   }
 

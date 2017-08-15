@@ -9,6 +9,7 @@ import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.IOnOrderUpdateListener;
 import com.clover.sdk.v3.order.IOnOrderUpdateListener2;
 import com.clover.sdk.v3.payments.Credit;
+import com.clover.sdk.v3.payments.CreditRefund;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.pay.PaymentRequest;
@@ -397,4 +398,16 @@ interface IOrderService {
    * This pulls pending payments from the local device db
    */
   List<Payment> getPendingPayments(out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  CreditRefund addCreditRefund(String orderId, in CreditRefund creditRefund, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  Order deleteCreditRefund(String orderId, in String creditRefundId, out ResultStatus status);
 }

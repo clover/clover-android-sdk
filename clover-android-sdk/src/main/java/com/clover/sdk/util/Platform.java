@@ -29,19 +29,20 @@ public enum Platform {
 
   TF300T("Clover Hub", Orientation.LANDSCAPE),
   C100("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET),
-  C200("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY),
-  C201("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY),
-  C300("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
-  C301("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
+  C200("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  C201("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  C300("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C301("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
   // C400 is deprecated, and should only be set for devices with pre-PVT roms
   @Deprecated
-  C400("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  C400U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  C400E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  C401U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  C401E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET),
-  // FIXME: add customer mode, secure payments, default employee features as they are implemented
-  C500("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET),
+  C400("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C400U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C400E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C401U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C401E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C500("Clover Station", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
+  // TODO: Unclear of exact capabilities for this device. Specifically, ethernet.
+  C550("Clover Station", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
   OTHER("Other", Orientation.LANDSCAPE),
   ;
 
@@ -78,7 +79,11 @@ public enum Platform {
      * Device has an ethernet port or supports an ethernet port attachment (may or may not be
      * currently attached or connected).
      */
-    ETHERNET
+    ETHERNET,
+    /**
+     * Device has a secure touch screen.
+     */
+    SECURE_TOUCH,
   }
 
   /**
@@ -161,6 +166,10 @@ public enum Platform {
     if (isCloverFlex() || get() == C500) {
       return SecureProcessorPlatform.BROADCOM;
     }
+    // TODO put in the real code for Golden Oak
+    if (isCloverGoldenOak()) {
+      return SecureProcessorPlatform.BROADCOM;
+    }
     if (isCloverMini() || isCloverMobile()) {
       return SecureProcessorPlatform.MAXIM;
     }
@@ -177,6 +186,26 @@ public enum Platform {
     Platform p = get();
     return  p == C400 || p == C400U || p == C400E || p == C401U || p == C401E;
   }
+
+  /**
+   * @deprecated Use {@link #isCloverGoldenOak()}
+   */
+  public static boolean isCloverGlodenOak() {
+    return isCloverGoldenOak();
+  }
+
+  /**
+   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
+   * {@code android.util.DisplayMetrics} to check display size or using
+   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
+   * forward compatibility with new Clover hardware.
+   */
+  public static boolean isCloverGoldenOak() {
+    Platform p = get();
+    return  p == C500 || p == C550;
+  }
+
+
 
   /**
    * @deprecated Use {@link #supportsFeature(Feature)} with an argument of {@link Feature#MOBILE_DATA}.
@@ -211,7 +240,7 @@ public enum Platform {
    */
   @Deprecated
   public static boolean isSupportsCustomerMode() {
-    return isCloverMini() || isCloverMobile() || isCloverFlex();
+    return isCloverMini() || isCloverMobile() || isCloverFlex() || isCloverGoldenOak();
   }
 
   /**

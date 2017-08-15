@@ -1,6 +1,8 @@
 package com.clover.sdk.v3.employees;
 
 import com.clover.sdk.v3.employees.Employee;
+import com.clover.sdk.v3.employees.EmployeeCard;
+
 import com.clover.sdk.v3.employees.IEmployeeListener;
 import com.clover.sdk.v1.ResultStatus;
 
@@ -52,5 +54,13 @@ interface IEmployeeService {
     void addListener(IEmployeeListener listener, out ResultStatus resultStatus);
 
     void removeListener(IEmployeeListener listener, out ResultStatus resultStatus);
+
+    EmployeeCard addEmployeeCard(in EmployeeCard employeeCard, out ResultStatus resultStatus);
+
+    void deleteEmployeeCard(in EmployeeCard employeeCard, out ResultStatus resultStatus);
+
+    List<EmployeeCard> getEmployeeCards(String employeeId, out ResultStatus resultStatus);
+
+    Employee getEmployeeForCard(in String cardNumber, out ResultStatus resultStatus);
 
 }
