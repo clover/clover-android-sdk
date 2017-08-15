@@ -17,9 +17,11 @@ import com.clover.sdk.v3.order.ModificationFdParcelable;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.PaymentListFdParcelable;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
+import com.clover.sdk.v3.payments.CreditRefundFdParcelable;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
 import com.clover.sdk.v3.inventory.ModifierFdParcelable;
+
 /**
  * This service mirrors the functionality of {@link IOrderService} but uses a different
  * mechanism for trasferring Clover SDK objects. Specifically, as can be seen from
@@ -105,7 +107,7 @@ interface IOrderServiceV3_1 {
 
   OrderFdParcelable deleteCredit(String orderId, String creditId, out ResultStatus status);
 
-  RefundFdParcelable addRefund(String orderId, in RefundFdParcelable payment, out ResultStatus status);
+  RefundFdParcelable addRefund(String orderId, in RefundFdParcelable refund, out ResultStatus status);
 
   OrderFdParcelable deleteRefund(String orderId, String refundId, out ResultStatus status);
 
@@ -146,4 +148,8 @@ interface IOrderServiceV3_1 {
   boolean deleteOrder2(String orderId, in boolean allowDeleteIfLineItemPrinted, out ResultStatus status);
 
   PaymentListFdParcelable getPendingPayments(out ResultStatus status);
+
+  CreditRefundFdParcelable addCreditRefund(String orderId, in CreditRefundFdParcelable creditRefund, out ResultStatus status);
+
+  OrderFdParcelable deleteCreditRefund(String orderId, String creditRefundId, out ResultStatus status);
 }

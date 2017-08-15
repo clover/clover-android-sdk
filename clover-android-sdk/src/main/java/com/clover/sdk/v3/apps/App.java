@@ -73,6 +73,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSupportPhoneHours supportPhoneHours}</li>
  * <li>{@link #getSupportEmail supportEmail}</li>
  * <li>{@link #getSupportUrl supportUrl}</li>
+ * <li>{@link #getProductType productType}</li>
  * <li>{@link #getApprovalStatus approvalStatus}</li>
  * <li>{@link #getAndroidPermissions androidPermissions}</li>
  * <li>{@link #getScreenshots screenshots}</li>
@@ -101,6 +102,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNonCloverBilling nonCloverBilling}</li>
  * <li>{@link #getEquipmentCode equipmentCode}</li>
  * <li>{@link #getEquipmentName equipmentName}</li>
+ * <li>{@link #getFirstPublishedTime firstPublishedTime}</li>
+ * <li>{@link #getFirstApprovalTime firstApprovalTime}</li>
+ * <li>{@link #getAppBundle appBundle}</li>
+ * <li>{@link #getEditorPick editorPick}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -493,6 +498,34 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public java.lang.String getEquipmentName() {
     return genClient.cacheGet(CacheKey.equipmentName);
+  }
+
+  /**
+   * Timestamp of first time this app transitions to approvalStatus PUBLISHED
+   */
+  public java.lang.Long getFirstPublishedTime() {
+    return genClient.cacheGet(CacheKey.firstPublishedTime);
+  }
+
+  /**
+   * Timestamp of first time this app transitions to approvalStatus APPROVED
+   */
+  public java.lang.Long getFirstApprovalTime() {
+    return genClient.cacheGet(CacheKey.firstApprovalTime);
+  }
+
+  /**
+   * Points to a bundle of apps that should be installed/uninstalled when user installs/uninstalls this app.
+   */
+  public com.clover.sdk.v3.base.Reference getAppBundle() {
+    return genClient.cacheGet(CacheKey.appBundle);
+  }
+
+  /**
+   * True if the App has been tagged as an editor's pick.
+   */
+  public java.lang.Boolean getEditorPick() {
+    return genClient.cacheGet(CacheKey.editorPick);
   }
 
 
@@ -923,6 +956,30 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
       @Override
       public Object extractValue(App instance) {
         return instance.genClient.extractOther("equipmentName", java.lang.String.class);
+      }
+    },
+    firstPublishedTime {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("firstPublishedTime", java.lang.Long.class);
+      }
+    },
+    firstApprovalTime {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("firstApprovalTime", java.lang.Long.class);
+      }
+    },
+    appBundle {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractRecord("appBundle", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    editorPick {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("editorPick", java.lang.Boolean.class);
       }
     },
       ;
@@ -1422,6 +1479,26 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.equipmentName);
   }
 
+  /** Checks whether the 'firstPublishedTime' field is set and is not null */
+  public boolean isNotNullFirstPublishedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.firstPublishedTime);
+  }
+
+  /** Checks whether the 'firstApprovalTime' field is set and is not null */
+  public boolean isNotNullFirstApprovalTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.firstApprovalTime);
+  }
+
+  /** Checks whether the 'appBundle' field is set and is not null */
+  public boolean isNotNullAppBundle() {
+    return genClient.cacheValueIsNotNull(CacheKey.appBundle);
+  }
+
+  /** Checks whether the 'editorPick' field is set and is not null */
+  public boolean isNotNullEditorPick() {
+    return genClient.cacheValueIsNotNull(CacheKey.editorPick);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1777,6 +1854,26 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'equipmentName' field has been set, however the value could be null */
   public boolean hasEquipmentName() {
     return genClient.cacheHasKey(CacheKey.equipmentName);
+  }
+
+  /** Checks whether the 'firstPublishedTime' field has been set, however the value could be null */
+  public boolean hasFirstPublishedTime() {
+    return genClient.cacheHasKey(CacheKey.firstPublishedTime);
+  }
+
+  /** Checks whether the 'firstApprovalTime' field has been set, however the value could be null */
+  public boolean hasFirstApprovalTime() {
+    return genClient.cacheHasKey(CacheKey.firstApprovalTime);
+  }
+
+  /** Checks whether the 'appBundle' field has been set, however the value could be null */
+  public boolean hasAppBundle() {
+    return genClient.cacheHasKey(CacheKey.appBundle);
+  }
+
+  /** Checks whether the 'editorPick' field has been set, however the value could be null */
+  public boolean hasEditorPick() {
+    return genClient.cacheHasKey(CacheKey.editorPick);
   }
 
 
@@ -2309,6 +2406,36 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setOther(equipmentName, CacheKey.equipmentName);
   }
 
+  /**
+   * Sets the field 'firstPublishedTime'.
+   */
+  public App setFirstPublishedTime(java.lang.Long firstPublishedTime) {
+    return genClient.setOther(firstPublishedTime, CacheKey.firstPublishedTime);
+  }
+
+  /**
+   * Sets the field 'firstApprovalTime'.
+   */
+  public App setFirstApprovalTime(java.lang.Long firstApprovalTime) {
+    return genClient.setOther(firstApprovalTime, CacheKey.firstApprovalTime);
+  }
+
+  /**
+   * Sets the field 'appBundle'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public App setAppBundle(com.clover.sdk.v3.base.Reference appBundle) {
+    return genClient.setRecord(appBundle, CacheKey.appBundle);
+  }
+
+  /**
+   * Sets the field 'editorPick'.
+   */
+  public App setEditorPick(java.lang.Boolean editorPick) {
+    return genClient.setOther(editorPick, CacheKey.editorPick);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -2594,6 +2721,22 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearEquipmentName() {
     genClient.clear(CacheKey.equipmentName);
   }
+  /** Clears the 'firstPublishedTime' field, the 'has' method for this field will now return false */
+  public void clearFirstPublishedTime() {
+    genClient.clear(CacheKey.firstPublishedTime);
+  }
+  /** Clears the 'firstApprovalTime' field, the 'has' method for this field will now return false */
+  public void clearFirstApprovalTime() {
+    genClient.clear(CacheKey.firstApprovalTime);
+  }
+  /** Clears the 'appBundle' field, the 'has' method for this field will now return false */
+  public void clearAppBundle() {
+    genClient.clear(CacheKey.appBundle);
+  }
+  /** Clears the 'editorPick' field, the 'has' method for this field will now return false */
+  public void clearEditorPick() {
+    genClient.clear(CacheKey.editorPick);
+  }
 
 
   /**
@@ -2713,9 +2856,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final long SUPPORTEMAIL_MAX_LEN = 127;
     public static final boolean SUPPORTURL_IS_REQUIRED = false;
     public static final long SUPPORTURL_MAX_LEN = 255;
-
     public static final boolean PRODUCTTYPE_IS_REQUIRED = false;
-
     public static final boolean APPROVALSTATUS_IS_REQUIRED = false;
     public static final boolean ANDROIDPERMISSIONS_IS_REQUIRED = false;
     public static final boolean SCREENSHOTS_IS_REQUIRED = false;
@@ -2747,6 +2888,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean NONCLOVERBILLING_IS_REQUIRED = false;
     public static final boolean EQUIPMENTCODE_IS_REQUIRED = false;
     public static final boolean EQUIPMENTNAME_IS_REQUIRED = false;
+    public static final boolean FIRSTPUBLISHEDTIME_IS_REQUIRED = false;
+    public static final boolean FIRSTAPPROVALTIME_IS_REQUIRED = false;
+    public static final boolean APPBUNDLE_IS_REQUIRED = false;
+    public static final boolean EDITORPICK_IS_REQUIRED = false;
 
   }
 

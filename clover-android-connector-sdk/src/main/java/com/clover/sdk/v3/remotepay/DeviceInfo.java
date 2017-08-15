@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getModel model}</li>
  * <li>{@link #getSerial serial}</li>
+ * <li>{@link #getSupportsAcks supportsAcks}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -52,6 +53,13 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
 
   public java.lang.String getSerial() {
     return genClient.cacheGet(CacheKey.serial);
+  }
+
+  /**
+   * If true, then the device supports acknowledgements.
+   */
+  public java.lang.Boolean getSupportsAcks() {
+    return genClient.cacheGet(CacheKey.supportsAcks);
   }
 
 
@@ -74,6 +82,12 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
       @Override
       public Object extractValue(DeviceInfo instance) {
         return instance.genClient.extractOther("serial", java.lang.String.class);
+      }
+    },
+    supportsAcks {
+      @Override
+      public Object extractValue(DeviceInfo instance) {
+        return instance.genClient.extractOther("supportsAcks", java.lang.Boolean.class);
       }
     },
       ;
@@ -163,6 +177,11 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.serial);
   }
 
+  /** Checks whether the 'supportsAcks' field is set and is not null */
+  public boolean isNotNullSupportsAcks() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportsAcks);
+  }
+
 
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -178,6 +197,11 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'serial' field has been set, however the value could be null */
   public boolean hasSerial() {
     return genClient.cacheHasKey(CacheKey.serial);
+  }
+
+  /** Checks whether the 'supportsAcks' field has been set, however the value could be null */
+  public boolean hasSupportsAcks() {
+    return genClient.cacheHasKey(CacheKey.supportsAcks);
   }
 
 
@@ -202,6 +226,13 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.setOther(serial, CacheKey.serial);
   }
 
+  /**
+   * Sets the field 'supportsAcks'.
+   */
+  public DeviceInfo setSupportsAcks(java.lang.Boolean supportsAcks) {
+    return genClient.setOther(supportsAcks, CacheKey.supportsAcks);
+  }
+
 
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
@@ -214,6 +245,10 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'serial' field, the 'has' method for this field will now return false */
   public void clearSerial() {
     genClient.clear(CacheKey.serial);
+  }
+  /** Clears the 'supportsAcks' field, the 'has' method for this field will now return false */
+  public void clearSupportsAcks() {
+    genClient.clear(CacheKey.supportsAcks);
   }
 
 
@@ -280,6 +315,7 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
     public static final long MODEL_MAX_LEN = 64;
     public static final boolean SERIAL_IS_REQUIRED = false;
     public static final long SERIAL_MAX_LEN = 32;
+    public static final boolean SUPPORTSACKS_IS_REQUIRED = false;
 
   }
 

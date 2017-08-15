@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getCard card}</li>
  * <li>{@link #getPaymentIds paymentIds}</li>
@@ -67,6 +68,13 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
    */
   public java.lang.Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
+  }
+
+  /**
+   * Tip Amount
+   */
+  public java.lang.Long getTipAmount() {
+    return genClient.cacheGet(CacheKey.tipAmount);
   }
 
   public java.lang.String getOrderId() {
@@ -131,6 +139,12 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
       @Override
       public Object extractValue(GiftCardTransaction instance) {
         return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
+      }
+    },
+    tipAmount {
+      @Override
+      public Object extractValue(GiftCardTransaction instance) {
+        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
       }
     },
     orderId {
@@ -269,6 +283,11 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'tipAmount' field is set and is not null */
+  public boolean isNotNullTipAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.tipAmount);
+  }
+
   /** Checks whether the 'orderId' field is set and is not null */
   public boolean isNotNullOrderId() {
     return genClient.cacheValueIsNotNull(CacheKey.orderId);
@@ -340,6 +359,11 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'tipAmount' field has been set, however the value could be null */
+  public boolean hasTipAmount() {
+    return genClient.cacheHasKey(CacheKey.tipAmount);
+  }
+
   /** Checks whether the 'orderId' field has been set, however the value could be null */
   public boolean hasOrderId() {
     return genClient.cacheHasKey(CacheKey.orderId);
@@ -405,6 +429,13 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
    */
   public GiftCardTransaction setTaxAmount(java.lang.Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
+  }
+
+  /**
+   * Sets the field 'tipAmount'.
+   */
+  public GiftCardTransaction setTipAmount(java.lang.Long tipAmount) {
+    return genClient.setOther(tipAmount, CacheKey.tipAmount);
   }
 
   /**
@@ -492,6 +523,10 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
+  }
+  /** Clears the 'tipAmount' field, the 'has' method for this field will now return false */
+  public void clearTipAmount() {
+    genClient.clear(CacheKey.tipAmount);
   }
   /** Clears the 'orderId' field, the 'has' method for this field will now return false */
   public void clearOrderId() {
@@ -591,6 +626,7 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+    public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final boolean CARD_IS_REQUIRED = false;
     public static final boolean PAYMENTIDS_IS_REQUIRED = false;
