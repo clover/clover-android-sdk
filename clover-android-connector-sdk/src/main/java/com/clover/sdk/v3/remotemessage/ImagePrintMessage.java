@@ -32,6 +32,8 @@ import com.clover.sdk.GenericClient;
  * <ul>
  * <li>{@link #getPng png}</li>
  * <li>{@link #getUrlString urlString}</li>
+ * <li>{@link #getExternalPrintJobId externalPrintJobId}</li>
+ * <li>{@link #getPrinter printer}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -49,6 +51,20 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
    */
   public java.lang.String getUrlString() {
     return genClient.cacheGet(CacheKey.urlString);
+  }
+
+  /**
+   * External print job ID assigned to this request
+   */
+  public java.lang.String getExternalPrintJobId() {
+    return genClient.cacheGet(CacheKey.externalPrintJobId);
+  }
+
+  /**
+   * Printer to which the print job should be routed.
+   */
+  public com.clover.sdk.v3.printer.Printer getPrinter() {
+    return genClient.cacheGet(CacheKey.printer);
   }
 
   /**
@@ -81,6 +97,18 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
       @Override
       public Object extractValue(ImagePrintMessage instance) {
         return instance.genClient.extractOther("urlString", java.lang.String.class);
+      }
+    },
+    externalPrintJobId {
+      @Override
+      public Object extractValue(ImagePrintMessage instance) {
+        return instance.genClient.extractOther("externalPrintJobId", java.lang.String.class);
+      }
+    },
+    printer {
+      @Override
+      public Object extractValue(ImagePrintMessage instance) {
+        return instance.genClient.extractRecord("printer", com.clover.sdk.v3.printer.Printer.JSON_CREATOR);
       }
     },
     method {
@@ -175,6 +203,16 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
     return genClient.cacheValueIsNotNull(CacheKey.urlString);
   }
 
+  /** Checks whether the 'externalPrintJobId' field is set and is not null */
+  public boolean isNotNullExternalPrintJobId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalPrintJobId);
+  }
+
+  /** Checks whether the 'printer' field is set and is not null */
+  public boolean isNotNullPrinter() {
+    return genClient.cacheValueIsNotNull(CacheKey.printer);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -197,6 +235,16 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Checks whether the 'urlString' field has been set, however the value could be null */
   public boolean hasUrlString() {
     return genClient.cacheHasKey(CacheKey.urlString);
+  }
+
+  /** Checks whether the 'externalPrintJobId' field has been set, however the value could be null */
+  public boolean hasExternalPrintJobId() {
+    return genClient.cacheHasKey(CacheKey.externalPrintJobId);
+  }
+
+  /** Checks whether the 'printer' field has been set, however the value could be null */
+  public boolean hasPrinter() {
+    return genClient.cacheHasKey(CacheKey.printer);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -227,6 +275,22 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   }
 
   /**
+   * Sets the field 'externalPrintJobId'.
+   */
+  public ImagePrintMessage setExternalPrintJobId(java.lang.String externalPrintJobId) {
+    return genClient.setOther(externalPrintJobId, CacheKey.externalPrintJobId);
+  }
+
+  /**
+   * Sets the field 'printer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public ImagePrintMessage setPrinter(com.clover.sdk.v3.printer.Printer printer) {
+    return genClient.setRecord(printer, CacheKey.printer);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -250,6 +314,14 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Clears the 'urlString' field, the 'has' method for this field will now return false */
   public void clearUrlString() {
     genClient.clear(CacheKey.urlString);
+  }
+  /** Clears the 'externalPrintJobId' field, the 'has' method for this field will now return false */
+  public void clearExternalPrintJobId() {
+    genClient.clear(CacheKey.externalPrintJobId);
+  }
+  /** Clears the 'printer' field, the 'has' method for this field will now return false */
+  public void clearPrinter() {
+    genClient.clear(CacheKey.printer);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -322,6 +394,8 @@ public class ImagePrintMessage extends com.clover.sdk.v3.remotemessage.Message {
 
     public static final boolean PNG_IS_REQUIRED = false;
     public static final boolean URLSTRING_IS_REQUIRED = false;
+    public static final boolean EXTERNALPRINTJOBID_IS_REQUIRED = false;
+    public static final boolean PRINTER_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

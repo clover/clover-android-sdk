@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
+ * <li>{@link #getShowInReporting showInReporting}</li>
  * <li>{@link #getItems items}</li>
  * <li>{@link #getPrinters printers}</li>
  * </ul>
@@ -54,6 +55,13 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * True if tag is a summary label in the reporting app
+   */
+  public java.lang.Boolean getShowInReporting() {
+    return genClient.cacheGet(CacheKey.showInReporting);
   }
 
   /**
@@ -84,6 +92,12 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
       @Override
       public Object extractValue(Tag instance) {
         return instance.genClient.extractOther("name", java.lang.String.class);
+      }
+    },
+    showInReporting {
+      @Override
+      public Object extractValue(Tag instance) {
+        return instance.genClient.extractOther("showInReporting", java.lang.Boolean.class);
       }
     },
     items {
@@ -179,6 +193,11 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'showInReporting' field is set and is not null */
+  public boolean isNotNullShowInReporting() {
+    return genClient.cacheValueIsNotNull(CacheKey.showInReporting);
+  }
+
   /** Checks whether the 'items' field is set and is not null */
   public boolean isNotNullItems() {
     return genClient.cacheValueIsNotNull(CacheKey.items);
@@ -207,6 +226,11 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.name);
   }
 
+  /** Checks whether the 'showInReporting' field has been set, however the value could be null */
+  public boolean hasShowInReporting() {
+    return genClient.cacheHasKey(CacheKey.showInReporting);
+  }
+
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
@@ -230,6 +254,13 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public Tag setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
+  }
+
+  /**
+   * Sets the field 'showInReporting'.
+   */
+  public Tag setShowInReporting(java.lang.Boolean showInReporting) {
+    return genClient.setOther(showInReporting, CacheKey.showInReporting);
   }
 
   /**
@@ -258,6 +289,10 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
+  }
+  /** Clears the 'showInReporting' field, the 'has' method for this field will now return false */
+  public void clearShowInReporting() {
+    genClient.clear(CacheKey.showInReporting);
   }
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
@@ -330,6 +365,7 @@ public class Tag extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 255;
+    public static final boolean SHOWINREPORTING_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean PRINTERS_IS_REQUIRED = false;
 

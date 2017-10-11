@@ -49,4 +49,12 @@ public class CardTransactionConstants {
   public static final String GERMANY_HOST_AID_PAR_BMP53 = "gerHostResponseAidParBMP53";
   public static final String GERMANY_TERMINAL_ID = "gerTerminalID";
   public static final String FUNC = "func";
+  public static final String ALIPAY_TRANS_ID = "aliPayTransId";
+  public static final String ALIPAY_BUYER_LOGIN_ID = "buyerLoginId";
+  public static final String ALIPAY_BUYER_USER_ID = "buyerUserId";
+  public static final String ALIPAY_EXCHANGE_RATE = "exchangeRate";
+  public static final String ALIPAY_CNY_TRANS_AMOUNT = "cnyTransAmount";
+  public static final String MAC = "mac";
+  public static final String MAC_KSN = "macKsn";
+  public static final String IPG_TXID = "ipgTxId";
 }

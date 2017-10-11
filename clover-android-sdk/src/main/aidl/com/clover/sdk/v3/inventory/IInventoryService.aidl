@@ -481,4 +481,9 @@ interface IInventoryService {
    */
   void updateItemStockQuantity(in String itemId, in double quantity, out ResultStatus resultStatus);
 
+  /**
+   * Updates the sort orders for a list of modifier groups.
+   */
+  void updateModifierGroupSortOrders(in List<ModifierGroup> groups, out ResultStatus resultStatus);
+
 }

@@ -302,6 +302,124 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public EmployeeCard addEmployeeCard(final EmployeeCard employeeCard) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<EmployeeCard>() {
+      @Override
+      public EmployeeCard call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.addEmployeeCard(employeeCard, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void addEmployeeCard(final EmployeeCard employeeCard, EmployeeCallback<EmployeeCard> callback) {
+    execute(new EmployeeCallable<EmployeeCard>() {
+      @Override
+      public EmployeeCard call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.addEmployeeCard(employeeCard, status);
+      }
+    }, callback);
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void deleteEmployeeCard(final EmployeeCard employeeCard) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.deleteEmployeeCard(employeeCard, status);
+        return null;
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void deleteEmployeeCard(final EmployeeCard employeeCard, EmployeeCallback<Void> callback) {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.deleteEmployeeCard(employeeCard, status);
+        return null;
+      }
+    }, callback);
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public List<EmployeeCard> getEmployeeCards(final String employeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<List<EmployeeCard>>() {
+      @Override
+      public List<EmployeeCard> call(IEmployeeService service, ResultStatus status) throws RemoteException {
+
+        return service.getEmployeeCards(employeeId, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void getEmployeeCards(final String employeeId, EmployeeCallback<List<EmployeeCard>> callback) {
+    execute(new EmployeeCallable<List<EmployeeCard>>() {
+      @Override
+      public List<EmployeeCard> call(IEmployeeService service, ResultStatus status) throws RemoteException {
+
+        return service.getEmployeeCards(employeeId, status);
+      }
+    }, callback);
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public Employee getEmployeeForCard(final String cardNumber) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+
+        return service.getEmployeeForCard(cardNumber, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void getEmployeeForCard(final String cardNumber, EmployeeCallback<Employee> callback) {
+    execute(new EmployeeCallable<Employee>() {
+      @Override
+      public Employee call(IEmployeeService service, ResultStatus status) throws RemoteException {
+
+        return service.getEmployeeForCard(cardNumber, status);
+      }
+    }, callback);
+  }
+
   public void login(EmployeeCallback<Void> callback) {
     execute(new EmployeeCallable<Void>() {
       @Override

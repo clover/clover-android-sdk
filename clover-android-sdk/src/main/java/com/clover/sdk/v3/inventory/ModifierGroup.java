@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModifiers modifiers}</li>
  * <li>{@link #getModifierIds modifierIds}</li>
  * <li>{@link #getItems items}</li>
+ * <li>{@link #getSortOrder sortOrder}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -101,6 +102,13 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.items);
   }
 
+  /**
+   * The ordinal value used to determine where in an ordered list this modifier group should appear relative to others.
+   */
+  public java.lang.Integer getSortOrder() {
+    return genClient.cacheGet(CacheKey.sortOrder);
+  }
+
 
 
 
@@ -157,6 +165,12 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
       @Override
       public Object extractValue(ModifierGroup instance) {
         return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    sortOrder {
+      @Override
+      public Object extractValue(ModifierGroup instance) {
+        return instance.genClient.extractOther("sortOrder", java.lang.Integer.class);
       }
     },
       ;
@@ -234,6 +248,8 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     if (getMinRequired() != null && ( getMinRequired() < 0)) throw new IllegalArgumentException("Invalid value for 'getMinRequired()'");
 
     if (getMaxAllowed() != null && ( getMaxAllowed() < 0 || getMaxAllowed() > 65535)) throw new IllegalArgumentException("Invalid value for 'getMaxAllowed()'");
+
+    if (getSortOrder() != null && ( getSortOrder() < 0)) throw new IllegalArgumentException("Invalid value for 'getSortOrder()'");
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -287,6 +303,11 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'items' field is set and is not null and is not empty */
   public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
 
+  /** Checks whether the 'sortOrder' field is set and is not null */
+  public boolean isNotNullSortOrder() {
+    return genClient.cacheValueIsNotNull(CacheKey.sortOrder);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -332,6 +353,11 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
+  }
+
+  /** Checks whether the 'sortOrder' field has been set, however the value could be null */
+  public boolean hasSortOrder() {
+    return genClient.cacheHasKey(CacheKey.sortOrder);
   }
 
 
@@ -402,6 +428,13 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     return genClient.setArrayRecord(items, CacheKey.items);
   }
 
+  /**
+   * Sets the field 'sortOrder'.
+   */
+  public ModifierGroup setSortOrder(java.lang.Integer sortOrder) {
+    return genClient.setOther(sortOrder, CacheKey.sortOrder);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -438,6 +471,10 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
     genClient.clear(CacheKey.items);
+  }
+  /** Clears the 'sortOrder' field, the 'has' method for this field will now return false */
+  public void clearSortOrder() {
+    genClient.clear(CacheKey.sortOrder);
   }
 
 
@@ -513,6 +550,8 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     public static final boolean MODIFIERS_IS_REQUIRED = false;
     public static final boolean MODIFIERIDS_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
+    public static final boolean SORTORDER_IS_REQUIRED = false;
+    public static final long SORTORDER_MIN = 0;
 
   }
 

@@ -746,6 +746,9 @@ public class Intents {
   /** {@link int}, does this intent need german info */
   public static final String GERMAN_INFO = "clover.intent.extra.GERMAN_INFO";
 
+  /** {@link com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification} object used  for CashAdvance payments */
+  public static final String CASHADVANCE_CUSTOMER_IDENTIFICATION = "clover.intent.extra.CASHADVANCE_CUSTOMER_IDENTIFICATION";
+
   /** {@link int}, does this payment need remote offline payment confirmation */
   public static final String EXTRA_OFFLINE_PAYMENT_CONFIRMATION = "clover.intent.extra.OFFLINE_PAYMENT_CONFIRMATION";
 
@@ -863,6 +866,8 @@ public class Intents {
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final String TRANSACTION_TYPE_BALANCE_INQUIRY = "balanceInquiry";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final String TRANSACTION_TYPE_CASH_ADVANCE = "cashAdvance";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT = "manualReversalPayment";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND  = "manualReversalRefund";
@@ -968,6 +973,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.payments.Refund}, v3 Refund object */
   public static final String EXTRA_REFUND = "clover.intent.extra.REFUND";
+
+  /** {@link com.clover.sdk.v3.payments.CreditRefund}, v3 CreditRefund object (Reversal of Manual Refund) */
+  public static final String EXTRA_CREDIT_REFUND = "clover.intent.extra.CREDIT_REFUND";
 
   /** {@link com.clover.sdk.v3.payments.Authorization}, v3 Authorization object */
   public static final String EXTRA_AUTHORIZATION = "clover.intent.extra.AUTHORIZATION";

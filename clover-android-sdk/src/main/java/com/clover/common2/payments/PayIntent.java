@@ -27,6 +27,7 @@ import android.os.Parcelable;
 
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v3.apps.AppTracking;
+import com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification;
 import com.clover.sdk.v3.payments.GermanInfo;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.ServiceChargeAmount;
@@ -47,6 +48,7 @@ public class PayIntent implements Parcelable {
     BALANCE_INQUIRY(Intents.TRANSACTION_TYPE_BALANCE_INQUIRY),
     PAYMENT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT),
     CREDIT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND),
+    CASH_ADVANCE(Intents.TRANSACTION_TYPE_CASH_ADVANCE),
     ;
 
     public final String intentValue;
@@ -106,6 +108,7 @@ public class PayIntent implements Parcelable {
     private AppTracking applicationTracking;
     private Boolean allowPartialAuth = true;
     private GermanInfo germanInfo;
+    private CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
     private TransactionSettings transactionSettings;
 
     public Builder intent(Intent intent) {
@@ -172,6 +175,9 @@ public class PayIntent implements Parcelable {
       }
       if (intent.hasExtra(Intents.GERMAN_INFO)) {
         germanInfo = intent.getParcelableExtra(Intents.GERMAN_INFO);
+      }
+      if (intent.hasExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION)) {
+        cashAdvanceCustomerIdentification = intent.getParcelableExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION);
       }
       if (intent.hasExtra(Intents.EXTRA_TRANSACTION_SETTINGS)) {
         transactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
@@ -293,6 +299,8 @@ public class PayIntent implements Parcelable {
       } else {
         this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
       }
+      this.cashAdvanceCustomerIdentification = payIntent.cashAdvanceCustomerIdentification;
+
       return this;
     }
 
@@ -455,6 +463,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder customerIdentification(CashAdvanceCustomerIdentification customerIdentification) {
+      this.cashAdvanceCustomerIdentification = customerIdentification;
+      return this;
+    }
+
     public Builder transactionSettings(TransactionSettings transactionSettings) {
       this.transactionSettings = transactionSettings;
       return this;
@@ -471,7 +484,7 @@ public class PayIntent implements Parcelable {
           voiceAuthCode, postalCode, streetAddress, isCardNotPresent, cardDataMessage, remotePrint, transactionNo,
           isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, vaultedCard, allowOfflinePayment,
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, germanInfo,
-          transactionSettings);
+          cashAdvanceCustomerIdentification, transactionSettings);
     }
   }
 
@@ -514,6 +527,7 @@ public class PayIntent implements Parcelable {
   public final AppTracking applicationTracking;
   public final boolean allowPartialAuth;
   public final GermanInfo germanInfo;
+  public final CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
   public final TransactionSettings transactionSettings;
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -525,7 +539,7 @@ public class PayIntent implements Parcelable {
                     boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth,
-                    GermanInfo germanInfo, TransactionSettings transactionSettings) {
+                    GermanInfo germanInfo, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings) {
 
     this.action = action;
     this.amount = amount;
@@ -558,6 +572,8 @@ public class PayIntent implements Parcelable {
     this.applicationTracking = applicationTracking;
     this.allowPartialAuth = allowPartialAuth;
     this.germanInfo = germanInfo;
+    this.cashAdvanceCustomerIdentification = cashAdvanceCustomerIdentification;
+
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
     } else {
@@ -683,6 +699,9 @@ public class PayIntent implements Parcelable {
     if (germanInfo != null) {
       intent.putExtra(Intents.GERMAN_INFO, germanInfo);
     }
+    if (cashAdvanceCustomerIdentification != null) {
+      intent.putExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION, cashAdvanceCustomerIdentification);
+    }
     if (transactionSettings != null) {
       intent.putExtra(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
     }
@@ -793,6 +812,10 @@ public class PayIntent implements Parcelable {
 
     bundle.putBoolean(Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, disableRestartTransactionWhenFailed);
 
+    if (vaultedCard != null) {
+      bundle.putParcelable(Intents.EXTRA_VAULTED_CARD, vaultedCard);
+    }
+
     if (externalPaymentId != null) {
       bundle.putString(Intents.EXTRA_EXTERNAL_PAYMENT_ID, externalPaymentId);
     }
@@ -818,6 +841,10 @@ public class PayIntent implements Parcelable {
     if (germanInfo != null) {
       bundle.putParcelable(Intents.GERMAN_INFO, germanInfo);
     }
+    if (cashAdvanceCustomerIdentification != null) {
+      bundle.putParcelable(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION, cashAdvanceCustomerIdentification);
+    }
+
     if (transactionSettings != null) {
       bundle.putParcelable(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
     }
@@ -927,6 +954,12 @@ public class PayIntent implements Parcelable {
         final Parcelable germanInfo = bundle.getParcelable(Intents.GERMAN_INFO);
         if (germanInfo instanceof GermanInfo) {
           builder.germanInfo((GermanInfo) germanInfo);
+        }
+      }
+      if (bundle.containsKey(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION)) {
+        final Parcelable customerIdentification = bundle.getParcelable(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION);
+        if (customerIdentification instanceof CashAdvanceCustomerIdentification) {
+          builder.customerIdentification((CashAdvanceCustomerIdentification) customerIdentification);
         }
       }
       if (bundle.containsKey(Intents.EXTRA_TRANSACTION_SETTINGS)) {

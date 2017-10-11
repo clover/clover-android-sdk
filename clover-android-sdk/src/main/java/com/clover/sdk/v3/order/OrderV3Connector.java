@@ -23,6 +23,7 @@ import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.payments.Credit;
+import com.clover.sdk.v3.payments.CreditRefund;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.Refund;
 
@@ -586,6 +587,28 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
       @Override
       public Order call(IOrderService service, ResultStatus status) throws RemoteException {
         return service.deleteRefund(orderId, refundId, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public CreditRefund addCreditRefund(final String orderId, final com.clover.sdk.v3.payments.CreditRefund creditRefund) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, CreditRefund>() {
+      @Override
+      public CreditRefund call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.addCreditRefund(orderId, creditRefund, status);
+      }
+    });
+  }
+
+  public Order deleteCreditRefund(final String orderId, final String creditRefundId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, Order>() {
+      @Override
+      public Order call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.deleteCreditRefund(orderId, creditRefundId, status);
       }
     });
   }

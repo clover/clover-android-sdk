@@ -27,6 +27,8 @@ import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
+import com.clover.sdk.v3.payments.CreditRefund;
+import com.clover.sdk.v3.payments.CreditRefundFdParcelable;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.Refund;
@@ -592,6 +594,28 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.deleteRefund(orderId, refundId, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public CreditRefund addCreditRefund(final String orderId, final CreditRefund creditRefund) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, CreditRefund>() {
+      @Override
+      public CreditRefund call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addCreditRefund(orderId, new CreditRefundFdParcelable(creditRefund), status));
+      }
+    });
+  }
+
+  public Order deleteCreditRefund(final String orderId, final String creditRefundId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.deleteCreditRefund(orderId, creditRefundId, status));
       }
     });
   }

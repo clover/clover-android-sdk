@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum BuildType implements Parcelable {
-  ENG, USER;
+  ENG, USER, USERDEBUG;
 
   @Override
   public int describeContents() {
