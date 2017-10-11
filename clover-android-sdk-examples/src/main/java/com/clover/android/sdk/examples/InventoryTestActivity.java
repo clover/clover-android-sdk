@@ -947,6 +947,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public void updateModifierGroupSortOrders(List<ModifierGroup> groups, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateModifierGroupPriorities()");
+    }
+
+    @Override
     public void deleteModifierGroup(String groupId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement deleteModifierGroup()");
     }

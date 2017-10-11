@@ -360,6 +360,22 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public void updateModifierGroupSortOrders(final List<ModifierGroup> groups) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateModifierGroupSortOrders(groups, status);
+      }
+    });
+  }
+
+  public void updateModifierGroupSortOrders(final List<ModifierGroup> groups, Callback<Void> callback) {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateModifierGroupSortOrders(groups, status);
+      }
+    }, callback);
+  }
+
   public void deleteModifierGroup(final String groupId) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<IInventoryService>() {
       public void run(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -1219,6 +1235,19 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public TaxRate createTaxRate2(final TaxRate taxRate) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, TaxRate>() {
+      public TaxRate call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.createTaxRate(taxRate, status);
+      }
+    });
+  }
+
+  /** 
+   * @deprecated 
+   * Use {@link #createTaxRate2(TaxRate)}. 
+   */
+  @Deprecated
   public void createTaxRate(final TaxRate taxRate) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<IInventoryService>() {
       public void run(IInventoryService service, ResultStatus status) throws RemoteException {

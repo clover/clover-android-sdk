@@ -76,6 +76,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.appBundle);
   }
 
+  public com.clover.sdk.v3.resellers.Reseller getReseller() {
+    return genClient.cacheGet(CacheKey.reseller);
+  }
+
   /**
    * First data plan code
    */
@@ -121,6 +125,12 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
       @Override
       public Object extractValue(MerchantPlan instance) {
         return instance.genClient.extractRecord("appBundle", com.clover.sdk.v3.apps.AppBundle.JSON_CREATOR);
+      }
+    },
+    reseller {
+      @Override
+      public Object extractValue(MerchantPlan instance) {
+        return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.resellers.Reseller.JSON_CREATOR);
       }
     },
     planCode {
@@ -236,6 +246,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.appBundle);
   }
 
+  public boolean isNotNullReseller() {
+    return genClient.cacheValueIsNotNull(CacheKey.reseller);
+  }
+
   /** Checks whether the 'planCode' field is set and is not null */
   public boolean isNotNullPlanCode() {
     return genClient.cacheValueIsNotNull(CacheKey.planCode);
@@ -271,6 +285,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'appBundle' field has been set, however the value could be null */
   public boolean hasAppBundle() {
     return genClient.cacheHasKey(CacheKey.appBundle);
+  }
+
+  public boolean hasReseller() {
+    return genClient.cacheHasKey(CacheKey.reseller);
   }
 
   /** Checks whether the 'planCode' field has been set, however the value could be null */
@@ -325,6 +343,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setRecord(appBundle, CacheKey.appBundle);
   }
 
+  public MerchantPlan setReseller(com.clover.sdk.v3.resellers.Reseller reseller) {
+    return genClient.setRecord(reseller, CacheKey.reseller);
+  }
+
   /**
    * Sets the field 'planCode'.
    */
@@ -357,6 +379,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   public void clearAppBundle() {
     genClient.clear(CacheKey.appBundle);
   }
+
+  public void clearReseller() {
+    genClient.clear(CacheKey.reseller);
+  }
+
   /** Clears the 'planCode' field, the 'has' method for this field will now return false */
   public void clearPlanCode() {
     genClient.clear(CacheKey.planCode);
@@ -429,6 +456,7 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean PRICE_IS_REQUIRED = false;
     public static final boolean MODULES_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
+    public static final boolean RESELLER_IS_REQUIRED = false;
     public static final boolean PLANCODE_IS_REQUIRED = false;
     public static final long PLANCODE_MAX_LEN = 50;
 

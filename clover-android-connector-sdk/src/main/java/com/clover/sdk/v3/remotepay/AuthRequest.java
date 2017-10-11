@@ -36,6 +36,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getDisableCashback disableCashback}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
  * <li>{@link #getAllowOfflinePayment allowOfflinePayment}</li>
+ * <li>{@link #getForceOfflinePayment forceOfflinePayment}</li>
  * <li>{@link #getApproveOfflinePaymentWithoutPrompt approveOfflinePaymentWithoutPrompt}</li>
  * </ul>
  */
@@ -68,6 +69,13 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    */
   public java.lang.Boolean getAllowOfflinePayment() {
     return genClient.cacheGet(CacheKey.allowOfflinePayment);
+  }
+
+  /**
+   * If true then payment will be taken offline, regardless of connection status
+   */
+  public java.lang.Boolean getForceOfflinePayment() {
+    return genClient.cacheGet(CacheKey.forceOfflinePayment);
   }
 
   /**
@@ -231,6 +239,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
       @Override
       public Object extractValue(AuthRequest instance) {
         return instance.genClient.extractOther("allowOfflinePayment", java.lang.Boolean.class);
+      }
+    },
+    forceOfflinePayment {
+      @Override
+      public Object extractValue(AuthRequest instance) {
+        return instance.genClient.extractOther("forceOfflinePayment", java.lang.Boolean.class);
       }
     },
     approveOfflinePaymentWithoutPrompt {
@@ -432,6 +446,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     return genClient.cacheValueIsNotNull(CacheKey.allowOfflinePayment);
   }
 
+  /** Checks whether the 'forceOfflinePayment' field is set and is not null */
+  public boolean isNotNullForceOfflinePayment() {
+    return genClient.cacheValueIsNotNull(CacheKey.forceOfflinePayment);
+  }
+
   /** Checks whether the 'approveOfflinePaymentWithoutPrompt' field is set and is not null */
   public boolean isNotNullApproveOfflinePaymentWithoutPrompt() {
     return genClient.cacheValueIsNotNull(CacheKey.approveOfflinePaymentWithoutPrompt);
@@ -553,6 +572,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   /** Checks whether the 'allowOfflinePayment' field has been set, however the value could be null */
   public boolean hasAllowOfflinePayment() {
     return genClient.cacheHasKey(CacheKey.allowOfflinePayment);
+  }
+
+  /** Checks whether the 'forceOfflinePayment' field has been set, however the value could be null */
+  public boolean hasForceOfflinePayment() {
+    return genClient.cacheHasKey(CacheKey.forceOfflinePayment);
   }
 
   /** Checks whether the 'approveOfflinePaymentWithoutPrompt' field has been set, however the value could be null */
@@ -683,6 +707,13 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    */
   public AuthRequest setAllowOfflinePayment(java.lang.Boolean allowOfflinePayment) {
     return genClient.setOther(allowOfflinePayment, CacheKey.allowOfflinePayment);
+  }
+
+  /**
+   * Sets the field 'forceOfflinePayment'.
+   */
+  public AuthRequest setForceOfflinePayment(java.lang.Boolean forceOfflinePayment) {
+    return genClient.setOther(forceOfflinePayment, CacheKey.forceOfflinePayment);
   }
 
   /**
@@ -839,6 +870,10 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   public void clearAllowOfflinePayment() {
     genClient.clear(CacheKey.allowOfflinePayment);
   }
+  /** Clears the 'forceOfflinePayment' field, the 'has' method for this field will now return false */
+  public void clearForceOfflinePayment() {
+    genClient.clear(CacheKey.forceOfflinePayment);
+  }
   /** Clears the 'approveOfflinePaymentWithoutPrompt' field, the 'has' method for this field will now return false */
   public void clearApproveOfflinePaymentWithoutPrompt() {
     genClient.clear(CacheKey.approveOfflinePaymentWithoutPrompt);
@@ -986,6 +1021,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     public static final boolean DISABLECASHBACK_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean ALLOWOFFLINEPAYMENT_IS_REQUIRED = false;
+    public static final boolean FORCEOFFLINEPAYMENT_IS_REQUIRED = false;
     public static final boolean APPROVEOFFLINEPAYMENTWITHOUTPROMPT_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;

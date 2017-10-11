@@ -45,7 +45,7 @@ select environment in "Prod-US" "Prod-EU" "Sandbox" "Localhost"; do
 			break;;
 		Prod-EU )
 			URL="https://api.eu.clover.com/"
-			TARGET="prod-eu"
+			TARGET="prod_eu"
 			break;;
 		Sandbox )
 			URL="https://apisandbox.dev.clover.com/"
@@ -76,4 +76,3 @@ else
 	pp "You will need to 'Add Account' via Settings to set up your device"
 	adb -s "$DEVICE" shell pm clear com.clover.engine
 fi
-

@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '168'
+version = '180.1'
 
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 apply plugin: 'android-maven'
+
+apply from: file("./deps.gradle")
 
 android {
   lintOptions {
     abortOnError false
   }
-  compileSdkVersion 21
-  buildToolsVersion "25.0.2"
+  compileSdkVersion 25
+  buildToolsVersion "25.0.0"
 
   defaultConfig {
     minSdkVersion 16
     targetSdkVersion 17
   }
+
+  useLibrary 'org.apache.http.legacy'
 
   packagingOptions {
     exclude 'META-INF/LICENSE'
@@ -49,7 +53,7 @@ task listLibraries {
     println project.group + ':' + project.name
 }
 dependencies {
-    compile files('lib/calc.jar')
+  compile files('lib/calc.jar')
 }
 
 ant.importBuild 'javadoc.xml'

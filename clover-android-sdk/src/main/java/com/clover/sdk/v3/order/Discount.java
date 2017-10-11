@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getDiscount discount}</li>
+ * <li>{@link #getApprover approver}</li>
  * <li>{@link #getName name}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getPercentage percentage}</li>
@@ -55,6 +56,13 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public com.clover.sdk.v3.base.Reference getDiscount() {
     return genClient.cacheGet(CacheKey.discount);
+  }
+
+  /**
+   * The person that authorized a discount
+   */
+  public com.clover.sdk.v3.base.Reference getApprover() {
+    return genClient.cacheGet(CacheKey.approver);
   }
 
   /**
@@ -92,6 +100,12 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Discount instance) {
         return instance.genClient.extractRecord("discount", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    approver {
+      @Override
+      public Object extractValue(Discount instance) {
+        return instance.genClient.extractRecord("approver", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
     name {
@@ -197,6 +211,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.discount);
   }
 
+  /** Checks whether the 'approver' field is set and is not null */
+  public boolean isNotNullApprover() {
+    return genClient.cacheValueIsNotNull(CacheKey.approver);
+  }
+
   /** Checks whether the 'name' field is set and is not null */
   public boolean isNotNullName() {
     return genClient.cacheValueIsNotNull(CacheKey.name);
@@ -222,6 +241,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'discount' field has been set, however the value could be null */
   public boolean hasDiscount() {
     return genClient.cacheHasKey(CacheKey.discount);
+  }
+
+  /** Checks whether the 'approver' field has been set, however the value could be null */
+  public boolean hasApprover() {
+    return genClient.cacheHasKey(CacheKey.approver);
   }
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -257,6 +281,15 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
+   * Sets the field 'approver'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Discount setApprover(com.clover.sdk.v3.base.Reference approver) {
+    return genClient.setRecord(approver, CacheKey.approver);
+  }
+
+  /**
    * Sets the field 'name'.
    */
   public Discount setName(java.lang.String name) {
@@ -285,6 +318,10 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'discount' field, the 'has' method for this field will now return false */
   public void clearDiscount() {
     genClient.clear(CacheKey.discount);
+  }
+  /** Clears the 'approver' field, the 'has' method for this field will now return false */
+  public void clearApprover() {
+    genClient.clear(CacheKey.approver);
   }
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
@@ -360,6 +397,7 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean DISCOUNT_IS_REQUIRED = false;
+    public static final boolean APPROVER_IS_REQUIRED = false;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 64;
     public static final boolean AMOUNT_IS_REQUIRED = false;

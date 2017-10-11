@@ -31,6 +31,8 @@ import com.clover.sdk.GenericClient;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getTextLines textLines}</li>
+ * <li>{@link #getExternalPrintJobId externalPrintJobId}</li>
+ * <li>{@link #getPrinter printer}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -38,6 +40,20 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
 
   public java.util.List<java.lang.String> getTextLines() {
     return genClient.cacheGet(CacheKey.textLines);
+  }
+
+  /**
+   * External print job ID assigned to this request
+   */
+  public java.lang.String getExternalPrintJobId() {
+    return genClient.cacheGet(CacheKey.externalPrintJobId);
+  }
+
+  /**
+   * Printer to which the print job should be routed.
+   */
+  public com.clover.sdk.v3.printer.Printer getPrinter() {
+    return genClient.cacheGet(CacheKey.printer);
   }
 
   /**
@@ -64,6 +80,18 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
       @Override
       public Object extractValue(TextPrintMessage instance) {
         return instance.genClient.extractListOther("textLines", java.lang.String.class);
+      }
+    },
+    externalPrintJobId {
+      @Override
+      public Object extractValue(TextPrintMessage instance) {
+        return instance.genClient.extractOther("externalPrintJobId", java.lang.String.class);
+      }
+    },
+    printer {
+      @Override
+      public Object extractValue(TextPrintMessage instance) {
+        return instance.genClient.extractRecord("printer", com.clover.sdk.v3.printer.Printer.JSON_CREATOR);
       }
     },
     method {
@@ -156,6 +184,16 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Checks whether the 'textLines' field is set and is not null and is not empty */
   public boolean isNotEmptyTextLines() { return isNotNullTextLines() && !getTextLines().isEmpty(); }
 
+  /** Checks whether the 'externalPrintJobId' field is set and is not null */
+  public boolean isNotNullExternalPrintJobId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalPrintJobId);
+  }
+
+  /** Checks whether the 'printer' field is set and is not null */
+  public boolean isNotNullPrinter() {
+    return genClient.cacheValueIsNotNull(CacheKey.printer);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -173,6 +211,16 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Checks whether the 'textLines' field has been set, however the value could be null */
   public boolean hasTextLines() {
     return genClient.cacheHasKey(CacheKey.textLines);
+  }
+
+  /** Checks whether the 'externalPrintJobId' field has been set, however the value could be null */
+  public boolean hasExternalPrintJobId() {
+    return genClient.cacheHasKey(CacheKey.externalPrintJobId);
+  }
+
+  /** Checks whether the 'printer' field has been set, however the value could be null */
+  public boolean hasPrinter() {
+    return genClient.cacheHasKey(CacheKey.printer);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -198,6 +246,22 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   }
 
   /**
+   * Sets the field 'externalPrintJobId'.
+   */
+  public TextPrintMessage setExternalPrintJobId(java.lang.String externalPrintJobId) {
+    return genClient.setOther(externalPrintJobId, CacheKey.externalPrintJobId);
+  }
+
+  /**
+   * Sets the field 'printer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public TextPrintMessage setPrinter(com.clover.sdk.v3.printer.Printer printer) {
+    return genClient.setRecord(printer, CacheKey.printer);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -217,6 +281,14 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Clears the 'textLines' field, the 'has' method for this field will now return false */
   public void clearTextLines() {
     genClient.clear(CacheKey.textLines);
+  }
+  /** Clears the 'externalPrintJobId' field, the 'has' method for this field will now return false */
+  public void clearExternalPrintJobId() {
+    genClient.clear(CacheKey.externalPrintJobId);
+  }
+  /** Clears the 'printer' field, the 'has' method for this field will now return false */
+  public void clearPrinter() {
+    genClient.clear(CacheKey.printer);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -288,6 +360,8 @@ public class TextPrintMessage extends com.clover.sdk.v3.remotemessage.Message {
   public interface Constraints {
 
     public static final boolean TEXTLINES_IS_REQUIRED = false;
+    public static final boolean EXTERNALPRINTJOBID_IS_REQUIRED = false;
+    public static final boolean PRINTER_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

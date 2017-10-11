@@ -60,6 +60,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getApproveOfflinePaymentWithoutPrompt approveOfflinePaymentWithoutPrompt}</li>
  * <li>{@link #getRequiresRemoteConfirmation requiresRemoteConfirmation}</li>
  * <li>{@link #getApplicationTracking applicationTracking}</li>
+ * <li>{@link #getAllowPartialAuth allowPartialAuth}</li>
+ * <li>{@link #getGermanInfo germanInfo}</li>
+ * <li>{@link #getCashAdvanceCustomerIdentification cashAdvanceCustomerIdentification}</li>
  * <li>{@link #getTransactionSettings transactionSettings}</li>
  * </ul>
  */
@@ -213,6 +216,18 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
 
   public com.clover.sdk.v3.apps.AppTracking getApplicationTracking() {
     return genClient.cacheGet(CacheKey.applicationTracking);
+  }
+
+  public java.lang.Boolean getAllowPartialAuth() {
+    return genClient.cacheGet(CacheKey.allowPartialAuth);
+  }
+
+  public com.clover.sdk.v3.payments.GermanInfo getGermanInfo() {
+    return genClient.cacheGet(CacheKey.germanInfo);
+  }
+
+  public com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification getCashAdvanceCustomerIdentification() {
+    return genClient.cacheGet(CacheKey.cashAdvanceCustomerIdentification);
   }
 
   public com.clover.sdk.v3.payments.TransactionSettings getTransactionSettings() {
@@ -395,6 +410,24 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
       @Override
       public Object extractValue(PayIntent instance) {
         return instance.genClient.extractRecord("applicationTracking", com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR);
+      }
+    },
+    allowPartialAuth {
+      @Override
+      public Object extractValue(PayIntent instance) {
+        return instance.genClient.extractOther("allowPartialAuth", java.lang.Boolean.class);
+      }
+    },
+    germanInfo {
+      @Override
+      public Object extractValue(PayIntent instance) {
+        return instance.genClient.extractRecord("germanInfo", com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR);
+      }
+    },
+    cashAdvanceCustomerIdentification {
+      @Override
+      public Object extractValue(PayIntent instance) {
+        return instance.genClient.extractRecord("cashAdvanceCustomerIdentification", com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification.JSON_CREATOR);
       }
     },
     transactionSettings {
@@ -627,6 +660,21 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.applicationTracking);
   }
 
+  /** Checks whether the 'allowPartialAuth' field is set and is not null */
+  public boolean isNotNullAllowPartialAuth() {
+    return genClient.cacheValueIsNotNull(CacheKey.allowPartialAuth);
+  }
+
+  /** Checks whether the 'germanInfo' field is set and is not null */
+  public boolean isNotNullGermanInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.germanInfo);
+  }
+
+  /** Checks whether the 'cashAdvanceCustomerIdentification' field is set and is not null */
+  public boolean isNotNullCashAdvanceCustomerIdentification() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashAdvanceCustomerIdentification);
+  }
+
   /** Checks whether the 'transactionSettings' field is set and is not null */
   public boolean isNotNullTransactionSettings() {
     return genClient.cacheValueIsNotNull(CacheKey.transactionSettings);
@@ -777,6 +825,21 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'applicationTracking' field has been set, however the value could be null */
   public boolean hasApplicationTracking() {
     return genClient.cacheHasKey(CacheKey.applicationTracking);
+  }
+
+  /** Checks whether the 'allowPartialAuth' field has been set, however the value could be null */
+  public boolean hasAllowPartialAuth() {
+    return genClient.cacheHasKey(CacheKey.allowPartialAuth);
+  }
+
+  /** Checks whether the 'germanInfo' field has been set, however the value could be null */
+  public boolean hasGermanInfo() {
+    return genClient.cacheHasKey(CacheKey.germanInfo);
+  }
+
+  /** Checks whether the 'cashAdvanceCustomerIdentification' field has been set, however the value could be null */
+  public boolean hasCashAdvanceCustomerIdentification() {
+    return genClient.cacheHasKey(CacheKey.cashAdvanceCustomerIdentification);
   }
 
   /** Checks whether the 'transactionSettings' field has been set, however the value could be null */
@@ -997,6 +1060,31 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'allowPartialAuth'.
+   */
+  public PayIntent setAllowPartialAuth(java.lang.Boolean allowPartialAuth) {
+    return genClient.setOther(allowPartialAuth, CacheKey.allowPartialAuth);
+  }
+
+  /**
+   * Sets the field 'germanInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PayIntent setGermanInfo(com.clover.sdk.v3.payments.GermanInfo germanInfo) {
+    return genClient.setRecord(germanInfo, CacheKey.germanInfo);
+  }
+
+  /**
+   * Sets the field 'cashAdvanceCustomerIdentification'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PayIntent setCashAdvanceCustomerIdentification(com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification) {
+    return genClient.setRecord(cashAdvanceCustomerIdentification, CacheKey.cashAdvanceCustomerIdentification);
+  }
+
+  /**
    * Sets the field 'transactionSettings'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1122,6 +1210,18 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearApplicationTracking() {
     genClient.clear(CacheKey.applicationTracking);
   }
+  /** Clears the 'allowPartialAuth' field, the 'has' method for this field will now return false */
+  public void clearAllowPartialAuth() {
+    genClient.clear(CacheKey.allowPartialAuth);
+  }
+  /** Clears the 'germanInfo' field, the 'has' method for this field will now return false */
+  public void clearGermanInfo() {
+    genClient.clear(CacheKey.germanInfo);
+  }
+  /** Clears the 'cashAdvanceCustomerIdentification' field, the 'has' method for this field will now return false */
+  public void clearCashAdvanceCustomerIdentification() {
+    genClient.clear(CacheKey.cashAdvanceCustomerIdentification);
+  }
   /** Clears the 'transactionSettings' field, the 'has' method for this field will now return false */
   public void clearTransactionSettings() {
     genClient.clear(CacheKey.transactionSettings);
@@ -1217,6 +1317,9 @@ public class PayIntent extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean APPROVEOFFLINEPAYMENTWITHOUTPROMPT_IS_REQUIRED = false;
     public static final boolean REQUIRESREMOTECONFIRMATION_IS_REQUIRED = false;
     public static final boolean APPLICATIONTRACKING_IS_REQUIRED = false;
+    public static final boolean ALLOWPARTIALAUTH_IS_REQUIRED = false;
+    public static final boolean GERMANINFO_IS_REQUIRED = false;
+    public static final boolean CASHADVANCECUSTOMERIDENTIFICATION_IS_REQUIRED = false;
     public static final boolean TRANSACTIONSETTINGS_IS_REQUIRED = false;
 
   }

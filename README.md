@@ -17,7 +17,6 @@ dependencies {
 clover-android-sdk-examples is an Android application project. To build and install from the command line,
 
 ```
-$ pwd
 .../clover-android-sdk/clover-android-sdk-examples
 $ gradle clean installDebug
 ```
@@ -41,26 +40,35 @@ $ gradle clean assemble doc-clean doc
 
 Latest Apps for Testing
 =======================
-
 If you are testing on your own emulator or tablet then you will need the latest apps. All apps can be downloaded at:
 
 ```
 {baseURL}/developers/dev-apks
 ```
-Ex: <https://www.clover.com/developers/dev-apks>
+Ex: <https://www.clover.com/developers/dev-apks>  
+Ex: <https://sandbox.dev.clover.com/developers/dev-apks>
+
+If you are developing on sandbox please use the minimum or greater version of the engine.  
+Minimum required version: com.clover.engine-1851.apk
+
+To check the current version of the Clover engine on your Clover Devkit:  
+Navigate to Settings > Storage > Apps > Clover  
+Then up top by the logo it should say the version Ex: ‘version 2.0-1851'  
+
+If you are using the minimum or greater engine version you do not need to do the following steps.
+======
 
 Targeting an Emulator or Tablet to a new environment
 -----------------------
 
-Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).
+Currently, some of the dev-apks are not pointing to the environment corresponding to the `baseURL` they were downloaded from (i.e. Sandbox).  
 
-Please run the following script: [target_new_environment](scripts/target_new_environment)
+You will need to have installed adb to be able to use the script and it must also be in your path.
+Reference: https://developer.android.com/studio/command-line/adb.html
+
+Please run the following bash script on your developer/host machine: [target_new_environment](scripts/target_new_environment)
 
 ```
-$ pwd
-/Users/mmaietta/Desktop/clover-android-sdk/scripts
-$  target_new_environment
-
 This script is meant to re-target a non-Clover device's environment.
 
 Do not attempt to run this on a Clover device.

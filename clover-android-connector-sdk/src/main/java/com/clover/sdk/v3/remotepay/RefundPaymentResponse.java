@@ -30,11 +30,27 @@ import com.clover.sdk.GenericClient;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getOrderId orderId}</li>
+ * <li>{@link #getPaymentId paymentId}</li>
  * <li>{@link #getRefund refund}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
+
+  /**
+   * Unique identifier
+   */
+  public java.lang.String getOrderId() {
+    return genClient.cacheGet(CacheKey.orderId);
+  }
+
+  /**
+   * Unique identifier
+   */
+  public java.lang.String getPaymentId() {
+    return genClient.cacheGet(CacheKey.paymentId);
+  }
 
   /**
    * The actual refund from the request
@@ -79,6 +95,18 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RefundPaymentResponse> {
+    orderId {
+      @Override
+      public Object extractValue(RefundPaymentResponse instance) {
+        return instance.genClient.extractOther("orderId", java.lang.String.class);
+      }
+    },
+    paymentId {
+      @Override
+      public Object extractValue(RefundPaymentResponse instance) {
+        return instance.genClient.extractOther("paymentId", java.lang.String.class);
+      }
+    },
     refund {
       @Override
       public Object extractValue(RefundPaymentResponse instance) {
@@ -176,6 +204,20 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
 
   @Override
   public void validate() {
+
+    genClient.validateLength(getOrderId(), 13);
+
+    genClient.validateLength(getPaymentId(), 13);
+  }
+
+  /** Checks whether the 'orderId' field is set and is not null */
+  public boolean isNotNullOrderId() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderId);
+  }
+
+  /** Checks whether the 'paymentId' field is set and is not null */
+  public boolean isNotNullPaymentId() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentId);
   }
 
   /** Checks whether the 'refund' field is set and is not null */
@@ -209,6 +251,16 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
 
 
 
+  /** Checks whether the 'orderId' field has been set, however the value could be null */
+  public boolean hasOrderId() {
+    return genClient.cacheHasKey(CacheKey.orderId);
+  }
+
+  /** Checks whether the 'paymentId' field has been set, however the value could be null */
+  public boolean hasPaymentId() {
+    return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
   /** Checks whether the 'refund' field has been set, however the value could be null */
   public boolean hasRefund() {
     return genClient.cacheHasKey(CacheKey.refund);
@@ -238,6 +290,20 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
     return genClient.cacheHasKey(CacheKey.message);
   }
 
+
+  /**
+   * Sets the field 'orderId'.
+   */
+  public RefundPaymentResponse setOrderId(java.lang.String orderId) {
+    return genClient.setOther(orderId, CacheKey.orderId);
+  }
+
+  /**
+   * Sets the field 'paymentId'.
+   */
+  public RefundPaymentResponse setPaymentId(java.lang.String paymentId) {
+    return genClient.setOther(paymentId, CacheKey.paymentId);
+  }
 
   /**
    * Sets the field 'refund'.
@@ -281,6 +347,14 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
   }
 
 
+  /** Clears the 'orderId' field, the 'has' method for this field will now return false */
+  public void clearOrderId() {
+    genClient.clear(CacheKey.orderId);
+  }
+  /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
+  public void clearPaymentId() {
+    genClient.clear(CacheKey.paymentId);
+  }
   /** Clears the 'refund' field, the 'has' method for this field will now return false */
   public void clearRefund() {
     genClient.clear(CacheKey.refund);
@@ -364,6 +438,10 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
 
   public interface Constraints {
 
+    public static final boolean ORDERID_IS_REQUIRED = false;
+    public static final long ORDERID_MAX_LEN = 13;
+    public static final boolean PAYMENTID_IS_REQUIRED = false;
+    public static final long PAYMENTID_MAX_LEN = 13;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
