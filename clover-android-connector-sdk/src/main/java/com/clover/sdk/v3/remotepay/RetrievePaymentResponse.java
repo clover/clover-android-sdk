@@ -30,25 +30,33 @@ import com.clover.sdk.GenericClient;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getState state}</li>
- * <li>{@link #getData data}</li>
+ * <li>{@link #getExternalPaymentId externalPaymentId}</li>
+ * <li>{@link #getQueryStatus queryStatus}</li>
+ * <li>{@link #getPayment payment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
+public class RetrievePaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
 
   /**
-   * High level state of the connected device.
+   * The externalPaymentId used when a payment was created
    */
-  public com.clover.sdk.v3.remotepay.ExternalDeviceState getState() {
-    return genClient.cacheGet(CacheKey.state);
+  public java.lang.String getExternalPaymentId() {
+    return genClient.cacheGet(CacheKey.externalPaymentId);
   }
 
   /**
-   * Additional data elements supplementing the state of the connected device.
+   * The status of the query
    */
-  public com.clover.sdk.v3.remotepay.ExternalDeviceStateData getData() {
-    return genClient.cacheGet(CacheKey.data);
+  public com.clover.sdk.v3.remotepay.QueryStatus getQueryStatus() {
+    return genClient.cacheGet(CacheKey.queryStatus);
+  }
+
+  /**
+   * Payment information
+   */
+  public com.clover.sdk.v3.payments.Payment getPayment() {
+    return genClient.cacheGet(CacheKey.payment);
   }
 
   /**
@@ -86,54 +94,60 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RetrieveDeviceStatusResponse> {
-    state {
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RetrievePaymentResponse> {
+    externalPaymentId {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
-        return instance.genClient.extractEnum("state", com.clover.sdk.v3.remotepay.ExternalDeviceState.class);
+      public Object extractValue(RetrievePaymentResponse instance) {
+        return instance.genClient.extractOther("externalPaymentId", java.lang.String.class);
       }
     },
-    data {
+    queryStatus {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
-        return instance.genClient.extractRecord("data", com.clover.sdk.v3.remotepay.ExternalDeviceStateData.JSON_CREATOR);
+      public Object extractValue(RetrievePaymentResponse instance) {
+        return instance.genClient.extractEnum("queryStatus", com.clover.sdk.v3.remotepay.QueryStatus.class);
+      }
+    },
+    payment {
+      @Override
+      public Object extractValue(RetrievePaymentResponse instance) {
+        return instance.genClient.extractRecord("payment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
       }
     },
     success {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(RetrievePaymentResponse instance) {
         return instance.genClient.extractOther("success", java.lang.Boolean.class);
       }
     },
     result {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(RetrievePaymentResponse instance) {
         return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
       }
     },
     reason {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(RetrievePaymentResponse instance) {
         return instance.genClient.extractOther("reason", java.lang.String.class);
       }
     },
     message {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(RetrievePaymentResponse instance) {
         return instance.genClient.extractOther("message", java.lang.String.class);
       }
     },
       ;
   }
 
-  private GenericClient<RetrieveDeviceStatusResponse> genClient;
+  private GenericClient<RetrievePaymentResponse> genClient;
 
   /**
   * Constructs a new empty instance.
   */
-  public RetrieveDeviceStatusResponse() {
+  public RetrievePaymentResponse() {
     super(false);
-    genClient = new GenericClient<RetrieveDeviceStatusResponse>(this);
+    genClient = new GenericClient<RetrievePaymentResponse>(this);
   }
 
   @Override
@@ -144,7 +158,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
   * Constructs a new empty instance.
   */
-  protected RetrieveDeviceStatusResponse(boolean noInit) {
+  protected RetrievePaymentResponse(boolean noInit) {
     super(false);
     genClient = null;
   }
@@ -152,7 +166,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public RetrieveDeviceStatusResponse(String json) throws IllegalArgumentException {
+  public RetrievePaymentResponse(String json) throws IllegalArgumentException {
     this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
@@ -165,7 +179,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public RetrieveDeviceStatusResponse(org.json.JSONObject jsonObject) {
+  public RetrievePaymentResponse(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -173,7 +187,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public RetrieveDeviceStatusResponse(RetrieveDeviceStatusResponse src) {
+  public RetrievePaymentResponse(RetrievePaymentResponse src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -192,14 +206,19 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   public void validate() {
   }
 
-  /** Checks whether the 'state' field is set and is not null */
-  public boolean isNotNullState() {
-    return genClient.cacheValueIsNotNull(CacheKey.state);
+  /** Checks whether the 'externalPaymentId' field is set and is not null */
+  public boolean isNotNullExternalPaymentId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalPaymentId);
   }
 
-  /** Checks whether the 'data' field is set and is not null */
-  public boolean isNotNullData() {
-    return genClient.cacheValueIsNotNull(CacheKey.data);
+  /** Checks whether the 'queryStatus' field is set and is not null */
+  public boolean isNotNullQueryStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.queryStatus);
+  }
+
+  /** Checks whether the 'payment' field is set and is not null */
+  public boolean isNotNullPayment() {
+    return genClient.cacheValueIsNotNull(CacheKey.payment);
   }
 
   /** Checks whether the 'success' field is set and is not null */
@@ -228,14 +247,19 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
 
-  /** Checks whether the 'state' field has been set, however the value could be null */
-  public boolean hasState() {
-    return genClient.cacheHasKey(CacheKey.state);
+  /** Checks whether the 'externalPaymentId' field has been set, however the value could be null */
+  public boolean hasExternalPaymentId() {
+    return genClient.cacheHasKey(CacheKey.externalPaymentId);
   }
 
-  /** Checks whether the 'data' field has been set, however the value could be null */
-  public boolean hasData() {
-    return genClient.cacheHasKey(CacheKey.data);
+  /** Checks whether the 'queryStatus' field has been set, however the value could be null */
+  public boolean hasQueryStatus() {
+    return genClient.cacheHasKey(CacheKey.queryStatus);
+  }
+
+  /** Checks whether the 'payment' field has been set, however the value could be null */
+  public boolean hasPayment() {
+    return genClient.cacheHasKey(CacheKey.payment);
   }
 
   /** Checks whether the 'success' field has been set, however the value could be null */
@@ -264,19 +288,26 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
   /**
-   * Sets the field 'state'.
+   * Sets the field 'externalPaymentId'.
    */
-  public RetrieveDeviceStatusResponse setState(com.clover.sdk.v3.remotepay.ExternalDeviceState state) {
-    return genClient.setOther(state, CacheKey.state);
+  public RetrievePaymentResponse setExternalPaymentId(java.lang.String externalPaymentId) {
+    return genClient.setOther(externalPaymentId, CacheKey.externalPaymentId);
   }
 
   /**
-   * Sets the field 'data'.
+   * Sets the field 'queryStatus'.
+   */
+  public RetrievePaymentResponse setQueryStatus(com.clover.sdk.v3.remotepay.QueryStatus queryStatus) {
+    return genClient.setOther(queryStatus, CacheKey.queryStatus);
+  }
+
+  /**
+   * Sets the field 'payment'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public RetrieveDeviceStatusResponse setData(com.clover.sdk.v3.remotepay.ExternalDeviceStateData data) {
-    return genClient.setRecord(data, CacheKey.data);
+  public RetrievePaymentResponse setPayment(com.clover.sdk.v3.payments.Payment payment) {
+    return genClient.setRecord(payment, CacheKey.payment);
   }
 
   /**
@@ -312,13 +343,17 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   }
 
 
-  /** Clears the 'state' field, the 'has' method for this field will now return false */
-  public void clearState() {
-    genClient.clear(CacheKey.state);
+  /** Clears the 'externalPaymentId' field, the 'has' method for this field will now return false */
+  public void clearExternalPaymentId() {
+    genClient.clear(CacheKey.externalPaymentId);
   }
-  /** Clears the 'data' field, the 'has' method for this field will now return false */
-  public void clearData() {
-    genClient.clear(CacheKey.data);
+  /** Clears the 'queryStatus' field, the 'has' method for this field will now return false */
+  public void clearQueryStatus() {
+    genClient.clear(CacheKey.queryStatus);
+  }
+  /** Clears the 'payment' field, the 'has' method for this field will now return false */
+  public void clearPayment() {
+    genClient.clear(CacheKey.payment);
   }
   /** Clears the 'success' field, the 'has' method for this field will now return false */
   @Override
@@ -359,8 +394,8 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public RetrieveDeviceStatusResponse copyChanges() {
-    RetrieveDeviceStatusResponse copy = new RetrieveDeviceStatusResponse();
+  public RetrievePaymentResponse copyChanges() {
+    RetrievePaymentResponse copy = new RetrievePaymentResponse();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -369,38 +404,39 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(RetrieveDeviceStatusResponse src) {
+  public void mergeChanges(RetrievePaymentResponse src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new RetrieveDeviceStatusResponse(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new RetrievePaymentResponse(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<RetrieveDeviceStatusResponse> CREATOR = new android.os.Parcelable.Creator<RetrieveDeviceStatusResponse>() {
+  public static final android.os.Parcelable.Creator<RetrievePaymentResponse> CREATOR = new android.os.Parcelable.Creator<RetrievePaymentResponse>() {
     @Override
-    public RetrieveDeviceStatusResponse createFromParcel(android.os.Parcel in) {
-      RetrieveDeviceStatusResponse instance = new RetrieveDeviceStatusResponse(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public RetrievePaymentResponse createFromParcel(android.os.Parcel in) {
+      RetrievePaymentResponse instance = new RetrievePaymentResponse(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public RetrieveDeviceStatusResponse[] newArray(int size) {
-      return new RetrieveDeviceStatusResponse[size];
+    public RetrievePaymentResponse[] newArray(int size) {
+      return new RetrievePaymentResponse[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse>() {
+  public static final com.clover.sdk.JSONifiable.Creator<RetrievePaymentResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrievePaymentResponse>() {
     @Override
-    public RetrieveDeviceStatusResponse create(org.json.JSONObject jsonObject) {
-      return new RetrieveDeviceStatusResponse(jsonObject);
+    public RetrievePaymentResponse create(org.json.JSONObject jsonObject) {
+      return new RetrievePaymentResponse(jsonObject);
     }
   };
 
   public interface Constraints {
 
-    public static final boolean STATE_IS_REQUIRED = false;
-    public static final boolean DATA_IS_REQUIRED = false;
+    public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
+    public static final boolean QUERYSTATUS_IS_REQUIRED = false;
+    public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;

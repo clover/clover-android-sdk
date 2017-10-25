@@ -30,10 +30,18 @@ import com.clover.sdk.GenericClient;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getRequestInfo requestInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message {
+
+  /**
+   * Extra information to include with the request, like type of request
+   */
+  public java.lang.String getRequestInfo() {
+    return genClient.cacheGet(CacheKey.requestInfo);
+  }
 
   /**
    * The list of message types
@@ -55,6 +63,12 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<FinishCancelMessage> {
+    requestInfo {
+      @Override
+      public Object extractValue(FinishCancelMessage instance) {
+        return instance.genClient.extractOther("requestInfo", java.lang.String.class);
+      }
+    },
     method {
       @Override
       public Object extractValue(FinishCancelMessage instance) {
@@ -137,6 +151,11 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
   public void validate() {
   }
 
+  /** Checks whether the 'requestInfo' field is set and is not null */
+  public boolean isNotNullRequestInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestInfo);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -151,6 +170,11 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
 
 
 
+  /** Checks whether the 'requestInfo' field has been set, however the value could be null */
+  public boolean hasRequestInfo() {
+    return genClient.cacheHasKey(CacheKey.requestInfo);
+  }
+
   /** Checks whether the 'method' field has been set, however the value could be null */
   @Override
   public boolean hasMethod() {
@@ -163,6 +187,13 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
     return genClient.cacheHasKey(CacheKey.version);
   }
 
+
+  /**
+   * Sets the field 'requestInfo'.
+   */
+  public FinishCancelMessage setRequestInfo(java.lang.String requestInfo) {
+    return genClient.setOther(requestInfo, CacheKey.requestInfo);
+  }
 
   /**
    * Sets the field 'method'.
@@ -181,6 +212,10 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
   }
 
 
+  /** Clears the 'requestInfo' field, the 'has' method for this field will now return false */
+  public void clearRequestInfo() {
+    genClient.clear(CacheKey.requestInfo);
+  }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
   public void clearMethod() {
@@ -250,6 +285,7 @@ public class FinishCancelMessage extends com.clover.sdk.v3.remotemessage.Message
 
   public interface Constraints {
 
+    public static final boolean REQUESTINFO_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

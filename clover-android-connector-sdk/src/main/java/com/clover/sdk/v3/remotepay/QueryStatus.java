@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.printer;
+package com.clover.sdk.v3.remotepay;
 
 import android.os.Parcelable;
 import android.os.Parcel;
@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum PrintJobStatus implements Parcelable {
-  IN_QUEUE, PRINTING, DONE, ERROR, UNKNOWN, NOT_FOUND;
+public enum QueryStatus implements Parcelable {
+  FOUND, NOT_FOUND, IN_PROGRESS;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum PrintJobStatus implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<PrintJobStatus> CREATOR = new Creator<PrintJobStatus>() {
+  public static final Creator<QueryStatus> CREATOR = new Creator<QueryStatus>() {
     @Override
-    public PrintJobStatus createFromParcel(final Parcel source) {
-      return PrintJobStatus.valueOf(source.readString());
+    public QueryStatus createFromParcel(final Parcel source) {
+      return QueryStatus.valueOf(source.readString());
     }
 
     @Override
-    public PrintJobStatus[] newArray(final int size) {
-      return new PrintJobStatus[size];
+    public QueryStatus[] newArray(final int size) {
+      return new QueryStatus[size];
     }
   };
 }

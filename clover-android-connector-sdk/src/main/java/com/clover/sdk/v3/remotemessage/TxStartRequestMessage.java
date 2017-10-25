@@ -33,6 +33,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getSuppressOnScreenTips suppressOnScreenTips}</li>
  * <li>{@link #getOrder order}</li>
  * <li>{@link #getPayIntent payIntent}</li>
+ * <li>{@link #getRequestInfo requestInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -57,6 +58,13 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
    */
   public com.clover.sdk.v3.remotemessage.PayIntent getPayIntent() {
     return genClient.cacheGet(CacheKey.payIntent);
+  }
+
+  /**
+   * Extra information to include with the request, like type of request
+   */
+  public java.lang.String getRequestInfo() {
+    return genClient.cacheGet(CacheKey.requestInfo);
   }
 
   /**
@@ -95,6 +103,12 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
       @Override
       public Object extractValue(TxStartRequestMessage instance) {
         return instance.genClient.extractRecord("payIntent", com.clover.sdk.v3.remotemessage.PayIntent.JSON_CREATOR);
+      }
+    },
+    requestInfo {
+      @Override
+      public Object extractValue(TxStartRequestMessage instance) {
+        return instance.genClient.extractOther("requestInfo", java.lang.String.class);
       }
     },
     method {
@@ -194,6 +208,11 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
     return genClient.cacheValueIsNotNull(CacheKey.payIntent);
   }
 
+  /** Checks whether the 'requestInfo' field is set and is not null */
+  public boolean isNotNullRequestInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestInfo);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -221,6 +240,11 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
   /** Checks whether the 'payIntent' field has been set, however the value could be null */
   public boolean hasPayIntent() {
     return genClient.cacheHasKey(CacheKey.payIntent);
+  }
+
+  /** Checks whether the 'requestInfo' field has been set, however the value could be null */
+  public boolean hasRequestInfo() {
+    return genClient.cacheHasKey(CacheKey.requestInfo);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -262,6 +286,13 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
   }
 
   /**
+   * Sets the field 'requestInfo'.
+   */
+  public TxStartRequestMessage setRequestInfo(java.lang.String requestInfo) {
+    return genClient.setOther(requestInfo, CacheKey.requestInfo);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -289,6 +320,10 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
   /** Clears the 'payIntent' field, the 'has' method for this field will now return false */
   public void clearPayIntent() {
     genClient.clear(CacheKey.payIntent);
+  }
+  /** Clears the 'requestInfo' field, the 'has' method for this field will now return false */
+  public void clearRequestInfo() {
+    genClient.clear(CacheKey.requestInfo);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -362,6 +397,7 @@ public class TxStartRequestMessage extends com.clover.sdk.v3.remotemessage.Messa
     public static final boolean SUPPRESSONSCREENTIPS_IS_REQUIRED = false;
     public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean PAYINTENT_IS_REQUIRED = false;
+    public static final boolean REQUESTINFO_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

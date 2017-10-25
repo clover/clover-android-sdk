@@ -27,7 +27,8 @@ public enum Type implements Parcelable {
   SEIKO_MINI_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoMini", "Mini", true, true, true),
   SEIKO_REMOTE("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoRemote", "Station Remote", true, true, true),
   BAYLEAF_USB("com.clover.engine.services.ReceiptPrinterPlugins.bayleaf.Bayleaf", "Clover Flex", true, true, false),
-  GOLDEN_OAK_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Golden Oak", true, true, true);
+  GOLDEN_OAK_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station 2", true, true, true),
+  ACORN_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station 2", true, true, true);
 
   public final String baseClassName;
   public final String model;

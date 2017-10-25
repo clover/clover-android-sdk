@@ -28,27 +28,29 @@ import com.clover.sdk.GenericClient;
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * contains the status of the requested print job
+ * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getState state}</li>
- * <li>{@link #getData data}</li>
+ * <li>{@link #getStatus status}</li>
+ * <li>{@link #getPrintRequestId printRequestId}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
+public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
 
   /**
-   * High level state of the connected device.
+   * The current status of the requested print job
    */
-  public com.clover.sdk.v3.remotepay.ExternalDeviceState getState() {
-    return genClient.cacheGet(CacheKey.state);
+  public com.clover.sdk.v3.printer.PrintJobStatus getStatus() {
+    return genClient.cacheGet(CacheKey.status);
   }
 
   /**
-   * Additional data elements supplementing the state of the connected device.
+   * The ID of the print job
    */
-  public com.clover.sdk.v3.remotepay.ExternalDeviceStateData getData() {
-    return genClient.cacheGet(CacheKey.data);
+  public java.lang.String getPrintRequestId() {
+    return genClient.cacheGet(CacheKey.printRequestId);
   }
 
   /**
@@ -86,54 +88,54 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RetrieveDeviceStatusResponse> {
-    state {
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PrintJobStatusResponse> {
+    status {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
-        return instance.genClient.extractEnum("state", com.clover.sdk.v3.remotepay.ExternalDeviceState.class);
+      public Object extractValue(PrintJobStatusResponse instance) {
+        return instance.genClient.extractEnum("status", com.clover.sdk.v3.printer.PrintJobStatus.class);
       }
     },
-    data {
+    printRequestId {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
-        return instance.genClient.extractRecord("data", com.clover.sdk.v3.remotepay.ExternalDeviceStateData.JSON_CREATOR);
+      public Object extractValue(PrintJobStatusResponse instance) {
+        return instance.genClient.extractOther("printRequestId", java.lang.String.class);
       }
     },
     success {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(PrintJobStatusResponse instance) {
         return instance.genClient.extractOther("success", java.lang.Boolean.class);
       }
     },
     result {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(PrintJobStatusResponse instance) {
         return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
       }
     },
     reason {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(PrintJobStatusResponse instance) {
         return instance.genClient.extractOther("reason", java.lang.String.class);
       }
     },
     message {
       @Override
-      public Object extractValue(RetrieveDeviceStatusResponse instance) {
+      public Object extractValue(PrintJobStatusResponse instance) {
         return instance.genClient.extractOther("message", java.lang.String.class);
       }
     },
       ;
   }
 
-  private GenericClient<RetrieveDeviceStatusResponse> genClient;
+  private GenericClient<PrintJobStatusResponse> genClient;
 
   /**
   * Constructs a new empty instance.
   */
-  public RetrieveDeviceStatusResponse() {
+  public PrintJobStatusResponse() {
     super(false);
-    genClient = new GenericClient<RetrieveDeviceStatusResponse>(this);
+    genClient = new GenericClient<PrintJobStatusResponse>(this);
   }
 
   @Override
@@ -144,7 +146,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
   * Constructs a new empty instance.
   */
-  protected RetrieveDeviceStatusResponse(boolean noInit) {
+  protected PrintJobStatusResponse(boolean noInit) {
     super(false);
     genClient = null;
   }
@@ -152,7 +154,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public RetrieveDeviceStatusResponse(String json) throws IllegalArgumentException {
+  public PrintJobStatusResponse(String json) throws IllegalArgumentException {
     this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
@@ -165,7 +167,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public RetrieveDeviceStatusResponse(org.json.JSONObject jsonObject) {
+  public PrintJobStatusResponse(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -173,7 +175,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public RetrieveDeviceStatusResponse(RetrieveDeviceStatusResponse src) {
+  public PrintJobStatusResponse(PrintJobStatusResponse src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -192,14 +194,14 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   public void validate() {
   }
 
-  /** Checks whether the 'state' field is set and is not null */
-  public boolean isNotNullState() {
-    return genClient.cacheValueIsNotNull(CacheKey.state);
+  /** Checks whether the 'status' field is set and is not null */
+  public boolean isNotNullStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.status);
   }
 
-  /** Checks whether the 'data' field is set and is not null */
-  public boolean isNotNullData() {
-    return genClient.cacheValueIsNotNull(CacheKey.data);
+  /** Checks whether the 'printRequestId' field is set and is not null */
+  public boolean isNotNullPrintRequestId() {
+    return genClient.cacheValueIsNotNull(CacheKey.printRequestId);
   }
 
   /** Checks whether the 'success' field is set and is not null */
@@ -228,14 +230,14 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
 
-  /** Checks whether the 'state' field has been set, however the value could be null */
-  public boolean hasState() {
-    return genClient.cacheHasKey(CacheKey.state);
+  /** Checks whether the 'status' field has been set, however the value could be null */
+  public boolean hasStatus() {
+    return genClient.cacheHasKey(CacheKey.status);
   }
 
-  /** Checks whether the 'data' field has been set, however the value could be null */
-  public boolean hasData() {
-    return genClient.cacheHasKey(CacheKey.data);
+  /** Checks whether the 'printRequestId' field has been set, however the value could be null */
+  public boolean hasPrintRequestId() {
+    return genClient.cacheHasKey(CacheKey.printRequestId);
   }
 
   /** Checks whether the 'success' field has been set, however the value could be null */
@@ -264,19 +266,17 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
 
 
   /**
-   * Sets the field 'state'.
+   * Sets the field 'status'.
    */
-  public RetrieveDeviceStatusResponse setState(com.clover.sdk.v3.remotepay.ExternalDeviceState state) {
-    return genClient.setOther(state, CacheKey.state);
+  public PrintJobStatusResponse setStatus(com.clover.sdk.v3.printer.PrintJobStatus status) {
+    return genClient.setOther(status, CacheKey.status);
   }
 
   /**
-   * Sets the field 'data'.
-   *
-   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   * Sets the field 'printRequestId'.
    */
-  public RetrieveDeviceStatusResponse setData(com.clover.sdk.v3.remotepay.ExternalDeviceStateData data) {
-    return genClient.setRecord(data, CacheKey.data);
+  public PrintJobStatusResponse setPrintRequestId(java.lang.String printRequestId) {
+    return genClient.setOther(printRequestId, CacheKey.printRequestId);
   }
 
   /**
@@ -312,13 +312,13 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   }
 
 
-  /** Clears the 'state' field, the 'has' method for this field will now return false */
-  public void clearState() {
-    genClient.clear(CacheKey.state);
+  /** Clears the 'status' field, the 'has' method for this field will now return false */
+  public void clearStatus() {
+    genClient.clear(CacheKey.status);
   }
-  /** Clears the 'data' field, the 'has' method for this field will now return false */
-  public void clearData() {
-    genClient.clear(CacheKey.data);
+  /** Clears the 'printRequestId' field, the 'has' method for this field will now return false */
+  public void clearPrintRequestId() {
+    genClient.clear(CacheKey.printRequestId);
   }
   /** Clears the 'success' field, the 'has' method for this field will now return false */
   @Override
@@ -359,8 +359,8 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public RetrieveDeviceStatusResponse copyChanges() {
-    RetrieveDeviceStatusResponse copy = new RetrieveDeviceStatusResponse();
+  public PrintJobStatusResponse copyChanges() {
+    PrintJobStatusResponse copy = new PrintJobStatusResponse();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -369,38 +369,38 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(RetrieveDeviceStatusResponse src) {
+  public void mergeChanges(PrintJobStatusResponse src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new RetrieveDeviceStatusResponse(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new PrintJobStatusResponse(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<RetrieveDeviceStatusResponse> CREATOR = new android.os.Parcelable.Creator<RetrieveDeviceStatusResponse>() {
+  public static final android.os.Parcelable.Creator<PrintJobStatusResponse> CREATOR = new android.os.Parcelable.Creator<PrintJobStatusResponse>() {
     @Override
-    public RetrieveDeviceStatusResponse createFromParcel(android.os.Parcel in) {
-      RetrieveDeviceStatusResponse instance = new RetrieveDeviceStatusResponse(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public PrintJobStatusResponse createFromParcel(android.os.Parcel in) {
+      PrintJobStatusResponse instance = new PrintJobStatusResponse(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public RetrieveDeviceStatusResponse[] newArray(int size) {
-      return new RetrieveDeviceStatusResponse[size];
+    public PrintJobStatusResponse[] newArray(int size) {
+      return new PrintJobStatusResponse[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse>() {
+  public static final com.clover.sdk.JSONifiable.Creator<PrintJobStatusResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PrintJobStatusResponse>() {
     @Override
-    public RetrieveDeviceStatusResponse create(org.json.JSONObject jsonObject) {
-      return new RetrieveDeviceStatusResponse(jsonObject);
+    public PrintJobStatusResponse create(org.json.JSONObject jsonObject) {
+      return new PrintJobStatusResponse(jsonObject);
     }
   };
 
   public interface Constraints {
 
-    public static final boolean STATE_IS_REQUIRED = false;
-    public static final boolean DATA_IS_REQUIRED = false;
+    public static final boolean STATUS_IS_REQUIRED = false;
+    public static final boolean PRINTREQUESTID_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;

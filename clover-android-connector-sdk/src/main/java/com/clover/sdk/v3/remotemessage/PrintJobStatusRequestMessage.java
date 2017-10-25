@@ -28,6 +28,8 @@ import com.clover.sdk.GenericClient;
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * Request to get the status of a print job.
+ * <p>
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getExternalPrintJobId externalPrintJobId}</li>

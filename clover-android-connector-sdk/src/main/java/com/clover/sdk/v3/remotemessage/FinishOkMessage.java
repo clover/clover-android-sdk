@@ -34,6 +34,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getPayment payment}</li>
  * <li>{@link #getRefund refund}</li>
  * <li>{@link #getSignature signature}</li>
+ * <li>{@link #getRequestInfo requestInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +66,13 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
    */
   public com.clover.sdk.v3.base.Signature getSignature() {
     return genClient.cacheGet(CacheKey.signature);
+  }
+
+  /**
+   * Extra information to include with the request, like type of request
+   */
+  public java.lang.String getRequestInfo() {
+    return genClient.cacheGet(CacheKey.requestInfo);
   }
 
   /**
@@ -109,6 +117,12 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
       @Override
       public Object extractValue(FinishOkMessage instance) {
         return instance.genClient.extractRecord("signature", com.clover.sdk.v3.base.Signature.JSON_CREATOR);
+      }
+    },
+    requestInfo {
+      @Override
+      public Object extractValue(FinishOkMessage instance) {
+        return instance.genClient.extractOther("requestInfo", java.lang.String.class);
       }
     },
     method {
@@ -213,6 +227,11 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
     return genClient.cacheValueIsNotNull(CacheKey.signature);
   }
 
+  /** Checks whether the 'requestInfo' field is set and is not null */
+  public boolean isNotNullRequestInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestInfo);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -245,6 +264,11 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Checks whether the 'signature' field has been set, however the value could be null */
   public boolean hasSignature() {
     return genClient.cacheHasKey(CacheKey.signature);
+  }
+
+  /** Checks whether the 'requestInfo' field has been set, however the value could be null */
+  public boolean hasRequestInfo() {
+    return genClient.cacheHasKey(CacheKey.requestInfo);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -297,6 +321,13 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
   }
 
   /**
+   * Sets the field 'requestInfo'.
+   */
+  public FinishOkMessage setRequestInfo(java.lang.String requestInfo) {
+    return genClient.setOther(requestInfo, CacheKey.requestInfo);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -328,6 +359,10 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
   /** Clears the 'signature' field, the 'has' method for this field will now return false */
   public void clearSignature() {
     genClient.clear(CacheKey.signature);
+  }
+  /** Clears the 'requestInfo' field, the 'has' method for this field will now return false */
+  public void clearRequestInfo() {
+    genClient.clear(CacheKey.requestInfo);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -402,6 +437,7 @@ public class FinishOkMessage extends com.clover.sdk.v3.remotemessage.Message {
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean SIGNATURE_IS_REQUIRED = false;
+    public static final boolean REQUESTINFO_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

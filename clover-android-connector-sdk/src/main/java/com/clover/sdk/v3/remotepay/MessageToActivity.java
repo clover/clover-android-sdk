@@ -21,92 +21,79 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.remotemessage;
+package com.clover.sdk.v3.remotepay;
 
 import com.clover.sdk.GenericClient;
 
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * A message sent to custom activities
+ * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getAction action}</li>
- * <li>{@link #getPayload payload}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage.Message {
+public class MessageToActivity extends com.clover.sdk.v3.remotepay.ActivityMessage {
 
   /**
-   * The name of the activity/action being sent from a running custom activity
+   * An action name, such as ACTION_VIEW.  Application-specific actions should be prefixed with the vendor's package name.
    */
+  @Override
   public java.lang.String getAction() {
     return genClient.cacheGet(CacheKey.action);
   }
 
   /**
-   * Data for this activity
+   * Information that is passed to the activity.  Can be obtained from the intent using the key defined in com.clover.remote.common.RemoteConstants#EXTRA_PAYLOAD
    */
+  @Override
   public java.lang.String getPayload() {
     return genClient.cacheGet(CacheKey.payload);
   }
 
   /**
-   * The list of message types
+   * Identifier for the request
    */
   @Override
-  public com.clover.sdk.v3.remotemessage.Method getMethod() {
-    return genClient.cacheGet(CacheKey.method);
-  }
-
-  /**
-   * The version of this message
-   */
-  @Override
-  public java.lang.Integer getVersion() {
-    return genClient.cacheGet(CacheKey.version);
+  public java.lang.String getRequestId() {
+    return genClient.cacheGet(CacheKey.requestId);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ActivityMessageFromActivity> {
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MessageToActivity> {
     action {
       @Override
-      public Object extractValue(ActivityMessageFromActivity instance) {
+      public Object extractValue(MessageToActivity instance) {
         return instance.genClient.extractOther("action", java.lang.String.class);
       }
     },
     payload {
       @Override
-      public Object extractValue(ActivityMessageFromActivity instance) {
+      public Object extractValue(MessageToActivity instance) {
         return instance.genClient.extractOther("payload", java.lang.String.class);
       }
     },
-    method {
+    requestId {
       @Override
-      public Object extractValue(ActivityMessageFromActivity instance) {
-        return instance.genClient.extractEnum("method", com.clover.sdk.v3.remotemessage.Method.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(ActivityMessageFromActivity instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
+      public Object extractValue(MessageToActivity instance) {
+        return instance.genClient.extractOther("requestId", java.lang.String.class);
       }
     },
       ;
   }
 
-  private GenericClient<ActivityMessageFromActivity> genClient;
+  private GenericClient<MessageToActivity> genClient;
 
   /**
   * Constructs a new empty instance.
   */
-  public ActivityMessageFromActivity() {
+  public MessageToActivity() {
     super(false);
-    genClient = new GenericClient<ActivityMessageFromActivity>(this);
-    this.setMethod(com.clover.sdk.v3.remotemessage.Method.ACTIVITY_MESSAGE_FROM_ACTIVITY);
+    genClient = new GenericClient<MessageToActivity>(this);
   }
 
   @Override
@@ -117,7 +104,7 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
   /**
   * Constructs a new empty instance.
   */
-  protected ActivityMessageFromActivity(boolean noInit) {
+  protected MessageToActivity(boolean noInit) {
     super(false);
     genClient = null;
   }
@@ -125,7 +112,7 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public ActivityMessageFromActivity(String json) throws IllegalArgumentException {
+  public MessageToActivity(String json) throws IllegalArgumentException {
     this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
@@ -138,7 +125,7 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public ActivityMessageFromActivity(org.json.JSONObject jsonObject) {
+  public MessageToActivity(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -146,7 +133,7 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public ActivityMessageFromActivity(ActivityMessageFromActivity src) {
+  public MessageToActivity(MessageToActivity src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -163,103 +150,87 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
 
   @Override
   public void validate() {
+    genClient.validateLength(getRequestId(), 13);
   }
 
   /** Checks whether the 'action' field is set and is not null */
+  @Override
   public boolean isNotNullAction() {
     return genClient.cacheValueIsNotNull(CacheKey.action);
   }
 
   /** Checks whether the 'payload' field is set and is not null */
+  @Override
   public boolean isNotNullPayload() {
     return genClient.cacheValueIsNotNull(CacheKey.payload);
   }
 
-  /** Checks whether the 'method' field is set and is not null */
+  /** Checks whether the 'requestId' field is set and is not null */
   @Override
-  public boolean isNotNullMethod() {
-    return genClient.cacheValueIsNotNull(CacheKey.method);
-  }
-
-  /** Checks whether the 'version' field is set and is not null */
-  @Override
-  public boolean isNotNullVersion() {
-    return genClient.cacheValueIsNotNull(CacheKey.version);
+  public boolean isNotNullRequestId() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestId);
   }
 
 
 
   /** Checks whether the 'action' field has been set, however the value could be null */
+  @Override
   public boolean hasAction() {
     return genClient.cacheHasKey(CacheKey.action);
   }
 
   /** Checks whether the 'payload' field has been set, however the value could be null */
+  @Override
   public boolean hasPayload() {
     return genClient.cacheHasKey(CacheKey.payload);
   }
 
-  /** Checks whether the 'method' field has been set, however the value could be null */
+  /** Checks whether the 'requestId' field has been set, however the value could be null */
   @Override
-  public boolean hasMethod() {
-    return genClient.cacheHasKey(CacheKey.method);
-  }
-
-  /** Checks whether the 'version' field has been set, however the value could be null */
-  @Override
-  public boolean hasVersion() {
-    return genClient.cacheHasKey(CacheKey.version);
+  public boolean hasRequestId() {
+    return genClient.cacheHasKey(CacheKey.requestId);
   }
 
 
   /**
    * Sets the field 'action'.
    */
-  public ActivityMessageFromActivity setAction(java.lang.String action) {
+  @Override
+  public ActivityMessage setAction(java.lang.String action) {
     return genClient.setOther(action, CacheKey.action);
   }
 
   /**
    * Sets the field 'payload'.
    */
-  public ActivityMessageFromActivity setPayload(java.lang.String payload) {
+  @Override
+  public ActivityMessage setPayload(java.lang.String payload) {
     return genClient.setOther(payload, CacheKey.payload);
   }
 
   /**
-   * Sets the field 'method'.
+   * Sets the field 'requestId'.
    */
   @Override
-  public Message setMethod(com.clover.sdk.v3.remotemessage.Method method) {
-    return genClient.setOther(method, CacheKey.method);
-  }
-
-  /**
-   * Sets the field 'version'.
-   */
-  @Override
-  public Message setVersion(java.lang.Integer version) {
-    return genClient.setOther(version, CacheKey.version);
+  public BaseRequest setRequestId(java.lang.String requestId) {
+    return genClient.setOther(requestId, CacheKey.requestId);
   }
 
 
   /** Clears the 'action' field, the 'has' method for this field will now return false */
+  @Override
   public void clearAction() {
     genClient.clear(CacheKey.action);
   }
   /** Clears the 'payload' field, the 'has' method for this field will now return false */
+  @Override
   public void clearPayload() {
     genClient.clear(CacheKey.payload);
   }
-  /** Clears the 'method' field, the 'has' method for this field will now return false */
+  /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
-  public void clearMethod() {
-    genClient.clear(CacheKey.method);
-  }
-  /** Clears the 'version' field, the 'has' method for this field will now return false */
-  @Override
-  public void clearVersion() {
-    genClient.clear(CacheKey.version);
+  public void clearRequestId() {
+    genClient.clear(CacheKey.requestId);
   }
 
 
@@ -280,8 +251,8 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public ActivityMessageFromActivity copyChanges() {
-    ActivityMessageFromActivity copy = new ActivityMessageFromActivity();
+  public MessageToActivity copyChanges() {
+    MessageToActivity copy = new MessageToActivity();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -290,31 +261,31 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(ActivityMessageFromActivity src) {
+  public void mergeChanges(MessageToActivity src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new ActivityMessageFromActivity(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new MessageToActivity(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<ActivityMessageFromActivity> CREATOR = new android.os.Parcelable.Creator<ActivityMessageFromActivity>() {
+  public static final android.os.Parcelable.Creator<MessageToActivity> CREATOR = new android.os.Parcelable.Creator<MessageToActivity>() {
     @Override
-    public ActivityMessageFromActivity createFromParcel(android.os.Parcel in) {
-      ActivityMessageFromActivity instance = new ActivityMessageFromActivity(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public MessageToActivity createFromParcel(android.os.Parcel in) {
+      MessageToActivity instance = new MessageToActivity(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public ActivityMessageFromActivity[] newArray(int size) {
-      return new ActivityMessageFromActivity[size];
+    public MessageToActivity[] newArray(int size) {
+      return new MessageToActivity[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<ActivityMessageFromActivity> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ActivityMessageFromActivity>() {
+  public static final com.clover.sdk.JSONifiable.Creator<MessageToActivity> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MessageToActivity>() {
     @Override
-    public ActivityMessageFromActivity create(org.json.JSONObject jsonObject) {
-      return new ActivityMessageFromActivity(jsonObject);
+    public MessageToActivity create(org.json.JSONObject jsonObject) {
+      return new MessageToActivity(jsonObject);
     }
   };
 
@@ -322,8 +293,8 @@ public class ActivityMessageFromActivity extends com.clover.sdk.v3.remotemessage
 
     public static final boolean ACTION_IS_REQUIRED = false;
     public static final boolean PAYLOAD_IS_REQUIRED = false;
-    public static final boolean METHOD_IS_REQUIRED = false;
-    public static final boolean VERSION_IS_REQUIRED = false;
+    public static final boolean REQUESTID_IS_REQUIRED = false;
+    public static final long REQUESTID_MAX_LEN = 13;
 
   }
 
