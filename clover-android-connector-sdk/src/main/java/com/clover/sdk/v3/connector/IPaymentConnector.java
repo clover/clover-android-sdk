@@ -4,10 +4,12 @@ import com.clover.sdk.v3.base.Challenge;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.remotepay.AuthRequest;
 import com.clover.sdk.v3.remotepay.CapturePreAuthRequest;
+import com.clover.sdk.v3.remotepay.CloseoutRequest;
 import com.clover.sdk.v3.remotepay.ManualRefundRequest;
 import com.clover.sdk.v3.remotepay.PreAuthRequest;
 import com.clover.sdk.v3.remotepay.ReadCardDataRequest;
 import com.clover.sdk.v3.remotepay.RefundPaymentRequest;
+import com.clover.sdk.v3.remotepay.RetrievePaymentRequest;
 import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
@@ -18,49 +20,34 @@ import android.app.Activity;
 /**
  * Created by glennbedwell on 9/6/16.
  */
-public interface IPaymentConnector {
-  /**
-   * add an ICloverConnectorListener to receive callbacks
-   *
-   * @param listener
-   */
-  void addPaymentConnectorListener(IPaymentConnectorListener listener);
-
-  /**
-   * remove an ICloverConnectorListener from receiving callbacks
-   *
-   * @param listener
-   */
-  void removePaymentConnectorListener(IPaymentConnectorListener listener);
-
+public interface IPaymentConnector extends IDeviceConnector{
   /**
    * Sale method, aka "purchase"
    *
-   * @param parentActivity - The activity from which the connector action is being called
    * @param saleRequest    - A SaleRequest object containing basic information needed for the transaction
    */
-  void sale(Activity parentActivity, SaleRequest saleRequest);
+  void sale(SaleRequest saleRequest);
 
   /**
    * If signature is captured during a Sale, this method accepts the signature as entered
    *
    * @param request -
    **/
-  void acceptSignature(Activity parentActivity, VerifySignatureRequest request);
+  void acceptSignature(VerifySignatureRequest request);
 
   /**
    * If signature is captured during a Sale, this method rejects the signature as entered
    *
    * @param request -
    **/
-  void rejectSignature(Activity parentActivity, VerifySignatureRequest request);
+  void rejectSignature(VerifySignatureRequest request);
 
   /**
    * If payment confirmation is required during a Sale, this method accepts the payment
    *
    * @param payment -
    **/
-  void acceptPayment(Activity parentActivity, Payment payment);
+  void acceptPayment(Payment payment);
 
   /**
    * If payment confirmation is required during a Sale, this method rejects the payment
@@ -68,7 +55,7 @@ public interface IPaymentConnector {
    * @param payment   -
    * @param challenge -
    **/
-  void rejectPayment(Activity parentActivity, Payment payment, Challenge challenge);
+  void rejectPayment(Payment payment, Challenge challenge);
 
   /**
    * Auth method to obtain an Auth payment that can be used as the payment
@@ -76,14 +63,14 @@ public interface IPaymentConnector {
    *
    * @param request -
    **/
-  void auth(Activity parentActivity, AuthRequest request);
+  void auth(AuthRequest request);
 
   /**
    * PreAuth method to obtain a Pre-Auth for a card
    *
    * @param request -
    **/
-  void preAuth(Activity parentActivity, PreAuthRequest request);
+  void preAuth(PreAuthRequest request);
 
   /**
    * Capture a previous Auth. Note: Should only be called if request's PaymentID is from an AuthResponse
@@ -118,7 +105,7 @@ public interface IPaymentConnector {
    *
    * @param request - A ManualRefundRequest object
    **/
-  void manualRefund(Activity parentActivity, ManualRefundRequest request); // NakedRefund is a Transaction, with just negative amount
+  void manualRefund(ManualRefundRequest request); // NakedRefund is a Transaction, with just negative amount
 
   /**
    * Vault card information. Requests the mini capture card information and request a payment token from the payment gateway.
@@ -126,7 +113,7 @@ public interface IPaymentConnector {
    *
    * @param cardEntryMethods - The card entry methods allowed to capture the payment token. null will provide default values
    **/
-  void vaultCard(Activity parentActivity, Integer cardEntryMethods);
+  void vaultCard(Integer cardEntryMethods);
 
   /**
    * Used to request a list of pending payments that have been taken offline, but
@@ -139,6 +126,23 @@ public interface IPaymentConnector {
    *
    * @param request - A ReadCardDataRequest object
    */
-  void readCardData(Activity parentActivity, ReadCardDataRequest request);
+  void readCardData(ReadCardDataRequest request);
+
+  /**
+   * Used to request a closeout for open transactions.
+   *
+   * @param request - A CloseoutRequest object
+   */
+  void closeout(CloseoutRequest request);
+
+  /**
+   * Sends a request to get a payment.
+   * Only valid for payments made in the past 24 hours on the device queried
+   *
+   * @param request - A RetrievePaymentRequest object
+   */
+  void retrievePayment(RetrievePaymentRequest request);
+
+
 
 }

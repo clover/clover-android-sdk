@@ -243,7 +243,7 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateLength(getId(), 36);
 
     genClient.validateLength(getModel(), 64);
 
@@ -579,7 +579,7 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
-    public static final long ID_MAX_LEN = 13;
+    public static final long ID_MAX_LEN = 36;
     public static final boolean MODEL_IS_REQUIRED = false;
     public static final long MODEL_MAX_LEN = 64;
     public static final boolean SERIAL_IS_REQUIRED = false;

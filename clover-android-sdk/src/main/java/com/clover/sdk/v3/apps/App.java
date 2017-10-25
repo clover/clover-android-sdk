@@ -106,6 +106,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getFirstApprovalTime firstApprovalTime}</li>
  * <li>{@link #getAppBundle appBundle}</li>
  * <li>{@link #getEditorPick editorPick}</li>
+ * <li>{@link #getPopularity popularity}</li>
+ * <li>{@link #getAllowUninstall allowUninstall}</li>
+ * <li>{@link #getCharge charge}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -526,6 +529,27 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public java.lang.Boolean getEditorPick() {
     return genClient.cacheGet(CacheKey.editorPick);
+  }
+
+  /**
+   * Number of installs by billable production merchants once this app is published.
+   */
+  public java.lang.Long getPopularity() {
+    return genClient.cacheGet(CacheKey.popularity);
+  }
+
+  /**
+   * Only applies to default apps of plan, if true allow merchant to uninstall app.
+   */
+  public java.lang.Boolean getAllowUninstall() {
+    return genClient.cacheGet(CacheKey.allowUninstall);
+  }
+
+  /**
+   * Only applies to default apps of plan, if true then charge for app.
+   */
+  public java.lang.Boolean getCharge() {
+    return genClient.cacheGet(CacheKey.charge);
   }
 
 
@@ -980,6 +1004,24 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
       @Override
       public Object extractValue(App instance) {
         return instance.genClient.extractOther("editorPick", java.lang.Boolean.class);
+      }
+    },
+    popularity {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("popularity", java.lang.Long.class);
+      }
+    },
+    allowUninstall {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("allowUninstall", java.lang.Boolean.class);
+      }
+    },
+    charge {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("charge", java.lang.Boolean.class);
       }
     },
       ;
@@ -1499,6 +1541,21 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.editorPick);
   }
 
+  /** Checks whether the 'popularity' field is set and is not null */
+  public boolean isNotNullPopularity() {
+    return genClient.cacheValueIsNotNull(CacheKey.popularity);
+  }
+
+  /** Checks whether the 'allowUninstall' field is set and is not null */
+  public boolean isNotNullAllowUninstall() {
+    return genClient.cacheValueIsNotNull(CacheKey.allowUninstall);
+  }
+
+  /** Checks whether the 'charge' field is set and is not null */
+  public boolean isNotNullCharge() {
+    return genClient.cacheValueIsNotNull(CacheKey.charge);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1874,6 +1931,21 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'editorPick' field has been set, however the value could be null */
   public boolean hasEditorPick() {
     return genClient.cacheHasKey(CacheKey.editorPick);
+  }
+
+  /** Checks whether the 'popularity' field has been set, however the value could be null */
+  public boolean hasPopularity() {
+    return genClient.cacheHasKey(CacheKey.popularity);
+  }
+
+  /** Checks whether the 'allowUninstall' field has been set, however the value could be null */
+  public boolean hasAllowUninstall() {
+    return genClient.cacheHasKey(CacheKey.allowUninstall);
+  }
+
+  /** Checks whether the 'charge' field has been set, however the value could be null */
+  public boolean hasCharge() {
+    return genClient.cacheHasKey(CacheKey.charge);
   }
 
 
@@ -2436,6 +2508,27 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setOther(editorPick, CacheKey.editorPick);
   }
 
+  /**
+   * Sets the field 'popularity'.
+   */
+  public App setPopularity(java.lang.Long popularity) {
+    return genClient.setOther(popularity, CacheKey.popularity);
+  }
+
+  /**
+   * Sets the field 'allowUninstall'.
+   */
+  public App setAllowUninstall(java.lang.Boolean allowUninstall) {
+    return genClient.setOther(allowUninstall, CacheKey.allowUninstall);
+  }
+
+  /**
+   * Sets the field 'charge'.
+   */
+  public App setCharge(java.lang.Boolean charge) {
+    return genClient.setOther(charge, CacheKey.charge);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -2737,6 +2830,18 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearEditorPick() {
     genClient.clear(CacheKey.editorPick);
   }
+  /** Clears the 'popularity' field, the 'has' method for this field will now return false */
+  public void clearPopularity() {
+    genClient.clear(CacheKey.popularity);
+  }
+  /** Clears the 'allowUninstall' field, the 'has' method for this field will now return false */
+  public void clearAllowUninstall() {
+    genClient.clear(CacheKey.allowUninstall);
+  }
+  /** Clears the 'charge' field, the 'has' method for this field will now return false */
+  public void clearCharge() {
+    genClient.clear(CacheKey.charge);
+  }
 
 
   /**
@@ -2892,6 +2997,9 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean FIRSTAPPROVALTIME_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
     public static final boolean EDITORPICK_IS_REQUIRED = false;
+    public static final boolean POPULARITY_IS_REQUIRED = false;
+    public static final boolean ALLOWUNINSTALL_IS_REQUIRED = false;
+    public static final boolean CHARGE_IS_REQUIRED = false;
 
   }
 

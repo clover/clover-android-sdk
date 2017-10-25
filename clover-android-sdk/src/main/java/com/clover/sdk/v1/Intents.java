@@ -349,6 +349,7 @@ public class Intents {
    * <p>
    * Extras passed:
    * <ul>
+   * <li>{@link #EXTRA_VALIDATE_ROLE} - if set then use role levels instead of permissions for authentication {@link #EXTRA_VALIDATE_ROLE} (Required) </li>
    * <li>{@link #EXTRA_ACCOUNT} - if set then get employee by this account, otherwise use currently logged in account</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID} - if set then authenticate requires this particular employee, if not set then authenticate any employee and return id in result</li>
    * <li>{@link #EXTRA_REASON} - written explanation for authentication, visible on pin entry layout</li>
@@ -792,6 +793,9 @@ public class Intents {
 
   /** {@link Boolean}, whether the launched activity should display a cancel button */
   public static final String EXTRA_SHOW_CANCEL_BUTTON = "clover.intent.extra.SHOW_CANCEL_BUTTON";
+
+  /** {@link Boolean}, whether the launched activity should validate roles instead of permissions (Required) */
+  public static final String EXTRA_VALIDATE_ROLE = "clover.intent.extra.CHECK_ROLE";
 
   /** {@link Boolean}, whether to start or stop barcode scanner */
   public static final String EXTRA_START_SCAN = "clover.intent.extra.SCAN_START";

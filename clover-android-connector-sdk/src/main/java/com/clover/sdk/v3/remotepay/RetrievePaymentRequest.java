@@ -21,63 +21,65 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.remotemessage;
+package com.clover.sdk.v3.remotepay;
 
 import com.clover.sdk.GenericClient;
-import com.clover.sdk.GenericParcelable;
 
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * Request to retrieve a payment made to a specific device.
+ * <p>
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getExternalPaymentId externalPaymentId}</li>
- * <li>{@link #getCustomActivityId customActivityId}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class ExternalDeviceStateData extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class RetrievePaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
 
   /**
-   * External Payment Id, if applicable
+   * The externalPaymentId used when a payment was created
    */
   public java.lang.String getExternalPaymentId() {
     return genClient.cacheGet(CacheKey.externalPaymentId);
   }
 
   /**
-   * Custom Activity Id, if applicable
+   * Identifier for the request
    */
-  public java.lang.String getCustomActivityId() {
-    return genClient.cacheGet(CacheKey.customActivityId);
+  @Override
+  public java.lang.String getRequestId() {
+    return genClient.cacheGet(CacheKey.requestId);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ExternalDeviceStateData> {
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RetrievePaymentRequest> {
     externalPaymentId {
       @Override
-      public Object extractValue(ExternalDeviceStateData instance) {
+      public Object extractValue(RetrievePaymentRequest instance) {
         return instance.genClient.extractOther("externalPaymentId", java.lang.String.class);
       }
     },
-    customActivityId {
+    requestId {
       @Override
-      public Object extractValue(ExternalDeviceStateData instance) {
-        return instance.genClient.extractOther("customActivityId", java.lang.String.class);
+      public Object extractValue(RetrievePaymentRequest instance) {
+        return instance.genClient.extractOther("requestId", java.lang.String.class);
       }
     },
       ;
   }
 
-  private GenericClient<ExternalDeviceStateData> genClient;
+  private GenericClient<RetrievePaymentRequest> genClient;
 
   /**
   * Constructs a new empty instance.
   */
-  public ExternalDeviceStateData() {
-    genClient = new GenericClient<ExternalDeviceStateData>(this);
+  public RetrievePaymentRequest() {
+    super(false);
+    genClient = new GenericClient<RetrievePaymentRequest>(this);
   }
 
   @Override
@@ -88,14 +90,15 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   /**
   * Constructs a new empty instance.
   */
-  protected ExternalDeviceStateData(boolean noInit) {
+  protected RetrievePaymentRequest(boolean noInit) {
+    super(false);
     genClient = null;
   }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public ExternalDeviceStateData(String json) throws IllegalArgumentException {
+  public RetrievePaymentRequest(String json) throws IllegalArgumentException {
     this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
@@ -108,7 +111,7 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public ExternalDeviceStateData(org.json.JSONObject jsonObject) {
+  public RetrievePaymentRequest(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -116,7 +119,7 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public ExternalDeviceStateData(ExternalDeviceStateData src) {
+  public RetrievePaymentRequest(RetrievePaymentRequest src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -133,6 +136,7 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
 
   @Override
   public void validate() {
+    genClient.validateLength(getRequestId(), 13);
   }
 
   /** Checks whether the 'externalPaymentId' field is set and is not null */
@@ -140,9 +144,10 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
     return genClient.cacheValueIsNotNull(CacheKey.externalPaymentId);
   }
 
-  /** Checks whether the 'customActivityId' field is set and is not null */
-  public boolean isNotNullCustomActivityId() {
-    return genClient.cacheValueIsNotNull(CacheKey.customActivityId);
+  /** Checks whether the 'requestId' field is set and is not null */
+  @Override
+  public boolean isNotNullRequestId() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestId);
   }
 
 
@@ -152,24 +157,26 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
     return genClient.cacheHasKey(CacheKey.externalPaymentId);
   }
 
-  /** Checks whether the 'customActivityId' field has been set, however the value could be null */
-  public boolean hasCustomActivityId() {
-    return genClient.cacheHasKey(CacheKey.customActivityId);
+  /** Checks whether the 'requestId' field has been set, however the value could be null */
+  @Override
+  public boolean hasRequestId() {
+    return genClient.cacheHasKey(CacheKey.requestId);
   }
 
 
   /**
    * Sets the field 'externalPaymentId'.
    */
-  public ExternalDeviceStateData setExternalPaymentId(java.lang.String externalPaymentId) {
+  public RetrievePaymentRequest setExternalPaymentId(java.lang.String externalPaymentId) {
     return genClient.setOther(externalPaymentId, CacheKey.externalPaymentId);
   }
 
   /**
-   * Sets the field 'customActivityId'.
+   * Sets the field 'requestId'.
    */
-  public ExternalDeviceStateData setCustomActivityId(java.lang.String customActivityId) {
-    return genClient.setOther(customActivityId, CacheKey.customActivityId);
+  @Override
+  public BaseRequest setRequestId(java.lang.String requestId) {
+    return genClient.setOther(requestId, CacheKey.requestId);
   }
 
 
@@ -177,9 +184,10 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   public void clearExternalPaymentId() {
     genClient.clear(CacheKey.externalPaymentId);
   }
-  /** Clears the 'customActivityId' field, the 'has' method for this field will now return false */
-  public void clearCustomActivityId() {
-    genClient.clear(CacheKey.customActivityId);
+  /** Clears the 'requestId' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearRequestId() {
+    genClient.clear(CacheKey.requestId);
   }
 
 
@@ -200,8 +208,8 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public ExternalDeviceStateData copyChanges() {
-    ExternalDeviceStateData copy = new ExternalDeviceStateData();
+  public RetrievePaymentRequest copyChanges() {
+    RetrievePaymentRequest copy = new RetrievePaymentRequest();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -210,38 +218,39 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(ExternalDeviceStateData src) {
+  public void mergeChanges(RetrievePaymentRequest src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new ExternalDeviceStateData(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new RetrievePaymentRequest(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<ExternalDeviceStateData> CREATOR = new android.os.Parcelable.Creator<ExternalDeviceStateData>() {
+  public static final android.os.Parcelable.Creator<RetrievePaymentRequest> CREATOR = new android.os.Parcelable.Creator<RetrievePaymentRequest>() {
     @Override
-    public ExternalDeviceStateData createFromParcel(android.os.Parcel in) {
-      ExternalDeviceStateData instance = new ExternalDeviceStateData(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public RetrievePaymentRequest createFromParcel(android.os.Parcel in) {
+      RetrievePaymentRequest instance = new RetrievePaymentRequest(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public ExternalDeviceStateData[] newArray(int size) {
-      return new ExternalDeviceStateData[size];
+    public RetrievePaymentRequest[] newArray(int size) {
+      return new RetrievePaymentRequest[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateData> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateData>() {
+  public static final com.clover.sdk.JSONifiable.Creator<RetrievePaymentRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrievePaymentRequest>() {
     @Override
-    public ExternalDeviceStateData create(org.json.JSONObject jsonObject) {
-      return new ExternalDeviceStateData(jsonObject);
+    public RetrievePaymentRequest create(org.json.JSONObject jsonObject) {
+      return new RetrievePaymentRequest(jsonObject);
     }
   };
 
   public interface Constraints {
 
     public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
-    public static final boolean CUSTOMACTIVITYID_IS_REQUIRED = false;
+    public static final boolean REQUESTID_IS_REQUIRED = false;
+    public static final long REQUESTID_MAX_LEN = 13;
 
   }
 

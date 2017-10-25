@@ -688,6 +688,42 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order addPreAuth(final String orderId, final Payment preAuth) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPreAuth(orderId, new PaymentFdParcelable(preAuth), status));
+      }
+    });
+  }
+
+  public Order capturePreAuth(final String orderId, final Payment preAuth, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.capturePreAuth(orderId, new PaymentFdParcelable(preAuth), new LineItemListFdParcelable(lineItems), status));
+      }
+    });
+  }
+
+  public Order voidPreAuth(final String orderId, final String preAuthId, final String iccContainer, final VoidReason voidReason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPreAuth(orderId, preAuthId, iccContainer, voidReason, source, status));
+      }
+    });
+  }
+
+  public Order voidPreAuthOnline(final String orderId, final String preAuthId, final String iccContainer, final VoidReason voidReason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPreAuthOnline(orderId, preAuthId, iccContainer, voidReason, source, status));
+      }
+    });
+  }
+
   public interface OnOrderUpdateListener2 {
     void onOrderUpdated(String orderId, boolean selfChange);
 

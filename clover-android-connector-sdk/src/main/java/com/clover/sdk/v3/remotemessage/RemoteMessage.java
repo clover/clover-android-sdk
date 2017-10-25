@@ -38,6 +38,11 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPayload payload}</li>
  * <li>{@link #getRemoteSourceSDK remoteSourceSDK}</li>
  * <li>{@link #getRemoteApplicationID remoteApplicationID}</li>
+ * <li>{@link #getVersion version}</li>
+ * <li>{@link #getFragmentIndex fragmentIndex}</li>
+ * <li>{@link #getLastFragment lastFragment}</li>
+ * <li>{@link #getAttachmentEncoding attachmentEncoding}</li>
+ * <li>{@link #getAttachment attachment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -89,6 +94,41 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.remoteApplicationID);
   }
 
+  /**
+   * The Remote Message version.
+   */
+  public java.lang.Integer getVersion() {
+    return genClient.cacheGet(CacheKey.version);
+  }
+
+  /**
+   * The order of fragments when message is split for large attachments.
+   */
+  public java.lang.Integer getFragmentIndex() {
+    return genClient.cacheGet(CacheKey.fragmentIndex);
+  }
+
+  /**
+   * If this is the final fragment in a series.
+   */
+  public java.lang.Boolean getLastFragment() {
+    return genClient.cacheGet(CacheKey.lastFragment);
+  }
+
+  /**
+   * The type of encoding used for the attachment, typically BASE64.
+   */
+  public java.lang.String getAttachmentEncoding() {
+    return genClient.cacheGet(CacheKey.attachmentEncoding);
+  }
+
+  /**
+   * The encoded attachment.
+   */
+  public java.lang.String getAttachment() {
+    return genClient.cacheGet(CacheKey.attachment);
+  }
+
 
 
 
@@ -133,6 +173,36 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
       @Override
       public Object extractValue(RemoteMessage instance) {
         return instance.genClient.extractOther("remoteApplicationID", java.lang.String.class);
+      }
+    },
+    version {
+      @Override
+      public Object extractValue(RemoteMessage instance) {
+        return instance.genClient.extractOther("version", java.lang.Integer.class);
+      }
+    },
+    fragmentIndex {
+      @Override
+      public Object extractValue(RemoteMessage instance) {
+        return instance.genClient.extractOther("fragmentIndex", java.lang.Integer.class);
+      }
+    },
+    lastFragment {
+      @Override
+      public Object extractValue(RemoteMessage instance) {
+        return instance.genClient.extractOther("lastFragment", java.lang.Boolean.class);
+      }
+    },
+    attachmentEncoding {
+      @Override
+      public Object extractValue(RemoteMessage instance) {
+        return instance.genClient.extractOther("attachmentEncoding", java.lang.String.class);
+      }
+    },
+    attachment {
+      @Override
+      public Object extractValue(RemoteMessage instance) {
+        return instance.genClient.extractOther("attachment", java.lang.String.class);
       }
     },
       ;
@@ -238,6 +308,31 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.remoteApplicationID);
   }
 
+  /** Checks whether the 'version' field is set and is not null */
+  public boolean isNotNullVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.version);
+  }
+
+  /** Checks whether the 'fragmentIndex' field is set and is not null */
+  public boolean isNotNullFragmentIndex() {
+    return genClient.cacheValueIsNotNull(CacheKey.fragmentIndex);
+  }
+
+  /** Checks whether the 'lastFragment' field is set and is not null */
+  public boolean isNotNullLastFragment() {
+    return genClient.cacheValueIsNotNull(CacheKey.lastFragment);
+  }
+
+  /** Checks whether the 'attachmentEncoding' field is set and is not null */
+  public boolean isNotNullAttachmentEncoding() {
+    return genClient.cacheValueIsNotNull(CacheKey.attachmentEncoding);
+  }
+
+  /** Checks whether the 'attachment' field is set and is not null */
+  public boolean isNotNullAttachment() {
+    return genClient.cacheValueIsNotNull(CacheKey.attachment);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -273,6 +368,31 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'remoteApplicationID' field has been set, however the value could be null */
   public boolean hasRemoteApplicationID() {
     return genClient.cacheHasKey(CacheKey.remoteApplicationID);
+  }
+
+  /** Checks whether the 'version' field has been set, however the value could be null */
+  public boolean hasVersion() {
+    return genClient.cacheHasKey(CacheKey.version);
+  }
+
+  /** Checks whether the 'fragmentIndex' field has been set, however the value could be null */
+  public boolean hasFragmentIndex() {
+    return genClient.cacheHasKey(CacheKey.fragmentIndex);
+  }
+
+  /** Checks whether the 'lastFragment' field has been set, however the value could be null */
+  public boolean hasLastFragment() {
+    return genClient.cacheHasKey(CacheKey.lastFragment);
+  }
+
+  /** Checks whether the 'attachmentEncoding' field has been set, however the value could be null */
+  public boolean hasAttachmentEncoding() {
+    return genClient.cacheHasKey(CacheKey.attachmentEncoding);
+  }
+
+  /** Checks whether the 'attachment' field has been set, however the value could be null */
+  public boolean hasAttachment() {
+    return genClient.cacheHasKey(CacheKey.attachment);
   }
 
 
@@ -325,6 +445,41 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(remoteApplicationID, CacheKey.remoteApplicationID);
   }
 
+  /**
+   * Sets the field 'version'.
+   */
+  public RemoteMessage setVersion(java.lang.Integer version) {
+    return genClient.setOther(version, CacheKey.version);
+  }
+
+  /**
+   * Sets the field 'fragmentIndex'.
+   */
+  public RemoteMessage setFragmentIndex(java.lang.Integer fragmentIndex) {
+    return genClient.setOther(fragmentIndex, CacheKey.fragmentIndex);
+  }
+
+  /**
+   * Sets the field 'lastFragment'.
+   */
+  public RemoteMessage setLastFragment(java.lang.Boolean lastFragment) {
+    return genClient.setOther(lastFragment, CacheKey.lastFragment);
+  }
+
+  /**
+   * Sets the field 'attachmentEncoding'.
+   */
+  public RemoteMessage setAttachmentEncoding(java.lang.String attachmentEncoding) {
+    return genClient.setOther(attachmentEncoding, CacheKey.attachmentEncoding);
+  }
+
+  /**
+   * Sets the field 'attachment'.
+   */
+  public RemoteMessage setAttachment(java.lang.String attachment) {
+    return genClient.setOther(attachment, CacheKey.attachment);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -353,6 +508,26 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'remoteApplicationID' field, the 'has' method for this field will now return false */
   public void clearRemoteApplicationID() {
     genClient.clear(CacheKey.remoteApplicationID);
+  }
+  /** Clears the 'version' field, the 'has' method for this field will now return false */
+  public void clearVersion() {
+    genClient.clear(CacheKey.version);
+  }
+  /** Clears the 'fragmentIndex' field, the 'has' method for this field will now return false */
+  public void clearFragmentIndex() {
+    genClient.clear(CacheKey.fragmentIndex);
+  }
+  /** Clears the 'lastFragment' field, the 'has' method for this field will now return false */
+  public void clearLastFragment() {
+    genClient.clear(CacheKey.lastFragment);
+  }
+  /** Clears the 'attachmentEncoding' field, the 'has' method for this field will now return false */
+  public void clearAttachmentEncoding() {
+    genClient.clear(CacheKey.attachmentEncoding);
+  }
+  /** Clears the 'attachment' field, the 'has' method for this field will now return false */
+  public void clearAttachment() {
+    genClient.clear(CacheKey.attachment);
   }
 
 
@@ -421,6 +596,11 @@ public class RemoteMessage extends GenericParcelable implements com.clover.sdk.v
     public static final boolean PAYLOAD_IS_REQUIRED = false;
     public static final boolean REMOTESOURCESDK_IS_REQUIRED = false;
     public static final boolean REMOTEAPPLICATIONID_IS_REQUIRED = false;
+    public static final boolean VERSION_IS_REQUIRED = false;
+    public static final boolean FRAGMENTINDEX_IS_REQUIRED = false;
+    public static final boolean LASTFRAGMENT_IS_REQUIRED = false;
+    public static final boolean ATTACHMENTENCODING_IS_REQUIRED = false;
+    public static final boolean ATTACHMENT_IS_REQUIRED = false;
 
   }
 

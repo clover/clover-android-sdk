@@ -37,27 +37,43 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsDefault isDefault}</li>
  * <li>{@link #getTaxableAmount taxableAmount}</li>
  * <li>{@link #getIsVat isVat}</li>
+ * <li>{@link #getTaxAmount taxAmount}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
+  /**
+   * Tax rate id.
+   */
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
+  /**
+   * Tax rate name. This field is optional.
+   */
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
+  /**
+   * The tax rate. 100% = 1e7.
+   */
   public java.lang.Long getRate() {
     return genClient.cacheGet(CacheKey.rate);
   }
 
+  /**
+   * Whether the tax rate was configued as a default tax rate at the time that the payment was created.
+   */
   public java.lang.Boolean getIsDefault() {
     return genClient.cacheGet(CacheKey.isDefault);
   }
 
+  /**
+   * The sub-total of line items that the tax was based on. For VAT, this amount includes tax. For all others, this amount does not include tax.
+   */
   public java.lang.Long getTaxableAmount() {
     return genClient.cacheGet(CacheKey.taxableAmount);
   }
@@ -67,6 +83,13 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
    */
   public java.lang.Boolean getIsVat() {
     return genClient.cacheGet(CacheKey.isVat);
+  }
+
+  /**
+   * The amount of tax collected. In cases where there are multiple payments for an order then it may be necessary to add an extra cent of tax to the last payment.
+   */
+  public java.lang.Long getTaxAmount() {
+    return genClient.cacheGet(CacheKey.taxAmount);
   }
 
 
@@ -107,6 +130,12 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
       @Override
       public Object extractValue(PaymentTaxRate instance) {
         return instance.genClient.extractOther("isVat", java.lang.Boolean.class);
+      }
+    },
+    taxAmount {
+      @Override
+      public Object extractValue(PaymentTaxRate instance) {
+        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
       }
     },
       ;
@@ -215,6 +244,11 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.isVat);
   }
 
+  /** Checks whether the 'taxAmount' field is set and is not null */
+  public boolean isNotNullTaxAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -245,6 +279,11 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'isVat' field has been set, however the value could be null */
   public boolean hasIsVat() {
     return genClient.cacheHasKey(CacheKey.isVat);
+  }
+
+  /** Checks whether the 'taxAmount' field has been set, however the value could be null */
+  public boolean hasTaxAmount() {
+    return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
 
@@ -290,6 +329,13 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
     return genClient.setOther(isVat, CacheKey.isVat);
   }
 
+  /**
+   * Sets the field 'taxAmount'.
+   */
+  public PaymentTaxRate setTaxAmount(java.lang.Long taxAmount) {
+    return genClient.setOther(taxAmount, CacheKey.taxAmount);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -314,6 +360,10 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'isVat' field, the 'has' method for this field will now return false */
   public void clearIsVat() {
     genClient.clear(CacheKey.isVat);
+  }
+  /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
+  public void clearTaxAmount() {
+    genClient.clear(CacheKey.taxAmount);
   }
 
 
@@ -383,6 +433,7 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
     public static final boolean ISDEFAULT_IS_REQUIRED = false;
     public static final boolean TAXABLEAMOUNT_IS_REQUIRED = true;
     public static final boolean ISVAT_IS_REQUIRED = false;
+    public static final boolean TAXAMOUNT_IS_REQUIRED = false;
 
   }
 

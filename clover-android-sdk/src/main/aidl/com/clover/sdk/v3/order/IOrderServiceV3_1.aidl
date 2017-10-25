@@ -152,4 +152,12 @@ interface IOrderServiceV3_1 {
   CreditRefundFdParcelable addCreditRefund(String orderId, in CreditRefundFdParcelable creditRefund, out ResultStatus status);
 
   OrderFdParcelable deleteCreditRefund(String orderId, String creditRefundId, out ResultStatus status);
+
+  OrderFdParcelable addPreAuth(String orderId, in PaymentFdParcelable preAuth, out ResultStatus status);
+
+  OrderFdParcelable capturePreAuth(String orderId, in PaymentFdParcelable preAuth, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
+
+  OrderFdParcelable voidPreAuth(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
+
+  OrderFdParcelable voidPreAuthOnline(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
 }

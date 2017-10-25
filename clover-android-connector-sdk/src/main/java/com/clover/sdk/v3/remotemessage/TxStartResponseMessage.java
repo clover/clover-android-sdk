@@ -34,6 +34,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getOrder order}</li>
  * <li>{@link #getExternalPaymentId externalPaymentId}</li>
  * <li>{@link #getResult result}</li>
+ * <li>{@link #getRequestInfo requestInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -62,6 +63,13 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
 
   public com.clover.sdk.v3.remotemessage.TxStartResponseResult getResult() {
     return genClient.cacheGet(CacheKey.result);
+  }
+
+  /**
+   * Extra information to include with the request, like type of request
+   */
+  public java.lang.String getRequestInfo() {
+    return genClient.cacheGet(CacheKey.requestInfo);
   }
 
   /**
@@ -106,6 +114,12 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
       @Override
       public Object extractValue(TxStartResponseMessage instance) {
         return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotemessage.TxStartResponseResult.class);
+      }
+    },
+    requestInfo {
+      @Override
+      public Object extractValue(TxStartResponseMessage instance) {
+        return instance.genClient.extractOther("requestInfo", java.lang.String.class);
       }
     },
     method {
@@ -210,6 +224,11 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
     return genClient.cacheValueIsNotNull(CacheKey.result);
   }
 
+  /** Checks whether the 'requestInfo' field is set and is not null */
+  public boolean isNotNullRequestInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.requestInfo);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -242,6 +261,11 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
   /** Checks whether the 'result' field has been set, however the value could be null */
   public boolean hasResult() {
     return genClient.cacheHasKey(CacheKey.result);
+  }
+
+  /** Checks whether the 'requestInfo' field has been set, however the value could be null */
+  public boolean hasRequestInfo() {
+    return genClient.cacheHasKey(CacheKey.requestInfo);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -288,6 +312,13 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
   }
 
   /**
+   * Sets the field 'requestInfo'.
+   */
+  public TxStartResponseMessage setRequestInfo(java.lang.String requestInfo) {
+    return genClient.setOther(requestInfo, CacheKey.requestInfo);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -319,6 +350,10 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
   /** Clears the 'result' field, the 'has' method for this field will now return false */
   public void clearResult() {
     genClient.clear(CacheKey.result);
+  }
+  /** Clears the 'requestInfo' field, the 'has' method for this field will now return false */
+  public void clearRequestInfo() {
+    genClient.clear(CacheKey.requestInfo);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -393,6 +428,7 @@ public class TxStartResponseMessage extends com.clover.sdk.v3.remotemessage.Mess
     public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
+    public static final boolean REQUESTINFO_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

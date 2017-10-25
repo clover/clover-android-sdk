@@ -318,6 +318,10 @@ public class OrderCalc {
     return getCalc().getLineSubtotal(toCalcLines(lines)).getCents();
   }
 
+  public long getLineSubtotalBeforeRefunds(final Collection<LineItem> lines) {
+    return getCalc().getLineSubtotalBeforeRefunds(toCalcLines(lines)).getCents();
+  }
+
   public long getLineSubtotalWithoutDiscounts(Collection<LineItem> lines) {
     return getCalc().getLineSubtotalWithoutDiscounts(toCalcLines(lines)).getCents();
   }

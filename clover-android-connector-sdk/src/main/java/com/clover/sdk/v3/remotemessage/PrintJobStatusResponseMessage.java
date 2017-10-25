@@ -28,10 +28,12 @@ import com.clover.sdk.GenericClient;
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * contains the status of the requested print job.
+ * <p>
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getExternalPrintJobId externalPrintJobId}</li>
- * <li>{@link #getPrinters printers}</li>
+ * <li>{@link #getStatus status}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -45,10 +47,10 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
   }
 
   /**
-   * List of printers of the requested type.
+   * The current status of the requested print job
    */
-  public java.util.List<com.clover.sdk.v3.printer.Printer> getPrinters() {
-    return genClient.cacheGet(CacheKey.printers);
+  public com.clover.sdk.v3.printer.PrintJobStatus getStatus() {
+    return genClient.cacheGet(CacheKey.status);
   }
 
   /**
@@ -77,10 +79,10 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
         return instance.genClient.extractOther("externalPrintJobId", java.lang.String.class);
       }
     },
-    printers {
+    status {
       @Override
       public Object extractValue(PrintJobStatusResponseMessage instance) {
-        return instance.genClient.extractListRecord("printers", com.clover.sdk.v3.printer.Printer.JSON_CREATOR);
+        return instance.genClient.extractEnum("status", com.clover.sdk.v3.printer.PrintJobStatus.class);
       }
     },
     method {
@@ -170,13 +172,10 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
     return genClient.cacheValueIsNotNull(CacheKey.externalPrintJobId);
   }
 
-  /** Checks whether the 'printers' field is set and is not null */
-  public boolean isNotNullPrinters() {
-    return genClient.cacheValueIsNotNull(CacheKey.printers);
+  /** Checks whether the 'status' field is set and is not null */
+  public boolean isNotNullStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.status);
   }
-
-  /** Checks whether the 'printers' field is set and is not null and is not empty */
-  public boolean isNotEmptyPrinters() { return isNotNullPrinters() && !getPrinters().isEmpty(); }
 
   /** Checks whether the 'method' field is set and is not null */
   @Override
@@ -197,9 +196,9 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
     return genClient.cacheHasKey(CacheKey.externalPrintJobId);
   }
 
-  /** Checks whether the 'printers' field has been set, however the value could be null */
-  public boolean hasPrinters() {
-    return genClient.cacheHasKey(CacheKey.printers);
+  /** Checks whether the 'status' field has been set, however the value could be null */
+  public boolean hasStatus() {
+    return genClient.cacheHasKey(CacheKey.status);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -223,12 +222,10 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
   }
 
   /**
-   * Sets the field 'printers'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   * Sets the field 'status'.
    */
-  public PrintJobStatusResponseMessage setPrinters(java.util.List<com.clover.sdk.v3.printer.Printer> printers) {
-    return genClient.setArrayRecord(printers, CacheKey.printers);
+  public PrintJobStatusResponseMessage setStatus(com.clover.sdk.v3.printer.PrintJobStatus status) {
+    return genClient.setOther(status, CacheKey.status);
   }
 
   /**
@@ -252,9 +249,9 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
   public void clearExternalPrintJobId() {
     genClient.clear(CacheKey.externalPrintJobId);
   }
-  /** Clears the 'printers' field, the 'has' method for this field will now return false */
-  public void clearPrinters() {
-    genClient.clear(CacheKey.printers);
+  /** Clears the 'status' field, the 'has' method for this field will now return false */
+  public void clearStatus() {
+    genClient.clear(CacheKey.status);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -326,7 +323,7 @@ public class PrintJobStatusResponseMessage extends com.clover.sdk.v3.remotemessa
   public interface Constraints {
 
     public static final boolean EXTERNALPRINTJOBID_IS_REQUIRED = false;
-    public static final boolean PRINTERS_IS_REQUIRED = false;
+    public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

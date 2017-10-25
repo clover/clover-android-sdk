@@ -32,6 +32,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * This class requires WRITE_EXTERNAL_STORAGE permission. Declare the permission in your AndroidManifest.xml
+ * <code>
+ *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ * </code>
+ */
+
 public class ImagePrintJob extends PrintJob implements Parcelable {
 
   private static final int WIDTH_MAX = 600;
@@ -175,7 +182,9 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
   private static File generateImageFileObject() throws IOException {
     File dir = new File("/sdcard", "clover" + File.separator + "image-print");
     if (!dir.exists()) {
-      dir.mkdirs();
+        if (!dir.mkdirs()) {
+            Log.e(TAG, "Unable to create dir for ImagePrintJob. Did you forget to declare WRITE_EXTERNAL_STORAGE permission in your AndroidManifest.xml?");
+        };
     }
     File imageFile = File.createTempFile("image-", ".png", dir);
     return imageFile;

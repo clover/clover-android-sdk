@@ -31,6 +31,7 @@ import com.clover.sdk.GenericClient;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getReason reason}</li>
+ * <li>{@link #getPrinter printer}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -41,6 +42,13 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
    */
   public java.lang.String getReason() {
     return genClient.cacheGet(CacheKey.reason);
+  }
+
+  /**
+   * The ID of the specific drawer to open.
+   */
+  public com.clover.sdk.v3.printer.Printer getPrinter() {
+    return genClient.cacheGet(CacheKey.printer);
   }
 
   /**
@@ -67,6 +75,12 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
       @Override
       public Object extractValue(OpenCashDrawerMessage instance) {
         return instance.genClient.extractOther("reason", java.lang.String.class);
+      }
+    },
+    printer {
+      @Override
+      public Object extractValue(OpenCashDrawerMessage instance) {
+        return instance.genClient.extractRecord("printer", com.clover.sdk.v3.printer.Printer.JSON_CREATOR);
       }
     },
     method {
@@ -156,6 +170,11 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
     return genClient.cacheValueIsNotNull(CacheKey.reason);
   }
 
+  /** Checks whether the 'printer' field is set and is not null */
+  public boolean isNotNullPrinter() {
+    return genClient.cacheValueIsNotNull(CacheKey.printer);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -173,6 +192,11 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
   /** Checks whether the 'reason' field has been set, however the value could be null */
   public boolean hasReason() {
     return genClient.cacheHasKey(CacheKey.reason);
+  }
+
+  /** Checks whether the 'printer' field has been set, however the value could be null */
+  public boolean hasPrinter() {
+    return genClient.cacheHasKey(CacheKey.printer);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -196,6 +220,15 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
   }
 
   /**
+   * Sets the field 'printer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public OpenCashDrawerMessage setPrinter(com.clover.sdk.v3.printer.Printer printer) {
+    return genClient.setRecord(printer, CacheKey.printer);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -215,6 +248,10 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
   /** Clears the 'reason' field, the 'has' method for this field will now return false */
   public void clearReason() {
     genClient.clear(CacheKey.reason);
+  }
+  /** Clears the 'printer' field, the 'has' method for this field will now return false */
+  public void clearPrinter() {
+    genClient.clear(CacheKey.printer);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -286,6 +323,7 @@ public class OpenCashDrawerMessage extends com.clover.sdk.v3.remotemessage.Messa
   public interface Constraints {
 
     public static final boolean REASON_IS_REQUIRED = false;
+    public static final boolean PRINTER_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 
