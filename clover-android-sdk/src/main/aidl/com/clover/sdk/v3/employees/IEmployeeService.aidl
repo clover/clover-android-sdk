@@ -63,4 +63,69 @@ interface IEmployeeService {
 
     Employee getEmployeeForCard(in String cardNumber, out ResultStatus resultStatus);
 
+    /**
+       * Not available to non-Clover apps.
+       *
+       * Set a fingerprint for an employee.
+       * @param employeeId, the employee's ID for whom this fingerprint is set.
+       * @param fingerprintId, the fingerprint ID.
+       * @param resultStatus, Possible status results from calling Clover services. Most Clover service calls accept an instance of the ResultStatus class as an "out" parameter
+       * @y.exclude
+       *
+       * The method sets the fiungerprintId and assosciates it to the EmployeeId. It throws a client exception for incorrect employeeId.
+       * In this case resutStatus is between 400 and 499 or is equal to 999
+       */
+
+    void setFingerprintId(in String employeeId, in String fingerprintId, out ResultStatus resultStatus);
+
+    /**
+       * Not available to non-Clover apps.
+       *
+       * Delete the fingerprint of an employee.
+       * @param employeeId, the employee's ID for whom this fingerprint is set.
+       * @param resultStatus, Possible status results from calling Clover services. Most Clover service calls accept an instance of the ResultStatus class as an "out" parameter
+       * @y.exclude
+       *
+       * The method deletes the fiungerprintId assosciated to the EmployeeId (input parameter). It throws a client exception for incorrect employeeId.
+       * In this case resutStatus is between 400 and 499 or is equal to 999
+       */
+
+    void deleteFingerprintId(in String employeeId, out ResultStatus resultStatus);
+
+    /**
+       * Not available to non-Clover apps.
+       *
+       * Get the fingerprint of an employee.
+       * @param employeeId, the employee's ID for whom this fingerprint is set.
+       * @param resultStatus, Possible status results from calling Clover services. Most Clover service calls accept an instance of the ResultStatus class as an "out" parameter
+       * @y.exclude
+       *
+       * The method gets the fiungerprintId assosciated to the EmployeeId (input parameter). It throws a client exception for incorrect employeeId.
+       * In this case resutStatus is between 400 and 499 or is equal to 999
+       */
+
+    int getFingerprintId(in String employeeId, out ResultStatus resultStatus);
+
+    /**
+           * Not available to non-Clover apps.
+           *
+           * Get all the enrolled fingerprints in merchant db.
+           * @param resultStatus, Possible status results from calling Clover services. Most Clover service calls accept an instance of the ResultStatus class as an "out" parameter
+           * @y.exclude
+           */
+    int[] getEnrolledFingerprints(out ResultStatus resultStatus);
+    /**
+       * Not available to non-Clover apps.
+       *
+       * Get employeeId using the fingerprintId.
+       * @param fingerprintId, the fingerprint ID of the employee.
+       * @param resultStatus, Possible status results from calling Clover services. Most Clover service calls accept an instance of the ResultStatus class as an "out" parameter
+       * @y.exclude
+       *
+       * The method gets the employeeId, given the fingerprintId. It throws a client exception if fingerprintId is incorrect (does not exist).
+       * In this case resutStatus is between 400 and 499 or is equal to 999
+       */
+
+    String getEmployeeId(in int fingerprintId, out ResultStatus resultStatus);
+
 }

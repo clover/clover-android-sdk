@@ -33,7 +33,6 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getId id}</li>
  * <li>{@link #getLineItem lineItem}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getReason reason}</li>
@@ -41,19 +40,13 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedBy createdBy}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getEnvironment environment}</li>
+ * <li>{@link #getClientEventType clientEventType}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
  */
 @SuppressWarnings("all")
 public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
-
-  /**
-   * Unique identifier.
-   */
-  public java.lang.String getId() {
-    return genClient.cacheGet(CacheKey.id);
-  }
 
   /**
    * The line item that was voided
@@ -101,16 +94,17 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheGet(CacheKey.environment);
   }
 
+  /**
+   * What event on the client removed this? Was it because of moving a table? Or was it plain old deleting a line item?
+   */
+  public com.clover.sdk.v3.order.ClientEventType getClientEventType() {
+    return genClient.cacheGet(CacheKey.clientEventType);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VoidedLineItem> {
-    id {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
     lineItem {
       @Override
       public Object extractValue(VoidedLineItem instance) {
@@ -151,6 +145,12 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
       @Override
       public Object extractValue(VoidedLineItem instance) {
         return instance.genClient.extractOther("environment", java.lang.String.class);
+      }
+    },
+    clientEventType {
+      @Override
+      public Object extractValue(VoidedLineItem instance) {
+        return instance.genClient.extractEnum("clientEventType", com.clover.sdk.v3.order.ClientEventType.class);
       }
     },
       ;
@@ -218,12 +218,6 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
-  }
-
-  /** Checks whether the 'id' field is set and is not null */
-  public boolean isNotNullId() {
-    return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
   /** Checks whether the 'lineItem' field is set and is not null */
@@ -261,12 +255,12 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.environment);
   }
 
-
-
-  /** Checks whether the 'id' field has been set, however the value could be null */
-  public boolean hasId() {
-    return genClient.cacheHasKey(CacheKey.id);
+  /** Checks whether the 'clientEventType' field is set and is not null */
+  public boolean isNotNullClientEventType() {
+    return genClient.cacheValueIsNotNull(CacheKey.clientEventType);
   }
+
+
 
   /** Checks whether the 'lineItem' field has been set, however the value could be null */
   public boolean hasLineItem() {
@@ -303,13 +297,11 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheHasKey(CacheKey.environment);
   }
 
-
-  /**
-   * Sets the field 'id'.
-   */
-  public VoidedLineItem setId(java.lang.String id) {
-    return genClient.setOther(id, CacheKey.id);
+  /** Checks whether the 'clientEventType' field has been set, however the value could be null */
+  public boolean hasClientEventType() {
+    return genClient.cacheHasKey(CacheKey.clientEventType);
   }
+
 
   /**
    * Sets the field 'lineItem'.
@@ -368,11 +360,14 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     return genClient.setOther(environment, CacheKey.environment);
   }
 
-
-  /** Clears the 'id' field, the 'has' method for this field will now return false */
-  public void clearId() {
-    genClient.clear(CacheKey.id);
+  /**
+   * Sets the field 'clientEventType'.
+   */
+  public VoidedLineItem setClientEventType(com.clover.sdk.v3.order.ClientEventType clientEventType) {
+    return genClient.setOther(clientEventType, CacheKey.clientEventType);
   }
+
+
   /** Clears the 'lineItem' field, the 'has' method for this field will now return false */
   public void clearLineItem() {
     genClient.clear(CacheKey.lineItem);
@@ -400,6 +395,10 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'environment' field, the 'has' method for this field will now return false */
   public void clearEnvironment() {
     genClient.clear(CacheKey.environment);
+  }
+  /** Clears the 'clientEventType' field, the 'has' method for this field will now return false */
+  public void clearClientEventType() {
+    genClient.clear(CacheKey.clientEventType);
   }
 
 
@@ -460,8 +459,6 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
 
   public interface Constraints {
 
-    public static final boolean ID_IS_REQUIRED = false;
-    public static final long ID_MAX_LEN = 13;
     public static final boolean LINEITEM_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
@@ -469,6 +466,7 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     public static final boolean CREATEDBY_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean ENVIRONMENT_IS_REQUIRED = false;
+    public static final boolean CLIENTEVENTTYPE_IS_REQUIRED = false;
 
   }
 

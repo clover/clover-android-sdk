@@ -32,6 +32,7 @@ import com.clover.sdk.GenericClient;
  * <ul>
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getPaymentId paymentId}</li>
+ * <li>{@link #getDisableCloverPrinting disableCloverPrinting}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -49,6 +50,10 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
    */
   public java.lang.String getPaymentId() {
     return genClient.cacheGet(CacheKey.paymentId);
+  }
+
+  public java.lang.Boolean getDisableCloverPrinting() {
+    return genClient.cacheGet(CacheKey.disableCloverPrinting);
   }
 
   /**
@@ -81,6 +86,12 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
       @Override
       public Object extractValue(ShowPaymentReceiptOptionsMessage instance) {
         return instance.genClient.extractOther("paymentId", java.lang.String.class);
+      }
+    },
+    disableCloverPrinting {
+      @Override
+      public Object extractValue(ShowPaymentReceiptOptionsMessage instance) {
+        return instance.genClient.extractOther("disableCloverPrinting", java.lang.Boolean.class);
       }
     },
     method {
@@ -179,6 +190,11 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
     return genClient.cacheValueIsNotNull(CacheKey.paymentId);
   }
 
+  /** Checks whether the 'disableCloverPrinting' field is set and is not null */
+  public boolean isNotNullDisableCloverPrinting() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableCloverPrinting);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -201,6 +217,11 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
   /** Checks whether the 'paymentId' field has been set, however the value could be null */
   public boolean hasPaymentId() {
     return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'disableCloverPrinting' field has been set, however the value could be null */
+  public boolean hasDisableCloverPrinting() {
+    return genClient.cacheHasKey(CacheKey.disableCloverPrinting);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -231,6 +252,13 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
   }
 
   /**
+   * Sets the field 'disableCloverPrinting'.
+   */
+  public ShowPaymentReceiptOptionsMessage setDisableCloverPrinting(java.lang.Boolean disableCloverPrinting) {
+    return genClient.setOther(disableCloverPrinting, CacheKey.disableCloverPrinting);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -254,6 +282,10 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
   /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
   public void clearPaymentId() {
     genClient.clear(CacheKey.paymentId);
+  }
+  /** Clears the 'disableCloverPrinting' field, the 'has' method for this field will now return false */
+  public void clearDisableCloverPrinting() {
+    genClient.clear(CacheKey.disableCloverPrinting);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -328,6 +360,7 @@ public class ShowPaymentReceiptOptionsMessage extends com.clover.sdk.v3.remoteme
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final long PAYMENTID_MAX_LEN = 13;
+    public static final boolean DISABLECLOVERPRINTING_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

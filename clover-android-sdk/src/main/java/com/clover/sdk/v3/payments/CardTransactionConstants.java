@@ -50,7 +50,6 @@ public class CardTransactionConstants {
   public static final String GERMANY_TERMINAL_ID = "gerTerminalID";
   public static final String FUNC = "func";
   public static final String ALIPAY_TRANS_ID = "aliPayTransId";
-  public static final String ALIPAY_BUYER_LOGIN_ID = "buyerLoginId";
   public static final String ALIPAY_BUYER_USER_ID = "buyerUserId";
   public static final String ALIPAY_EXCHANGE_RATE = "exchangeRate";
   public static final String ALIPAY_CNY_TRANS_AMOUNT = "cnyTransAmount";

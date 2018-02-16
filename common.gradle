@@ -1,0 +1,31 @@
+apply from: file("${project.rootDir}/versions.gradle")
+
+repositories {
+  mavenLocal()
+  google()
+  mavenCentral()
+}
+
+dependencies {
+  testCompile "junit:junit:$JUNIT_VERSION"
+  testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
+  testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+}
+
+configurations.all {
+  resolutionStrategy {
+    //failOnVersionConflict()
+
+    force "com.google.guava:guava:$GUAVA_VERSION"
+    force "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+  }
+}
+
+android {
+  testOptions {
+    unitTests {
+      includeAndroidResources = true
+    }
+  }
+}
+

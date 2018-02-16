@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply from: file("${project.rootDir}/common.gradle")
+apply from: file("${project.rootDir}/versions.gradle")
+apply plugin: 'android-maven'
+
+android {
+  lintOptions {
+    abortOnError false
+  }
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
+
+  defaultConfig {
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
+  }
+
+  useLibrary HTTP_LIBRARY
+
+  packagingOptions {
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+  }
+
+  // tell Android studio that the instrumentTest source set is located in the unit test source set
+  sourceSets {
+    main {
+      manifest.srcFile 'src/main/AndroidManifest.xml'
+    }
+  }
+}
+
+task listLibraries {
+    println project.group + ':' + project.name
+}

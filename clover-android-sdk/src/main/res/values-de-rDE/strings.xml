@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (C) 2013 Clover Network, Inc.
   ~
@@ -17,6 +17,13 @@
 
 <resources>
 
-  <string name="title_activity_account_chooser">Clover-Konten</string>
+  <string name="title_activity_account_chooser">Clover-Konten</string><!-- rotate back to merchant -->
+  <string name="rotateInstructions">Vielen Dank für Ihren Einkauf.\nBitte drehen Sie den Bildschirm zurück.</string>
+  <string name="backToRegisterDescription">Nach rechts zurück zum Händler drehen</string><!-- return to merchant -->
+  <string name="returnToMerchantPaymentSuccessful">Vielen Dank für Ihren Einkauf.\nBitte geben Sie dieses Gerät einem Mitarbeiter zurück</string>
+  <string name="returnToMerchantTitle">Fertig!</string>
+  <string name="returnToMerchant">Bitte geben Sie dieses Gerät einem Mitarbeiter zurück</string>
+
+  <string name="returnToMerchantFontFamily">sans-serif-light</string>
 
 </resources>

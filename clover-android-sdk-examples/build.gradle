@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '183'
+version = '191.3'
 
-apply plugin: 'android'
+apply from: file("${project.rootDir}/versions.gradle")
+
+apply plugin: 'com.android.application'
 
 repositories {
   mavenLocal()
@@ -27,12 +29,13 @@ android {
       lintOptions {
           abortOnError false
       }
-  compileSdkVersion 21
-  buildToolsVersion "25.0.0"
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
+  useLibrary HTTP_LIBRARY
 
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 17
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
   }
 }
 

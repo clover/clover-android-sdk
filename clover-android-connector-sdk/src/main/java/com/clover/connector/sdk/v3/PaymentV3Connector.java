@@ -21,11 +21,13 @@ import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.remotepay.AuthResponse;
 import com.clover.sdk.v3.remotepay.CapturePreAuthResponse;
+import com.clover.sdk.v3.remotepay.CloseoutResponse;
 import com.clover.sdk.v3.remotepay.ConfirmPaymentRequest;
 import com.clover.sdk.v3.remotepay.ManualRefundResponse;
 import com.clover.sdk.v3.remotepay.PreAuthResponse;
 import com.clover.sdk.v3.remotepay.ReadCardDataResponse;
 import com.clover.sdk.v3.remotepay.RefundPaymentResponse;
+import com.clover.sdk.v3.remotepay.RetrievePaymentResponse;
 import com.clover.sdk.v3.remotepay.RetrievePendingPaymentsResponse;
 import com.clover.sdk.v3.remotepay.SaleResponse;
 import com.clover.sdk.v3.remotepay.TipAdded;
@@ -269,7 +271,22 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
      * Called in response to a readCardData(...) request.
      * @param response
      */
+
     void onReadCardDataResponse(ReadCardDataResponse response);
+
+    /**
+     * Called in response to a RetrievePaymentRequest
+     *
+     * @param response The response
+     */
+    void onRetrievePaymentResponse(RetrievePaymentResponse response);
+
+    /**
+     * Called in response to a closeout being processed
+     *
+     * @param response The response
+     */
+    void onCloseoutResponse(CloseoutResponse response);
   }
 
   private static class PaymentServiceListenerParent extends IPaymentServiceListener.Stub {
@@ -448,6 +465,26 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
         @Override
         public void run() {
           getListener().onReadCardDataResponse(response);
+        }
+      });
+    }
+
+    @Override
+    public void onRetrievePaymentResponse(final RetrievePaymentResponse response) throws RemoteException {
+      conditionallyRunTask(new PaymentConnectorTask() {
+        @Override
+        public void run() {
+          getListener().onRetrievePaymentResponse(response);
+        }
+      });
+    }
+
+    @Override
+    public void onCloseoutResponse(final CloseoutResponse response) throws RemoteException {
+      conditionallyRunTask(new PaymentConnectorTask() {
+        @Override
+        public void run() {
+          getListener().onCloseoutResponse(response);
         }
       });
     }

@@ -60,4 +60,8 @@ public class PrinterIntent {
    * receipt printers are configured.
    */
   public static final String EXTRA_OPEN_ANY = "clover.intent.extra.OPEN_ANY";
+  /**
+   * A {@link java.lang.Integer}, specify the cash drawer number to be opened
+   */
+  public static final String CASH_DRAWER_NUMBER = "clover.intent.extra.CASH_DRAWER_NUMBER";
 }

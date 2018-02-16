@@ -16,10 +16,13 @@
 package com.clover.sdk;
 
 import android.content.Context;
+import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
-public abstract class SimpleSyncClient {
+public abstract class SimpleSyncClient extends ContentObserver {
   public static final String METHOD_GET = "get";
   public static final String METHOD_PUT = "put";
   public static final String METHOD_UPDATE = "update";
@@ -30,6 +33,11 @@ public abstract class SimpleSyncClient {
   protected final Context context;
 
   public SimpleSyncClient(Context context) {
+    this(context, new Handler(Looper.getMainLooper()));
+  }
+
+  public SimpleSyncClient(Context context, Handler observerHandler) {
+    super(observerHandler);
     this.context = context;
   }
 
@@ -64,5 +72,13 @@ public abstract class SimpleSyncClient {
 
   protected Uri getAuthorityUri() {
     return Uri.parse("content://" + getAuthority());
+  }
+
+  public void register() {
+    context.getContentResolver().registerContentObserver(getAuthorityUri(), false, this);
+  }
+
+  public void unregister() {
+    context.getContentResolver().unregisterContentObserver(this);
   }
 }

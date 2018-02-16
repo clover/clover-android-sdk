@@ -1,6 +1,7 @@
 package com.clover.sdk.v3.order;
 
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v3.order.ClientEventType;
 import com.clover.sdk.v3.order.Modification;
 import com.clover.sdk.v3.order.OrderSummary;
 import com.clover.sdk.v3.order.IOnOrderUpdateListener;
@@ -160,4 +161,15 @@ interface IOrderServiceV3_1 {
   OrderFdParcelable voidPreAuth(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
 
   OrderFdParcelable voidPreAuthOnline(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
+
+  /**
+   * Delete {@link LineItem}s from an {@link Order}.
+   *
+   * @param orderId The ID of the {@link Order} from which to delete the line items.
+   * @param lineItemIds The {@link LineItem} IDs to delete.
+   * @param reason optional. Why was the line item removed?
+   * @param clientEventType optional. What app did the delete come from?
+   * @return The updated {@link Order}.
+   */
+  OrderFdParcelable deleteLineItemsWithReason(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, out ResultStatus status);
 }

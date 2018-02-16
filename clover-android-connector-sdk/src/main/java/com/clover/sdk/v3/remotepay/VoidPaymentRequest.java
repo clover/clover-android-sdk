@@ -34,6 +34,8 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getPaymentId paymentId}</li>
  * <li>{@link #getEmployeeId employeeId}</li>
  * <li>{@link #getVoidReason voidReason}</li>
+ * <li>{@link #getDisablePrinting disablePrinting}</li>
+ * <li>{@link #getDisableReceiptSelection disableReceiptSelection}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +67,20 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
    */
   public java.lang.String getVoidReason() {
     return genClient.cacheGet(CacheKey.voidReason);
+  }
+
+  /**
+   * If true, then do not print using the clover printer.  Return print information.
+   */
+  public java.lang.Boolean getDisablePrinting() {
+    return genClient.cacheGet(CacheKey.disablePrinting);
+  }
+
+  /**
+   * Do not show the receipt options screen
+   */
+  public java.lang.Boolean getDisableReceiptSelection() {
+    return genClient.cacheGet(CacheKey.disableReceiptSelection);
   }
 
   /**
@@ -101,6 +117,18 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
       @Override
       public Object extractValue(VoidPaymentRequest instance) {
         return instance.genClient.extractOther("voidReason", java.lang.String.class);
+      }
+    },
+    disablePrinting {
+      @Override
+      public Object extractValue(VoidPaymentRequest instance) {
+        return instance.genClient.extractOther("disablePrinting", java.lang.Boolean.class);
+      }
+    },
+    disableReceiptSelection {
+      @Override
+      public Object extractValue(VoidPaymentRequest instance) {
+        return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
       }
     },
     requestId {
@@ -205,6 +233,16 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
     return genClient.cacheValueIsNotNull(CacheKey.voidReason);
   }
 
+  /** Checks whether the 'disablePrinting' field is set and is not null */
+  public boolean isNotNullDisablePrinting() {
+    return genClient.cacheValueIsNotNull(CacheKey.disablePrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field is set and is not null */
+  public boolean isNotNullDisableReceiptSelection() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableReceiptSelection);
+  }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -231,6 +269,16 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   /** Checks whether the 'voidReason' field has been set, however the value could be null */
   public boolean hasVoidReason() {
     return genClient.cacheHasKey(CacheKey.voidReason);
+  }
+
+  /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
+  public boolean hasDisablePrinting() {
+    return genClient.cacheHasKey(CacheKey.disablePrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field has been set, however the value could be null */
+  public boolean hasDisableReceiptSelection() {
+    return genClient.cacheHasKey(CacheKey.disableReceiptSelection);
   }
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
@@ -269,6 +317,20 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   }
 
   /**
+   * Sets the field 'disablePrinting'.
+   */
+  public VoidPaymentRequest setDisablePrinting(java.lang.Boolean disablePrinting) {
+    return genClient.setOther(disablePrinting, CacheKey.disablePrinting);
+  }
+
+  /**
+   * Sets the field 'disableReceiptSelection'.
+   */
+  public VoidPaymentRequest setDisableReceiptSelection(java.lang.Boolean disableReceiptSelection) {
+    return genClient.setOther(disableReceiptSelection, CacheKey.disableReceiptSelection);
+  }
+
+  /**
    * Sets the field 'requestId'.
    */
   @Override
@@ -292,6 +354,14 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   /** Clears the 'voidReason' field, the 'has' method for this field will now return false */
   public void clearVoidReason() {
     genClient.clear(CacheKey.voidReason);
+  }
+  /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
+  public void clearDisablePrinting() {
+    genClient.clear(CacheKey.disablePrinting);
+  }
+  /** Clears the 'disableReceiptSelection' field, the 'has' method for this field will now return false */
+  public void clearDisableReceiptSelection() {
+    genClient.clear(CacheKey.disableReceiptSelection);
   }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
@@ -364,6 +434,8 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
     public static final boolean EMPLOYEEID_IS_REQUIRED = false;
     public static final long EMPLOYEEID_MAX_LEN = 13;
     public static final boolean VOIDREASON_IS_REQUIRED = false;
+    public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
+    public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
 

@@ -26,6 +26,7 @@ import com.clover.sdk.v3.remotepay.AuthResponse;
 import com.clover.sdk.v3.remotepay.CapturePreAuthRequest;
 import com.clover.sdk.v3.remotepay.CapturePreAuthResponse;
 import com.clover.sdk.v3.remotepay.CloseoutRequest;
+import com.clover.sdk.v3.remotepay.CloseoutResponse;
 import com.clover.sdk.v3.remotepay.ConfirmPaymentRequest;
 import com.clover.sdk.v3.remotepay.ManualRefundRequest;
 import com.clover.sdk.v3.remotepay.ManualRefundResponse;
@@ -36,6 +37,7 @@ import com.clover.sdk.v3.remotepay.ReadCardDataResponse;
 import com.clover.sdk.v3.remotepay.RefundPaymentRequest;
 import com.clover.sdk.v3.remotepay.RefundPaymentResponse;
 import com.clover.sdk.v3.remotepay.RetrievePaymentRequest;
+import com.clover.sdk.v3.remotepay.RetrievePaymentResponse;
 import com.clover.sdk.v3.remotepay.RetrievePendingPaymentsResponse;
 import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.SaleResponse;
@@ -164,6 +166,30 @@ public class PaymentConnector implements IPaymentConnector {
     public void onReadCardDataResponse(ReadCardDataResponse response) {
       for (IDeviceConnectorListener listener:listeners) {
         ((IPaymentConnectorListener)listener).onReadCardDataResponse(response);
+      }
+    }
+
+    /**
+     * Called in response to a RetrievePaymentRequest
+     *
+     * @param response The response
+     */
+    @Override
+    public void onRetrievePaymentResponse(RetrievePaymentResponse response) {
+      for (IDeviceConnectorListener listener:listeners) {
+        ((IPaymentConnectorListener)listener).onRetrievePaymentResponse(response);
+      }
+    }
+
+    /**
+     * Called in response to a closeout being processed
+     *
+     * @param response The response
+     */
+    @Override
+    public void onCloseoutResponse(CloseoutResponse response) {
+      for (IDeviceConnectorListener listener:listeners) {
+        ((IPaymentConnectorListener)listener).onCloseoutResponse(response);
       }
     }
   };
@@ -757,7 +783,7 @@ public class PaymentConnector implements IPaymentConnector {
    */
   @Override
   public void closeout(final CloseoutRequest request) {
-    /*try {
+    try {
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().closeout(request);
@@ -781,7 +807,6 @@ public class PaymentConnector implements IPaymentConnector {
     } catch (RemoteException e) {
       Log.e(this.getClass().getSimpleName(), " closeout", e);
     }
-    */
   }
 
   /**
@@ -792,7 +817,7 @@ public class PaymentConnector implements IPaymentConnector {
    */
   @Override
   public void retrievePayment(final RetrievePaymentRequest request) {
-    /*try {
+    try {
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().retrievePayment(request);
@@ -816,6 +841,5 @@ public class PaymentConnector implements IPaymentConnector {
     } catch (RemoteException e) {
       Log.e(this.getClass().getSimpleName(), " retrievePayment", e);
     }
-    */
   }
 }

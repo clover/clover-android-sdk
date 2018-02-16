@@ -23,26 +23,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Provides information about the device currently being used.
+ * Provides information about the device currently being used. Please keep usages of this class to
+ * a minimum. Please prefer standard Android APIs such as {@link android.os.PowerManager},
+ * {@link android.net.ConnectivityManager} and {@link android.content.res.Configuration} to get
+ * information about the device.
  */
 public enum Platform {
 
   TF300T("Clover Hub", Orientation.LANDSCAPE),
-  C100("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET, Feature.CUSTOMER_ROTATION),
+  C100("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET, Feature.CUSTOMER_ROTATION, Feature.DEFAULT_EMPLOYEE),
   C200("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
   C201("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
   C300("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
   C301("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  // C400 is deprecated, and should only be set for devices with pre-PVT roms
+  /** C400 is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
   C400("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  /** C400U is deprecated, and should only be set for devices with pre-PVT roms */
+  @Deprecated
   C400U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  /** C400E is deprecated, and should only be set for devices with pre-PVT roms */
+  @Deprecated
   C400E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
   C401U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
   C401E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C500("Clover Station", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
-  // TODO: Unclear of exact capabilities for this device. Specifically, ethernet.
-  C550("Clover Station", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
+  C401L("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C500("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
+  /** Currently not used */
+  C550("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
   OTHER("Other", Orientation.LANDSCAPE),
   ;
 
@@ -54,7 +62,8 @@ public enum Platform {
    */
   public enum Feature {
     /**
-     * Device supports the Clover Secure Payments application for taking EMV ICC and NFC payments.
+     * Device supports the Clover Secure Payments application for taking Mag-stripe, EMV ICC and/or
+     * NFC payments.
      */
     SECURE_PAYMENTS,
     /**
@@ -72,7 +81,7 @@ public enum Platform {
      */
     DEFAULT_EMPLOYEE,
     /**
-     * Device has battery.
+     * Device designed for use on battery power.
      */
     BATTERY,
     /**
@@ -92,21 +101,21 @@ public enum Platform {
      * Device supports merchant to customer rotation with landscape->portrait configuration change
      */
     CUSTOMER_ROTATION,
-
+    ;
   }
 
   /**
-   * List of secure processor platforms
+   * List of secure processor platforms.
    */
   public enum SecureProcessorPlatform {
     BROADCOM,
-    MAXIM
+    MAXIM,
   }
 
   /** The default orientation for this device, not the current orientation. */
   public enum Orientation {
     LANDSCAPE,
-    PORTRAIT
+    PORTRAIT,
   }
 
   /**
@@ -171,16 +180,15 @@ public enum Platform {
     return isCloverFlex();
   }
 
+  /**
+   * Return the platform of the secure processor, null for devices that do not have a secure processor.
+   */
   public static SecureProcessorPlatform getSecureProcessorPlatform() {
-    if (isCloverFlex() || get() == C500) {
-      return SecureProcessorPlatform.BROADCOM;
-    }
-    // TODO put in the real code for Golden Oak
-    if (isCloverGoldenOak()) {
-      return SecureProcessorPlatform.BROADCOM;
-    }
     if (isCloverMini() || isCloverMobile()) {
       return SecureProcessorPlatform.MAXIM;
+    }
+    if (supportsFeature(Feature.SECURE_PAYMENTS)) {
+      return SecureProcessorPlatform.BROADCOM;
     }
     return null;
   }
@@ -192,10 +200,17 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverFlex() {
-    Platform p = get();
-    return  p == C400 || p == C400U || p == C400E || p == C401U || p == C401E;
+    switch (get()) {
+      case C400:
+      case C400U:
+      case C400E:
+      case C401U:
+      case C401E:
+      case C401L:
+        return true;
+    }
+    return false;
   }
-
 
   /**
    * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
@@ -203,12 +218,18 @@ public enum Platform {
    * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
    * forward compatibility with new Clover hardware.
    */
-  public static boolean isCloverGoldenOak() {
+  public static boolean isCloverStation2018() {
     Platform p = get();
     return  p == C500 || p == C550;
   }
 
-
+  /**
+   * @deprecated Use {@link #isCloverStation2018()}.
+   */
+  @Deprecated
+  public static boolean isCloverGoldenOak() {
+    return isCloverStation2018();
+  }
 
   /**
    * @deprecated Use {@link #supportsFeature(Feature)} with an argument of {@link Feature#MOBILE_DATA}.
@@ -243,7 +264,7 @@ public enum Platform {
    */
   @Deprecated
   public static boolean isSupportsCustomerMode() {
-    return isCloverMini() || isCloverMobile() || isCloverFlex() || isCloverGoldenOak();
+    return get().isSupportsFeature(Feature.CUSTOMER_MODE);
   }
 
   /**
@@ -257,7 +278,7 @@ public enum Platform {
   /**
    * Get the default orientation under which this device is normally used.
    *
-   * @return the default orientation for Clover devices, null for non-Clover devices
+   * @return the default orientation for Clover devices, undefined for non-Clover devices
    */
   public static Orientation defaultOrientation() {
     return get().getDefaultOrientation();

@@ -51,6 +51,13 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getConfigProductLabel configProductLabel}</li>
  * <li>{@link #getHostResponseAidParBMP53 hostResponseAidParBMP53}</li>
  * <li>{@link #getHostResponsePrintDataBM60 hostResponsePrintDataBM60}</li>
+ * <li>{@link #getSepaElvReceiptFormat sepaElvReceiptFormat}</li>
+ * <li>{@link #getSepaElvExtAppLabel sepaElvExtAppLabel}</li>
+ * <li>{@link #getSepaElvPreNotification sepaElvPreNotification}</li>
+ * <li>{@link #getSepaElvMandate sepaElvMandate}</li>
+ * <li>{@link #getSepaElvCreditorId sepaElvCreditorId}</li>
+ * <li>{@link #getSepaElvMandateId sepaElvMandateId}</li>
+ * <li>{@link #getSepaElvIban sepaElvIban}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -134,6 +141,34 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
 
   public java.lang.String getHostResponsePrintDataBM60() {
     return genClient.cacheGet(CacheKey.hostResponsePrintDataBM60);
+  }
+
+  public java.lang.String getSepaElvReceiptFormat() {
+    return genClient.cacheGet(CacheKey.sepaElvReceiptFormat);
+  }
+
+  public java.lang.String getSepaElvExtAppLabel() {
+    return genClient.cacheGet(CacheKey.sepaElvExtAppLabel);
+  }
+
+  public java.lang.String getSepaElvPreNotification() {
+    return genClient.cacheGet(CacheKey.sepaElvPreNotification);
+  }
+
+  public java.lang.String getSepaElvMandate() {
+    return genClient.cacheGet(CacheKey.sepaElvMandate);
+  }
+
+  public java.lang.String getSepaElvCreditorId() {
+    return genClient.cacheGet(CacheKey.sepaElvCreditorId);
+  }
+
+  public java.lang.String getSepaElvMandateId() {
+    return genClient.cacheGet(CacheKey.sepaElvMandateId);
+  }
+
+  public java.lang.String getSepaElvIban() {
+    return genClient.cacheGet(CacheKey.sepaElvIban);
   }
 
 
@@ -258,6 +293,48 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
       @Override
       public Object extractValue(GermanInfo instance) {
         return instance.genClient.extractOther("hostResponsePrintDataBM60", java.lang.String.class);
+      }
+    },
+    sepaElvReceiptFormat {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvReceiptFormat", java.lang.String.class);
+      }
+    },
+    sepaElvExtAppLabel {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvExtAppLabel", java.lang.String.class);
+      }
+    },
+    sepaElvPreNotification {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvPreNotification", java.lang.String.class);
+      }
+    },
+    sepaElvMandate {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvMandate", java.lang.String.class);
+      }
+    },
+    sepaElvCreditorId {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvCreditorId", java.lang.String.class);
+      }
+    },
+    sepaElvMandateId {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvMandateId", java.lang.String.class);
+      }
+    },
+    sepaElvIban {
+      @Override
+      public Object extractValue(GermanInfo instance) {
+        return instance.genClient.extractOther("sepaElvIban", java.lang.String.class);
       }
     },
       ;
@@ -427,6 +504,41 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.hostResponsePrintDataBM60);
   }
 
+  /** Checks whether the 'sepaElvReceiptFormat' field is set and is not null */
+  public boolean isNotNullSepaElvReceiptFormat() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvReceiptFormat);
+  }
+
+  /** Checks whether the 'sepaElvExtAppLabel' field is set and is not null */
+  public boolean isNotNullSepaElvExtAppLabel() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvExtAppLabel);
+  }
+
+  /** Checks whether the 'sepaElvPreNotification' field is set and is not null */
+  public boolean isNotNullSepaElvPreNotification() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvPreNotification);
+  }
+
+  /** Checks whether the 'sepaElvMandate' field is set and is not null */
+  public boolean isNotNullSepaElvMandate() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvMandate);
+  }
+
+  /** Checks whether the 'sepaElvCreditorId' field is set and is not null */
+  public boolean isNotNullSepaElvCreditorId() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvCreditorId);
+  }
+
+  /** Checks whether the 'sepaElvMandateId' field is set and is not null */
+  public boolean isNotNullSepaElvMandateId() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvMandateId);
+  }
+
+  /** Checks whether the 'sepaElvIban' field is set and is not null */
+  public boolean isNotNullSepaElvIban() {
+    return genClient.cacheValueIsNotNull(CacheKey.sepaElvIban);
+  }
+
 
 
   /** Checks whether the 'cardTrack2' field has been set, however the value could be null */
@@ -527,6 +639,41 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'hostResponsePrintDataBM60' field has been set, however the value could be null */
   public boolean hasHostResponsePrintDataBM60() {
     return genClient.cacheHasKey(CacheKey.hostResponsePrintDataBM60);
+  }
+
+  /** Checks whether the 'sepaElvReceiptFormat' field has been set, however the value could be null */
+  public boolean hasSepaElvReceiptFormat() {
+    return genClient.cacheHasKey(CacheKey.sepaElvReceiptFormat);
+  }
+
+  /** Checks whether the 'sepaElvExtAppLabel' field has been set, however the value could be null */
+  public boolean hasSepaElvExtAppLabel() {
+    return genClient.cacheHasKey(CacheKey.sepaElvExtAppLabel);
+  }
+
+  /** Checks whether the 'sepaElvPreNotification' field has been set, however the value could be null */
+  public boolean hasSepaElvPreNotification() {
+    return genClient.cacheHasKey(CacheKey.sepaElvPreNotification);
+  }
+
+  /** Checks whether the 'sepaElvMandate' field has been set, however the value could be null */
+  public boolean hasSepaElvMandate() {
+    return genClient.cacheHasKey(CacheKey.sepaElvMandate);
+  }
+
+  /** Checks whether the 'sepaElvCreditorId' field has been set, however the value could be null */
+  public boolean hasSepaElvCreditorId() {
+    return genClient.cacheHasKey(CacheKey.sepaElvCreditorId);
+  }
+
+  /** Checks whether the 'sepaElvMandateId' field has been set, however the value could be null */
+  public boolean hasSepaElvMandateId() {
+    return genClient.cacheHasKey(CacheKey.sepaElvMandateId);
+  }
+
+  /** Checks whether the 'sepaElvIban' field has been set, however the value could be null */
+  public boolean hasSepaElvIban() {
+    return genClient.cacheHasKey(CacheKey.sepaElvIban);
   }
 
 
@@ -670,6 +817,55 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.setOther(hostResponsePrintDataBM60, CacheKey.hostResponsePrintDataBM60);
   }
 
+  /**
+   * Sets the field 'sepaElvReceiptFormat'.
+   */
+  public GermanInfo setSepaElvReceiptFormat(java.lang.String sepaElvReceiptFormat) {
+    return genClient.setOther(sepaElvReceiptFormat, CacheKey.sepaElvReceiptFormat);
+  }
+
+  /**
+   * Sets the field 'sepaElvExtAppLabel'.
+   */
+  public GermanInfo setSepaElvExtAppLabel(java.lang.String sepaElvExtAppLabel) {
+    return genClient.setOther(sepaElvExtAppLabel, CacheKey.sepaElvExtAppLabel);
+  }
+
+  /**
+   * Sets the field 'sepaElvPreNotification'.
+   */
+  public GermanInfo setSepaElvPreNotification(java.lang.String sepaElvPreNotification) {
+    return genClient.setOther(sepaElvPreNotification, CacheKey.sepaElvPreNotification);
+  }
+
+  /**
+   * Sets the field 'sepaElvMandate'.
+   */
+  public GermanInfo setSepaElvMandate(java.lang.String sepaElvMandate) {
+    return genClient.setOther(sepaElvMandate, CacheKey.sepaElvMandate);
+  }
+
+  /**
+   * Sets the field 'sepaElvCreditorId'.
+   */
+  public GermanInfo setSepaElvCreditorId(java.lang.String sepaElvCreditorId) {
+    return genClient.setOther(sepaElvCreditorId, CacheKey.sepaElvCreditorId);
+  }
+
+  /**
+   * Sets the field 'sepaElvMandateId'.
+   */
+  public GermanInfo setSepaElvMandateId(java.lang.String sepaElvMandateId) {
+    return genClient.setOther(sepaElvMandateId, CacheKey.sepaElvMandateId);
+  }
+
+  /**
+   * Sets the field 'sepaElvIban'.
+   */
+  public GermanInfo setSepaElvIban(java.lang.String sepaElvIban) {
+    return genClient.setOther(sepaElvIban, CacheKey.sepaElvIban);
+  }
+
 
   /** Clears the 'cardTrack2' field, the 'has' method for this field will now return false */
   public void clearCardTrack2() {
@@ -751,6 +947,34 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
   public void clearHostResponsePrintDataBM60() {
     genClient.clear(CacheKey.hostResponsePrintDataBM60);
   }
+  /** Clears the 'sepaElvReceiptFormat' field, the 'has' method for this field will now return false */
+  public void clearSepaElvReceiptFormat() {
+    genClient.clear(CacheKey.sepaElvReceiptFormat);
+  }
+  /** Clears the 'sepaElvExtAppLabel' field, the 'has' method for this field will now return false */
+  public void clearSepaElvExtAppLabel() {
+    genClient.clear(CacheKey.sepaElvExtAppLabel);
+  }
+  /** Clears the 'sepaElvPreNotification' field, the 'has' method for this field will now return false */
+  public void clearSepaElvPreNotification() {
+    genClient.clear(CacheKey.sepaElvPreNotification);
+  }
+  /** Clears the 'sepaElvMandate' field, the 'has' method for this field will now return false */
+  public void clearSepaElvMandate() {
+    genClient.clear(CacheKey.sepaElvMandate);
+  }
+  /** Clears the 'sepaElvCreditorId' field, the 'has' method for this field will now return false */
+  public void clearSepaElvCreditorId() {
+    genClient.clear(CacheKey.sepaElvCreditorId);
+  }
+  /** Clears the 'sepaElvMandateId' field, the 'has' method for this field will now return false */
+  public void clearSepaElvMandateId() {
+    genClient.clear(CacheKey.sepaElvMandateId);
+  }
+  /** Clears the 'sepaElvIban' field, the 'has' method for this field will now return false */
+  public void clearSepaElvIban() {
+    genClient.clear(CacheKey.sepaElvIban);
+  }
 
 
   /**
@@ -830,6 +1054,13 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean CONFIGPRODUCTLABEL_IS_REQUIRED = false;
     public static final boolean HOSTRESPONSEAIDPARBMP53_IS_REQUIRED = false;
     public static final boolean HOSTRESPONSEPRINTDATABM60_IS_REQUIRED = false;
+    public static final boolean SEPAELVRECEIPTFORMAT_IS_REQUIRED = false;
+    public static final boolean SEPAELVEXTAPPLABEL_IS_REQUIRED = false;
+    public static final boolean SEPAELVPRENOTIFICATION_IS_REQUIRED = false;
+    public static final boolean SEPAELVMANDATE_IS_REQUIRED = false;
+    public static final boolean SEPAELVCREDITORID_IS_REQUIRED = false;
+    public static final boolean SEPAELVMANDATEID_IS_REQUIRED = false;
+    public static final boolean SEPAELVIBAN_IS_REQUIRED = false;
 
   }
 
