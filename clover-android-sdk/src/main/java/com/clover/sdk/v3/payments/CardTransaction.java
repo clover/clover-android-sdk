@@ -47,6 +47,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCardholderName cardholderName}</li>
  * <li>{@link #getToken token}</li>
  * <li>{@link #getVaultedCard vaultedCard}</li>
+ * <li>{@link #getGatewayTxState gatewayTxState}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -93,6 +94,9 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.transactionNo);
   }
 
+  /**
+   * A state inferred from transaction type and whether the gateway captured the transaction
+   */
   public com.clover.sdk.v3.payments.CardTransactionState getState() {
     return genClient.cacheGet(CacheKey.state);
   }
@@ -129,6 +133,13 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
    */
   public com.clover.sdk.v3.payments.VaultedCard getVaultedCard() {
     return genClient.cacheGet(CacheKey.vaultedCard);
+  }
+
+  /**
+   * The state as currently recorded. This differs from the legacy 'state' field. The legacy 'state' field is calculated from the 'type' field and whether the transaction was captured.
+   */
+  public com.clover.sdk.v3.payments.GatewayTxState getGatewayTxState() {
+    return genClient.cacheGet(CacheKey.gatewayTxState);
   }
 
 
@@ -229,6 +240,12 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(CardTransaction instance) {
         return instance.genClient.extractRecord("vaultedCard", com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR);
+      }
+    },
+    gatewayTxState {
+      @Override
+      public Object extractValue(CardTransaction instance) {
+        return instance.genClient.extractEnum("gatewayTxState", com.clover.sdk.v3.payments.GatewayTxState.class);
       }
     },
       ;
@@ -393,6 +410,11 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.vaultedCard);
   }
 
+  /** Checks whether the 'gatewayTxState' field is set and is not null */
+  public boolean isNotNullGatewayTxState() {
+    return genClient.cacheValueIsNotNull(CacheKey.gatewayTxState);
+  }
+
 
 
   /** Checks whether the 'cardType' field has been set, however the value could be null */
@@ -473,6 +495,11 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'vaultedCard' field has been set, however the value could be null */
   public boolean hasVaultedCard() {
     return genClient.cacheHasKey(CacheKey.vaultedCard);
+  }
+
+  /** Checks whether the 'gatewayTxState' field has been set, however the value could be null */
+  public boolean hasGatewayTxState() {
+    return genClient.cacheHasKey(CacheKey.gatewayTxState);
   }
 
 
@@ -590,6 +617,13 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.setRecord(vaultedCard, CacheKey.vaultedCard);
   }
 
+  /**
+   * Sets the field 'gatewayTxState'.
+   */
+  public CardTransaction setGatewayTxState(com.clover.sdk.v3.payments.GatewayTxState gatewayTxState) {
+    return genClient.setOther(gatewayTxState, CacheKey.gatewayTxState);
+  }
+
 
   /** Clears the 'cardType' field, the 'has' method for this field will now return false */
   public void clearCardType() {
@@ -654,6 +688,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   /** Clears the 'vaultedCard' field, the 'has' method for this field will now return false */
   public void clearVaultedCard() {
     genClient.clear(CacheKey.vaultedCard);
+  }
+  /** Clears the 'gatewayTxState' field, the 'has' method for this field will now return false */
+  public void clearGatewayTxState() {
+    genClient.clear(CacheKey.gatewayTxState);
   }
 
 
@@ -736,6 +774,7 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
     public static final boolean VAULTEDCARD_IS_REQUIRED = false;
+    public static final boolean GATEWAYTXSTATE_IS_REQUIRED = false;
 
   }
 

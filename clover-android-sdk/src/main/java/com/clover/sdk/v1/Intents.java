@@ -419,6 +419,7 @@ public class Intents {
    * <ul>
    * <li>{@link #EXTRA_PAYMENT} - created payment</li>
    * <li>{@link #EXTRA_PAYMENT_ID} - created payment's UUID</li>
+   * <li>{@link #EXTRA_VAS_PAYLOAD} - any vas payload read during session</li>
    * </ul>
    * <p>
    * Result codes:
@@ -428,6 +429,11 @@ public class Intents {
    * </ul>
    */
   public static final String ACTION_SECURE_PAY = "clover.intent.action.START_SECURE_PAYMENT";
+
+  /**
+   * Services that implement the IVasProvider interface
+   */
+  public static final String SERVICE_VAS_PROVIDER = "clover.intent.action.VAS_PROVIDER";
 
   /**
    * Launch activity to securely capture card data on Mobile or Mini (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
@@ -875,6 +881,9 @@ public class Intents {
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT = "manualReversalPayment";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND  = "manualReversalRefund";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_VAS_DATA  = "vasData";
+
 
 
   /** {@link Boolean}, card not present, used during manual card entry */
@@ -963,6 +972,9 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.Payment}, v3 Payment object */
   public static final String EXTRA_PAYMENT = "clover.intent.extra.PAYMENT";
 
+  /** {@link com.clover.sdk.v3.payments.VasPayload}, v3 VasPayload object */
+  public static final String EXTRA_VAS_PAYLOAD = "clover.intent.extra.VAS_PAYLOAD";
+
   /** {@link com.clover.sdk.v3.payments.Batch}, v3 Batch object */
   public static final String EXTRA_CLOSEOUT_BATCH = "clover.intent.extra.BATCH";
 
@@ -999,6 +1011,9 @@ public class Intents {
   /** {@link int}, representation of bit flags from {@link com.clover.sdk.v1.printer.job.PrintJob} */
   public static final String EXTRA_RECEIPT_FLAG = "clover.intent.extra.RECEIPT_FLAG";
 
+  /** Vas Settings */
+  public static final String EXTRA_VAS_SETTINGS = "clover.intent.extra.VAS_SETTINGS";
+
   /** Transaction Settings Section Start */
   public static final String EXTRA_TRANSACTION_SETTINGS = "clover.intent.extra.TRANSACTION_SETTINGS";
 
@@ -1031,6 +1046,13 @@ public class Intents {
 
   /** {@link Long}, what is the signature threshold for this transaction */
   public static final String EXTRA_SIGNATURE_THRESHOLD = "clover.intent.extra.SIGNATURE_THRESHOLD";
+
+  /** {@link String}, elv transaction type for Germany */
+  public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
+  /** A value for {@link #EXTRA_GERMAN_ELV} */
+  public static final String GERMAN_ELV_ONLINE  = "germanElvOnline";
+  /** A value for {@link #EXTRA_GERMAN_ELV} */
+  public static final String GERMAN_ELV_OFFLINE  = "germanElvOffline";
   /** Transaction Settings Section End */
 
   /**
@@ -1188,5 +1210,8 @@ public class Intents {
 
   /** {@link int}, A drawable resource ID, the image to be displayed on the merchant-facing tender button*/
   public static final String META_MERCHANT_TENDER_IMAGE = "clover.intent.meta.MERCHANT_TENDER_IMAGE";
+
+  /** {@link Boolean} flag */
+  public static final String EXTRA_USE_LAST_SWIPE = "clover.intent.extra_USE_LAST_SWIPE";
 
 }

@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRate rate}</li>
  * <li>{@link #getIsDefault isDefault}</li>
  * <li>{@link #getItems items}</li>
+ * <li>{@link #getTaxAmount taxAmount}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -51,6 +52,9 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.name);
   }
 
+  /**
+   * For percentage based discounts like sales tax
+   */
   public java.lang.Long getRate() {
     return genClient.cacheGet(CacheKey.rate);
   }
@@ -64,6 +68,13 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
     return genClient.cacheGet(CacheKey.items);
+  }
+
+  /**
+   * For a flat tax like recycling redemption fee, expressed as number of cents
+   */
+  public java.lang.Long getTaxAmount() {
+    return genClient.cacheGet(CacheKey.taxAmount);
   }
 
 
@@ -98,6 +109,12 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(TaxRate instance) {
         return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    taxAmount {
+      @Override
+      public Object extractValue(TaxRate instance) {
+        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
       }
     },
       ;
@@ -170,8 +187,9 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     genClient.validateNull(getName(), "name");
     genClient.validateLength(getName(), 127);
 
-    genClient.validateNull(getRate(), "rate");
     if (getRate() != null && ( getRate() < 0 || getRate() > 100000000)) throw new IllegalArgumentException("Invalid value for 'getRate()'");
+
+    if (getTaxAmount() != null && ( getTaxAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getTaxAmount()'");
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -202,6 +220,11 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'items' field is set and is not null and is not empty */
   public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
 
+  /** Checks whether the 'taxAmount' field is set and is not null */
+  public boolean isNotNullTaxAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -227,6 +250,11 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
+  }
+
+  /** Checks whether the 'taxAmount' field has been set, however the value could be null */
+  public boolean hasTaxAmount() {
+    return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
 
@@ -267,6 +295,13 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setArrayRecord(items, CacheKey.items);
   }
 
+  /**
+   * Sets the field 'taxAmount'.
+   */
+  public TaxRate setTaxAmount(java.lang.Long taxAmount) {
+    return genClient.setOther(taxAmount, CacheKey.taxAmount);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -287,6 +322,10 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
     genClient.clear(CacheKey.items);
+  }
+  /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
+  public void clearTaxAmount() {
+    genClient.clear(CacheKey.taxAmount);
   }
 
 
@@ -351,11 +390,13 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-    public static final boolean RATE_IS_REQUIRED = true;
+    public static final boolean RATE_IS_REQUIRED = false;
     public static final long RATE_MIN = 0;
     public static final long RATE_MAX = 100000000;
     public static final boolean ISDEFAULT_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
+    public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+    public static final long TAXAMOUNT_MIN = 0;
 
   }
 

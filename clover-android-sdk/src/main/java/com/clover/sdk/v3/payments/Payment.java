@@ -59,6 +59,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getGermanInfo germanInfo}</li>
  * <li>{@link #getAppTracking appTracking}</li>
  * <li>{@link #getCashAdvanceExtra cashAdvanceExtra}</li>
+ * <li>{@link #getTransactionInfo transactionInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -232,9 +233,17 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Information specific to cash advance transactions.
    */
-  public CashAdvanceExtra getCashAdvanceExtra() {
+  public com.clover.sdk.v3.payments.CashAdvanceExtra getCashAdvanceExtra() {
     return genClient.cacheGet(CacheKey.cashAdvanceExtra);
   }
+
+  /**
+   * Transaction information
+   */
+  public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
+    return genClient.cacheGet(CacheKey.transactionInfo);
+  }
+
 
 
 
@@ -404,10 +413,16 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     cashAdvanceExtra {
       @Override
       public Object extractValue(Payment instance) {
-        return instance.genClient.extractRecord("cashAdvanceExtra", CashAdvanceExtra.JSON_CREATOR);
+        return instance.genClient.extractRecord("cashAdvanceExtra", com.clover.sdk.v3.payments.CashAdvanceExtra.JSON_CREATOR);
       }
     },
-    ;
+    transactionInfo {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractRecord("transactionInfo", com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR);
+      }
+    },
+      ;
   }
 
   private GenericClient<Payment> genClient;
@@ -628,6 +643,12 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.cashAdvanceExtra);
   }
 
+  /** Checks whether the 'transactionInfo' field is set and is not null */
+  public boolean isNotNullTransactionInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionInfo);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -767,6 +788,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'cashAdvanceExtra' field has been set, however the value could be null */
   public boolean hasCashAdvanceExtra() {
     return genClient.cacheHasKey(CacheKey.cashAdvanceExtra);
+  }
+
+  /** Checks whether the 'transactionInfo' field has been set, however the value could be null */
+  public boolean hasTransactionInfo() {
+    return genClient.cacheHasKey(CacheKey.transactionInfo);
   }
 
 
@@ -990,8 +1016,17 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setCashAdvanceExtra(CashAdvanceExtra cashAdvanceExtra) {
+  public Payment setCashAdvanceExtra(com.clover.sdk.v3.payments.CashAdvanceExtra cashAdvanceExtra) {
     return genClient.setRecord(cashAdvanceExtra, CacheKey.cashAdvanceExtra);
+  }
+
+  /**
+   * Sets the field 'transactionInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setTransactionInfo(com.clover.sdk.v3.payments.TransactionInfo transactionInfo) {
+    return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
   }
 
 
@@ -1107,6 +1142,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearCashAdvanceExtra() {
     genClient.clear(CacheKey.cashAdvanceExtra);
   }
+  /** Clears the 'transactionInfo' field, the 'has' method for this field will now return false */
+  public void clearTransactionInfo() {
+    genClient.clear(CacheKey.transactionInfo);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1196,6 +1236,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean GERMANINFO_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
     public static final boolean CASHADVANCEEXTRA_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
 
   }
 

@@ -94,7 +94,7 @@ public class BarcodeResult {
    * True if this is a QR code, false if not or if scanner is USB barcode scanner.
    */
   public boolean isQRCode() {
-    return "qr_code".equals(type) || "28".equals(type);
+    return "qr_code".equalsIgnoreCase(type) || "28".equals(type);
   }
 
   /**

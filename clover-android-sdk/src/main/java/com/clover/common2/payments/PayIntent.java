@@ -33,6 +33,7 @@ import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.ServiceChargeAmount;
 import com.clover.sdk.v3.payments.TaxableAmountRate;
 import com.clover.sdk.v3.payments.TransactionSettings;
+import com.clover.sdk.v3.payments.VasSettings;
 import com.clover.sdk.v3.payments.VaultedCard;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class PayIntent implements Parcelable {
     PAYMENT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT),
     CREDIT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND),
     CASH_ADVANCE(Intents.TRANSACTION_TYPE_CASH_ADVANCE),
+    VAS_DATA(Intents.TRANSACTION_TYPE_VAS_DATA)
     ;
 
     public final String intentValue;
@@ -107,9 +109,12 @@ public class PayIntent implements Parcelable {
     private Boolean requiresRemoteConfirmation;
     private AppTracking applicationTracking;
     private Boolean allowPartialAuth = true;
+    private boolean useLastSwipe;
     private GermanInfo germanInfo;
+    private String germanELVTransaction;
     private CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
     private TransactionSettings transactionSettings;
+    private VasSettings vasSettings;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -173,8 +178,14 @@ public class PayIntent implements Parcelable {
       if (intent.hasExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH)) {
         allowPartialAuth = intent.getBooleanExtra(Intents.EXTRA_ALLOW_PARTIAL_AUTH, true);
       }
+      if (intent.hasExtra(Intents.EXTRA_USE_LAST_SWIPE)) {
+        useLastSwipe = intent.getBooleanExtra(Intents.EXTRA_USE_LAST_SWIPE, false);
+      }
       if (intent.hasExtra(Intents.GERMAN_INFO)) {
         germanInfo = intent.getParcelableExtra(Intents.GERMAN_INFO);
+      }
+      if (intent.hasExtra(Intents.EXTRA_GERMAN_ELV)) {
+        germanELVTransaction = intent.getStringExtra(Intents.EXTRA_GERMAN_ELV);
       }
       if (intent.hasExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION)) {
         cashAdvanceCustomerIdentification = intent.getParcelableExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION);
@@ -183,6 +194,9 @@ public class PayIntent implements Parcelable {
         transactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
       } else { //move the settings into the transactionSettings object for deprecated intents ** TEMPORARY
         transactionSettings = buildTransactionSettingsFromIntentValues();
+      }
+      if (intent.hasExtra(Intents.EXTRA_VAS_SETTINGS)) {
+        vasSettings = intent.getParcelableExtra(Intents.EXTRA_VAS_SETTINGS);
       }
       return this;
     }
@@ -293,14 +307,16 @@ public class PayIntent implements Parcelable {
       this.requiresRemoteConfirmation = payIntent.requiresRemoteConfirmation;
       this.applicationTracking = payIntent.applicationTracking;
       this.allowPartialAuth = payIntent.allowPartialAuth;
+      this.useLastSwipe = payIntent.useLastSwipe;
       this.germanInfo = payIntent.germanInfo;
+      this.germanELVTransaction = payIntent.germanELVTransaction;
       if (payIntent.transactionSettings != null) {
         this.transactionSettings = payIntent.transactionSettings;
       } else {
         this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
       }
       this.cashAdvanceCustomerIdentification = payIntent.cashAdvanceCustomerIdentification;
-
+      this.vasSettings = payIntent.vasSettings;
       return this;
     }
 
@@ -458,8 +474,18 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder useLastSwipe(boolean useLastSwipe) {
+      this.useLastSwipe = useLastSwipe;
+      return this;
+    }
+
     public Builder germanInfo(GermanInfo germanInfo) {
       this.germanInfo = germanInfo;
+      return this;
+    }
+
+    public Builder germanELVTransaction(String germanELVTransaction) {
+      this.germanELVTransaction = germanELVTransaction;
       return this;
     }
 
@@ -478,13 +504,18 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder vasSettings(VasSettings vasSettings) {
+      this.vasSettings = vasSettings;
+      return this;
+    }
+
     public PayIntent build() {
       return new PayIntent(action, amount, tippableAmount, tipAmount, taxAmount, orderId, paymentId, employeeId,
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
           voiceAuthCode, postalCode, streetAddress, isCardNotPresent, cardDataMessage, remotePrint, transactionNo,
           isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, vaultedCard, allowOfflinePayment,
-          approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, germanInfo,
-          cashAdvanceCustomerIdentification, transactionSettings);
+          approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
+          germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings);
     }
   }
 
@@ -526,9 +557,12 @@ public class PayIntent implements Parcelable {
   public final Boolean requiresRemoteConfirmation;
   public final AppTracking applicationTracking;
   public final boolean allowPartialAuth;
+  public final boolean useLastSwipe;
   public final GermanInfo germanInfo;
+  public final String germanELVTransaction;
   public final CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
   public final TransactionSettings transactionSettings;
+  public final VasSettings vasSettings;
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, String orderId, String paymentId, String employeeId,
@@ -538,8 +572,9 @@ public class PayIntent implements Parcelable {
                     boolean isCardNotPresent, String cardDataMessage, boolean remotePrint, String transactionNo,
                     boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
-                    Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth,
-                    GermanInfo germanInfo, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings) {
+                    Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
+                    GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings,
+                    VasSettings vasSettings) {
 
     this.action = action;
     this.amount = amount;
@@ -571,7 +606,9 @@ public class PayIntent implements Parcelable {
     this.requiresRemoteConfirmation = requiresRemoteConfirmation;
     this.applicationTracking = applicationTracking;
     this.allowPartialAuth = allowPartialAuth;
+    this.useLastSwipe = useLastSwipe;
     this.germanInfo = germanInfo;
+    this.germanELVTransaction = germanELVTransaction;
     this.cashAdvanceCustomerIdentification = cashAdvanceCustomerIdentification;
 
     if (transactionSettings != null) {
@@ -581,6 +618,8 @@ public class PayIntent implements Parcelable {
           cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
           approveOfflinePaymentWithoutPrompt);
     }
+
+    this.vasSettings = vasSettings;
   }
 
   private TransactionSettings buildTransactionSettingsPrivate(Long tippableAmountIn, boolean isDisableCashBackIn, int cardEntryMethodsIn,
@@ -699,11 +738,17 @@ public class PayIntent implements Parcelable {
     if (germanInfo != null) {
       intent.putExtra(Intents.GERMAN_INFO, germanInfo);
     }
+    if (germanELVTransaction != null) {
+      intent.putExtra(Intents.EXTRA_GERMAN_ELV, germanELVTransaction);
+    }
     if (cashAdvanceCustomerIdentification != null) {
       intent.putExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION, cashAdvanceCustomerIdentification);
     }
     if (transactionSettings != null) {
       intent.putExtra(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
+    }
+    if (vasSettings != null) {
+      intent.putExtra(Intents.EXTRA_VAS_SETTINGS, vasSettings);
     }
   }
 
@@ -738,9 +783,13 @@ public class PayIntent implements Parcelable {
            ", allowOfflinePayment=" + allowOfflinePayment + '\'' +
            ", approveOfflinePaymentWithoutPrompt=" + approveOfflinePaymentWithoutPrompt +
            ", requiresRemoteConfirmation=" + requiresRemoteConfirmation +
-           ", applicationTracking=" + applicationTracking + ", allowPartialAuth=" + allowPartialAuth +
+           ", applicationTracking=" + applicationTracking +
+           ", allowPartialAuth=" + allowPartialAuth +
+           ", useLastSwipe=" + useLastSwipe +
            ", germanInfo=" + germanInfo +
+           ", germanELVTransaction=" + germanELVTransaction +
            ", transactionSettings=" + transactionSettings +
+           ", vasSettings=" + vasSettings +
            '}';
   }
 
@@ -838,8 +887,13 @@ public class PayIntent implements Parcelable {
 
     bundle.putBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH, allowPartialAuth);
 
+    bundle.putBoolean(Intents.EXTRA_USE_LAST_SWIPE, useLastSwipe);
+
     if (germanInfo != null) {
       bundle.putParcelable(Intents.GERMAN_INFO, germanInfo);
+    }
+    if (germanELVTransaction != null) {
+      bundle.putString(Intents.EXTRA_GERMAN_ELV, germanELVTransaction);
     }
     if (cashAdvanceCustomerIdentification != null) {
       bundle.putParcelable(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION, cashAdvanceCustomerIdentification);
@@ -848,6 +902,11 @@ public class PayIntent implements Parcelable {
     if (transactionSettings != null) {
       bundle.putParcelable(Intents.EXTRA_TRANSACTION_SETTINGS, transactionSettings);
     }
+
+    if (vasSettings != null) {
+      bundle.putParcelable(Intents.EXTRA_VAS_SETTINGS, vasSettings);
+    }
+
     // write out
     out.writeBundle(bundle);
   }
@@ -950,11 +1009,19 @@ public class PayIntent implements Parcelable {
         builder.allowPartialAuth(bundle.getBoolean(Intents.EXTRA_ALLOW_PARTIAL_AUTH));
       }
 
+      if (bundle.containsKey(Intents.EXTRA_USE_LAST_SWIPE)) {
+        builder.useLastSwipe(bundle.getBoolean(Intents.EXTRA_USE_LAST_SWIPE));
+      }
+
       if (bundle.containsKey(Intents.GERMAN_INFO)) {
         final Parcelable germanInfo = bundle.getParcelable(Intents.GERMAN_INFO);
         if (germanInfo instanceof GermanInfo) {
           builder.germanInfo((GermanInfo) germanInfo);
         }
+      }
+      if (bundle.containsKey(Intents.EXTRA_GERMAN_ELV)) {
+        final String germanELVTransaction = bundle.getString(Intents.EXTRA_GERMAN_ELV);
+        builder.germanELVTransaction(germanELVTransaction);
       }
       if (bundle.containsKey(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION)) {
         final Parcelable customerIdentification = bundle.getParcelable(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION);
@@ -968,6 +1035,13 @@ public class PayIntent implements Parcelable {
           builder.transactionSettings((TransactionSettings) transactionSettings);
         }
       }
+      if (bundle.containsKey(Intents.EXTRA_VAS_SETTINGS)) {
+        final Parcelable vasSettingsPacelable = bundle.getParcelable(Intents.EXTRA_VAS_SETTINGS);
+        if (vasSettingsPacelable instanceof VasSettings) {
+          builder.vasSettings((VasSettings)vasSettingsPacelable);
+        }
+      }
+
       // build
       return builder.build();
     }

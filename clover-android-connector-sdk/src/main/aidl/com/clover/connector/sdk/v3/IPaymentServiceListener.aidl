@@ -2,11 +2,13 @@ package com.clover.connector.sdk.v3;
 
 import com.clover.sdk.v3.remotepay.AuthResponse;
 import com.clover.sdk.v3.remotepay.CapturePreAuthResponse;
+import com.clover.sdk.v3.remotepay.CloseoutResponse;
 import com.clover.sdk.v3.remotepay.ConfirmPaymentRequest;
 import com.clover.sdk.v3.remotepay.ManualRefundResponse;
 import com.clover.sdk.v3.remotepay.PreAuthResponse;
 import com.clover.sdk.v3.remotepay.ReadCardDataResponse;
 import com.clover.sdk.v3.remotepay.RefundPaymentResponse;
+import com.clover.sdk.v3.remotepay.RetrievePaymentResponse;
 import com.clover.sdk.v3.remotepay.RetrievePendingPaymentsResponse;
 import com.clover.sdk.v3.remotepay.SaleResponse;
 import com.clover.sdk.v3.remotepay.TipAdded;
@@ -117,5 +119,18 @@ interface IPaymentServiceListener {
    */
   void onReadCardDataResponse(in ReadCardDataResponse response);
 
+ /**
+   * Called in response to a RetrievePaymentRequest
+   *
+   * @param response The response
+   */
+  void onRetrievePaymentResponse(in RetrievePaymentResponse response);
+
+  /**
+   * Called in response to a closeout being processed
+   *
+   * @param response The response
+   */
+  void onCloseoutResponse(in CloseoutResponse response);
 }
 

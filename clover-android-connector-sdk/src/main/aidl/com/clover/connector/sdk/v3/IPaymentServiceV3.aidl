@@ -2,19 +2,23 @@ package com.clover.connector.sdk.v3;
 
 import com.clover.connector.sdk.v3.IPaymentServiceListener;
 
-import com.clover.sdk.v3.remotepay.SaleRequest;
-import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
-import com.clover.sdk.v3.remotepay.AuthRequest;
-import com.clover.sdk.v3.remotepay.PreAuthRequest;
-import com.clover.sdk.v3.remotepay.CapturePreAuthRequest;
-import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
-import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
-import com.clover.sdk.v3.remotepay.RefundPaymentRequest;
-import com.clover.sdk.v3.remotepay.ManualRefundRequest;
-import com.clover.sdk.v3.remotepay.ReadCardDataRequest;
-
-import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.base.Challenge;
+import com.clover.sdk.v3.payments.Payment;
+import com.clover.sdk.v3.remotepay.AuthRequest;
+
+import com.clover.sdk.v3.remotepay.CapturePreAuthRequest;
+import com.clover.sdk.v3.remotepay.CloseoutRequest;
+
+
+import com.clover.sdk.v3.remotepay.ManualRefundRequest;
+import com.clover.sdk.v3.remotepay.PreAuthRequest;
+import com.clover.sdk.v3.remotepay.ReadCardDataRequest;
+import com.clover.sdk.v3.remotepay.RefundPaymentRequest;
+import com.clover.sdk.v3.remotepay.RetrievePaymentRequest;
+import com.clover.sdk.v3.remotepay.SaleRequest;
+import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
+import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
 
 
 /**
@@ -166,4 +170,19 @@ interface IPaymentServiceV3 {
    * @param request - A ReadCardDataRequest object
    */
   void readCardData(in ReadCardDataRequest request);
+
+  /**
+   * Sends a request to get a payment.
+   * Only valid for payments made in the past 24 hours on the device queried.
+   *
+   * @param request The request details
+   */
+  void retrievePayment(in RetrievePaymentRequest request);
+
+  /**
+   * Request a closeout of all orders.
+   *
+   * @param request The request details
+   */
+  void closeout(in CloseoutRequest request);
 }

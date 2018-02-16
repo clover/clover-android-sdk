@@ -32,6 +32,8 @@ import com.clover.sdk.GenericClient;
  * <ul>
  * <li>{@link #getPayment payment}</li>
  * <li>{@link #getVoidReason voidReason}</li>
+ * <li>{@link #getDisableCloverPrinting disableCloverPrinting}</li>
+ * <li>{@link #getDisableReceiptSelection disableReceiptSelection}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -46,6 +48,14 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
 
   public com.clover.sdk.v3.order.VoidReason getVoidReason() {
     return genClient.cacheGet(CacheKey.voidReason);
+  }
+
+  public java.lang.Boolean getDisableCloverPrinting() {
+    return genClient.cacheGet(CacheKey.disableCloverPrinting);
+  }
+
+  public java.lang.Boolean getDisableReceiptSelection() {
+    return genClient.cacheGet(CacheKey.disableReceiptSelection);
   }
 
   /**
@@ -78,6 +88,18 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
       @Override
       public Object extractValue(VoidPaymentMessage instance) {
         return instance.genClient.extractEnum("voidReason", com.clover.sdk.v3.order.VoidReason.class);
+      }
+    },
+    disableCloverPrinting {
+      @Override
+      public Object extractValue(VoidPaymentMessage instance) {
+        return instance.genClient.extractOther("disableCloverPrinting", java.lang.Boolean.class);
+      }
+    },
+    disableReceiptSelection {
+      @Override
+      public Object extractValue(VoidPaymentMessage instance) {
+        return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
       }
     },
     method {
@@ -172,6 +194,16 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
     return genClient.cacheValueIsNotNull(CacheKey.voidReason);
   }
 
+  /** Checks whether the 'disableCloverPrinting' field is set and is not null */
+  public boolean isNotNullDisableCloverPrinting() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableCloverPrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field is set and is not null */
+  public boolean isNotNullDisableReceiptSelection() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableReceiptSelection);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -194,6 +226,16 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
   /** Checks whether the 'voidReason' field has been set, however the value could be null */
   public boolean hasVoidReason() {
     return genClient.cacheHasKey(CacheKey.voidReason);
+  }
+
+  /** Checks whether the 'disableCloverPrinting' field has been set, however the value could be null */
+  public boolean hasDisableCloverPrinting() {
+    return genClient.cacheHasKey(CacheKey.disableCloverPrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field has been set, however the value could be null */
+  public boolean hasDisableReceiptSelection() {
+    return genClient.cacheHasKey(CacheKey.disableReceiptSelection);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -226,6 +268,20 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
   }
 
   /**
+   * Sets the field 'disableCloverPrinting'.
+   */
+  public VoidPaymentMessage setDisableCloverPrinting(java.lang.Boolean disableCloverPrinting) {
+    return genClient.setOther(disableCloverPrinting, CacheKey.disableCloverPrinting);
+  }
+
+  /**
+   * Sets the field 'disableReceiptSelection'.
+   */
+  public VoidPaymentMessage setDisableReceiptSelection(java.lang.Boolean disableReceiptSelection) {
+    return genClient.setOther(disableReceiptSelection, CacheKey.disableReceiptSelection);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -249,6 +305,14 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
   /** Clears the 'voidReason' field, the 'has' method for this field will now return false */
   public void clearVoidReason() {
     genClient.clear(CacheKey.voidReason);
+  }
+  /** Clears the 'disableCloverPrinting' field, the 'has' method for this field will now return false */
+  public void clearDisableCloverPrinting() {
+    genClient.clear(CacheKey.disableCloverPrinting);
+  }
+  /** Clears the 'disableReceiptSelection' field, the 'has' method for this field will now return false */
+  public void clearDisableReceiptSelection() {
+    genClient.clear(CacheKey.disableReceiptSelection);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -321,6 +385,8 @@ public class VoidPaymentMessage extends com.clover.sdk.v3.remotemessage.Message 
 
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean VOIDREASON_IS_REQUIRED = false;
+    public static final boolean DISABLECLOVERPRINTING_IS_REQUIRED = false;
+    public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 

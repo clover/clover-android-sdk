@@ -15,6 +15,11 @@
  */
 package com.clover.sdk.v3.order;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.os.IBinder;
+import android.os.RemoteException;
+
 import com.clover.sdk.FdParcelable;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -33,11 +38,6 @@ import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
-
-import android.accounts.Account;
-import android.content.Context;
-import android.os.IBinder;
-import android.os.RemoteException;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -329,6 +329,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.deleteLineItems(orderId, lineItemIds, status));
+      }
+    });
+  }
+
+  public Order deleteLineItemsWithReason(final String orderId, final List<String> lineItemIds, final String reason, final ClientEventType clientEventType) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.deleteLineItemsWithReason(orderId, lineItemIds, reason, clientEventType, status));
       }
     });
   }
@@ -952,7 +961,7 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
         }
       }
       if (listenerWeakReference != null) {
-        mOnOrderChangedListener.remove(listenerWeakReference);
+        mOnOrderChangedListener2.remove(listenerWeakReference);
       }
     }
   }

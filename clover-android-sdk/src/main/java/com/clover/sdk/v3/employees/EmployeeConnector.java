@@ -273,6 +273,36 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void setFingerprintId(final String employeeId, final String fingerprintId) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.setFingerprintId(employeeId, fingerprintId, status);
+        return null;
+      }
+    });
+  }
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public void deleteFingerprintId(final String employeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new EmployeeCallable<Void>() {
+      @Override
+      public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        service.deleteFingerprintId(employeeId, status);
+        return null;
+      }
+    });
+  }
+
+
   public void updateEmployee(final Employee employee, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -300,6 +330,46 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
         return null;
       }
     }, callback);
+  }
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public int getFingerprintId(final String employeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<Integer>() {
+      @Override
+      public Integer call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.getFingerprintId(employeeId, status);
+      }
+    });
+  }
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public int[] getEnrolledFingerprints() throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<int[]>() {
+      @Override
+      public int[] call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.getEnrolledFingerprints(status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   *
+   * @y.exclude
+   */
+  public String getEmployeeId(final int fingerprintId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new EmployeeCallable<String>() {
+      @Override
+      public String call(IEmployeeService service, ResultStatus status) throws RemoteException {
+        return service.getEmployeeId(fingerprintId, status);
+      }
+    });
   }
 
   /**

@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getPaymentId paymentId}</li>
+ * <li>{@link #getDisablePrinting disablePrinting}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -52,6 +53,10 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     return genClient.cacheGet(CacheKey.paymentId);
   }
 
+  public java.lang.Boolean getDisablePrinting() {
+    return genClient.cacheGet(CacheKey.disablePrinting);
+  }
+
 
 
 
@@ -66,6 +71,12 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
       @Override
       public Object extractValue(DisplayReceiptOptionsRequest instance) {
         return instance.genClient.extractOther("paymentId", java.lang.String.class);
+      }
+    },
+    disablePrinting {
+      @Override
+      public Object extractValue(DisplayReceiptOptionsRequest instance) {
+        return instance.genClient.extractOther("disablePrinting", java.lang.Boolean.class);
       }
     },
       ;
@@ -148,6 +159,11 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     return genClient.cacheValueIsNotNull(CacheKey.paymentId);
   }
 
+  /** Checks whether the 'disablePrinting' field is set and is not null */
+  public boolean isNotNullDisablePrinting() {
+    return genClient.cacheValueIsNotNull(CacheKey.disablePrinting);
+  }
+
 
 
   /** Checks whether the 'orderId' field has been set, however the value could be null */
@@ -158,6 +174,11 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   /** Checks whether the 'paymentId' field has been set, however the value could be null */
   public boolean hasPaymentId() {
     return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
+  public boolean hasDisablePrinting() {
+    return genClient.cacheHasKey(CacheKey.disablePrinting);
   }
 
 
@@ -175,6 +196,13 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     return genClient.setOther(paymentId, CacheKey.paymentId);
   }
 
+  /**
+   * Sets the field 'disablePrinting'.
+   */
+  public DisplayReceiptOptionsRequest setDisablePrinting(java.lang.Boolean disablePrinting) {
+    return genClient.setOther(disablePrinting, CacheKey.disablePrinting);
+  }
+
 
   /** Clears the 'orderId' field, the 'has' method for this field will now return false */
   public void clearOrderId() {
@@ -183,6 +211,10 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
   public void clearPaymentId() {
     genClient.clear(CacheKey.paymentId);
+  }
+  /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
+  public void clearDisablePrinting() {
+    genClient.clear(CacheKey.disablePrinting);
   }
 
 
@@ -247,6 +279,7 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final long PAYMENTID_MAX_LEN = 13;
+    public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
 
   }
 

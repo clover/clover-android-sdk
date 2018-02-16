@@ -34,6 +34,8 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getPaymentId paymentId}</li>
+ * <li>{@link #getDisableCloverPrinting disableCloverPrinting}</li>
+ * <li>{@link #getDisableReceiptSelection disableReceiptSelection}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +67,14 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
    */
   public java.lang.String getPaymentId() {
     return genClient.cacheGet(CacheKey.paymentId);
+  }
+
+  public java.lang.Boolean getDisableCloverPrinting() {
+    return genClient.cacheGet(CacheKey.disableCloverPrinting);
+  }
+
+  public java.lang.Boolean getDisableReceiptSelection() {
+    return genClient.cacheGet(CacheKey.disableReceiptSelection);
   }
 
   /**
@@ -109,6 +119,18 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
       @Override
       public Object extractValue(RefundRequestMessage instance) {
         return instance.genClient.extractOther("paymentId", java.lang.String.class);
+      }
+    },
+    disableCloverPrinting {
+      @Override
+      public Object extractValue(RefundRequestMessage instance) {
+        return instance.genClient.extractOther("disableCloverPrinting", java.lang.Boolean.class);
+      }
+    },
+    disableReceiptSelection {
+      @Override
+      public Object extractValue(RefundRequestMessage instance) {
+        return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
       }
     },
     method {
@@ -217,6 +239,16 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
     return genClient.cacheValueIsNotNull(CacheKey.paymentId);
   }
 
+  /** Checks whether the 'disableCloverPrinting' field is set and is not null */
+  public boolean isNotNullDisableCloverPrinting() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableCloverPrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field is set and is not null */
+  public boolean isNotNullDisableReceiptSelection() {
+    return genClient.cacheValueIsNotNull(CacheKey.disableReceiptSelection);
+  }
+
   /** Checks whether the 'method' field is set and is not null */
   @Override
   public boolean isNotNullMethod() {
@@ -249,6 +281,16 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
   /** Checks whether the 'paymentId' field has been set, however the value could be null */
   public boolean hasPaymentId() {
     return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'disableCloverPrinting' field has been set, however the value could be null */
+  public boolean hasDisableCloverPrinting() {
+    return genClient.cacheHasKey(CacheKey.disableCloverPrinting);
+  }
+
+  /** Checks whether the 'disableReceiptSelection' field has been set, however the value could be null */
+  public boolean hasDisableReceiptSelection() {
+    return genClient.cacheHasKey(CacheKey.disableReceiptSelection);
   }
 
   /** Checks whether the 'method' field has been set, however the value could be null */
@@ -293,6 +335,20 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
   }
 
   /**
+   * Sets the field 'disableCloverPrinting'.
+   */
+  public RefundRequestMessage setDisableCloverPrinting(java.lang.Boolean disableCloverPrinting) {
+    return genClient.setOther(disableCloverPrinting, CacheKey.disableCloverPrinting);
+  }
+
+  /**
+   * Sets the field 'disableReceiptSelection'.
+   */
+  public RefundRequestMessage setDisableReceiptSelection(java.lang.Boolean disableReceiptSelection) {
+    return genClient.setOther(disableReceiptSelection, CacheKey.disableReceiptSelection);
+  }
+
+  /**
    * Sets the field 'method'.
    */
   @Override
@@ -324,6 +380,14 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
   /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
   public void clearPaymentId() {
     genClient.clear(CacheKey.paymentId);
+  }
+  /** Clears the 'disableCloverPrinting' field, the 'has' method for this field will now return false */
+  public void clearDisableCloverPrinting() {
+    genClient.clear(CacheKey.disableCloverPrinting);
+  }
+  /** Clears the 'disableReceiptSelection' field, the 'has' method for this field will now return false */
+  public void clearDisableReceiptSelection() {
+    genClient.clear(CacheKey.disableReceiptSelection);
   }
   /** Clears the 'method' field, the 'has' method for this field will now return false */
   @Override
@@ -400,6 +464,8 @@ public class RefundRequestMessage extends com.clover.sdk.v3.remotemessage.Messag
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final long PAYMENTID_MAX_LEN = 13;
+    public static final boolean DISABLECLOVERPRINTING_IS_REQUIRED = false;
+    public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
     public static final boolean METHOD_IS_REQUIRED = false;
     public static final boolean VERSION_IS_REQUIRED = false;
 
