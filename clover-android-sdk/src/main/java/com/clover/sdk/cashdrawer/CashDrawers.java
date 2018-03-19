@@ -33,6 +33,7 @@ public class CashDrawers {
     discoverers.add(new StationPrinterCashDrawer.Discovery(context));
     discoverers.add(new MiniPrinterCashDrawer.Discovery(context));
     discoverers.add(new APG554aCashDrawer.Discovery(context));
+    discoverers.add(new Station2018PrinterCashDrawer.Discovery(context));
   }
 
   private void checkPermission() throws SecurityException {
