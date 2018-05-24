@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '191.4'
+version = '191.6'
 
 
 apply from: file("${project.rootDir}/lib.gradle")

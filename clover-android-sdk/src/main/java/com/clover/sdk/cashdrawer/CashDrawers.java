@@ -37,9 +37,12 @@ public class CashDrawers {
   }
 
   private void checkPermission() throws SecurityException {
-    String p = context.getString(R.string.permission_pop_cash_drawer);
-    if (context.checkCallingOrSelfPermission(p) != PackageManager.PERMISSION_GRANTED) {
-      throw new SecurityException("Application is not granted permission: " + p);
+    String oldPermission = context.getString(R.string.permission_pop_cash_drawer);
+    String newPermission = context.getString(R.string.permission_pop_cash_drawer_new);
+    boolean gotOldPermission = (context.checkCallingOrSelfPermission(oldPermission) == PackageManager.PERMISSION_GRANTED);
+    boolean gotNewPermission = (context.checkCallingOrSelfPermission(newPermission) == PackageManager.PERMISSION_GRANTED);
+    if (!(gotNewPermission || gotOldPermission)) {
+      throw new SecurityException("Application is not granted permission: " + newPermission);
     }
   }
 
