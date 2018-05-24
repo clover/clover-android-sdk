@@ -17,4 +17,5 @@
 
 <resources>
   <string name="permission_pop_cash_drawer">clover.permission.POP_CASH_DRAWER</string>
+  <string name="permission_pop_cash_drawer_new">clover.permission.POP_CASH_DRAWER_NEW</string>
 </resources>
