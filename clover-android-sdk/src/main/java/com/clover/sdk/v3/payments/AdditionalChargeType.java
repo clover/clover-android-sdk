@@ -28,10 +28,11 @@ import android.os.Parcel;
 
 /**
  * This is an auto-generated Clover data enum.
+ * Type of additional charge
  */
 @SuppressWarnings("all")
-public enum CardType implements Parcelable {
-  VISA, MC, AMEX, DISCOVER, DINERS_CLUB, JCB, MAESTRO, SOLO, LASER, CHINA_UNION_PAY, CARTE_BLANCHE, UNKNOWN, GIFT_CARD, EBT, GIROCARD, INTERAC, OTHER;
+public enum AdditionalChargeType implements Parcelable {
+  INTERAC;
 
   @Override
   public int describeContents() {
@@ -43,15 +44,15 @@ public enum CardType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<CardType> CREATOR = new Creator<CardType>() {
+  public static final Creator<AdditionalChargeType> CREATOR = new Creator<AdditionalChargeType>() {
     @Override
-    public CardType createFromParcel(final Parcel source) {
-      return CardType.valueOf(source.readString());
+    public AdditionalChargeType createFromParcel(final Parcel source) {
+      return AdditionalChargeType.valueOf(source.readString());
     }
 
     @Override
-    public CardType[] newArray(final int size) {
-      return new CardType[size];
+    public AdditionalChargeType[] newArray(final int size) {
+      return new AdditionalChargeType[size];
     }
   };
 }

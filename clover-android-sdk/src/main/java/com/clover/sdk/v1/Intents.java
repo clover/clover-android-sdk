@@ -708,6 +708,9 @@ public class Intents {
   /** {@link com.clover.sdk.v3.customers.Customer}, a customer object */
   public static final String EXTRA_CUSTOMER_V3 = "com.clover.intent.extra.CUSTOMERV3";
 
+  /** {@link com.clover.sdk.v3.customers.RemoteCustomer}, a customer object */
+  public static final String EXTRA_REMOTECUSTOMER = "com.clover.intent.extra.REMOTECUSTOMER";
+
   /** {@link String}, the UUID of an Employee object */
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
 
@@ -1198,6 +1201,20 @@ public class Intents {
    * </ul>
    */
   public static final String ACTION_V1_PAY_EXECUTE_STOP = "clover.intent.action.V1_PAY_EXECUTE_STOP";
+
+  /**
+   * Broadcast indicating that a customer has been identified as a 'current' customer of interest.
+   * This may indicate that the customer was identified by a third party app on the device, or by a
+   * Clover application.  The customer may or may not exist as a clover customer.  The customer set
+   * on the intent is a wrapper of the Clover Customer.
+   *
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_REMOTECUSTOMER} - the RemoteCustomer object that was identified. (Required)</li>
+   * </ul>
+   */
+  public static final String ACTION_V1_CUSTOMER_IDENTIFIED = "clover.intent.action.V1_CUSTOMER_IDENTIFIED";
 
   /** @deprecated */
   public static final String EXTRA_AVAILABLE = "clover.intent.extra_AVAILABLE";

@@ -231,6 +231,15 @@ public class OrderCalc {
       return new Decimal(taxRate.getRate()).divide(TAX_RATE_DIVISOR);
     }
 
+    @Override
+    public Long getFlatTaxAmount() {
+      return (taxRate.hasTaxAmount()) ? (taxRate.getTaxAmount()) : null;
+    }
+
+    public String getName() {
+      return taxRate.getName();
+    }
+
     public int hashCode() {
       return (getId()!=null ? getId().hashCode() : super.hashCode());
     }

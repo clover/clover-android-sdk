@@ -283,18 +283,21 @@ public class PaymentConnector implements IPaymentConnector {
    * @param saleRequest    - A SaleRequest object containing basic information needed for the transaction
    */
   @Override
-  public void sale(final SaleRequest saleRequest) {
+  public void sale(final SaleRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
-          paymentV3Connector.getService().sale(saleRequest);
+          paymentV3Connector.getService().sale(request);
         } else {
           this.paymentV3Connector.connect();
           waitingTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
               try {
-                paymentV3Connector.getService().sale(saleRequest);
+                paymentV3Connector.getService().sale(request);
               } catch (RemoteException e) {
                 Log.e(this.getClass().getSimpleName(), " sale", e);
               }
@@ -453,6 +456,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void auth(final AuthRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().auth(request);
@@ -487,6 +493,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void preAuth(final PreAuthRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().preAuth(request);
@@ -520,6 +529,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void capturePreAuth(final CapturePreAuthRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().capturePreAuth(request);
@@ -553,6 +565,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void tipAdjustAuth(final TipAdjustAuthRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().tipAdjustAuth(request);
@@ -586,6 +601,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void voidPayment(final VoidPaymentRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().voidPayment(request);
@@ -619,6 +637,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void refundPayment(final RefundPaymentRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().refundPayment(request);
@@ -652,6 +673,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void manualRefund(final ManualRefundRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().manualRefund(request);
@@ -751,6 +775,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void readCardData(final ReadCardDataRequest request) {
     try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().readCardData(request);
@@ -783,6 +810,9 @@ public class PaymentConnector implements IPaymentConnector {
    */
   @Override
   public void closeout(final CloseoutRequest request) {
+    if (request != null) {
+      request.setVersion(2); // this version supports validation
+    }
     try {
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
@@ -817,6 +847,9 @@ public class PaymentConnector implements IPaymentConnector {
    */
   @Override
   public void retrievePayment(final RetrievePaymentRequest request) {
+    if (request != null) {
+      request.setVersion(2); // this version supports validation
+    }
     try {
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {

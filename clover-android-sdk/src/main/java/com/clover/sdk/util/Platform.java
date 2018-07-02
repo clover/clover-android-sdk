@@ -51,6 +51,7 @@ public enum Platform {
   C500("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
   /** Currently not used */
   C550("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
+  C302("Clover Mini(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
   OTHER("Other", Orientation.LANDSCAPE),
   ;
 
@@ -169,7 +170,7 @@ public enum Platform {
    */
   public static boolean isCloverMini() {
     Platform platform = get();
-    return (platform == C300 || platform == C301);
+    return (platform == C300 || platform == C301 || platform == C302);
   }
 
   /**
@@ -184,7 +185,8 @@ public enum Platform {
    * Return the platform of the secure processor, null for devices that do not have a secure processor.
    */
   public static SecureProcessorPlatform getSecureProcessorPlatform() {
-    if (isCloverMini() || isCloverMobile()) {
+    Platform platform = get();
+    if (platform == C200 || platform == C201 || platform == C300 || platform == C301) {
       return SecureProcessorPlatform.MAXIM;
     }
     if (supportsFeature(Feature.SECURE_PAYMENTS)) {

@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getRequestId requestId}</li>
+ * <li>{@link #getVersion version}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -46,6 +47,13 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.requestId);
   }
 
+  /**
+   * Identifier for the version
+   */
+  public java.lang.Integer getVersion() {
+    return genClient.cacheGet(CacheKey.version);
+  }
+
 
 
 
@@ -54,6 +62,12 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
       @Override
       public Object extractValue(BaseRequest instance) {
         return instance.genClient.extractOther("requestId", java.lang.String.class);
+      }
+    },
+    version {
+      @Override
+      public Object extractValue(BaseRequest instance) {
+        return instance.genClient.extractOther("version", java.lang.Integer.class);
       }
     },
       ;
@@ -129,11 +143,21 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.requestId);
   }
 
+  /** Checks whether the 'version' field is set and is not null */
+  public boolean isNotNullVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.version);
+  }
+
 
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
   public boolean hasRequestId() {
     return genClient.cacheHasKey(CacheKey.requestId);
+  }
+
+  /** Checks whether the 'version' field has been set, however the value could be null */
+  public boolean hasVersion() {
+    return genClient.cacheHasKey(CacheKey.version);
   }
 
 
@@ -144,10 +168,21 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.setOther(requestId, CacheKey.requestId);
   }
 
+  /**
+   * Sets the field 'version'.
+   */
+  public BaseRequest setVersion(java.lang.Integer version) {
+    return genClient.setOther(version, CacheKey.version);
+  }
+
 
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   public void clearRequestId() {
     genClient.clear(CacheKey.requestId);
+  }
+  /** Clears the 'version' field, the 'has' method for this field will now return false */
+  public void clearVersion() {
+    genClient.clear(CacheKey.version);
   }
 
 
@@ -210,6 +245,7 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
 
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
+    public static final boolean VERSION_IS_REQUIRED = false;
 
   }
 

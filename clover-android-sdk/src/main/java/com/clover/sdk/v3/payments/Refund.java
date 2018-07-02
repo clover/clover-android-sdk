@@ -45,6 +45,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOverrideMerchantTender overrideMerchantTender}</li>
  * <li>{@link #getTaxableAmountRates taxableAmountRates}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * <li>{@link #getAdditionalCharges additionalCharges}</li>
  * <li>{@link #getGermanInfo germanInfo}</li>
  * <li>{@link #getAppTracking appTracking}</li>
  * </ul>
@@ -136,6 +137,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   public com.clover.sdk.v3.payments.ServiceChargeAmount getServiceChargeAmount() {
     return genClient.cacheGet(CacheKey.serviceChargeAmount);
+  }
+
+  public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
+    return genClient.cacheGet(CacheKey.additionalCharges);
   }
 
   /**
@@ -238,6 +243,12 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
       @Override
       public Object extractValue(Refund instance) {
         return instance.genClient.extractRecord("serviceChargeAmount", com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR);
+      }
+    },
+    additionalCharges {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.genClient.extractListRecord("additionalCharges", com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR);
       }
     },
     germanInfo {
@@ -395,6 +406,14 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
   }
 
+  /** Checks whether the 'additionalCharges' field is set and is not null */
+  public boolean isNotNullAdditionalCharges() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalCharges);
+  }
+
+  /** Checks whether the 'additionalCharges' field is set and is not null and is not empty */
+  public boolean isNotEmptyAdditionalCharges() { return isNotNullAdditionalCharges() && !getAdditionalCharges().isEmpty(); }
+
   /** Checks whether the 'germanInfo' field is set and is not null */
   public boolean isNotNullGermanInfo() {
     return genClient.cacheValueIsNotNull(CacheKey.germanInfo);
@@ -475,6 +494,11 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'serviceChargeAmount' field has been set, however the value could be null */
   public boolean hasServiceChargeAmount() {
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'additionalCharges' field has been set, however the value could be null */
+  public boolean hasAdditionalCharges() {
+    return genClient.cacheHasKey(CacheKey.additionalCharges);
   }
 
   /** Checks whether the 'germanInfo' field has been set, however the value could be null */
@@ -603,6 +627,15 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'additionalCharges'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Refund setAdditionalCharges(java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> additionalCharges) {
+    return genClient.setArrayRecord(additionalCharges, CacheKey.additionalCharges);
+  }
+
+  /**
    * Sets the field 'germanInfo'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -676,6 +709,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Clears the 'serviceChargeAmount' field, the 'has' method for this field will now return false */
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
+  }
+  /** Clears the 'additionalCharges' field, the 'has' method for this field will now return false */
+  public void clearAdditionalCharges() {
+    genClient.clear(CacheKey.additionalCharges);
   }
   /** Clears the 'germanInfo' field, the 'has' method for this field will now return false */
   public void clearGermanInfo() {
@@ -758,6 +795,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean OVERRIDEMERCHANTTENDER_IS_REQUIRED = false;
     public static final boolean TAXABLEAMOUNTRATES_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGES_IS_REQUIRED = false;
     public static final boolean GERMANINFO_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
 

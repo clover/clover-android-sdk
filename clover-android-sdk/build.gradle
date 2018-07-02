@@ -19,7 +19,7 @@ version = '191.6'
 apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
-  compile files('lib/calc-240.3.jar')
+  compile files('lib/calc.jar')
 }
 
 

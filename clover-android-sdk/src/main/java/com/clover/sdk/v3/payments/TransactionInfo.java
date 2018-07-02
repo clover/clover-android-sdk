@@ -34,6 +34,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getLanguageIndicator languageIndicator}</li>
  * <li>{@link #getAccountSelection accountSelection}</li>
  * <li>{@link #getFiscalInvoiceNumber fiscalInvoiceNumber}</li>
+ * <li>{@link #getInstallmentsQuantity installmentsQuantity}</li>
+ * <li>{@link #getInstallmentsPlanCode installmentsPlanCode}</li>
+ * <li>{@link #getInstallmentsPlanId installmentsPlanId}</li>
+ * <li>{@link #getInstallmentsPlanDesc installmentsPlanDesc}</li>
+ * <li>{@link #getCardTypeLabel cardTypeLabel}</li>
+ * <li>{@link #getStan stan}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -52,6 +58,48 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
    */
   public java.lang.String getFiscalInvoiceNumber() {
     return genClient.cacheGet(CacheKey.fiscalInvoiceNumber);
+  }
+
+  /**
+   * AR Installments: number of installments
+   */
+  public java.lang.Integer getInstallmentsQuantity() {
+    return genClient.cacheGet(CacheKey.installmentsQuantity);
+  }
+
+  /**
+   * AR Installments: plan alphanum code
+   */
+  public java.lang.String getInstallmentsPlanCode() {
+    return genClient.cacheGet(CacheKey.installmentsPlanCode);
+  }
+
+  /**
+   * AR Installments: selected plan id
+   */
+  public java.lang.String getInstallmentsPlanId() {
+    return genClient.cacheGet(CacheKey.installmentsPlanId);
+  }
+
+  /**
+   * AR Installments: selected plan desc
+   */
+  public java.lang.String getInstallmentsPlanDesc() {
+    return genClient.cacheGet(CacheKey.installmentsPlanDesc);
+  }
+
+  /**
+   * Card type label
+   */
+  public java.lang.String getCardTypeLabel() {
+    return genClient.cacheGet(CacheKey.cardTypeLabel);
+  }
+
+  /**
+   * STAN(System Audit Trace Number)
+   */
+  public java.lang.Integer getStan() {
+    return genClient.cacheGet(CacheKey.stan);
   }
 
 
@@ -74,6 +122,42 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(TransactionInfo instance) {
         return instance.genClient.extractOther("fiscalInvoiceNumber", java.lang.String.class);
+      }
+    },
+    installmentsQuantity {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("installmentsQuantity", java.lang.Integer.class);
+      }
+    },
+    installmentsPlanCode {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("installmentsPlanCode", java.lang.String.class);
+      }
+    },
+    installmentsPlanId {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("installmentsPlanId", java.lang.String.class);
+      }
+    },
+    installmentsPlanDesc {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("installmentsPlanDesc", java.lang.String.class);
+      }
+    },
+    cardTypeLabel {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("cardTypeLabel", java.lang.String.class);
+      }
+    },
+    stan {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("stan", java.lang.Integer.class);
       }
     },
       ;
@@ -144,6 +228,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     genClient.validateLength(getLanguageIndicator(), 2);
 
     genClient.validateLength(getFiscalInvoiceNumber(), 12);
+
+    genClient.validateLength(getInstallmentsPlanCode(), 1);
   }
 
   /** Checks whether the 'languageIndicator' field is set and is not null */
@@ -161,6 +247,36 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.fiscalInvoiceNumber);
   }
 
+  /** Checks whether the 'installmentsQuantity' field is set and is not null */
+  public boolean isNotNullInstallmentsQuantity() {
+    return genClient.cacheValueIsNotNull(CacheKey.installmentsQuantity);
+  }
+
+  /** Checks whether the 'installmentsPlanCode' field is set and is not null */
+  public boolean isNotNullInstallmentsPlanCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.installmentsPlanCode);
+  }
+
+  /** Checks whether the 'installmentsPlanId' field is set and is not null */
+  public boolean isNotNullInstallmentsPlanId() {
+    return genClient.cacheValueIsNotNull(CacheKey.installmentsPlanId);
+  }
+
+  /** Checks whether the 'installmentsPlanDesc' field is set and is not null */
+  public boolean isNotNullInstallmentsPlanDesc() {
+    return genClient.cacheValueIsNotNull(CacheKey.installmentsPlanDesc);
+  }
+
+  /** Checks whether the 'cardTypeLabel' field is set and is not null */
+  public boolean isNotNullCardTypeLabel() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardTypeLabel);
+  }
+
+  /** Checks whether the 'stan' field is set and is not null */
+  public boolean isNotNullStan() {
+    return genClient.cacheValueIsNotNull(CacheKey.stan);
+  }
+
 
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
@@ -176,6 +292,36 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'fiscalInvoiceNumber' field has been set, however the value could be null */
   public boolean hasFiscalInvoiceNumber() {
     return genClient.cacheHasKey(CacheKey.fiscalInvoiceNumber);
+  }
+
+  /** Checks whether the 'installmentsQuantity' field has been set, however the value could be null */
+  public boolean hasInstallmentsQuantity() {
+    return genClient.cacheHasKey(CacheKey.installmentsQuantity);
+  }
+
+  /** Checks whether the 'installmentsPlanCode' field has been set, however the value could be null */
+  public boolean hasInstallmentsPlanCode() {
+    return genClient.cacheHasKey(CacheKey.installmentsPlanCode);
+  }
+
+  /** Checks whether the 'installmentsPlanId' field has been set, however the value could be null */
+  public boolean hasInstallmentsPlanId() {
+    return genClient.cacheHasKey(CacheKey.installmentsPlanId);
+  }
+
+  /** Checks whether the 'installmentsPlanDesc' field has been set, however the value could be null */
+  public boolean hasInstallmentsPlanDesc() {
+    return genClient.cacheHasKey(CacheKey.installmentsPlanDesc);
+  }
+
+  /** Checks whether the 'cardTypeLabel' field has been set, however the value could be null */
+  public boolean hasCardTypeLabel() {
+    return genClient.cacheHasKey(CacheKey.cardTypeLabel);
+  }
+
+  /** Checks whether the 'stan' field has been set, however the value could be null */
+  public boolean hasStan() {
+    return genClient.cacheHasKey(CacheKey.stan);
   }
 
 
@@ -200,6 +346,48 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(fiscalInvoiceNumber, CacheKey.fiscalInvoiceNumber);
   }
 
+  /**
+   * Sets the field 'installmentsQuantity'.
+   */
+  public TransactionInfo setInstallmentsQuantity(java.lang.Integer installmentsQuantity) {
+    return genClient.setOther(installmentsQuantity, CacheKey.installmentsQuantity);
+  }
+
+  /**
+   * Sets the field 'installmentsPlanCode'.
+   */
+  public TransactionInfo setInstallmentsPlanCode(java.lang.String installmentsPlanCode) {
+    return genClient.setOther(installmentsPlanCode, CacheKey.installmentsPlanCode);
+  }
+
+  /**
+   * Sets the field 'installmentsPlanId'.
+   */
+  public TransactionInfo setInstallmentsPlanId(java.lang.String installmentsPlanId) {
+    return genClient.setOther(installmentsPlanId, CacheKey.installmentsPlanId);
+  }
+
+  /**
+   * Sets the field 'installmentsPlanDesc'.
+   */
+  public TransactionInfo setInstallmentsPlanDesc(java.lang.String installmentsPlanDesc) {
+    return genClient.setOther(installmentsPlanDesc, CacheKey.installmentsPlanDesc);
+  }
+
+  /**
+   * Sets the field 'cardTypeLabel'.
+   */
+  public TransactionInfo setCardTypeLabel(java.lang.String cardTypeLabel) {
+    return genClient.setOther(cardTypeLabel, CacheKey.cardTypeLabel);
+  }
+
+  /**
+   * Sets the field 'stan'.
+   */
+  public TransactionInfo setStan(java.lang.Integer stan) {
+    return genClient.setOther(stan, CacheKey.stan);
+  }
+
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -212,6 +400,30 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Clears the 'fiscalInvoiceNumber' field, the 'has' method for this field will now return false */
   public void clearFiscalInvoiceNumber() {
     genClient.clear(CacheKey.fiscalInvoiceNumber);
+  }
+  /** Clears the 'installmentsQuantity' field, the 'has' method for this field will now return false */
+  public void clearInstallmentsQuantity() {
+    genClient.clear(CacheKey.installmentsQuantity);
+  }
+  /** Clears the 'installmentsPlanCode' field, the 'has' method for this field will now return false */
+  public void clearInstallmentsPlanCode() {
+    genClient.clear(CacheKey.installmentsPlanCode);
+  }
+  /** Clears the 'installmentsPlanId' field, the 'has' method for this field will now return false */
+  public void clearInstallmentsPlanId() {
+    genClient.clear(CacheKey.installmentsPlanId);
+  }
+  /** Clears the 'installmentsPlanDesc' field, the 'has' method for this field will now return false */
+  public void clearInstallmentsPlanDesc() {
+    genClient.clear(CacheKey.installmentsPlanDesc);
+  }
+  /** Clears the 'cardTypeLabel' field, the 'has' method for this field will now return false */
+  public void clearCardTypeLabel() {
+    genClient.clear(CacheKey.cardTypeLabel);
+  }
+  /** Clears the 'stan' field, the 'has' method for this field will now return false */
+  public void clearStan() {
+    genClient.clear(CacheKey.stan);
   }
 
 
@@ -277,6 +489,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean ACCOUNTSELECTION_IS_REQUIRED = false;
     public static final boolean FISCALINVOICENUMBER_IS_REQUIRED = false;
     public static final long FISCALINVOICENUMBER_MAX_LEN = 12;
+    public static final boolean INSTALLMENTSQUANTITY_IS_REQUIRED = false;
+    public static final boolean INSTALLMENTSPLANCODE_IS_REQUIRED = false;
+    public static final long INSTALLMENTSPLANCODE_MAX_LEN = 1;
+    public static final boolean INSTALLMENTSPLANID_IS_REQUIRED = false;
+    public static final boolean INSTALLMENTSPLANDESC_IS_REQUIRED = false;
+    public static final boolean CARDTYPELABEL_IS_REQUIRED = false;
+    public static final boolean STAN_IS_REQUIRED = false;
 
   }
 

@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getMessage message}</li>
  * <li>{@link #getCode code}</li>
+ * <li>{@link #getCause cause}</li>
  * <li>{@link #getType type}</li>
  * </ul>
  */
@@ -48,6 +49,10 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
 
   public com.clover.sdk.v3.remotepay.DeviceErrorEventCode getCode() {
     return genClient.cacheGet(CacheKey.code);
+  }
+
+  public com.clover.sdk.v3.remotepay.PlatformError getCause() {
+    return genClient.cacheGet(CacheKey.cause);
   }
 
   public com.clover.sdk.v3.remotepay.ErrorType getType() {
@@ -68,6 +73,12 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
       @Override
       public Object extractValue(CloverDeviceErrorEvent instance) {
         return instance.genClient.extractEnum("code", com.clover.sdk.v3.remotepay.DeviceErrorEventCode.class);
+      }
+    },
+    cause {
+      @Override
+      public Object extractValue(CloverDeviceErrorEvent instance) {
+        return instance.genClient.extractRecord("cause", com.clover.sdk.v3.remotepay.PlatformError.JSON_CREATOR);
       }
     },
     type {
@@ -153,6 +164,11 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
     return genClient.cacheValueIsNotNull(CacheKey.code);
   }
 
+  /** Checks whether the 'cause' field is set and is not null */
+  public boolean isNotNullCause() {
+    return genClient.cacheValueIsNotNull(CacheKey.cause);
+  }
+
   /** Checks whether the 'type' field is set and is not null */
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
@@ -168,6 +184,11 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   /** Checks whether the 'code' field has been set, however the value could be null */
   public boolean hasCode() {
     return genClient.cacheHasKey(CacheKey.code);
+  }
+
+  /** Checks whether the 'cause' field has been set, however the value could be null */
+  public boolean hasCause() {
+    return genClient.cacheHasKey(CacheKey.cause);
   }
 
   /** Checks whether the 'type' field has been set, however the value could be null */
@@ -191,6 +212,15 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   }
 
   /**
+   * Sets the field 'cause'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public CloverDeviceErrorEvent setCause(com.clover.sdk.v3.remotepay.PlatformError cause) {
+    return genClient.setRecord(cause, CacheKey.cause);
+  }
+
+  /**
    * Sets the field 'type'.
    */
   public CloverDeviceErrorEvent setType(com.clover.sdk.v3.remotepay.ErrorType type) {
@@ -205,6 +235,10 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   /** Clears the 'code' field, the 'has' method for this field will now return false */
   public void clearCode() {
     genClient.clear(CacheKey.code);
+  }
+  /** Clears the 'cause' field, the 'has' method for this field will now return false */
+  public void clearCause() {
+    genClient.clear(CacheKey.cause);
   }
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
@@ -271,6 +305,7 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
 
     public static final boolean MESSAGE_IS_REQUIRED = false;
     public static final boolean CODE_IS_REQUIRED = false;
+    public static final boolean CAUSE_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
 
   }

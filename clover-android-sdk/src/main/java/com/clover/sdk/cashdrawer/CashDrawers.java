@@ -33,16 +33,12 @@ public class CashDrawers {
     discoverers.add(new StationPrinterCashDrawer.Discovery(context));
     discoverers.add(new MiniPrinterCashDrawer.Discovery(context));
     discoverers.add(new APG554aCashDrawer.Discovery(context));
-    discoverers.add(new Station2018PrinterCashDrawer.Discovery(context));
   }
 
   private void checkPermission() throws SecurityException {
-    String oldPermission = context.getString(R.string.permission_pop_cash_drawer);
-    String newPermission = context.getString(R.string.permission_pop_cash_drawer_new);
-    boolean gotOldPermission = (context.checkCallingOrSelfPermission(oldPermission) == PackageManager.PERMISSION_GRANTED);
-    boolean gotNewPermission = (context.checkCallingOrSelfPermission(newPermission) == PackageManager.PERMISSION_GRANTED);
-    if (!(gotNewPermission || gotOldPermission)) {
-      throw new SecurityException("Application is not granted permission: " + newPermission);
+    String p = context.getString(R.string.permission_pop_cash_drawer);
+    if (context.checkCallingOrSelfPermission(p) != PackageManager.PERMISSION_GRANTED) {
+      throw new SecurityException("Application is not granted permission: " + p);
     }
   }
 
