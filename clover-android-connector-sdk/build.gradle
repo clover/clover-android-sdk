@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '191.6'
+version = '210.1'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
@@ -29,6 +29,8 @@ apply plugin: 'signing'
 buildscript {
   repositories {
     mavenCentral()
+    google()
+    jcenter()
   }
   dependencies {
     classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3'

@@ -32,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getName name}</li>
+ * <li>{@link #getLocale locale}</li>
  * <li>{@link #getSmall small}</li>
  * <li>{@link #getMedium medium}</li>
  * <li>{@link #getLarge large}</li>
@@ -45,6 +46,13 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * https://docs.oracle.com/javase/7/docs/api/java/util/Locale.html ISO 639-1 ISO_3166-1_alpha-2 Examples: en_US, de_DE, en_CA, fr_CA
+   */
+  public java.lang.String getLocale() {
+    return genClient.cacheGet(CacheKey.locale);
   }
 
   /**
@@ -76,6 +84,12 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
       @Override
       public Object extractValue(Screenshot instance) {
         return instance.genClient.extractOther("name", java.lang.String.class);
+      }
+    },
+    locale {
+      @Override
+      public Object extractValue(Screenshot instance) {
+        return instance.genClient.extractOther("locale", java.lang.String.class);
       }
     },
     small {
@@ -163,6 +177,8 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   public void validate() {
     genClient.validateLength(getName(), 255);
 
+    genClient.validateLength(getLocale(), 5);
+
     genClient.validateLength(getSmall(), 255);
 
     genClient.validateLength(getMedium(), 255);
@@ -173,6 +189,11 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'name' field is set and is not null */
   public boolean isNotNullName() {
     return genClient.cacheValueIsNotNull(CacheKey.name);
+  }
+
+  /** Checks whether the 'locale' field is set and is not null */
+  public boolean isNotNullLocale() {
+    return genClient.cacheValueIsNotNull(CacheKey.locale);
   }
 
   /** Checks whether the 'small' field is set and is not null */
@@ -197,6 +218,11 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheHasKey(CacheKey.name);
   }
 
+  /** Checks whether the 'locale' field has been set, however the value could be null */
+  public boolean hasLocale() {
+    return genClient.cacheHasKey(CacheKey.locale);
+  }
+
   /** Checks whether the 'small' field has been set, however the value could be null */
   public boolean hasSmall() {
     return genClient.cacheHasKey(CacheKey.small);
@@ -218,6 +244,13 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public Screenshot setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
+  }
+
+  /**
+   * Sets the field 'locale'.
+   */
+  public Screenshot setLocale(java.lang.String locale) {
+    return genClient.setOther(locale, CacheKey.locale);
   }
 
   /**
@@ -245,6 +278,10 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
+  }
+  /** Clears the 'locale' field, the 'has' method for this field will now return false */
+  public void clearLocale() {
+    genClient.clear(CacheKey.locale);
   }
   /** Clears the 'small' field, the 'has' method for this field will now return false */
   public void clearSmall() {
@@ -319,6 +356,8 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
 
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 255;
+    public static final boolean LOCALE_IS_REQUIRED = false;
+    public static final long LOCALE_MAX_LEN = 5;
     public static final boolean SMALL_IS_REQUIRED = false;
     public static final long SMALL_MAX_LEN = 255;
     public static final boolean MEDIUM_IS_REQUIRED = false;

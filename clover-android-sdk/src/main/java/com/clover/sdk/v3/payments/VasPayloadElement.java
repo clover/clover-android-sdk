@@ -44,35 +44,35 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
   /**
    * Indicates the type of data in this response.
    */
-  public VasDataType getDataType() {
+  public com.clover.sdk.v3.payments.VasDataType getDataType() {
     return genClient.cacheGet(CacheKey.dataType);
   }
 
   /**
    * Format of vasData payload.
    */
-  public VasResponseFormat getResponseFormat() {
+  public com.clover.sdk.v3.payments.VasResponseFormat getResponseFormat() {
     return genClient.cacheGet(CacheKey.responseFormat);
   }
 
   /**
    * Vas data.  For NDEF it will be base64 encoded binary.
    */
-  public String getVasData() {
+  public java.lang.String getVasData() {
     return genClient.cacheGet(CacheKey.vasData);
   }
 
   /**
    * Protocol this payload element was derived from
    */
-  public VasProtocol getProtocolId() {
+  public com.clover.sdk.v3.payments.VasProtocol getProtocolId() {
     return genClient.cacheGet(CacheKey.protocolId);
   }
 
   /**
    * Merchant id associated with this payload element (hex encoded)
    */
-  public String getMerchantId() {
+  public java.lang.String getMerchantId() {
     return genClient.cacheGet(CacheKey.merchantId);
   }
 
@@ -83,31 +83,31 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
     dataType {
       @Override
       public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractRecord("dataType", VasDataType.JSON_CREATOR);
+        return instance.genClient.extractRecord("dataType", com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR);
       }
     },
     responseFormat {
       @Override
       public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractEnum("responseFormat", VasResponseFormat.class);
+        return instance.genClient.extractEnum("responseFormat", com.clover.sdk.v3.payments.VasResponseFormat.class);
       }
     },
     vasData {
       @Override
       public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractOther("vasData", String.class);
+        return instance.genClient.extractOther("vasData", java.lang.String.class);
       }
     },
     protocolId {
       @Override
       public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractEnum("protocolId", VasProtocol.class);
+        return instance.genClient.extractEnum("protocolId", com.clover.sdk.v3.payments.VasProtocol.class);
       }
     },
     merchantId {
       @Override
       public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractOther("merchantId", String.class);
+        return instance.genClient.extractOther("merchantId", java.lang.String.class);
       }
     },
       ;
@@ -235,35 +235,35 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public VasPayloadElement setDataType(VasDataType dataType) {
+  public VasPayloadElement setDataType(com.clover.sdk.v3.payments.VasDataType dataType) {
     return genClient.setRecord(dataType, CacheKey.dataType);
   }
 
   /**
    * Sets the field 'responseFormat'.
    */
-  public VasPayloadElement setResponseFormat(VasResponseFormat responseFormat) {
+  public VasPayloadElement setResponseFormat(com.clover.sdk.v3.payments.VasResponseFormat responseFormat) {
     return genClient.setOther(responseFormat, CacheKey.responseFormat);
   }
 
   /**
    * Sets the field 'vasData'.
    */
-  public VasPayloadElement setVasData(String vasData) {
+  public VasPayloadElement setVasData(java.lang.String vasData) {
     return genClient.setOther(vasData, CacheKey.vasData);
   }
 
   /**
    * Sets the field 'protocolId'.
    */
-  public VasPayloadElement setProtocolId(VasProtocol protocolId) {
+  public VasPayloadElement setProtocolId(com.clover.sdk.v3.payments.VasProtocol protocolId) {
     return genClient.setOther(protocolId, CacheKey.protocolId);
   }
 
   /**
    * Sets the field 'merchantId'.
    */
-  public VasPayloadElement setMerchantId(String merchantId) {
+  public VasPayloadElement setMerchantId(java.lang.String merchantId) {
     return genClient.setOther(merchantId, CacheKey.merchantId);
   }
 

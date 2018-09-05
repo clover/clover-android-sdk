@@ -35,6 +35,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCardNumber cardNumber}</li>
  * <li>{@link #getIsManuallyEntered isManuallyEntered}</li>
  * <li>{@link #getDeviceSerial deviceSerial}</li>
+ * <li>{@link #getVirtual virtual}</li>
+ * <li>{@link #getPromoCode promoCode}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +67,20 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.deviceSerial);
   }
 
+  /**
+   * Is this a virtual gift card
+   */
+  public java.lang.Boolean getVirtual() {
+    return genClient.cacheGet(CacheKey.virtual);
+  }
+
+  /**
+   * Virtual Promo Code
+   */
+  public java.lang.String getPromoCode() {
+    return genClient.cacheGet(CacheKey.promoCode);
+  }
+
 
 
 
@@ -91,6 +107,18 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
       @Override
       public Object extractValue(GiftCard instance) {
         return instance.genClient.extractOther("deviceSerial", java.lang.String.class);
+      }
+    },
+    virtual {
+      @Override
+      public Object extractValue(GiftCard instance) {
+        return instance.genClient.extractOther("virtual", java.lang.Boolean.class);
+      }
+    },
+    promoCode {
+      @Override
+      public Object extractValue(GiftCard instance) {
+        return instance.genClient.extractOther("promoCode", java.lang.String.class);
       }
     },
       ;
@@ -180,6 +208,16 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.deviceSerial);
   }
 
+  /** Checks whether the 'virtual' field is set and is not null */
+  public boolean isNotNullVirtual() {
+    return genClient.cacheValueIsNotNull(CacheKey.virtual);
+  }
+
+  /** Checks whether the 'promoCode' field is set and is not null */
+  public boolean isNotNullPromoCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.promoCode);
+  }
+
 
 
   /** Checks whether the 'track2' field has been set, however the value could be null */
@@ -200,6 +238,16 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'deviceSerial' field has been set, however the value could be null */
   public boolean hasDeviceSerial() {
     return genClient.cacheHasKey(CacheKey.deviceSerial);
+  }
+
+  /** Checks whether the 'virtual' field has been set, however the value could be null */
+  public boolean hasVirtual() {
+    return genClient.cacheHasKey(CacheKey.virtual);
+  }
+
+  /** Checks whether the 'promoCode' field has been set, however the value could be null */
+  public boolean hasPromoCode() {
+    return genClient.cacheHasKey(CacheKey.promoCode);
   }
 
 
@@ -231,6 +279,20 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(deviceSerial, CacheKey.deviceSerial);
   }
 
+  /**
+   * Sets the field 'virtual'.
+   */
+  public GiftCard setVirtual(java.lang.Boolean virtual) {
+    return genClient.setOther(virtual, CacheKey.virtual);
+  }
+
+  /**
+   * Sets the field 'promoCode'.
+   */
+  public GiftCard setPromoCode(java.lang.String promoCode) {
+    return genClient.setOther(promoCode, CacheKey.promoCode);
+  }
+
 
   /** Clears the 'track2' field, the 'has' method for this field will now return false */
   public void clearTrack2() {
@@ -247,6 +309,14 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'deviceSerial' field, the 'has' method for this field will now return false */
   public void clearDeviceSerial() {
     genClient.clear(CacheKey.deviceSerial);
+  }
+  /** Clears the 'virtual' field, the 'has' method for this field will now return false */
+  public void clearVirtual() {
+    genClient.clear(CacheKey.virtual);
+  }
+  /** Clears the 'promoCode' field, the 'has' method for this field will now return false */
+  public void clearPromoCode() {
+    genClient.clear(CacheKey.promoCode);
   }
 
 
@@ -311,6 +381,8 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean CARDNUMBER_IS_REQUIRED = false;
     public static final boolean ISMANUALLYENTERED_IS_REQUIRED = false;
     public static final boolean DEVICESERIAL_IS_REQUIRED = false;
+    public static final boolean VIRTUAL_IS_REQUIRED = false;
+    public static final boolean PROMOCODE_IS_REQUIRED = false;
 
   }
 

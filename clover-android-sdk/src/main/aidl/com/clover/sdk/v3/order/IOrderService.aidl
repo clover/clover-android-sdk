@@ -12,7 +12,9 @@ import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.CreditRefund;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.Payment;
+import com.clover.sdk.v3.payments.TransactionInfo;
 import com.clover.sdk.v3.pay.PaymentRequest;
+import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.order.VoidReason;
 
 /**
@@ -410,4 +412,58 @@ interface IOrderService {
    * @y.exclude
    */
   Order deleteCreditRefund(String orderId, in String creditRefundId, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  Order voidPaymentWithCard(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in VoidReason reason, String source, out ResultStatus status);
+
+  /**
+   * Get list of lineitem ids for the order that has printtag to print.
+   * The items that are already printed are not part of the list
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  List<String> getLineItemsToFire(String orderId, out ResultStatus status);
+
+  /**
+   * Reprint all lineitems that has a printtag even if they are printed.
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  boolean refire(String orderId, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @deprecated Use {@link #deleteOrder3}.
+   * @y.exclude
+   */
+  boolean deleteOrderOnline2(String orderId, boolean usePermissionForOrderDeletions, out ResultStatus status);
+
+  /**
+   * Delete an {@link Order}. This method allows switching between online deletion like {@link #deleteOrderOnline(String)}
+   * and offline (deleting loaclly and adding message to server queue) like {@link #deleteOrder(String)}
+   * This method allows an override toggle for the employee permissions and printed line items checks.
+   *
+   * @param orderId The ID of the order to be deleted.
+   * @param deleteOnline true to delete an order synchronously on the server @see #deleteOrderOnline
+   * @param allowDeleteIfLineItemPrinted true to allow deleting order if it has printed line items
+   * @param allowDeleteIfNoEmployeePermission true to allow deletion regardless of employee permission.
+   * @return true if the order was deleted successfully, otherwise false.
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  boolean deleteOrder3(String orderId, boolean deleteOnline, boolean allowDeleteIfLineItemPrinted, boolean allowDeleteIfNoEmployeePermission, out ResultStatus status);
+
+  /**
+   * Card present void
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  Order voidPaymentCardPresent(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in VoidReason reason, String source, out ResultStatus status);
 }

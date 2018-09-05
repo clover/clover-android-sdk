@@ -39,7 +39,7 @@ import com.clover.sdk.GenericParcelable;
 @SuppressWarnings("all")
 public class VasPayloadResponse extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public VasPayloadResponseType getResponseType() {
+  public com.clover.sdk.v3.payments.VasPayloadResponseType getResponseType() {
     return genClient.cacheGet(CacheKey.responseType);
   }
 
@@ -50,7 +50,7 @@ public class VasPayloadResponse extends GenericParcelable implements com.clover.
     responseType {
       @Override
       public Object extractValue(VasPayloadResponse instance) {
-        return instance.genClient.extractEnum("responseType", VasPayloadResponseType.class);
+        return instance.genClient.extractEnum("responseType", com.clover.sdk.v3.payments.VasPayloadResponseType.class);
       }
     },
       ;
@@ -136,7 +136,7 @@ public class VasPayloadResponse extends GenericParcelable implements com.clover.
   /**
    * Sets the field 'responseType'.
    */
-  public VasPayloadResponse setResponseType(VasPayloadResponseType responseType) {
+  public VasPayloadResponse setResponseType(com.clover.sdk.v3.payments.VasPayloadResponseType responseType) {
     return genClient.setOther(responseType, CacheKey.responseType);
   }
 

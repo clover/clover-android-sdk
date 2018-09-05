@@ -43,28 +43,28 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
   /**
    * Populated per tx.  If not passed PAY_ONLY is the default behavior
    */
-  public VasMode getVasMode() {
+  public com.clover.sdk.v3.payments.VasMode getVasMode() {
     return genClient.cacheGet(CacheKey.vasMode);
   }
 
   /**
    * Vas service types of interest for this txn
    */
-  public java.util.List<VasDataType> getServiceTypes() {
+  public java.util.List<com.clover.sdk.v3.payments.VasDataType> getServiceTypes() {
     return genClient.cacheGet(CacheKey.serviceTypes);
   }
 
   /**
    * Additional context relevant extras such as EXTRA_ORDER_ID
    */
-  public java.util.Map<String,String> getExtras() {
+  public java.util.Map<java.lang.String,java.lang.String> getExtras() {
     return genClient.cacheGet(CacheKey.extras);
   }
 
   /**
    * Indicates if vas is push url only, no push, or push in addition to GET
    */
-  public VasPushMode getPushMode() {
+  public com.clover.sdk.v3.payments.VasPushMode getPushMode() {
     return genClient.cacheGet(CacheKey.pushMode);
   }
 
@@ -75,13 +75,13 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     vasMode {
       @Override
       public Object extractValue(VasSettings instance) {
-        return instance.genClient.extractEnum("vasMode", VasMode.class);
+        return instance.genClient.extractEnum("vasMode", com.clover.sdk.v3.payments.VasMode.class);
       }
     },
     serviceTypes {
       @Override
       public Object extractValue(VasSettings instance) {
-        return instance.genClient.extractListRecord("serviceTypes", VasDataType.JSON_CREATOR);
+        return instance.genClient.extractListRecord("serviceTypes", com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR);
       }
     },
     extras {
@@ -93,7 +93,7 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     pushMode {
       @Override
       public Object extractValue(VasSettings instance) {
-        return instance.genClient.extractEnum("pushMode", VasPushMode.class);
+        return instance.genClient.extractEnum("pushMode", com.clover.sdk.v3.payments.VasPushMode.class);
       }
     },
       ;
@@ -215,7 +215,7 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
   /**
    * Sets the field 'vasMode'.
    */
-  public VasSettings setVasMode(VasMode vasMode) {
+  public VasSettings setVasMode(com.clover.sdk.v3.payments.VasMode vasMode) {
     return genClient.setOther(vasMode, CacheKey.vasMode);
   }
 
@@ -224,21 +224,21 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public VasSettings setServiceTypes(java.util.List<VasDataType> serviceTypes) {
+  public VasSettings setServiceTypes(java.util.List<com.clover.sdk.v3.payments.VasDataType> serviceTypes) {
     return genClient.setArrayRecord(serviceTypes, CacheKey.serviceTypes);
   }
 
   /**
    * Sets the field 'extras'.
    */
-  public VasSettings setExtras(java.util.Map<String,String> extras) {
+  public VasSettings setExtras(java.util.Map<java.lang.String,java.lang.String> extras) {
     return genClient.setOther(extras, CacheKey.extras);
   }
 
   /**
    * Sets the field 'pushMode'.
    */
-  public VasSettings setPushMode(VasPushMode pushMode) {
+  public VasSettings setPushMode(com.clover.sdk.v3.payments.VasPushMode pushMode) {
     return genClient.setOther(pushMode, CacheKey.pushMode);
   }
 

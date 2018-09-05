@@ -40,7 +40,7 @@ public class VasPayload extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * List of vas data elements returned during tx
    */
-  public java.util.List<VasPayloadElement> getPayloadElements() {
+  public java.util.List<com.clover.sdk.v3.payments.VasPayloadElement> getPayloadElements() {
     return genClient.cacheGet(CacheKey.payloadElements);
   }
 
@@ -51,7 +51,7 @@ public class VasPayload extends GenericParcelable implements com.clover.sdk.v3.V
     payloadElements {
       @Override
       public Object extractValue(VasPayload instance) {
-        return instance.genClient.extractListRecord("payloadElements", VasPayloadElement.JSON_CREATOR);
+        return instance.genClient.extractListRecord("payloadElements", com.clover.sdk.v3.payments.VasPayloadElement.JSON_CREATOR);
       }
     },
       ;
@@ -142,7 +142,7 @@ public class VasPayload extends GenericParcelable implements com.clover.sdk.v3.V
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public VasPayload setPayloadElements(java.util.List<VasPayloadElement> payloadElements) {
+  public VasPayload setPayloadElements(java.util.List<com.clover.sdk.v3.payments.VasPayloadElement> payloadElements) {
     return genClient.setArrayRecord(payloadElements, CacheKey.payloadElements);
   }
 

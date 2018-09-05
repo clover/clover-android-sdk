@@ -45,39 +45,39 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   /**
    * Unique package name identifier of provider
    */
-  public String getProviderPackage() {
+  public java.lang.String getProviderPackage() {
     return genClient.cacheGet(CacheKey.providerPackage);
   }
 
-  public VasProtocol getProtocolId() {
+  public com.clover.sdk.v3.payments.VasProtocol getProtocolId() {
     return genClient.cacheGet(CacheKey.protocolId);
   }
 
   /**
    * Service types supported by this provider.
    */
-  public java.util.List<VasDataType> getSupportedServices() {
+  public java.util.List<com.clover.sdk.v3.payments.VasDataType> getSupportedServices() {
     return genClient.cacheGet(CacheKey.supportedServices);
   }
 
   /**
    * protocol specific configuration
    */
-  public java.util.Map<String,String> getProtocolConfig() {
+  public java.util.Map<java.lang.String,java.lang.String> getProtocolConfig() {
     return genClient.cacheGet(CacheKey.protocolConfig);
   }
 
   /**
    * Populated for push use cases (e.g. send signup URL).
    */
-  public String getPushUrl() {
+  public java.lang.String getPushUrl() {
     return genClient.cacheGet(CacheKey.pushUrl);
   }
 
   /**
    * Optionally populated for vas push use cases (e.g. send signup URL).
    */
-  public String getPushTitle() {
+  public java.lang.String getPushTitle() {
     return genClient.cacheGet(CacheKey.pushTitle);
   }
 
@@ -88,19 +88,19 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     providerPackage {
       @Override
       public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("providerPackage", String.class);
+        return instance.genClient.extractOther("providerPackage", java.lang.String.class);
       }
     },
     protocolId {
       @Override
       public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractEnum("protocolId", VasProtocol.class);
+        return instance.genClient.extractEnum("protocolId", com.clover.sdk.v3.payments.VasProtocol.class);
       }
     },
     supportedServices {
       @Override
       public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractListRecord("supportedServices", VasDataType.JSON_CREATOR);
+        return instance.genClient.extractListRecord("supportedServices", com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR);
       }
     },
     protocolConfig {
@@ -112,13 +112,13 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     pushUrl {
       @Override
       public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("pushUrl", String.class);
+        return instance.genClient.extractOther("pushUrl", java.lang.String.class);
       }
     },
     pushTitle {
       @Override
       public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("pushTitle", String.class);
+        return instance.genClient.extractOther("pushTitle", java.lang.String.class);
       }
     },
       ;
@@ -260,14 +260,14 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   /**
    * Sets the field 'providerPackage'.
    */
-  public VasServiceProvider setProviderPackage(String providerPackage) {
+  public VasServiceProvider setProviderPackage(java.lang.String providerPackage) {
     return genClient.setOther(providerPackage, CacheKey.providerPackage);
   }
 
   /**
    * Sets the field 'protocolId'.
    */
-  public VasServiceProvider setProtocolId(VasProtocol protocolId) {
+  public VasServiceProvider setProtocolId(com.clover.sdk.v3.payments.VasProtocol protocolId) {
     return genClient.setOther(protocolId, CacheKey.protocolId);
   }
 
@@ -276,28 +276,28 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public VasServiceProvider setSupportedServices(java.util.List<VasDataType> supportedServices) {
+  public VasServiceProvider setSupportedServices(java.util.List<com.clover.sdk.v3.payments.VasDataType> supportedServices) {
     return genClient.setArrayRecord(supportedServices, CacheKey.supportedServices);
   }
 
   /**
    * Sets the field 'protocolConfig'.
    */
-  public VasServiceProvider setProtocolConfig(java.util.Map<String,String> protocolConfig) {
+  public VasServiceProvider setProtocolConfig(java.util.Map<java.lang.String,java.lang.String> protocolConfig) {
     return genClient.setOther(protocolConfig, CacheKey.protocolConfig);
   }
 
   /**
    * Sets the field 'pushUrl'.
    */
-  public VasServiceProvider setPushUrl(String pushUrl) {
+  public VasServiceProvider setPushUrl(java.lang.String pushUrl) {
     return genClient.setOther(pushUrl, CacheKey.pushUrl);
   }
 
   /**
    * Sets the field 'pushTitle'.
    */
-  public VasServiceProvider setPushTitle(String pushTitle) {
+  public VasServiceProvider setPushTitle(java.lang.String pushTitle) {
     return genClient.setOther(pushTitle, CacheKey.pushTitle);
   }
 

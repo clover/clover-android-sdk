@@ -19,6 +19,7 @@ import android.os.Build;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,31 +31,43 @@ import java.util.Set;
  */
 public enum Platform {
 
-  TF300T("Clover Hub", Orientation.LANDSCAPE),
-  C100("Clover Station", Orientation.LANDSCAPE, Feature.ETHERNET, Feature.CUSTOMER_ROTATION, Feature.DEFAULT_EMPLOYEE),
-  C200("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
-  C201("Clover Mobile", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
-  C300("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C301("Clover Mini", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  TF300T("Clover Hub", null, Orientation.LANDSCAPE),
+  C100("Clover Station", null, Orientation.LANDSCAPE, Feature.ETHERNET, Feature.CUSTOMER_ROTATION, Feature.DEFAULT_EMPLOYEE),
+  C200("Clover Mobile", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  C201("Clover Mobile", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  C300("Clover Mini", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C301("Clover Mini", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
   /** C400 is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
-  C400("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C400("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
   /** C400U is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
-  C400U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C400U("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
   /** C400E is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
-  C400E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C401U("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C401E("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C401L("Clover Flex", Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  C500("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
+  C400E("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C401U("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C401E("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C401L("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C500("Clover Station", "2018 – Gen 2", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
   /** Currently not used */
-  C550("Clover Station(2018)", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
-  OTHER("Other", Orientation.LANDSCAPE),
+  C550("Clover Station", "2018 – Gen 2", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
+  @Deprecated
+  C302("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C302U("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C302E("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  C302L("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  OTHER("Unknown", null, Orientation.LANDSCAPE),
   ;
 
   private static final String CLOVER_MANUFACTURER = "Clover";
+
+  private static final EnumSet<Platform> FLEX = EnumSet.of(C400, C400U, C400E, C401U, C401E, C401L);
+  private static final EnumSet<Platform> MINI = EnumSet.of(C300, C301, C302, C302U, C302E, C302L);
+  private static final EnumSet<Platform> MINI_GEN2 = EnumSet.of(C302, C302U, C302E, C302L);
+  private static final EnumSet<Platform> MOBILE = EnumSet.of(C200, C201);
+  private static final EnumSet<Platform> STATION = EnumSet.of(C100);
+  private static final EnumSet<Platform> STATION_2018 = EnumSet.of(C500, C550);
 
   /**
    * List of features that may be present on Clover devices. Non-Clover devices will return false
@@ -147,7 +160,11 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverStation() {
-    return get() == C100;
+    return isCloverStation(get());
+  }
+
+  public static boolean isCloverStation(Platform platform) {
+    return STATION.contains(platform);
   }
 
   /**
@@ -157,8 +174,11 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverMobile() {
-    Platform platform = get();
-    return (platform == C200 || platform == C201);
+    return isCloverMobile(get());
+  }
+
+  public static boolean isCloverMobile(Platform platform) {
+    return MOBILE.contains(platform);
   }
 
   /**
@@ -168,9 +188,22 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverMini() {
-    Platform platform = get();
-    return (platform == C300 || platform == C301);
+    return isCloverMini(get());
   }
+
+  public static boolean isCloverMini(Platform platform) {
+    return MINI.contains(platform);
+  }
+
+
+  public static boolean isCloverMiniGen2() {
+    return isCloverMiniGen2(get());
+  }
+
+  public static boolean isCloverMiniGen2(Platform platform) {
+    return MINI_GEN2.contains(platform);
+  }
+
 
   /**
    * @deprecated Use {@link #isCloverFlex()}.
@@ -184,10 +217,17 @@ public enum Platform {
    * Return the platform of the secure processor, null for devices that do not have a secure processor.
    */
   public static SecureProcessorPlatform getSecureProcessorPlatform() {
-    if (isCloverMini() || isCloverMobile()) {
+    return getSecureProcessorPlatform(get());
+  }
+
+  public static SecureProcessorPlatform getSecureProcessorPlatform(Platform platform) {
+    if (platform == null) {
+      return null;
+    }
+    if (platform == C200 || platform == C201 || platform == C300 || platform == C301) {
       return SecureProcessorPlatform.MAXIM;
     }
-    if (supportsFeature(Feature.SECURE_PAYMENTS)) {
+    if (supportsFeature(platform, Feature.SECURE_PAYMENTS)) {
       return SecureProcessorPlatform.BROADCOM;
     }
     return null;
@@ -200,16 +240,11 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverFlex() {
-    switch (get()) {
-      case C400:
-      case C400U:
-      case C400E:
-      case C401U:
-      case C401E:
-      case C401L:
-        return true;
-    }
-    return false;
+    return isCloverFlex(get());
+  }
+
+  public static boolean isCloverFlex(Platform platform) {
+    return FLEX.contains(platform);
   }
 
   /**
@@ -219,8 +254,11 @@ public enum Platform {
    * forward compatibility with new Clover hardware.
    */
   public static boolean isCloverStation2018() {
-    Platform p = get();
-    return  p == C500 || p == C550;
+    return  isCloverStation2018(get());
+  }
+
+  public static boolean isCloverStation2018(Platform platform) {
+    return  STATION_2018.contains(platform);
   }
 
   /**
@@ -272,7 +310,14 @@ public enum Platform {
    * false for {@link Platform#OTHER}.
    */
   public static boolean supportsFeature(Feature f) {
-    return get().isSupportsFeature(f);
+    return supportsFeature(get(), f);
+  }
+
+  public static boolean supportsFeature(Platform platform, Feature f) {
+    if (platform == null) {
+      return false;
+    }
+    return platform.isSupportsFeature(f);
   }
 
   /**
@@ -281,22 +326,52 @@ public enum Platform {
    * @return the default orientation for Clover devices, undefined for non-Clover devices
    */
   public static Orientation defaultOrientation() {
-    return get().getDefaultOrientation();
+    return defaultOrientation(get());
+  }
+
+  public static Orientation defaultOrientation(Platform platform) {
+    if (platform == null) {
+      return null;
+    }
+    return platform.getDefaultOrientation();
+  }
+
+  /**
+   * Get the product details for this device if Clover, null if details aren't defined for the device type.
+   */
+  public static String productQualifier() {
+    return productQualifier(get());
+  }
+
+  public static String productQualifier(Platform platform) {
+    if (platform == null) {
+      return null;
+    }
+    return platform.getProductQualifier();
   }
 
   /**
    * Get the English product name for this device if Clover, null if not a Clover device.
    */
   public static String productName() {
-    return get().getProductName();
+    return productName(get());
+  }
+
+  public static String productName(Platform platform) {
+    if (platform == null) {
+      return null;
+    }
+    return platform.getProductName();
   }
 
   private final String productName;
+  private final String productQualifier;
   private final Set<Feature> features;
   private final Orientation defaultOrientation;
 
-  private Platform(String productName, Orientation defaultOrientation, Feature... features) {
+  Platform(String productName, String productQualifier, Orientation defaultOrientation, Feature... features) {
     this.productName = productName;
+    this.productQualifier = productQualifier;
     this.defaultOrientation = defaultOrientation;
     this.features = Collections.unmodifiableSet(new HashSet<Feature>(Arrays.asList(features)));
   }
@@ -326,5 +401,13 @@ public enum Platform {
   public String getProductName() {
     return productName;
   }
-}
 
+  /**
+   * Get the product details for this device if Clover, null if details aren't defined for the device type
+   *
+   * @return The Clover product details
+   */
+  public String getProductQualifier() {
+    return productQualifier;
+  }
+}

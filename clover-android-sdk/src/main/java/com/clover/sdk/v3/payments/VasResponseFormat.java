@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum VasResponseFormat implements Parcelable {
-  NDEF, STRING;
+  NDEF, STRING, ENCRYPTED;
 
   @Override
   public int describeContents() {

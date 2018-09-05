@@ -53,6 +53,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSupportsMultiPayToken supportsMultiPayToken}</li>
  * <li>{@link #getClosingTime closingTime}</li>
  * <li>{@link #getNewBatchCloseEnabled newBatchCloseEnabled}</li>
+ * <li>{@link #getProduction production}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -147,6 +148,13 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   public java.lang.Boolean getNewBatchCloseEnabled() {
     return genClient.cacheGet(CacheKey.newBatchCloseEnabled);
+  }
+
+  /**
+   * Field to identify whether the payment processor is real or demo. 'true' is returned for real payment processsor. 'false' is returned for demo payment processor.
+   */
+  public java.lang.Boolean getProduction() {
+    return genClient.cacheGet(CacheKey.production);
   }
 
 
@@ -283,6 +291,12 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Gateway instance) {
         return instance.genClient.extractOther("newBatchCloseEnabled", java.lang.Boolean.class);
+      }
+    },
+    production {
+      @Override
+      public Object extractValue(Gateway instance) {
+        return instance.genClient.extractOther("production", java.lang.Boolean.class);
       }
     },
       ;
@@ -467,6 +481,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.newBatchCloseEnabled);
   }
 
+  /** Checks whether the 'production' field is set and is not null */
+  public boolean isNotNullProduction() {
+    return genClient.cacheValueIsNotNull(CacheKey.production);
+  }
+
 
 
   /** Checks whether the 'paymentProcessorName' field has been set, however the value could be null */
@@ -577,6 +596,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'newBatchCloseEnabled' field has been set, however the value could be null */
   public boolean hasNewBatchCloseEnabled() {
     return genClient.cacheHasKey(CacheKey.newBatchCloseEnabled);
+  }
+
+  /** Checks whether the 'production' field has been set, however the value could be null */
+  public boolean hasProduction() {
+    return genClient.cacheHasKey(CacheKey.production);
   }
 
 
@@ -734,6 +758,13 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setOther(newBatchCloseEnabled, CacheKey.newBatchCloseEnabled);
   }
 
+  /**
+   * Sets the field 'production'.
+   */
+  public Gateway setProduction(java.lang.Boolean production) {
+    return genClient.setOther(production, CacheKey.production);
+  }
+
 
   /** Clears the 'paymentProcessorName' field, the 'has' method for this field will now return false */
   public void clearPaymentProcessorName() {
@@ -823,6 +854,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearNewBatchCloseEnabled() {
     genClient.clear(CacheKey.newBatchCloseEnabled);
   }
+  /** Clears the 'production' field, the 'has' method for this field will now return false */
+  public void clearProduction() {
+    genClient.clear(CacheKey.production);
+  }
 
 
   /**
@@ -907,6 +942,7 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean SUPPORTSMULTIPAYTOKEN_IS_REQUIRED = false;
     public static final boolean CLOSINGTIME_IS_REQUIRED = false;
     public static final boolean NEWBATCHCLOSEENABLED_IS_REQUIRED = false;
+    public static final boolean PRODUCTION_IS_REQUIRED = false;
 
   }
 

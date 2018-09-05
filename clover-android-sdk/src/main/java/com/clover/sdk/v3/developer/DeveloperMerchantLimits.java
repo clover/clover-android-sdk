@@ -33,6 +33,8 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getRequestLimit requestLimit}</li>
  * <li>{@link #getMerchantRequestLimit merchantRequestLimit}</li>
+ * <li>{@link #getConcurrentRequestLimit concurrentRequestLimit}</li>
+ * <li>{@link #getConcurrentMerchantRequestLimit concurrentMerchantRequestLimit}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -46,10 +48,24 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   }
 
   /**
-   * Limit for each merchantApp.
+   * Limit for each merchant app.
    */
   public java.lang.Integer getMerchantRequestLimit() {
     return genClient.cacheGet(CacheKey.merchantRequestLimit);
+  }
+
+  /**
+   * Total concurrent requests for developer app.
+   */
+  public java.lang.Integer getConcurrentRequestLimit() {
+    return genClient.cacheGet(CacheKey.concurrentRequestLimit);
+  }
+
+  /**
+   * Concurrent request limit for each merchant app.
+   */
+  public java.lang.Integer getConcurrentMerchantRequestLimit() {
+    return genClient.cacheGet(CacheKey.concurrentMerchantRequestLimit);
   }
 
 
@@ -66,6 +82,18 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
       @Override
       public Object extractValue(DeveloperMerchantLimits instance) {
         return instance.genClient.extractOther("merchantRequestLimit", java.lang.Integer.class);
+      }
+    },
+    concurrentRequestLimit {
+      @Override
+      public Object extractValue(DeveloperMerchantLimits instance) {
+        return instance.genClient.extractOther("concurrentRequestLimit", java.lang.Integer.class);
+      }
+    },
+    concurrentMerchantRequestLimit {
+      @Override
+      public Object extractValue(DeveloperMerchantLimits instance) {
+        return instance.genClient.extractOther("concurrentMerchantRequestLimit", java.lang.Integer.class);
       }
     },
       ;
@@ -145,6 +173,16 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
     return genClient.cacheValueIsNotNull(CacheKey.merchantRequestLimit);
   }
 
+  /** Checks whether the 'concurrentRequestLimit' field is set and is not null */
+  public boolean isNotNullConcurrentRequestLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.concurrentRequestLimit);
+  }
+
+  /** Checks whether the 'concurrentMerchantRequestLimit' field is set and is not null */
+  public boolean isNotNullConcurrentMerchantRequestLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.concurrentMerchantRequestLimit);
+  }
+
 
 
   /** Checks whether the 'requestLimit' field has been set, however the value could be null */
@@ -155,6 +193,16 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   /** Checks whether the 'merchantRequestLimit' field has been set, however the value could be null */
   public boolean hasMerchantRequestLimit() {
     return genClient.cacheHasKey(CacheKey.merchantRequestLimit);
+  }
+
+  /** Checks whether the 'concurrentRequestLimit' field has been set, however the value could be null */
+  public boolean hasConcurrentRequestLimit() {
+    return genClient.cacheHasKey(CacheKey.concurrentRequestLimit);
+  }
+
+  /** Checks whether the 'concurrentMerchantRequestLimit' field has been set, however the value could be null */
+  public boolean hasConcurrentMerchantRequestLimit() {
+    return genClient.cacheHasKey(CacheKey.concurrentMerchantRequestLimit);
   }
 
 
@@ -172,6 +220,20 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
     return genClient.setOther(merchantRequestLimit, CacheKey.merchantRequestLimit);
   }
 
+  /**
+   * Sets the field 'concurrentRequestLimit'.
+   */
+  public DeveloperMerchantLimits setConcurrentRequestLimit(java.lang.Integer concurrentRequestLimit) {
+    return genClient.setOther(concurrentRequestLimit, CacheKey.concurrentRequestLimit);
+  }
+
+  /**
+   * Sets the field 'concurrentMerchantRequestLimit'.
+   */
+  public DeveloperMerchantLimits setConcurrentMerchantRequestLimit(java.lang.Integer concurrentMerchantRequestLimit) {
+    return genClient.setOther(concurrentMerchantRequestLimit, CacheKey.concurrentMerchantRequestLimit);
+  }
+
 
   /** Clears the 'requestLimit' field, the 'has' method for this field will now return false */
   public void clearRequestLimit() {
@@ -180,6 +242,14 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   /** Clears the 'merchantRequestLimit' field, the 'has' method for this field will now return false */
   public void clearMerchantRequestLimit() {
     genClient.clear(CacheKey.merchantRequestLimit);
+  }
+  /** Clears the 'concurrentRequestLimit' field, the 'has' method for this field will now return false */
+  public void clearConcurrentRequestLimit() {
+    genClient.clear(CacheKey.concurrentRequestLimit);
+  }
+  /** Clears the 'concurrentMerchantRequestLimit' field, the 'has' method for this field will now return false */
+  public void clearConcurrentMerchantRequestLimit() {
+    genClient.clear(CacheKey.concurrentMerchantRequestLimit);
   }
 
 
@@ -242,6 +312,8 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
 
     public static final boolean REQUESTLIMIT_IS_REQUIRED = false;
     public static final boolean MERCHANTREQUESTLIMIT_IS_REQUIRED = false;
+    public static final boolean CONCURRENTREQUESTLIMIT_IS_REQUIRED = false;
+    public static final boolean CONCURRENTMERCHANTREQUESTLIMIT_IS_REQUIRED = false;
 
   }
 

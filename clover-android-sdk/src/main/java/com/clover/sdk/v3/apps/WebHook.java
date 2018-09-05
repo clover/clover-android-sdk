@@ -41,6 +41,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getInventory inventory}</li>
  * <li>{@link #getCustomers customers}</li>
  * <li>{@link #getMerchants merchants}</li>
+ * <li>{@link #getEmployees employees}</li>
  * <li>{@link #getCashAdjustment cashAdjustment}</li>
  * <li>{@link #getExports exports}</li>
  * </ul>
@@ -92,6 +93,13 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   public java.lang.Boolean getMerchants() {
     return genClient.cacheGet(CacheKey.merchants);
+  }
+
+  /**
+   * Webhook subscription for employee create/update/delete
+   */
+  public java.lang.Boolean getEmployees() {
+    return genClient.cacheGet(CacheKey.employees);
   }
 
   public java.lang.Boolean getCashAdjustment() {
@@ -164,6 +172,12 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(WebHook instance) {
         return instance.genClient.extractOther("merchants", java.lang.Boolean.class);
+      }
+    },
+    employees {
+      @Override
+      public Object extractValue(WebHook instance) {
+        return instance.genClient.extractOther("employees", java.lang.Boolean.class);
       }
     },
     cashAdjustment {
@@ -300,6 +314,11 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.merchants);
   }
 
+  /** Checks whether the 'employees' field is set and is not null */
+  public boolean isNotNullEmployees() {
+    return genClient.cacheValueIsNotNull(CacheKey.employees);
+  }
+
   /** Checks whether the 'cashAdjustment' field is set and is not null */
   public boolean isNotNullCashAdjustment() {
     return genClient.cacheValueIsNotNull(CacheKey.cashAdjustment);
@@ -360,6 +379,11 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'merchants' field has been set, however the value could be null */
   public boolean hasMerchants() {
     return genClient.cacheHasKey(CacheKey.merchants);
+  }
+
+  /** Checks whether the 'employees' field has been set, however the value could be null */
+  public boolean hasEmployees() {
+    return genClient.cacheHasKey(CacheKey.employees);
   }
 
   /** Checks whether the 'cashAdjustment' field has been set, however the value could be null */
@@ -444,6 +468,13 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'employees'.
+   */
+  public WebHook setEmployees(java.lang.Boolean employees) {
+    return genClient.setOther(employees, CacheKey.employees);
+  }
+
+  /**
    * Sets the field 'cashAdjustment'.
    */
   public WebHook setCashAdjustment(java.lang.Boolean cashAdjustment) {
@@ -497,6 +528,10 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'merchants' field, the 'has' method for this field will now return false */
   public void clearMerchants() {
     genClient.clear(CacheKey.merchants);
+  }
+  /** Clears the 'employees' field, the 'has' method for this field will now return false */
+  public void clearEmployees() {
+    genClient.clear(CacheKey.employees);
   }
   /** Clears the 'cashAdjustment' field, the 'has' method for this field will now return false */
   public void clearCashAdjustment() {
@@ -578,6 +613,7 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean INVENTORY_IS_REQUIRED = false;
     public static final boolean CUSTOMERS_IS_REQUIRED = false;
     public static final boolean MERCHANTS_IS_REQUIRED = false;
+    public static final boolean EMPLOYEES_IS_REQUIRED = false;
     public static final boolean CASHADJUSTMENT_IS_REQUIRED = false;
     public static final boolean EXPORTS_IS_REQUIRED = false;
 

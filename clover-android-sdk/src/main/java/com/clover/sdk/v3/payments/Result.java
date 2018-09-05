@@ -28,6 +28,7 @@ import android.os.Parcel;
 
 /**
  * This is an auto-generated Clover data enum.
+ * The expected values of the payment.result and credit.result fields
  */
 @SuppressWarnings("all")
 public enum Result implements Parcelable {

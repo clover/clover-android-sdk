@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getDescription description}</li>
  * <li>{@link #getActive active}</li>
+ * <li>{@link #getPlan plan}</li>
  * <li>{@link #getSubscriptionCountries subscriptionCountries}</li>
  * <li>{@link #getApp app}</li>
  * <li>{@link #getLabel label}</li>
@@ -77,6 +78,13 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
    */
   public java.lang.Boolean getActive() {
     return genClient.cacheGet(CacheKey.active);
+  }
+
+  /**
+   * True if special zero cost app pricing for default app in custom service plans.
+   */
+  public java.lang.Boolean getPlan() {
+    return genClient.cacheGet(CacheKey.plan);
   }
 
   /**
@@ -132,6 +140,12 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(AppSubscription instance) {
         return instance.genClient.extractOther("active", java.lang.Boolean.class);
+      }
+    },
+    plan {
+      @Override
+      public Object extractValue(AppSubscription instance) {
+        return instance.genClient.extractOther("plan", java.lang.Boolean.class);
       }
     },
     subscriptionCountries {
@@ -253,6 +267,11 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.active);
   }
 
+  /** Checks whether the 'plan' field is set and is not null */
+  public boolean isNotNullPlan() {
+    return genClient.cacheValueIsNotNull(CacheKey.plan);
+  }
+
   /** Checks whether the 'subscriptionCountries' field is set and is not null */
   public boolean isNotNullSubscriptionCountries() {
     return genClient.cacheValueIsNotNull(CacheKey.subscriptionCountries);
@@ -296,6 +315,11 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'active' field has been set, however the value could be null */
   public boolean hasActive() {
     return genClient.cacheHasKey(CacheKey.active);
+  }
+
+  /** Checks whether the 'plan' field has been set, however the value could be null */
+  public boolean hasPlan() {
+    return genClient.cacheHasKey(CacheKey.plan);
   }
 
   /** Checks whether the 'subscriptionCountries' field has been set, however the value could be null */
@@ -350,6 +374,13 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * Sets the field 'plan'.
+   */
+  public AppSubscription setPlan(java.lang.Boolean plan) {
+    return genClient.setOther(plan, CacheKey.plan);
+  }
+
+  /**
    * Sets the field 'subscriptionCountries'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -394,6 +425,10 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /** Clears the 'active' field, the 'has' method for this field will now return false */
   public void clearActive() {
     genClient.clear(CacheKey.active);
+  }
+  /** Clears the 'plan' field, the 'has' method for this field will now return false */
+  public void clearPlan() {
+    genClient.clear(CacheKey.plan);
   }
   /** Clears the 'subscriptionCountries' field, the 'has' method for this field will now return false */
   public void clearSubscriptionCountries() {
@@ -475,6 +510,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 1024;
     public static final boolean ACTIVE_IS_REQUIRED = false;
+    public static final boolean PLAN_IS_REQUIRED = false;
     public static final boolean SUBSCRIPTIONCOUNTRIES_IS_REQUIRED = false;
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean LABEL_IS_REQUIRED = false;

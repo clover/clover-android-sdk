@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getDeveloperAppId developerAppId}</li>
+ * <li>{@link #getApplicationName applicationName}</li>
  * <li>{@link #getApplicationID applicationID}</li>
  * <li>{@link #getApplicationVersion applicationVersion}</li>
  * <li>{@link #getSourceSDK sourceSDK}</li>
@@ -48,6 +49,13 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
    */
   public java.lang.String getDeveloperAppId() {
     return genClient.cacheGet(CacheKey.developerAppId);
+  }
+
+  /**
+   * The name of the developer application.
+   */
+  public java.lang.String getApplicationName() {
+    return genClient.cacheGet(CacheKey.applicationName);
   }
 
   /**
@@ -86,6 +94,12 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
       @Override
       public Object extractValue(AppTracking instance) {
         return instance.genClient.extractOther("developerAppId", java.lang.String.class);
+      }
+    },
+    applicationName {
+      @Override
+      public Object extractValue(AppTracking instance) {
+        return instance.genClient.extractOther("applicationName", java.lang.String.class);
       }
     },
     applicationID {
@@ -184,6 +198,11 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.developerAppId);
   }
 
+  /** Checks whether the 'applicationName' field is set and is not null */
+  public boolean isNotNullApplicationName() {
+    return genClient.cacheValueIsNotNull(CacheKey.applicationName);
+  }
+
   /** Checks whether the 'applicationID' field is set and is not null */
   public boolean isNotNullApplicationID() {
     return genClient.cacheValueIsNotNull(CacheKey.applicationID);
@@ -209,6 +228,11 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'developerAppId' field has been set, however the value could be null */
   public boolean hasDeveloperAppId() {
     return genClient.cacheHasKey(CacheKey.developerAppId);
+  }
+
+  /** Checks whether the 'applicationName' field has been set, however the value could be null */
+  public boolean hasApplicationName() {
+    return genClient.cacheHasKey(CacheKey.applicationName);
   }
 
   /** Checks whether the 'applicationID' field has been set, however the value could be null */
@@ -237,6 +261,13 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
    */
   public AppTracking setDeveloperAppId(java.lang.String developerAppId) {
     return genClient.setOther(developerAppId, CacheKey.developerAppId);
+  }
+
+  /**
+   * Sets the field 'applicationName'.
+   */
+  public AppTracking setApplicationName(java.lang.String applicationName) {
+    return genClient.setOther(applicationName, CacheKey.applicationName);
   }
 
   /**
@@ -271,6 +302,10 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'developerAppId' field, the 'has' method for this field will now return false */
   public void clearDeveloperAppId() {
     genClient.clear(CacheKey.developerAppId);
+  }
+  /** Clears the 'applicationName' field, the 'has' method for this field will now return false */
+  public void clearApplicationName() {
+    genClient.clear(CacheKey.applicationName);
   }
   /** Clears the 'applicationID' field, the 'has' method for this field will now return false */
   public void clearApplicationID() {
@@ -348,6 +383,7 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
   public interface Constraints {
 
     public static final boolean DEVELOPERAPPID_IS_REQUIRED = false;
+    public static final boolean APPLICATIONNAME_IS_REQUIRED = false;
     public static final boolean APPLICATIONID_IS_REQUIRED = false;
     public static final boolean APPLICATIONVERSION_IS_REQUIRED = false;
     public static final boolean SOURCESDK_IS_REQUIRED = false;

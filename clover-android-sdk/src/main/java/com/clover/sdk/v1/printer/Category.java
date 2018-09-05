@@ -19,7 +19,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public enum Category implements Parcelable {
-  ORDER, RECEIPT;
+  ORDER, RECEIPT, FISCAL;
 
   @Override
   public int describeContents() {

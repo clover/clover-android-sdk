@@ -170,7 +170,7 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
 
     if (getAmount() != null && ( getAmount() > 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
 
-    if (getPercentage() != null && ( getPercentage() < 0)) throw new IllegalArgumentException("Invalid value for 'getPercentage()'");
+    if (getPercentage() != null && ( getPercentage() < 0 || getPercentage() > 100)) throw new IllegalArgumentException("Invalid value for 'getPercentage()'");
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -328,6 +328,7 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long AMOUNT_MAX = 0;
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final long PERCENTAGE_MIN = 0;
+    public static final long PERCENTAGE_MAX = 100;
 
   }
 

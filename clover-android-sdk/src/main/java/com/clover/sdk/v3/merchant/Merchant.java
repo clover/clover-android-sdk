@@ -63,6 +63,14 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDevices devices}</li>
  * <li>{@link #getMerchantGroups merchantGroups}</li>
  * <li>{@link #getPartnerApp partnerApp}</li>
+ * <li>{@link #getAccountType accountType}</li>
+ * <li>{@link #getBankProcessing bankProcessing}</li>
+ * <li>{@link #getMerchantBoarding merchantBoarding}</li>
+ * <li>{@link #getHierarchy hierarchy}</li>
+ * <li>{@link #getExternalMerchants externalMerchants}</li>
+ * <li>{@link #getProgramExpresses programExpresses}</li>
+ * <li>{@link #getDeviceBoardings deviceBoardings}</li>
+ * <li>{@link #getSelfBoardingApplication selfBoardingApplication}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -251,6 +259,62 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public com.clover.sdk.v3.base.Reference getPartnerApp() {
     return genClient.cacheGet(CacheKey.partnerApp);
+  }
+
+  /**
+   * The account type for the merchant. Used for reference merchants. See enterprise.ReferenceType
+   */
+  public java.lang.String getAccountType() {
+    return genClient.cacheGet(CacheKey.accountType);
+  }
+
+  /**
+   * Bank processing data for this merchant
+   */
+  public com.clover.sdk.v3.merchant.MerchantBankProcessing getBankProcessing() {
+    return genClient.cacheGet(CacheKey.bankProcessing);
+  }
+
+  /**
+   * Additional data collected during boarding
+   */
+  public com.clover.sdk.v3.merchant.MerchantBoarding getMerchantBoarding() {
+    return genClient.cacheGet(CacheKey.merchantBoarding);
+  }
+
+  /**
+   * Business hierarchy data for merchant.
+   */
+  public com.clover.sdk.v3.merchant.MerchantHierarchy getHierarchy() {
+    return genClient.cacheGet(CacheKey.hierarchy);
+  }
+
+  /**
+   * A list of external merchants for this merchant
+   */
+  public java.util.List<com.clover.sdk.v3.merchant.ExternalMerchant> getExternalMerchants() {
+    return genClient.cacheGet(CacheKey.externalMerchants);
+  }
+
+  /**
+   * A list of program expresses for this merchant
+   */
+  public java.util.List<com.clover.sdk.v3.merchant.MerchantProgramExpress> getProgramExpresses() {
+    return genClient.cacheGet(CacheKey.programExpresses);
+  }
+
+  /**
+   * A list of additional device boarding data for this merchant
+   */
+  public java.util.List<com.clover.sdk.v3.merchant.MerchantDeviceBoarding> getDeviceBoardings() {
+    return genClient.cacheGet(CacheKey.deviceBoardings);
+  }
+
+  /**
+   * The boarding application submitted by the merchant
+   */
+  public com.clover.sdk.v3.base.Reference getSelfBoardingApplication() {
+    return genClient.cacheGet(CacheKey.selfBoardingApplication);
   }
 
 
@@ -449,6 +513,54 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
         return instance.genClient.extractRecord("partnerApp", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
+    accountType {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractOther("accountType", java.lang.String.class);
+      }
+    },
+    bankProcessing {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractRecord("bankProcessing", com.clover.sdk.v3.merchant.MerchantBankProcessing.JSON_CREATOR);
+      }
+    },
+    merchantBoarding {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractRecord("merchantBoarding", com.clover.sdk.v3.merchant.MerchantBoarding.JSON_CREATOR);
+      }
+    },
+    hierarchy {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractRecord("hierarchy", com.clover.sdk.v3.merchant.MerchantHierarchy.JSON_CREATOR);
+      }
+    },
+    externalMerchants {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractListRecord("externalMerchants", com.clover.sdk.v3.merchant.ExternalMerchant.JSON_CREATOR);
+      }
+    },
+    programExpresses {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractListRecord("programExpresses", com.clover.sdk.v3.merchant.MerchantProgramExpress.JSON_CREATOR);
+      }
+    },
+    deviceBoardings {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractListRecord("deviceBoardings", com.clover.sdk.v3.merchant.MerchantDeviceBoarding.JSON_CREATOR);
+      }
+    },
+    selfBoardingApplication {
+      @Override
+      public Object extractValue(Merchant instance) {
+        return instance.genClient.extractRecord("selfBoardingApplication", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
       ;
   }
 
@@ -528,6 +640,8 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     genClient.validateLength(getWebsite(), 255);
 
     genClient.validateLength(getCustomerContactEmail(), 127);
+
+    genClient.validateLength(getAccountType(), 32);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -738,6 +852,55 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.partnerApp);
   }
 
+  /** Checks whether the 'accountType' field is set and is not null */
+  public boolean isNotNullAccountType() {
+    return genClient.cacheValueIsNotNull(CacheKey.accountType);
+  }
+
+  /** Checks whether the 'bankProcessing' field is set and is not null */
+  public boolean isNotNullBankProcessing() {
+    return genClient.cacheValueIsNotNull(CacheKey.bankProcessing);
+  }
+
+  /** Checks whether the 'merchantBoarding' field is set and is not null */
+  public boolean isNotNullMerchantBoarding() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantBoarding);
+  }
+
+  /** Checks whether the 'hierarchy' field is set and is not null */
+  public boolean isNotNullHierarchy() {
+    return genClient.cacheValueIsNotNull(CacheKey.hierarchy);
+  }
+
+  /** Checks whether the 'externalMerchants' field is set and is not null */
+  public boolean isNotNullExternalMerchants() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalMerchants);
+  }
+
+  /** Checks whether the 'externalMerchants' field is set and is not null and is not empty */
+  public boolean isNotEmptyExternalMerchants() { return isNotNullExternalMerchants() && !getExternalMerchants().isEmpty(); }
+
+  /** Checks whether the 'programExpresses' field is set and is not null */
+  public boolean isNotNullProgramExpresses() {
+    return genClient.cacheValueIsNotNull(CacheKey.programExpresses);
+  }
+
+  /** Checks whether the 'programExpresses' field is set and is not null and is not empty */
+  public boolean isNotEmptyProgramExpresses() { return isNotNullProgramExpresses() && !getProgramExpresses().isEmpty(); }
+
+  /** Checks whether the 'deviceBoardings' field is set and is not null */
+  public boolean isNotNullDeviceBoardings() {
+    return genClient.cacheValueIsNotNull(CacheKey.deviceBoardings);
+  }
+
+  /** Checks whether the 'deviceBoardings' field is set and is not null and is not empty */
+  public boolean isNotEmptyDeviceBoardings() { return isNotNullDeviceBoardings() && !getDeviceBoardings().isEmpty(); }
+
+  /** Checks whether the 'selfBoardingApplication' field is set and is not null */
+  public boolean isNotNullSelfBoardingApplication() {
+    return genClient.cacheValueIsNotNull(CacheKey.selfBoardingApplication);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -898,6 +1061,46 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'partnerApp' field has been set, however the value could be null */
   public boolean hasPartnerApp() {
     return genClient.cacheHasKey(CacheKey.partnerApp);
+  }
+
+  /** Checks whether the 'accountType' field has been set, however the value could be null */
+  public boolean hasAccountType() {
+    return genClient.cacheHasKey(CacheKey.accountType);
+  }
+
+  /** Checks whether the 'bankProcessing' field has been set, however the value could be null */
+  public boolean hasBankProcessing() {
+    return genClient.cacheHasKey(CacheKey.bankProcessing);
+  }
+
+  /** Checks whether the 'merchantBoarding' field has been set, however the value could be null */
+  public boolean hasMerchantBoarding() {
+    return genClient.cacheHasKey(CacheKey.merchantBoarding);
+  }
+
+  /** Checks whether the 'hierarchy' field has been set, however the value could be null */
+  public boolean hasHierarchy() {
+    return genClient.cacheHasKey(CacheKey.hierarchy);
+  }
+
+  /** Checks whether the 'externalMerchants' field has been set, however the value could be null */
+  public boolean hasExternalMerchants() {
+    return genClient.cacheHasKey(CacheKey.externalMerchants);
+  }
+
+  /** Checks whether the 'programExpresses' field has been set, however the value could be null */
+  public boolean hasProgramExpresses() {
+    return genClient.cacheHasKey(CacheKey.programExpresses);
+  }
+
+  /** Checks whether the 'deviceBoardings' field has been set, however the value could be null */
+  public boolean hasDeviceBoardings() {
+    return genClient.cacheHasKey(CacheKey.deviceBoardings);
+  }
+
+  /** Checks whether the 'selfBoardingApplication' field has been set, however the value could be null */
+  public boolean hasSelfBoardingApplication() {
+    return genClient.cacheHasKey(CacheKey.selfBoardingApplication);
   }
 
 
@@ -1171,6 +1374,76 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(partnerApp, CacheKey.partnerApp);
   }
 
+  /**
+   * Sets the field 'accountType'.
+   */
+  public Merchant setAccountType(java.lang.String accountType) {
+    return genClient.setOther(accountType, CacheKey.accountType);
+  }
+
+  /**
+   * Sets the field 'bankProcessing'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setBankProcessing(com.clover.sdk.v3.merchant.MerchantBankProcessing bankProcessing) {
+    return genClient.setRecord(bankProcessing, CacheKey.bankProcessing);
+  }
+
+  /**
+   * Sets the field 'merchantBoarding'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setMerchantBoarding(com.clover.sdk.v3.merchant.MerchantBoarding merchantBoarding) {
+    return genClient.setRecord(merchantBoarding, CacheKey.merchantBoarding);
+  }
+
+  /**
+   * Sets the field 'hierarchy'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setHierarchy(com.clover.sdk.v3.merchant.MerchantHierarchy hierarchy) {
+    return genClient.setRecord(hierarchy, CacheKey.hierarchy);
+  }
+
+  /**
+   * Sets the field 'externalMerchants'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setExternalMerchants(java.util.List<com.clover.sdk.v3.merchant.ExternalMerchant> externalMerchants) {
+    return genClient.setArrayRecord(externalMerchants, CacheKey.externalMerchants);
+  }
+
+  /**
+   * Sets the field 'programExpresses'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setProgramExpresses(java.util.List<com.clover.sdk.v3.merchant.MerchantProgramExpress> programExpresses) {
+    return genClient.setArrayRecord(programExpresses, CacheKey.programExpresses);
+  }
+
+  /**
+   * Sets the field 'deviceBoardings'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setDeviceBoardings(java.util.List<com.clover.sdk.v3.merchant.MerchantDeviceBoarding> deviceBoardings) {
+    return genClient.setArrayRecord(deviceBoardings, CacheKey.deviceBoardings);
+  }
+
+  /**
+   * Sets the field 'selfBoardingApplication'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Merchant setSelfBoardingApplication(com.clover.sdk.v3.base.Reference selfBoardingApplication) {
+    return genClient.setRecord(selfBoardingApplication, CacheKey.selfBoardingApplication);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1300,6 +1573,38 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearPartnerApp() {
     genClient.clear(CacheKey.partnerApp);
   }
+  /** Clears the 'accountType' field, the 'has' method for this field will now return false */
+  public void clearAccountType() {
+    genClient.clear(CacheKey.accountType);
+  }
+  /** Clears the 'bankProcessing' field, the 'has' method for this field will now return false */
+  public void clearBankProcessing() {
+    genClient.clear(CacheKey.bankProcessing);
+  }
+  /** Clears the 'merchantBoarding' field, the 'has' method for this field will now return false */
+  public void clearMerchantBoarding() {
+    genClient.clear(CacheKey.merchantBoarding);
+  }
+  /** Clears the 'hierarchy' field, the 'has' method for this field will now return false */
+  public void clearHierarchy() {
+    genClient.clear(CacheKey.hierarchy);
+  }
+  /** Clears the 'externalMerchants' field, the 'has' method for this field will now return false */
+  public void clearExternalMerchants() {
+    genClient.clear(CacheKey.externalMerchants);
+  }
+  /** Clears the 'programExpresses' field, the 'has' method for this field will now return false */
+  public void clearProgramExpresses() {
+    genClient.clear(CacheKey.programExpresses);
+  }
+  /** Clears the 'deviceBoardings' field, the 'has' method for this field will now return false */
+  public void clearDeviceBoardings() {
+    genClient.clear(CacheKey.deviceBoardings);
+  }
+  /** Clears the 'selfBoardingApplication' field, the 'has' method for this field will now return false */
+  public void clearSelfBoardingApplication() {
+    genClient.clear(CacheKey.selfBoardingApplication);
+  }
 
 
   /**
@@ -1397,6 +1702,15 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean DEVICES_IS_REQUIRED = false;
     public static final boolean MERCHANTGROUPS_IS_REQUIRED = false;
     public static final boolean PARTNERAPP_IS_REQUIRED = false;
+    public static final boolean ACCOUNTTYPE_IS_REQUIRED = false;
+    public static final long ACCOUNTTYPE_MAX_LEN = 32;
+    public static final boolean BANKPROCESSING_IS_REQUIRED = false;
+    public static final boolean MERCHANTBOARDING_IS_REQUIRED = false;
+    public static final boolean HIERARCHY_IS_REQUIRED = false;
+    public static final boolean EXTERNALMERCHANTS_IS_REQUIRED = false;
+    public static final boolean PROGRAMEXPRESSES_IS_REQUIRED = false;
+    public static final boolean DEVICEBOARDINGS_IS_REQUIRED = false;
+    public static final boolean SELFBOARDINGAPPLICATION_IS_REQUIRED = false;
 
   }
 

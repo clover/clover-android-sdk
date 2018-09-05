@@ -37,6 +37,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRate rate}</li>
  * <li>{@link #getIsVat isVat}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getTransactionRef transactionRef}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -84,6 +85,13 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
+  /**
+   * The refund with which the tax rate is associated
+   */
+  public com.clover.sdk.v3.base.Reference getTransactionRef() {
+    return genClient.cacheGet(CacheKey.transactionRef);
+  }
+
 
 
 
@@ -122,6 +130,12 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
       @Override
       public Object extractValue(TaxableAmountRate instance) {
         return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
+      }
+    },
+    transactionRef {
+      @Override
+      public Object extractValue(TaxableAmountRate instance) {
+        return instance.genClient.extractRecord("transactionRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
       ;
@@ -224,6 +238,11 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'transactionRef' field is set and is not null */
+  public boolean isNotNullTransactionRef() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionRef);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -254,6 +273,11 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return genClient.cacheHasKey(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'transactionRef' field has been set, however the value could be null */
+  public boolean hasTransactionRef() {
+    return genClient.cacheHasKey(CacheKey.transactionRef);
   }
 
 
@@ -299,6 +323,15 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
+  /**
+   * Sets the field 'transactionRef'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public TaxableAmountRate setTransactionRef(com.clover.sdk.v3.base.Reference transactionRef) {
+    return genClient.setRecord(transactionRef, CacheKey.transactionRef);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -323,6 +356,10 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
+  }
+  /** Clears the 'transactionRef' field, the 'has' method for this field will now return false */
+  public void clearTransactionRef() {
+    genClient.clear(CacheKey.transactionRef);
   }
 
 
@@ -391,6 +428,7 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
     public static final boolean RATE_IS_REQUIRED = false;
     public static final boolean ISVAT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONREF_IS_REQUIRED = false;
 
   }
 

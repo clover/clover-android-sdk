@@ -39,6 +39,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getExpirationDate expirationDate}</li>
  * <li>{@link #getCardType cardType}</li>
  * <li>{@link #getToken token}</li>
+ * <li>{@link #getTokenType tokenType}</li>
  * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
@@ -75,6 +76,10 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
 
   public java.lang.String getToken() {
     return genClient.cacheGet(CacheKey.token);
+  }
+
+  public com.clover.sdk.v3.customers.TokenType getTokenType() {
+    return genClient.cacheGet(CacheKey.tokenType);
   }
 
   /**
@@ -134,6 +139,12 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
       @Override
       public Object extractValue(Card instance) {
         return instance.genClient.extractOther("token", java.lang.String.class);
+      }
+    },
+    tokenType {
+      @Override
+      public Object extractValue(Card instance) {
+        return instance.genClient.extractEnum("tokenType", com.clover.sdk.v3.customers.TokenType.class);
       }
     },
     customer {
@@ -263,6 +274,11 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.token);
   }
 
+  /** Checks whether the 'tokenType' field is set and is not null */
+  public boolean isNotNullTokenType() {
+    return genClient.cacheValueIsNotNull(CacheKey.tokenType);
+  }
+
   /** Checks whether the 'customer' field is set and is not null */
   public boolean isNotNullCustomer() {
     return genClient.cacheValueIsNotNull(CacheKey.customer);
@@ -308,6 +324,11 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'token' field has been set, however the value could be null */
   public boolean hasToken() {
     return genClient.cacheHasKey(CacheKey.token);
+  }
+
+  /** Checks whether the 'tokenType' field has been set, however the value could be null */
+  public boolean hasTokenType() {
+    return genClient.cacheHasKey(CacheKey.tokenType);
   }
 
   /** Checks whether the 'customer' field has been set, however the value could be null */
@@ -373,6 +394,13 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Sets the field 'tokenType'.
+   */
+  public Card setTokenType(com.clover.sdk.v3.customers.TokenType tokenType) {
+    return genClient.setOther(tokenType, CacheKey.tokenType);
+  }
+
+  /**
    * Sets the field 'customer'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -413,6 +441,10 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'token' field, the 'has' method for this field will now return false */
   public void clearToken() {
     genClient.clear(CacheKey.token);
+  }
+  /** Clears the 'tokenType' field, the 'has' method for this field will now return false */
+  public void clearTokenType() {
+    genClient.clear(CacheKey.tokenType);
   }
   /** Clears the 'customer' field, the 'has' method for this field will now return false */
   public void clearCustomer() {
@@ -491,6 +523,7 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean CARDTYPE_IS_REQUIRED = false;
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
+    public static final boolean TOKENTYPE_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }

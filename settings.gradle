@@ -1,4 +1,3 @@
-include ':clover-android-connector-sdk'
 /**
  * Copyright (C) 2016 Clover Network, Inc.
  *
@@ -17,3 +16,4 @@ include ':clover-android-connector-sdk'
 include 'clover-android-sdk'
 include 'clover-android-connector-sdk'
 include 'clover-android-sdk-examples'
+include 'clover-android-loyalty-kit'

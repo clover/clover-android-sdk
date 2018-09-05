@@ -35,7 +35,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getServiceEntitlementNumber serviceEntitlementNumber}</li>
  * <li>{@link #getServiceType serviceType}</li>
- * <li>{@link #getAlphaID alphaID}</li>
+ * <li>{@link #getAlphaId alphaId}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getDeletedTime deletedTime}</li>
+ * <li>{@link #getPlanCodes planCodes}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -66,8 +69,26 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   /**
    * AlphaID for entitlements. Supplied by First Data.
    */
-  public java.lang.String getAlphaID() {
-    return genClient.cacheGet(CacheKey.alphaID);
+  public java.lang.String getAlphaId() {
+    return genClient.cacheGet(CacheKey.alphaId);
+  }
+
+  /**
+   * Updated timestamp.
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
+  /**
+   * Deleted timestamp.
+   */
+  public java.lang.Long getDeletedTime() {
+    return genClient.cacheGet(CacheKey.deletedTime);
+  }
+
+  public java.util.List<com.clover.sdk.v3.entitlements.EntitlementPlanCode> getPlanCodes() {
+    return genClient.cacheGet(CacheKey.planCodes);
   }
 
 
@@ -98,10 +119,28 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
         return instance.genClient.extractOther("serviceType", java.lang.String.class);
       }
     },
-    alphaID {
+    alphaId {
       @Override
       public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("alphaID", java.lang.String.class);
+        return instance.genClient.extractOther("alphaId", java.lang.String.class);
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(MerchantGatewayEntitlement instance) {
+        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
+      }
+    },
+    deletedTime {
+      @Override
+      public Object extractValue(MerchantGatewayEntitlement instance) {
+        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
+      }
+    },
+    planCodes {
+      @Override
+      public Object extractValue(MerchantGatewayEntitlement instance) {
+        return instance.genClient.extractListRecord("planCodes", com.clover.sdk.v3.entitlements.EntitlementPlanCode.JSON_CREATOR);
       }
     },
       ;
@@ -178,7 +217,7 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
 
     genClient.validateLength(getServiceType(), 128);
 
-    genClient.validateLength(getAlphaID(), 1);
+    genClient.validateLength(getAlphaId(), 4);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -201,10 +240,28 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
     return genClient.cacheValueIsNotNull(CacheKey.serviceType);
   }
 
-  /** Checks whether the 'alphaID' field is set and is not null */
-  public boolean isNotNullAlphaID() {
-    return genClient.cacheValueIsNotNull(CacheKey.alphaID);
+  /** Checks whether the 'alphaId' field is set and is not null */
+  public boolean isNotNullAlphaId() {
+    return genClient.cacheValueIsNotNull(CacheKey.alphaId);
   }
+
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'deletedTime' field is set and is not null */
+  public boolean isNotNullDeletedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'planCodes' field is set and is not null */
+  public boolean isNotNullPlanCodes() {
+    return genClient.cacheValueIsNotNull(CacheKey.planCodes);
+  }
+
+  /** Checks whether the 'planCodes' field is set and is not null and is not empty */
+  public boolean isNotEmptyPlanCodes() { return isNotNullPlanCodes() && !getPlanCodes().isEmpty(); }
 
 
 
@@ -228,9 +285,24 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
     return genClient.cacheHasKey(CacheKey.serviceType);
   }
 
-  /** Checks whether the 'alphaID' field has been set, however the value could be null */
-  public boolean hasAlphaID() {
-    return genClient.cacheHasKey(CacheKey.alphaID);
+  /** Checks whether the 'alphaId' field has been set, however the value could be null */
+  public boolean hasAlphaId() {
+    return genClient.cacheHasKey(CacheKey.alphaId);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'deletedTime' field has been set, however the value could be null */
+  public boolean hasDeletedTime() {
+    return genClient.cacheHasKey(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'planCodes' field has been set, however the value could be null */
+  public boolean hasPlanCodes() {
+    return genClient.cacheHasKey(CacheKey.planCodes);
   }
 
 
@@ -263,10 +335,33 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   }
 
   /**
-   * Sets the field 'alphaID'.
+   * Sets the field 'alphaId'.
    */
-  public MerchantGatewayEntitlement setAlphaID(java.lang.String alphaID) {
-    return genClient.setOther(alphaID, CacheKey.alphaID);
+  public MerchantGatewayEntitlement setAlphaId(java.lang.String alphaId) {
+    return genClient.setOther(alphaId, CacheKey.alphaId);
+  }
+
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public MerchantGatewayEntitlement setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
+  /**
+   * Sets the field 'deletedTime'.
+   */
+  public MerchantGatewayEntitlement setDeletedTime(java.lang.Long deletedTime) {
+    return genClient.setOther(deletedTime, CacheKey.deletedTime);
+  }
+
+  /**
+   * Sets the field 'planCodes'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public MerchantGatewayEntitlement setPlanCodes(java.util.List<com.clover.sdk.v3.entitlements.EntitlementPlanCode> planCodes) {
+    return genClient.setArrayRecord(planCodes, CacheKey.planCodes);
   }
 
 
@@ -286,9 +381,21 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   public void clearServiceType() {
     genClient.clear(CacheKey.serviceType);
   }
-  /** Clears the 'alphaID' field, the 'has' method for this field will now return false */
-  public void clearAlphaID() {
-    genClient.clear(CacheKey.alphaID);
+  /** Clears the 'alphaId' field, the 'has' method for this field will now return false */
+  public void clearAlphaId() {
+    genClient.clear(CacheKey.alphaId);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
+  }
+  /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
+  public void clearDeletedTime() {
+    genClient.clear(CacheKey.deletedTime);
+  }
+  /** Clears the 'planCodes' field, the 'has' method for this field will now return false */
+  public void clearPlanCodes() {
+    genClient.clear(CacheKey.planCodes);
   }
 
 
@@ -358,7 +465,10 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
     public static final boolean SERVICETYPE_IS_REQUIRED = false;
     public static final long SERVICETYPE_MAX_LEN = 128;
     public static final boolean ALPHAID_IS_REQUIRED = false;
-    public static final long ALPHAID_MAX_LEN = 1;
+    public static final long ALPHAID_MAX_LEN = 4;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean DELETEDTIME_IS_REQUIRED = false;
+    public static final boolean PLANCODES_IS_REQUIRED = false;
 
   }
 

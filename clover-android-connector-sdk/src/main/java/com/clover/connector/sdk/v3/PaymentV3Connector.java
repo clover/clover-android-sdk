@@ -140,7 +140,7 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
     if (mListener != null) {
       if (mService != null) {
         try {
-          mService.addPaymentServiceListener(mListener);
+          mService.removePaymentServiceListener(mListener);
         } catch (RemoteException e) {
           e.printStackTrace();
         }
@@ -152,7 +152,17 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
   }
 
   public void addPaymentServiceListener(PaymentServiceListener listener) {
-    mPaymentServiceListener.add(new WeakReference<PaymentServiceListener>(listener));
+    boolean duplicate = false;
+    for (WeakReference<PaymentServiceListener> weakReference : mPaymentServiceListener) {
+      PaymentServiceListener listener1 = weakReference.get();
+      if (listener1 != null && listener1 == listener) {
+        duplicate = true;
+        break;
+      }
+    }
+    if (!duplicate) {
+      mPaymentServiceListener.add(new WeakReference<PaymentServiceListener>(listener));
+    }
   }
 
   public void removePaymentServiceListener(PaymentServiceListener listener) {
@@ -292,7 +302,6 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
   private static class PaymentServiceListenerParent extends IPaymentServiceListener.Stub {
 
     private PaymentV3Connector mConnector;
-
     private PaymentServiceListenerParent(PaymentV3Connector connector) {
       mConnector = connector;
     }

@@ -17,6 +17,7 @@ buildscript {
   apply from: "${project.rootDir}/deps.gradle"
   repositories {
     mavenLocal()
+    mavenCentral()
     if (project.properties.containsKey("localArtifactoryUrl")) {
       maven { url localArtifactoryUrl }
     }

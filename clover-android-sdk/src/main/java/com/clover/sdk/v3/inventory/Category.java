@@ -35,6 +35,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getItems items}</li>
+ * <li>{@link #getDeleted deleted}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -70,6 +72,20 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.items);
   }
 
+  /**
+   * Whether the category has been deleted.
+   */
+  public java.lang.Boolean getDeleted() {
+    return genClient.cacheGet(CacheKey.deleted);
+  }
+
+  /**
+   * The time this category was last modified
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
 
 
 
@@ -96,6 +112,18 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Category instance) {
         return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    deleted {
+      @Override
+      public Object extractValue(Category instance) {
+        return instance.genClient.extractOther("deleted", java.lang.Boolean.class);
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(Category instance) {
+        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
       }
     },
       ;
@@ -192,6 +220,16 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'items' field is set and is not null and is not empty */
   public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
 
+  /** Checks whether the 'deleted' field is set and is not null */
+  public boolean isNotNullDeleted() {
+    return genClient.cacheValueIsNotNull(CacheKey.deleted);
+  }
+
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -212,6 +250,16 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
+  }
+
+  /** Checks whether the 'deleted' field has been set, however the value could be null */
+  public boolean hasDeleted() {
+    return genClient.cacheHasKey(CacheKey.deleted);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
 
@@ -245,6 +293,20 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setArrayRecord(items, CacheKey.items);
   }
 
+  /**
+   * Sets the field 'deleted'.
+   */
+  public Category setDeleted(java.lang.Boolean deleted) {
+    return genClient.setOther(deleted, CacheKey.deleted);
+  }
+
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public Category setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -261,6 +323,14 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
     genClient.clear(CacheKey.items);
+  }
+  /** Clears the 'deleted' field, the 'has' method for this field will now return false */
+  public void clearDeleted() {
+    genClient.clear(CacheKey.deleted);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
 
 
@@ -327,6 +397,8 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long NAME_MAX_LEN = 127;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
+    public static final boolean DELETED_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }
 

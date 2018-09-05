@@ -15,6 +15,7 @@
  */
 package com.clover.sdk.v1;
 
+import android.content.Context;
 import android.content.Intent;
 
 /**
@@ -226,7 +227,10 @@ public class Intents {
   public static final String ACTION_ADD_TIP = "clover.intent.action.ADD_TIP";
 
   /**
-   * Launch activity have a customer add a tip to a payment
+   * Launch activity have a customer add a tip to a payment. A third party developer firing this intent should invoke
+   * {@link com.clover.sdk.util.CustomerMode#disable(Context, boolean) CustomerMode#disable} in
+   * {@link android.app.Activity#onActivityResult(int, int, Intent) onActivityResult} to restore the
+   * bottom navigation bar and top status bar.
    * <p>
    * Extras passed:
    * <ul>
@@ -499,9 +503,10 @@ public class Intents {
    * <p>
    * Result data must include:
    * <ul>
-   * <li>{@link #EXTRA_AMOUNT} - the approved transaction amount (Required)</li>
-   * <li>{@link #EXTRA_CLIENT_ID} - the client ID / external payment ID</li>
-   * <li>{@link #EXTRA_NOTE} - the payment note</li>
+   * <li>(Required) {@link #EXTRA_AMOUNT} - the approved transaction amount</li>
+   * <li>(Optional) {@link #EXTRA_TIP_AMOUNT} - the approved transaction's tip amount</li>
+   * <li>(Optional) {@link #EXTRA_CLIENT_ID} - the client ID / external payment ID</li>
+   * <li>(Optional) {@link #EXTRA_NOTE} - the payment note</li>
    * </ul>
    * <p>
    * Result codes:
@@ -672,6 +677,9 @@ public class Intents {
   /** {@link Long}, a monetary amount */
   public static final String EXTRA_AMOUNT = "clover.intent.extra.AMOUNT";
 
+  /** {@link String}, the invoice number */
+  public static final String EXTRA_INVOICE_NUMBER = "clover.intent.extra.INVOICE_NUMBER";
+
   /** {@link Long}, the tippable amount associated with a payment */
   public static final String EXTRA_TIPPABLE_AMOUNT = "clover.intent.extra.TIPPABLE_AMOUNT";
 
@@ -683,6 +691,9 @@ public class Intents {
 
   /** {@link String}, the UUID of a Payment object */
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
+
+  /** {@link String}, the UUID of a Credit object */
+  public static final String EXTRA_CREDIT_ID = "clover.intent.extra.CREDIT_ID";
 
   /** {@link java.util.List} of {@link String} objects - UUIDs of payments */
   public static final String EXTRA_PAYMENT_IDS = "clover.intent.extra.PAYMENT_IDS";
@@ -707,6 +718,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.customers.Customer}, a customer object */
   public static final String EXTRA_CUSTOMER_V3 = "com.clover.intent.extra.CUSTOMERV3";
+
+  /** {@link com.clover.sdk.v3.customers.CustomerInfo}, a customer object */
+  public static final String EXTRA_CUSTOMERINFO = "com.clover.intent.extra.CUSTOMERINFO";
 
   /** {@link String}, the UUID of an Employee object */
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
@@ -880,10 +894,52 @@ public class Intents {
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT = "manualReversalPayment";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_ADJUSTMENT_PAYMENT = "adjustmentPayment";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND  = "manualReversalRefund";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_ADJUSTMENT_REFUND = "adjustmentRefund";
+  /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
+  public static final java.lang.String TRANSACTION_TYPE_CAPTURE_PREAUTH  = "capturePreAuth";
   /** A value for {@link #EXTRA_TRANSACTION_TYPE} */
   public static final java.lang.String TRANSACTION_TYPE_VAS_DATA  = "vasData";
 
+  /**
+   * A value for {@link #EXTRA_TRANSACTION_TYPE}, a transaction that allows an app to verify whether a card is valid.
+   * An external app sends an intent of type Intents.ACTION_SECURE_PAY to secure payment app to launch the card verification workflow,
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_TRANSACTION_TYPE} - type of transaction to be performed by Secure Payment, set value to TRANSACTION_TYPE_VERIFY_CARD </li>
+   * <li>{@link #EXTRA_EXTERNAL_REFERENCE_ID} -  used for passing in an external reference id which gets stored as part of the transaction at the server </li>
+   * Result data includes:
+   * <ul>
+   * <li>{@link #EXTRA_TOKEN_REQUEST} - created token request, see {@link com.clover.sdk.v3.payments.TokenRequest}  </li>
+   * </ul>
+   */
+  public static final String TRANSACTION_TYPE_VERIFY_CARD  = "verifyCard";
+
+  /**
+   * A value for {@link #EXTRA_TRANSACTION_TYPE}, a transaction that allows an app to create a token from a card for later use in lieu of the card.
+   * An external app sends an intent of type Intents.ACTION_SECURE_PAY with TRANSACTION_TYPE_TOKENIZE_CARD as the EXTRA_TRANSACTION_TYPE
+   * to the secure payment app to launch the card tokenization workflow,
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_TRANSACTION_TYPE} - type of transaction to be performed by Secure Payment, set value to TRANSACTION_TYPE_TOKENIZE_CARD </li>
+   * <li>{@link #EXTRA_EXTERNAL_REFERENCE_ID} -  used for passing in an external reference id which gets stored as part of the transaction at the server </li>
+   * Result data includes:
+   * <ul>
+   * <li>{@link #EXTRA_TOKEN_REQUEST} - token request object created, see {@link com.clover.sdk.v3.payments.TokenRequest}  </li>
+   * </ul>
+   */
+  public static final String TRANSACTION_TYPE_TOKENIZE_CARD  = "tokenizeCard";
+
+  /** {@link String}, external reference id */
+  public static final String  EXTRA_EXTERNAL_REFERENCE_ID = "clover.intent.extra.EXTERNAL_REFERENCE_ID";
+
+  /** {@link com.clover.sdk.v3.payments.TokenRequest}, token request objects   */
+  public static final String  EXTRA_TOKEN_REQUEST = "clover.intent.extra.TOKEN_REQUEST";
 
 
   /** {@link Boolean}, card not present, used during manual card entry */
@@ -945,6 +1001,12 @@ public class Intents {
   /** {@link String}, message shown upon failure */
   public static final String EXTRA_FAILURE_MESSAGE ="clover.intent.extra.FAILURE_MESSAGE";
 
+  /** {@link com.clover.sdk.v3.payments.CardTransaction}, originating transaction */
+  public static final String EXTRA_ORIGINATING_TRANSACTION = "originatingTransaction";
+
+  /** {@link com.clover.sdk.v3.payments.Payment}, originating payment (applies to refunds, required for Interac refunds) */
+  public static final String EXTRA_ORIGINATING_PAYMENT = "originatingPayment";
+
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
   public static final int CARD_ENTRY_METHOD_MAG_STRIPE = 0b00000001;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
@@ -1004,6 +1066,9 @@ public class Intents {
 
   /** {@link Boolean}, whether signature is already verified */
   public static final String EXTRA_SIGNATURE_VERIFIED = "clover.intent.extra.SIGNATURE_VERIFIED";
+
+  /** {@link com.clover.common2.Signature2}, payment Signature2 signature */
+  public static final String EXTRA_SIGNATURE = "clover.intent.extra.SIGNATURE";
 
   /** {@link Boolean}, print receipt extras */
   public static final String EXTRA_PRINT_RECEIPT_ONLY = "clover.intent.extra_PRINT_RECEIPT_ONLY";
@@ -1199,6 +1264,20 @@ public class Intents {
    */
   public static final String ACTION_V1_PAY_EXECUTE_STOP = "clover.intent.action.V1_PAY_EXECUTE_STOP";
 
+  /**
+   * Broadcast indicating that a customer has been identified as a 'current' customer of interest.
+   * This may indicate that the customer was identified by a third party app on the device, or by a
+   * Clover application.  The customer may or may not exist as a clover customer.  The customer set
+   * on the intent is a wrapper of the Clover Customer.
+   *
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_REMOTECUSTOMER} - the RemoteCustomer object that was identified. (Required)</li>
+   * </ul>
+   */
+  public static final String ACTION_V1_CUSTOMER_IDENTIFIED = "clover.intent.action.V1_CUSTOMER_IDENTIFIED";
+
   /** @deprecated */
   public static final String EXTRA_AVAILABLE = "clover.intent.extra_AVAILABLE";
 
@@ -1213,5 +1292,17 @@ public class Intents {
 
   /** {@link Boolean} flag */
   public static final String EXTRA_USE_LAST_SWIPE = "clover.intent.extra_USE_LAST_SWIPE";
+
+  /** {@link Boolean} flag Indicates if device supports ECR mode or not*/
+  public static final String EXTRA_ECR_MODE = "clover.intent.extra_ECR_MODE";
+
+  /** {@link String} Indicates name of theme to be used in station-pay/secure-pay*/
+  public static final String EXTRA_THEME_NAME = "clover.intent.extra_THEME_NAME";
+
+    /** {@link Boolean} flag Indicates if the secure pay app should send the transaction result when the transaction is complete.
+     * Usually the result is sent when spa finishes, but this flag indicates, that the result shall be sent as soon as the
+     * transaction result is available
+    */
+  public static final String EXTRA_SEND_RESULT_ON_TRANSACTION_COMPLETE = "clover.intent.extra_ECR_SEND_RESULT_ON_TRANSACTION_COMPLETE";
 
 }

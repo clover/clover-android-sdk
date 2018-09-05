@@ -63,6 +63,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMaxOfflineDays maxOfflineDays}</li>
  * <li>{@link #getAllowStoreAndForward allowStoreAndForward}</li>
  * <li>{@link #getSecureReports secureReports}</li>
+ * <li>{@link #getBundleIndicator bundleIndicator}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -221,6 +222,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   public java.util.List<com.clover.sdk.v3.base.Reference> getSecureReports() {
     return genClient.cacheGet(CacheKey.secureReports);
+  }
+
+  public java.lang.String getBundleIndicator() {
+    return genClient.cacheGet(CacheKey.bundleIndicator);
   }
 
 
@@ -419,6 +424,12 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
         return instance.genClient.extractListRecord("secureReports", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
+    bundleIndicator {
+      @Override
+      public Object extractValue(Device instance) {
+        return instance.genClient.extractOther("bundleIndicator", java.lang.String.class);
+      }
+    },
       ;
   }
 
@@ -506,7 +517,9 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
 
     genClient.validateLength(getDeviceCertificate(), 1600);
 
-    genClient.validateLength(getPedCertificate(), 1600);
+    genClient.validateLength(getPedCertificate(), 2048);
+
+    genClient.validateLength(getBundleIndicator(), 32);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -672,6 +685,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'secureReports' field is set and is not null and is not empty */
   public boolean isNotEmptySecureReports() { return isNotNullSecureReports() && !getSecureReports().isEmpty(); }
 
+  /** Checks whether the 'bundleIndicator' field is set and is not null */
+  public boolean isNotNullBundleIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.bundleIndicator);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -832,6 +850,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'secureReports' field has been set, however the value could be null */
   public boolean hasSecureReports() {
     return genClient.cacheHasKey(CacheKey.secureReports);
+  }
+
+  /** Checks whether the 'bundleIndicator' field has been set, however the value could be null */
+  public boolean hasBundleIndicator() {
+    return genClient.cacheHasKey(CacheKey.bundleIndicator);
   }
 
 
@@ -1063,6 +1086,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.setArrayRecord(secureReports, CacheKey.secureReports);
   }
 
+  /**
+   * Sets the field 'bundleIndicator'.
+   */
+  public Device setBundleIndicator(java.lang.String bundleIndicator) {
+    return genClient.setOther(bundleIndicator, CacheKey.bundleIndicator);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1192,6 +1222,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearSecureReports() {
     genClient.clear(CacheKey.secureReports);
   }
+  /** Clears the 'bundleIndicator' field, the 'has' method for this field will now return false */
+  public void clearBundleIndicator() {
+    genClient.clear(CacheKey.bundleIndicator);
+  }
 
 
   /**
@@ -1278,7 +1312,7 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean DEVICECERTIFICATE_IS_REQUIRED = false;
     public static final long DEVICECERTIFICATE_MAX_LEN = 1600;
     public static final boolean PEDCERTIFICATE_IS_REQUIRED = false;
-    public static final long PEDCERTIFICATE_MAX_LEN = 1600;
+    public static final long PEDCERTIFICATE_MAX_LEN = 2048;
     public static final boolean DEVICETYPENAME_IS_REQUIRED = false;
     public static final boolean PINDISABLED_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTS_IS_REQUIRED = false;
@@ -1295,6 +1329,8 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean MAXOFFLINEDAYS_IS_REQUIRED = false;
     public static final boolean ALLOWSTOREANDFORWARD_IS_REQUIRED = false;
     public static final boolean SECUREREPORTS_IS_REQUIRED = false;
+    public static final boolean BUNDLEINDICATOR_IS_REQUIRED = false;
+    public static final long BUNDLEINDICATOR_MAX_LEN = 32;
 
   }
 

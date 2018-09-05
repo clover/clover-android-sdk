@@ -32,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getFirstName firstName}</li>
  * <li>{@link #getLastName lastName}</li>
  * <li>{@link #getMarketingAllowed marketingAllowed}</li>
@@ -52,6 +53,13 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  /**
+   * The merchant that is associated with this customer
+   */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return genClient.cacheGet(CacheKey.merchant);
   }
 
   /**
@@ -111,6 +119,12 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
       @Override
       public Object extractValue(Customer instance) {
         return instance.genClient.extractOther("id", java.lang.String.class);
+      }
+    },
+    merchant {
+      @Override
+      public Object extractValue(Customer instance) {
+        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
     firstName {
@@ -250,6 +264,11 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
   /** Checks whether the 'firstName' field is set and is not null */
   public boolean isNotNullFirstName() {
     return genClient.cacheValueIsNotNull(CacheKey.firstName);
@@ -322,6 +341,11 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.id);
   }
 
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return genClient.cacheHasKey(CacheKey.merchant);
+  }
+
   /** Checks whether the 'firstName' field has been set, however the value could be null */
   public boolean hasFirstName() {
     return genClient.cacheHasKey(CacheKey.firstName);
@@ -378,6 +402,15 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Customer setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Customer setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    return genClient.setRecord(merchant, CacheKey.merchant);
   }
 
   /**
@@ -466,6 +499,10 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
+  }
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    genClient.clear(CacheKey.merchant);
   }
   /** Clears the 'firstName' field, the 'has' method for this field will now return false */
   public void clearFirstName() {
@@ -568,6 +605,7 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean FIRSTNAME_IS_REQUIRED = false;
     public static final long FIRSTNAME_MAX_LEN = 64;
     public static final boolean LASTNAME_IS_REQUIRED = false;

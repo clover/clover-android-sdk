@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getApp app}</li>
  * <li>{@link #getVersion version}</li>
  * <li>{@link #getDeviceType deviceType}</li>
+ * <li>{@link #getAssociationTime associationTime}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -78,6 +79,13 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
     return genClient.cacheGet(CacheKey.deviceType);
   }
 
+  /**
+   * The time this android version was associated to this merchant group.
+   */
+  public java.lang.Long getAssociationTime() {
+    return genClient.cacheGet(CacheKey.associationTime);
+  }
+
 
 
 
@@ -110,6 +118,12 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
       @Override
       public Object extractValue(MerchantGroupAppVersion instance) {
         return instance.genClient.extractRecord("deviceType", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    associationTime {
+      @Override
+      public Object extractValue(MerchantGroupAppVersion instance) {
+        return instance.genClient.extractOther("associationTime", java.lang.Long.class);
       }
     },
       ;
@@ -209,6 +223,11 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
     return genClient.cacheValueIsNotNull(CacheKey.deviceType);
   }
 
+  /** Checks whether the 'associationTime' field is set and is not null */
+  public boolean isNotNullAssociationTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.associationTime);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -234,6 +253,11 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
   /** Checks whether the 'deviceType' field has been set, however the value could be null */
   public boolean hasDeviceType() {
     return genClient.cacheHasKey(CacheKey.deviceType);
+  }
+
+  /** Checks whether the 'associationTime' field has been set, however the value could be null */
+  public boolean hasAssociationTime() {
+    return genClient.cacheHasKey(CacheKey.associationTime);
   }
 
 
@@ -280,6 +304,13 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
     return genClient.setRecord(deviceType, CacheKey.deviceType);
   }
 
+  /**
+   * Sets the field 'associationTime'.
+   */
+  public MerchantGroupAppVersion setAssociationTime(java.lang.Long associationTime) {
+    return genClient.setOther(associationTime, CacheKey.associationTime);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -300,6 +331,10 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
   /** Clears the 'deviceType' field, the 'has' method for this field will now return false */
   public void clearDeviceType() {
     genClient.clear(CacheKey.deviceType);
+  }
+  /** Clears the 'associationTime' field, the 'has' method for this field will now return false */
+  public void clearAssociationTime() {
+    genClient.clear(CacheKey.associationTime);
   }
 
 
@@ -366,6 +401,7 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
     public static final boolean APP_IS_REQUIRED = true;
     public static final boolean VERSION_IS_REQUIRED = true;
     public static final boolean DEVICETYPE_IS_REQUIRED = false;
+    public static final boolean ASSOCIATIONTIME_IS_REQUIRED = false;
 
   }
 

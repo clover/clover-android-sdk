@@ -82,6 +82,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMaxCashBack maxCashBack}</li>
  * <li>{@link #getHierarchy hierarchy}</li>
  * <li>{@link #getHasConsented hasConsented}</li>
+ * <li>{@link #getMerchantBoardingStatus merchantBoardingStatus}</li>
+ * <li>{@link #getAlwaysRequireSignature alwaysRequireSignature}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -325,6 +327,20 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
    */
   public java.lang.Boolean getHasConsented() {
     return genClient.cacheGet(CacheKey.hasConsented);
+  }
+
+  /**
+   * This is used to identify if the merchant is self-boarded
+   */
+  public java.lang.String getMerchantBoardingStatus() {
+    return genClient.cacheGet(CacheKey.merchantBoardingStatus);
+  }
+
+  /**
+   * Whether we always require a signature for most transactions (excluding contactless under cvm limit)
+   */
+  public java.lang.Boolean getAlwaysRequireSignature() {
+    return genClient.cacheGet(CacheKey.alwaysRequireSignature);
   }
 
 
@@ -636,6 +652,18 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.genClient.extractOther("hasConsented", java.lang.Boolean.class);
+      }
+    },
+    merchantBoardingStatus {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.genClient.extractOther("merchantBoardingStatus", java.lang.String.class);
+      }
+    },
+    alwaysRequireSignature {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.genClient.extractOther("alwaysRequireSignature", java.lang.Boolean.class);
       }
     },
       ;
@@ -982,6 +1010,16 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.hasConsented);
   }
 
+  /** Checks whether the 'merchantBoardingStatus' field is set and is not null */
+  public boolean isNotNullMerchantBoardingStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantBoardingStatus);
+  }
+
+  /** Checks whether the 'alwaysRequireSignature' field is set and is not null */
+  public boolean isNotNullAlwaysRequireSignature() {
+    return genClient.cacheValueIsNotNull(CacheKey.alwaysRequireSignature);
+  }
+
 
 
   /** Checks whether the 'merchantRef' field has been set, however the value could be null */
@@ -1237,6 +1275,16 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Checks whether the 'hasConsented' field has been set, however the value could be null */
   public boolean hasHasConsented() {
     return genClient.cacheHasKey(CacheKey.hasConsented);
+  }
+
+  /** Checks whether the 'merchantBoardingStatus' field has been set, however the value could be null */
+  public boolean hasMerchantBoardingStatus() {
+    return genClient.cacheHasKey(CacheKey.merchantBoardingStatus);
+  }
+
+  /** Checks whether the 'alwaysRequireSignature' field has been set, however the value could be null */
+  public boolean hasAlwaysRequireSignature() {
+    return genClient.cacheHasKey(CacheKey.alwaysRequireSignature);
   }
 
 
@@ -1599,6 +1647,20 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.setOther(hasConsented, CacheKey.hasConsented);
   }
 
+  /**
+   * Sets the field 'merchantBoardingStatus'.
+   */
+  public MerchantProperties setMerchantBoardingStatus(java.lang.String merchantBoardingStatus) {
+    return genClient.setOther(merchantBoardingStatus, CacheKey.merchantBoardingStatus);
+  }
+
+  /**
+   * Sets the field 'alwaysRequireSignature'.
+   */
+  public MerchantProperties setAlwaysRequireSignature(java.lang.Boolean alwaysRequireSignature) {
+    return genClient.setOther(alwaysRequireSignature, CacheKey.alwaysRequireSignature);
+  }
+
 
   /** Clears the 'merchantRef' field, the 'has' method for this field will now return false */
   public void clearMerchantRef() {
@@ -1804,6 +1866,14 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   public void clearHasConsented() {
     genClient.clear(CacheKey.hasConsented);
   }
+  /** Clears the 'merchantBoardingStatus' field, the 'has' method for this field will now return false */
+  public void clearMerchantBoardingStatus() {
+    genClient.clear(CacheKey.merchantBoardingStatus);
+  }
+  /** Clears the 'alwaysRequireSignature' field, the 'has' method for this field will now return false */
+  public void clearAlwaysRequireSignature() {
+    genClient.clear(CacheKey.alwaysRequireSignature);
+  }
 
 
   /**
@@ -1925,6 +1995,8 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean HIERARCHY_IS_REQUIRED = false;
     public static final long HIERARCHY_MAX_LEN = 127;
     public static final boolean HASCONSENTED_IS_REQUIRED = false;
+    public static final boolean MERCHANTBOARDINGSTATUS_IS_REQUIRED = false;
+    public static final boolean ALWAYSREQUIRESIGNATURE_IS_REQUIRED = false;
 
   }
 

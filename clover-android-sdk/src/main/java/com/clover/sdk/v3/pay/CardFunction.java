@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum CardFunction implements Parcelable {
-  CREDIT, DEBIT, PREPAID, SIGNATURE_DEBIT, PINLESS_DEBIT, EBT, SNAP;
+  CREDIT, DEBIT, PREPAID, PINLESS_DEBIT, SIGNATURE_DEBIT, EBT, SNAP;
 
   @Override
   public int describeContents() {

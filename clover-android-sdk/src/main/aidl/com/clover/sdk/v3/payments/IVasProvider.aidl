@@ -20,9 +20,10 @@ interface IVasProvider {
    *  Parameters:
    *  payload: the actual payload from the mobile device
    *  vasMode: the VasMode relevant to the payload (may help receiver make workflow decisions)
-   *  extras: additional information about the transaction IF AVAILABLE (may not be present in some use cases)
+   *  extras: intent contains string key/value mappings only.  Non-string values are not supported.
+   *          additional information about the transaction IF AVAILABLE (may not be present in some use cases)
    *          possible values include EXTRA_ORDER_ID (with the Clover Order UUID) and EXTRA_PAYMENT_ID (if a payment
-   *          was completed at the same time as reading the VAS data)
+   *          was completed at the same time as reading the VAS data).
    *
    *  Returns:
    *  VasPayloadResponse with ResponseType of ACCEPTED (to indicate the data has been received), TXN_UPDATE (to indicate

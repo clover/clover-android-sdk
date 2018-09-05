@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPrice price}</li>
  * <li>{@link #getPricePerDevice pricePerDevice}</li>
  * <li>{@link #getCountry country}</li>
+ * <li>{@link #getAppBundle appBundle}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -60,6 +61,13 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
    */
   public java.lang.String getCountry() {
     return genClient.cacheGet(CacheKey.country);
+  }
+
+  /**
+   * DB reference to app bundle that contains this app bundle country.
+   */
+  public java.lang.Long getAppBundle() {
+    return genClient.cacheGet(CacheKey.appBundle);
   }
 
 
@@ -88,6 +96,12 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
       @Override
       public Object extractValue(AppBundleCountry instance) {
         return instance.genClient.extractOther("country", java.lang.String.class);
+      }
+    },
+    appBundle {
+      @Override
+      public Object extractValue(AppBundleCountry instance) {
+        return instance.genClient.extractOther("appBundle", java.lang.Long.class);
       }
     },
       ;
@@ -180,6 +194,11 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.country);
   }
 
+  /** Checks whether the 'appBundle' field is set and is not null */
+  public boolean isNotNullAppBundle() {
+    return genClient.cacheValueIsNotNull(CacheKey.appBundle);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -200,6 +219,11 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'country' field has been set, however the value could be null */
   public boolean hasCountry() {
     return genClient.cacheHasKey(CacheKey.country);
+  }
+
+  /** Checks whether the 'appBundle' field has been set, however the value could be null */
+  public boolean hasAppBundle() {
+    return genClient.cacheHasKey(CacheKey.appBundle);
   }
 
 
@@ -231,6 +255,13 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
     return genClient.setOther(country, CacheKey.country);
   }
 
+  /**
+   * Sets the field 'appBundle'.
+   */
+  public AppBundleCountry setAppBundle(java.lang.Long appBundle) {
+    return genClient.setOther(appBundle, CacheKey.appBundle);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -247,6 +278,10 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
   /** Clears the 'country' field, the 'has' method for this field will now return false */
   public void clearCountry() {
     genClient.clear(CacheKey.country);
+  }
+  /** Clears the 'appBundle' field, the 'has' method for this field will now return false */
+  public void clearAppBundle() {
+    genClient.clear(CacheKey.appBundle);
   }
 
 
@@ -313,6 +348,7 @@ public class AppBundleCountry extends GenericParcelable implements com.clover.sd
     public static final boolean PRICEPERDEVICE_IS_REQUIRED = false;
     public static final boolean COUNTRY_IS_REQUIRED = false;
     public static final long COUNTRY_MAX_LEN = 2;
+    public static final boolean APPBUNDLE_IS_REQUIRED = false;
 
   }
 

@@ -33,6 +33,7 @@ public class Entitlements extends SimpleSyncClient {
   public static final String METHOD_IS_ALLOWED = "isAllowed";
 
   public static final String EXTRA_ENTITLEMENT = "entitlement";
+  public static final String EXTRA_PLAN_CODE = "planCode";
   public static final String EXTRA_ALLOWED = "allowed";
 
   public Entitlements(Context context) {
@@ -50,8 +51,15 @@ public class Entitlements extends SimpleSyncClient {
   }
 
   public boolean isAllowed(String entitlement) {
+    return isAllowed(entitlement, null);
+  }
+
+  public boolean isAllowed(String entitlement, String planCode) {
     Bundle extras = new Bundle();
     extras.putString(EXTRA_ENTITLEMENT, entitlement);
+    if (planCode != null) {
+      extras.putString(EXTRA_PLAN_CODE, planCode);
+    }
     Bundle result = context.getContentResolver().call(getAuthorityUri(), METHOD_IS_ALLOWED, null, extras);
     if (result == null) {
       return false;

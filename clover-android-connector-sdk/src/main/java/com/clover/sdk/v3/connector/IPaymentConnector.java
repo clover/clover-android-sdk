@@ -1,5 +1,6 @@
 package com.clover.sdk.v3.connector;
 
+import com.clover.sdk.v1.configuration.UIConfiguration;
 import com.clover.sdk.v3.base.Challenge;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.remotepay.AuthRequest;
@@ -14,8 +15,6 @@ import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
-
-import android.app.Activity;
 
 /**
  * Created by glennbedwell on 9/6/16.
@@ -143,6 +142,17 @@ public interface IPaymentConnector extends IDeviceConnector{
    */
   void retrievePayment(RetrievePaymentRequest request);
 
+  /**
+   * Sets configuration (e.g. theme)
+   * @param configuration
+   */
 
+  void setUIConfiguration(UIConfiguration configuration);
+
+  /**
+   * Send device logs
+   * @param message
+   */
+  void sendDebugLog(String message);
 
 }

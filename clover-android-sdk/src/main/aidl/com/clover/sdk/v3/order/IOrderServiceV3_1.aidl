@@ -20,7 +20,9 @@ import com.clover.sdk.v3.payments.PaymentListFdParcelable;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
 import com.clover.sdk.v3.payments.CreditRefundFdParcelable;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
+import com.clover.sdk.v3.payments.TransactionInfo;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
+import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.inventory.ModifierFdParcelable;
 
 /**
@@ -172,4 +174,105 @@ interface IOrderServiceV3_1 {
    * @return The updated {@link Order}.
    */
   OrderFdParcelable deleteLineItemsWithReason(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, out ResultStatus status);
+
+  OrderFdParcelable voidPaymentWithCard(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in VoidReason reason, String source, out ResultStatus status);
+
+  /**
+   * Get list of lineitem ids for the order that has printtag to print.
+   * The items that are already printed are not part of the list
+   *
+   * @param orderId The ID of the {@link Order} from which to delete the line items.
+   */
+  List<String> getLineItemsToFire(String orderId, out ResultStatus status);
+
+  /**
+   * Reprint all lineitems that has a printtag even if they are printed.
+   *
+   * @param orderId The ID of the {@link Order} from which to delete the line items.
+   */
+  boolean refire(String orderId, out ResultStatus status);
+
+  /**
+   * Add 1 or more fixed-price line item to an order. A fixed price line item is priced per item.
+   *
+   * {@link LineItem}s are linked to {@link com.clover.sdk.v3.inventory.Item}s with an item ID. Think of the
+   * {@link com.clover.sdk.v3.inventory.Item} as a template for creating a {@link LineItem}, and a
+   * {@link LineItem} as the order's copy of an {@link com.clover.sdk.v3.inventory.Item}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @param numItems number of {@link LineItem}s to create
+   * @return The newly created {@link LineItem}.
+   */
+  LineItemListFdParcelable addFixedPriceLineItems(String orderId, String itemId, String binName, String userData, int numItems, out ResultStatus status);
+
+  /**
+   * Add 1 or more per-unit line item to an order. A per unit line item is priced per unit, not per item. A good example
+   * is items that are sold by weight (e.g., per ounce).
+   *
+   * {@link LineItem}s are linked to {@link com.clover.sdk.v3.inventory.Item}s with an item ID. Think of the
+   * {@link com.clover.sdk.v3.inventory.Item} as a template for creating a {@link LineItem}, and a
+   * {@link LineItem} as the order's copy of an {@link com.clover.sdk.v3.inventory.Item}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param unitQuantity The unit quantity for the line item (e.g., "10 ounces").
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @param numItems number of {@link LineItem}s to create
+   * @return The newly created {@link LineItem}.
+   */
+  LineItemListFdParcelable addPerUnitLineItems(String orderId, String itemId, int unitQuantity, String binName, String userData, int numItems, out ResultStatus status);
+
+  /**
+   * Add 1 or more variably-priced line item to the order. A variably priced line item's price is determined at the time of
+   * sale.
+   *
+   * Note that this method is not consistent with others in this interface as it returns a {@link LineItem}. All other
+   * methods return the complete, updated {@link Order}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param price The price of the line item.
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @param numItems number of {@link LineItem}s to create
+   * @return The newly created {@link LineItem}.
+   */
+  LineItemListFdParcelable addVariablePriceLineItems(String orderId, String itemId, long price, String binName, String userData, int numItems, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @deprecated Use {@link #deleteOrder3}.
+   * @y.exclude
+   */
+  boolean deleteOrderOnline2(String orderId, boolean usePermissionForOrderDeletions, out ResultStatus status);
+
+  /**
+   * Delete an {@link Order}. This method allows switching between online deletion like {@link #deleteOrderOnline(String)}
+   * and offline (deleting loaclly and adding message to server queue) like {@link #deleteOrder(String)}
+   * This method allows an override toggle for the employee permissions and printed line items checks.
+   *
+   * @param orderId The ID of the order to be deleted.
+   * @param deleteOnline true to delete an order synchronously on the server @see #deleteOrderOnline
+   * @param allowDeleteIfLineItemPrinted true to allow deleting order if it has printed line items
+   * @param allowDeleteIfNoEmployeePermission true to allow deletion regardless of employee permission.
+   * @return true if the order was deleted successfully, otherwise false.
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+
+  boolean deleteOrder3(String orderId, boolean deleteOnline, boolean allowDeleteIfLineItemPrinted, boolean allowDeleteIfNoEmployeePermission, out ResultStatus status);
+
+
+  /**
+   * Card present void
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable voidPaymentCardPresent(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in VoidReason reason, String source, out ResultStatus status);
 }

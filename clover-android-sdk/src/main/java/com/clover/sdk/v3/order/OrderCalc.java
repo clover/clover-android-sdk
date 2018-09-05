@@ -231,6 +231,20 @@ public class OrderCalc {
       return new Decimal(taxRate.getRate()).divide(TAX_RATE_DIVISOR);
     }
 
+    @Override
+    public Price getFlatTaxAmount() {
+      return taxRate.isNotNullTaxAmount() ? new Price(taxRate.getTaxAmount()) : null;
+    }
+
+    @Override
+    public String getTaxType() {
+      return taxRate.isNotNullTaxType() ? taxRate.getTaxType().toString() : null;
+    }
+
+    public String getName() {
+      return taxRate.getName();
+    }
+
     public int hashCode() {
       return (getId()!=null ? getId().hashCode() : super.hashCode());
     }
@@ -243,6 +257,10 @@ public class OrderCalc {
     }
   }
 
+  /**
+   * Constructs a new instance to calculate values for the given order. Does
+   * not make a copy of the provided order.
+   */
   public OrderCalc(Order order) {
     this.order = order;
     this.calcOrder = new CalcOrder();

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '191.6'
+version = '210.1'
 
 apply from: file("${project.rootDir}/versions.gradle")
 
@@ -23,6 +23,8 @@ apply plugin: 'com.android.application'
 repositories {
   mavenLocal()
   mavenCentral()
+  jcenter()
+  google()
 }
 
 android {

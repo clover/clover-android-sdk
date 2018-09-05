@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum CvmResult implements Parcelable {
-  NO_CVM_REQUIRED, SIGNATURE, PIN, ONLINE_PIN, SIGNATURE_AND_PIN, CVM_FAILED, DEVICE;
+  NO_CVM_REQUIRED, SIGNATURE, SIGNATURE_VERIFIED, SIGNATURE_ON_PAPER, SIGNATURE_REJECTED, PIN, ONLINE_PIN, SIGNATURE_AND_PIN, CVM_FAILED, DEVICE;
 
   @Override
   public int describeContents() {

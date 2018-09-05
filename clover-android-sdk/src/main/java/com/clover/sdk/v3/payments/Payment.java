@@ -49,6 +49,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getResult result}</li>
  * <li>{@link #getCardTransaction cardTransaction}</li>
  * <li>{@link #getServiceCharge serviceCharge}</li>
+ * <li>{@link #getAdditionalCharges additionalCharges}</li>
  * <li>{@link #getTaxRates taxRates}</li>
  * <li>{@link #getRefunds refunds}</li>
  * <li>{@link #getNote note}</li>
@@ -60,6 +61,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAppTracking appTracking}</li>
  * <li>{@link #getCashAdvanceExtra cashAdvanceExtra}</li>
  * <li>{@link #getTransactionInfo transactionInfo}</li>
+ * <li>{@link #getSignatureDisclaimer signatureDisclaimer}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -179,6 +181,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.serviceCharge);
   }
 
+  public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
+    return genClient.cacheGet(CacheKey.additionalCharges);
+  }
+
   public java.util.List<com.clover.sdk.v3.payments.PaymentTaxRate> getTaxRates() {
     return genClient.cacheGet(CacheKey.taxRates);
   }
@@ -242,6 +248,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
     return genClient.cacheGet(CacheKey.transactionInfo);
+  }
+
+  /**
+   * Information displayed to customer for storing electronic signatures
+   */
+  public com.clover.sdk.v3.payments.SignatureDisclaimer getSignatureDisclaimer() {
+    return genClient.cacheGet(CacheKey.signatureDisclaimer);
   }
 
 
@@ -356,6 +369,12 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
         return instance.genClient.extractRecord("serviceCharge", com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR);
       }
     },
+    additionalCharges {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractListRecord("additionalCharges", com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR);
+      }
+    },
     taxRates {
       @Override
       public Object extractValue(Payment instance) {
@@ -420,6 +439,12 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Payment instance) {
         return instance.genClient.extractRecord("transactionInfo", com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR);
+      }
+    },
+    signatureDisclaimer {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractRecord("signatureDisclaimer", com.clover.sdk.v3.payments.SignatureDisclaimer.JSON_CREATOR);
       }
     },
       ;
@@ -584,6 +609,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.serviceCharge);
   }
 
+  /** Checks whether the 'additionalCharges' field is set and is not null */
+  public boolean isNotNullAdditionalCharges() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalCharges);
+  }
+
+  /** Checks whether the 'additionalCharges' field is set and is not null and is not empty */
+  public boolean isNotEmptyAdditionalCharges() { return isNotNullAdditionalCharges() && !getAdditionalCharges().isEmpty(); }
+
   /** Checks whether the 'taxRates' field is set and is not null */
   public boolean isNotNullTaxRates() {
     return genClient.cacheValueIsNotNull(CacheKey.taxRates);
@@ -646,6 +679,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'transactionInfo' field is set and is not null */
   public boolean isNotNullTransactionInfo() {
     return genClient.cacheValueIsNotNull(CacheKey.transactionInfo);
+  }
+
+  /** Checks whether the 'signatureDisclaimer' field is set and is not null */
+  public boolean isNotNullSignatureDisclaimer() {
+    return genClient.cacheValueIsNotNull(CacheKey.signatureDisclaimer);
   }
 
 
@@ -740,6 +778,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.serviceCharge);
   }
 
+  /** Checks whether the 'additionalCharges' field has been set, however the value could be null */
+  public boolean hasAdditionalCharges() {
+    return genClient.cacheHasKey(CacheKey.additionalCharges);
+  }
+
   /** Checks whether the 'taxRates' field has been set, however the value could be null */
   public boolean hasTaxRates() {
     return genClient.cacheHasKey(CacheKey.taxRates);
@@ -793,6 +836,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'transactionInfo' field has been set, however the value could be null */
   public boolean hasTransactionInfo() {
     return genClient.cacheHasKey(CacheKey.transactionInfo);
+  }
+
+  /** Checks whether the 'signatureDisclaimer' field has been set, however the value could be null */
+  public boolean hasSignatureDisclaimer() {
+    return genClient.cacheHasKey(CacheKey.signatureDisclaimer);
   }
 
 
@@ -935,6 +983,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'additionalCharges'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Payment setAdditionalCharges(java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> additionalCharges) {
+    return genClient.setArrayRecord(additionalCharges, CacheKey.additionalCharges);
+  }
+
+  /**
    * Sets the field 'taxRates'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -1029,6 +1086,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
   }
 
+  /**
+   * Sets the field 'signatureDisclaimer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setSignatureDisclaimer(com.clover.sdk.v3.payments.SignatureDisclaimer signatureDisclaimer) {
+    return genClient.setRecord(signatureDisclaimer, CacheKey.signatureDisclaimer);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1102,6 +1168,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearServiceCharge() {
     genClient.clear(CacheKey.serviceCharge);
   }
+  /** Clears the 'additionalCharges' field, the 'has' method for this field will now return false */
+  public void clearAdditionalCharges() {
+    genClient.clear(CacheKey.additionalCharges);
+  }
   /** Clears the 'taxRates' field, the 'has' method for this field will now return false */
   public void clearTaxRates() {
     genClient.clear(CacheKey.taxRates);
@@ -1145,6 +1215,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'transactionInfo' field, the 'has' method for this field will now return false */
   public void clearTransactionInfo() {
     genClient.clear(CacheKey.transactionInfo);
+  }
+  /** Clears the 'signatureDisclaimer' field, the 'has' method for this field will now return false */
+  public void clearSignatureDisclaimer() {
+    genClient.clear(CacheKey.signatureDisclaimer);
   }
 
 
@@ -1225,6 +1299,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean CARDTRANSACTION_IS_REQUIRED = false;
     public static final boolean SERVICECHARGE_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGES_IS_REQUIRED = false;
     public static final boolean TAXRATES_IS_REQUIRED = false;
     public static final boolean REFUNDS_IS_REQUIRED = false;
     public static final boolean NOTE_IS_REQUIRED = false;
@@ -1237,6 +1312,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean APPTRACKING_IS_REQUIRED = false;
     public static final boolean CASHADVANCEEXTRA_IS_REQUIRED = false;
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
+    public static final boolean SIGNATUREDISCLAIMER_IS_REQUIRED = false;
 
   }
 

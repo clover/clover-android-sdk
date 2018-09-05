@@ -109,6 +109,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPopularity popularity}</li>
  * <li>{@link #getAllowUninstall allowUninstall}</li>
  * <li>{@link #getCharge charge}</li>
+ * <li>{@link #getLinkLabel linkLabel}</li>
+ * <li>{@link #getCategories categories}</li>
+ * <li>{@link #getPartnerId partnerId}</li>
+ * <li>{@link #getLocales locales}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -550,6 +554,34 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public java.lang.Boolean getCharge() {
     return genClient.cacheGet(CacheKey.charge);
+  }
+
+  /**
+   * Text for external link to this app's detail page in the app market.
+   */
+  public java.lang.String getLinkLabel() {
+    return genClient.cacheGet(CacheKey.linkLabel);
+  }
+
+  /**
+   * List of app categories applicable to this app.
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getCategories() {
+    return genClient.cacheGet(CacheKey.categories);
+  }
+
+  /**
+   * Used to identify a semi-int developer app.
+   */
+  public java.lang.String getPartnerId() {
+    return genClient.cacheGet(CacheKey.partnerId);
+  }
+
+  /**
+   * List of locale specific app resources.
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getLocales() {
+    return genClient.cacheGet(CacheKey.locales);
   }
 
 
@@ -1022,6 +1054,30 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
       @Override
       public Object extractValue(App instance) {
         return instance.genClient.extractOther("charge", java.lang.Boolean.class);
+      }
+    },
+    linkLabel {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("linkLabel", java.lang.String.class);
+      }
+    },
+    categories {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractListRecord("categories", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    partnerId {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("partnerId", java.lang.String.class);
+      }
+    },
+    locales {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractListRecord("locales", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
       ;
@@ -1556,6 +1612,32 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.charge);
   }
 
+  /** Checks whether the 'linkLabel' field is set and is not null */
+  public boolean isNotNullLinkLabel() {
+    return genClient.cacheValueIsNotNull(CacheKey.linkLabel);
+  }
+
+  /** Checks whether the 'categories' field is set and is not null */
+  public boolean isNotNullCategories() {
+    return genClient.cacheValueIsNotNull(CacheKey.categories);
+  }
+
+  /** Checks whether the 'categories' field is set and is not null and is not empty */
+  public boolean isNotEmptyCategories() { return isNotNullCategories() && !getCategories().isEmpty(); }
+
+  /** Checks whether the 'partnerId' field is set and is not null */
+  public boolean isNotNullPartnerId() {
+    return genClient.cacheValueIsNotNull(CacheKey.partnerId);
+  }
+
+  /** Checks whether the 'locales' field is set and is not null */
+  public boolean isNotNullLocales() {
+    return genClient.cacheValueIsNotNull(CacheKey.locales);
+  }
+
+  /** Checks whether the 'locales' field is set and is not null and is not empty */
+  public boolean isNotEmptyLocales() { return isNotNullLocales() && !getLocales().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1946,6 +2028,26 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'charge' field has been set, however the value could be null */
   public boolean hasCharge() {
     return genClient.cacheHasKey(CacheKey.charge);
+  }
+
+  /** Checks whether the 'linkLabel' field has been set, however the value could be null */
+  public boolean hasLinkLabel() {
+    return genClient.cacheHasKey(CacheKey.linkLabel);
+  }
+
+  /** Checks whether the 'categories' field has been set, however the value could be null */
+  public boolean hasCategories() {
+    return genClient.cacheHasKey(CacheKey.categories);
+  }
+
+  /** Checks whether the 'partnerId' field has been set, however the value could be null */
+  public boolean hasPartnerId() {
+    return genClient.cacheHasKey(CacheKey.partnerId);
+  }
+
+  /** Checks whether the 'locales' field has been set, however the value could be null */
+  public boolean hasLocales() {
+    return genClient.cacheHasKey(CacheKey.locales);
   }
 
 
@@ -2529,6 +2631,38 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setOther(charge, CacheKey.charge);
   }
 
+  /**
+   * Sets the field 'linkLabel'.
+   */
+  public App setLinkLabel(java.lang.String linkLabel) {
+    return genClient.setOther(linkLabel, CacheKey.linkLabel);
+  }
+
+  /**
+   * Sets the field 'categories'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setCategories(java.util.List<com.clover.sdk.v3.base.Reference> categories) {
+    return genClient.setArrayRecord(categories, CacheKey.categories);
+  }
+
+  /**
+   * Sets the field 'partnerId'.
+   */
+  public App setPartnerId(java.lang.String partnerId) {
+    return genClient.setOther(partnerId, CacheKey.partnerId);
+  }
+
+  /**
+   * Sets the field 'locales'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setLocales(java.util.List<com.clover.sdk.v3.base.Reference> locales) {
+    return genClient.setArrayRecord(locales, CacheKey.locales);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -2842,6 +2976,22 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearCharge() {
     genClient.clear(CacheKey.charge);
   }
+  /** Clears the 'linkLabel' field, the 'has' method for this field will now return false */
+  public void clearLinkLabel() {
+    genClient.clear(CacheKey.linkLabel);
+  }
+  /** Clears the 'categories' field, the 'has' method for this field will now return false */
+  public void clearCategories() {
+    genClient.clear(CacheKey.categories);
+  }
+  /** Clears the 'partnerId' field, the 'has' method for this field will now return false */
+  public void clearPartnerId() {
+    genClient.clear(CacheKey.partnerId);
+  }
+  /** Clears the 'locales' field, the 'has' method for this field will now return false */
+  public void clearLocales() {
+    genClient.clear(CacheKey.locales);
+  }
 
 
   /**
@@ -3000,6 +3150,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean POPULARITY_IS_REQUIRED = false;
     public static final boolean ALLOWUNINSTALL_IS_REQUIRED = false;
     public static final boolean CHARGE_IS_REQUIRED = false;
+    public static final boolean LINKLABEL_IS_REQUIRED = false;
+    public static final boolean CATEGORIES_IS_REQUIRED = false;
+    public static final boolean PARTNERID_IS_REQUIRED = false;
+    public static final boolean LOCALES_IS_REQUIRED = false;
 
   }
 
