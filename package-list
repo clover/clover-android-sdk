@@ -5,6 +5,7 @@ com.clover.sdk.util
 com.clover.sdk.v1
 com.clover.sdk.v1.app
 com.clover.sdk.v1.base
+com.clover.sdk.v1.configuration
 com.clover.sdk.v1.customer
 com.clover.sdk.v1.merchant
 com.clover.sdk.v1.printer
@@ -36,3 +37,4 @@ com.clover.sdk.v3.resellers
 com.clover.sdk.v3.scanner
 com.clover.sdk.v3.serverfeature
 com.clover.sdk.v3.sim
+com.clover.sdk.v3.tables2
