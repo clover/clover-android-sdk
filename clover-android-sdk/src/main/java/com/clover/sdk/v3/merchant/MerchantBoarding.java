@@ -29,10 +29,67 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
+ * Additional supporting merchant data sent from FDPOS during merchant boarding.
+ * <p>
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getMerchantRef merchantRef}</li>
  * <li>{@link #getBillToName billToName}</li>
+ * <li>{@link #getAchBankId achBankId}</li>
+ * <li>{@link #getAccountStatus accountStatus}</li>
+ * <li>{@link #getStore store}</li>
+ * <li>{@link #getDaylightSavings daylightSavings}</li>
+ * <li>{@link #getSeasonal seasonal}</li>
+ * <li>{@link #getTransArmorKey transArmorKey}</li>
+ * <li>{@link #getCreditLimit creditLimit}</li>
+ * <li>{@link #getAuthLimit authLimit}</li>
+ * <li>{@link #getSaleLimit saleLimit}</li>
+ * <li>{@link #getExternalMerchant externalMerchant}</li>
+ * <li>{@link #getDynamicDba dynamicDba}</li>
+ * <li>{@link #getRelationshipManager relationshipManager}</li>
+ * <li>{@link #getTaxExempt taxExempt}</li>
+ * <li>{@link #getSalesman salesman}</li>
+ * <li>{@link #getValueLink valueLink}</li>
+ * <li>{@link #getValueLinkMid valueLinkMid}</li>
+ * <li>{@link #getAltValueLinkMid altValueLinkMid}</li>
+ * <li>{@link #getReceiptDba receiptDba}</li>
+ * <li>{@link #getBankNumber bankNumber}</li>
+ * <li>{@link #getParentMerchantId parentMerchantId}</li>
+ * <li>{@link #getMultiMerchantType multiMerchantType}</li>
+ * <li>{@link #getMerchantData merchantData}</li>
+ * <li>{@link #getFaxPhone faxPhone}</li>
+ * <li>{@link #getMerchantType merchantType}</li>
+ * <li>{@link #getMultiCurrencyIndicator multiCurrencyIndicator}</li>
+ * <li>{@link #getPreferredMerchant preferredMerchant}</li>
+ * <li>{@link #getVisaIram visaIram}</li>
+ * <li>{@link #getTransArmorIndicator transArmorIndicator}</li>
+ * <li>{@link #getSigningKey signingKey}</li>
+ * <li>{@link #getVisaDebitAccept visaDebitAccept}</li>
+ * <li>{@link #getMastercardDebitAccept mastercardDebitAccept}</li>
+ * <li>{@link #getSourceIndicator sourceIndicator}</li>
+ * <li>{@link #getForeignDomesticIndicator foreignDomesticIndicator}</li>
+ * <li>{@link #getAccountFunding accountFunding}</li>
+ * <li>{@link #getDirectMarketing directMarketing}</li>
+ * <li>{@link #getParticipantRelationship participantRelationship}</li>
+ * <li>{@link #getProcessSettlement processSettlement}</li>
+ * <li>{@link #getRecurringFlag recurringFlag}</li>
+ * <li>{@link #getLinkFrom linkFrom}</li>
+ * <li>{@link #getLinkTo linkTo}</li>
+ * <li>{@link #getEmvAllowed emvAllowed}</li>
+ * <li>{@link #getPreviousAccountStatus previousAccountStatus}</li>
+ * <li>{@link #getLeaseCompanyCode leaseCompanyCode}</li>
+ * <li>{@link #getProcessMode processMode}</li>
+ * <li>{@link #getAgentBankIndicator agentBankIndicator}</li>
+ * <li>{@link #getNonMpaIndicator nonMpaIndicator}</li>
+ * <li>{@link #getInternetIndicator internetIndicator}</li>
+ * <li>{@link #getChargeBackRetrievalAddressFlag chargeBackRetrievalAddressFlag}</li>
+ * <li>{@link #getViRelationshipParticipant viRelationshipParticipant}</li>
+ * <li>{@link #getRetailDescription retailDescription}</li>
+ * <li>{@link #getClientRepresentative clientRepresentative}</li>
+ * <li>{@link #getMerchantAuthType merchantAuthType}</li>
+ * <li>{@link #getSysPrin sysPrin}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -49,6 +106,388 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     return genClient.cacheGet(CacheKey.billToName);
   }
 
+  /**
+   * ID of automated clearing house bank
+   */
+  public java.lang.String getAchBankId() {
+    return genClient.cacheGet(CacheKey.achBankId);
+  }
+
+  /**
+   * Status of the account
+   */
+  public java.lang.String getAccountStatus() {
+    return genClient.cacheGet(CacheKey.accountStatus);
+  }
+
+  /**
+   * Store identifier
+   */
+  public java.lang.String getStore() {
+    return genClient.cacheGet(CacheKey.store);
+  }
+
+  /**
+   * Indicator if daylight savings followed by merchant
+   */
+  public java.lang.Boolean getDaylightSavings() {
+    return genClient.cacheGet(CacheKey.daylightSavings);
+  }
+
+  /**
+   * True if merchant is a seasonal business
+   */
+  public java.lang.Boolean getSeasonal() {
+    return genClient.cacheGet(CacheKey.seasonal);
+  }
+
+  /**
+   * FD TransArmor public key
+   */
+  public java.lang.String getTransArmorKey() {
+    return genClient.cacheGet(CacheKey.transArmorKey);
+  }
+
+  /**
+   * Credit limit
+   */
+  public java.lang.Double getCreditLimit() {
+    return genClient.cacheGet(CacheKey.creditLimit);
+  }
+
+  /**
+   * Authorization limit
+   */
+  public java.lang.Double getAuthLimit() {
+    return genClient.cacheGet(CacheKey.authLimit);
+  }
+
+  /**
+   * Sale limit
+   */
+  public java.lang.Double getSaleLimit() {
+    return genClient.cacheGet(CacheKey.saleLimit);
+  }
+
+  public java.lang.Boolean getExternalMerchant() {
+    return genClient.cacheGet(CacheKey.externalMerchant);
+  }
+
+  /**
+   * True if allows dynamic Doing Business As (DBA)
+   */
+  public java.lang.Boolean getDynamicDba() {
+    return genClient.cacheGet(CacheKey.dynamicDba);
+  }
+
+  /**
+   * Relationship manager
+   */
+  public java.lang.String getRelationshipManager() {
+    return genClient.cacheGet(CacheKey.relationshipManager);
+  }
+
+  /**
+   * True if merchant is tax exempt
+   */
+  public java.lang.Boolean getTaxExempt() {
+    return genClient.cacheGet(CacheKey.taxExempt);
+  }
+
+  /**
+   * Salesman
+   */
+  public java.lang.String getSalesman() {
+    return genClient.cacheGet(CacheKey.salesman);
+  }
+
+  /**
+   * True if merchant supports ValueLink
+   */
+  public java.lang.Boolean getValueLink() {
+    return genClient.cacheGet(CacheKey.valueLink);
+  }
+
+  /**
+   * ValueLink MID
+   */
+  public java.lang.String getValueLinkMid() {
+    return genClient.cacheGet(CacheKey.valueLinkMid);
+  }
+
+  /**
+   * Alternative ValueLink MID
+   */
+  public java.lang.String getAltValueLinkMid() {
+    return genClient.cacheGet(CacheKey.altValueLinkMid);
+  }
+
+  /**
+   * Doing Business As (DBA) receipt
+   */
+  public java.lang.String getReceiptDba() {
+    return genClient.cacheGet(CacheKey.receiptDba);
+  }
+
+  /**
+   * Bank Number
+   */
+  public java.lang.String getBankNumber() {
+    return genClient.cacheGet(CacheKey.bankNumber);
+  }
+
+  /**
+   * ID of merchant's parent
+   */
+  public java.lang.String getParentMerchantId() {
+    return genClient.cacheGet(CacheKey.parentMerchantId);
+  }
+
+  /**
+   * Type of Multi-Merchant terminal
+   */
+  public java.lang.String getMultiMerchantType() {
+    return genClient.cacheGet(CacheKey.multiMerchantType);
+  }
+
+  /**
+   * Merchant data
+   */
+  public java.lang.String getMerchantData() {
+    return genClient.cacheGet(CacheKey.merchantData);
+  }
+
+  /**
+   * Merchant fax number
+   */
+  public java.lang.String getFaxPhone() {
+    return genClient.cacheGet(CacheKey.faxPhone);
+  }
+
+  /**
+   * Type of merchant
+   */
+  public java.lang.String getMerchantType() {
+    return genClient.cacheGet(CacheKey.merchantType);
+  }
+
+  /**
+   * Multi-currency indicator
+   */
+  public java.lang.String getMultiCurrencyIndicator() {
+    return genClient.cacheGet(CacheKey.multiCurrencyIndicator);
+  }
+
+  /**
+   * Preferred merchant flag
+   */
+  public java.lang.String getPreferredMerchant() {
+    return genClient.cacheGet(CacheKey.preferredMerchant);
+  }
+
+  /**
+   * 
+   */
+  public java.lang.String getVisaIram() {
+    return genClient.cacheGet(CacheKey.visaIram);
+  }
+
+  /**
+   * TransArmor indicator
+   */
+  public java.lang.String getTransArmorIndicator() {
+    return genClient.cacheGet(CacheKey.transArmorIndicator);
+  }
+
+  /**
+   * Signing key
+   */
+  public java.lang.String getSigningKey() {
+    return genClient.cacheGet(CacheKey.signingKey);
+  }
+
+  /**
+   * Does merchant accept Visa debit
+   */
+  public java.lang.String getVisaDebitAccept() {
+    return genClient.cacheGet(CacheKey.visaDebitAccept);
+  }
+
+  /**
+   * Does merchant accept MasterCard debit
+   */
+  public java.lang.String getMastercardDebitAccept() {
+    return genClient.cacheGet(CacheKey.mastercardDebitAccept);
+  }
+
+  /**
+   * Source indicator
+   */
+  public java.lang.String getSourceIndicator() {
+    return genClient.cacheGet(CacheKey.sourceIndicator);
+  }
+
+  /**
+   * Indicates foreign or domestic merchant
+   */
+  public java.lang.String getForeignDomesticIndicator() {
+    return genClient.cacheGet(CacheKey.foreignDomesticIndicator);
+  }
+
+  /**
+   * Account funding
+   */
+  public java.lang.String getAccountFunding() {
+    return genClient.cacheGet(CacheKey.accountFunding);
+  }
+
+  /**
+   * Direct marketing
+   */
+  public java.lang.String getDirectMarketing() {
+    return genClient.cacheGet(CacheKey.directMarketing);
+  }
+
+  /**
+   * Participant relationship
+   */
+  public java.lang.String getParticipantRelationship() {
+    return genClient.cacheGet(CacheKey.participantRelationship);
+  }
+
+  /**
+   * Process settlement
+   */
+  public java.lang.String getProcessSettlement() {
+    return genClient.cacheGet(CacheKey.processSettlement);
+  }
+
+  /**
+   * Recurring flag
+   */
+  public java.lang.String getRecurringFlag() {
+    return genClient.cacheGet(CacheKey.recurringFlag);
+  }
+
+  /**
+   * Link from
+   */
+  public java.lang.String getLinkFrom() {
+    return genClient.cacheGet(CacheKey.linkFrom);
+  }
+
+  /**
+   * Link to
+   */
+  public java.lang.String getLinkTo() {
+    return genClient.cacheGet(CacheKey.linkTo);
+  }
+
+  /**
+   * Is EMV chip allowed
+   */
+  public java.lang.String getEmvAllowed() {
+    return genClient.cacheGet(CacheKey.emvAllowed);
+  }
+
+  /**
+   * Previous status of account
+   */
+  public java.lang.String getPreviousAccountStatus() {
+    return genClient.cacheGet(CacheKey.previousAccountStatus);
+  }
+
+  /**
+   * Lease company code
+   */
+  public java.lang.String getLeaseCompanyCode() {
+    return genClient.cacheGet(CacheKey.leaseCompanyCode);
+  }
+
+  /**
+   * Process mode
+   */
+  public java.lang.String getProcessMode() {
+    return genClient.cacheGet(CacheKey.processMode);
+  }
+
+  /**
+   * Agent bank indicator
+   */
+  public java.lang.String getAgentBankIndicator() {
+    return genClient.cacheGet(CacheKey.agentBankIndicator);
+  }
+
+  /**
+   * 
+   */
+  public java.lang.String getNonMpaIndicator() {
+    return genClient.cacheGet(CacheKey.nonMpaIndicator);
+  }
+
+  /**
+   * Merchant internet indicator
+   */
+  public java.lang.String getInternetIndicator() {
+    return genClient.cacheGet(CacheKey.internetIndicator);
+  }
+
+  /**
+   * Charge back retrieval address flag
+   */
+  public java.lang.String getChargeBackRetrievalAddressFlag() {
+    return genClient.cacheGet(CacheKey.chargeBackRetrievalAddressFlag);
+  }
+
+  /**
+   * VI relationship participant
+   */
+  public java.lang.String getViRelationshipParticipant() {
+    return genClient.cacheGet(CacheKey.viRelationshipParticipant);
+  }
+
+  /**
+   * Retail description
+   */
+  public java.lang.String getRetailDescription() {
+    return genClient.cacheGet(CacheKey.retailDescription);
+  }
+
+  /**
+   * Client representative
+   */
+  public java.lang.String getClientRepresentative() {
+    return genClient.cacheGet(CacheKey.clientRepresentative);
+  }
+
+  /**
+   * Merchant authorization type
+   */
+  public java.lang.String getMerchantAuthType() {
+    return genClient.cacheGet(CacheKey.merchantAuthType);
+  }
+
+  /**
+   * Sys-Prin of reseller channel for this merchant
+   */
+  public java.lang.String getSysPrin() {
+    return genClient.cacheGet(CacheKey.sysPrin);
+  }
+
+  /**
+   * When record created
+   */
+  public java.lang.Long getCreatedTime() {
+    return genClient.cacheGet(CacheKey.createdTime);
+  }
+
+  /**
+   * When record updated
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
 
 
 
@@ -63,6 +502,336 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
       @Override
       public Object extractValue(MerchantBoarding instance) {
         return instance.genClient.extractOther("billToName", java.lang.String.class);
+      }
+    },
+    achBankId {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("achBankId", java.lang.String.class);
+      }
+    },
+    accountStatus {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("accountStatus", java.lang.String.class);
+      }
+    },
+    store {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("store", java.lang.String.class);
+      }
+    },
+    daylightSavings {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("daylightSavings", java.lang.Boolean.class);
+      }
+    },
+    seasonal {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("seasonal", java.lang.Boolean.class);
+      }
+    },
+    transArmorKey {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("transArmorKey", java.lang.String.class);
+      }
+    },
+    creditLimit {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("creditLimit", java.lang.Double.class);
+      }
+    },
+    authLimit {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("authLimit", java.lang.Double.class);
+      }
+    },
+    saleLimit {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("saleLimit", java.lang.Double.class);
+      }
+    },
+    externalMerchant {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("externalMerchant", java.lang.Boolean.class);
+      }
+    },
+    dynamicDba {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("dynamicDba", java.lang.Boolean.class);
+      }
+    },
+    relationshipManager {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("relationshipManager", java.lang.String.class);
+      }
+    },
+    taxExempt {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("taxExempt", java.lang.Boolean.class);
+      }
+    },
+    salesman {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("salesman", java.lang.String.class);
+      }
+    },
+    valueLink {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("valueLink", java.lang.Boolean.class);
+      }
+    },
+    valueLinkMid {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("valueLinkMid", java.lang.String.class);
+      }
+    },
+    altValueLinkMid {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("altValueLinkMid", java.lang.String.class);
+      }
+    },
+    receiptDba {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("receiptDba", java.lang.String.class);
+      }
+    },
+    bankNumber {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("bankNumber", java.lang.String.class);
+      }
+    },
+    parentMerchantId {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("parentMerchantId", java.lang.String.class);
+      }
+    },
+    multiMerchantType {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("multiMerchantType", java.lang.String.class);
+      }
+    },
+    merchantData {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("merchantData", java.lang.String.class);
+      }
+    },
+    faxPhone {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("faxPhone", java.lang.String.class);
+      }
+    },
+    merchantType {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("merchantType", java.lang.String.class);
+      }
+    },
+    multiCurrencyIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("multiCurrencyIndicator", java.lang.String.class);
+      }
+    },
+    preferredMerchant {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("preferredMerchant", java.lang.String.class);
+      }
+    },
+    visaIram {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("visaIram", java.lang.String.class);
+      }
+    },
+    transArmorIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("transArmorIndicator", java.lang.String.class);
+      }
+    },
+    signingKey {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("signingKey", java.lang.String.class);
+      }
+    },
+    visaDebitAccept {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("visaDebitAccept", java.lang.String.class);
+      }
+    },
+    mastercardDebitAccept {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("mastercardDebitAccept", java.lang.String.class);
+      }
+    },
+    sourceIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("sourceIndicator", java.lang.String.class);
+      }
+    },
+    foreignDomesticIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("foreignDomesticIndicator", java.lang.String.class);
+      }
+    },
+    accountFunding {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("accountFunding", java.lang.String.class);
+      }
+    },
+    directMarketing {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("directMarketing", java.lang.String.class);
+      }
+    },
+    participantRelationship {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("participantRelationship", java.lang.String.class);
+      }
+    },
+    processSettlement {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("processSettlement", java.lang.String.class);
+      }
+    },
+    recurringFlag {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("recurringFlag", java.lang.String.class);
+      }
+    },
+    linkFrom {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("linkFrom", java.lang.String.class);
+      }
+    },
+    linkTo {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("linkTo", java.lang.String.class);
+      }
+    },
+    emvAllowed {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("emvAllowed", java.lang.String.class);
+      }
+    },
+    previousAccountStatus {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("previousAccountStatus", java.lang.String.class);
+      }
+    },
+    leaseCompanyCode {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("leaseCompanyCode", java.lang.String.class);
+      }
+    },
+    processMode {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("processMode", java.lang.String.class);
+      }
+    },
+    agentBankIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("agentBankIndicator", java.lang.String.class);
+      }
+    },
+    nonMpaIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("nonMpaIndicator", java.lang.String.class);
+      }
+    },
+    internetIndicator {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("internetIndicator", java.lang.String.class);
+      }
+    },
+    chargeBackRetrievalAddressFlag {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("chargeBackRetrievalAddressFlag", java.lang.String.class);
+      }
+    },
+    viRelationshipParticipant {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("viRelationshipParticipant", java.lang.String.class);
+      }
+    },
+    retailDescription {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("retailDescription", java.lang.String.class);
+      }
+    },
+    clientRepresentative {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("clientRepresentative", java.lang.String.class);
+      }
+    },
+    merchantAuthType {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("merchantAuthType", java.lang.String.class);
+      }
+    },
+    sysPrin {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("sysPrin", java.lang.String.class);
+      }
+    },
+    createdTime {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(MerchantBoarding instance) {
+        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
       }
     },
       ;
@@ -132,6 +901,94 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   public void validate() {
 
     genClient.validateLength(getBillToName(), 50);
+
+    genClient.validateLength(getAchBankId(), 15);
+
+    genClient.validateLength(getAccountStatus(), 2);
+
+    genClient.validateLength(getStore(), 8);
+
+    genClient.validateLength(getTransArmorKey(), 11);
+
+    genClient.validateLength(getRelationshipManager(), 3);
+
+    genClient.validateLength(getSalesman(), 24);
+
+    genClient.validateLength(getValueLinkMid(), 11);
+
+    genClient.validateLength(getAltValueLinkMid(), 11);
+
+    genClient.validateLength(getReceiptDba(), 22);
+
+    genClient.validateLength(getBankNumber(), 50);
+
+    genClient.validateLength(getParentMerchantId(), 16);
+
+    genClient.validateLength(getMultiMerchantType(), 1);
+
+    genClient.validateLength(getMerchantData(), 20);
+
+    genClient.validateLength(getFaxPhone(), 10);
+
+    genClient.validateLength(getMerchantType(), 25);
+
+    genClient.validateLength(getMultiCurrencyIndicator(), 50);
+
+    genClient.validateLength(getPreferredMerchant(), 1);
+
+    genClient.validateLength(getVisaIram(), 1);
+
+    genClient.validateLength(getTransArmorIndicator(), 100);
+
+    genClient.validateLength(getSigningKey(), 2);
+
+    genClient.validateLength(getVisaDebitAccept(), 1);
+
+    genClient.validateLength(getMastercardDebitAccept(), 1);
+
+    genClient.validateLength(getSourceIndicator(), 1);
+
+    genClient.validateLength(getForeignDomesticIndicator(), 1);
+
+    genClient.validateLength(getAccountFunding(), 1);
+
+    genClient.validateLength(getDirectMarketing(), 1);
+
+    genClient.validateLength(getParticipantRelationship(), 1);
+
+    genClient.validateLength(getProcessSettlement(), 1);
+
+    genClient.validateLength(getRecurringFlag(), 1);
+
+    genClient.validateLength(getLinkFrom(), 9);
+
+    genClient.validateLength(getLinkTo(), 9);
+
+    genClient.validateLength(getEmvAllowed(), 1);
+
+    genClient.validateLength(getPreviousAccountStatus(), 2);
+
+    genClient.validateLength(getLeaseCompanyCode(), 2);
+
+    genClient.validateLength(getProcessMode(), 1);
+
+    genClient.validateLength(getAgentBankIndicator(), 1);
+
+    genClient.validateLength(getNonMpaIndicator(), 1);
+
+    genClient.validateLength(getInternetIndicator(), 1);
+
+    genClient.validateLength(getChargeBackRetrievalAddressFlag(), 1);
+
+    genClient.validateLength(getViRelationshipParticipant(), 1);
+
+    genClient.validateLength(getRetailDescription(), 22);
+
+    genClient.validateLength(getClientRepresentative(), 30);
+
+    genClient.validateLength(getMerchantAuthType(), 1);
+
+    genClient.validateLength(getSysPrin(), 10);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -144,6 +1001,281 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.billToName);
   }
 
+  /** Checks whether the 'achBankId' field is set and is not null */
+  public boolean isNotNullAchBankId() {
+    return genClient.cacheValueIsNotNull(CacheKey.achBankId);
+  }
+
+  /** Checks whether the 'accountStatus' field is set and is not null */
+  public boolean isNotNullAccountStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.accountStatus);
+  }
+
+  /** Checks whether the 'store' field is set and is not null */
+  public boolean isNotNullStore() {
+    return genClient.cacheValueIsNotNull(CacheKey.store);
+  }
+
+  /** Checks whether the 'daylightSavings' field is set and is not null */
+  public boolean isNotNullDaylightSavings() {
+    return genClient.cacheValueIsNotNull(CacheKey.daylightSavings);
+  }
+
+  /** Checks whether the 'seasonal' field is set and is not null */
+  public boolean isNotNullSeasonal() {
+    return genClient.cacheValueIsNotNull(CacheKey.seasonal);
+  }
+
+  /** Checks whether the 'transArmorKey' field is set and is not null */
+  public boolean isNotNullTransArmorKey() {
+    return genClient.cacheValueIsNotNull(CacheKey.transArmorKey);
+  }
+
+  /** Checks whether the 'creditLimit' field is set and is not null */
+  public boolean isNotNullCreditLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.creditLimit);
+  }
+
+  /** Checks whether the 'authLimit' field is set and is not null */
+  public boolean isNotNullAuthLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.authLimit);
+  }
+
+  /** Checks whether the 'saleLimit' field is set and is not null */
+  public boolean isNotNullSaleLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.saleLimit);
+  }
+
+  /** Checks whether the 'externalMerchant' field is set and is not null */
+  public boolean isNotNullExternalMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalMerchant);
+  }
+
+  /** Checks whether the 'dynamicDba' field is set and is not null */
+  public boolean isNotNullDynamicDba() {
+    return genClient.cacheValueIsNotNull(CacheKey.dynamicDba);
+  }
+
+  /** Checks whether the 'relationshipManager' field is set and is not null */
+  public boolean isNotNullRelationshipManager() {
+    return genClient.cacheValueIsNotNull(CacheKey.relationshipManager);
+  }
+
+  /** Checks whether the 'taxExempt' field is set and is not null */
+  public boolean isNotNullTaxExempt() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxExempt);
+  }
+
+  /** Checks whether the 'salesman' field is set and is not null */
+  public boolean isNotNullSalesman() {
+    return genClient.cacheValueIsNotNull(CacheKey.salesman);
+  }
+
+  /** Checks whether the 'valueLink' field is set and is not null */
+  public boolean isNotNullValueLink() {
+    return genClient.cacheValueIsNotNull(CacheKey.valueLink);
+  }
+
+  /** Checks whether the 'valueLinkMid' field is set and is not null */
+  public boolean isNotNullValueLinkMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.valueLinkMid);
+  }
+
+  /** Checks whether the 'altValueLinkMid' field is set and is not null */
+  public boolean isNotNullAltValueLinkMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.altValueLinkMid);
+  }
+
+  /** Checks whether the 'receiptDba' field is set and is not null */
+  public boolean isNotNullReceiptDba() {
+    return genClient.cacheValueIsNotNull(CacheKey.receiptDba);
+  }
+
+  /** Checks whether the 'bankNumber' field is set and is not null */
+  public boolean isNotNullBankNumber() {
+    return genClient.cacheValueIsNotNull(CacheKey.bankNumber);
+  }
+
+  /** Checks whether the 'parentMerchantId' field is set and is not null */
+  public boolean isNotNullParentMerchantId() {
+    return genClient.cacheValueIsNotNull(CacheKey.parentMerchantId);
+  }
+
+  /** Checks whether the 'multiMerchantType' field is set and is not null */
+  public boolean isNotNullMultiMerchantType() {
+    return genClient.cacheValueIsNotNull(CacheKey.multiMerchantType);
+  }
+
+  /** Checks whether the 'merchantData' field is set and is not null */
+  public boolean isNotNullMerchantData() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantData);
+  }
+
+  /** Checks whether the 'faxPhone' field is set and is not null */
+  public boolean isNotNullFaxPhone() {
+    return genClient.cacheValueIsNotNull(CacheKey.faxPhone);
+  }
+
+  /** Checks whether the 'merchantType' field is set and is not null */
+  public boolean isNotNullMerchantType() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantType);
+  }
+
+  /** Checks whether the 'multiCurrencyIndicator' field is set and is not null */
+  public boolean isNotNullMultiCurrencyIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.multiCurrencyIndicator);
+  }
+
+  /** Checks whether the 'preferredMerchant' field is set and is not null */
+  public boolean isNotNullPreferredMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.preferredMerchant);
+  }
+
+  /** Checks whether the 'visaIram' field is set and is not null */
+  public boolean isNotNullVisaIram() {
+    return genClient.cacheValueIsNotNull(CacheKey.visaIram);
+  }
+
+  /** Checks whether the 'transArmorIndicator' field is set and is not null */
+  public boolean isNotNullTransArmorIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.transArmorIndicator);
+  }
+
+  /** Checks whether the 'signingKey' field is set and is not null */
+  public boolean isNotNullSigningKey() {
+    return genClient.cacheValueIsNotNull(CacheKey.signingKey);
+  }
+
+  /** Checks whether the 'visaDebitAccept' field is set and is not null */
+  public boolean isNotNullVisaDebitAccept() {
+    return genClient.cacheValueIsNotNull(CacheKey.visaDebitAccept);
+  }
+
+  /** Checks whether the 'mastercardDebitAccept' field is set and is not null */
+  public boolean isNotNullMastercardDebitAccept() {
+    return genClient.cacheValueIsNotNull(CacheKey.mastercardDebitAccept);
+  }
+
+  /** Checks whether the 'sourceIndicator' field is set and is not null */
+  public boolean isNotNullSourceIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourceIndicator);
+  }
+
+  /** Checks whether the 'foreignDomesticIndicator' field is set and is not null */
+  public boolean isNotNullForeignDomesticIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.foreignDomesticIndicator);
+  }
+
+  /** Checks whether the 'accountFunding' field is set and is not null */
+  public boolean isNotNullAccountFunding() {
+    return genClient.cacheValueIsNotNull(CacheKey.accountFunding);
+  }
+
+  /** Checks whether the 'directMarketing' field is set and is not null */
+  public boolean isNotNullDirectMarketing() {
+    return genClient.cacheValueIsNotNull(CacheKey.directMarketing);
+  }
+
+  /** Checks whether the 'participantRelationship' field is set and is not null */
+  public boolean isNotNullParticipantRelationship() {
+    return genClient.cacheValueIsNotNull(CacheKey.participantRelationship);
+  }
+
+  /** Checks whether the 'processSettlement' field is set and is not null */
+  public boolean isNotNullProcessSettlement() {
+    return genClient.cacheValueIsNotNull(CacheKey.processSettlement);
+  }
+
+  /** Checks whether the 'recurringFlag' field is set and is not null */
+  public boolean isNotNullRecurringFlag() {
+    return genClient.cacheValueIsNotNull(CacheKey.recurringFlag);
+  }
+
+  /** Checks whether the 'linkFrom' field is set and is not null */
+  public boolean isNotNullLinkFrom() {
+    return genClient.cacheValueIsNotNull(CacheKey.linkFrom);
+  }
+
+  /** Checks whether the 'linkTo' field is set and is not null */
+  public boolean isNotNullLinkTo() {
+    return genClient.cacheValueIsNotNull(CacheKey.linkTo);
+  }
+
+  /** Checks whether the 'emvAllowed' field is set and is not null */
+  public boolean isNotNullEmvAllowed() {
+    return genClient.cacheValueIsNotNull(CacheKey.emvAllowed);
+  }
+
+  /** Checks whether the 'previousAccountStatus' field is set and is not null */
+  public boolean isNotNullPreviousAccountStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.previousAccountStatus);
+  }
+
+  /** Checks whether the 'leaseCompanyCode' field is set and is not null */
+  public boolean isNotNullLeaseCompanyCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.leaseCompanyCode);
+  }
+
+  /** Checks whether the 'processMode' field is set and is not null */
+  public boolean isNotNullProcessMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.processMode);
+  }
+
+  /** Checks whether the 'agentBankIndicator' field is set and is not null */
+  public boolean isNotNullAgentBankIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.agentBankIndicator);
+  }
+
+  /** Checks whether the 'nonMpaIndicator' field is set and is not null */
+  public boolean isNotNullNonMpaIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.nonMpaIndicator);
+  }
+
+  /** Checks whether the 'internetIndicator' field is set and is not null */
+  public boolean isNotNullInternetIndicator() {
+    return genClient.cacheValueIsNotNull(CacheKey.internetIndicator);
+  }
+
+  /** Checks whether the 'chargeBackRetrievalAddressFlag' field is set and is not null */
+  public boolean isNotNullChargeBackRetrievalAddressFlag() {
+    return genClient.cacheValueIsNotNull(CacheKey.chargeBackRetrievalAddressFlag);
+  }
+
+  /** Checks whether the 'viRelationshipParticipant' field is set and is not null */
+  public boolean isNotNullViRelationshipParticipant() {
+    return genClient.cacheValueIsNotNull(CacheKey.viRelationshipParticipant);
+  }
+
+  /** Checks whether the 'retailDescription' field is set and is not null */
+  public boolean isNotNullRetailDescription() {
+    return genClient.cacheValueIsNotNull(CacheKey.retailDescription);
+  }
+
+  /** Checks whether the 'clientRepresentative' field is set and is not null */
+  public boolean isNotNullClientRepresentative() {
+    return genClient.cacheValueIsNotNull(CacheKey.clientRepresentative);
+  }
+
+  /** Checks whether the 'merchantAuthType' field is set and is not null */
+  public boolean isNotNullMerchantAuthType() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantAuthType);
+  }
+
+  /** Checks whether the 'sysPrin' field is set and is not null */
+  public boolean isNotNullSysPrin() {
+    return genClient.cacheValueIsNotNull(CacheKey.sysPrin);
+  }
+
+  /** Checks whether the 'createdTime' field is set and is not null */
+  public boolean isNotNullCreatedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
 
 
   /** Checks whether the 'merchantRef' field has been set, however the value could be null */
@@ -154,6 +1286,281 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'billToName' field has been set, however the value could be null */
   public boolean hasBillToName() {
     return genClient.cacheHasKey(CacheKey.billToName);
+  }
+
+  /** Checks whether the 'achBankId' field has been set, however the value could be null */
+  public boolean hasAchBankId() {
+    return genClient.cacheHasKey(CacheKey.achBankId);
+  }
+
+  /** Checks whether the 'accountStatus' field has been set, however the value could be null */
+  public boolean hasAccountStatus() {
+    return genClient.cacheHasKey(CacheKey.accountStatus);
+  }
+
+  /** Checks whether the 'store' field has been set, however the value could be null */
+  public boolean hasStore() {
+    return genClient.cacheHasKey(CacheKey.store);
+  }
+
+  /** Checks whether the 'daylightSavings' field has been set, however the value could be null */
+  public boolean hasDaylightSavings() {
+    return genClient.cacheHasKey(CacheKey.daylightSavings);
+  }
+
+  /** Checks whether the 'seasonal' field has been set, however the value could be null */
+  public boolean hasSeasonal() {
+    return genClient.cacheHasKey(CacheKey.seasonal);
+  }
+
+  /** Checks whether the 'transArmorKey' field has been set, however the value could be null */
+  public boolean hasTransArmorKey() {
+    return genClient.cacheHasKey(CacheKey.transArmorKey);
+  }
+
+  /** Checks whether the 'creditLimit' field has been set, however the value could be null */
+  public boolean hasCreditLimit() {
+    return genClient.cacheHasKey(CacheKey.creditLimit);
+  }
+
+  /** Checks whether the 'authLimit' field has been set, however the value could be null */
+  public boolean hasAuthLimit() {
+    return genClient.cacheHasKey(CacheKey.authLimit);
+  }
+
+  /** Checks whether the 'saleLimit' field has been set, however the value could be null */
+  public boolean hasSaleLimit() {
+    return genClient.cacheHasKey(CacheKey.saleLimit);
+  }
+
+  /** Checks whether the 'externalMerchant' field has been set, however the value could be null */
+  public boolean hasExternalMerchant() {
+    return genClient.cacheHasKey(CacheKey.externalMerchant);
+  }
+
+  /** Checks whether the 'dynamicDba' field has been set, however the value could be null */
+  public boolean hasDynamicDba() {
+    return genClient.cacheHasKey(CacheKey.dynamicDba);
+  }
+
+  /** Checks whether the 'relationshipManager' field has been set, however the value could be null */
+  public boolean hasRelationshipManager() {
+    return genClient.cacheHasKey(CacheKey.relationshipManager);
+  }
+
+  /** Checks whether the 'taxExempt' field has been set, however the value could be null */
+  public boolean hasTaxExempt() {
+    return genClient.cacheHasKey(CacheKey.taxExempt);
+  }
+
+  /** Checks whether the 'salesman' field has been set, however the value could be null */
+  public boolean hasSalesman() {
+    return genClient.cacheHasKey(CacheKey.salesman);
+  }
+
+  /** Checks whether the 'valueLink' field has been set, however the value could be null */
+  public boolean hasValueLink() {
+    return genClient.cacheHasKey(CacheKey.valueLink);
+  }
+
+  /** Checks whether the 'valueLinkMid' field has been set, however the value could be null */
+  public boolean hasValueLinkMid() {
+    return genClient.cacheHasKey(CacheKey.valueLinkMid);
+  }
+
+  /** Checks whether the 'altValueLinkMid' field has been set, however the value could be null */
+  public boolean hasAltValueLinkMid() {
+    return genClient.cacheHasKey(CacheKey.altValueLinkMid);
+  }
+
+  /** Checks whether the 'receiptDba' field has been set, however the value could be null */
+  public boolean hasReceiptDba() {
+    return genClient.cacheHasKey(CacheKey.receiptDba);
+  }
+
+  /** Checks whether the 'bankNumber' field has been set, however the value could be null */
+  public boolean hasBankNumber() {
+    return genClient.cacheHasKey(CacheKey.bankNumber);
+  }
+
+  /** Checks whether the 'parentMerchantId' field has been set, however the value could be null */
+  public boolean hasParentMerchantId() {
+    return genClient.cacheHasKey(CacheKey.parentMerchantId);
+  }
+
+  /** Checks whether the 'multiMerchantType' field has been set, however the value could be null */
+  public boolean hasMultiMerchantType() {
+    return genClient.cacheHasKey(CacheKey.multiMerchantType);
+  }
+
+  /** Checks whether the 'merchantData' field has been set, however the value could be null */
+  public boolean hasMerchantData() {
+    return genClient.cacheHasKey(CacheKey.merchantData);
+  }
+
+  /** Checks whether the 'faxPhone' field has been set, however the value could be null */
+  public boolean hasFaxPhone() {
+    return genClient.cacheHasKey(CacheKey.faxPhone);
+  }
+
+  /** Checks whether the 'merchantType' field has been set, however the value could be null */
+  public boolean hasMerchantType() {
+    return genClient.cacheHasKey(CacheKey.merchantType);
+  }
+
+  /** Checks whether the 'multiCurrencyIndicator' field has been set, however the value could be null */
+  public boolean hasMultiCurrencyIndicator() {
+    return genClient.cacheHasKey(CacheKey.multiCurrencyIndicator);
+  }
+
+  /** Checks whether the 'preferredMerchant' field has been set, however the value could be null */
+  public boolean hasPreferredMerchant() {
+    return genClient.cacheHasKey(CacheKey.preferredMerchant);
+  }
+
+  /** Checks whether the 'visaIram' field has been set, however the value could be null */
+  public boolean hasVisaIram() {
+    return genClient.cacheHasKey(CacheKey.visaIram);
+  }
+
+  /** Checks whether the 'transArmorIndicator' field has been set, however the value could be null */
+  public boolean hasTransArmorIndicator() {
+    return genClient.cacheHasKey(CacheKey.transArmorIndicator);
+  }
+
+  /** Checks whether the 'signingKey' field has been set, however the value could be null */
+  public boolean hasSigningKey() {
+    return genClient.cacheHasKey(CacheKey.signingKey);
+  }
+
+  /** Checks whether the 'visaDebitAccept' field has been set, however the value could be null */
+  public boolean hasVisaDebitAccept() {
+    return genClient.cacheHasKey(CacheKey.visaDebitAccept);
+  }
+
+  /** Checks whether the 'mastercardDebitAccept' field has been set, however the value could be null */
+  public boolean hasMastercardDebitAccept() {
+    return genClient.cacheHasKey(CacheKey.mastercardDebitAccept);
+  }
+
+  /** Checks whether the 'sourceIndicator' field has been set, however the value could be null */
+  public boolean hasSourceIndicator() {
+    return genClient.cacheHasKey(CacheKey.sourceIndicator);
+  }
+
+  /** Checks whether the 'foreignDomesticIndicator' field has been set, however the value could be null */
+  public boolean hasForeignDomesticIndicator() {
+    return genClient.cacheHasKey(CacheKey.foreignDomesticIndicator);
+  }
+
+  /** Checks whether the 'accountFunding' field has been set, however the value could be null */
+  public boolean hasAccountFunding() {
+    return genClient.cacheHasKey(CacheKey.accountFunding);
+  }
+
+  /** Checks whether the 'directMarketing' field has been set, however the value could be null */
+  public boolean hasDirectMarketing() {
+    return genClient.cacheHasKey(CacheKey.directMarketing);
+  }
+
+  /** Checks whether the 'participantRelationship' field has been set, however the value could be null */
+  public boolean hasParticipantRelationship() {
+    return genClient.cacheHasKey(CacheKey.participantRelationship);
+  }
+
+  /** Checks whether the 'processSettlement' field has been set, however the value could be null */
+  public boolean hasProcessSettlement() {
+    return genClient.cacheHasKey(CacheKey.processSettlement);
+  }
+
+  /** Checks whether the 'recurringFlag' field has been set, however the value could be null */
+  public boolean hasRecurringFlag() {
+    return genClient.cacheHasKey(CacheKey.recurringFlag);
+  }
+
+  /** Checks whether the 'linkFrom' field has been set, however the value could be null */
+  public boolean hasLinkFrom() {
+    return genClient.cacheHasKey(CacheKey.linkFrom);
+  }
+
+  /** Checks whether the 'linkTo' field has been set, however the value could be null */
+  public boolean hasLinkTo() {
+    return genClient.cacheHasKey(CacheKey.linkTo);
+  }
+
+  /** Checks whether the 'emvAllowed' field has been set, however the value could be null */
+  public boolean hasEmvAllowed() {
+    return genClient.cacheHasKey(CacheKey.emvAllowed);
+  }
+
+  /** Checks whether the 'previousAccountStatus' field has been set, however the value could be null */
+  public boolean hasPreviousAccountStatus() {
+    return genClient.cacheHasKey(CacheKey.previousAccountStatus);
+  }
+
+  /** Checks whether the 'leaseCompanyCode' field has been set, however the value could be null */
+  public boolean hasLeaseCompanyCode() {
+    return genClient.cacheHasKey(CacheKey.leaseCompanyCode);
+  }
+
+  /** Checks whether the 'processMode' field has been set, however the value could be null */
+  public boolean hasProcessMode() {
+    return genClient.cacheHasKey(CacheKey.processMode);
+  }
+
+  /** Checks whether the 'agentBankIndicator' field has been set, however the value could be null */
+  public boolean hasAgentBankIndicator() {
+    return genClient.cacheHasKey(CacheKey.agentBankIndicator);
+  }
+
+  /** Checks whether the 'nonMpaIndicator' field has been set, however the value could be null */
+  public boolean hasNonMpaIndicator() {
+    return genClient.cacheHasKey(CacheKey.nonMpaIndicator);
+  }
+
+  /** Checks whether the 'internetIndicator' field has been set, however the value could be null */
+  public boolean hasInternetIndicator() {
+    return genClient.cacheHasKey(CacheKey.internetIndicator);
+  }
+
+  /** Checks whether the 'chargeBackRetrievalAddressFlag' field has been set, however the value could be null */
+  public boolean hasChargeBackRetrievalAddressFlag() {
+    return genClient.cacheHasKey(CacheKey.chargeBackRetrievalAddressFlag);
+  }
+
+  /** Checks whether the 'viRelationshipParticipant' field has been set, however the value could be null */
+  public boolean hasViRelationshipParticipant() {
+    return genClient.cacheHasKey(CacheKey.viRelationshipParticipant);
+  }
+
+  /** Checks whether the 'retailDescription' field has been set, however the value could be null */
+  public boolean hasRetailDescription() {
+    return genClient.cacheHasKey(CacheKey.retailDescription);
+  }
+
+  /** Checks whether the 'clientRepresentative' field has been set, however the value could be null */
+  public boolean hasClientRepresentative() {
+    return genClient.cacheHasKey(CacheKey.clientRepresentative);
+  }
+
+  /** Checks whether the 'merchantAuthType' field has been set, however the value could be null */
+  public boolean hasMerchantAuthType() {
+    return genClient.cacheHasKey(CacheKey.merchantAuthType);
+  }
+
+  /** Checks whether the 'sysPrin' field has been set, however the value could be null */
+  public boolean hasSysPrin() {
+    return genClient.cacheHasKey(CacheKey.sysPrin);
+  }
+
+  /** Checks whether the 'createdTime' field has been set, however the value could be null */
+  public boolean hasCreatedTime() {
+    return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
 
@@ -173,6 +1580,391 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     return genClient.setOther(billToName, CacheKey.billToName);
   }
 
+  /**
+   * Sets the field 'achBankId'.
+   */
+  public MerchantBoarding setAchBankId(java.lang.String achBankId) {
+    return genClient.setOther(achBankId, CacheKey.achBankId);
+  }
+
+  /**
+   * Sets the field 'accountStatus'.
+   */
+  public MerchantBoarding setAccountStatus(java.lang.String accountStatus) {
+    return genClient.setOther(accountStatus, CacheKey.accountStatus);
+  }
+
+  /**
+   * Sets the field 'store'.
+   */
+  public MerchantBoarding setStore(java.lang.String store) {
+    return genClient.setOther(store, CacheKey.store);
+  }
+
+  /**
+   * Sets the field 'daylightSavings'.
+   */
+  public MerchantBoarding setDaylightSavings(java.lang.Boolean daylightSavings) {
+    return genClient.setOther(daylightSavings, CacheKey.daylightSavings);
+  }
+
+  /**
+   * Sets the field 'seasonal'.
+   */
+  public MerchantBoarding setSeasonal(java.lang.Boolean seasonal) {
+    return genClient.setOther(seasonal, CacheKey.seasonal);
+  }
+
+  /**
+   * Sets the field 'transArmorKey'.
+   */
+  public MerchantBoarding setTransArmorKey(java.lang.String transArmorKey) {
+    return genClient.setOther(transArmorKey, CacheKey.transArmorKey);
+  }
+
+  /**
+   * Sets the field 'creditLimit'.
+   */
+  public MerchantBoarding setCreditLimit(java.lang.Double creditLimit) {
+    return genClient.setOther(creditLimit, CacheKey.creditLimit);
+  }
+
+  /**
+   * Sets the field 'authLimit'.
+   */
+  public MerchantBoarding setAuthLimit(java.lang.Double authLimit) {
+    return genClient.setOther(authLimit, CacheKey.authLimit);
+  }
+
+  /**
+   * Sets the field 'saleLimit'.
+   */
+  public MerchantBoarding setSaleLimit(java.lang.Double saleLimit) {
+    return genClient.setOther(saleLimit, CacheKey.saleLimit);
+  }
+
+  /**
+   * Sets the field 'externalMerchant'.
+   */
+  public MerchantBoarding setExternalMerchant(java.lang.Boolean externalMerchant) {
+    return genClient.setOther(externalMerchant, CacheKey.externalMerchant);
+  }
+
+  /**
+   * Sets the field 'dynamicDba'.
+   */
+  public MerchantBoarding setDynamicDba(java.lang.Boolean dynamicDba) {
+    return genClient.setOther(dynamicDba, CacheKey.dynamicDba);
+  }
+
+  /**
+   * Sets the field 'relationshipManager'.
+   */
+  public MerchantBoarding setRelationshipManager(java.lang.String relationshipManager) {
+    return genClient.setOther(relationshipManager, CacheKey.relationshipManager);
+  }
+
+  /**
+   * Sets the field 'taxExempt'.
+   */
+  public MerchantBoarding setTaxExempt(java.lang.Boolean taxExempt) {
+    return genClient.setOther(taxExempt, CacheKey.taxExempt);
+  }
+
+  /**
+   * Sets the field 'salesman'.
+   */
+  public MerchantBoarding setSalesman(java.lang.String salesman) {
+    return genClient.setOther(salesman, CacheKey.salesman);
+  }
+
+  /**
+   * Sets the field 'valueLink'.
+   */
+  public MerchantBoarding setValueLink(java.lang.Boolean valueLink) {
+    return genClient.setOther(valueLink, CacheKey.valueLink);
+  }
+
+  /**
+   * Sets the field 'valueLinkMid'.
+   */
+  public MerchantBoarding setValueLinkMid(java.lang.String valueLinkMid) {
+    return genClient.setOther(valueLinkMid, CacheKey.valueLinkMid);
+  }
+
+  /**
+   * Sets the field 'altValueLinkMid'.
+   */
+  public MerchantBoarding setAltValueLinkMid(java.lang.String altValueLinkMid) {
+    return genClient.setOther(altValueLinkMid, CacheKey.altValueLinkMid);
+  }
+
+  /**
+   * Sets the field 'receiptDba'.
+   */
+  public MerchantBoarding setReceiptDba(java.lang.String receiptDba) {
+    return genClient.setOther(receiptDba, CacheKey.receiptDba);
+  }
+
+  /**
+   * Sets the field 'bankNumber'.
+   */
+  public MerchantBoarding setBankNumber(java.lang.String bankNumber) {
+    return genClient.setOther(bankNumber, CacheKey.bankNumber);
+  }
+
+  /**
+   * Sets the field 'parentMerchantId'.
+   */
+  public MerchantBoarding setParentMerchantId(java.lang.String parentMerchantId) {
+    return genClient.setOther(parentMerchantId, CacheKey.parentMerchantId);
+  }
+
+  /**
+   * Sets the field 'multiMerchantType'.
+   */
+  public MerchantBoarding setMultiMerchantType(java.lang.String multiMerchantType) {
+    return genClient.setOther(multiMerchantType, CacheKey.multiMerchantType);
+  }
+
+  /**
+   * Sets the field 'merchantData'.
+   */
+  public MerchantBoarding setMerchantData(java.lang.String merchantData) {
+    return genClient.setOther(merchantData, CacheKey.merchantData);
+  }
+
+  /**
+   * Sets the field 'faxPhone'.
+   */
+  public MerchantBoarding setFaxPhone(java.lang.String faxPhone) {
+    return genClient.setOther(faxPhone, CacheKey.faxPhone);
+  }
+
+  /**
+   * Sets the field 'merchantType'.
+   */
+  public MerchantBoarding setMerchantType(java.lang.String merchantType) {
+    return genClient.setOther(merchantType, CacheKey.merchantType);
+  }
+
+  /**
+   * Sets the field 'multiCurrencyIndicator'.
+   */
+  public MerchantBoarding setMultiCurrencyIndicator(java.lang.String multiCurrencyIndicator) {
+    return genClient.setOther(multiCurrencyIndicator, CacheKey.multiCurrencyIndicator);
+  }
+
+  /**
+   * Sets the field 'preferredMerchant'.
+   */
+  public MerchantBoarding setPreferredMerchant(java.lang.String preferredMerchant) {
+    return genClient.setOther(preferredMerchant, CacheKey.preferredMerchant);
+  }
+
+  /**
+   * Sets the field 'visaIram'.
+   */
+  public MerchantBoarding setVisaIram(java.lang.String visaIram) {
+    return genClient.setOther(visaIram, CacheKey.visaIram);
+  }
+
+  /**
+   * Sets the field 'transArmorIndicator'.
+   */
+  public MerchantBoarding setTransArmorIndicator(java.lang.String transArmorIndicator) {
+    return genClient.setOther(transArmorIndicator, CacheKey.transArmorIndicator);
+  }
+
+  /**
+   * Sets the field 'signingKey'.
+   */
+  public MerchantBoarding setSigningKey(java.lang.String signingKey) {
+    return genClient.setOther(signingKey, CacheKey.signingKey);
+  }
+
+  /**
+   * Sets the field 'visaDebitAccept'.
+   */
+  public MerchantBoarding setVisaDebitAccept(java.lang.String visaDebitAccept) {
+    return genClient.setOther(visaDebitAccept, CacheKey.visaDebitAccept);
+  }
+
+  /**
+   * Sets the field 'mastercardDebitAccept'.
+   */
+  public MerchantBoarding setMastercardDebitAccept(java.lang.String mastercardDebitAccept) {
+    return genClient.setOther(mastercardDebitAccept, CacheKey.mastercardDebitAccept);
+  }
+
+  /**
+   * Sets the field 'sourceIndicator'.
+   */
+  public MerchantBoarding setSourceIndicator(java.lang.String sourceIndicator) {
+    return genClient.setOther(sourceIndicator, CacheKey.sourceIndicator);
+  }
+
+  /**
+   * Sets the field 'foreignDomesticIndicator'.
+   */
+  public MerchantBoarding setForeignDomesticIndicator(java.lang.String foreignDomesticIndicator) {
+    return genClient.setOther(foreignDomesticIndicator, CacheKey.foreignDomesticIndicator);
+  }
+
+  /**
+   * Sets the field 'accountFunding'.
+   */
+  public MerchantBoarding setAccountFunding(java.lang.String accountFunding) {
+    return genClient.setOther(accountFunding, CacheKey.accountFunding);
+  }
+
+  /**
+   * Sets the field 'directMarketing'.
+   */
+  public MerchantBoarding setDirectMarketing(java.lang.String directMarketing) {
+    return genClient.setOther(directMarketing, CacheKey.directMarketing);
+  }
+
+  /**
+   * Sets the field 'participantRelationship'.
+   */
+  public MerchantBoarding setParticipantRelationship(java.lang.String participantRelationship) {
+    return genClient.setOther(participantRelationship, CacheKey.participantRelationship);
+  }
+
+  /**
+   * Sets the field 'processSettlement'.
+   */
+  public MerchantBoarding setProcessSettlement(java.lang.String processSettlement) {
+    return genClient.setOther(processSettlement, CacheKey.processSettlement);
+  }
+
+  /**
+   * Sets the field 'recurringFlag'.
+   */
+  public MerchantBoarding setRecurringFlag(java.lang.String recurringFlag) {
+    return genClient.setOther(recurringFlag, CacheKey.recurringFlag);
+  }
+
+  /**
+   * Sets the field 'linkFrom'.
+   */
+  public MerchantBoarding setLinkFrom(java.lang.String linkFrom) {
+    return genClient.setOther(linkFrom, CacheKey.linkFrom);
+  }
+
+  /**
+   * Sets the field 'linkTo'.
+   */
+  public MerchantBoarding setLinkTo(java.lang.String linkTo) {
+    return genClient.setOther(linkTo, CacheKey.linkTo);
+  }
+
+  /**
+   * Sets the field 'emvAllowed'.
+   */
+  public MerchantBoarding setEmvAllowed(java.lang.String emvAllowed) {
+    return genClient.setOther(emvAllowed, CacheKey.emvAllowed);
+  }
+
+  /**
+   * Sets the field 'previousAccountStatus'.
+   */
+  public MerchantBoarding setPreviousAccountStatus(java.lang.String previousAccountStatus) {
+    return genClient.setOther(previousAccountStatus, CacheKey.previousAccountStatus);
+  }
+
+  /**
+   * Sets the field 'leaseCompanyCode'.
+   */
+  public MerchantBoarding setLeaseCompanyCode(java.lang.String leaseCompanyCode) {
+    return genClient.setOther(leaseCompanyCode, CacheKey.leaseCompanyCode);
+  }
+
+  /**
+   * Sets the field 'processMode'.
+   */
+  public MerchantBoarding setProcessMode(java.lang.String processMode) {
+    return genClient.setOther(processMode, CacheKey.processMode);
+  }
+
+  /**
+   * Sets the field 'agentBankIndicator'.
+   */
+  public MerchantBoarding setAgentBankIndicator(java.lang.String agentBankIndicator) {
+    return genClient.setOther(agentBankIndicator, CacheKey.agentBankIndicator);
+  }
+
+  /**
+   * Sets the field 'nonMpaIndicator'.
+   */
+  public MerchantBoarding setNonMpaIndicator(java.lang.String nonMpaIndicator) {
+    return genClient.setOther(nonMpaIndicator, CacheKey.nonMpaIndicator);
+  }
+
+  /**
+   * Sets the field 'internetIndicator'.
+   */
+  public MerchantBoarding setInternetIndicator(java.lang.String internetIndicator) {
+    return genClient.setOther(internetIndicator, CacheKey.internetIndicator);
+  }
+
+  /**
+   * Sets the field 'chargeBackRetrievalAddressFlag'.
+   */
+  public MerchantBoarding setChargeBackRetrievalAddressFlag(java.lang.String chargeBackRetrievalAddressFlag) {
+    return genClient.setOther(chargeBackRetrievalAddressFlag, CacheKey.chargeBackRetrievalAddressFlag);
+  }
+
+  /**
+   * Sets the field 'viRelationshipParticipant'.
+   */
+  public MerchantBoarding setViRelationshipParticipant(java.lang.String viRelationshipParticipant) {
+    return genClient.setOther(viRelationshipParticipant, CacheKey.viRelationshipParticipant);
+  }
+
+  /**
+   * Sets the field 'retailDescription'.
+   */
+  public MerchantBoarding setRetailDescription(java.lang.String retailDescription) {
+    return genClient.setOther(retailDescription, CacheKey.retailDescription);
+  }
+
+  /**
+   * Sets the field 'clientRepresentative'.
+   */
+  public MerchantBoarding setClientRepresentative(java.lang.String clientRepresentative) {
+    return genClient.setOther(clientRepresentative, CacheKey.clientRepresentative);
+  }
+
+  /**
+   * Sets the field 'merchantAuthType'.
+   */
+  public MerchantBoarding setMerchantAuthType(java.lang.String merchantAuthType) {
+    return genClient.setOther(merchantAuthType, CacheKey.merchantAuthType);
+  }
+
+  /**
+   * Sets the field 'sysPrin'.
+   */
+  public MerchantBoarding setSysPrin(java.lang.String sysPrin) {
+    return genClient.setOther(sysPrin, CacheKey.sysPrin);
+  }
+
+  /**
+   * Sets the field 'createdTime'.
+   */
+  public MerchantBoarding setCreatedTime(java.lang.Long createdTime) {
+    return genClient.setOther(createdTime, CacheKey.createdTime);
+  }
+
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public MerchantBoarding setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
 
   /** Clears the 'merchantRef' field, the 'has' method for this field will now return false */
   public void clearMerchantRef() {
@@ -181,6 +1973,226 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   /** Clears the 'billToName' field, the 'has' method for this field will now return false */
   public void clearBillToName() {
     genClient.clear(CacheKey.billToName);
+  }
+  /** Clears the 'achBankId' field, the 'has' method for this field will now return false */
+  public void clearAchBankId() {
+    genClient.clear(CacheKey.achBankId);
+  }
+  /** Clears the 'accountStatus' field, the 'has' method for this field will now return false */
+  public void clearAccountStatus() {
+    genClient.clear(CacheKey.accountStatus);
+  }
+  /** Clears the 'store' field, the 'has' method for this field will now return false */
+  public void clearStore() {
+    genClient.clear(CacheKey.store);
+  }
+  /** Clears the 'daylightSavings' field, the 'has' method for this field will now return false */
+  public void clearDaylightSavings() {
+    genClient.clear(CacheKey.daylightSavings);
+  }
+  /** Clears the 'seasonal' field, the 'has' method for this field will now return false */
+  public void clearSeasonal() {
+    genClient.clear(CacheKey.seasonal);
+  }
+  /** Clears the 'transArmorKey' field, the 'has' method for this field will now return false */
+  public void clearTransArmorKey() {
+    genClient.clear(CacheKey.transArmorKey);
+  }
+  /** Clears the 'creditLimit' field, the 'has' method for this field will now return false */
+  public void clearCreditLimit() {
+    genClient.clear(CacheKey.creditLimit);
+  }
+  /** Clears the 'authLimit' field, the 'has' method for this field will now return false */
+  public void clearAuthLimit() {
+    genClient.clear(CacheKey.authLimit);
+  }
+  /** Clears the 'saleLimit' field, the 'has' method for this field will now return false */
+  public void clearSaleLimit() {
+    genClient.clear(CacheKey.saleLimit);
+  }
+  /** Clears the 'externalMerchant' field, the 'has' method for this field will now return false */
+  public void clearExternalMerchant() {
+    genClient.clear(CacheKey.externalMerchant);
+  }
+  /** Clears the 'dynamicDba' field, the 'has' method for this field will now return false */
+  public void clearDynamicDba() {
+    genClient.clear(CacheKey.dynamicDba);
+  }
+  /** Clears the 'relationshipManager' field, the 'has' method for this field will now return false */
+  public void clearRelationshipManager() {
+    genClient.clear(CacheKey.relationshipManager);
+  }
+  /** Clears the 'taxExempt' field, the 'has' method for this field will now return false */
+  public void clearTaxExempt() {
+    genClient.clear(CacheKey.taxExempt);
+  }
+  /** Clears the 'salesman' field, the 'has' method for this field will now return false */
+  public void clearSalesman() {
+    genClient.clear(CacheKey.salesman);
+  }
+  /** Clears the 'valueLink' field, the 'has' method for this field will now return false */
+  public void clearValueLink() {
+    genClient.clear(CacheKey.valueLink);
+  }
+  /** Clears the 'valueLinkMid' field, the 'has' method for this field will now return false */
+  public void clearValueLinkMid() {
+    genClient.clear(CacheKey.valueLinkMid);
+  }
+  /** Clears the 'altValueLinkMid' field, the 'has' method for this field will now return false */
+  public void clearAltValueLinkMid() {
+    genClient.clear(CacheKey.altValueLinkMid);
+  }
+  /** Clears the 'receiptDba' field, the 'has' method for this field will now return false */
+  public void clearReceiptDba() {
+    genClient.clear(CacheKey.receiptDba);
+  }
+  /** Clears the 'bankNumber' field, the 'has' method for this field will now return false */
+  public void clearBankNumber() {
+    genClient.clear(CacheKey.bankNumber);
+  }
+  /** Clears the 'parentMerchantId' field, the 'has' method for this field will now return false */
+  public void clearParentMerchantId() {
+    genClient.clear(CacheKey.parentMerchantId);
+  }
+  /** Clears the 'multiMerchantType' field, the 'has' method for this field will now return false */
+  public void clearMultiMerchantType() {
+    genClient.clear(CacheKey.multiMerchantType);
+  }
+  /** Clears the 'merchantData' field, the 'has' method for this field will now return false */
+  public void clearMerchantData() {
+    genClient.clear(CacheKey.merchantData);
+  }
+  /** Clears the 'faxPhone' field, the 'has' method for this field will now return false */
+  public void clearFaxPhone() {
+    genClient.clear(CacheKey.faxPhone);
+  }
+  /** Clears the 'merchantType' field, the 'has' method for this field will now return false */
+  public void clearMerchantType() {
+    genClient.clear(CacheKey.merchantType);
+  }
+  /** Clears the 'multiCurrencyIndicator' field, the 'has' method for this field will now return false */
+  public void clearMultiCurrencyIndicator() {
+    genClient.clear(CacheKey.multiCurrencyIndicator);
+  }
+  /** Clears the 'preferredMerchant' field, the 'has' method for this field will now return false */
+  public void clearPreferredMerchant() {
+    genClient.clear(CacheKey.preferredMerchant);
+  }
+  /** Clears the 'visaIram' field, the 'has' method for this field will now return false */
+  public void clearVisaIram() {
+    genClient.clear(CacheKey.visaIram);
+  }
+  /** Clears the 'transArmorIndicator' field, the 'has' method for this field will now return false */
+  public void clearTransArmorIndicator() {
+    genClient.clear(CacheKey.transArmorIndicator);
+  }
+  /** Clears the 'signingKey' field, the 'has' method for this field will now return false */
+  public void clearSigningKey() {
+    genClient.clear(CacheKey.signingKey);
+  }
+  /** Clears the 'visaDebitAccept' field, the 'has' method for this field will now return false */
+  public void clearVisaDebitAccept() {
+    genClient.clear(CacheKey.visaDebitAccept);
+  }
+  /** Clears the 'mastercardDebitAccept' field, the 'has' method for this field will now return false */
+  public void clearMastercardDebitAccept() {
+    genClient.clear(CacheKey.mastercardDebitAccept);
+  }
+  /** Clears the 'sourceIndicator' field, the 'has' method for this field will now return false */
+  public void clearSourceIndicator() {
+    genClient.clear(CacheKey.sourceIndicator);
+  }
+  /** Clears the 'foreignDomesticIndicator' field, the 'has' method for this field will now return false */
+  public void clearForeignDomesticIndicator() {
+    genClient.clear(CacheKey.foreignDomesticIndicator);
+  }
+  /** Clears the 'accountFunding' field, the 'has' method for this field will now return false */
+  public void clearAccountFunding() {
+    genClient.clear(CacheKey.accountFunding);
+  }
+  /** Clears the 'directMarketing' field, the 'has' method for this field will now return false */
+  public void clearDirectMarketing() {
+    genClient.clear(CacheKey.directMarketing);
+  }
+  /** Clears the 'participantRelationship' field, the 'has' method for this field will now return false */
+  public void clearParticipantRelationship() {
+    genClient.clear(CacheKey.participantRelationship);
+  }
+  /** Clears the 'processSettlement' field, the 'has' method for this field will now return false */
+  public void clearProcessSettlement() {
+    genClient.clear(CacheKey.processSettlement);
+  }
+  /** Clears the 'recurringFlag' field, the 'has' method for this field will now return false */
+  public void clearRecurringFlag() {
+    genClient.clear(CacheKey.recurringFlag);
+  }
+  /** Clears the 'linkFrom' field, the 'has' method for this field will now return false */
+  public void clearLinkFrom() {
+    genClient.clear(CacheKey.linkFrom);
+  }
+  /** Clears the 'linkTo' field, the 'has' method for this field will now return false */
+  public void clearLinkTo() {
+    genClient.clear(CacheKey.linkTo);
+  }
+  /** Clears the 'emvAllowed' field, the 'has' method for this field will now return false */
+  public void clearEmvAllowed() {
+    genClient.clear(CacheKey.emvAllowed);
+  }
+  /** Clears the 'previousAccountStatus' field, the 'has' method for this field will now return false */
+  public void clearPreviousAccountStatus() {
+    genClient.clear(CacheKey.previousAccountStatus);
+  }
+  /** Clears the 'leaseCompanyCode' field, the 'has' method for this field will now return false */
+  public void clearLeaseCompanyCode() {
+    genClient.clear(CacheKey.leaseCompanyCode);
+  }
+  /** Clears the 'processMode' field, the 'has' method for this field will now return false */
+  public void clearProcessMode() {
+    genClient.clear(CacheKey.processMode);
+  }
+  /** Clears the 'agentBankIndicator' field, the 'has' method for this field will now return false */
+  public void clearAgentBankIndicator() {
+    genClient.clear(CacheKey.agentBankIndicator);
+  }
+  /** Clears the 'nonMpaIndicator' field, the 'has' method for this field will now return false */
+  public void clearNonMpaIndicator() {
+    genClient.clear(CacheKey.nonMpaIndicator);
+  }
+  /** Clears the 'internetIndicator' field, the 'has' method for this field will now return false */
+  public void clearInternetIndicator() {
+    genClient.clear(CacheKey.internetIndicator);
+  }
+  /** Clears the 'chargeBackRetrievalAddressFlag' field, the 'has' method for this field will now return false */
+  public void clearChargeBackRetrievalAddressFlag() {
+    genClient.clear(CacheKey.chargeBackRetrievalAddressFlag);
+  }
+  /** Clears the 'viRelationshipParticipant' field, the 'has' method for this field will now return false */
+  public void clearViRelationshipParticipant() {
+    genClient.clear(CacheKey.viRelationshipParticipant);
+  }
+  /** Clears the 'retailDescription' field, the 'has' method for this field will now return false */
+  public void clearRetailDescription() {
+    genClient.clear(CacheKey.retailDescription);
+  }
+  /** Clears the 'clientRepresentative' field, the 'has' method for this field will now return false */
+  public void clearClientRepresentative() {
+    genClient.clear(CacheKey.clientRepresentative);
+  }
+  /** Clears the 'merchantAuthType' field, the 'has' method for this field will now return false */
+  public void clearMerchantAuthType() {
+    genClient.clear(CacheKey.merchantAuthType);
+  }
+  /** Clears the 'sysPrin' field, the 'has' method for this field will now return false */
+  public void clearSysPrin() {
+    genClient.clear(CacheKey.sysPrin);
+  }
+  /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
+  public void clearCreatedTime() {
+    genClient.clear(CacheKey.createdTime);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
 
 
@@ -244,6 +2256,108 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean BILLTONAME_IS_REQUIRED = false;
     public static final long BILLTONAME_MAX_LEN = 50;
+    public static final boolean ACHBANKID_IS_REQUIRED = false;
+    public static final long ACHBANKID_MAX_LEN = 15;
+    public static final boolean ACCOUNTSTATUS_IS_REQUIRED = false;
+    public static final long ACCOUNTSTATUS_MAX_LEN = 2;
+    public static final boolean STORE_IS_REQUIRED = false;
+    public static final long STORE_MAX_LEN = 8;
+    public static final boolean DAYLIGHTSAVINGS_IS_REQUIRED = false;
+    public static final boolean SEASONAL_IS_REQUIRED = false;
+    public static final boolean TRANSARMORKEY_IS_REQUIRED = false;
+    public static final long TRANSARMORKEY_MAX_LEN = 11;
+    public static final boolean CREDITLIMIT_IS_REQUIRED = false;
+    public static final long CREDITLIMIT_MAX_LEN = 22;
+    public static final boolean AUTHLIMIT_IS_REQUIRED = false;
+    public static final long AUTHLIMIT_MAX_LEN = 22;
+    public static final boolean SALELIMIT_IS_REQUIRED = false;
+    public static final long SALELIMIT_MAX_LEN = 22;
+    public static final boolean EXTERNALMERCHANT_IS_REQUIRED = false;
+    public static final boolean DYNAMICDBA_IS_REQUIRED = false;
+    public static final boolean RELATIONSHIPMANAGER_IS_REQUIRED = false;
+    public static final long RELATIONSHIPMANAGER_MAX_LEN = 3;
+    public static final boolean TAXEXEMPT_IS_REQUIRED = false;
+    public static final boolean SALESMAN_IS_REQUIRED = false;
+    public static final long SALESMAN_MAX_LEN = 24;
+    public static final boolean VALUELINK_IS_REQUIRED = false;
+    public static final boolean VALUELINKMID_IS_REQUIRED = false;
+    public static final long VALUELINKMID_MAX_LEN = 11;
+    public static final boolean ALTVALUELINKMID_IS_REQUIRED = false;
+    public static final long ALTVALUELINKMID_MAX_LEN = 11;
+    public static final boolean RECEIPTDBA_IS_REQUIRED = false;
+    public static final long RECEIPTDBA_MAX_LEN = 22;
+    public static final boolean BANKNUMBER_IS_REQUIRED = false;
+    public static final long BANKNUMBER_MAX_LEN = 50;
+    public static final boolean PARENTMERCHANTID_IS_REQUIRED = false;
+    public static final long PARENTMERCHANTID_MAX_LEN = 16;
+    public static final boolean MULTIMERCHANTTYPE_IS_REQUIRED = false;
+    public static final long MULTIMERCHANTTYPE_MAX_LEN = 1;
+    public static final boolean MERCHANTDATA_IS_REQUIRED = false;
+    public static final long MERCHANTDATA_MAX_LEN = 20;
+    public static final boolean FAXPHONE_IS_REQUIRED = false;
+    public static final long FAXPHONE_MAX_LEN = 10;
+    public static final boolean MERCHANTTYPE_IS_REQUIRED = false;
+    public static final long MERCHANTTYPE_MAX_LEN = 25;
+    public static final boolean MULTICURRENCYINDICATOR_IS_REQUIRED = false;
+    public static final long MULTICURRENCYINDICATOR_MAX_LEN = 50;
+    public static final boolean PREFERREDMERCHANT_IS_REQUIRED = false;
+    public static final long PREFERREDMERCHANT_MAX_LEN = 1;
+    public static final boolean VISAIRAM_IS_REQUIRED = false;
+    public static final long VISAIRAM_MAX_LEN = 1;
+    public static final boolean TRANSARMORINDICATOR_IS_REQUIRED = false;
+    public static final long TRANSARMORINDICATOR_MAX_LEN = 100;
+    public static final boolean SIGNINGKEY_IS_REQUIRED = false;
+    public static final long SIGNINGKEY_MAX_LEN = 2;
+    public static final boolean VISADEBITACCEPT_IS_REQUIRED = false;
+    public static final long VISADEBITACCEPT_MAX_LEN = 1;
+    public static final boolean MASTERCARDDEBITACCEPT_IS_REQUIRED = false;
+    public static final long MASTERCARDDEBITACCEPT_MAX_LEN = 1;
+    public static final boolean SOURCEINDICATOR_IS_REQUIRED = false;
+    public static final long SOURCEINDICATOR_MAX_LEN = 1;
+    public static final boolean FOREIGNDOMESTICINDICATOR_IS_REQUIRED = false;
+    public static final long FOREIGNDOMESTICINDICATOR_MAX_LEN = 1;
+    public static final boolean ACCOUNTFUNDING_IS_REQUIRED = false;
+    public static final long ACCOUNTFUNDING_MAX_LEN = 1;
+    public static final boolean DIRECTMARKETING_IS_REQUIRED = false;
+    public static final long DIRECTMARKETING_MAX_LEN = 1;
+    public static final boolean PARTICIPANTRELATIONSHIP_IS_REQUIRED = false;
+    public static final long PARTICIPANTRELATIONSHIP_MAX_LEN = 1;
+    public static final boolean PROCESSSETTLEMENT_IS_REQUIRED = false;
+    public static final long PROCESSSETTLEMENT_MAX_LEN = 1;
+    public static final boolean RECURRINGFLAG_IS_REQUIRED = false;
+    public static final long RECURRINGFLAG_MAX_LEN = 1;
+    public static final boolean LINKFROM_IS_REQUIRED = false;
+    public static final long LINKFROM_MAX_LEN = 9;
+    public static final boolean LINKTO_IS_REQUIRED = false;
+    public static final long LINKTO_MAX_LEN = 9;
+    public static final boolean EMVALLOWED_IS_REQUIRED = false;
+    public static final long EMVALLOWED_MAX_LEN = 1;
+    public static final boolean PREVIOUSACCOUNTSTATUS_IS_REQUIRED = false;
+    public static final long PREVIOUSACCOUNTSTATUS_MAX_LEN = 2;
+    public static final boolean LEASECOMPANYCODE_IS_REQUIRED = false;
+    public static final long LEASECOMPANYCODE_MAX_LEN = 2;
+    public static final boolean PROCESSMODE_IS_REQUIRED = false;
+    public static final long PROCESSMODE_MAX_LEN = 1;
+    public static final boolean AGENTBANKINDICATOR_IS_REQUIRED = false;
+    public static final long AGENTBANKINDICATOR_MAX_LEN = 1;
+    public static final boolean NONMPAINDICATOR_IS_REQUIRED = false;
+    public static final long NONMPAINDICATOR_MAX_LEN = 1;
+    public static final boolean INTERNETINDICATOR_IS_REQUIRED = false;
+    public static final long INTERNETINDICATOR_MAX_LEN = 1;
+    public static final boolean CHARGEBACKRETRIEVALADDRESSFLAG_IS_REQUIRED = false;
+    public static final long CHARGEBACKRETRIEVALADDRESSFLAG_MAX_LEN = 1;
+    public static final boolean VIRELATIONSHIPPARTICIPANT_IS_REQUIRED = false;
+    public static final long VIRELATIONSHIPPARTICIPANT_MAX_LEN = 1;
+    public static final boolean RETAILDESCRIPTION_IS_REQUIRED = false;
+    public static final long RETAILDESCRIPTION_MAX_LEN = 22;
+    public static final boolean CLIENTREPRESENTATIVE_IS_REQUIRED = false;
+    public static final long CLIENTREPRESENTATIVE_MAX_LEN = 30;
+    public static final boolean MERCHANTAUTHTYPE_IS_REQUIRED = false;
+    public static final long MERCHANTAUTHTYPE_MAX_LEN = 1;
+    public static final boolean SYSPRIN_IS_REQUIRED = false;
+    public static final long SYSPRIN_MAX_LEN = 10;
+    public static final boolean CREATEDTIME_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }
 

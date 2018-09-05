@@ -57,73 +57,73 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   /**
    * Identification serial number
    */
-  public String getSerialNumber() {
+  public java.lang.String getSerialNumber() {
     return genClient.cacheGet(CacheKey.serialNumber);
   }
 
   /**
    * Masked identification serial number
    */
-  public String getMaskedSerialNumber() {
+  public java.lang.String getMaskedSerialNumber() {
     return genClient.cacheGet(CacheKey.maskedSerialNumber);
   }
 
   /**
    * Encrypted identification serial number
    */
-  public String getEncryptedSerialNumber() {
+  public java.lang.String getEncryptedSerialNumber() {
     return genClient.cacheGet(CacheKey.encryptedSerialNumber);
   }
 
   /**
    * Expiration date in format MMDDYYYY
    */
-  public String getExpirationDate() {
+  public java.lang.String getExpirationDate() {
     return genClient.cacheGet(CacheKey.expirationDate);
   }
 
   /**
    * State in which identification was issued
    */
-  public String getIssuingState() {
+  public java.lang.String getIssuingState() {
     return genClient.cacheGet(CacheKey.issuingState);
   }
 
   /**
    * Country in which identification was issued
    */
-  public String getIssuingCountry() {
+  public java.lang.String getIssuingCountry() {
     return genClient.cacheGet(CacheKey.issuingCountry);
   }
 
   /**
    * Full customer name
    */
-  public String getCustomerName() {
+  public java.lang.String getCustomerName() {
     return genClient.cacheGet(CacheKey.customerName);
   }
 
-  public String getAddressStreet1() {
+  public java.lang.String getAddressStreet1() {
     return genClient.cacheGet(CacheKey.addressStreet1);
   }
 
-  public String getAddressStreet2() {
+  public java.lang.String getAddressStreet2() {
     return genClient.cacheGet(CacheKey.addressStreet2);
   }
 
-  public String getAddressCity() {
+  public java.lang.String getAddressCity() {
     return genClient.cacheGet(CacheKey.addressCity);
   }
 
-  public String getAddressState() {
+  public java.lang.String getAddressState() {
     return genClient.cacheGet(CacheKey.addressState);
   }
 
-  public String getAddressZipCode() {
+  public java.lang.String getAddressZipCode() {
     return genClient.cacheGet(CacheKey.addressZipCode);
   }
 
-  public String getAddressCountry() {
+  public java.lang.String getAddressCountry() {
     return genClient.cacheGet(CacheKey.addressCountry);
   }
 
@@ -140,79 +140,79 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     serialNumber {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("serialNumber", String.class);
+        return instance.genClient.extractOther("serialNumber", java.lang.String.class);
       }
     },
     maskedSerialNumber {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("maskedSerialNumber", String.class);
+        return instance.genClient.extractOther("maskedSerialNumber", java.lang.String.class);
       }
     },
     encryptedSerialNumber {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("encryptedSerialNumber", String.class);
+        return instance.genClient.extractOther("encryptedSerialNumber", java.lang.String.class);
       }
     },
     expirationDate {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("expirationDate", String.class);
+        return instance.genClient.extractOther("expirationDate", java.lang.String.class);
       }
     },
     issuingState {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("issuingState", String.class);
+        return instance.genClient.extractOther("issuingState", java.lang.String.class);
       }
     },
     issuingCountry {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("issuingCountry", String.class);
+        return instance.genClient.extractOther("issuingCountry", java.lang.String.class);
       }
     },
     customerName {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("customerName", String.class);
+        return instance.genClient.extractOther("customerName", java.lang.String.class);
       }
     },
     addressStreet1 {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressStreet1", String.class);
+        return instance.genClient.extractOther("addressStreet1", java.lang.String.class);
       }
     },
     addressStreet2 {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressStreet2", String.class);
+        return instance.genClient.extractOther("addressStreet2", java.lang.String.class);
       }
     },
     addressCity {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressCity", String.class);
+        return instance.genClient.extractOther("addressCity", java.lang.String.class);
       }
     },
     addressState {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressState", String.class);
+        return instance.genClient.extractOther("addressState", java.lang.String.class);
       }
     },
     addressZipCode {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressZipCode", String.class);
+        return instance.genClient.extractOther("addressZipCode", java.lang.String.class);
       }
     },
     addressCountry {
       @Override
       public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressCountry", String.class);
+        return instance.genClient.extractOther("addressCountry", java.lang.String.class);
       }
     },
       ;
@@ -459,91 +459,91 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   /**
    * Sets the field 'serialNumber'.
    */
-  public CashAdvanceCustomerIdentification setSerialNumber(String serialNumber) {
+  public CashAdvanceCustomerIdentification setSerialNumber(java.lang.String serialNumber) {
     return genClient.setOther(serialNumber, CacheKey.serialNumber);
   }
 
   /**
    * Sets the field 'maskedSerialNumber'.
    */
-  public CashAdvanceCustomerIdentification setMaskedSerialNumber(String maskedSerialNumber) {
+  public CashAdvanceCustomerIdentification setMaskedSerialNumber(java.lang.String maskedSerialNumber) {
     return genClient.setOther(maskedSerialNumber, CacheKey.maskedSerialNumber);
   }
 
   /**
    * Sets the field 'encryptedSerialNumber'.
    */
-  public CashAdvanceCustomerIdentification setEncryptedSerialNumber(String encryptedSerialNumber) {
+  public CashAdvanceCustomerIdentification setEncryptedSerialNumber(java.lang.String encryptedSerialNumber) {
     return genClient.setOther(encryptedSerialNumber, CacheKey.encryptedSerialNumber);
   }
 
   /**
    * Sets the field 'expirationDate'.
    */
-  public CashAdvanceCustomerIdentification setExpirationDate(String expirationDate) {
+  public CashAdvanceCustomerIdentification setExpirationDate(java.lang.String expirationDate) {
     return genClient.setOther(expirationDate, CacheKey.expirationDate);
   }
 
   /**
    * Sets the field 'issuingState'.
    */
-  public CashAdvanceCustomerIdentification setIssuingState(String issuingState) {
+  public CashAdvanceCustomerIdentification setIssuingState(java.lang.String issuingState) {
     return genClient.setOther(issuingState, CacheKey.issuingState);
   }
 
   /**
    * Sets the field 'issuingCountry'.
    */
-  public CashAdvanceCustomerIdentification setIssuingCountry(String issuingCountry) {
+  public CashAdvanceCustomerIdentification setIssuingCountry(java.lang.String issuingCountry) {
     return genClient.setOther(issuingCountry, CacheKey.issuingCountry);
   }
 
   /**
    * Sets the field 'customerName'.
    */
-  public CashAdvanceCustomerIdentification setCustomerName(String customerName) {
+  public CashAdvanceCustomerIdentification setCustomerName(java.lang.String customerName) {
     return genClient.setOther(customerName, CacheKey.customerName);
   }
 
   /**
    * Sets the field 'addressStreet1'.
    */
-  public CashAdvanceCustomerIdentification setAddressStreet1(String addressStreet1) {
+  public CashAdvanceCustomerIdentification setAddressStreet1(java.lang.String addressStreet1) {
     return genClient.setOther(addressStreet1, CacheKey.addressStreet1);
   }
 
   /**
    * Sets the field 'addressStreet2'.
    */
-  public CashAdvanceCustomerIdentification setAddressStreet2(String addressStreet2) {
+  public CashAdvanceCustomerIdentification setAddressStreet2(java.lang.String addressStreet2) {
     return genClient.setOther(addressStreet2, CacheKey.addressStreet2);
   }
 
   /**
    * Sets the field 'addressCity'.
    */
-  public CashAdvanceCustomerIdentification setAddressCity(String addressCity) {
+  public CashAdvanceCustomerIdentification setAddressCity(java.lang.String addressCity) {
     return genClient.setOther(addressCity, CacheKey.addressCity);
   }
 
   /**
    * Sets the field 'addressState'.
    */
-  public CashAdvanceCustomerIdentification setAddressState(String addressState) {
+  public CashAdvanceCustomerIdentification setAddressState(java.lang.String addressState) {
     return genClient.setOther(addressState, CacheKey.addressState);
   }
 
   /**
    * Sets the field 'addressZipCode'.
    */
-  public CashAdvanceCustomerIdentification setAddressZipCode(String addressZipCode) {
+  public CashAdvanceCustomerIdentification setAddressZipCode(java.lang.String addressZipCode) {
     return genClient.setOther(addressZipCode, CacheKey.addressZipCode);
   }
 
   /**
    * Sets the field 'addressCountry'.
    */
-  public CashAdvanceCustomerIdentification setAddressCountry(String addressCountry) {
+  public CashAdvanceCustomerIdentification setAddressCountry(java.lang.String addressCountry) {
     return genClient.setOther(addressCountry, CacheKey.addressCountry);
   }
 
@@ -672,7 +672,7 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     public static final boolean EXPIRATIONDATE_IS_REQUIRED = false;
     public static final long EXPIRATIONDATE_MAX_LEN = 8;
     public static final boolean ISSUINGSTATE_IS_REQUIRED = false;
-    public static final long ISSUINGSTATE_MAX_LEN = 2;
+    public static final long ISSUINGSTATE_MAX_LEN = 64;
     public static final boolean ISSUINGCOUNTRY_IS_REQUIRED = false;
     public static final long ISSUINGCOUNTRY_MAX_LEN = 64;
     public static final boolean CUSTOMERNAME_IS_REQUIRED = false;
@@ -684,7 +684,7 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     public static final boolean ADDRESSCITY_IS_REQUIRED = false;
     public static final long ADDRESSCITY_MAX_LEN = 128;
     public static final boolean ADDRESSSTATE_IS_REQUIRED = false;
-    public static final long ADDRESSSTATE_MAX_LEN = 2;
+    public static final long ADDRESSSTATE_MAX_LEN = 64;
     public static final boolean ADDRESSZIPCODE_IS_REQUIRED = false;
     public static final long ADDRESSZIPCODE_MAX_LEN = 64;
     public static final boolean ADDRESSCOUNTRY_IS_REQUIRED = false;

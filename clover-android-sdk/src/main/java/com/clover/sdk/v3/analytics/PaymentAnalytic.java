@@ -31,7 +31,7 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getOrderUuid orderUuid}</li>
+ * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getMerchantId merchantId}</li>
  * <li>{@link #getMerchantGatewayId merchantGatewayId}</li>
  * </ul>
@@ -39,8 +39,8 @@ import com.clover.sdk.GenericParcelable;
 @SuppressWarnings("all")
 public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public java.lang.String getOrderUuid() {
-    return genClient.cacheGet(CacheKey.orderUuid);
+  public java.lang.Long getOrderId() {
+    return genClient.cacheGet(CacheKey.orderId);
   }
 
   public java.lang.Long getMerchantId() {
@@ -55,10 +55,10 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentAnalytic> {
-    orderUuid {
+    orderId {
       @Override
       public Object extractValue(PaymentAnalytic instance) {
-        return instance.genClient.extractOther("orderUuid", java.lang.String.class);
+        return instance.genClient.extractOther("orderId", java.lang.Long.class);
       }
     },
     merchantId {
@@ -138,12 +138,11 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getOrderUuid(), 13);
   }
 
-  /** Checks whether the 'orderUuid' field is set and is not null */
-  public boolean isNotNullOrderUuid() {
-    return genClient.cacheValueIsNotNull(CacheKey.orderUuid);
+  /** Checks whether the 'orderId' field is set and is not null */
+  public boolean isNotNullOrderId() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderId);
   }
 
   /** Checks whether the 'merchantId' field is set and is not null */
@@ -158,9 +157,9 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
 
 
 
-  /** Checks whether the 'orderUuid' field has been set, however the value could be null */
-  public boolean hasOrderUuid() {
-    return genClient.cacheHasKey(CacheKey.orderUuid);
+  /** Checks whether the 'orderId' field has been set, however the value could be null */
+  public boolean hasOrderId() {
+    return genClient.cacheHasKey(CacheKey.orderId);
   }
 
   /** Checks whether the 'merchantId' field has been set, however the value could be null */
@@ -175,10 +174,10 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
 
 
   /**
-   * Sets the field 'orderUuid'.
+   * Sets the field 'orderId'.
    */
-  public PaymentAnalytic setOrderUuid(java.lang.String orderUuid) {
-    return genClient.setOther(orderUuid, CacheKey.orderUuid);
+  public PaymentAnalytic setOrderId(java.lang.Long orderId) {
+    return genClient.setOther(orderId, CacheKey.orderId);
   }
 
   /**
@@ -196,9 +195,9 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
   }
 
 
-  /** Clears the 'orderUuid' field, the 'has' method for this field will now return false */
-  public void clearOrderUuid() {
-    genClient.clear(CacheKey.orderUuid);
+  /** Clears the 'orderId' field, the 'has' method for this field will now return false */
+  public void clearOrderId() {
+    genClient.clear(CacheKey.orderId);
   }
   /** Clears the 'merchantId' field, the 'has' method for this field will now return false */
   public void clearMerchantId() {
@@ -267,8 +266,7 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
 
   public interface Constraints {
 
-    public static final boolean ORDERUUID_IS_REQUIRED = false;
-    public static final long ORDERUUID_MAX_LEN = 13;
+    public static final boolean ORDERID_IS_REQUIRED = false;
     public static final boolean MERCHANTID_IS_REQUIRED = false;
     public static final boolean MERCHANTGATEWAYID_IS_REQUIRED = false;
 

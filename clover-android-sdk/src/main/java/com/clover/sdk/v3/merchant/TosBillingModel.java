@@ -4,6 +4,7 @@
  * DO NOT EDIT DIRECTLY
  */
 
+
 /*
  * Copyright (C) 2016 Clover Network, Inc.
  *
@@ -22,8 +23,36 @@
 
 package com.clover.sdk.v3.merchant;
 
+import android.os.Parcelable;
+import android.os.Parcel;
 
+/**
+ * This is an auto-generated Clover data enum.
+ * Billing Terms of Service, V1_0=UNSELECTED, GRANDFATHER, V1_1=CUSTOMER FACING DEVICES ARE FREE
+ */
 @SuppressWarnings("all")
-public enum TosBillingModel {
-V1_0, V1_1;
+public enum TosBillingModel implements Parcelable {
+  V1_0, V1_1;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<TosBillingModel> CREATOR = new Creator<TosBillingModel>() {
+    @Override
+    public TosBillingModel createFromParcel(final Parcel source) {
+      return TosBillingModel.valueOf(source.readString());
+    }
+
+    @Override
+    public TosBillingModel[] newArray(final int size) {
+      return new TosBillingModel[size];
+    }
+  };
 }

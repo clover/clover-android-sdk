@@ -29,14 +29,20 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * Holds summaries of payments and non-revenue item sales grouped by a configurable time period, like by hour
+ * Holds summaries of payments, credits, refunds and non-revenue item sales grouped by a configurable time period, like by hour
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getTotalPayments totalPayments}</li>
- * <li>{@link #getTotalNonRevenue totalNonRevenue}</li>
- * <li>{@link #getPaymentSummariesOverTime paymentSummariesOverTime}</li>
- * <li>{@link #getNonRevenueSummariesOverTime nonRevenueSummariesOverTime}</li>
+ * <li>{@link #getGrossSalesBeforeDiscounts grossSalesBeforeDiscounts}</li>
+ * <li>{@link #getPayments payments}</li>
+ * <li>{@link #getNonRevenue nonRevenue}</li>
+ * <li>{@link #getCredits credits}</li>
+ * <li>{@link #getRefunds refunds}</li>
+ * <li>{@link #getDiscounts discounts}</li>
+ * <li>{@link #getVoidedLineItems voidedLineItems}</li>
+ * <li>{@link #getOpenOrders openOrders}</li>
+ * <li>{@link #getFullyPaidOrders fullyPaidOrders}</li>
+ * <li>{@link #getGiftCards giftCards}</li>
  * <li>{@link #getPeriod period}</li>
  * </ul>
  */
@@ -44,31 +50,73 @@ import com.clover.sdk.GenericParcelable;
 public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Sum of all payments. Does not include items marked non-revenue
+   * Summaries grouped over time of what the total of order payments would have been if no discounts or refunds had occurred. This includes tax and service charge that would have been present in the absence of discounts.
    */
-  public com.clover.sdk.v3.report.Summary getTotalPayments() {
-    return genClient.cacheGet(CacheKey.totalPayments);
-  }
-
-  /**
-   * Sum of all sales of items marked non-revenue including modifiers and discounts
-   */
-  public com.clover.sdk.v3.report.Summary getTotalNonRevenue() {
-    return genClient.cacheGet(CacheKey.totalNonRevenue);
+  public com.clover.sdk.v3.report.SummarySection getGrossSalesBeforeDiscounts() {
+    return genClient.cacheGet(CacheKey.grossSalesBeforeDiscounts);
   }
 
   /**
    * Summaries grouped over time of payments. Does not include items marked non-revenue
    */
-  public java.util.List<com.clover.sdk.v3.report.Summary> getPaymentSummariesOverTime() {
-    return genClient.cacheGet(CacheKey.paymentSummariesOverTime);
+  public com.clover.sdk.v3.report.SummarySection getPayments() {
+    return genClient.cacheGet(CacheKey.payments);
   }
 
   /**
    * Summaries grouped over time of sales of items marked non-revenue including modifiers and discounts
    */
-  public java.util.List<com.clover.sdk.v3.report.Summary> getNonRevenueSummariesOverTime() {
-    return genClient.cacheGet(CacheKey.nonRevenueSummariesOverTime);
+  public com.clover.sdk.v3.report.SummarySection getNonRevenue() {
+    return genClient.cacheGet(CacheKey.nonRevenue);
+  }
+
+  /**
+   * Summaries grouped over time of credits, also known as manual or naked refunds
+   */
+  public com.clover.sdk.v3.report.SummarySection getCredits() {
+    return genClient.cacheGet(CacheKey.credits);
+  }
+
+  /**
+   * Summaries grouped over time of refunds
+   */
+  public com.clover.sdk.v3.report.SummarySection getRefunds() {
+    return genClient.cacheGet(CacheKey.refunds);
+  }
+
+  /**
+   * Summaries grouped over time of discounts. This discount amount does not include any tax or service charge that would have occurred in the absence of discounts.
+   */
+  public com.clover.sdk.v3.report.SummarySection getDiscounts() {
+    return genClient.cacheGet(CacheKey.discounts);
+  }
+
+  /**
+   * Summaries grouped over time of voided line items
+   */
+  public com.clover.sdk.v3.report.SummarySection getVoidedLineItems() {
+    return genClient.cacheGet(CacheKey.voidedLineItems);
+  }
+
+  /**
+   * Summaries grouped over time of open orders. Open orders are orders that still require more payments.
+   */
+  public com.clover.sdk.v3.report.SummarySection getOpenOrders() {
+    return genClient.cacheGet(CacheKey.openOrders);
+  }
+
+  /**
+   * Summaries grouped over time of fully paid orders. Fully paid orders are orders where the sum of payments minus the sum of refunds equals the sum of the value of line items with modifiers and discounts.
+   */
+  public com.clover.sdk.v3.report.SummarySection getFullyPaidOrders() {
+    return genClient.cacheGet(CacheKey.fullyPaidOrders);
+  }
+
+  /**
+   * Summaries grouped over time of gift cards
+   */
+  public com.clover.sdk.v3.report.SummarySection getGiftCards() {
+    return genClient.cacheGet(CacheKey.giftCards);
   }
 
   /**
@@ -82,28 +130,64 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentsAndNonRevenueGroupedOverTime> {
-    totalPayments {
+    grossSalesBeforeDiscounts {
       @Override
       public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
-        return instance.genClient.extractRecord("totalPayments", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
+        return instance.genClient.extractRecord("grossSalesBeforeDiscounts", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
       }
     },
-    totalNonRevenue {
+    payments {
       @Override
       public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
-        return instance.genClient.extractRecord("totalNonRevenue", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
+        return instance.genClient.extractRecord("payments", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
       }
     },
-    paymentSummariesOverTime {
+    nonRevenue {
       @Override
       public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
-        return instance.genClient.extractListRecord("paymentSummariesOverTime", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
+        return instance.genClient.extractRecord("nonRevenue", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
       }
     },
-    nonRevenueSummariesOverTime {
+    credits {
       @Override
       public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
-        return instance.genClient.extractListRecord("nonRevenueSummariesOverTime", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
+        return instance.genClient.extractRecord("credits", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    refunds {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("refunds", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    discounts {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("discounts", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    voidedLineItems {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("voidedLineItems", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    openOrders {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("openOrders", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    fullyPaidOrders {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("fullyPaidOrders", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
+      }
+    },
+    giftCards {
+      @Override
+      public Object extractValue(PaymentsAndNonRevenueGroupedOverTime instance) {
+        return instance.genClient.extractRecord("giftCards", com.clover.sdk.v3.report.SummarySection.JSON_CREATOR);
       }
     },
     period {
@@ -179,31 +263,55 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   public void validate() {
   }
 
-  /** Checks whether the 'totalPayments' field is set and is not null */
-  public boolean isNotNullTotalPayments() {
-    return genClient.cacheValueIsNotNull(CacheKey.totalPayments);
+  /** Checks whether the 'grossSalesBeforeDiscounts' field is set and is not null */
+  public boolean isNotNullGrossSalesBeforeDiscounts() {
+    return genClient.cacheValueIsNotNull(CacheKey.grossSalesBeforeDiscounts);
   }
 
-  /** Checks whether the 'totalNonRevenue' field is set and is not null */
-  public boolean isNotNullTotalNonRevenue() {
-    return genClient.cacheValueIsNotNull(CacheKey.totalNonRevenue);
+  /** Checks whether the 'payments' field is set and is not null */
+  public boolean isNotNullPayments() {
+    return genClient.cacheValueIsNotNull(CacheKey.payments);
   }
 
-  /** Checks whether the 'paymentSummariesOverTime' field is set and is not null */
-  public boolean isNotNullPaymentSummariesOverTime() {
-    return genClient.cacheValueIsNotNull(CacheKey.paymentSummariesOverTime);
+  /** Checks whether the 'nonRevenue' field is set and is not null */
+  public boolean isNotNullNonRevenue() {
+    return genClient.cacheValueIsNotNull(CacheKey.nonRevenue);
   }
 
-  /** Checks whether the 'paymentSummariesOverTime' field is set and is not null and is not empty */
-  public boolean isNotEmptyPaymentSummariesOverTime() { return isNotNullPaymentSummariesOverTime() && !getPaymentSummariesOverTime().isEmpty(); }
-
-  /** Checks whether the 'nonRevenueSummariesOverTime' field is set and is not null */
-  public boolean isNotNullNonRevenueSummariesOverTime() {
-    return genClient.cacheValueIsNotNull(CacheKey.nonRevenueSummariesOverTime);
+  /** Checks whether the 'credits' field is set and is not null */
+  public boolean isNotNullCredits() {
+    return genClient.cacheValueIsNotNull(CacheKey.credits);
   }
 
-  /** Checks whether the 'nonRevenueSummariesOverTime' field is set and is not null and is not empty */
-  public boolean isNotEmptyNonRevenueSummariesOverTime() { return isNotNullNonRevenueSummariesOverTime() && !getNonRevenueSummariesOverTime().isEmpty(); }
+  /** Checks whether the 'refunds' field is set and is not null */
+  public boolean isNotNullRefunds() {
+    return genClient.cacheValueIsNotNull(CacheKey.refunds);
+  }
+
+  /** Checks whether the 'discounts' field is set and is not null */
+  public boolean isNotNullDiscounts() {
+    return genClient.cacheValueIsNotNull(CacheKey.discounts);
+  }
+
+  /** Checks whether the 'voidedLineItems' field is set and is not null */
+  public boolean isNotNullVoidedLineItems() {
+    return genClient.cacheValueIsNotNull(CacheKey.voidedLineItems);
+  }
+
+  /** Checks whether the 'openOrders' field is set and is not null */
+  public boolean isNotNullOpenOrders() {
+    return genClient.cacheValueIsNotNull(CacheKey.openOrders);
+  }
+
+  /** Checks whether the 'fullyPaidOrders' field is set and is not null */
+  public boolean isNotNullFullyPaidOrders() {
+    return genClient.cacheValueIsNotNull(CacheKey.fullyPaidOrders);
+  }
+
+  /** Checks whether the 'giftCards' field is set and is not null */
+  public boolean isNotNullGiftCards() {
+    return genClient.cacheValueIsNotNull(CacheKey.giftCards);
+  }
 
   /** Checks whether the 'period' field is set and is not null */
   public boolean isNotNullPeriod() {
@@ -212,24 +320,54 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
 
 
 
-  /** Checks whether the 'totalPayments' field has been set, however the value could be null */
-  public boolean hasTotalPayments() {
-    return genClient.cacheHasKey(CacheKey.totalPayments);
+  /** Checks whether the 'grossSalesBeforeDiscounts' field has been set, however the value could be null */
+  public boolean hasGrossSalesBeforeDiscounts() {
+    return genClient.cacheHasKey(CacheKey.grossSalesBeforeDiscounts);
   }
 
-  /** Checks whether the 'totalNonRevenue' field has been set, however the value could be null */
-  public boolean hasTotalNonRevenue() {
-    return genClient.cacheHasKey(CacheKey.totalNonRevenue);
+  /** Checks whether the 'payments' field has been set, however the value could be null */
+  public boolean hasPayments() {
+    return genClient.cacheHasKey(CacheKey.payments);
   }
 
-  /** Checks whether the 'paymentSummariesOverTime' field has been set, however the value could be null */
-  public boolean hasPaymentSummariesOverTime() {
-    return genClient.cacheHasKey(CacheKey.paymentSummariesOverTime);
+  /** Checks whether the 'nonRevenue' field has been set, however the value could be null */
+  public boolean hasNonRevenue() {
+    return genClient.cacheHasKey(CacheKey.nonRevenue);
   }
 
-  /** Checks whether the 'nonRevenueSummariesOverTime' field has been set, however the value could be null */
-  public boolean hasNonRevenueSummariesOverTime() {
-    return genClient.cacheHasKey(CacheKey.nonRevenueSummariesOverTime);
+  /** Checks whether the 'credits' field has been set, however the value could be null */
+  public boolean hasCredits() {
+    return genClient.cacheHasKey(CacheKey.credits);
+  }
+
+  /** Checks whether the 'refunds' field has been set, however the value could be null */
+  public boolean hasRefunds() {
+    return genClient.cacheHasKey(CacheKey.refunds);
+  }
+
+  /** Checks whether the 'discounts' field has been set, however the value could be null */
+  public boolean hasDiscounts() {
+    return genClient.cacheHasKey(CacheKey.discounts);
+  }
+
+  /** Checks whether the 'voidedLineItems' field has been set, however the value could be null */
+  public boolean hasVoidedLineItems() {
+    return genClient.cacheHasKey(CacheKey.voidedLineItems);
+  }
+
+  /** Checks whether the 'openOrders' field has been set, however the value could be null */
+  public boolean hasOpenOrders() {
+    return genClient.cacheHasKey(CacheKey.openOrders);
+  }
+
+  /** Checks whether the 'fullyPaidOrders' field has been set, however the value could be null */
+  public boolean hasFullyPaidOrders() {
+    return genClient.cacheHasKey(CacheKey.fullyPaidOrders);
+  }
+
+  /** Checks whether the 'giftCards' field has been set, however the value could be null */
+  public boolean hasGiftCards() {
+    return genClient.cacheHasKey(CacheKey.giftCards);
   }
 
   /** Checks whether the 'period' field has been set, however the value could be null */
@@ -239,39 +377,93 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
 
 
   /**
-   * Sets the field 'totalPayments'.
+   * Sets the field 'grossSalesBeforeDiscounts'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public PaymentsAndNonRevenueGroupedOverTime setTotalPayments(com.clover.sdk.v3.report.Summary totalPayments) {
-    return genClient.setRecord(totalPayments, CacheKey.totalPayments);
+  public PaymentsAndNonRevenueGroupedOverTime setGrossSalesBeforeDiscounts(com.clover.sdk.v3.report.SummarySection grossSalesBeforeDiscounts) {
+    return genClient.setRecord(grossSalesBeforeDiscounts, CacheKey.grossSalesBeforeDiscounts);
   }
 
   /**
-   * Sets the field 'totalNonRevenue'.
+   * Sets the field 'payments'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public PaymentsAndNonRevenueGroupedOverTime setTotalNonRevenue(com.clover.sdk.v3.report.Summary totalNonRevenue) {
-    return genClient.setRecord(totalNonRevenue, CacheKey.totalNonRevenue);
+  public PaymentsAndNonRevenueGroupedOverTime setPayments(com.clover.sdk.v3.report.SummarySection payments) {
+    return genClient.setRecord(payments, CacheKey.payments);
   }
 
   /**
-   * Sets the field 'paymentSummariesOverTime'.
+   * Sets the field 'nonRevenue'.
    *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public PaymentsAndNonRevenueGroupedOverTime setPaymentSummariesOverTime(java.util.List<com.clover.sdk.v3.report.Summary> paymentSummariesOverTime) {
-    return genClient.setArrayRecord(paymentSummariesOverTime, CacheKey.paymentSummariesOverTime);
+  public PaymentsAndNonRevenueGroupedOverTime setNonRevenue(com.clover.sdk.v3.report.SummarySection nonRevenue) {
+    return genClient.setRecord(nonRevenue, CacheKey.nonRevenue);
   }
 
   /**
-   * Sets the field 'nonRevenueSummariesOverTime'.
+   * Sets the field 'credits'.
    *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public PaymentsAndNonRevenueGroupedOverTime setNonRevenueSummariesOverTime(java.util.List<com.clover.sdk.v3.report.Summary> nonRevenueSummariesOverTime) {
-    return genClient.setArrayRecord(nonRevenueSummariesOverTime, CacheKey.nonRevenueSummariesOverTime);
+  public PaymentsAndNonRevenueGroupedOverTime setCredits(com.clover.sdk.v3.report.SummarySection credits) {
+    return genClient.setRecord(credits, CacheKey.credits);
+  }
+
+  /**
+   * Sets the field 'refunds'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setRefunds(com.clover.sdk.v3.report.SummarySection refunds) {
+    return genClient.setRecord(refunds, CacheKey.refunds);
+  }
+
+  /**
+   * Sets the field 'discounts'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setDiscounts(com.clover.sdk.v3.report.SummarySection discounts) {
+    return genClient.setRecord(discounts, CacheKey.discounts);
+  }
+
+  /**
+   * Sets the field 'voidedLineItems'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setVoidedLineItems(com.clover.sdk.v3.report.SummarySection voidedLineItems) {
+    return genClient.setRecord(voidedLineItems, CacheKey.voidedLineItems);
+  }
+
+  /**
+   * Sets the field 'openOrders'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setOpenOrders(com.clover.sdk.v3.report.SummarySection openOrders) {
+    return genClient.setRecord(openOrders, CacheKey.openOrders);
+  }
+
+  /**
+   * Sets the field 'fullyPaidOrders'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setFullyPaidOrders(com.clover.sdk.v3.report.SummarySection fullyPaidOrders) {
+    return genClient.setRecord(fullyPaidOrders, CacheKey.fullyPaidOrders);
+  }
+
+  /**
+   * Sets the field 'giftCards'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setGiftCards(com.clover.sdk.v3.report.SummarySection giftCards) {
+    return genClient.setRecord(giftCards, CacheKey.giftCards);
   }
 
   /**
@@ -282,21 +474,45 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
 
-  /** Clears the 'totalPayments' field, the 'has' method for this field will now return false */
-  public void clearTotalPayments() {
-    genClient.clear(CacheKey.totalPayments);
+  /** Clears the 'grossSalesBeforeDiscounts' field, the 'has' method for this field will now return false */
+  public void clearGrossSalesBeforeDiscounts() {
+    genClient.clear(CacheKey.grossSalesBeforeDiscounts);
   }
-  /** Clears the 'totalNonRevenue' field, the 'has' method for this field will now return false */
-  public void clearTotalNonRevenue() {
-    genClient.clear(CacheKey.totalNonRevenue);
+  /** Clears the 'payments' field, the 'has' method for this field will now return false */
+  public void clearPayments() {
+    genClient.clear(CacheKey.payments);
   }
-  /** Clears the 'paymentSummariesOverTime' field, the 'has' method for this field will now return false */
-  public void clearPaymentSummariesOverTime() {
-    genClient.clear(CacheKey.paymentSummariesOverTime);
+  /** Clears the 'nonRevenue' field, the 'has' method for this field will now return false */
+  public void clearNonRevenue() {
+    genClient.clear(CacheKey.nonRevenue);
   }
-  /** Clears the 'nonRevenueSummariesOverTime' field, the 'has' method for this field will now return false */
-  public void clearNonRevenueSummariesOverTime() {
-    genClient.clear(CacheKey.nonRevenueSummariesOverTime);
+  /** Clears the 'credits' field, the 'has' method for this field will now return false */
+  public void clearCredits() {
+    genClient.clear(CacheKey.credits);
+  }
+  /** Clears the 'refunds' field, the 'has' method for this field will now return false */
+  public void clearRefunds() {
+    genClient.clear(CacheKey.refunds);
+  }
+  /** Clears the 'discounts' field, the 'has' method for this field will now return false */
+  public void clearDiscounts() {
+    genClient.clear(CacheKey.discounts);
+  }
+  /** Clears the 'voidedLineItems' field, the 'has' method for this field will now return false */
+  public void clearVoidedLineItems() {
+    genClient.clear(CacheKey.voidedLineItems);
+  }
+  /** Clears the 'openOrders' field, the 'has' method for this field will now return false */
+  public void clearOpenOrders() {
+    genClient.clear(CacheKey.openOrders);
+  }
+  /** Clears the 'fullyPaidOrders' field, the 'has' method for this field will now return false */
+  public void clearFullyPaidOrders() {
+    genClient.clear(CacheKey.fullyPaidOrders);
+  }
+  /** Clears the 'giftCards' field, the 'has' method for this field will now return false */
+  public void clearGiftCards() {
+    genClient.clear(CacheKey.giftCards);
   }
   /** Clears the 'period' field, the 'has' method for this field will now return false */
   public void clearPeriod() {
@@ -361,10 +577,16 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
 
   public interface Constraints {
 
-    public static final boolean TOTALPAYMENTS_IS_REQUIRED = false;
-    public static final boolean TOTALNONREVENUE_IS_REQUIRED = false;
-    public static final boolean PAYMENTSUMMARIESOVERTIME_IS_REQUIRED = false;
-    public static final boolean NONREVENUESUMMARIESOVERTIME_IS_REQUIRED = false;
+    public static final boolean GROSSSALESBEFOREDISCOUNTS_IS_REQUIRED = false;
+    public static final boolean PAYMENTS_IS_REQUIRED = false;
+    public static final boolean NONREVENUE_IS_REQUIRED = false;
+    public static final boolean CREDITS_IS_REQUIRED = false;
+    public static final boolean REFUNDS_IS_REQUIRED = false;
+    public static final boolean DISCOUNTS_IS_REQUIRED = false;
+    public static final boolean VOIDEDLINEITEMS_IS_REQUIRED = false;
+    public static final boolean OPENORDERS_IS_REQUIRED = false;
+    public static final boolean FULLYPAIDORDERS_IS_REQUIRED = false;
+    public static final boolean GIFTCARDS_IS_REQUIRED = false;
     public static final boolean PERIOD_IS_REQUIRED = false;
 
   }

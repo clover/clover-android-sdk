@@ -41,7 +41,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getViewAllButton viewAllButton}</li>
  * <li>{@link #getResultLabel resultLabel}</li>
+ * <li>{@link #getAutoInstall autoInstall}</li>
  * <li>{@link #getCarouselApps carouselApps}</li>
+ * <li>{@link #getSortBy sortBy}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -90,8 +92,19 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.resultLabel);
   }
 
+  /**
+   * When true, apps in this carousel will be installed to merchants in the associated merchant group.
+   */
+  public java.lang.Boolean getAutoInstall() {
+    return genClient.cacheGet(CacheKey.autoInstall);
+  }
+
   public java.util.List<com.clover.sdk.v3.base.Reference> getCarouselApps() {
     return genClient.cacheGet(CacheKey.carouselApps);
+  }
+
+  public com.clover.sdk.v3.apps.CarouselSortBy getSortBy() {
+    return genClient.cacheGet(CacheKey.sortBy);
   }
 
 
@@ -158,10 +171,22 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
         return instance.genClient.extractOther("resultLabel", java.lang.String.class);
       }
     },
+    autoInstall {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractOther("autoInstall", java.lang.Boolean.class);
+      }
+    },
     carouselApps {
       @Override
       public Object extractValue(AppCarousel instance) {
         return instance.genClient.extractListRecord("carouselApps", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    sortBy {
+      @Override
+      public Object extractValue(AppCarousel instance) {
+        return instance.genClient.extractEnum("sortBy", com.clover.sdk.v3.apps.CarouselSortBy.class);
       }
     },
       ;
@@ -292,6 +317,11 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.resultLabel);
   }
 
+  /** Checks whether the 'autoInstall' field is set and is not null */
+  public boolean isNotNullAutoInstall() {
+    return genClient.cacheValueIsNotNull(CacheKey.autoInstall);
+  }
+
   /** Checks whether the 'carouselApps' field is set and is not null */
   public boolean isNotNullCarouselApps() {
     return genClient.cacheValueIsNotNull(CacheKey.carouselApps);
@@ -299,6 +329,11 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
 
   /** Checks whether the 'carouselApps' field is set and is not null and is not empty */
   public boolean isNotEmptyCarouselApps() { return isNotNullCarouselApps() && !getCarouselApps().isEmpty(); }
+
+  /** Checks whether the 'sortBy' field is set and is not null */
+  public boolean isNotNullSortBy() {
+    return genClient.cacheValueIsNotNull(CacheKey.sortBy);
+  }
 
 
 
@@ -352,9 +387,19 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.resultLabel);
   }
 
+  /** Checks whether the 'autoInstall' field has been set, however the value could be null */
+  public boolean hasAutoInstall() {
+    return genClient.cacheHasKey(CacheKey.autoInstall);
+  }
+
   /** Checks whether the 'carouselApps' field has been set, however the value could be null */
   public boolean hasCarouselApps() {
     return genClient.cacheHasKey(CacheKey.carouselApps);
+  }
+
+  /** Checks whether the 'sortBy' field has been set, however the value could be null */
+  public boolean hasSortBy() {
+    return genClient.cacheHasKey(CacheKey.sortBy);
   }
 
 
@@ -433,12 +478,26 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'autoInstall'.
+   */
+  public AppCarousel setAutoInstall(java.lang.Boolean autoInstall) {
+    return genClient.setOther(autoInstall, CacheKey.autoInstall);
+  }
+
+  /**
    * Sets the field 'carouselApps'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
   public AppCarousel setCarouselApps(java.util.List<com.clover.sdk.v3.base.Reference> carouselApps) {
     return genClient.setArrayRecord(carouselApps, CacheKey.carouselApps);
+  }
+
+  /**
+   * Sets the field 'sortBy'.
+   */
+  public AppCarousel setSortBy(com.clover.sdk.v3.apps.CarouselSortBy sortBy) {
+    return genClient.setOther(sortBy, CacheKey.sortBy);
   }
 
 
@@ -482,9 +541,17 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   public void clearResultLabel() {
     genClient.clear(CacheKey.resultLabel);
   }
+  /** Clears the 'autoInstall' field, the 'has' method for this field will now return false */
+  public void clearAutoInstall() {
+    genClient.clear(CacheKey.autoInstall);
+  }
   /** Clears the 'carouselApps' field, the 'has' method for this field will now return false */
   public void clearCarouselApps() {
     genClient.clear(CacheKey.carouselApps);
+  }
+  /** Clears the 'sortBy' field, the 'has' method for this field will now return false */
+  public void clearSortBy() {
+    genClient.clear(CacheKey.sortBy);
   }
 
 
@@ -561,7 +628,9 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     public static final long VIEWALLBUTTON_MAX_LEN = 127;
     public static final boolean RESULTLABEL_IS_REQUIRED = false;
     public static final long RESULTLABEL_MAX_LEN = 127;
+    public static final boolean AUTOINSTALL_IS_REQUIRED = false;
     public static final boolean CAROUSELAPPS_IS_REQUIRED = false;
+    public static final boolean SORTBY_IS_REQUIRED = false;
 
   }
 

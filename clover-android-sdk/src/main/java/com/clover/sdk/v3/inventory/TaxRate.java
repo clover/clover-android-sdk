@@ -33,10 +33,13 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
+ * <li>{@link #getTaxType taxType}</li>
  * <li>{@link #getRate rate}</li>
  * <li>{@link #getIsDefault isDefault}</li>
  * <li>{@link #getItems items}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getDeletedTime deletedTime}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -50,6 +53,13 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * Type of Tax Type
+   */
+  public com.clover.sdk.v3.inventory.TaxType getTaxType() {
+    return genClient.cacheGet(CacheKey.taxType);
   }
 
   /**
@@ -77,6 +87,20 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
+  /**
+   * Timestamp when tax rate was last deleted
+   */
+  public java.lang.Long getDeletedTime() {
+    return genClient.cacheGet(CacheKey.deletedTime);
+  }
+
+  /**
+   * Timestamp when tax rate was last modified
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
 
 
 
@@ -91,6 +115,12 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(TaxRate instance) {
         return instance.genClient.extractOther("name", java.lang.String.class);
+      }
+    },
+    taxType {
+      @Override
+      public Object extractValue(TaxRate instance) {
+        return instance.genClient.extractEnum("taxType", com.clover.sdk.v3.inventory.TaxType.class);
       }
     },
     rate {
@@ -117,14 +147,26 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
         return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
       }
     },
+    deletedTime {
+      @Override
+      public Object extractValue(TaxRate instance) {
+        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(TaxRate instance) {
+        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
+      }
+    },
       ;
   }
 
   private GenericClient<TaxRate> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public TaxRate() {
     genClient = new GenericClient<TaxRate>(this);
   }
@@ -135,8 +177,8 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected TaxRate(boolean noInit) {
     genClient = null;
   }
@@ -202,6 +244,11 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'taxType' field is set and is not null */
+  public boolean isNotNullTaxType() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxType);
+  }
+
   /** Checks whether the 'rate' field is set and is not null */
   public boolean isNotNullRate() {
     return genClient.cacheValueIsNotNull(CacheKey.rate);
@@ -225,6 +272,16 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'deletedTime' field is set and is not null */
+  public boolean isNotNullDeletedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -235,6 +292,11 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return genClient.cacheHasKey(CacheKey.name);
+  }
+
+  /** Checks whether the 'taxType' field has been set, however the value could be null */
+  public boolean hasTaxType() {
+    return genClient.cacheHasKey(CacheKey.taxType);
   }
 
   /** Checks whether the 'rate' field has been set, however the value could be null */
@@ -257,6 +319,16 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'deletedTime' field has been set, however the value could be null */
+  public boolean hasDeletedTime() {
+    return genClient.cacheHasKey(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -270,6 +342,13 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public TaxRate setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
+  }
+
+  /**
+   * Sets the field 'taxType'.
+   */
+  public TaxRate setTaxType(com.clover.sdk.v3.inventory.TaxType taxType) {
+    return genClient.setOther(taxType, CacheKey.taxType);
   }
 
   /**
@@ -302,6 +381,20 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
+  /**
+   * Sets the field 'deletedTime'.
+   */
+  public TaxRate setDeletedTime(java.lang.Long deletedTime) {
+    return genClient.setOther(deletedTime, CacheKey.deletedTime);
+  }
+
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public TaxRate setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -310,6 +403,10 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
+  }
+  /** Clears the 'taxType' field, the 'has' method for this field will now return false */
+  public void clearTaxType() {
+    genClient.clear(CacheKey.taxType);
   }
   /** Clears the 'rate' field, the 'has' method for this field will now return false */
   public void clearRate() {
@@ -326,6 +423,14 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
+  }
+  /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
+  public void clearDeletedTime() {
+    genClient.clear(CacheKey.deletedTime);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
 
 
@@ -390,6 +495,7 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
+    public static final boolean TAXTYPE_IS_REQUIRED = false;
     public static final boolean RATE_IS_REQUIRED = false;
     public static final long RATE_MIN = 0;
     public static final long RATE_MAX = 100000000;
@@ -397,6 +503,8 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final long TAXAMOUNT_MIN = 0;
+    public static final boolean DELETEDTIME_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }
 

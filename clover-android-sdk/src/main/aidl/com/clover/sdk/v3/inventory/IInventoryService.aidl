@@ -486,4 +486,9 @@ interface IInventoryService {
    */
   void updateModifierGroupSortOrders(in List<ModifierGroup> groups, out ResultStatus resultStatus);
 
+  /**
+   * Retrieve the list of tax rates excluded for an item, given the order-type-id
+   */
+  List<TaxRate> getTaxRatesExcludedForItem(in String orderTypeId, in String itemId, out ResultStatus resultStatus);
+
 }

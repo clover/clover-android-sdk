@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAlternateName alternateName}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getModifier modifier}</li>
+ * <li>{@link #getQuantitySold quantitySold}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -74,6 +75,13 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.modifier);
   }
 
+  /**
+   * This is only used in reports. The count of how many of these modifiers that were sold.
+   */
+  public java.lang.Long getQuantitySold() {
+    return genClient.cacheGet(CacheKey.quantitySold);
+  }
+
 
 
 
@@ -106,6 +114,12 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
       @Override
       public Object extractValue(Modification instance) {
         return instance.genClient.extractRecord("modifier", com.clover.sdk.v3.inventory.Modifier.JSON_CREATOR);
+      }
+    },
+    quantitySold {
+      @Override
+      public Object extractValue(Modification instance) {
+        return instance.genClient.extractOther("quantitySold", java.lang.Long.class);
       }
     },
       ;
@@ -205,6 +219,11 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.modifier);
   }
 
+  /** Checks whether the 'quantitySold' field is set and is not null */
+  public boolean isNotNullQuantitySold() {
+    return genClient.cacheValueIsNotNull(CacheKey.quantitySold);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -230,6 +249,11 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'modifier' field has been set, however the value could be null */
   public boolean hasModifier() {
     return genClient.cacheHasKey(CacheKey.modifier);
+  }
+
+  /** Checks whether the 'quantitySold' field has been set, however the value could be null */
+  public boolean hasQuantitySold() {
+    return genClient.cacheHasKey(CacheKey.quantitySold);
   }
 
 
@@ -270,6 +294,13 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setRecord(modifier, CacheKey.modifier);
   }
 
+  /**
+   * Sets the field 'quantitySold'.
+   */
+  public Modification setQuantitySold(java.lang.Long quantitySold) {
+    return genClient.setOther(quantitySold, CacheKey.quantitySold);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -290,6 +321,10 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'modifier' field, the 'has' method for this field will now return false */
   public void clearModifier() {
     genClient.clear(CacheKey.modifier);
+  }
+  /** Clears the 'quantitySold' field, the 'has' method for this field will now return false */
+  public void clearQuantitySold() {
+    genClient.clear(CacheKey.quantitySold);
   }
 
 
@@ -358,6 +393,7 @@ public class Modification extends GenericParcelable implements com.clover.sdk.v3
     public static final long ALTERNATENAME_MAX_LEN = 255;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean MODIFIER_IS_REQUIRED = false;
+    public static final boolean QUANTITYSOLD_IS_REQUIRED = false;
 
   }
 

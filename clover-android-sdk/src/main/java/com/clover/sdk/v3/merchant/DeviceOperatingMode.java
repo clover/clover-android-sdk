@@ -4,6 +4,7 @@
  * DO NOT EDIT DIRECTLY
  */
 
+
 /*
  * Copyright (C) 2016 Clover Network, Inc.
  *
@@ -22,8 +23,36 @@
 
 package com.clover.sdk.v3.merchant;
 
+import android.os.Parcelable;
+import android.os.Parcel;
 
+/**
+ * This is an auto-generated Clover data enum.
+ * The state of a particular active device with respect to billing.
+ */
 @SuppressWarnings("all")
-public enum DeviceOperatingMode {
-POS_MODE, CFD_MODE;
+public enum DeviceOperatingMode implements Parcelable {
+  POS_MODE, CFD_MODE;
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(final Parcel dest, final int flags) {
+    dest.writeString(name());
+  }
+
+  public static final Creator<DeviceOperatingMode> CREATOR = new Creator<DeviceOperatingMode>() {
+    @Override
+    public DeviceOperatingMode createFromParcel(final Parcel source) {
+      return DeviceOperatingMode.valueOf(source.readString());
+    }
+
+    @Override
+    public DeviceOperatingMode[] newArray(final int size) {
+      return new DeviceOperatingMode[size];
+    }
+  };
 }

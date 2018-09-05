@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum CardlessPaymentNetwork implements Parcelable {
-  ALIPAY;
+  ALIPAY, WECHAT;
 
   @Override
   public int describeContents() {

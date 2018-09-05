@@ -3,7 +3,8 @@ apply from: file("${project.rootDir}/versions.gradle")
 repositories {
   mavenLocal()
   google()
-  mavenCentral()
+  mavenCentral() 
+  jcenter()
 }
 
 dependencies {
@@ -12,13 +13,9 @@ dependencies {
   testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
 
-configurations.all {
-  resolutionStrategy {
-    //failOnVersionConflict()
-
-    force "com.google.guava:guava:$GUAVA_VERSION"
-    force "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
-  }
+configurations.compile.resolutionStrategy {
+  force "com.google.guava:guava:$GUAVA_VERSION"
+  force "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
 }
 
 android {

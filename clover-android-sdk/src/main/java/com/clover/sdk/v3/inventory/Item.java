@@ -52,6 +52,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTags tags}</li>
  * <li>{@link #getItemStock itemStock}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getDeletedTime deletedTime}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -194,6 +195,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
+  /**
+   * Timestamp when item was last deleted
+   */
+  public java.lang.Long getDeletedTime() {
+    return genClient.cacheGet(CacheKey.deletedTime);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.inventory";
@@ -323,6 +331,12 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
       @Override
       public Object extractValue(Item instance) {
         return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
+      }
+    },
+    deletedTime {
+      @Override
+      public Object extractValue(Item instance) {
+        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
       }
     },
       ;
@@ -529,6 +543,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'deletedTime' field is set and is not null */
+  public boolean isNotNullDeletedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -634,6 +653,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'deletedTime' field has been set, however the value could be null */
+  public boolean hasDeletedTime() {
+    return genClient.cacheHasKey(CacheKey.deletedTime);
   }
 
 
@@ -798,6 +822,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
+  /**
+   * Sets the field 'deletedTime'.
+   */
+  public Item setDeletedTime(java.lang.Long deletedTime) {
+    return genClient.setOther(deletedTime, CacheKey.deletedTime);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -882,6 +913,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
+  }
+  /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
+  public void clearDeletedTime() {
+    genClient.clear(CacheKey.deletedTime);
   }
 
 
@@ -971,6 +1006,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean TAGS_IS_REQUIRED = false;
     public static final boolean ITEMSTOCK_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean DELETEDTIME_IS_REQUIRED = false;
 
   }
 

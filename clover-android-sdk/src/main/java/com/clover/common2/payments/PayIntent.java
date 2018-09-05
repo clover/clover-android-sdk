@@ -26,7 +26,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.clover.sdk.v1.Intents;
+import com.clover.sdk.v1.configuration.Themes;
 import com.clover.sdk.v3.apps.AppTracking;
+import com.clover.sdk.v3.payments.CardTransaction;
 import com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification;
 import com.clover.sdk.v3.payments.GermanInfo;
 import com.clover.sdk.v3.payments.Payment;
@@ -48,9 +50,14 @@ public class PayIntent implements Parcelable {
     DATA(Intents.TRANSACTION_TYPE_CARD_DATA),
     BALANCE_INQUIRY(Intents.TRANSACTION_TYPE_BALANCE_INQUIRY),
     PAYMENT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_PAYMENT),
+    PAYMENT_ADJUSTMENT(Intents.TRANSACTION_TYPE_ADJUSTMENT_PAYMENT),
     CREDIT_REVERSAL(Intents.TRANSACTION_TYPE_MANUAL_REVERSAL_REFUND),
+    REFUND_ADJUSTMENT(Intents.TRANSACTION_TYPE_ADJUSTMENT_REFUND),
     CASH_ADVANCE(Intents.TRANSACTION_TYPE_CASH_ADVANCE),
-    VAS_DATA(Intents.TRANSACTION_TYPE_VAS_DATA)
+    CAPTURE_PREAUTH(Intents.TRANSACTION_TYPE_CAPTURE_PREAUTH),
+    VAS_DATA(Intents.TRANSACTION_TYPE_VAS_DATA),
+    VERIFY_CARD(Intents.TRANSACTION_TYPE_VERIFY_CARD),
+    TOKENIZE_CARD(Intents.TRANSACTION_TYPE_TOKENIZE_CARD)
     ;
 
     public final String intentValue;
@@ -101,6 +108,7 @@ public class PayIntent implements Parcelable {
     private boolean disableRestartTransactionWhenFailed;
     // Can be set to the properly formatted uuid for a payment (
     private String externalPaymentId;
+    private String externalReferenceId;
     private VaultedCard vaultedCard;
     @Deprecated // Please use TransactionSettings
     private Boolean allowOfflinePayment;
@@ -115,6 +123,10 @@ public class PayIntent implements Parcelable {
     private CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
     private TransactionSettings transactionSettings;
     private VasSettings vasSettings;
+    @Deprecated // use originatingPayment instead
+    private CardTransaction originatingTransaction;
+    private Themes themeName;
+    private Payment originatingPayment;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -152,6 +164,7 @@ public class PayIntent implements Parcelable {
       voiceAuthCode = intent.getStringExtra(Intents.EXTRA_VOICE_AUTH_CODE);
       postalCode = intent.getStringExtra(Intents.EXTRA_AVS_POSTAL_CODE);
       streetAddress = intent.getStringExtra(Intents.EXTRA_AVS_STREET_ADDRESS);
+      themeName = (Themes) intent.getSerializableExtra(Intents.EXTRA_THEME_NAME);
       isCardNotPresent = intent.getBooleanExtra(Intents.EXTRA_CARD_NOT_PRESENT, false);
       cardDataMessage = intent.getStringExtra(Intents.EXTRA_CARD_DATA_MESSAGE);
       remotePrint = intent.getBooleanExtra(Intents.EXTRA_REMOTE_PRINT, false);
@@ -161,6 +174,7 @@ public class PayIntent implements Parcelable {
           Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, false);
       externalPaymentId = intent.getStringExtra(
           Intents.EXTRA_EXTERNAL_PAYMENT_ID);
+      externalReferenceId = intent.getStringExtra(Intents.EXTRA_EXTERNAL_REFERENCE_ID);
       vaultedCard = intent.getParcelableExtra(Intents.EXTRA_VAULTED_CARD);
 
       if (intent.hasExtra(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
@@ -197,6 +211,14 @@ public class PayIntent implements Parcelable {
       }
       if (intent.hasExtra(Intents.EXTRA_VAS_SETTINGS)) {
         vasSettings = intent.getParcelableExtra(Intents.EXTRA_VAS_SETTINGS);
+      }
+      if (intent.hasExtra(Intents.EXTRA_ORIGINATING_PAYMENT)) {
+        originatingPayment = intent.getParcelableExtra(Intents.EXTRA_ORIGINATING_PAYMENT);
+        if (originatingPayment != null) {
+          originatingTransaction = originatingPayment.getCardTransaction();
+        }
+      } else if (intent.hasExtra(Intents.EXTRA_ORIGINATING_TRANSACTION)) {
+        originatingTransaction = intent.getParcelableExtra(Intents.EXTRA_ORIGINATING_TRANSACTION);
       }
       return this;
     }
@@ -301,6 +323,7 @@ public class PayIntent implements Parcelable {
       this.isForceSwipePinEntry = payIntent.isForceSwipePinEntry;
       this.disableRestartTransactionWhenFailed = payIntent.disableRestartTransactionWhenFailed;
       this.externalPaymentId = payIntent.externalPaymentId;
+      this.externalReferenceId = payIntent.externalReferenceId;
       this.vaultedCard = payIntent.vaultedCard;
       this.allowOfflinePayment = payIntent.allowOfflinePayment;
       this.approveOfflinePaymentWithoutPrompt = payIntent.approveOfflinePaymentWithoutPrompt;
@@ -308,6 +331,7 @@ public class PayIntent implements Parcelable {
       this.applicationTracking = payIntent.applicationTracking;
       this.allowPartialAuth = payIntent.allowPartialAuth;
       this.useLastSwipe = payIntent.useLastSwipe;
+      this.themeName = payIntent.themeName;
       this.germanInfo = payIntent.germanInfo;
       this.germanELVTransaction = payIntent.germanELVTransaction;
       if (payIntent.transactionSettings != null) {
@@ -317,6 +341,12 @@ public class PayIntent implements Parcelable {
       }
       this.cashAdvanceCustomerIdentification = payIntent.cashAdvanceCustomerIdentification;
       this.vasSettings = payIntent.vasSettings;
+      this.originatingPayment = payIntent.originatingPayment;
+      if (this.originatingPayment != null) {
+        this.originatingTransaction = this.originatingPayment.getCardTransaction();
+      } else {
+        this.originatingTransaction = payIntent.originatingTransaction;
+      }
       return this;
     }
 
@@ -436,6 +466,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder externalReferenceId(String externalReferenceId) {
+      this.externalReferenceId = externalReferenceId;
+      return this;
+    }
+
     public Builder vaultedCard(VaultedCard vaultedCard) {
       this.vaultedCard = vaultedCard;
       return this;
@@ -456,6 +491,11 @@ public class PayIntent implements Parcelable {
       if (transactionSettings != null) { // ** Backward Compatibility **
         transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPrompt);
       }
+      return this;
+    }
+
+    public Builder themeName(Themes themeName) {
+      this.themeName = themeName;
       return this;
     }
 
@@ -509,13 +549,37 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated pass originatingPayment instead, originating tx will be auto-populated from the payment card tx
+     */
+    public Builder originatingTransaction(CardTransaction originatingTransaction) {
+      this.originatingTransaction = originatingTransaction;
+      return this;
+    }
+
+    public Builder originatingPayment(Payment originatingPayment) {
+      this.originatingPayment = originatingPayment;
+      if (this.originatingPayment != null) {
+        this.originatingTransaction = originatingPayment.getCardTransaction();
+      }
+      return this;
+    }
+
+    @Deprecated
+    public Builder testing(boolean isTesting) {
+      this.isTesting = isTesting;
+      return this;
+    }
+
     public PayIntent build() {
       return new PayIntent(action, amount, tippableAmount, tipAmount, taxAmount, orderId, paymentId, employeeId,
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
           voiceAuthCode, postalCode, streetAddress, isCardNotPresent, cardDataMessage, remotePrint, transactionNo,
-          isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, vaultedCard, allowOfflinePayment,
+          isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, externalReferenceId, vaultedCard, allowOfflinePayment,
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
-          germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings);
+          germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings,
+          originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
+          themeName, originatingPayment);
     }
   }
 
@@ -549,6 +613,7 @@ public class PayIntent implements Parcelable {
   @Deprecated // Please use TransactionSettings
   public final boolean disableRestartTransactionWhenFailed;
   public final String externalPaymentId;
+  public final String externalReferenceId;
   public final VaultedCard vaultedCard;
   @Deprecated // Please use TransactionSettings
   public final Boolean allowOfflinePayment;
@@ -558,11 +623,14 @@ public class PayIntent implements Parcelable {
   public final AppTracking applicationTracking;
   public final boolean allowPartialAuth;
   public final boolean useLastSwipe;
+  public final Themes themeName;
   public final GermanInfo germanInfo;
   public final String germanELVTransaction;
   public final CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification;
   public final TransactionSettings transactionSettings;
   public final VasSettings vasSettings;
+  public final CardTransaction originatingTransaction;
+  public final Payment originatingPayment;
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, String orderId, String paymentId, String employeeId,
@@ -570,12 +638,11 @@ public class PayIntent implements Parcelable {
                     ServiceChargeAmount serviceChargeAmount, boolean isDisableCashBack, boolean isTesting,
                     int cardEntryMethods, String voiceAuthCode, String postalCode, String streetAddress,
                     boolean isCardNotPresent, String cardDataMessage, boolean remotePrint, String transactionNo,
-                    boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,
+                    boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,String externalReferenceId,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
                     GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings,
-                    VasSettings vasSettings) {
-
+                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -600,6 +667,7 @@ public class PayIntent implements Parcelable {
     this.isForceSwipePinEntry = isForceSwipePinEntry;
     this.disableRestartTransactionWhenFailed = disableRestartTransactionWhenFailed;
     this.externalPaymentId = externalPaymentId;
+    this.externalReferenceId = externalReferenceId;
     this.vaultedCard = vaultedCard;
     this.allowOfflinePayment = allowOfflinePayment;
     this.approveOfflinePaymentWithoutPrompt = approveOfflinePaymentWithoutPrompt;
@@ -607,9 +675,12 @@ public class PayIntent implements Parcelable {
     this.applicationTracking = applicationTracking;
     this.allowPartialAuth = allowPartialAuth;
     this.useLastSwipe = useLastSwipe;
+    this.themeName = themeName;
     this.germanInfo = germanInfo;
     this.germanELVTransaction = germanELVTransaction;
     this.cashAdvanceCustomerIdentification = cashAdvanceCustomerIdentification;
+    this.originatingTransaction = originatingTransaction;
+    this.originatingPayment = originatingPayment;
 
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
@@ -720,6 +791,8 @@ public class PayIntent implements Parcelable {
 
     intent.putExtra(Intents.EXTRA_EXTERNAL_PAYMENT_ID, externalPaymentId);
 
+    intent.putExtra(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
+
     intent.putExtra(Intents.EXTRA_VAULTED_CARD, vaultedCard);
 
     if (allowOfflinePayment != null) {
@@ -750,6 +823,15 @@ public class PayIntent implements Parcelable {
     if (vasSettings != null) {
       intent.putExtra(Intents.EXTRA_VAS_SETTINGS, vasSettings);
     }
+
+    if (originatingPayment != null) {
+      intent.putExtra(Intents.EXTRA_ORIGINATING_PAYMENT, originatingPayment);
+      if (originatingPayment != null) {
+        intent.putExtra(Intents.EXTRA_ORIGINATING_TRANSACTION, originatingPayment.getCardTransaction());
+      }
+    } else if (originatingTransaction != null) {
+      intent.putExtra(Intents.EXTRA_ORIGINATING_TRANSACTION, originatingTransaction);
+    }
   }
 
   @Override
@@ -779,6 +861,7 @@ public class PayIntent implements Parcelable {
            ", isForceSwipePinEntry=" + isForceSwipePinEntry +
            ", disableRestartTransactionWhenFailed=" + disableRestartTransactionWhenFailed +
            ", externalPaymentId='" + externalPaymentId + '\'' +
+           ", externalReferenceId='" + externalReferenceId + '\'' +
            ", vaultedCard=" + vaultedCard + '\'' +
            ", allowOfflinePayment=" + allowOfflinePayment + '\'' +
            ", approveOfflinePaymentWithoutPrompt=" + approveOfflinePaymentWithoutPrompt +
@@ -790,6 +873,7 @@ public class PayIntent implements Parcelable {
            ", germanELVTransaction=" + germanELVTransaction +
            ", transactionSettings=" + transactionSettings +
            ", vasSettings=" + vasSettings +
+           ", themeName=" + themeName +
            '}';
   }
 
@@ -869,6 +953,10 @@ public class PayIntent implements Parcelable {
       bundle.putString(Intents.EXTRA_EXTERNAL_PAYMENT_ID, externalPaymentId);
     }
 
+    if (externalReferenceId != null) {
+      bundle.putString(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
+    }
+
     if (allowOfflinePayment != null) {
       bundle.putBoolean(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE, allowOfflinePayment);
     }
@@ -905,6 +993,18 @@ public class PayIntent implements Parcelable {
 
     if (vasSettings != null) {
       bundle.putParcelable(Intents.EXTRA_VAS_SETTINGS, vasSettings);
+    }
+
+    if (originatingTransaction != null) {
+      bundle.putParcelable(Intents.EXTRA_ORIGINATING_TRANSACTION, originatingTransaction);
+    }
+
+    if(themeName != null) {
+      bundle.putSerializable(Intents.EXTRA_THEME_NAME, themeName);
+    }
+
+    if (originatingPayment != null) {
+      bundle.putParcelable(Intents.EXTRA_ORIGINATING_PAYMENT, originatingPayment);
     }
 
     // write out
@@ -981,6 +1081,9 @@ public class PayIntent implements Parcelable {
       if (bundle.containsKey(Intents.EXTRA_EXTERNAL_PAYMENT_ID)) {
         builder.externalPaymentId(bundle.getString(Intents.EXTRA_EXTERNAL_PAYMENT_ID));
       }
+      if (bundle.containsKey(Intents.EXTRA_EXTERNAL_REFERENCE_ID)) {
+        builder.externalReferenceId(bundle.getString(Intents.EXTRA_EXTERNAL_REFERENCE_ID));
+      }
 
       if (bundle.containsKey(Intents.EXTRA_VAULTED_CARD)) {
         Parcelable parcelable = bundle.getParcelable(Intents.EXTRA_VAULTED_CARD);
@@ -1039,6 +1142,23 @@ public class PayIntent implements Parcelable {
         final Parcelable vasSettingsPacelable = bundle.getParcelable(Intents.EXTRA_VAS_SETTINGS);
         if (vasSettingsPacelable instanceof VasSettings) {
           builder.vasSettings((VasSettings)vasSettingsPacelable);
+        }
+      }
+      if (bundle.containsKey(Intents.EXTRA_ORIGINATING_TRANSACTION)) {
+        final Parcelable originatingTransactionParcelable = bundle.getParcelable(Intents.EXTRA_ORIGINATING_TRANSACTION);
+        if (originatingTransactionParcelable instanceof CardTransaction) {
+          builder.originatingTransaction((CardTransaction)originatingTransactionParcelable);
+        }
+      }
+
+      if(bundle.containsKey(Intents.EXTRA_THEME_NAME)) {
+        builder.themeName((Themes) bundle.getSerializable(Intents.EXTRA_THEME_NAME));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_ORIGINATING_PAYMENT)) {
+        final Parcelable originatingPaymentParcelable = bundle.getParcelable(Intents.EXTRA_ORIGINATING_PAYMENT);
+        if (originatingPaymentParcelable instanceof Payment) {
+          builder.originatingPayment((Payment)originatingPaymentParcelable);
         }
       }
 

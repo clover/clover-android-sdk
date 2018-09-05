@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 package com.clover.sdk.v3.order;
-
-import android.accounts.Account;
-import android.content.Context;
-import android.os.IBinder;
-import android.os.RemoteException;
 
 import com.clover.sdk.FdParcelable;
 import com.clover.sdk.v1.BindingException;
@@ -29,6 +24,7 @@ import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierFdParcelable;
 import com.clover.sdk.v3.pay.PaymentRequest;
+import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
@@ -38,6 +34,12 @@ import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
+import com.clover.sdk.v3.payments.TransactionInfo;
+
+import android.accounts.Account;
+import android.content.Context;
+import android.os.IBinder;
+import android.os.RemoteException;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -567,6 +569,34 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
    * Not available to non-Clover apps.
    * @y.exclude
    */
+  public Order voidPaymentWithCard(final String orderId, final String paymentId, final String iccContainer,
+                                   final PaymentRequestCardDetails card, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPaymentWithCard(orderId, paymentId, iccContainer, card, reason, source, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Order voidPaymentCardPresent(final String orderId, final String paymentId, final String iccContainer,
+                                   final PaymentRequestCardDetails card, final TransactionInfo transactionInfo, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPaymentCardPresent(orderId, paymentId, iccContainer, card, transactionInfo, reason, source, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public Credit addCredit(final String orderId, final Credit credit) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Credit>() {
       @Override
@@ -989,6 +1019,52 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return service.deleteOrder2(orderId, allowDeleteIfLineItemPrinted, status);
+      }
+    });
+  }
+
+  public List<String> getLineItemsToFire(final String orderId) throws RemoteException, ServiceException, BindingException, ClientException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<String>>() {
+      @Override
+      public List<String> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.getLineItemsToFire(orderId, status);
+      }
+    });
+  }
+
+  public boolean refire(final String orderId) throws RemoteException, ServiceException, BindingException, ClientException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
+      @Override
+      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.refire(orderId, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @deprecated Use {@link #deleteOrder3}.
+   * @y.exclude
+   */
+  @Deprecated
+  public boolean deleteOrderOnline2(final String orderId, final boolean usePermissionForOrderDeletions) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
+      @Override
+      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.deleteOrderOnline2(orderId, usePermissionForOrderDeletions, status);
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public boolean deleteOrder3(final String orderId, final boolean deleteOnline, final boolean allowDeleteIfLineItemPrinted, final boolean allowDeleteIfNoEmployeePermission) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
+      @Override
+      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.deleteOrder3(orderId, deleteOnline, allowDeleteIfLineItemPrinted, allowDeleteIfNoEmployeePermission, status);
       }
     });
   }

@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNumMobiles numMobiles}</li>
  * <li>{@link #getNumMinis numMinis}</li>
  * <li>{@link #getNumBayleafs numBayleafs}</li>
+ * <li>{@link #getNumGoldenoaks numGoldenoaks}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -59,6 +60,10 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
 
   public java.lang.Long getNumBayleafs() {
     return genClient.cacheGet(CacheKey.numBayleafs);
+  }
+
+  public java.lang.Long getNumGoldenoaks() {
+    return genClient.cacheGet(CacheKey.numGoldenoaks);
   }
 
 
@@ -93,6 +98,12 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(DeviceCountInfo instance) {
         return instance.genClient.extractOther("numBayleafs", java.lang.Long.class);
+      }
+    },
+    numGoldenoaks {
+      @Override
+      public Object extractValue(DeviceCountInfo instance) {
+        return instance.genClient.extractOther("numGoldenoaks", java.lang.Long.class);
       }
     },
       ;
@@ -187,6 +198,11 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.numBayleafs);
   }
 
+  /** Checks whether the 'numGoldenoaks' field is set and is not null */
+  public boolean isNotNullNumGoldenoaks() {
+    return genClient.cacheValueIsNotNull(CacheKey.numGoldenoaks);
+  }
+
 
 
   /** Checks whether the 'totalDevices' field has been set, however the value could be null */
@@ -212,6 +228,11 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'numBayleafs' field has been set, however the value could be null */
   public boolean hasNumBayleafs() {
     return genClient.cacheHasKey(CacheKey.numBayleafs);
+  }
+
+  /** Checks whether the 'numGoldenoaks' field has been set, however the value could be null */
+  public boolean hasNumGoldenoaks() {
+    return genClient.cacheHasKey(CacheKey.numGoldenoaks);
   }
 
 
@@ -250,6 +271,13 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(numBayleafs, CacheKey.numBayleafs);
   }
 
+  /**
+   * Sets the field 'numGoldenoaks'.
+   */
+  public DeviceCountInfo setNumGoldenoaks(java.lang.Long numGoldenoaks) {
+    return genClient.setOther(numGoldenoaks, CacheKey.numGoldenoaks);
+  }
+
 
   /** Clears the 'totalDevices' field, the 'has' method for this field will now return false */
   public void clearTotalDevices() {
@@ -270,6 +298,10 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
   /** Clears the 'numBayleafs' field, the 'has' method for this field will now return false */
   public void clearNumBayleafs() {
     genClient.clear(CacheKey.numBayleafs);
+  }
+  /** Clears the 'numGoldenoaks' field, the 'has' method for this field will now return false */
+  public void clearNumGoldenoaks() {
+    genClient.clear(CacheKey.numGoldenoaks);
   }
 
 
@@ -335,6 +367,7 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean NUMMOBILES_IS_REQUIRED = false;
     public static final boolean NUMMINIS_IS_REQUIRED = false;
     public static final boolean NUMBAYLEAFS_IS_REQUIRED = false;
+    public static final boolean NUMGOLDENOAKS_IS_REQUIRED = false;
 
   }
 

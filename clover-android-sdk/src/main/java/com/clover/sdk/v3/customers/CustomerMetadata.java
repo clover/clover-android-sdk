@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDobYear dobYear}</li>
  * <li>{@link #getDobMonth dobMonth}</li>
  * <li>{@link #getDobDay dobDay}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
@@ -78,6 +79,13 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   }
 
   /**
+   * The timestamp from when this customer's data was last updated.
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
+  /**
    * Customer who this metadata belongs to.
    */
   public com.clover.sdk.v3.base.Reference getCustomer() {
@@ -116,6 +124,12 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
       @Override
       public Object extractValue(CustomerMetadata instance) {
         return instance.genClient.extractOther("dobDay", java.lang.Integer.class);
+      }
+    },
+    modifiedTime {
+      @Override
+      public Object extractValue(CustomerMetadata instance) {
+        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
       }
     },
     customer {
@@ -219,6 +233,11 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.dobDay);
   }
 
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
   /** Checks whether the 'customer' field is set and is not null */
   public boolean isNotNullCustomer() {
     return genClient.cacheValueIsNotNull(CacheKey.customer);
@@ -249,6 +268,11 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'dobDay' field has been set, however the value could be null */
   public boolean hasDobDay() {
     return genClient.cacheHasKey(CacheKey.dobDay);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
   /** Checks whether the 'customer' field has been set, however the value could be null */
@@ -293,6 +317,13 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   }
 
   /**
+   * Sets the field 'modifiedTime'.
+   */
+  public CustomerMetadata setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
+  /**
    * Sets the field 'customer'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -321,6 +352,10 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   /** Clears the 'dobDay' field, the 'has' method for this field will now return false */
   public void clearDobDay() {
     genClient.clear(CacheKey.dobDay);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
   /** Clears the 'customer' field, the 'has' method for this field will now return false */
   public void clearCustomer() {
@@ -392,6 +427,7 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     public static final boolean DOBYEAR_IS_REQUIRED = false;
     public static final boolean DOBMONTH_IS_REQUIRED = false;
     public static final boolean DOBDAY_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }

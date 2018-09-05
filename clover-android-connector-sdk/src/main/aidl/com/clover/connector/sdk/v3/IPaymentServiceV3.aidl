@@ -1,7 +1,7 @@
 package com.clover.connector.sdk.v3;
 
 import com.clover.connector.sdk.v3.IPaymentServiceListener;
-
+import com.clover.sdk.v3.apps.AppTracking;
 import com.clover.sdk.v3.base.Challenge;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.remotepay.AuthRequest;
@@ -19,7 +19,7 @@ import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
-
+import com.clover.sdk.v1.configuration.UIConfiguration;
 
 /**
  * This service mirrors the functionality of {@link IOrderService} but uses a different
@@ -66,7 +66,6 @@ interface IPaymentServiceV3 {
   /**
    * Sale method, aka "purchase"
    *
-   * @param parentActivity - The activity from which the connector action is being called
    * @param saleRequest    - A SaleRequest object containing basic information needed for the transaction
    */
   void sale(in SaleRequest saleRequest);
@@ -185,4 +184,24 @@ interface IPaymentServiceV3 {
    * @param request The request details
    */
   void closeout(in CloseoutRequest request);
+
+  /**
+   * PRIVATE send calling application information to use for logging and analytics
+   *
+   * @param appTracking - An object containing calling application information needed for
+   *                      analytics capture
+   */
+  void sendAppTracking(in AppTracking appTracking);
+
+  /**
+   * Set configuration object (e.g. theme)
+   * @param configuration - An object containing custom configurations
+  */
+  void setUIConfiguration(in UIConfiguration configuration);
+
+  /**
+   * Send device logs
+   * @param message - A string to distinguish log messages
+  */
+  void sendDebugLog(in String message);
 }

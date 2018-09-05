@@ -43,7 +43,7 @@ import com.clover.sdk.GenericParcelable;
 public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * The type of event that occured
+   * The type of event that occurred
    */
   public com.clover.sdk.v3.cash.Type getType() {
     return genClient.cacheGet(CacheKey.type);

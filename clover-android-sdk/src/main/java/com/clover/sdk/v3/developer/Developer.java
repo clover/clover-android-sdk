@@ -46,9 +46,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCountry country}</li>
  * <li>{@link #getPostalCode postalCode}</li>
  * <li>{@link #getBankAccountNumber bankAccountNumber}</li>
+ * <li>{@link #getBankInfo bankInfo}</li>
  * <li>{@link #getBankRoutingNumber bankRoutingNumber}</li>
  * <li>{@link #getBusinessLegalName businessLegalName}</li>
- * <li>{@link #getTin tin}</li>
  * <li>{@link #getVatRegisterNumber vatRegisterNumber}</li>
  * <li>{@link #getBusinessAddress businessAddress}</li>
  * <li>{@link #getBusinessCity businessCity}</li>
@@ -63,15 +63,21 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPrEmail prEmail}</li>
  * <li>{@link #getPrPhone prPhone}</li>
  * <li>{@link #getWebsite website}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getOwner owner}</li>
  * <li>{@link #getAppBillingSystem appBillingSystem}</li>
  * <li>{@link #getInfoleaseVendorCode infoleaseVendorCode}</li>
  * <li>{@link #getInfoleaseGlCode infoleaseGlCode}</li>
+ * <li>{@link #getRevShare revShare}</li>
+ * <li>{@link #getIsRevShareFlatRate isRevShareFlatRate}</li>
+ * <li>{@link #getRevShareEffectiveTime revShareEffectiveTime}</li>
  * <li>{@link #getSignorName signorName}</li>
  * <li>{@link #getSignorTitle signorTitle}</li>
  * <li>{@link #getReferralSubmissionTime referralSubmissionTime}</li>
  * <li>{@link #getEmergencyEmail emergencyEmail}</li>
+ * <li>{@link #getCollectionApprovalStatus collectionApprovalStatus}</li>
+ * <li>{@link #getIsIsv isIsv}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -92,168 +98,168 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * Developer's individual first name
+   * Developer's individual first name.
    */
   public java.lang.String getFirstName() {
     return genClient.cacheGet(CacheKey.firstName);
   }
 
   /**
-   * Developer's individual last name
+   * Developer's individual last name.
    */
   public java.lang.String getLastName() {
     return genClient.cacheGet(CacheKey.lastName);
   }
 
   /**
-   * Developer's email
+   * Developer's email.
    */
   public java.lang.String getEmail() {
     return genClient.cacheGet(CacheKey.email);
   }
 
   /**
-   * Developer's phone
+   * Developer's phone.
    */
   public java.lang.String getPhone() {
     return genClient.cacheGet(CacheKey.phone);
   }
 
   /**
-   * Developer's date of birth
+   * Developer's date of birth.
    */
   public java.lang.String getDob() {
     return genClient.cacheGet(CacheKey.dob);
   }
 
   /**
-   * Developer's SSN; won't be stored in the clear in the DB; will be stored encrypted in sensitiveInfo
+   * Developer's SSN; won't be stored in the clear in the DB; will be stored encrypted in sensitiveInfo.
    */
   public java.lang.String getSsn() {
     return genClient.cacheGet(CacheKey.ssn);
   }
 
   /**
-   * Developer's address
+   * Developer's address.
    */
   public java.lang.String getAddress() {
     return genClient.cacheGet(CacheKey.address);
   }
 
   /**
-   * Developer's city
+   * Developer's city.
    */
   public java.lang.String getCity() {
     return genClient.cacheGet(CacheKey.city);
   }
 
   /**
-   * Developer's county
+   * Developer's county.
    */
   public java.lang.String getCounty() {
     return genClient.cacheGet(CacheKey.county);
   }
 
   /**
-   * Developer's state
+   * Developer's state.
    */
   public java.lang.String getState() {
     return genClient.cacheGet(CacheKey.state);
   }
 
   /**
-   * Developer's country
+   * Developer's country.
    */
   public java.lang.String getCountry() {
     return genClient.cacheGet(CacheKey.country);
   }
 
   /**
-   * Developer's postal code
+   * Developer's postal code.
    */
   public java.lang.String getPostalCode() {
     return genClient.cacheGet(CacheKey.postalCode);
   }
 
   /**
-   * Developer's bank account number; won't be stored in the clear in the DB; will be stored encrypted in sensitiveInfo
+   * Developer's bank account number; won't be stored in the clear in the DB; will be stored encrypted in sensitiveInfo.
    */
   public java.lang.String getBankAccountNumber() {
     return genClient.cacheGet(CacheKey.bankAccountNumber);
   }
 
   /**
-   * Developer's bank routing number
+   * Developer's bank info that allows persisting last four and billing modified times.
+   */
+  public com.clover.sdk.v3.base.Reference getBankInfo() {
+    return genClient.cacheGet(CacheKey.bankInfo);
+  }
+
+  /**
+   * Developer's bank routing number.
    */
   public java.lang.String getBankRoutingNumber() {
     return genClient.cacheGet(CacheKey.bankRoutingNumber);
   }
 
   /**
-   * Developer's business legal name
+   * Developer's business legal name.
    */
   public java.lang.String getBusinessLegalName() {
     return genClient.cacheGet(CacheKey.businessLegalName);
   }
 
   /**
-   * Developer's Tax ID
-   */
-  public java.lang.String getTin() {
-    return genClient.cacheGet(CacheKey.tin);
-  }
-
-  /**
-   * Developer's VAT Register Number
+   * Developer's VAT Register Number.
    */
   public java.lang.String getVatRegisterNumber() {
     return genClient.cacheGet(CacheKey.vatRegisterNumber);
   }
 
   /**
-   * Developer's business address
+   * Developer's business address.
    */
   public java.lang.String getBusinessAddress() {
     return genClient.cacheGet(CacheKey.businessAddress);
   }
 
   /**
-   * Developer's business city
+   * Developer's business city.
    */
   public java.lang.String getBusinessCity() {
     return genClient.cacheGet(CacheKey.businessCity);
   }
 
   /**
-   * Developer's business state
+   * Developer's business state.
    */
   public java.lang.String getBusinessState() {
     return genClient.cacheGet(CacheKey.businessState);
   }
 
   /**
-   * Developer's business country
+   * Developer's business country.
    */
   public java.lang.String getBusinessCountry() {
     return genClient.cacheGet(CacheKey.businessCountry);
   }
 
   /**
-   * Developer's business postal code
+   * Developer's business postal code.
    */
   public java.lang.String getBusinessPostalCode() {
     return genClient.cacheGet(CacheKey.businessPostalCode);
   }
 
   /**
-   * Developer's billing status
+   * Developer's billing status.
    */
   public com.clover.sdk.v3.developer.DeveloperBillingStatus getBillingStatus() {
     return genClient.cacheGet(CacheKey.billingStatus);
   }
 
   /**
-   * Developer's billing status message
+   * Developer's billing status message.
    */
   public java.lang.String getBillingStatusMessage() {
     return genClient.cacheGet(CacheKey.billingStatusMessage);
@@ -264,38 +270,45 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * If the user has accepted the developer agreement
+   * If the user has accepted the developer agreement.
    */
   public java.lang.Boolean getAcceptedAgreement() {
     return genClient.cacheGet(CacheKey.acceptedAgreement);
   }
 
   /**
-   * Name of public relations contact
+   * Name of public relations contact.
    */
   public java.lang.String getPrName() {
     return genClient.cacheGet(CacheKey.prName);
   }
 
   /**
-   * Email of public relations contact
+   * Email of public relations contact.
    */
   public java.lang.String getPrEmail() {
     return genClient.cacheGet(CacheKey.prEmail);
   }
 
   /**
-   * Phone of public relations contact
+   * Phone of public relations contact.
    */
   public java.lang.String getPrPhone() {
     return genClient.cacheGet(CacheKey.prPhone);
   }
 
   /**
-   * Developer's business website
+   * Developer's business website.
    */
   public java.lang.String getWebsite() {
     return genClient.cacheGet(CacheKey.website);
+  }
+
+  /**
+   * Timestamp indicating the time the developer was created.
+   */
+  public java.lang.Long getCreatedTime() {
+    return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
@@ -313,7 +326,7 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * Temporary while we are switching US billing systems
+   * Temporary while we are switching US billing systems.
    */
   public java.lang.String getAppBillingSystem() {
     return genClient.cacheGet(CacheKey.appBillingSystem);
@@ -334,21 +347,42 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * Signor name for developer referral program
+   * Revenue share due the developer.
+   */
+  public java.lang.Integer getRevShare() {
+    return genClient.cacheGet(CacheKey.revShare);
+  }
+
+  /**
+   * Revenue share is a flat rate / amount not percentage.
+   */
+  public java.lang.Boolean getIsRevShareFlatRate() {
+    return genClient.cacheGet(CacheKey.isRevShareFlatRate);
+  }
+
+  /**
+   * Timestamp indicating when the revenue share is effective.
+   */
+  public java.lang.Long getRevShareEffectiveTime() {
+    return genClient.cacheGet(CacheKey.revShareEffectiveTime);
+  }
+
+  /**
+   * Signor name for developer referral program.
    */
   public java.lang.String getSignorName() {
     return genClient.cacheGet(CacheKey.signorName);
   }
 
   /**
-   * Signor title for developer referral program
+   * Signor title for developer referral program.
    */
   public java.lang.String getSignorTitle() {
     return genClient.cacheGet(CacheKey.signorTitle);
   }
 
   /**
-   * Timestamp indicating when the developer referral form was submitted
+   * Timestamp indicating when the developer referral form was submitted.
    */
   public java.lang.Long getReferralSubmissionTime() {
     return genClient.cacheGet(CacheKey.referralSubmissionTime);
@@ -359,6 +393,20 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public java.lang.String getEmergencyEmail() {
     return genClient.cacheGet(CacheKey.emergencyEmail);
+  }
+
+  /**
+   * Developer's status concerning the ability to create private app collections.
+   */
+  public com.clover.sdk.v3.developer.CollectionApprovalStatus getCollectionApprovalStatus() {
+    return genClient.cacheGet(CacheKey.collectionApprovalStatus);
+  }
+
+  /**
+   * This is true if the developer has a partner app.
+   */
+  public java.lang.Boolean getIsIsv() {
+    return genClient.cacheGet(CacheKey.isIsv);
   }
 
 
@@ -455,6 +503,12 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
         return instance.genClient.extractOther("bankAccountNumber", java.lang.String.class);
       }
     },
+    bankInfo {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractRecord("bankInfo", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
     bankRoutingNumber {
       @Override
       public Object extractValue(Developer instance) {
@@ -465,12 +519,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Developer instance) {
         return instance.genClient.extractOther("businessLegalName", java.lang.String.class);
-      }
-    },
-    tin {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("tin", java.lang.String.class);
       }
     },
     vatRegisterNumber {
@@ -557,6 +605,12 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
         return instance.genClient.extractOther("website", java.lang.String.class);
       }
     },
+    createdTime {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
+      }
+    },
     modifiedTime {
       @Override
       public Object extractValue(Developer instance) {
@@ -587,6 +641,24 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
         return instance.genClient.extractOther("infoleaseGlCode", java.lang.String.class);
       }
     },
+    revShare {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractOther("revShare", java.lang.Integer.class);
+      }
+    },
+    isRevShareFlatRate {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractOther("isRevShareFlatRate", java.lang.Boolean.class);
+      }
+    },
+    revShareEffectiveTime {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractOther("revShareEffectiveTime", java.lang.Long.class);
+      }
+    },
     signorName {
       @Override
       public Object extractValue(Developer instance) {
@@ -609,6 +681,18 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
       @Override
       public Object extractValue(Developer instance) {
         return instance.genClient.extractOther("emergencyEmail", java.lang.String.class);
+      }
+    },
+    collectionApprovalStatus {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractEnum("collectionApprovalStatus", com.clover.sdk.v3.developer.CollectionApprovalStatus.class);
+      }
+    },
+    isIsv {
+      @Override
+      public Object extractValue(Developer instance) {
+        return instance.genClient.extractOther("isIsv", java.lang.Boolean.class);
       }
     },
       ;
@@ -709,8 +793,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     genClient.validateLength(getBankRoutingNumber(), 40);
 
     genClient.validateLength(getBusinessLegalName(), 255);
-
-    genClient.validateLength(getTin(), 9);
 
     genClient.validateLength(getVatRegisterNumber(), 127);
 
@@ -822,6 +904,11 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.bankAccountNumber);
   }
 
+  /** Checks whether the 'bankInfo' field is set and is not null */
+  public boolean isNotNullBankInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.bankInfo);
+  }
+
   /** Checks whether the 'bankRoutingNumber' field is set and is not null */
   public boolean isNotNullBankRoutingNumber() {
     return genClient.cacheValueIsNotNull(CacheKey.bankRoutingNumber);
@@ -830,11 +917,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'businessLegalName' field is set and is not null */
   public boolean isNotNullBusinessLegalName() {
     return genClient.cacheValueIsNotNull(CacheKey.businessLegalName);
-  }
-
-  /** Checks whether the 'tin' field is set and is not null */
-  public boolean isNotNullTin() {
-    return genClient.cacheValueIsNotNull(CacheKey.tin);
   }
 
   /** Checks whether the 'vatRegisterNumber' field is set and is not null */
@@ -907,6 +989,11 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.website);
   }
 
+  /** Checks whether the 'createdTime' field is set and is not null */
+  public boolean isNotNullCreatedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.createdTime);
+  }
+
   /** Checks whether the 'modifiedTime' field is set and is not null */
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
@@ -932,6 +1019,21 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.infoleaseGlCode);
   }
 
+  /** Checks whether the 'revShare' field is set and is not null */
+  public boolean isNotNullRevShare() {
+    return genClient.cacheValueIsNotNull(CacheKey.revShare);
+  }
+
+  /** Checks whether the 'isRevShareFlatRate' field is set and is not null */
+  public boolean isNotNullIsRevShareFlatRate() {
+    return genClient.cacheValueIsNotNull(CacheKey.isRevShareFlatRate);
+  }
+
+  /** Checks whether the 'revShareEffectiveTime' field is set and is not null */
+  public boolean isNotNullRevShareEffectiveTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.revShareEffectiveTime);
+  }
+
   /** Checks whether the 'signorName' field is set and is not null */
   public boolean isNotNullSignorName() {
     return genClient.cacheValueIsNotNull(CacheKey.signorName);
@@ -950,6 +1052,16 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'emergencyEmail' field is set and is not null */
   public boolean isNotNullEmergencyEmail() {
     return genClient.cacheValueIsNotNull(CacheKey.emergencyEmail);
+  }
+
+  /** Checks whether the 'collectionApprovalStatus' field is set and is not null */
+  public boolean isNotNullCollectionApprovalStatus() {
+    return genClient.cacheValueIsNotNull(CacheKey.collectionApprovalStatus);
+  }
+
+  /** Checks whether the 'isIsv' field is set and is not null */
+  public boolean isNotNullIsIsv() {
+    return genClient.cacheValueIsNotNull(CacheKey.isIsv);
   }
 
 
@@ -1029,6 +1141,11 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheHasKey(CacheKey.bankAccountNumber);
   }
 
+  /** Checks whether the 'bankInfo' field has been set, however the value could be null */
+  public boolean hasBankInfo() {
+    return genClient.cacheHasKey(CacheKey.bankInfo);
+  }
+
   /** Checks whether the 'bankRoutingNumber' field has been set, however the value could be null */
   public boolean hasBankRoutingNumber() {
     return genClient.cacheHasKey(CacheKey.bankRoutingNumber);
@@ -1037,11 +1154,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'businessLegalName' field has been set, however the value could be null */
   public boolean hasBusinessLegalName() {
     return genClient.cacheHasKey(CacheKey.businessLegalName);
-  }
-
-  /** Checks whether the 'tin' field has been set, however the value could be null */
-  public boolean hasTin() {
-    return genClient.cacheHasKey(CacheKey.tin);
   }
 
   /** Checks whether the 'vatRegisterNumber' field has been set, however the value could be null */
@@ -1114,6 +1226,11 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheHasKey(CacheKey.website);
   }
 
+  /** Checks whether the 'createdTime' field has been set, however the value could be null */
+  public boolean hasCreatedTime() {
+    return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
@@ -1139,6 +1256,21 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheHasKey(CacheKey.infoleaseGlCode);
   }
 
+  /** Checks whether the 'revShare' field has been set, however the value could be null */
+  public boolean hasRevShare() {
+    return genClient.cacheHasKey(CacheKey.revShare);
+  }
+
+  /** Checks whether the 'isRevShareFlatRate' field has been set, however the value could be null */
+  public boolean hasIsRevShareFlatRate() {
+    return genClient.cacheHasKey(CacheKey.isRevShareFlatRate);
+  }
+
+  /** Checks whether the 'revShareEffectiveTime' field has been set, however the value could be null */
+  public boolean hasRevShareEffectiveTime() {
+    return genClient.cacheHasKey(CacheKey.revShareEffectiveTime);
+  }
+
   /** Checks whether the 'signorName' field has been set, however the value could be null */
   public boolean hasSignorName() {
     return genClient.cacheHasKey(CacheKey.signorName);
@@ -1157,6 +1289,16 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'emergencyEmail' field has been set, however the value could be null */
   public boolean hasEmergencyEmail() {
     return genClient.cacheHasKey(CacheKey.emergencyEmail);
+  }
+
+  /** Checks whether the 'collectionApprovalStatus' field has been set, however the value could be null */
+  public boolean hasCollectionApprovalStatus() {
+    return genClient.cacheHasKey(CacheKey.collectionApprovalStatus);
+  }
+
+  /** Checks whether the 'isIsv' field has been set, however the value could be null */
+  public boolean hasIsIsv() {
+    return genClient.cacheHasKey(CacheKey.isIsv);
   }
 
 
@@ -1266,6 +1408,15 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'bankInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Developer setBankInfo(com.clover.sdk.v3.base.Reference bankInfo) {
+    return genClient.setRecord(bankInfo, CacheKey.bankInfo);
+  }
+
+  /**
    * Sets the field 'bankRoutingNumber'.
    */
   public Developer setBankRoutingNumber(java.lang.String bankRoutingNumber) {
@@ -1277,13 +1428,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Developer setBusinessLegalName(java.lang.String businessLegalName) {
     return genClient.setOther(businessLegalName, CacheKey.businessLegalName);
-  }
-
-  /**
-   * Sets the field 'tin'.
-   */
-  public Developer setTin(java.lang.String tin) {
-    return genClient.setOther(tin, CacheKey.tin);
   }
 
   /**
@@ -1385,6 +1529,13 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'createdTime'.
+   */
+  public Developer setCreatedTime(java.lang.Long createdTime) {
+    return genClient.setOther(createdTime, CacheKey.createdTime);
+  }
+
+  /**
    * Sets the field 'modifiedTime'.
    */
   public Developer setModifiedTime(java.lang.Long modifiedTime) {
@@ -1422,6 +1573,27 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'revShare'.
+   */
+  public Developer setRevShare(java.lang.Integer revShare) {
+    return genClient.setOther(revShare, CacheKey.revShare);
+  }
+
+  /**
+   * Sets the field 'isRevShareFlatRate'.
+   */
+  public Developer setIsRevShareFlatRate(java.lang.Boolean isRevShareFlatRate) {
+    return genClient.setOther(isRevShareFlatRate, CacheKey.isRevShareFlatRate);
+  }
+
+  /**
+   * Sets the field 'revShareEffectiveTime'.
+   */
+  public Developer setRevShareEffectiveTime(java.lang.Long revShareEffectiveTime) {
+    return genClient.setOther(revShareEffectiveTime, CacheKey.revShareEffectiveTime);
+  }
+
+  /**
    * Sets the field 'signorName'.
    */
   public Developer setSignorName(java.lang.String signorName) {
@@ -1447,6 +1619,20 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Developer setEmergencyEmail(java.lang.String emergencyEmail) {
     return genClient.setOther(emergencyEmail, CacheKey.emergencyEmail);
+  }
+
+  /**
+   * Sets the field 'collectionApprovalStatus'.
+   */
+  public Developer setCollectionApprovalStatus(com.clover.sdk.v3.developer.CollectionApprovalStatus collectionApprovalStatus) {
+    return genClient.setOther(collectionApprovalStatus, CacheKey.collectionApprovalStatus);
+  }
+
+  /**
+   * Sets the field 'isIsv'.
+   */
+  public Developer setIsIsv(java.lang.Boolean isIsv) {
+    return genClient.setOther(isIsv, CacheKey.isIsv);
   }
 
 
@@ -1510,6 +1696,10 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearBankAccountNumber() {
     genClient.clear(CacheKey.bankAccountNumber);
   }
+  /** Clears the 'bankInfo' field, the 'has' method for this field will now return false */
+  public void clearBankInfo() {
+    genClient.clear(CacheKey.bankInfo);
+  }
   /** Clears the 'bankRoutingNumber' field, the 'has' method for this field will now return false */
   public void clearBankRoutingNumber() {
     genClient.clear(CacheKey.bankRoutingNumber);
@@ -1517,10 +1707,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'businessLegalName' field, the 'has' method for this field will now return false */
   public void clearBusinessLegalName() {
     genClient.clear(CacheKey.businessLegalName);
-  }
-  /** Clears the 'tin' field, the 'has' method for this field will now return false */
-  public void clearTin() {
-    genClient.clear(CacheKey.tin);
   }
   /** Clears the 'vatRegisterNumber' field, the 'has' method for this field will now return false */
   public void clearVatRegisterNumber() {
@@ -1578,6 +1764,10 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearWebsite() {
     genClient.clear(CacheKey.website);
   }
+  /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
+  public void clearCreatedTime() {
+    genClient.clear(CacheKey.createdTime);
+  }
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
@@ -1598,6 +1788,18 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearInfoleaseGlCode() {
     genClient.clear(CacheKey.infoleaseGlCode);
   }
+  /** Clears the 'revShare' field, the 'has' method for this field will now return false */
+  public void clearRevShare() {
+    genClient.clear(CacheKey.revShare);
+  }
+  /** Clears the 'isRevShareFlatRate' field, the 'has' method for this field will now return false */
+  public void clearIsRevShareFlatRate() {
+    genClient.clear(CacheKey.isRevShareFlatRate);
+  }
+  /** Clears the 'revShareEffectiveTime' field, the 'has' method for this field will now return false */
+  public void clearRevShareEffectiveTime() {
+    genClient.clear(CacheKey.revShareEffectiveTime);
+  }
   /** Clears the 'signorName' field, the 'has' method for this field will now return false */
   public void clearSignorName() {
     genClient.clear(CacheKey.signorName);
@@ -1613,6 +1815,14 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'emergencyEmail' field, the 'has' method for this field will now return false */
   public void clearEmergencyEmail() {
     genClient.clear(CacheKey.emergencyEmail);
+  }
+  /** Clears the 'collectionApprovalStatus' field, the 'has' method for this field will now return false */
+  public void clearCollectionApprovalStatus() {
+    genClient.clear(CacheKey.collectionApprovalStatus);
+  }
+  /** Clears the 'isIsv' field, the 'has' method for this field will now return false */
+  public void clearIsIsv() {
+    genClient.clear(CacheKey.isIsv);
   }
 
 
@@ -1703,12 +1913,11 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long POSTALCODE_MAX_LEN = 20;
     public static final boolean BANKACCOUNTNUMBER_IS_REQUIRED = false;
     public static final long BANKACCOUNTNUMBER_MAX_LEN = 34;
+    public static final boolean BANKINFO_IS_REQUIRED = false;
     public static final boolean BANKROUTINGNUMBER_IS_REQUIRED = false;
     public static final long BANKROUTINGNUMBER_MAX_LEN = 40;
     public static final boolean BUSINESSLEGALNAME_IS_REQUIRED = false;
     public static final long BUSINESSLEGALNAME_MAX_LEN = 255;
-    public static final boolean TIN_IS_REQUIRED = false;
-    public static final long TIN_MAX_LEN = 9;
     public static final boolean VATREGISTERNUMBER_IS_REQUIRED = false;
     public static final long VATREGISTERNUMBER_MAX_LEN = 127;
     public static final boolean BUSINESSADDRESS_IS_REQUIRED = false;
@@ -1734,6 +1943,7 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long PRPHONE_MAX_LEN = 25;
     public static final boolean WEBSITE_IS_REQUIRED = false;
     public static final long WEBSITE_MAX_LEN = 255;
+    public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean OWNER_IS_REQUIRED = false;
     public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;
@@ -1742,6 +1952,9 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long INFOLEASEVENDORCODE_MAX_LEN = 30;
     public static final boolean INFOLEASEGLCODE_IS_REQUIRED = false;
     public static final long INFOLEASEGLCODE_MAX_LEN = 10;
+    public static final boolean REVSHARE_IS_REQUIRED = false;
+    public static final boolean ISREVSHAREFLATRATE_IS_REQUIRED = false;
+    public static final boolean REVSHAREEFFECTIVETIME_IS_REQUIRED = false;
     public static final boolean SIGNORNAME_IS_REQUIRED = false;
     public static final long SIGNORNAME_MAX_LEN = 127;
     public static final boolean SIGNORTITLE_IS_REQUIRED = false;
@@ -1749,6 +1962,8 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean REFERRALSUBMISSIONTIME_IS_REQUIRED = false;
     public static final boolean EMERGENCYEMAIL_IS_REQUIRED = false;
     public static final long EMERGENCYEMAIL_MAX_LEN = 127;
+    public static final boolean COLLECTIONAPPROVALSTATUS_IS_REQUIRED = false;
+    public static final boolean ISISV_IS_REQUIRED = false;
 
   }
 

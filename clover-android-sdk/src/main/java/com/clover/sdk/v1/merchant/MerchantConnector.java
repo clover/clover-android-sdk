@@ -174,10 +174,12 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
   @Override
   public void disconnect() {
     if (mListener != null) {
-      try {
-        mService.removeListener(mListener, new ResultStatus());
-      } catch (RemoteException e) {
-        e.printStackTrace();
+      if (mService != null) {
+        try {
+          mService.removeListener(mListener, new ResultStatus());
+        } catch (RemoteException e) {
+          e.printStackTrace();
+        }
       }
       mListener.destroy();
       mListener = null;

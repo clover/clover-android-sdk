@@ -837,6 +837,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<TaxRate> getTaxRatesExcludedForItem(String orderTypeId, String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("getTaxRatesForItem() not supported through web service API");
+    }
+
+    @Override
     public void assignTaxRatesToItem(String itemId, List<String> taxRates, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement assignTaxRatesToItem()");
     }

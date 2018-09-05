@@ -85,6 +85,14 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     return genClient.cacheGet(CacheKey.requestId);
   }
 
+  /**
+   * Identifier for the version
+   */
+  @Override
+  public java.lang.Integer getVersion() {
+    return genClient.cacheGet(CacheKey.version);
+  }
+
 
 
 
@@ -123,6 +131,12 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
       @Override
       public Object extractValue(PrintRequest instance) {
         return instance.genClient.extractOther("requestId", java.lang.String.class);
+      }
+    },
+    version {
+      @Override
+      public Object extractValue(PrintRequest instance) {
+        return instance.genClient.extractOther("version", java.lang.Integer.class);
       }
     },
       ;
@@ -235,6 +249,12 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     return genClient.cacheValueIsNotNull(CacheKey.requestId);
   }
 
+  /** Checks whether the 'version' field is set and is not null */
+  @Override
+  public boolean isNotNullVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.version);
+  }
+
 
 
   /** Checks whether the 'image' field has been set, however the value could be null */
@@ -266,6 +286,12 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   @Override
   public boolean hasRequestId() {
     return genClient.cacheHasKey(CacheKey.requestId);
+  }
+
+  /** Checks whether the 'version' field has been set, however the value could be null */
+  @Override
+  public boolean hasVersion() {
+    return genClient.cacheHasKey(CacheKey.version);
   }
 
 
@@ -318,6 +344,14 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     return genClient.setOther(requestId, CacheKey.requestId);
   }
 
+  /**
+   * Sets the field 'version'.
+   */
+  @Override
+  public BaseRequest setVersion(java.lang.Integer version) {
+    return genClient.setOther(version, CacheKey.version);
+  }
+
 
   /** Clears the 'image' field, the 'has' method for this field will now return false */
   public void clearImage() {
@@ -343,6 +377,11 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   @Override
   public void clearRequestId() {
     genClient.clear(CacheKey.requestId);
+  }
+  /** Clears the 'version' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearVersion() {
+    genClient.clear(CacheKey.version);
   }
 
 
@@ -410,6 +449,7 @@ public class PrintRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     public static final boolean PRINTDEVICEID_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
+    public static final boolean VERSION_IS_REQUIRED = false;
 
   }
 

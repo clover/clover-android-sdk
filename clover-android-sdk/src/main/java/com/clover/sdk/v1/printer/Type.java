@@ -20,16 +20,19 @@ import android.os.Parcelable;
 
 public enum Type implements Parcelable {
 
-  STAR_TSP100_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100Ethernet", "Star TSP100", true, true, 1, 576),
-  STAR_TSP100_USB("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100USB", "Star TSP100U", true, true, 1, 576),
-  STAR_TSP700_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarSP700Ethernet", "Star SP700", false, true, 1, 0),
-  SEIKO_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.Seiko", "Station", true, true, 1, 576),
-  FIGLEAF_BT("com.clover.engine.services.ReceiptPrinterPlugins.figleaf.Figleaf", "Mobile", true, true, 0, 384),
-  SEIKO_MINI_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoMini", "Mini", true, true, 1, 384),
-  SEIKO_REMOTE("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoRemote", "Station Remote", true, true, 1, 576),
-  BAYLEAF_USB("com.clover.engine.services.ReceiptPrinterPlugins.bayleaf.Bayleaf", "Flex", true, true, 0, 384),
-  GOLDEN_OAK_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station", true, true, 2, 576),
-  ACORN_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station", true, true, 2, 576),
+  STAR_TSP100_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100Ethernet", "Star TSP100", true, true, false, 1, 576),
+  STAR_TSP100_USB("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarTSP100USB", "Star TSP100U", true, true, false, 1, 576),
+  STAR_TSP700_ETHERNET("com.clover.engine.services.ReceiptPrinterPlugins.Star.StarSP700Ethernet", "Star SP700", false, true, false, 1, 0),
+  SEIKO_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.Seiko", "Station", true, true, false, 1, 576),
+  FIGLEAF_BT("com.clover.engine.services.ReceiptPrinterPlugins.figleaf.Figleaf", "Mobile", true, true, false, 0, 384),
+  SEIKO_MINI_USB("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoMini", "Mini", true, true, false, 1, 384),
+  SEIKO_REMOTE("com.clover.engine.services.ReceiptPrinterPlugins.seiko.SeikoRemote", "Station Remote", true, true, false, 1, 576),
+  BAYLEAF_USB("com.clover.engine.services.ReceiptPrinterPlugins.bayleaf.Bayleaf", "Flex", true, true, false, 0, 384),
+  GOLDEN_OAK_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station", true, true, false, 2, 576),
+  ACORN_USB("com.clover.engine.services.ReceiptPrinterPlugins.goldenoak.Goldenoak", "Station", true, true, false, 2, 576),
+  HASAR_1GEN_USB("com.clover.engine.services.ReceiptPrinterPlugins.hasar.Hasar1GenUSB", "Hasar 1st Generation USB", false, false, true, 1, 384),
+  HASAR_2GEN_USB("com.clover.engine.services.ReceiptPrinterPlugins.hasar.Hasar2GenUSB", "Hasar 2nd Generation USB", false, false, true, 1, 384),
+  HASAR_2GEN_ETH("com.clover.engine.services.ReceiptPrinterPlugins.hasar.Hasar2GenEthernet", "Hasar 2nd Generation Ethernet", false, false, true, 1, 384)
   ;
 
   public final String baseClassName;
@@ -42,6 +45,11 @@ public enum Type implements Parcelable {
    * Capable of printing orders.
    */
   public final boolean order;
+  /**
+   * Capable of printing fiscal documents
+   */
+  public final boolean fiscal;
+
   public final boolean supportsCashDrawer; // keeping this for backward compatibility
   public final int numCashDrawersSupported;
   /**
@@ -50,11 +58,12 @@ public enum Type implements Parcelable {
    */
   public final int numDotsWidth;
 
-  private Type(String baseClassName, String model, boolean receipt, boolean order, int numCashDrawersSupported, int numDotsWidth) {
+  private Type(String baseClassName, String model, boolean receipt, boolean order, boolean fiscal, int numCashDrawersSupported, int numDotsWidth) {
     this.baseClassName = baseClassName;
     this.model = model;
     this.receipt = receipt;
     this.order = order;
+    this.fiscal = fiscal;
     this.numCashDrawersSupported = numCashDrawersSupported;
     this.supportsCashDrawer = (numCashDrawersSupported > 0);
     this.numDotsWidth = numDotsWidth;
@@ -68,6 +77,10 @@ public enum Type implements Parcelable {
     return order;
   }
 
+  public boolean isFiscal() {
+    return fiscal;
+  }
+
   public String getDriverClassName(Category category) {
     switch (category) {
       case RECEIPT:
@@ -79,6 +92,12 @@ public enum Type implements Parcelable {
       case ORDER:
         if (isOrder()) {
           return baseClassName + "Order";
+        } else {
+          return null;
+        }
+      case FISCAL:
+        if (isFiscal()) {
+          return baseClassName;
         } else {
           return null;
         }

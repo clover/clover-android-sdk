@@ -1,0 +1,3 @@
+<resources>
+  <attr name="rotateToMerchantDialogTheme" format="reference" />
+</resources>

@@ -38,58 +38,63 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getAllowOfflinePayment allowOfflinePayment}</li>
  * <li>{@link #getForceOfflinePayment forceOfflinePayment}</li>
  * <li>{@link #getApproveOfflinePaymentWithoutPrompt approveOfflinePaymentWithoutPrompt}</li>
+ * <li>{@link #getTipMode tipMode}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest {
+public class AuthRequest extends TransactionRequest {
 
   /**
    * Total amount used when calculating tips
    */
-  public java.lang.Long getTippableAmount() {
+  public Long getTippableAmount() {
     return genClient.cacheGet(CacheKey.tippableAmount);
   }
 
   /**
    * Do not allow cash back
    */
-  public java.lang.Boolean getDisableCashback() {
+  public Boolean getDisableCashback() {
     return genClient.cacheGet(CacheKey.disableCashback);
   }
 
   /**
-   * Amount paid in tips
+   * Amount paid in tax
    */
-  public java.lang.Long getTaxAmount() {
+  public Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
   /**
    * If true then offline payments can be accepted
    */
-  public java.lang.Boolean getAllowOfflinePayment() {
+  public Boolean getAllowOfflinePayment() {
     return genClient.cacheGet(CacheKey.allowOfflinePayment);
   }
 
   /**
    * If true then payment will be taken offline, regardless of connection status
    */
-  public java.lang.Boolean getForceOfflinePayment() {
+  public Boolean getForceOfflinePayment() {
     return genClient.cacheGet(CacheKey.forceOfflinePayment);
   }
 
   /**
    * If true then offline payments will be approved without a prompt.  Currently must be true.
    */
-  public java.lang.Boolean getApproveOfflinePaymentWithoutPrompt() {
+  public Boolean getApproveOfflinePaymentWithoutPrompt() {
     return genClient.cacheGet(CacheKey.approveOfflinePaymentWithoutPrompt);
+  }
+
+  public com.clover.sdk.v3.payments.TipMode getTipMode() {
+    return genClient.cacheGet(CacheKey.tipMode);
   }
 
   /**
    * Identifier for the order to apply this to.  The order must exist in the clover system.
    */
   @Override
-  public java.lang.String getOrderId() {
+  public String getOrderId() {
     return genClient.cacheGet(CacheKey.orderId);
   }
 
@@ -97,7 +102,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * If the amount is equal to or greater than this amount, then a signature should be obtained
    */
   @Override
-  public java.lang.Long getSignatureThreshold() {
+  public Long getSignatureThreshold() {
     return genClient.cacheGet(CacheKey.signatureThreshold);
   }
 
@@ -105,7 +110,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * If true, then do not print using the clover printer.  Return print information.
    */
   @Override
-  public java.lang.Boolean getDisablePrinting() {
+  public Boolean getDisablePrinting() {
     return genClient.cacheGet(CacheKey.disablePrinting);
   }
 
@@ -113,7 +118,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Do not show the receipt options screen
    */
   @Override
-  public java.lang.Boolean getDisableReceiptSelection() {
+  public Boolean getDisableReceiptSelection() {
     return genClient.cacheGet(CacheKey.disableReceiptSelection);
   }
 
@@ -121,7 +126,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Do not do heuristic duplicate checking
    */
   @Override
-  public java.lang.Boolean getDisableDuplicateChecking() {
+  public Boolean getDisableDuplicateChecking() {
     return genClient.cacheGet(CacheKey.disableDuplicateChecking);
   }
 
@@ -137,7 +142,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * If true then card not present is accepted
    */
   @Override
-  public java.lang.Boolean getCardNotPresent() {
+  public Boolean getCardNotPresent() {
     return genClient.cacheGet(CacheKey.cardNotPresent);
   }
 
@@ -145,7 +150,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * If the transaction times out or fails because of decline, do not restart it
    */
   @Override
-  public java.lang.Boolean getDisableRestartTransactionOnFail() {
+  public Boolean getDisableRestartTransactionOnFail() {
     return genClient.cacheGet(CacheKey.disableRestartTransactionOnFail);
   }
 
@@ -153,7 +158,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Total amount paid
    */
   @Override
-  public java.lang.Long getAmount() {
+  public Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
@@ -161,7 +166,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Allowed entry methods
    */
   @Override
-  public java.lang.Integer getCardEntryMethods() {
+  public Integer getCardEntryMethods() {
     return genClient.cacheGet(CacheKey.cardEntryMethods);
   }
 
@@ -177,7 +182,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * An id that will be persisted with transactions.
    */
   @Override
-  public java.lang.String getExternalId() {
+  public String getExternalId() {
     return genClient.cacheGet(CacheKey.externalId);
   }
 
@@ -185,7 +190,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * The type of the transaction.
    */
   @Override
-  public com.clover.sdk.v3.remotepay.TransactionType getType() {
+  public TransactionType getType() {
     return genClient.cacheGet(CacheKey.type);
   }
 
@@ -193,7 +198,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Do not show/send potential duplicate challenges
    */
   @Override
-  public java.lang.Boolean getAutoAcceptPaymentConfirmations() {
+  public Boolean getAutoAcceptPaymentConfirmations() {
     return genClient.cacheGet(CacheKey.autoAcceptPaymentConfirmations);
   }
 
@@ -201,7 +206,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Do not show/send signature verification challenges
    */
   @Override
-  public java.lang.Boolean getAutoAcceptSignature() {
+  public Boolean getAutoAcceptSignature() {
     return genClient.cacheGet(CacheKey.autoAcceptSignature);
   }
 
@@ -209,8 +214,16 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Identifier for the request
    */
   @Override
-  public java.lang.String getRequestId() {
+  public String getRequestId() {
     return genClient.cacheGet(CacheKey.requestId);
+  }
+
+  /**
+   * Identifier for the version
+   */
+  @Override
+  public Integer getVersion() {
+    return genClient.cacheGet(CacheKey.version);
   }
 
 
@@ -220,67 +233,73 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     tippableAmount {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("tippableAmount", java.lang.Long.class);
+        return instance.genClient.extractOther("tippableAmount", Long.class);
       }
     },
     disableCashback {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("disableCashback", java.lang.Boolean.class);
+        return instance.genClient.extractOther("disableCashback", Boolean.class);
       }
     },
     taxAmount {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
+        return instance.genClient.extractOther("taxAmount", Long.class);
       }
     },
     allowOfflinePayment {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("allowOfflinePayment", java.lang.Boolean.class);
+        return instance.genClient.extractOther("allowOfflinePayment", Boolean.class);
       }
     },
     forceOfflinePayment {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("forceOfflinePayment", java.lang.Boolean.class);
+        return instance.genClient.extractOther("forceOfflinePayment", Boolean.class);
       }
     },
     approveOfflinePaymentWithoutPrompt {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("approveOfflinePaymentWithoutPrompt", java.lang.Boolean.class);
+        return instance.genClient.extractOther("approveOfflinePaymentWithoutPrompt", Boolean.class);
+      }
+    },
+    tipMode {
+      @Override
+      public Object extractValue(AuthRequest instance) {
+        return instance.genClient.extractEnum("tipMode", com.clover.sdk.v3.payments.TipMode.class);
       }
     },
     orderId {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("orderId", java.lang.String.class);
+        return instance.genClient.extractOther("orderId", String.class);
       }
     },
     signatureThreshold {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("signatureThreshold", java.lang.Long.class);
+        return instance.genClient.extractOther("signatureThreshold", Long.class);
       }
     },
     disablePrinting {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("disablePrinting", java.lang.Boolean.class);
+        return instance.genClient.extractOther("disablePrinting", Boolean.class);
       }
     },
     disableReceiptSelection {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
+        return instance.genClient.extractOther("disableReceiptSelection", Boolean.class);
       }
     },
     disableDuplicateChecking {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("disableDuplicateChecking", java.lang.Boolean.class);
+        return instance.genClient.extractOther("disableDuplicateChecking", Boolean.class);
       }
     },
     signatureEntryLocation {
@@ -292,25 +311,25 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     cardNotPresent {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("cardNotPresent", java.lang.Boolean.class);
+        return instance.genClient.extractOther("cardNotPresent", Boolean.class);
       }
     },
     disableRestartTransactionOnFail {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("disableRestartTransactionOnFail", java.lang.Boolean.class);
+        return instance.genClient.extractOther("disableRestartTransactionOnFail", Boolean.class);
       }
     },
     amount {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
+        return instance.genClient.extractOther("amount", Long.class);
       }
     },
     cardEntryMethods {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("cardEntryMethods", java.lang.Integer.class);
+        return instance.genClient.extractOther("cardEntryMethods", Integer.class);
       }
     },
     vaultedCard {
@@ -322,31 +341,37 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     externalId {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("externalId", java.lang.String.class);
+        return instance.genClient.extractOther("externalId", String.class);
       }
     },
     type {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.remotepay.TransactionType.class);
+        return instance.genClient.extractEnum("type", TransactionType.class);
       }
     },
     autoAcceptPaymentConfirmations {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("autoAcceptPaymentConfirmations", java.lang.Boolean.class);
+        return instance.genClient.extractOther("autoAcceptPaymentConfirmations", Boolean.class);
       }
     },
     autoAcceptSignature {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("autoAcceptSignature", java.lang.Boolean.class);
+        return instance.genClient.extractOther("autoAcceptSignature", Boolean.class);
       }
     },
     requestId {
       @Override
       public Object extractValue(AuthRequest instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
+        return instance.genClient.extractOther("requestId", String.class);
+      }
+    },
+    version {
+      @Override
+      public Object extractValue(AuthRequest instance) {
+        return instance.genClient.extractOther("version", Integer.class);
       }
     },
       ;
@@ -355,12 +380,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   private GenericClient<AuthRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AuthRequest() {
     super(false);
     genClient = new GenericClient<AuthRequest>(this);
-    this.setType(com.clover.sdk.v3.remotepay.TransactionType.PAYMENT);
+    this.setType(TransactionType.PAYMENT);
   }
 
   @Override
@@ -369,8 +394,8 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AuthRequest(boolean noInit) {
     super(false);
     genClient = null;
@@ -454,6 +479,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   /** Checks whether the 'approveOfflinePaymentWithoutPrompt' field is set and is not null */
   public boolean isNotNullApproveOfflinePaymentWithoutPrompt() {
     return genClient.cacheValueIsNotNull(CacheKey.approveOfflinePaymentWithoutPrompt);
+  }
+
+  /** Checks whether the 'tipMode' field is set and is not null */
+  public boolean isNotNullTipMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.tipMode);
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -552,6 +582,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     return genClient.cacheValueIsNotNull(CacheKey.requestId);
   }
 
+  /** Checks whether the 'version' field is set and is not null */
+  @Override
+  public boolean isNotNullVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.version);
+  }
+
 
 
   /** Checks whether the 'tippableAmount' field has been set, however the value could be null */
@@ -582,6 +618,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   /** Checks whether the 'approveOfflinePaymentWithoutPrompt' field has been set, however the value could be null */
   public boolean hasApproveOfflinePaymentWithoutPrompt() {
     return genClient.cacheHasKey(CacheKey.approveOfflinePaymentWithoutPrompt);
+  }
+
+  /** Checks whether the 'tipMode' field has been set, however the value could be null */
+  public boolean hasTipMode() {
+    return genClient.cacheHasKey(CacheKey.tipMode);
   }
 
   /** Checks whether the 'orderId' field has been set, however the value could be null */
@@ -680,54 +721,67 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     return genClient.cacheHasKey(CacheKey.requestId);
   }
 
+  /** Checks whether the 'version' field has been set, however the value could be null */
+  @Override
+  public boolean hasVersion() {
+    return genClient.cacheHasKey(CacheKey.version);
+  }
+
 
   /**
    * Sets the field 'tippableAmount'.
    */
-  public AuthRequest setTippableAmount(java.lang.Long tippableAmount) {
+  public AuthRequest setTippableAmount(Long tippableAmount) {
     return genClient.setOther(tippableAmount, CacheKey.tippableAmount);
   }
 
   /**
    * Sets the field 'disableCashback'.
    */
-  public AuthRequest setDisableCashback(java.lang.Boolean disableCashback) {
+  public AuthRequest setDisableCashback(Boolean disableCashback) {
     return genClient.setOther(disableCashback, CacheKey.disableCashback);
   }
 
   /**
    * Sets the field 'taxAmount'.
    */
-  public AuthRequest setTaxAmount(java.lang.Long taxAmount) {
+  public AuthRequest setTaxAmount(Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
   /**
    * Sets the field 'allowOfflinePayment'.
    */
-  public AuthRequest setAllowOfflinePayment(java.lang.Boolean allowOfflinePayment) {
+  public AuthRequest setAllowOfflinePayment(Boolean allowOfflinePayment) {
     return genClient.setOther(allowOfflinePayment, CacheKey.allowOfflinePayment);
   }
 
   /**
    * Sets the field 'forceOfflinePayment'.
    */
-  public AuthRequest setForceOfflinePayment(java.lang.Boolean forceOfflinePayment) {
+  public AuthRequest setForceOfflinePayment(Boolean forceOfflinePayment) {
     return genClient.setOther(forceOfflinePayment, CacheKey.forceOfflinePayment);
   }
 
   /**
    * Sets the field 'approveOfflinePaymentWithoutPrompt'.
    */
-  public AuthRequest setApproveOfflinePaymentWithoutPrompt(java.lang.Boolean approveOfflinePaymentWithoutPrompt) {
+  public AuthRequest setApproveOfflinePaymentWithoutPrompt(Boolean approveOfflinePaymentWithoutPrompt) {
     return genClient.setOther(approveOfflinePaymentWithoutPrompt, CacheKey.approveOfflinePaymentWithoutPrompt);
+  }
+
+  /**
+   * Sets the field 'tipMode'.
+   */
+  public AuthRequest setTipMode(com.clover.sdk.v3.payments.TipMode tipMode) {
+    return genClient.setOther(tipMode, CacheKey.tipMode);
   }
 
   /**
    * Sets the field 'orderId'.
    */
   @Override
-  public TransactionRequest setOrderId(java.lang.String orderId) {
+  public TransactionRequest setOrderId(String orderId) {
     return genClient.setOther(orderId, CacheKey.orderId);
   }
 
@@ -735,7 +789,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'signatureThreshold'.
    */
   @Override
-  public TransactionRequest setSignatureThreshold(java.lang.Long signatureThreshold) {
+  public TransactionRequest setSignatureThreshold(Long signatureThreshold) {
     return genClient.setOther(signatureThreshold, CacheKey.signatureThreshold);
   }
 
@@ -743,7 +797,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'disablePrinting'.
    */
   @Override
-  public TransactionRequest setDisablePrinting(java.lang.Boolean disablePrinting) {
+  public TransactionRequest setDisablePrinting(Boolean disablePrinting) {
     return genClient.setOther(disablePrinting, CacheKey.disablePrinting);
   }
 
@@ -751,7 +805,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'disableReceiptSelection'.
    */
   @Override
-  public TransactionRequest setDisableReceiptSelection(java.lang.Boolean disableReceiptSelection) {
+  public TransactionRequest setDisableReceiptSelection(Boolean disableReceiptSelection) {
     return genClient.setOther(disableReceiptSelection, CacheKey.disableReceiptSelection);
   }
 
@@ -759,7 +813,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'disableDuplicateChecking'.
    */
   @Override
-  public TransactionRequest setDisableDuplicateChecking(java.lang.Boolean disableDuplicateChecking) {
+  public TransactionRequest setDisableDuplicateChecking(Boolean disableDuplicateChecking) {
     return genClient.setOther(disableDuplicateChecking, CacheKey.disableDuplicateChecking);
   }
 
@@ -775,7 +829,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'cardNotPresent'.
    */
   @Override
-  public TransactionRequest setCardNotPresent(java.lang.Boolean cardNotPresent) {
+  public TransactionRequest setCardNotPresent(Boolean cardNotPresent) {
     return genClient.setOther(cardNotPresent, CacheKey.cardNotPresent);
   }
 
@@ -783,7 +837,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'disableRestartTransactionOnFail'.
    */
   @Override
-  public TransactionRequest setDisableRestartTransactionOnFail(java.lang.Boolean disableRestartTransactionOnFail) {
+  public TransactionRequest setDisableRestartTransactionOnFail(Boolean disableRestartTransactionOnFail) {
     return genClient.setOther(disableRestartTransactionOnFail, CacheKey.disableRestartTransactionOnFail);
   }
 
@@ -791,7 +845,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'amount'.
    */
   @Override
-  public TransactionRequest setAmount(java.lang.Long amount) {
+  public TransactionRequest setAmount(Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
 
@@ -799,7 +853,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'cardEntryMethods'.
    */
   @Override
-  public TransactionRequest setCardEntryMethods(java.lang.Integer cardEntryMethods) {
+  public TransactionRequest setCardEntryMethods(Integer cardEntryMethods) {
     return genClient.setOther(cardEntryMethods, CacheKey.cardEntryMethods);
   }
 
@@ -817,7 +871,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'externalId'.
    */
   @Override
-  public TransactionRequest setExternalId(java.lang.String externalId) {
+  public TransactionRequest setExternalId(String externalId) {
     return genClient.setOther(externalId, CacheKey.externalId);
   }
 
@@ -825,7 +879,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'type'.
    */
   @Override
-  public TransactionRequest setType(com.clover.sdk.v3.remotepay.TransactionType type) {
+  public TransactionRequest setType(TransactionType type) {
     return genClient.setOther(type, CacheKey.type);
   }
 
@@ -833,7 +887,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'autoAcceptPaymentConfirmations'.
    */
   @Override
-  public TransactionRequest setAutoAcceptPaymentConfirmations(java.lang.Boolean autoAcceptPaymentConfirmations) {
+  public TransactionRequest setAutoAcceptPaymentConfirmations(Boolean autoAcceptPaymentConfirmations) {
     return genClient.setOther(autoAcceptPaymentConfirmations, CacheKey.autoAcceptPaymentConfirmations);
   }
 
@@ -841,7 +895,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'autoAcceptSignature'.
    */
   @Override
-  public TransactionRequest setAutoAcceptSignature(java.lang.Boolean autoAcceptSignature) {
+  public TransactionRequest setAutoAcceptSignature(Boolean autoAcceptSignature) {
     return genClient.setOther(autoAcceptSignature, CacheKey.autoAcceptSignature);
   }
 
@@ -849,8 +903,16 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
    * Sets the field 'requestId'.
    */
   @Override
-  public BaseRequest setRequestId(java.lang.String requestId) {
+  public BaseRequest setRequestId(String requestId) {
     return genClient.setOther(requestId, CacheKey.requestId);
+  }
+
+  /**
+   * Sets the field 'version'.
+   */
+  @Override
+  public BaseRequest setVersion(Integer version) {
+    return genClient.setOther(version, CacheKey.version);
   }
 
 
@@ -877,6 +939,10 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   /** Clears the 'approveOfflinePaymentWithoutPrompt' field, the 'has' method for this field will now return false */
   public void clearApproveOfflinePaymentWithoutPrompt() {
     genClient.clear(CacheKey.approveOfflinePaymentWithoutPrompt);
+  }
+  /** Clears the 'tipMode' field, the 'has' method for this field will now return false */
+  public void clearTipMode() {
+    genClient.clear(CacheKey.tipMode);
   }
   /** Clears the 'orderId' field, the 'has' method for this field will now return false */
   @Override
@@ -958,6 +1024,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   public void clearRequestId() {
     genClient.clear(CacheKey.requestId);
   }
+  /** Clears the 'version' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearVersion() {
+    genClient.clear(CacheKey.version);
+  }
 
 
   /**
@@ -1023,6 +1094,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     public static final boolean ALLOWOFFLINEPAYMENT_IS_REQUIRED = false;
     public static final boolean FORCEOFFLINEPAYMENT_IS_REQUIRED = false;
     public static final boolean APPROVEOFFLINEPAYMENTWITHOUTPROMPT_IS_REQUIRED = false;
+    public static final boolean TIPMODE_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean SIGNATURETHRESHOLD_IS_REQUIRED = false;
@@ -1041,6 +1113,7 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     public static final boolean AUTOACCEPTSIGNATURE_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
+    public static final boolean VERSION_IS_REQUIRED = false;
 
   }
 

@@ -38,6 +38,14 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
  * <li>{@link #getStartTimestamp startTimestamp}</li>
  * <li>{@link #getEndTimestamp endTimestamp}</li>
+ * <li>{@link #getAmountWithoutTips amountWithoutTips}</li>
+ * <li>{@link #getAmountWithoutDiscounts amountWithoutDiscounts}</li>
+ * <li>{@link #getDiscountsWithTaxAndServiceCharge discountsWithTaxAndServiceCharge}</li>
+ * <li>{@link #getNet net}</li>
+ * <li>{@link #getNetOnline netOnline}</li>
+ * <li>{@link #getNetOffline netOffline}</li>
+ * <li>{@link #getRevenueAmount revenueAmount}</li>
+ * <li>{@link #getRevenueAmountWithoutServiceCharge revenueAmountWithoutServiceCharge}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -47,6 +55,9 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.num);
   }
 
+  /**
+   * The amount paid or refunded. This includes tax, discounts and service charge. This is not supposed to include tip, though there are times when refunds mistakenly include tips. A new field amountWithoutTips has been added for those incorrect endpoints.
+   */
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
@@ -75,6 +86,62 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public java.lang.Long getEndTimestamp() {
     return genClient.cacheGet(CacheKey.endTimestamp);
+  }
+
+  /**
+   * The amount paid or refunded. This includes tax, discounts and service charge. This does not include tip.
+   */
+  public java.lang.Long getAmountWithoutTips() {
+    return genClient.cacheGet(CacheKey.amountWithoutTips);
+  }
+
+  /**
+   * The amount that would have been paid, including tips, taxes and service charge, before discounts were applied. Applies only to Gross Sales Before Discounts.
+   */
+  public java.lang.Long getAmountWithoutDiscounts() {
+    return genClient.cacheGet(CacheKey.amountWithoutDiscounts);
+  }
+
+  /**
+   * The sum of discounts plus the tax and service charge that would have occurred if the discounts hadn't been applied. Applies only to Gross Sales.
+   */
+  public java.lang.Long getDiscountsWithTaxAndServiceCharge() {
+    return genClient.cacheGet(CacheKey.discountsWithTaxAndServiceCharge);
+  }
+
+  /**
+   * The amount paid or refunded. This includes tax, discounts, tip and service charge.
+   */
+  public java.lang.Long getNet() {
+    return genClient.cacheGet(CacheKey.net);
+  }
+
+  /**
+   * The amount paid via cash or via online gateway payments. This includes tax, discounts, tip and service charge. Applies only to payments and is only used in some countries.
+   */
+  public java.lang.Long getNetOnline() {
+    return genClient.cacheGet(CacheKey.netOnline);
+  }
+
+  /**
+   * The amount paid via offline gateway payments. This includes tax, discounts, tip and service charge. Applies only to payments and is only used in some countries.
+   */
+  public java.lang.Long getNetOffline() {
+    return genClient.cacheGet(CacheKey.netOffline);
+  }
+
+  /**
+   * The amount paid or refunded without tip, tax and non-revenue item sales. This includes discounts and service charge.
+   */
+  public java.lang.Long getRevenueAmount() {
+    return genClient.cacheGet(CacheKey.revenueAmount);
+  }
+
+  /**
+   * The amount paid or refunded without tip, tax, service charge and non-revenue item sales. This includes discounts.
+   */
+  public java.lang.Long getRevenueAmountWithoutServiceCharge() {
+    return genClient.cacheGet(CacheKey.revenueAmountWithoutServiceCharge);
   }
 
 
@@ -121,6 +188,54 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Summary instance) {
         return instance.genClient.extractOther("endTimestamp", java.lang.Long.class);
+      }
+    },
+    amountWithoutTips {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("amountWithoutTips", java.lang.Long.class);
+      }
+    },
+    amountWithoutDiscounts {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("amountWithoutDiscounts", java.lang.Long.class);
+      }
+    },
+    discountsWithTaxAndServiceCharge {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("discountsWithTaxAndServiceCharge", java.lang.Long.class);
+      }
+    },
+    net {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("net", java.lang.Long.class);
+      }
+    },
+    netOnline {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("netOnline", java.lang.Long.class);
+      }
+    },
+    netOffline {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("netOffline", java.lang.Long.class);
+      }
+    },
+    revenueAmount {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("revenueAmount", java.lang.Long.class);
+      }
+    },
+    revenueAmountWithoutServiceCharge {
+      @Override
+      public Object extractValue(Summary instance) {
+        return instance.genClient.extractOther("revenueAmountWithoutServiceCharge", java.lang.Long.class);
       }
     },
       ;
@@ -225,6 +340,46 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.endTimestamp);
   }
 
+  /** Checks whether the 'amountWithoutTips' field is set and is not null */
+  public boolean isNotNullAmountWithoutTips() {
+    return genClient.cacheValueIsNotNull(CacheKey.amountWithoutTips);
+  }
+
+  /** Checks whether the 'amountWithoutDiscounts' field is set and is not null */
+  public boolean isNotNullAmountWithoutDiscounts() {
+    return genClient.cacheValueIsNotNull(CacheKey.amountWithoutDiscounts);
+  }
+
+  /** Checks whether the 'discountsWithTaxAndServiceCharge' field is set and is not null */
+  public boolean isNotNullDiscountsWithTaxAndServiceCharge() {
+    return genClient.cacheValueIsNotNull(CacheKey.discountsWithTaxAndServiceCharge);
+  }
+
+  /** Checks whether the 'net' field is set and is not null */
+  public boolean isNotNullNet() {
+    return genClient.cacheValueIsNotNull(CacheKey.net);
+  }
+
+  /** Checks whether the 'netOnline' field is set and is not null */
+  public boolean isNotNullNetOnline() {
+    return genClient.cacheValueIsNotNull(CacheKey.netOnline);
+  }
+
+  /** Checks whether the 'netOffline' field is set and is not null */
+  public boolean isNotNullNetOffline() {
+    return genClient.cacheValueIsNotNull(CacheKey.netOffline);
+  }
+
+  /** Checks whether the 'revenueAmount' field is set and is not null */
+  public boolean isNotNullRevenueAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.revenueAmount);
+  }
+
+  /** Checks whether the 'revenueAmountWithoutServiceCharge' field is set and is not null */
+  public boolean isNotNullRevenueAmountWithoutServiceCharge() {
+    return genClient.cacheValueIsNotNull(CacheKey.revenueAmountWithoutServiceCharge);
+  }
+
 
 
   /** Checks whether the 'num' field has been set, however the value could be null */
@@ -260,6 +415,46 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'endTimestamp' field has been set, however the value could be null */
   public boolean hasEndTimestamp() {
     return genClient.cacheHasKey(CacheKey.endTimestamp);
+  }
+
+  /** Checks whether the 'amountWithoutTips' field has been set, however the value could be null */
+  public boolean hasAmountWithoutTips() {
+    return genClient.cacheHasKey(CacheKey.amountWithoutTips);
+  }
+
+  /** Checks whether the 'amountWithoutDiscounts' field has been set, however the value could be null */
+  public boolean hasAmountWithoutDiscounts() {
+    return genClient.cacheHasKey(CacheKey.amountWithoutDiscounts);
+  }
+
+  /** Checks whether the 'discountsWithTaxAndServiceCharge' field has been set, however the value could be null */
+  public boolean hasDiscountsWithTaxAndServiceCharge() {
+    return genClient.cacheHasKey(CacheKey.discountsWithTaxAndServiceCharge);
+  }
+
+  /** Checks whether the 'net' field has been set, however the value could be null */
+  public boolean hasNet() {
+    return genClient.cacheHasKey(CacheKey.net);
+  }
+
+  /** Checks whether the 'netOnline' field has been set, however the value could be null */
+  public boolean hasNetOnline() {
+    return genClient.cacheHasKey(CacheKey.netOnline);
+  }
+
+  /** Checks whether the 'netOffline' field has been set, however the value could be null */
+  public boolean hasNetOffline() {
+    return genClient.cacheHasKey(CacheKey.netOffline);
+  }
+
+  /** Checks whether the 'revenueAmount' field has been set, however the value could be null */
+  public boolean hasRevenueAmount() {
+    return genClient.cacheHasKey(CacheKey.revenueAmount);
+  }
+
+  /** Checks whether the 'revenueAmountWithoutServiceCharge' field has been set, however the value could be null */
+  public boolean hasRevenueAmountWithoutServiceCharge() {
+    return genClient.cacheHasKey(CacheKey.revenueAmountWithoutServiceCharge);
   }
 
 
@@ -312,6 +507,62 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setOther(endTimestamp, CacheKey.endTimestamp);
   }
 
+  /**
+   * Sets the field 'amountWithoutTips'.
+   */
+  public Summary setAmountWithoutTips(java.lang.Long amountWithoutTips) {
+    return genClient.setOther(amountWithoutTips, CacheKey.amountWithoutTips);
+  }
+
+  /**
+   * Sets the field 'amountWithoutDiscounts'.
+   */
+  public Summary setAmountWithoutDiscounts(java.lang.Long amountWithoutDiscounts) {
+    return genClient.setOther(amountWithoutDiscounts, CacheKey.amountWithoutDiscounts);
+  }
+
+  /**
+   * Sets the field 'discountsWithTaxAndServiceCharge'.
+   */
+  public Summary setDiscountsWithTaxAndServiceCharge(java.lang.Long discountsWithTaxAndServiceCharge) {
+    return genClient.setOther(discountsWithTaxAndServiceCharge, CacheKey.discountsWithTaxAndServiceCharge);
+  }
+
+  /**
+   * Sets the field 'net'.
+   */
+  public Summary setNet(java.lang.Long net) {
+    return genClient.setOther(net, CacheKey.net);
+  }
+
+  /**
+   * Sets the field 'netOnline'.
+   */
+  public Summary setNetOnline(java.lang.Long netOnline) {
+    return genClient.setOther(netOnline, CacheKey.netOnline);
+  }
+
+  /**
+   * Sets the field 'netOffline'.
+   */
+  public Summary setNetOffline(java.lang.Long netOffline) {
+    return genClient.setOther(netOffline, CacheKey.netOffline);
+  }
+
+  /**
+   * Sets the field 'revenueAmount'.
+   */
+  public Summary setRevenueAmount(java.lang.Long revenueAmount) {
+    return genClient.setOther(revenueAmount, CacheKey.revenueAmount);
+  }
+
+  /**
+   * Sets the field 'revenueAmountWithoutServiceCharge'.
+   */
+  public Summary setRevenueAmountWithoutServiceCharge(java.lang.Long revenueAmountWithoutServiceCharge) {
+    return genClient.setOther(revenueAmountWithoutServiceCharge, CacheKey.revenueAmountWithoutServiceCharge);
+  }
+
 
   /** Clears the 'num' field, the 'has' method for this field will now return false */
   public void clearNum() {
@@ -340,6 +591,38 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'endTimestamp' field, the 'has' method for this field will now return false */
   public void clearEndTimestamp() {
     genClient.clear(CacheKey.endTimestamp);
+  }
+  /** Clears the 'amountWithoutTips' field, the 'has' method for this field will now return false */
+  public void clearAmountWithoutTips() {
+    genClient.clear(CacheKey.amountWithoutTips);
+  }
+  /** Clears the 'amountWithoutDiscounts' field, the 'has' method for this field will now return false */
+  public void clearAmountWithoutDiscounts() {
+    genClient.clear(CacheKey.amountWithoutDiscounts);
+  }
+  /** Clears the 'discountsWithTaxAndServiceCharge' field, the 'has' method for this field will now return false */
+  public void clearDiscountsWithTaxAndServiceCharge() {
+    genClient.clear(CacheKey.discountsWithTaxAndServiceCharge);
+  }
+  /** Clears the 'net' field, the 'has' method for this field will now return false */
+  public void clearNet() {
+    genClient.clear(CacheKey.net);
+  }
+  /** Clears the 'netOnline' field, the 'has' method for this field will now return false */
+  public void clearNetOnline() {
+    genClient.clear(CacheKey.netOnline);
+  }
+  /** Clears the 'netOffline' field, the 'has' method for this field will now return false */
+  public void clearNetOffline() {
+    genClient.clear(CacheKey.netOffline);
+  }
+  /** Clears the 'revenueAmount' field, the 'has' method for this field will now return false */
+  public void clearRevenueAmount() {
+    genClient.clear(CacheKey.revenueAmount);
+  }
+  /** Clears the 'revenueAmountWithoutServiceCharge' field, the 'has' method for this field will now return false */
+  public void clearRevenueAmountWithoutServiceCharge() {
+    genClient.clear(CacheKey.revenueAmountWithoutServiceCharge);
   }
 
 
@@ -407,6 +690,14 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
     public static final boolean STARTTIMESTAMP_IS_REQUIRED = false;
     public static final boolean ENDTIMESTAMP_IS_REQUIRED = false;
+    public static final boolean AMOUNTWITHOUTTIPS_IS_REQUIRED = false;
+    public static final boolean AMOUNTWITHOUTDISCOUNTS_IS_REQUIRED = false;
+    public static final boolean DISCOUNTSWITHTAXANDSERVICECHARGE_IS_REQUIRED = false;
+    public static final boolean NET_IS_REQUIRED = false;
+    public static final boolean NETONLINE_IS_REQUIRED = false;
+    public static final boolean NETOFFLINE_IS_REQUIRED = false;
+    public static final boolean REVENUEAMOUNT_IS_REQUIRED = false;
+    public static final boolean REVENUEAMOUNTWITHOUTSERVICECHARGE_IS_REQUIRED = false;
 
   }
 

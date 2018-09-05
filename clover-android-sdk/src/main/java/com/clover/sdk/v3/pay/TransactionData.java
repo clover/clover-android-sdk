@@ -111,6 +111,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPinBlockContainer pinBlockContainer}</li>
  * <li>{@link #getPinBlock pinBlock}</li>
  * <li>{@link #getPinBlockKsn pinBlockKsn}</li>
+ * <li>{@link #getMac mac}</li>
+ * <li>{@link #getMacKsn macKsn}</li>
  * <li>{@link #getGwContainer gwContainer}</li>
  * <li>{@link #getGwIssuerAuthenticationData gwIssuerAuthenticationData}</li>
  * <li>{@link #getGwIssuerScriptTemplate1 gwIssuerScriptTemplate1}</li>
@@ -447,6 +449,14 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
 
   public java.lang.String getPinBlockKsn() {
     return genClient.cacheGet(CacheKey.pinBlockKsn);
+  }
+
+  public java.lang.String getMac() {
+    return genClient.cacheGet(CacheKey.mac);
+  }
+
+  public java.lang.String getMacKsn() {
+    return genClient.cacheGet(CacheKey.macKsn);
   }
 
   public java.lang.String getGwContainer() {
@@ -983,6 +993,18 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(TransactionData instance) {
         return instance.genClient.extractOther("pinBlockKsn", java.lang.String.class);
+      }
+    },
+    mac {
+      @Override
+      public Object extractValue(TransactionData instance) {
+        return instance.genClient.extractOther("mac", java.lang.String.class);
+      }
+    },
+    macKsn {
+      @Override
+      public Object extractValue(TransactionData instance) {
+        return instance.genClient.extractOther("macKsn", java.lang.String.class);
       }
     },
     gwContainer {
@@ -1530,6 +1552,16 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.pinBlockKsn);
   }
 
+  /** Checks whether the 'mac' field is set and is not null */
+  public boolean isNotNullMac() {
+    return genClient.cacheValueIsNotNull(CacheKey.mac);
+  }
+
+  /** Checks whether the 'macKsn' field is set and is not null */
+  public boolean isNotNullMacKsn() {
+    return genClient.cacheValueIsNotNull(CacheKey.macKsn);
+  }
+
   /** Checks whether the 'gwContainer' field is set and is not null */
   public boolean isNotNullGwContainer() {
     return genClient.cacheValueIsNotNull(CacheKey.gwContainer);
@@ -1995,6 +2027,16 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'pinBlockKsn' field has been set, however the value could be null */
   public boolean hasPinBlockKsn() {
     return genClient.cacheHasKey(CacheKey.pinBlockKsn);
+  }
+
+  /** Checks whether the 'mac' field has been set, however the value could be null */
+  public boolean hasMac() {
+    return genClient.cacheHasKey(CacheKey.mac);
+  }
+
+  /** Checks whether the 'macKsn' field has been set, however the value could be null */
+  public boolean hasMacKsn() {
+    return genClient.cacheHasKey(CacheKey.macKsn);
   }
 
   /** Checks whether the 'gwContainer' field has been set, however the value could be null */
@@ -2624,6 +2666,20 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * Sets the field 'mac'.
+   */
+  public TransactionData setMac(java.lang.String mac) {
+    return genClient.setOther(mac, CacheKey.mac);
+  }
+
+  /**
+   * Sets the field 'macKsn'.
+   */
+  public TransactionData setMacKsn(java.lang.String macKsn) {
+    return genClient.setOther(macKsn, CacheKey.macKsn);
+  }
+
+  /**
    * Sets the field 'gwContainer'.
    */
   public TransactionData setGwContainer(java.lang.String gwContainer) {
@@ -3035,6 +3091,14 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   public void clearPinBlockKsn() {
     genClient.clear(CacheKey.pinBlockKsn);
   }
+  /** Clears the 'mac' field, the 'has' method for this field will now return false */
+  public void clearMac() {
+    genClient.clear(CacheKey.mac);
+  }
+  /** Clears the 'macKsn' field, the 'has' method for this field will now return false */
+  public void clearMacKsn() {
+    genClient.clear(CacheKey.macKsn);
+  }
   /** Clears the 'gwContainer' field, the 'has' method for this field will now return false */
   public void clearGwContainer() {
     genClient.clear(CacheKey.gwContainer);
@@ -3226,6 +3290,8 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     public static final boolean PINBLOCKCONTAINER_IS_REQUIRED = false;
     public static final boolean PINBLOCK_IS_REQUIRED = false;
     public static final boolean PINBLOCKKSN_IS_REQUIRED = false;
+    public static final boolean MAC_IS_REQUIRED = false;
+    public static final boolean MACKSN_IS_REQUIRED = false;
     public static final boolean GWCONTAINER_IS_REQUIRED = false;
     public static final boolean GWISSUERAUTHENTICATIONDATA_IS_REQUIRED = false;
     public static final boolean GWISSUERSCRIPTTEMPLATE1_IS_REQUIRED = false;

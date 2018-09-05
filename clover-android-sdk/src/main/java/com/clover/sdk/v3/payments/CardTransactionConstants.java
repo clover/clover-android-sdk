@@ -53,7 +53,15 @@ public class CardTransactionConstants {
   public static final String ALIPAY_BUYER_USER_ID = "buyerUserId";
   public static final String ALIPAY_EXCHANGE_RATE = "exchangeRate";
   public static final String ALIPAY_CNY_TRANS_AMOUNT = "cnyTransAmount";
+  public static final String WECHAT_PAY_TRANS_ID = "weChatPayTransId";
   public static final String MAC = "mac";
   public static final String MAC_KSN = "macKsn";
   public static final String IPG_TXID = "ipgTxId";
+  public static final String PROCESSOR_REFERENCE_NUMBER = "processorReferenceNumber";
+  public static final String IPG_MID = "mid";
+  public static final String IPG_TID = "tid";
+  public static final String IPG_BATCH_NUMBER = "batchNumber";
+  public static final String IPG_RECEIPT_NUMBER = "receiptNumber";
+  public static final String IPG_RESPONSE_MESSAGE = "responseMessage";
+  public static final String IPG_RESPONSE_CODE = "responseCode";
 }
