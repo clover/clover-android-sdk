@@ -19,18 +19,22 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.clover.sdk.JSONifiable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Printer implements Parcelable, JSONifiable {
+
+  private static final String TAG = Printer.class.getSimpleName();
+
   public static class Builder {
     private String uuid = null;
     private Type type = null;
     private String name = null;
     private String ip = null;
     private String mac = null;
-
     private Category category = null;
 
     public Builder printer(Printer printer) {
@@ -39,7 +43,6 @@ public class Printer implements Parcelable, JSONifiable {
       this.name = printer.name;
       this.ip = printer.ip;
       this.mac = printer.mac;
-
       this.category = printer.category;
 
       return this;
@@ -62,7 +65,9 @@ public class Printer implements Parcelable, JSONifiable {
       index = cursor.getColumnIndex(PrinterContract.DeviceCategories.TYPE);
       if (index != -1) {
         String t = cursor.getString(index);
-        type(Type.valueOf(t));
+        if (t != null) {
+          type(new Type(t));
+        }
       }
 
       index = cursor.getColumnIndex(PrinterContract.DeviceCategories.NAME);
@@ -82,8 +87,12 @@ public class Printer implements Parcelable, JSONifiable {
 
       index = cursor.getColumnIndex(PrinterContract.DeviceCategories.CATEGORY);
       if (index != -1) {
-        String c = cursor.getString(index);
-        category(Category.valueOf(c));
+        String catStr = cursor.getString(index);
+        try {
+          category(Category.valueOf(catStr));
+        } catch (IllegalArgumentException e) {
+          Log.w(TAG, "Skipping unsupported category " + catStr + ", using null");
+        }
       }
 
       return this;
@@ -129,7 +138,6 @@ public class Printer implements Parcelable, JSONifiable {
   public final String name;
   public final String ip;
   public final String mac;
-
   public final Category category;
 
   private Printer(Parcel in) {
@@ -154,10 +162,16 @@ public class Printer implements Parcelable, JSONifiable {
     return uuid;
   }
 
+  /**
+   * Formerly the Type contained a bunch of details, now that information can be found in {@link TypeDetails}.
+   */
   public Type getType() {
     return type;
   }
 
+  /**
+   * Merchant chosen name describing this printer.
+   */
   public String getName() {
     return name;
   }
@@ -170,44 +184,19 @@ public class Printer implements Parcelable, JSONifiable {
     return mac;
   }
 
+  /**
+   * May be null if a new category is introduced and sent to an app compiled with an older version
+   * of the Category enum.
+   */
   public Category getCategory() {
     return category;
   }
 
-  @Override
-  public boolean equals(Object o) {
-
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    Printer printer = (Printer) o;
-
-    if (category != printer.category) {
-      return false;
-    }
-    if (ip != null ? !ip.equals(printer.ip) : printer.ip != null) {
-      return false;
-    }
-    if (mac != null ? !mac.equals(printer.mac) : printer.mac != null) {
-      return false;
-    }
-    if (name != null ? !name.equals(printer.name) : printer.name != null) {
-      return false;
-    }
-    if (type != printer.type) {
-      return false;
-    }
-    if (uuid != null ? !uuid.equals(printer.uuid) : printer.uuid != null) {
-      return false;
-    }
-
-    return true;
-  }
-
+  /**
+   * Deprecated.
+   * Prefer {@link TypeDetails#isLocal()} to this.
+   */
+  @Deprecated
   public boolean isLocal() {
     String mac = getMac();
     return TextUtils.isEmpty(mac);
@@ -225,6 +214,21 @@ public class Printer implements Parcelable, JSONifiable {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Printer printer = (Printer) o;
+
+    if (uuid != null ? !uuid.equals(printer.uuid) : printer.uuid != null) return false;
+    if (type != printer.type) return false;
+    if (name != null ? !name.equals(printer.name) : printer.name != null) return false;
+    if (ip != null ? !ip.equals(printer.ip) : printer.ip != null) return false;
+    if (mac != null ? !mac.equals(printer.mac) : printer.mac != null) return false;
+    return category == printer.category;
+  }
+
+  @Override
   public int hashCode() {
     int result = uuid != null ? uuid.hashCode() : 0;
     result = 31 * result + (type != null ? type.hashCode() : 0);
@@ -237,11 +241,8 @@ public class Printer implements Parcelable, JSONifiable {
 
   @Override
   public String toString() {
-    return String.format("%s{uuid=%s, type=%s, name=%s, mac=%s, ip=%s, category=%s}", getClass().getSimpleName(), uuid, type, name, mac, ip, category);
-  }
-
-  public static boolean equal(Object x, Object y) {
-    return (x == null ? y == null : x.equals(y));
+    return String.format("%s{uuid=%s, type=%s, name=%s, mac=%s, ip=%s, category=%s}",
+            getClass().getSimpleName(), uuid, type, name, mac, ip, category);
   }
 
   @Override
@@ -273,20 +274,33 @@ public class Printer implements Parcelable, JSONifiable {
     }
   };
 
+  private static final String KEY_UUID = "uuid";
+  private static final String KEY_TYPE = "type";
+  private static final String KEY_NAME = "name";
+  private static final String KEY_IP = "ip";
+  private static final String KEY_MAC = "mac";
+  private static final String KEY_CATEGORY = "category";
+
   public static final JSONifiable.Creator<Printer> JSON_CREATOR = new JSONifiable.Creator<Printer>() {
     @Override
     public Printer create(JSONObject obj) {
       try {
-        String uuid = obj.getString("uuid");
-        Type type = Type.valueOf(obj.getString("type"));
-        String name = obj.getString("name");
-        String ip = obj.has("ip") ? obj.getString("ip") : null;
-        String mac = obj.has("mac") ? obj.getString("mac") : null;
-        Category cat = Category.valueOf(obj.getString("category"));
+        String uuid = obj.getString(KEY_UUID);
+        Type type = new Type(obj.getString(KEY_TYPE));
+        String name = obj.getString(KEY_NAME);
+        String ip = obj.has(KEY_IP) ? obj.getString(KEY_IP) : null;
+        String mac = obj.has(KEY_MAC) ? obj.getString(KEY_MAC) : null;
+        String catStr = obj.optString(KEY_CATEGORY);
+        Category cat = null;
+        try {
+          cat = Category.valueOf(catStr);
+        } catch (IllegalArgumentException e) {
+          Log.w(TAG, "Skipping unsupported category " + catStr + ", using null");
+        }
 
         return new Printer(uuid, type, name, mac, ip, cat);
       } catch (JSONException e) {
-        e.printStackTrace();
+        Log.w(TAG, e);
       }
 
       return null;
@@ -297,15 +311,18 @@ public class Printer implements Parcelable, JSONifiable {
   public JSONObject getJSONObject() {
     try {
       JSONObject obj = new JSONObject();
-      obj.put("uuid", uuid);
-      obj.put("type", type.name());
-      obj.put("name", name);
-      obj.put("ip", ip);
-      obj.put("mac", mac);
-      obj.put("category", category.name());
+      obj.put(KEY_UUID, uuid);
+      obj.put(KEY_TYPE, type.name());
+      obj.put(KEY_NAME, name);
+      obj.put(KEY_IP, ip);
+      obj.put(KEY_MAC, mac);
+      if (category != null) {
+        obj.put(KEY_CATEGORY, category.name());
+      }
       return obj;
     } catch (JSONException e) {
       throw new RuntimeException(e);
     }
   }
+
 }

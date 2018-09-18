@@ -239,7 +239,7 @@ public class PrinterTestActivity extends Activity implements ServiceConnector.On
     buttonSetPrinter.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Printer p = new Printer.Builder().type(Type.STAR_TSP100_ETHERNET).name("Test printer").ip("127.0.0.1").mac("00:11:22:33:55:66").category(Category.RECEIPT).build();
+        Printer p = new Printer.Builder().type(new Type("STAR_TSP100_ETHERNET")).name("Test printer").ip("127.0.0.1").mac("00:11:22:33:55:66").category(Category.RECEIPT).build();
         connector.setPrinter(p, new PrinterConnector.PrinterCallback<Printer>() {
           @Override
           public void onServiceSuccess(Printer result, ResultStatus status) {

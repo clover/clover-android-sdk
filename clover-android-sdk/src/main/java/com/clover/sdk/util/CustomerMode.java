@@ -87,7 +87,7 @@ public class CustomerMode {
    * Enable customer mode. Hide the navigation bar and status bar.
    */
   public static void enable(Context context) {
-    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
+    if (Platform2.supportsFeature(context, Platform2.Feature.CUSTOMER_MODE)) {
       try {
         context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null);
       } catch (IllegalArgumentException e) {
@@ -108,7 +108,7 @@ public class CustomerMode {
    * @param requirePin true if you want to force the employee lockscreen to appear without the "default employee" option
    */
   public static void disable(Context context, boolean requirePin) {
-    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
+    if (Platform2.supportsFeature(context, Platform2.Feature.CUSTOMER_MODE)) {
       try {
         Bundle bundle = new Bundle();
         bundle.putBoolean(EXTRA_REQUIRE_PIN, requirePin);

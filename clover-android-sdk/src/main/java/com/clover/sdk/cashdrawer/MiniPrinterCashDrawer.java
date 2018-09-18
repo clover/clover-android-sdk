@@ -2,8 +2,9 @@ package com.clover.sdk.cashdrawer;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.os.Build;
+
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.util.Platform;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.Type;
@@ -12,6 +13,9 @@ import java.util.Collections;
 import java.util.Set;
 
 class MiniPrinterCashDrawer extends CashDrawer {
+
+  private static final Type SEIKO_MINI_USB = new Type("SEIKO_MINI_USB");
+
   static class Discovery extends CashDrawer.Discovery<MiniPrinterCashDrawer> {
 
     protected Discovery(Context context) {
@@ -20,10 +24,10 @@ class MiniPrinterCashDrawer extends CashDrawer {
 
     @Override
     public Set<MiniPrinterCashDrawer> list() {
-      if (!Platform.isCloverMini()) {
-        return Collections.emptySet();
+      if ("maplecutter".equals(Build.DEVICE) || "knottypine".equals(Build.DEVICE)) {
+        return Collections.singleton(new MiniPrinterCashDrawer(context));
       }
-      return Collections.singleton(new MiniPrinterCashDrawer(context));
+      return Collections.emptySet();
     }
   }
 
@@ -33,7 +37,7 @@ class MiniPrinterCashDrawer extends CashDrawer {
   protected MiniPrinterCashDrawer(Context context) {
     super(context, 1);
     this.cloverAccount = CloverAccount.getAccount(context);
-    this.miniPrinter = new Printer.Builder().type(Type.SEIKO_MINI_USB).category(Category.RECEIPT).build();
+    this.miniPrinter = new Printer.Builder().type(SEIKO_MINI_USB).category(Category.RECEIPT).build();
   }
 
   @Override
@@ -49,4 +53,5 @@ class MiniPrinterCashDrawer extends CashDrawer {
         ", miniPrinter=" + miniPrinter +
         '}';
   }
+
 }

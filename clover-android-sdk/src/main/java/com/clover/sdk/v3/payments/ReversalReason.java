@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum CardTransactionType implements Parcelable {
-  AUTH, PREAUTH, PREAUTHCAPTURE, ADJUST, VOID, VOIDRETURN, RETURN, REFUND, NAKEDREFUND, GETBALANCE, BATCHCLOSE, ACTIVATE, BALANCE_LOCK, LOAD, CASHOUT, CASHOUT_ACTIVE_STATUS, REDEMPTION, REDEMPTION_UNLOCK, RELOAD, CASH_ADVANCE, VOID_CREDIT, REFUND_CREDIT, INTERNET_ACTIVATE, TOKEN_REQUEST, VERIFICATION;
+public enum ReversalReason implements Parcelable {
+  CHIP_DECLINE, CARDHOLDER_CANCELLATION, COMMUNICATION_ERROR, OTHER_REASON;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum CardTransactionType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<CardTransactionType> CREATOR = new Creator<CardTransactionType>() {
+  public static final Creator<ReversalReason> CREATOR = new Creator<ReversalReason>() {
     @Override
-    public CardTransactionType createFromParcel(final Parcel source) {
-      return CardTransactionType.valueOf(source.readString());
+    public ReversalReason createFromParcel(final Parcel source) {
+      return ReversalReason.valueOf(source.readString());
     }
 
     @Override
-    public CardTransactionType[] newArray(final int size) {
-      return new CardTransactionType[size];
+    public ReversalReason[] newArray(final int size) {
+      return new ReversalReason[size];
     }
   };
 }

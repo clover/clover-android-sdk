@@ -24,39 +24,57 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Provides information about the device currently being used. Please keep usages of this class to
- * a minimum. Please prefer standard Android APIs such as {@link android.os.PowerManager},
- * {@link android.net.ConnectivityManager} and {@link android.content.res.Configuration} to get
- * information about the device.
+ * <b>Please discontinue using this class, it has been deprecated and will be deleted in a
+ * future version of the Clover Android SDK!</b>
+ * <p>
+ * Code which references this class almost certainly will not work on future Clover devices or even
+ * slight model variations.
+ * </p><p>
+ * Clover frequently adds new models for existing devices when shipping devices to new
+ * regions. Please use {@link com.clover.sdk.util.Platform2} and/or relevant Android APIs to write
+ * code compatible with future devices that may have different screen sizes or hardware features.
+ * </p>
  */
+@Deprecated
 public enum Platform {
 
+  @Deprecated
   TF300T("Clover Hub", null, Orientation.LANDSCAPE),
+  @Deprecated
   C100("Clover Station", null, Orientation.LANDSCAPE, Feature.ETHERNET, Feature.CUSTOMER_ROTATION, Feature.DEFAULT_EMPLOYEE),
+  @Deprecated
   C200("Clover Mobile", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  @Deprecated
   C201("Clover Mobile", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.SECURE_TOUCH),
+  @Deprecated
   C300("Clover Mini", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C301("Clover Mini", null, Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  /** C400 is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
   C400("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  /** C400U is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
   C400U("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
-  /** C400E is deprecated, and should only be set for devices with pre-PVT roms */
   @Deprecated
   C400E("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C401U("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C401E("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C401L("Clover Flex", null, Orientation.PORTRAIT, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.BATTERY, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C500("Clover Station", "2018 – Gen 2", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.CUSTOMER_FACING_EXTERNAL_DISPLAY, Feature.CUSTOMER_ROTATION),
-  /** Currently not used */
+  @Deprecated
   C550("Clover Station", "2018 – Gen 2", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET),
   @Deprecated
   C302("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C302U("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C302E("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   C302L("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   OTHER("Unknown", null, Orientation.LANDSCAPE),
   ;
 
@@ -70,71 +88,78 @@ public enum Platform {
   private static final EnumSet<Platform> STATION_2018 = EnumSet.of(C500, C550);
 
   /**
-   * List of features that may be present on Clover devices. Non-Clover devices will return false
-   * for all features.
+   * This class is deprecated please use {@link com.clover.sdk.util.Platform2.Feature} instead.
    */
+  @Deprecated
   public enum Feature {
     /**
-     * Device supports the Clover Secure Payments application for taking Mag-stripe, EMV ICC and/or
-     * NFC payments.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS} instead.
      */
+    @Deprecated
     SECURE_PAYMENTS,
     /**
-     * Device supports the {@link CustomerMode} class for checking, enabling and disabling
-     * customer mode.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#CUSTOMER_MODE} instead.
      */
+    @Deprecated
     CUSTOMER_MODE,
     /**
-     * Device includes cellular mobile data hardware.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#MOBILE_DATA} instead.
      */
+    @Deprecated
     MOBILE_DATA,
     /**
-     * Device supports login by a "default employee" without a PIN. May or may not actually be
-     * enabled, see {@link com.clover.sdk.v3.merchant.MerchantProperties} to check.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#DEFAULT_EMPLOYEE} instead.
      */
+    @Deprecated
     DEFAULT_EMPLOYEE,
     /**
-     * Device designed for use on battery power.
+     * @deprecated Use {@link android.os.PowerManager} instead.
      */
+    @Deprecated
     BATTERY,
     /**
-     * Device has an ethernet port or supports an ethernet port attachment (may or may not be
-     * currently attached or connected).
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#ETHERNET} instead.
      */
+    @Deprecated
     ETHERNET,
     /**
-     * Device has a secure touch screen.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#SECURE_TOUCH} instead.
      */
+    @Deprecated
     SECURE_TOUCH,
     /**
-     * Device supports customer facing external display.
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#CUSTOMER_FACING_EXTERNAL_DISPLAY}
+     * instead.
      */
+    @Deprecated
     CUSTOMER_FACING_EXTERNAL_DISPLAY,
     /**
-     * Device supports merchant to customer rotation with landscape->portrait configuration change
+     * @deprecated Use {@link com.clover.sdk.util.Platform2.Feature#CUSTOMER_ROTATION} instead.
      */
+    @Deprecated
     CUSTOMER_ROTATION,
     ;
   }
 
-  /**
-   * List of secure processor platforms.
-   */
+  @Deprecated
   public enum SecureProcessorPlatform {
     BROADCOM,
     MAXIM,
   }
 
-  /** The default orientation for this device, not the current orientation. */
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public enum Orientation {
     LANDSCAPE,
     PORTRAIT,
   }
 
   /**
-   * Return an instance of the Platform class for this device, if not a Clover device this will
-   * return {@link Platform#OTHER}.
+   * @see Platform2
    */
+  @Deprecated
   public static Platform get() {
     Platform platform;
     try {
@@ -147,79 +172,90 @@ public enum Platform {
   }
 
   /**
-   * Returns true when running on Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isClover() {
     return Build.MANUFACTURER.equals(CLOVER_MANUFACTURER);
   }
 
   /**
-   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
-   * {@code android.util.DisplayMetrics} to check display size or using
-   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
-   * forward compatibility with new Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isCloverStation() {
     return isCloverStation(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverStation(Platform platform) {
     return STATION.contains(platform);
   }
 
   /**
-   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
-   * {@code android.util.DisplayMetrics} to check display size or using
-   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
-   * forward compatibility with new Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isCloverMobile() {
     return isCloverMobile(get());
   }
 
+  /**
+   * @see Platform2
+   */
   public static boolean isCloverMobile(Platform platform) {
     return MOBILE.contains(platform);
   }
 
   /**
-   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
-   * {@code android.util.DisplayMetrics} to check display size or using
-   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
-   * forward compatibility with new Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isCloverMini() {
     return isCloverMini(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverMini(Platform platform) {
     return MINI.contains(platform);
   }
 
-
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverMiniGen2() {
     return isCloverMiniGen2(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverMiniGen2(Platform platform) {
     return MINI_GEN2.contains(platform);
   }
 
-
   /**
-   * @deprecated Use {@link #isCloverFlex()}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean isCloverOne() {
     return isCloverFlex();
   }
 
-  /**
-   * Return the platform of the secure processor, null for devices that do not have a secure processor.
-   */
+  @Deprecated
   public static SecureProcessorPlatform getSecureProcessorPlatform() {
     return getSecureProcessorPlatform(get());
   }
 
+  @Deprecated
   public static SecureProcessorPlatform getSecureProcessorPlatform(Platform platform) {
     if (platform == null) {
       return null;
@@ -234,35 +270,38 @@ public enum Platform {
   }
 
   /**
-   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
-   * {@code android.util.DisplayMetrics} to check display size or using
-   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
-   * forward compatibility with new Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isCloverFlex() {
     return isCloverFlex(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverFlex(Platform platform) {
     return FLEX.contains(platform);
   }
 
   /**
-   * Consider using {@link #supportsFeature(Feature)} to check device capabilities, using
-   * {@code android.util.DisplayMetrics} to check display size or using
-   * {@code android.os.Build.VERSION.SDK_INT} to check Android API level instead for better
-   * forward compatibility with new Clover hardware.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean isCloverStation2018() {
     return  isCloverStation2018(get());
   }
-
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean isCloverStation2018(Platform platform) {
     return  STATION_2018.contains(platform);
   }
 
   /**
-   * @deprecated Use {@link #isCloverStation2018()}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean isCloverGoldenOak() {
@@ -270,7 +309,7 @@ public enum Platform {
   }
 
   /**
-   * @deprecated Use {@link #supportsFeature(Feature)} with an argument of {@link Feature#MOBILE_DATA}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean is3g() {
@@ -278,7 +317,7 @@ public enum Platform {
   }
 
   /**
-   * @deprecated Use {@link #supportsFeature(Feature)} with an argument of {@link Feature#SECURE_PAYMENTS}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean isSecureBoardPresent() {
@@ -286,7 +325,7 @@ public enum Platform {
   }
 
   /**
-   * @deprecated Use {@link #defaultOrientation()}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean isDefaultPortrait() {
@@ -294,11 +333,7 @@ public enum Platform {
   }
 
   /**
-   * Indicates if the device supports getting/setting CustomerMode state
-   * via the {@link CustomerMode} API.
-   *
-   * @return true if the device supports it, false otherwise
-   * @deprecated Use {@link #supportsFeature(Feature)} with an argument of {@link Feature#CUSTOMER_MODE}.
+   * @see Platform2
    */
   @Deprecated
   public static boolean isSupportsCustomerMode() {
@@ -306,13 +341,17 @@ public enum Platform {
   }
 
   /**
-   * Return true if the specified feature is supported on this device. Always returns
-   * false for {@link Platform#OTHER}.
+   * @see Platform2
    */
+  @Deprecated
   public static boolean supportsFeature(Feature f) {
     return supportsFeature(get(), f);
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static boolean supportsFeature(Platform platform, Feature f) {
     if (platform == null) {
       return false;
@@ -321,14 +360,17 @@ public enum Platform {
   }
 
   /**
-   * Get the default orientation under which this device is normally used.
-   *
-   * @return the default orientation for Clover devices, undefined for non-Clover devices
+   * @see Platform2
    */
+  @Deprecated
   public static Orientation defaultOrientation() {
     return defaultOrientation(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static Orientation defaultOrientation(Platform platform) {
     if (platform == null) {
       return null;
@@ -337,12 +379,17 @@ public enum Platform {
   }
 
   /**
-   * Get the product details for this device if Clover, null if details aren't defined for the device type.
+   * @see Platform2
    */
+  @Deprecated
   public static String productQualifier() {
     return productQualifier(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static String productQualifier(Platform platform) {
     if (platform == null) {
       return null;
@@ -351,12 +398,17 @@ public enum Platform {
   }
 
   /**
-   * Get the English product name for this device if Clover, null if not a Clover device.
+   * @see Platform2
    */
+  @Deprecated
   public static String productName() {
     return productName(get());
   }
 
+  /**
+   * @see Platform2
+   */
+  @Deprecated
   public static String productName(Platform platform) {
     if (platform == null) {
       return null;
@@ -377,37 +429,35 @@ public enum Platform {
   }
 
   /**
-   * Return true if the specified feature is supported on this Platform instance. Always returns
-   * false for {@link Platform#OTHER}.
+   * @see Platform2
    */
+  @Deprecated
   public boolean isSupportsFeature(Feature feature) {
     return features.contains(feature);
   }
 
   /**
-   * Get the default orientation for this device.
-   *
-   * @return the default orientation for Clover devices, null for non-Clover devices
+   * @see Platform2
    */
+  @Deprecated
   public Orientation getDefaultOrientation() {
     return defaultOrientation;
   }
 
   /**
-   * Get the English product name for this device if Clover, null if not a Clover device.
-   *
-   * @return The Clover product name
+   * @see Platform2
    */
+  @Deprecated
   public String getProductName() {
     return productName;
   }
 
   /**
-   * Get the product details for this device if Clover, null if details aren't defined for the device type
-   *
-   * @return The Clover product details
+   * @see Platform2
    */
+  @Deprecated
   public String getProductQualifier() {
     return productQualifier;
   }
+
 }

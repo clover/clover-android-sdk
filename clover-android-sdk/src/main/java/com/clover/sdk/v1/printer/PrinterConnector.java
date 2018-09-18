@@ -32,15 +32,16 @@ import java.util.List;
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.printer.IPrinterService}.
  * This class automatically binds and provides both synchronous and asynchronous service
  * method invocation.
- * <p>
+ * <p/>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
- * <p>
- * For all service methods, this class provides both synchronous and asynchronous call options.
- * The synchronous methods must not be called on the UI thread.
+ * <p/>
+ * The preferred methods in this class are synchronous methods which do not use callbacks and
+ * should be invoked on a non-main thread.
  */
 public class PrinterConnector extends ServiceConnector<IPrinterService> {
+
   private static final String TAG = "PrinterConnector";
   private static final String SERVICE_HOST = "com.clover.engine";
 
@@ -51,15 +52,19 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
   }
 
   /**
+   * Connector callbacks are deprecated, prefer to simply invoke connector methods which do not
+   * use callbacks on a non-main thread.
+   * <p/>
    * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
    * for receiving asynchronous results from {@link PrinterConnector}
    * methods that provides default method implementations.
-   * <p>
+   * <p/>
    * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
    * invocation.
    *
    * @param <T> the result type.
    */
+  @Deprecated
   public static class PrinterCallback<T> implements Callback<T> {
     @Override
     public void onServiceSuccess(T result, ResultStatus status) {
@@ -109,10 +114,9 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
   }
 
   /**
-   * Get all printers.
-   *
-   * @param callback A callback that will be called when results are available.
+   * Use {@link #getPrinters()} instead on a non-main thread.
    */
+  @Deprecated
   public void getPrinters(Callback<List<Printer>> callback) {
     execute(new PrinterCallable<List<Printer>>() {
       @Override
@@ -131,6 +135,10 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
     });
   }
 
+  /**
+   * Use {@link #getPrinters(Category)} instead on a non-main thread.
+   */
+  @Deprecated
   public void getPrinters(final Category category, Callback<List<Printer>> callback) {
     execute(new PrinterCallable<List<Printer>>() {
       @Override
@@ -149,6 +157,10 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
     });
   }
 
+  /**
+   * Use {@link #isPrinterSet(Category)} instead on a non-main thread.
+   */
+  @Deprecated
   public void isPrinterSet(final Category category, Callback<Boolean> callback) {
     execute(new PrinterCallable<Boolean>() {
       @Override
@@ -167,6 +179,10 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
     });
   }
 
+  /**
+   * Use {@link #getPrinter(String)} instead on a non-main thread.
+   */
+  @Deprecated
   public void getPrinter(final String id, Callback<Printer> callback) {
     execute(new PrinterCallable<Printer>() {
       @Override
@@ -185,6 +201,10 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
     });
   }
 
+  /**
+   * Use {@link #setPrinter(Printer)} instead on a non-main thread.
+   */
+  @Deprecated
   public void setPrinter(final Printer printer, Callback<Printer> callback) {
     execute(new PrinterCallable<Printer>() {
       @Override
@@ -203,6 +223,10 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
     });
   }
 
+  /**
+   * Use {@link #removePrinter(Printer)} instead on a non-main thread.
+   */
+  @Deprecated
   public void removePrinter(final Printer printer, Callback<Void> callback) {
     execute(new PrinterCallable<Void>() {
       @Override
@@ -221,4 +245,14 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
       }
     });
   }
+
+  public TypeDetails getPrinterTypeDetails(final Printer printer) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new PrinterCallable<TypeDetails>() {
+      @Override
+      public TypeDetails call(IPrinterService service, ResultStatus status) throws RemoteException {
+        return service.getPrinterTypeDetails(printer, status);
+      }
+    });
+  }
+
 }

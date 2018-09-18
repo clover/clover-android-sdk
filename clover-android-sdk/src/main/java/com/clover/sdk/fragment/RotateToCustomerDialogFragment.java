@@ -16,6 +16,7 @@
 package com.clover.sdk.fragment;
 
 import android.app.DialogFragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +25,14 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import com.clover.android.sdk.R;
 import com.clover.sdk.internal.util.Strings;
-import com.clover.sdk.util.Platform;
+import com.clover.sdk.util.Platform2;
 
 public class RotateToCustomerDialogFragment extends DialogFragment {
 
   private static final String TAG = RotateToCustomerDialogFragment.class.getSimpleName();
   private static final String EXTRA_INSTRUCTION = "instruction";
 
-  private RotateToCustomerDialogFragment() {
+  public RotateToCustomerDialogFragment() {
     super();
   }
 
@@ -74,7 +75,7 @@ public class RotateToCustomerDialogFragment extends DialogFragment {
 
   @Override
   public void onStart() {
-    if (Platform.supportsFeature(Platform.Feature.CUSTOMER_MODE)) {
+    if (Platform2.supportsFeature(getActivity(), Platform2.Feature.CUSTOMER_MODE)) {
       getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
           WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
 
@@ -87,7 +88,7 @@ public class RotateToCustomerDialogFragment extends DialogFragment {
 
       // Set the dialog to focusable again.
       getDialog().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-    } else if (Platform.isCloverStation()){
+    } else if ("cardhu".equals(Build.DEVICE)) {
       // station
       super.onStart();
       getDialog().getWindow().getDecorView().findViewById(android.R.id.content).setSystemUiVisibility(0x10000000);  // magic :)

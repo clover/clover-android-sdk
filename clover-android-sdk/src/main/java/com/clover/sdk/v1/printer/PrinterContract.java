@@ -59,9 +59,13 @@ public final class PrinterContract {
      */
     public static final String UUID = "uuid";
     /**
-     * The type of the printer, as defined by the enum <code>Type</code>.
+     * The type of the printer, as defined by the <code>Type#name()</code>.
      */
     public static final String TYPE = "type";
+    /**
+     * The type details for this type printer, encoded as TypeDetails JSON.
+     */
+    public static final String TYPE_DETAILS = "typeDetails";
     /**
      * The name of the printer.
      */

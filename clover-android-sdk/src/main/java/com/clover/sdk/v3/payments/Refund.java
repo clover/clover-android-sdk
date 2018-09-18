@@ -36,7 +36,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDevice device}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
- * <li>{@link #getTaxRates taxRates}</li>
  * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getClientCreatedTime clientCreatedTime}</li>
@@ -89,10 +88,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public java.lang.Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
-  }
-
-  public java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> getTaxRates() {
-    return genClient.cacheGet(CacheKey.taxRates);
   }
 
   /**
@@ -206,12 +201,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
         return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
       }
     },
-    taxRates {
-      @Override
-      public Object extractValue(Refund instance) {
-        return instance.genClient.extractListRecord("taxRates", com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR);
-      }
-    },
     tipAmount {
       @Override
       public Object extractValue(Refund instance) {
@@ -302,8 +291,8 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   private GenericClient<Refund> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Refund() {
     genClient = new GenericClient<Refund>(this);
   }
@@ -314,8 +303,8 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Refund(boolean noInit) {
     genClient = null;
   }
@@ -387,14 +376,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   public boolean isNotNullTaxAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
-
-  /** Checks whether the 'taxRates' field is set and is not null */
-  public boolean isNotNullTaxRates() {
-    return genClient.cacheValueIsNotNull(CacheKey.taxRates);
-  }
-
-  /** Checks whether the 'taxRates' field is set and is not null and is not empty */
-  public boolean isNotEmptyTaxRates() { return isNotNullTaxRates() && !getTaxRates().isEmpty(); }
 
   /** Checks whether the 'tipAmount' field is set and is not null */
   public boolean isNotNullTipAmount() {
@@ -500,11 +481,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return genClient.cacheHasKey(CacheKey.taxAmount);
-  }
-
-  /** Checks whether the 'taxRates' field has been set, however the value could be null */
-  public boolean hasTaxRates() {
-    return genClient.cacheHasKey(CacheKey.taxRates);
   }
 
   /** Checks whether the 'tipAmount' field has been set, however the value could be null */
@@ -615,15 +591,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Refund setTaxAmount(java.lang.Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
-  }
-
-  /**
-   * Sets the field 'taxRates'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
-   */
-  public Refund setTaxRates(java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> taxRates) {
-    return genClient.setArrayRecord(taxRates, CacheKey.taxRates);
   }
 
   /**
@@ -763,10 +730,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
   }
-  /** Clears the 'taxRates' field, the 'has' method for this field will now return false */
-  public void clearTaxRates() {
-    genClient.clear(CacheKey.taxRates);
-  }
   /** Clears the 'tipAmount' field, the 'has' method for this field will now return false */
   public void clearTipAmount() {
     genClient.clear(CacheKey.tipAmount);
@@ -887,7 +850,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean DEVICE_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
-    public static final boolean TAXRATES_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
