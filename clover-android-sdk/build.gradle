@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '213-SNAPSHOT'
+version = '213'
 
 apply from: file("${androidBuild}/lib.gradle")
 
