@@ -20,6 +20,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
@@ -28,6 +30,8 @@ import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
 import com.clover.sdk.internal.util.Strings;
+
+import java.util.List;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
@@ -125,18 +129,36 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
       if (mConnected) {
         result = true;
       } else {
-        Intent intent = new Intent(getServiceIntentAction());
-        intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
-        intent.putExtra(Intents.EXTRA_VERSION, getServiceIntentVersion());
-        if (!Strings.isNullOrEmpty(getServiceIntentPackage())) {
-          intent.setPackage(getServiceIntentPackage());
-        }
-
+        Intent intent = getStartIntent();
         result = mContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
         mConnected = result;
       }
     }
     return result;
+  }
+
+  public boolean isInstalled() {
+    Intent intent = getStartIntent();
+    List<ResolveInfo> providerInfos = mContext.getPackageManager().queryIntentServices(intent, PackageManager.GET_META_DATA);
+    if (providerInfos != null && providerInfos.size() > 0) {
+      if (providerInfos.size() > 1) {
+        Log.w(TAG, String.format("Multiple services map to intent %s there are %d", intent, providerInfos.size()));
+      }
+      return true;
+    } else {
+      Log.w(TAG, String.format("No services map to intent %s, it cannot be used", intent));
+    }
+    return false;
+  }
+
+  protected Intent getStartIntent() {
+    Intent intent = new Intent(getServiceIntentAction());
+    intent.putExtra(Intents.EXTRA_ACCOUNT, mAccount);
+    intent.putExtra(Intents.EXTRA_VERSION, getServiceIntentVersion());
+    if (!Strings.isNullOrEmpty(getServiceIntentPackage())) {
+      intent.setPackage(getServiceIntentPackage());
+    }
+    return intent;
   }
 
   public void disconnect() {

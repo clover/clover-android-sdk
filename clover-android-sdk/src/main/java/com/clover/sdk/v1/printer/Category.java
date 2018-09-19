@@ -17,9 +17,13 @@ package com.clover.sdk.v1.printer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public enum Category implements Parcelable {
+
   ORDER, RECEIPT, FISCAL;
+
+  private static final String TAG = Category.class.getSimpleName();
 
   @Override
   public int describeContents() {
@@ -34,7 +38,16 @@ public enum Category implements Parcelable {
   public static final Creator<Category> CREATOR = new Creator<Category>() {
     @Override
     public Category createFromParcel(final Parcel source) {
-      return Category.valueOf(source.readString());
+      String catStr = source.readString();
+
+      Category category = null;
+      try {
+        category = Category.valueOf(catStr);
+      } catch (IllegalArgumentException e) {
+        Log.w(TAG, "Unknown category " + catStr + ", returning null");
+      }
+
+      return category;
     }
 
     @Override
@@ -42,4 +55,5 @@ public enum Category implements Parcelable {
       return new Category[size];
     }
   };
+
 }
