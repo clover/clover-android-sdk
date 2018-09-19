@@ -16,10 +16,10 @@
 group = 'com.clover.sdk'
 version = '213'
 
-apply from: file("${androidBuild}/lib.gradle")
+apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
-  compile 'com.clover:calc:262-SNAPSHOT'
+  compile files('lib/calc-259.1.jar')
 }
 
 
