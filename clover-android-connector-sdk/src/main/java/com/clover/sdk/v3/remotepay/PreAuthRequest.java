@@ -36,6 +36,14 @@ import com.clover.sdk.GenericClient;
 public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionRequest {
 
   /**
+   * Identifier for the order to apply this to.  The order must exist in the clover system.  **NOTE**  THIS FIELD IS ONLY USED BY THE PAYMENT CONNECTOR. It provides functionality currently available to the native PayIntent but not supported yet by the remote pay SDKs
+   */
+  @Override
+  public java.lang.String getOrderId() {
+    return genClient.cacheGet(CacheKey.orderId);
+  }
+
+  /**
    * If true, then do not print using the clover printer.  Return print information.
    */
   @Override
@@ -151,6 +159,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PreAuthRequest> {
+    orderId {
+      @Override
+      public Object extractValue(PreAuthRequest instance) {
+        return instance.genClient.extractOther("orderId", java.lang.String.class);
+      }
+    },
     disablePrinting {
       @Override
       public Object extractValue(PreAuthRequest instance) {
@@ -304,10 +318,18 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   @Override
   public void validate() {
 
+    genClient.validateLength(getOrderId(), 13);
+
     genClient.validateNull(getAmount(), "amount");
 
     genClient.validateNull(getExternalId(), "externalId");
     genClient.validateLength(getRequestId(), 13);
+  }
+
+  /** Checks whether the 'orderId' field is set and is not null */
+  @Override
+  public boolean isNotNullOrderId() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderId);
   }
 
   /** Checks whether the 'disablePrinting' field is set and is not null */
@@ -399,6 +421,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
 
 
+  /** Checks whether the 'orderId' field has been set, however the value could be null */
+  @Override
+  public boolean hasOrderId() {
+    return genClient.cacheHasKey(CacheKey.orderId);
+  }
+
   /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
   @Override
   public boolean hasDisablePrinting() {
@@ -483,6 +511,14 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
     return genClient.cacheHasKey(CacheKey.version);
   }
 
+
+  /**
+   * Sets the field 'orderId'.
+   */
+  @Override
+  public BaseTransactionRequest setOrderId(java.lang.String orderId) {
+    return genClient.setOther(orderId, CacheKey.orderId);
+  }
 
   /**
    * Sets the field 'disablePrinting'.
@@ -599,6 +635,11 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   }
 
 
+  /** Clears the 'orderId' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearOrderId() {
+    genClient.clear(CacheKey.orderId);
+  }
   /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
   @Override
   public void clearDisablePrinting() {
@@ -728,6 +769,8 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
   public interface Constraints {
 
+    public static final boolean ORDERID_IS_REQUIRED = false;
+    public static final long ORDERID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
     public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
     public static final boolean DISABLEDUPLICATECHECKING_IS_REQUIRED = false;

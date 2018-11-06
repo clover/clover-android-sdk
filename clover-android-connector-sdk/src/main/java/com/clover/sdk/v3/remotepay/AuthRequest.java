@@ -126,6 +126,14 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   }
 
   /**
+   * Identifier for the order to apply this to.  The order must exist in the clover system.  **NOTE**  THIS FIELD IS ONLY USED BY THE PAYMENT CONNECTOR. It provides functionality currently available to the native PayIntent but not supported yet by the remote pay SDKs
+   */
+  @Override
+  public java.lang.String getOrderId() {
+    return genClient.cacheGet(CacheKey.orderId);
+  }
+
+  /**
    * If true, then do not print using the clover printer.  Return print information.
    */
   @Override
@@ -307,6 +315,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
         return instance.genClient.extractListRecord("tipSuggestions", com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR);
       }
     },
+    orderId {
+      @Override
+      public Object extractValue(AuthRequest instance) {
+        return instance.genClient.extractOther("orderId", java.lang.String.class);
+      }
+    },
     disablePrinting {
       @Override
       public Object extractValue(AuthRequest instance) {
@@ -460,6 +474,8 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   @Override
   public void validate() {
 
+    genClient.validateLength(getOrderId(), 13);
+
     genClient.validateNull(getAmount(), "amount");
 
     genClient.validateNull(getExternalId(), "externalId");
@@ -533,6 +549,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
 
   /** Checks whether the 'tipSuggestions' field is set and is not null and is not empty */
   public boolean isNotEmptyTipSuggestions() { return isNotNullTipSuggestions() && !getTipSuggestions().isEmpty(); }
+
+  /** Checks whether the 'orderId' field is set and is not null */
+  @Override
+  public boolean isNotNullOrderId() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderId);
+  }
 
   /** Checks whether the 'disablePrinting' field is set and is not null */
   @Override
@@ -686,6 +708,12 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   @Override
   public boolean hasTipSuggestions() {
     return genClient.cacheHasKey(CacheKey.tipSuggestions);
+  }
+
+  /** Checks whether the 'orderId' field has been set, however the value could be null */
+  @Override
+  public boolean hasOrderId() {
+    return genClient.cacheHasKey(CacheKey.orderId);
   }
 
   /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
@@ -863,6 +891,14 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   }
 
   /**
+   * Sets the field 'orderId'.
+   */
+  @Override
+  public BaseTransactionRequest setOrderId(java.lang.String orderId) {
+    return genClient.setOther(orderId, CacheKey.orderId);
+  }
+
+  /**
    * Sets the field 'disablePrinting'.
    */
   @Override
@@ -1031,6 +1067,11 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
   public void clearTipSuggestions() {
     genClient.clear(CacheKey.tipSuggestions);
   }
+  /** Clears the 'orderId' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearOrderId() {
+    genClient.clear(CacheKey.orderId);
+  }
   /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
   @Override
   public void clearDisablePrinting() {
@@ -1171,6 +1212,8 @@ public class AuthRequest extends com.clover.sdk.v3.remotepay.TransactionRequest 
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean TIPPABLEAMOUNT_IS_REQUIRED = false;
     public static final boolean TIPSUGGESTIONS_IS_REQUIRED = false;
+    public static final boolean ORDERID_IS_REQUIRED = false;
+    public static final long ORDERID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
     public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
     public static final boolean DISABLEDUPLICATECHECKING_IS_REQUIRED = false;
