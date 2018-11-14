@@ -35,6 +35,7 @@ import com.clover.sdk.GenericClient;
  * <li>{@link #getEmployeeId employeeId}</li>
  * <li>{@link #getDisablePrinting disablePrinting}</li>
  * <li>{@link #getDisableReceiptSelection disableReceiptSelection}</li>
+ * <li>{@link #getExtras extras}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -73,6 +74,13 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
    */
   public java.lang.Boolean getDisableReceiptSelection() {
     return genClient.cacheGet(CacheKey.disableReceiptSelection);
+  }
+
+  /**
+   * Extra pass-through data used by external systems.
+   */
+  public java.util.Map<java.lang.String,java.lang.String> getExtras() {
+    return genClient.cacheGet(CacheKey.extras);
   }
 
   /**
@@ -123,6 +131,12 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
       @Override
       public Object extractValue(VoidPaymentRefundRequest instance) {
         return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
+      }
+    },
+    extras {
+      @Override
+      public Object extractValue(VoidPaymentRefundRequest instance) {
+        return instance.genClient.extractMap("extras");
       }
     },
     requestId {
@@ -238,6 +252,14 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
     return genClient.cacheValueIsNotNull(CacheKey.disableReceiptSelection);
   }
 
+  /** Checks whether the 'extras' field is set and is not null */
+  public boolean isNotNullExtras() {
+    return genClient.cacheValueIsNotNull(CacheKey.extras);
+  }
+
+  /** Checks whether the 'extras' field is set and is not null and is not empty */
+  public boolean isNotEmptyExtras() { return isNotNullExtras() && !getExtras().isEmpty(); }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -275,6 +297,11 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   /** Checks whether the 'disableReceiptSelection' field has been set, however the value could be null */
   public boolean hasDisableReceiptSelection() {
     return genClient.cacheHasKey(CacheKey.disableReceiptSelection);
+  }
+
+  /** Checks whether the 'extras' field has been set, however the value could be null */
+  public boolean hasExtras() {
+    return genClient.cacheHasKey(CacheKey.extras);
   }
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
@@ -326,6 +353,13 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   }
 
   /**
+   * Sets the field 'extras'.
+   */
+  public VoidPaymentRefundRequest setExtras(java.util.Map<java.lang.String,java.lang.String> extras) {
+    return genClient.setOther(extras, CacheKey.extras);
+  }
+
+  /**
    * Sets the field 'requestId'.
    */
   @Override
@@ -361,6 +395,10 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   /** Clears the 'disableReceiptSelection' field, the 'has' method for this field will now return false */
   public void clearDisableReceiptSelection() {
     genClient.clear(CacheKey.disableReceiptSelection);
+  }
+  /** Clears the 'extras' field, the 'has' method for this field will now return false */
+  public void clearExtras() {
+    genClient.clear(CacheKey.extras);
   }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
@@ -439,6 +477,7 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
     public static final long EMPLOYEEID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
     public static final boolean DISABLERECEIPTSELECTION_IS_REQUIRED = false;
+    public static final boolean EXTRAS_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

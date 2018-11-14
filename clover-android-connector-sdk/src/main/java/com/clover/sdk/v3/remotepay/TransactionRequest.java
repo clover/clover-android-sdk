@@ -108,6 +108,9 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
     return genClient.cacheGet(CacheKey.tippableAmount);
   }
 
+  /**
+   * Custom Tip Suggestions that can be set per transaction
+   */
   public java.util.List<com.clover.sdk.v3.merchant.TipSuggestion> getTipSuggestions() {
     return genClient.cacheGet(CacheKey.tipSuggestions);
   }
@@ -198,6 +201,14 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
   @Override
   public java.lang.Boolean getAutoAcceptPaymentConfirmations() {
     return genClient.cacheGet(CacheKey.autoAcceptPaymentConfirmations);
+  }
+
+  /**
+   * Extra pass-through data used by external systems.
+   */
+  @Override
+  public java.util.Map<java.lang.String,java.lang.String> getExtras() {
+    return genClient.cacheGet(CacheKey.extras);
   }
 
   /**
@@ -344,6 +355,12 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
       @Override
       public Object extractValue(TransactionRequest instance) {
         return instance.genClient.extractOther("autoAcceptPaymentConfirmations", java.lang.Boolean.class);
+      }
+    },
+    extras {
+      @Override
+      public Object extractValue(TransactionRequest instance) {
+        return instance.genClient.extractMap("extras");
       }
     },
     requestId {
@@ -551,6 +568,15 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
     return genClient.cacheValueIsNotNull(CacheKey.autoAcceptPaymentConfirmations);
   }
 
+  /** Checks whether the 'extras' field is set and is not null */
+  @Override
+  public boolean isNotNullExtras() {
+    return genClient.cacheValueIsNotNull(CacheKey.extras);
+  }
+
+  /** Checks whether the 'extras' field is set and is not null and is not empty */
+  public boolean isNotEmptyExtras() { return isNotNullExtras() && !getExtras().isEmpty(); }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -679,6 +705,12 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
   @Override
   public boolean hasAutoAcceptPaymentConfirmations() {
     return genClient.cacheHasKey(CacheKey.autoAcceptPaymentConfirmations);
+  }
+
+  /** Checks whether the 'extras' field has been set, however the value could be null */
+  @Override
+  public boolean hasExtras() {
+    return genClient.cacheHasKey(CacheKey.extras);
   }
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
@@ -857,6 +889,14 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
   }
 
   /**
+   * Sets the field 'extras'.
+   */
+  @Override
+  public BaseTransactionRequest setExtras(java.util.Map<java.lang.String,java.lang.String> extras) {
+    return genClient.setOther(extras, CacheKey.extras);
+  }
+
+  /**
    * Sets the field 'requestId'.
    */
   @Override
@@ -968,6 +1008,11 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
   public void clearAutoAcceptPaymentConfirmations() {
     genClient.clear(CacheKey.autoAcceptPaymentConfirmations);
   }
+  /** Clears the 'extras' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearExtras() {
+    genClient.clear(CacheKey.extras);
+  }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
   public void clearRequestId() {
@@ -1058,6 +1103,7 @@ public class TransactionRequest extends com.clover.sdk.v3.remotepay.BaseTransact
     public static final boolean EXTERNALID_IS_REQUIRED = true;
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean AUTOACCEPTPAYMENTCONFIRMATIONS_IS_REQUIRED = false;
+    public static final boolean EXTRAS_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

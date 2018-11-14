@@ -30,6 +30,7 @@ import com.clover.sdk.v1.configuration.Themes;
 import com.clover.sdk.v3.apps.AppTracking;
 import com.clover.sdk.v3.payments.CardTransaction;
 import com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification;
+import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.GermanInfo;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.ServiceChargeAmount;
@@ -38,8 +39,11 @@ import com.clover.sdk.v3.payments.TransactionSettings;
 import com.clover.sdk.v3.payments.VasSettings;
 import com.clover.sdk.v3.payments.VaultedCard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PayIntent implements Parcelable {
 
@@ -127,6 +131,9 @@ public class PayIntent implements Parcelable {
     private CardTransaction originatingTransaction;
     private Themes themeName;
     private Payment originatingPayment;
+    private Credit originatingCredit;
+    // Optional map of values passed through to the server NOT used in payment processing or persisted
+    private Map<String, String> passThroughValues;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -219,6 +226,12 @@ public class PayIntent implements Parcelable {
         }
       } else if (intent.hasExtra(Intents.EXTRA_ORIGINATING_TRANSACTION)) {
         originatingTransaction = intent.getParcelableExtra(Intents.EXTRA_ORIGINATING_TRANSACTION);
+      }
+      if (intent.hasExtra(Intents.EXTRA_ORIGINATING_CREDIT)) {
+        originatingCredit = intent.getParcelableExtra(Intents.EXTRA_ORIGINATING_CREDIT);
+      }
+      if (intent.hasExtra(Intents.EXTRA_PASS_THROUGH_VALUES)) {
+        passThroughValues = (Map<String, String>) intent.getSerializableExtra(Intents.EXTRA_PASS_THROUGH_VALUES);
       }
       return this;
     }
@@ -347,6 +360,8 @@ public class PayIntent implements Parcelable {
       } else {
         this.originatingTransaction = payIntent.originatingTransaction;
       }
+      this.originatingCredit = payIntent.originatingCredit;
+      this.passThroughValues = payIntent.passThroughValues;
       return this;
     }
 
@@ -565,6 +580,17 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder originatingCredit(Credit originatingCredit) {
+      this.originatingCredit = originatingCredit;
+      return this;
+    }
+
+    public Builder passThroughValues(Map<String, String> originatingPassThroughValues) {
+      boolean create = originatingPassThroughValues != null && !(originatingPassThroughValues instanceof Serializable);
+      this.passThroughValues = create ? new HashMap<>(originatingPassThroughValues) : originatingPassThroughValues;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -579,7 +605,7 @@ public class PayIntent implements Parcelable {
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
           germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings,
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
-          themeName, originatingPayment);
+          themeName, originatingPayment, originatingCredit, passThroughValues);
     }
   }
 
@@ -631,6 +657,9 @@ public class PayIntent implements Parcelable {
   public final VasSettings vasSettings;
   public final CardTransaction originatingTransaction;
   public final Payment originatingPayment;
+  public final Credit originatingCredit;
+  public final Map<String, String> passThroughValues;
+
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, String orderId, String paymentId, String employeeId,
@@ -642,7 +671,7 @@ public class PayIntent implements Parcelable {
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
                     GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings,
-                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment) {
+                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -681,6 +710,7 @@ public class PayIntent implements Parcelable {
     this.cashAdvanceCustomerIdentification = cashAdvanceCustomerIdentification;
     this.originatingTransaction = originatingTransaction;
     this.originatingPayment = originatingPayment;
+    this.originatingCredit = originatingCredit;
 
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
@@ -691,6 +721,7 @@ public class PayIntent implements Parcelable {
     }
 
     this.vasSettings = vasSettings;
+    this.passThroughValues = passThroughValues;
   }
 
   private TransactionSettings buildTransactionSettingsPrivate(Long tippableAmountIn, boolean isDisableCashBackIn, int cardEntryMethodsIn,
@@ -832,6 +863,13 @@ public class PayIntent implements Parcelable {
     } else if (originatingTransaction != null) {
       intent.putExtra(Intents.EXTRA_ORIGINATING_TRANSACTION, originatingTransaction);
     }
+    if (originatingCredit != null) {
+      intent.putExtra(Intents.EXTRA_ORIGINATING_CREDIT, originatingCredit);
+    }
+
+    if (passThroughValues != null) {
+      intent.putExtra(Intents.EXTRA_PASS_THROUGH_VALUES, (Serializable) passThroughValues);
+    }
   }
 
   @Override
@@ -874,6 +912,7 @@ public class PayIntent implements Parcelable {
            ", transactionSettings=" + transactionSettings +
            ", vasSettings=" + vasSettings +
            ", themeName=" + themeName +
+           ", passThroughValues=" + passThroughValues +
            '}';
   }
 
@@ -1005,6 +1044,14 @@ public class PayIntent implements Parcelable {
 
     if (originatingPayment != null) {
       bundle.putParcelable(Intents.EXTRA_ORIGINATING_PAYMENT, originatingPayment);
+    }
+
+    if (originatingCredit != null) {
+      bundle.putParcelable(Intents.EXTRA_ORIGINATING_CREDIT, originatingCredit);
+    }
+
+    if (passThroughValues != null) {
+      bundle.putSerializable(Intents.EXTRA_PASS_THROUGH_VALUES, (Serializable) passThroughValues);
     }
 
     // write out
@@ -1159,6 +1206,20 @@ public class PayIntent implements Parcelable {
         final Parcelable originatingPaymentParcelable = bundle.getParcelable(Intents.EXTRA_ORIGINATING_PAYMENT);
         if (originatingPaymentParcelable instanceof Payment) {
           builder.originatingPayment((Payment)originatingPaymentParcelable);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_ORIGINATING_CREDIT)) {
+        final Parcelable originatingCreditParcelable = bundle.getParcelable(Intents.EXTRA_ORIGINATING_CREDIT);
+        if (originatingCreditParcelable instanceof Credit) {
+          builder.originatingCredit((Credit)originatingCreditParcelable);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_PASS_THROUGH_VALUES)) {
+        final Serializable originatingPassThroughValues = bundle.getSerializable(Intents.EXTRA_PASS_THROUGH_VALUES);
+        if (originatingPassThroughValues instanceof Map) {
+          builder.passThroughValues((Map<String, String>) originatingPassThroughValues);
         }
       }
 

@@ -569,6 +569,19 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
    * Not available to non-Clover apps.
    * @y.exclude
    */
+  public Order voidPayment3(final String orderId, final String paymentId, final String iccContainer, final Map<String, String> passThroughExtras, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPayment3(orderId, paymentId, iccContainer, passThroughExtras, reason, source, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public Order voidPaymentWithCard(final String orderId, final String paymentId, final String iccContainer,
                                    final PaymentRequestCardDetails card, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
@@ -584,11 +597,25 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
    * @y.exclude
    */
   public Order voidPaymentCardPresent(final String orderId, final String paymentId, final String iccContainer,
-                                   final PaymentRequestCardDetails card, final TransactionInfo transactionInfo, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+                                      final PaymentRequestCardDetails card, final TransactionInfo transactionInfo, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.voidPaymentCardPresent(orderId, paymentId, iccContainer, card, transactionInfo, reason, source, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Order voidPaymentCardPresent2(final String orderId, final String paymentId, final String iccContainer,
+                                      final PaymentRequestCardDetails card, final TransactionInfo transactionInfo, final Map<String, String> passThroughExtras, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPaymentCardPresent2(orderId, paymentId, iccContainer, card, transactionInfo, passThroughExtras, reason, source, status));
       }
     });
   }
@@ -723,6 +750,19 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Refund call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.refund(orderId, new RefundFdParcelable(refund), status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Refund refund2(final String orderId, final Refund refund, final Map<String, String> passThroughExtras) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Refund>() {
+      @Override
+      public Refund call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.refund2(orderId, new RefundFdParcelable(refund), passThroughExtras, status));
       }
     });
   }

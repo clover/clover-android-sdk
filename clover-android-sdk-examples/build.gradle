@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '214.1'
+version = '215'
 
-apply from: file("${project.rootDir}/versions.gradle")
-
-apply plugin: 'com.android.application'
+apply from: file("${androidBuild}/app.gradle")
 
 repositories {
   mavenLocal()
+  maven { url "http://bulldog.corp.clover.com:8081/artifactory/libs-release" }
+  maven { url "http://bulldog.corp.clover.com:8081/artifactory/libs-snapshot" }
   mavenCentral()
-  jcenter()
-  google()
 }
 
 android {
@@ -33,7 +31,6 @@ android {
       }
   compileSdkVersion COMPILE_SDK_VERSION
   buildToolsVersion BUILD_TOOLS_VERSION
-  useLibrary HTTP_LIBRARY
 
   defaultConfig {
     minSdkVersion MIN_SDK_VERSION

@@ -42,6 +42,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNote note}</li>
  * <li>{@link #getClosingPayment closingPayment}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getToken createdTime}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -118,7 +119,12 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
-
+  /**
+   * Token used for the authorization
+   */
+  public java.lang.String getToken() {
+    return genClient.cacheGet(CacheKey.token);
+  }
 
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Authorization> {
@@ -186,6 +192,12 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
       @Override
       public Object extractValue(Authorization instance) {
         return instance.genClient.extractOther("createdTime", java.lang.Long.class);
+      }
+    },
+    token {
+      @Override
+      public Object extractValue(Authorization instance) {
+        return instance.genClient.extractOther("token", java.lang.String.class);
       }
     },
       ;
@@ -319,6 +331,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
   }
 
+  /** Checks whether the 'token' field is set and is not null */
+  public boolean isNotNullToken() {
+    return genClient.cacheValueIsNotNull(CacheKey.token);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -376,6 +392,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheHasKey(CacheKey.createdTime);
   }
 
+  /** Checks whether the 'token' field has been set, however the value could be null */
+  public boolean hasToken() {
+    return genClient.cacheHasKey(CacheKey.token);
+  }
 
   /**
    * Sets the field 'id'.
@@ -458,6 +478,12 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
+  /**
+   * Sets the field 'token'.
+   */
+  public Authorization setToken(java.lang.String token) {
+    return genClient.setOther(token, CacheKey.token);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -503,7 +529,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
   }
-
+  /** Clears the 'token' field, the 'has' method for this field will now return false */
+  public void clearToken() {
+    genClient.clear(CacheKey.token);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -578,6 +607,7 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     public static final long NOTE_MAX_LEN = 255;
     public static final boolean CLOSINGPAYMENT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
+    public static final boolean TOKEN_IS_REQUIRED = false;
 
   }
 

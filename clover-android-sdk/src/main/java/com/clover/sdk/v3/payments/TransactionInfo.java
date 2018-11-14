@@ -57,6 +57,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTransactionTags transactionTags}</li>
  * <li>{@link #getTxFormat txFormat}</li>
  * <li>{@link #getReversalReason reversalReason}</li>
+ * <li>{@link #getPanMask panMask}</li>
+ * <li>{@link #getTransactionSequenceCounter transactionSequenceCounter}</li>
+ * <li>{@link #getApplicationPanSequenceNumber applicationPanSequenceNumber}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -241,8 +244,26 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.reversalReason);
   }
 
+  /**
+   * Contains a hex string with the information how the PAN on cardholder receipts shall be masked
+   */
+  public java.lang.String getPanMask() {
+    return genClient.cacheGet(CacheKey.panMask);
+  }
 
+  /**
+   * Counter maintained by the terminal that is incremented for each transaction at the beginning of the Perform Service function
+   */
+  public java.lang.String getTransactionSequenceCounter() {
+    return genClient.cacheGet(CacheKey.transactionSequenceCounter);
+  }
 
+  /**
+   * Identifies and differentiates cards with the same PAN
+   */
+  public java.lang.String getApplicationPanSequenceNumber() {
+    return genClient.cacheGet(CacheKey.applicationPanSequenceNumber);
+  }
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TransactionInfo> {
     languageIndicator {
@@ -399,6 +420,24 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(TransactionInfo instance) {
         return instance.genClient.extractEnum("reversalReason", com.clover.sdk.v3.payments.ReversalReason.class);
+      }
+    },
+    panMask {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("panMask", java.lang.String.class);
+      }
+    },
+    transactionSequenceCounter {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("transactionSequenceCounter", java.lang.String.class);
+      }
+    },
+    applicationPanSequenceNumber {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("applicationPanSequenceNumber", java.lang.String.class);
       }
     },
       ;
@@ -603,6 +642,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.reversalReason);
   }
 
+  /** Checks whether the 'panMask' field is set and is not null */
+  public boolean isNotNullPanMask() {
+    return genClient.cacheValueIsNotNull(CacheKey.panMask);
+  }
+
+  /** Checks whether the 'transactionSequenceCounter' field is set and is not null */
+  public boolean isNotNullTransactionSequenceCounter() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionSequenceCounter);
+  }
+
+  /** Checks whether the 'applicationPanSequenceNumber' field is set and is not null */
+  public boolean isNotNullApplicationPanSequenceNumber() {
+    return genClient.cacheValueIsNotNull(CacheKey.applicationPanSequenceNumber);
+  }
 
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
@@ -735,6 +788,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.reversalReason);
   }
 
+  /** Checks whether the 'panMask' field has been set, however the value could be null */
+  public boolean hasPanMask() {
+    return genClient.cacheHasKey(CacheKey.panMask);
+  }
+
+  /** Checks whether the 'transactionSequenceCounter' field has been set, however the value could be null */
+  public boolean hasTransactionSequenceCounter() {
+    return genClient.cacheHasKey(CacheKey.transactionSequenceCounter);
+  }
+
+  /** Checks whether the 'applicationPanSequenceNumber' field has been set, however the value could be null */
+  public boolean hasApplicationPanSequenceNumber() {
+    return genClient.cacheHasKey(CacheKey.applicationPanSequenceNumber);
+  }
 
   /**
    * Sets the field 'languageIndicator'.
@@ -920,6 +987,26 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(reversalReason, CacheKey.reversalReason);
   }
 
+  /**
+   * Sets the field 'panMask'.
+   */
+  public TransactionInfo setPanMask(java.lang.String panMask) {
+    return genClient.setOther(panMask, CacheKey.panMask);
+  }
+
+  /**
+   * Sets the field 'transacitonSequenceCounter'.
+   */
+  public TransactionInfo setTransactionSequenceCounter(java.lang.String transactionSequenceCounter) {
+    return genClient.setOther(transactionSequenceCounter, CacheKey.transactionSequenceCounter);
+  }
+
+  /**
+   * Sets the field 'applicationPanSequenceNumber'.
+   */
+  public TransactionInfo setApplicationPanSequenceNumber(java.lang.String applicationPanSequenceNumber) {
+    return genClient.setOther(applicationPanSequenceNumber, CacheKey.applicationPanSequenceNumber);
+  }
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -1025,7 +1112,18 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearReversalReason() {
     genClient.clear(CacheKey.reversalReason);
   }
-
+  /** Clears the 'panMask' field, the 'has' method for this field will now return false */
+  public void clearPanMask() {
+    genClient.clear(CacheKey.panMask);
+  }
+  /** Clears the 'transactionSequenceCounter' field, the 'has' method for this field will now return false */
+  public void clearTransactionSequenceCounter() {
+    genClient.clear(CacheKey.transactionSequenceCounter);
+  }
+  /** Clears the 'applicationPanSequenceNumber' field, the 'has' method for this field will now return false */
+  public void clearApplicationPanSequenceNumber() {
+    genClient.clear(CacheKey.applicationPanSequenceNumber);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1113,6 +1211,9 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean TRANSACTIONTAGS_IS_REQUIRED = false;
     public static final boolean TXFORMAT_IS_REQUIRED = false;
     public static final boolean REVERSALREASON_IS_REQUIRED = false;
+    public static final boolean PANMASK_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONSEQUENCECOUNTER_IS_REQUIRED = false;
+    public static final boolean APPLICTIONPANSEQUENCENUMBER_IS_REQUIRED = false;
 
   }
 

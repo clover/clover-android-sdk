@@ -275,4 +275,28 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   OrderFdParcelable voidPaymentCardPresent(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in VoidReason reason, String source, out ResultStatus status);
+
+  /**
+   * Card not present void with passthrough data
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable voidPayment3(String orderId, String paymentId, String iccContainer, in Map passThroughExtras, in VoidReason reason, String source, out ResultStatus status);
+
+  /**
+   * Card present void with passthrough data
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable voidPaymentCardPresent2(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in Map passThroughExtras, in VoidReason reason, String source, out ResultStatus resultStatus);
+
+  /**
+   * Refund with passthrough data
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  RefundFdParcelable refund2(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
 }

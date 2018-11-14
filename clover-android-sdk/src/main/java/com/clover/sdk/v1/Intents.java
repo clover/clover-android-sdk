@@ -1020,6 +1020,9 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.Payment}, originating payment (applies to refunds, required for Interac refunds) */
   public static final String EXTRA_ORIGINATING_PAYMENT = "originatingPayment";
 
+  /** {@link com.clover.sdk.v3.payments.Credit}, originating credit (applies to reversal, required for Nexo credit reversal) */
+  public static final String EXTRA_ORIGINATING_CREDIT = "originatingCredit";
+
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
   public static final int CARD_ENTRY_METHOD_MAG_STRIPE = 0b00000001;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
@@ -1102,6 +1105,9 @@ public class Intents {
 
   /** {@link Boolean}, is the receipt options screen disabled for this transaction */
   public static final String EXTRA_DISABLE_RECEIPT_OPTIONS = "clover.intent.extra.DISABLE_RECEIPT_OPTIONS";
+
+  /** {@link java.util.Map<String, String>} set of key/value pairs that are passed through to the server */
+  public static final String EXTRA_PASS_THROUGH_VALUES = "clover.intent.extra.PASS_THROUGH_VALUES";
 
   /** {@link com.clover.sdk.v3.payments.TipMode}, where tips are entered/provided (e.g. on screen
    * after/before, on paper, provided or no tip) for this transaction */
