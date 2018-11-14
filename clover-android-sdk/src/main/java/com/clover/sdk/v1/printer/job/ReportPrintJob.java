@@ -23,7 +23,7 @@ import android.view.View;
 public class ReportPrintJob extends ViewPrintJob implements Parcelable {
   public enum ReportType {
     // Do not remove or rename these, add only to avoid breaking 3rd party apps
-    PAYMENTS, ITEMS, DISCOUNTS, TAXES, SHIFTS;
+    PAYMENTS, ITEMS, DISCOUNTS, TAXES, SHIFTS, EMPLOYEES, SALES_OVERVIEW;
   }
 
   public static class Builder extends ViewPrintJob.Builder {

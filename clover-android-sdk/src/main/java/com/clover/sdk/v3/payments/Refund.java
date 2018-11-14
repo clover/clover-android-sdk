@@ -50,6 +50,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAppTracking appTracking}</li>
  * <li>{@link #getVoided voided}</li>
  * <li>{@link #getVoidReason voidReason}</li>
+ * <li>{@link #getTransactionInfo transactionInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -165,6 +166,13 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   public java.lang.String getVoidReason() {
     return genClient.cacheGet(CacheKey.voidReason);
+  }
+
+  /**
+   * Transaction information
+   */
+  public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
+    return genClient.cacheGet(CacheKey.transactionInfo);
   }
 
 
@@ -283,6 +291,12 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
       @Override
       public Object extractValue(Refund instance) {
         return instance.genClient.extractOther("voidReason", java.lang.String.class);
+      }
+    },
+    transactionInfo {
+      @Override
+      public Object extractValue(Refund instance) {
+        return instance.genClient.extractRecord("transactionInfo", com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR);
       }
     },
       ;
@@ -456,6 +470,11 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.voidReason);
   }
 
+  /** Checks whether the 'transactionInfo' field is set and is not null */
+  public boolean isNotNullTransactionInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionInfo);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -551,6 +570,11 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'voidReason' field has been set, however the value could be null */
   public boolean hasVoidReason() {
     return genClient.cacheHasKey(CacheKey.voidReason);
+  }
+
+  /** Checks whether the 'transactionInfo' field has been set, however the value could be null */
+  public boolean hasTransactionInfo() {
+    return genClient.cacheHasKey(CacheKey.transactionInfo);
   }
 
 
@@ -709,6 +733,15 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.setOther(voidReason, CacheKey.voidReason);
   }
 
+  /**
+   * Sets the field 'transactionInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Refund setTransactionInfo(com.clover.sdk.v3.payments.TransactionInfo transactionInfo) {
+    return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -785,6 +818,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Clears the 'voidReason' field, the 'has' method for this field will now return false */
   public void clearVoidReason() {
     genClient.clear(CacheKey.voidReason);
+  }
+  /** Clears the 'transactionInfo' field, the 'has' method for this field will now return false */
+  public void clearTransactionInfo() {
+    genClient.clear(CacheKey.transactionInfo);
   }
 
 
@@ -864,6 +901,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean APPTRACKING_IS_REQUIRED = false;
     public static final boolean VOIDED_IS_REQUIRED = false;
     public static final boolean VOIDREASON_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
 
   }
 

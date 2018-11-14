@@ -30,15 +30,25 @@ import com.clover.sdk.GenericClient;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getDisablePrinting disablePrinting}</li>
+ * <li>{@link #getDisableReceiptSelection disableReceiptSelection}</li>
+ * <li>{@link #getDisableDuplicateChecking disableDuplicateChecking}</li>
+ * <li>{@link #getCardNotPresent cardNotPresent}</li>
+ * <li>{@link #getDisableRestartTransactionOnFail disableRestartTransactionOnFail}</li>
+ * <li>{@link #getAmount amount}</li>
+ * <li>{@link #getCardEntryMethods cardEntryMethods}</li>
+ * <li>{@link #getVaultedCard vaultedCard}</li>
+ * <li>{@link #getExternalId externalId}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getAutoAcceptPaymentConfirmations autoAcceptPaymentConfirmations}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionRequest {
+public class BaseTransactionRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
 
   /**
    * If true, then do not print using the clover printer.  Return print information.
    */
-  @Override
   public java.lang.Boolean getDisablePrinting() {
     return genClient.cacheGet(CacheKey.disablePrinting);
   }
@@ -46,7 +56,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Do not show the receipt options screen
    */
-  @Override
   public java.lang.Boolean getDisableReceiptSelection() {
     return genClient.cacheGet(CacheKey.disableReceiptSelection);
   }
@@ -54,7 +63,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Do not do heuristic duplicate checking
    */
-  @Override
   public java.lang.Boolean getDisableDuplicateChecking() {
     return genClient.cacheGet(CacheKey.disableDuplicateChecking);
   }
@@ -62,7 +70,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * If true then card not present is accepted
    */
-  @Override
   public java.lang.Boolean getCardNotPresent() {
     return genClient.cacheGet(CacheKey.cardNotPresent);
   }
@@ -70,7 +77,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * If the transaction times out or fails because of decline, do not restart it
    */
-  @Override
   public java.lang.Boolean getDisableRestartTransactionOnFail() {
     return genClient.cacheGet(CacheKey.disableRestartTransactionOnFail);
   }
@@ -78,7 +84,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Total amount paid
    */
-  @Override
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
@@ -86,7 +91,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Allowed entry methods
    */
-  @Override
   public java.lang.Integer getCardEntryMethods() {
     return genClient.cacheGet(CacheKey.cardEntryMethods);
   }
@@ -94,7 +98,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * A saved card
    */
-  @Override
   public com.clover.sdk.v3.payments.VaultedCard getVaultedCard() {
     return genClient.cacheGet(CacheKey.vaultedCard);
   }
@@ -102,7 +105,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * An id that will be persisted with transactions.
    */
-  @Override
   public java.lang.String getExternalId() {
     return genClient.cacheGet(CacheKey.externalId);
   }
@@ -110,7 +112,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * The type of the transaction.
    */
-  @Override
   public com.clover.sdk.v3.remotepay.TransactionType getType() {
     return genClient.cacheGet(CacheKey.type);
   }
@@ -118,7 +119,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Do not show/send potential duplicate challenges
    */
-  @Override
   public java.lang.Boolean getAutoAcceptPaymentConfirmations() {
     return genClient.cacheGet(CacheKey.autoAcceptPaymentConfirmations);
   }
@@ -142,97 +142,96 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PreAuthRequest> {
+  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<BaseTransactionRequest> {
     disablePrinting {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("disablePrinting", java.lang.Boolean.class);
       }
     },
     disableReceiptSelection {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("disableReceiptSelection", java.lang.Boolean.class);
       }
     },
     disableDuplicateChecking {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("disableDuplicateChecking", java.lang.Boolean.class);
       }
     },
     cardNotPresent {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("cardNotPresent", java.lang.Boolean.class);
       }
     },
     disableRestartTransactionOnFail {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("disableRestartTransactionOnFail", java.lang.Boolean.class);
       }
     },
     amount {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("amount", java.lang.Long.class);
       }
     },
     cardEntryMethods {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("cardEntryMethods", java.lang.Integer.class);
       }
     },
     vaultedCard {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractRecord("vaultedCard", com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR);
       }
     },
     externalId {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("externalId", java.lang.String.class);
       }
     },
     type {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractEnum("type", com.clover.sdk.v3.remotepay.TransactionType.class);
       }
     },
     autoAcceptPaymentConfirmations {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("autoAcceptPaymentConfirmations", java.lang.Boolean.class);
       }
     },
     requestId {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("requestId", java.lang.String.class);
       }
     },
     version {
       @Override
-      public Object extractValue(PreAuthRequest instance) {
+      public Object extractValue(BaseTransactionRequest instance) {
         return instance.genClient.extractOther("version", java.lang.Integer.class);
       }
     },
     ;
   }
 
-  private GenericClient<PreAuthRequest> genClient;
+  private GenericClient<BaseTransactionRequest> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public PreAuthRequest() {
+  public BaseTransactionRequest() {
     super(false);
-    genClient = new GenericClient<PreAuthRequest>(this);
-    this.setType(com.clover.sdk.v3.remotepay.TransactionType.AUTH);
+    genClient = new GenericClient<BaseTransactionRequest>(this);
   }
 
   @Override
@@ -243,7 +242,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Constructs a new empty instance.
    */
-  protected PreAuthRequest(boolean noInit) {
+  protected BaseTransactionRequest(boolean noInit) {
     super(false);
     genClient = null;
   }
@@ -251,7 +250,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public PreAuthRequest(String json) throws IllegalArgumentException {
+  public BaseTransactionRequest(String json) throws IllegalArgumentException {
     this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
@@ -264,7 +263,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public PreAuthRequest(org.json.JSONObject jsonObject) {
+  public BaseTransactionRequest(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -272,7 +271,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public PreAuthRequest(PreAuthRequest src) {
+  public BaseTransactionRequest(BaseTransactionRequest src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -297,67 +296,56 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   }
 
   /** Checks whether the 'disablePrinting' field is set and is not null */
-  @Override
   public boolean isNotNullDisablePrinting() {
     return genClient.cacheValueIsNotNull(CacheKey.disablePrinting);
   }
 
   /** Checks whether the 'disableReceiptSelection' field is set and is not null */
-  @Override
   public boolean isNotNullDisableReceiptSelection() {
     return genClient.cacheValueIsNotNull(CacheKey.disableReceiptSelection);
   }
 
   /** Checks whether the 'disableDuplicateChecking' field is set and is not null */
-  @Override
   public boolean isNotNullDisableDuplicateChecking() {
     return genClient.cacheValueIsNotNull(CacheKey.disableDuplicateChecking);
   }
 
   /** Checks whether the 'cardNotPresent' field is set and is not null */
-  @Override
   public boolean isNotNullCardNotPresent() {
     return genClient.cacheValueIsNotNull(CacheKey.cardNotPresent);
   }
 
   /** Checks whether the 'disableRestartTransactionOnFail' field is set and is not null */
-  @Override
   public boolean isNotNullDisableRestartTransactionOnFail() {
     return genClient.cacheValueIsNotNull(CacheKey.disableRestartTransactionOnFail);
   }
 
   /** Checks whether the 'amount' field is set and is not null */
-  @Override
   public boolean isNotNullAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.amount);
   }
 
   /** Checks whether the 'cardEntryMethods' field is set and is not null */
-  @Override
   public boolean isNotNullCardEntryMethods() {
     return genClient.cacheValueIsNotNull(CacheKey.cardEntryMethods);
   }
 
   /** Checks whether the 'vaultedCard' field is set and is not null */
-  @Override
   public boolean isNotNullVaultedCard() {
     return genClient.cacheValueIsNotNull(CacheKey.vaultedCard);
   }
 
   /** Checks whether the 'externalId' field is set and is not null */
-  @Override
   public boolean isNotNullExternalId() {
     return genClient.cacheValueIsNotNull(CacheKey.externalId);
   }
 
   /** Checks whether the 'type' field is set and is not null */
-  @Override
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
   }
 
   /** Checks whether the 'autoAcceptPaymentConfirmations' field is set and is not null */
-  @Override
   public boolean isNotNullAutoAcceptPaymentConfirmations() {
     return genClient.cacheValueIsNotNull(CacheKey.autoAcceptPaymentConfirmations);
   }
@@ -377,67 +365,56 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
 
   /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
-  @Override
   public boolean hasDisablePrinting() {
     return genClient.cacheHasKey(CacheKey.disablePrinting);
   }
 
   /** Checks whether the 'disableReceiptSelection' field has been set, however the value could be null */
-  @Override
   public boolean hasDisableReceiptSelection() {
     return genClient.cacheHasKey(CacheKey.disableReceiptSelection);
   }
 
   /** Checks whether the 'disableDuplicateChecking' field has been set, however the value could be null */
-  @Override
   public boolean hasDisableDuplicateChecking() {
     return genClient.cacheHasKey(CacheKey.disableDuplicateChecking);
   }
 
   /** Checks whether the 'cardNotPresent' field has been set, however the value could be null */
-  @Override
   public boolean hasCardNotPresent() {
     return genClient.cacheHasKey(CacheKey.cardNotPresent);
   }
 
   /** Checks whether the 'disableRestartTransactionOnFail' field has been set, however the value could be null */
-  @Override
   public boolean hasDisableRestartTransactionOnFail() {
     return genClient.cacheHasKey(CacheKey.disableRestartTransactionOnFail);
   }
 
   /** Checks whether the 'amount' field has been set, however the value could be null */
-  @Override
   public boolean hasAmount() {
     return genClient.cacheHasKey(CacheKey.amount);
   }
 
   /** Checks whether the 'cardEntryMethods' field has been set, however the value could be null */
-  @Override
   public boolean hasCardEntryMethods() {
     return genClient.cacheHasKey(CacheKey.cardEntryMethods);
   }
 
   /** Checks whether the 'vaultedCard' field has been set, however the value could be null */
-  @Override
   public boolean hasVaultedCard() {
     return genClient.cacheHasKey(CacheKey.vaultedCard);
   }
 
   /** Checks whether the 'externalId' field has been set, however the value could be null */
-  @Override
   public boolean hasExternalId() {
     return genClient.cacheHasKey(CacheKey.externalId);
   }
 
   /** Checks whether the 'type' field has been set, however the value could be null */
-  @Override
   public boolean hasType() {
     return genClient.cacheHasKey(CacheKey.type);
   }
 
   /** Checks whether the 'autoAcceptPaymentConfirmations' field has been set, however the value could be null */
-  @Override
   public boolean hasAutoAcceptPaymentConfirmations() {
     return genClient.cacheHasKey(CacheKey.autoAcceptPaymentConfirmations);
   }
@@ -458,7 +435,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'disablePrinting'.
    */
-  @Override
   public BaseTransactionRequest setDisablePrinting(java.lang.Boolean disablePrinting) {
     return genClient.setOther(disablePrinting, CacheKey.disablePrinting);
   }
@@ -466,7 +442,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'disableReceiptSelection'.
    */
-  @Override
   public BaseTransactionRequest setDisableReceiptSelection(java.lang.Boolean disableReceiptSelection) {
     return genClient.setOther(disableReceiptSelection, CacheKey.disableReceiptSelection);
   }
@@ -474,7 +449,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'disableDuplicateChecking'.
    */
-  @Override
   public BaseTransactionRequest setDisableDuplicateChecking(java.lang.Boolean disableDuplicateChecking) {
     return genClient.setOther(disableDuplicateChecking, CacheKey.disableDuplicateChecking);
   }
@@ -482,7 +456,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'cardNotPresent'.
    */
-  @Override
   public BaseTransactionRequest setCardNotPresent(java.lang.Boolean cardNotPresent) {
     return genClient.setOther(cardNotPresent, CacheKey.cardNotPresent);
   }
@@ -490,7 +463,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'disableRestartTransactionOnFail'.
    */
-  @Override
   public BaseTransactionRequest setDisableRestartTransactionOnFail(java.lang.Boolean disableRestartTransactionOnFail) {
     return genClient.setOther(disableRestartTransactionOnFail, CacheKey.disableRestartTransactionOnFail);
   }
@@ -498,7 +470,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'amount'.
    */
-  @Override
   public BaseTransactionRequest setAmount(java.lang.Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
@@ -506,7 +477,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'cardEntryMethods'.
    */
-  @Override
   public BaseTransactionRequest setCardEntryMethods(java.lang.Integer cardEntryMethods) {
     return genClient.setOther(cardEntryMethods, CacheKey.cardEntryMethods);
   }
@@ -516,7 +486,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  @Override
   public BaseTransactionRequest setVaultedCard(com.clover.sdk.v3.payments.VaultedCard vaultedCard) {
     return genClient.setRecord(vaultedCard, CacheKey.vaultedCard);
   }
@@ -524,7 +493,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'externalId'.
    */
-  @Override
   public BaseTransactionRequest setExternalId(java.lang.String externalId) {
     return genClient.setOther(externalId, CacheKey.externalId);
   }
@@ -532,7 +500,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'type'.
    */
-  @Override
   public BaseTransactionRequest setType(com.clover.sdk.v3.remotepay.TransactionType type) {
     return genClient.setOther(type, CacheKey.type);
   }
@@ -540,7 +507,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Sets the field 'autoAcceptPaymentConfirmations'.
    */
-  @Override
   public BaseTransactionRequest setAutoAcceptPaymentConfirmations(java.lang.Boolean autoAcceptPaymentConfirmations) {
     return genClient.setOther(autoAcceptPaymentConfirmations, CacheKey.autoAcceptPaymentConfirmations);
   }
@@ -563,57 +529,46 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
 
 
   /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
-  @Override
   public void clearDisablePrinting() {
     genClient.clear(CacheKey.disablePrinting);
   }
   /** Clears the 'disableReceiptSelection' field, the 'has' method for this field will now return false */
-  @Override
   public void clearDisableReceiptSelection() {
     genClient.clear(CacheKey.disableReceiptSelection);
   }
   /** Clears the 'disableDuplicateChecking' field, the 'has' method for this field will now return false */
-  @Override
   public void clearDisableDuplicateChecking() {
     genClient.clear(CacheKey.disableDuplicateChecking);
   }
   /** Clears the 'cardNotPresent' field, the 'has' method for this field will now return false */
-  @Override
   public void clearCardNotPresent() {
     genClient.clear(CacheKey.cardNotPresent);
   }
   /** Clears the 'disableRestartTransactionOnFail' field, the 'has' method for this field will now return false */
-  @Override
   public void clearDisableRestartTransactionOnFail() {
     genClient.clear(CacheKey.disableRestartTransactionOnFail);
   }
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
-  @Override
   public void clearAmount() {
     genClient.clear(CacheKey.amount);
   }
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
-  @Override
   public void clearCardEntryMethods() {
     genClient.clear(CacheKey.cardEntryMethods);
   }
   /** Clears the 'vaultedCard' field, the 'has' method for this field will now return false */
-  @Override
   public void clearVaultedCard() {
     genClient.clear(CacheKey.vaultedCard);
   }
   /** Clears the 'externalId' field, the 'has' method for this field will now return false */
-  @Override
   public void clearExternalId() {
     genClient.clear(CacheKey.externalId);
   }
   /** Clears the 'type' field, the 'has' method for this field will now return false */
-  @Override
   public void clearType() {
     genClient.clear(CacheKey.type);
   }
   /** Clears the 'autoAcceptPaymentConfirmations' field, the 'has' method for this field will now return false */
-  @Override
   public void clearAutoAcceptPaymentConfirmations() {
     genClient.clear(CacheKey.autoAcceptPaymentConfirmations);
   }
@@ -646,8 +601,8 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public PreAuthRequest copyChanges() {
-    PreAuthRequest copy = new PreAuthRequest();
+  public BaseTransactionRequest copyChanges() {
+    BaseTransactionRequest copy = new BaseTransactionRequest();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -656,31 +611,31 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(PreAuthRequest src) {
+  public void mergeChanges(BaseTransactionRequest src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new PreAuthRequest(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new BaseTransactionRequest(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<PreAuthRequest> CREATOR = new android.os.Parcelable.Creator<PreAuthRequest>() {
+  public static final android.os.Parcelable.Creator<BaseTransactionRequest> CREATOR = new android.os.Parcelable.Creator<BaseTransactionRequest>() {
     @Override
-    public PreAuthRequest createFromParcel(android.os.Parcel in) {
-      PreAuthRequest instance = new PreAuthRequest(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public BaseTransactionRequest createFromParcel(android.os.Parcel in) {
+      BaseTransactionRequest instance = new BaseTransactionRequest(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public PreAuthRequest[] newArray(int size) {
-      return new PreAuthRequest[size];
+    public BaseTransactionRequest[] newArray(int size) {
+      return new BaseTransactionRequest[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<PreAuthRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PreAuthRequest>() {
+  public static final com.clover.sdk.JSONifiable.Creator<BaseTransactionRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BaseTransactionRequest>() {
     @Override
-    public PreAuthRequest create(org.json.JSONObject jsonObject) {
-      return new PreAuthRequest(jsonObject);
+    public BaseTransactionRequest create(org.json.JSONObject jsonObject) {
+      return new BaseTransactionRequest(jsonObject);
     }
   };
 

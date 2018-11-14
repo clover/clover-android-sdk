@@ -14,6 +14,7 @@ import com.clover.sdk.v3.remotepay.RetrievePaymentRequest;
 import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
 
 /**
@@ -154,5 +155,12 @@ public interface IPaymentConnector extends IDeviceConnector{
    * @param message
    */
   void sendDebugLog(String message);
+
+  /**
+   * Sends a request to void payment refund.
+   *
+   * @param request - A VoidPaymentRefundRequest object
+   */
+  void voidPaymentRefund(VoidPaymentRefundRequest request);
 
 }

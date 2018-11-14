@@ -20,6 +20,7 @@ import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.configuration.UIConfiguration;
 import com.clover.sdk.v3.apps.AppTracking;
 import com.clover.sdk.v3.base.Challenge;
+import com.clover.sdk.v3.connector.IDeviceConnector;
 import com.clover.sdk.v3.connector.IDeviceConnectorListener;
 import com.clover.sdk.v3.connector.IPaymentConnector;
 import com.clover.sdk.v3.connector.IPaymentConnectorListener;
@@ -52,6 +53,8 @@ import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthResponse;
 import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 
@@ -225,6 +228,13 @@ public class PaymentConnector implements IPaymentConnector {
     public void onCloseoutResponse(CloseoutResponse response) {
       for (IDeviceConnectorListener listener:listeners) {
         ((IPaymentConnectorListener)listener).onCloseoutResponse(response);
+      }
+    }
+
+    @Override
+    public void onVoidPaymentRefundResponse(VoidPaymentRefundResponse response) {
+      for (IDeviceConnectorListener listener: listeners) {
+        ((IPaymentConnectorListener) listener).onVoidPaymentRefundResponse(response);
       }
     }
   };
@@ -992,6 +1002,34 @@ public class PaymentConnector implements IPaymentConnector {
       Log.e(this.getClass().getSimpleName(), " sendDebugLog", e);
     } catch (RemoteException e) {
       Log.e(this.getClass().getSimpleName(), " sendDebugLog", e);
+    }
+  }
+
+  @Override
+  public void voidPaymentRefund(final VoidPaymentRefundRequest request) {
+    try {
+      if(paymentV3Connector != null) {
+        if(paymentV3Connector.isConnected()) {
+          paymentV3Connector.getService().voidPaymentRefund(request);
+        } else {
+          this.paymentV3Connector.connect();
+          waitingTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+              try {
+                paymentV3Connector.getService().voidPaymentRefund(request);
+              } catch (RemoteException e) {
+                Log.e(this.getClass().getSimpleName(), "sendDebugLog", e);
+              }
+              return null;
+            }
+          };
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      Log.e(this.getClass().getSimpleName(), " voidPaymentRefund", e);
+    } catch (RemoteException e) {
+      Log.e(this.getClass().getSimpleName(), " voidPaymentRefund", e);
     }
   }
 

@@ -19,7 +19,6 @@ version = '214.1'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
-
 dependencies {
   compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
   compile project(':clover-android-sdk')
@@ -56,8 +55,8 @@ uploadArchives {
           version '7'
         }
 
-        name 'Clover Android Connector SDK'
-        description 'Android services and objects used for interacting with Clover Connector Services'
+        name 'Clover Android Loyalty Kit'
+        description 'Android services and objects used for interacting with Clover Loyalty Kit'
         url 'http://www.clover.com/'
 
         licenses {

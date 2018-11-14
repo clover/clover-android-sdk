@@ -51,6 +51,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getGermanInfo germanInfo}</li>
  * <li>{@link #getAppTracking appTracking}</li>
  * <li>{@link #getResult result}</li>
+ * <li>{@link #getTransactionInfo transactionInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -59,7 +60,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Unique identifier
    */
-  public java.lang.String getId() {
+  public String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
@@ -101,69 +102,69 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Amount paid
    */
-  public java.lang.Long getAmount() {
+  public Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
   /**
    * Amount paid in tax
    */
-  public java.lang.Long getTaxAmount() {
+  public Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> getTaxRates() {
+  public java.util.List<TaxableAmountRate> getTaxRates() {
     return genClient.cacheGet(CacheKey.taxRates);
   }
 
   /**
    * Time payment was recorded on server
    */
-  public java.lang.Long getCreatedTime() {
+  public Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
-  public java.lang.Long getClientCreatedTime() {
+  public Long getClientCreatedTime() {
     return genClient.cacheGet(CacheKey.clientCreatedTime);
   }
 
   /**
    * Information about the card used for credit/debit card payments
    */
-  public com.clover.sdk.v3.payments.CardTransaction getCardTransaction() {
+  public CardTransaction getCardTransaction() {
     return genClient.cacheGet(CacheKey.cardTransaction);
   }
 
-  public java.lang.Boolean getVoided() {
+  public Boolean getVoided() {
     return genClient.cacheGet(CacheKey.voided);
   }
 
-  public java.lang.String getVoidReason() {
+  public String getVoidReason() {
     return genClient.cacheGet(CacheKey.voidReason);
   }
 
   /**
    * Dynamic Currency Conversion information
    */
-  public com.clover.sdk.v3.payments.DCCInfo getDccInfo() {
+  public DCCInfo getDccInfo() {
     return genClient.cacheGet(CacheKey.dccInfo);
   }
 
   /**
    * Per transaction settings for the payment
    */
-  public com.clover.sdk.v3.payments.TransactionSettings getTransactionSettings() {
+  public TransactionSettings getTransactionSettings() {
     return genClient.cacheGet(CacheKey.transactionSettings);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.CreditRefund> getCreditRefunds() {
+  public java.util.List<CreditRefund> getCreditRefunds() {
     return genClient.cacheGet(CacheKey.creditRefunds);
   }
 
   /**
    * German region-specific information
    */
-  public com.clover.sdk.v3.payments.GermanInfo getGermanInfo() {
+  public GermanInfo getGermanInfo() {
     return genClient.cacheGet(CacheKey.germanInfo);
   }
 
@@ -174,8 +175,15 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.appTracking);
   }
 
-  public com.clover.sdk.v3.payments.Result getResult() {
+  public Result getResult() {
     return genClient.cacheGet(CacheKey.result);
+  }
+
+  /**
+   * Transaction information
+   */
+  public TransactionInfo getTransactionInfo() {
+    return genClient.cacheGet(CacheKey.transactionInfo);
   }
 
 
@@ -185,7 +193,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     id {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
+        return instance.genClient.extractOther("id", String.class);
       }
     },
     orderRef {
@@ -221,73 +229,73 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     amount {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
+        return instance.genClient.extractOther("amount", Long.class);
       }
     },
     taxAmount {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
+        return instance.genClient.extractOther("taxAmount", Long.class);
       }
     },
     taxRates {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractListRecord("taxRates", com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR);
+        return instance.genClient.extractListRecord("taxRates", TaxableAmountRate.JSON_CREATOR);
       }
     },
     createdTime {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
+        return instance.genClient.extractOther("createdTime", Long.class);
       }
     },
     clientCreatedTime {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("clientCreatedTime", java.lang.Long.class);
+        return instance.genClient.extractOther("clientCreatedTime", Long.class);
       }
     },
     cardTransaction {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractRecord("cardTransaction", com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR);
+        return instance.genClient.extractRecord("cardTransaction", CardTransaction.JSON_CREATOR);
       }
     },
     voided {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("voided", java.lang.Boolean.class);
+        return instance.genClient.extractOther("voided", Boolean.class);
       }
     },
     voidReason {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractOther("voidReason", java.lang.String.class);
+        return instance.genClient.extractOther("voidReason", String.class);
       }
     },
     dccInfo {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractRecord("dccInfo", com.clover.sdk.v3.payments.DCCInfo.JSON_CREATOR);
+        return instance.genClient.extractRecord("dccInfo", DCCInfo.JSON_CREATOR);
       }
     },
     transactionSettings {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractRecord("transactionSettings", com.clover.sdk.v3.payments.TransactionSettings.JSON_CREATOR);
+        return instance.genClient.extractRecord("transactionSettings", TransactionSettings.JSON_CREATOR);
       }
     },
     creditRefunds {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractListRecord("creditRefunds", com.clover.sdk.v3.payments.CreditRefund.JSON_CREATOR);
+        return instance.genClient.extractListRecord("creditRefunds", CreditRefund.JSON_CREATOR);
       }
     },
     germanInfo {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractRecord("germanInfo", com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR);
+        return instance.genClient.extractRecord("germanInfo", GermanInfo.JSON_CREATOR);
       }
     },
     appTracking {
@@ -299,7 +307,13 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     result {
       @Override
       public Object extractValue(Credit instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.payments.Result.class);
+        return instance.genClient.extractEnum("result", Result.class);
+      }
+    },
+    transactionInfo {
+      @Override
+      public Object extractValue(Credit instance) {
+        return instance.genClient.extractRecord("transactionInfo", TransactionInfo.JSON_CREATOR);
       }
     },
       ;
@@ -308,8 +322,8 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   private GenericClient<Credit> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Credit() {
     genClient = new GenericClient<Credit>(this);
   }
@@ -320,8 +334,8 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Credit(boolean noInit) {
     genClient = null;
   }
@@ -476,6 +490,11 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.result);
   }
 
+  /** Checks whether the 'transactionInfo' field is set and is not null */
+  public boolean isNotNullTransactionInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionInfo);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -578,11 +597,16 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.result);
   }
 
+  /** Checks whether the 'transactionInfo' field has been set, however the value could be null */
+  public boolean hasTransactionInfo() {
+    return genClient.cacheHasKey(CacheKey.transactionInfo);
+  }
+
 
   /**
    * Sets the field 'id'.
    */
-  public Credit setId(java.lang.String id) {
+  public Credit setId(String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
@@ -634,14 +658,14 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Sets the field 'amount'.
    */
-  public Credit setAmount(java.lang.Long amount) {
+  public Credit setAmount(Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
 
   /**
    * Sets the field 'taxAmount'.
    */
-  public Credit setTaxAmount(java.lang.Long taxAmount) {
+  public Credit setTaxAmount(Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
@@ -650,21 +674,21 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Credit setTaxRates(java.util.List<com.clover.sdk.v3.payments.TaxableAmountRate> taxRates) {
+  public Credit setTaxRates(java.util.List<TaxableAmountRate> taxRates) {
     return genClient.setArrayRecord(taxRates, CacheKey.taxRates);
   }
 
   /**
    * Sets the field 'createdTime'.
    */
-  public Credit setCreatedTime(java.lang.Long createdTime) {
+  public Credit setCreatedTime(Long createdTime) {
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
    * Sets the field 'clientCreatedTime'.
    */
-  public Credit setClientCreatedTime(java.lang.Long clientCreatedTime) {
+  public Credit setClientCreatedTime(Long clientCreatedTime) {
     return genClient.setOther(clientCreatedTime, CacheKey.clientCreatedTime);
   }
 
@@ -673,21 +697,21 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Credit setCardTransaction(com.clover.sdk.v3.payments.CardTransaction cardTransaction) {
+  public Credit setCardTransaction(CardTransaction cardTransaction) {
     return genClient.setRecord(cardTransaction, CacheKey.cardTransaction);
   }
 
   /**
    * Sets the field 'voided'.
    */
-  public Credit setVoided(java.lang.Boolean voided) {
+  public Credit setVoided(Boolean voided) {
     return genClient.setOther(voided, CacheKey.voided);
   }
 
   /**
    * Sets the field 'voidReason'.
    */
-  public Credit setVoidReason(java.lang.String voidReason) {
+  public Credit setVoidReason(String voidReason) {
     return genClient.setOther(voidReason, CacheKey.voidReason);
   }
 
@@ -696,7 +720,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Credit setDccInfo(com.clover.sdk.v3.payments.DCCInfo dccInfo) {
+  public Credit setDccInfo(DCCInfo dccInfo) {
     return genClient.setRecord(dccInfo, CacheKey.dccInfo);
   }
 
@@ -705,7 +729,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Credit setTransactionSettings(com.clover.sdk.v3.payments.TransactionSettings transactionSettings) {
+  public Credit setTransactionSettings(TransactionSettings transactionSettings) {
     return genClient.setRecord(transactionSettings, CacheKey.transactionSettings);
   }
 
@@ -714,7 +738,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Credit setCreditRefunds(java.util.List<com.clover.sdk.v3.payments.CreditRefund> creditRefunds) {
+  public Credit setCreditRefunds(java.util.List<CreditRefund> creditRefunds) {
     return genClient.setArrayRecord(creditRefunds, CacheKey.creditRefunds);
   }
 
@@ -723,7 +747,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Credit setGermanInfo(com.clover.sdk.v3.payments.GermanInfo germanInfo) {
+  public Credit setGermanInfo(GermanInfo germanInfo) {
     return genClient.setRecord(germanInfo, CacheKey.germanInfo);
   }
 
@@ -739,8 +763,17 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Sets the field 'result'.
    */
-  public Credit setResult(com.clover.sdk.v3.payments.Result result) {
+  public Credit setResult(Result result) {
     return genClient.setOther(result, CacheKey.result);
+  }
+
+  /**
+   * Sets the field 'transactionInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setTransactionInfo(TransactionInfo transactionInfo) {
+    return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
   }
 
 
@@ -824,6 +857,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearResult() {
     genClient.clear(CacheKey.result);
   }
+  /** Clears the 'transactionInfo' field, the 'has' method for this field will now return false */
+  public void clearTransactionInfo() {
+    genClient.clear(CacheKey.transactionInfo);
+  }
 
 
   /**
@@ -904,6 +941,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean GERMANINFO_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
 
   }
 

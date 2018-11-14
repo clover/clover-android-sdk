@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '213'
+version = '214.1'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
-  compile files('lib/calc-259.1.jar')
+  compile files('lib/calc-263.1.jar')
 }
 
 
