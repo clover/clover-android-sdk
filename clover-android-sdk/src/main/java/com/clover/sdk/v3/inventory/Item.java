@@ -53,6 +53,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getItemStock itemStock}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
+ * <li>{@link #getPriceWithoutVat priceWithoutVat}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -117,7 +118,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-   * Price of the item, typically in cents; use priceType and merchant currency to determine actual item price
+   * Price of the item, typically in cents; use priceType and merchant currency to determine actual item price. For non-VAT merchants, this field is exclusive of tax. For VAT merchants, this field is inclusive of tax.
    */
   public java.lang.Long getPrice() {
     return genClient.cacheGet(CacheKey.price);
@@ -200,6 +201,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public java.lang.Long getDeletedTime() {
     return genClient.cacheGet(CacheKey.deletedTime);
+  }
+
+  /**
+   * The price without value-added tax (VAT). For non-VAT merchants, this field is ignored. For VAT merchants, this field is the base price of an item.
+   */
+  public java.lang.Long getPriceWithoutVat() {
+    return genClient.cacheGet(CacheKey.priceWithoutVat);
   }
 
 
@@ -339,14 +347,20 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
         return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
       }
     },
+    priceWithoutVat {
+      @Override
+      public Object extractValue(Item instance) {
+        return instance.genClient.extractOther("priceWithoutVat", java.lang.Long.class);
+      }
+    },
       ;
   }
 
   private GenericClient<Item> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Item() {
     genClient = new GenericClient<Item>(this);
   }
@@ -357,8 +371,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Item(boolean noInit) {
     genClient = null;
   }
@@ -548,6 +562,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
   }
 
+  /** Checks whether the 'priceWithoutVat' field is set and is not null */
+  public boolean isNotNullPriceWithoutVat() {
+    return genClient.cacheValueIsNotNull(CacheKey.priceWithoutVat);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -658,6 +677,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'deletedTime' field has been set, however the value could be null */
   public boolean hasDeletedTime() {
     return genClient.cacheHasKey(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'priceWithoutVat' field has been set, however the value could be null */
+  public boolean hasPriceWithoutVat() {
+    return genClient.cacheHasKey(CacheKey.priceWithoutVat);
   }
 
 
@@ -829,6 +853,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
+  /**
+   * Sets the field 'priceWithoutVat'.
+   */
+  public Item setPriceWithoutVat(java.lang.Long priceWithoutVat) {
+    return genClient.setOther(priceWithoutVat, CacheKey.priceWithoutVat);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -917,6 +948,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
   public void clearDeletedTime() {
     genClient.clear(CacheKey.deletedTime);
+  }
+  /** Clears the 'priceWithoutVat' field, the 'has' method for this field will now return false */
+  public void clearPriceWithoutVat() {
+    genClient.clear(CacheKey.priceWithoutVat);
   }
 
 
@@ -1007,6 +1042,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean ITEMSTOCK_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
+    public static final boolean PRICEWITHOUTVAT_IS_REQUIRED = false;
 
   }
 

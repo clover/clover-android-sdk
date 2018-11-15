@@ -227,7 +227,7 @@ public class Intents {
   public static final String ACTION_ADD_TIP = "clover.intent.action.ADD_TIP";
 
   /**
-   * Launch activity have a customer add a tip to a payment. A third party developer firing this intent should invoke
+   * Launch activity to have a customer add a tip to a payment. A third party developer firing this intent should invoke
    * {@link com.clover.sdk.util.CustomerMode#disable(Context, boolean) CustomerMode#disable} in
    * {@link android.app.Activity#onActivityResult(int, int, Intent) onActivityResult} to restore the
    * bottom navigation bar and top status bar.
@@ -236,6 +236,7 @@ public class Intents {
    * <ul>
    * <li>{@link #EXTRA_ORDER_ID} - Order UUID, the order associated with the payment and tip (REQUIRED)</li>
    * <li>{@link #EXTRA_AMOUNT} - Long, the amount of the payment the tip will be added to (REQUIRED)</li>
+   * <li>{@link #EXTRA_TIP_CONFIRM_MODE} - Boolean, whether to confirm the tip and total amount (OPTIONAL) </li>
    * </ul>
    * <p>
    * Result data includes:
@@ -683,6 +684,9 @@ public class Intents {
   /** {@link Long}, the tippable amount associated with a payment */
   public static final String EXTRA_TIPPABLE_AMOUNT = "clover.intent.extra.TIPPABLE_AMOUNT";
 
+  /** {@link String}, the json for the tip suggestions associated with a payment */
+  public static final String EXTRA_TIP_SUGGESTIONS = "clover.intent.extra.TIP_SUGGESTIONS";
+
   /** {@link java.util.Currency}, the currency of a transaction */
   public static final String EXTRA_CURRENCY = "clover.intent.extra.CURRENCY";
 
@@ -730,6 +734,9 @@ public class Intents {
 
   /** {@link Long}, tip amount */
   public static final String EXTRA_TIP_AMOUNT = "clover.intent.extra.TIP_AMOUNT";
+
+  /** {@link Boolean}, whether to display confirmation of tip and total amount */
+  public static final String EXTRA_TIP_CONFIRM_MODE = "clover.intent.extra.TIP_CONFIRM_MODE";
 
   /** @deprecated */
   public static final String EXTRA_APP = "clover.intent.extra.APP";
@@ -938,6 +945,9 @@ public class Intents {
   /** {@link String}, external reference id */
   public static final String  EXTRA_EXTERNAL_REFERENCE_ID = "clover.intent.extra.EXTERNAL_REFERENCE_ID";
 
+  /** {@link String}, external token id */
+  public static final String  EXTRA_EXTERNAL_TOKEN_ID = "clover.intent.extra.EXTERNAL_TOKEN_ID";
+
   /** {@link com.clover.sdk.v3.payments.TokenRequest}, token request objects   */
   public static final String  EXTRA_TOKEN_REQUEST = "clover.intent.extra.TOKEN_REQUEST";
 
@@ -998,6 +1008,9 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.GiftCardResponse} */
   public static final String EXTRA_GIFT_CARD_RESPONSE = "clover.intent.extra.GIFT_CARD_RESPONSE";
 
+  /** {@link com.clover.sdk.v3.payments.Payment} */
+  public static final String EXTRA_VAULTED_CARD_PAYMENT = "clover.intent.extra.VAULTED_CARD_PAYMENT";
+
   /** {@link String}, message shown upon failure */
   public static final String EXTRA_FAILURE_MESSAGE ="clover.intent.extra.FAILURE_MESSAGE";
 
@@ -1007,6 +1020,9 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.Payment}, originating payment (applies to refunds, required for Interac refunds) */
   public static final String EXTRA_ORIGINATING_PAYMENT = "originatingPayment";
 
+  /** {@link com.clover.sdk.v3.payments.Credit}, originating credit (applies to reversal, required for Nexo credit reversal) */
+  public static final String EXTRA_ORIGINATING_CREDIT = "originatingCredit";
+
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
   public static final int CARD_ENTRY_METHOD_MAG_STRIPE = 0b00000001;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
@@ -1015,6 +1031,8 @@ public class Intents {
   public static final int CARD_ENTRY_METHOD_NFC_CONTACTLESS = 0b00000100;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, can be bitwise-ored with other CARD_ENTRY_METHOD values */
   public static final int CARD_ENTRY_METHOD_MANUAL = 0b00001000;
+  /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, this value should be used exclusively if Vaulted Card payment is intended for headless mode  */
+  public static final int CARD_ENTRY_METHOD_VAULTED_CARD = 0b00010000;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, all card entry methods. */
   public static final int CARD_ENTRY_METHOD_ALL = CARD_ENTRY_METHOD_MAG_STRIPE | CARD_ENTRY_METHOD_ICC_CONTACT | CARD_ENTRY_METHOD_NFC_CONTACTLESS | CARD_ENTRY_METHOD_MANUAL;
 
@@ -1087,6 +1105,9 @@ public class Intents {
 
   /** {@link Boolean}, is the receipt options screen disabled for this transaction */
   public static final String EXTRA_DISABLE_RECEIPT_OPTIONS = "clover.intent.extra.DISABLE_RECEIPT_OPTIONS";
+
+  /** {@link java.util.Map<String, String>} set of key/value pairs that are passed through to the server */
+  public static final String EXTRA_PASS_THROUGH_VALUES = "clover.intent.extra.PASS_THROUGH_VALUES";
 
   /** {@link com.clover.sdk.v3.payments.TipMode}, where tips are entered/provided (e.g. on screen
    * after/before, on paper, provided or no tip) for this transaction */

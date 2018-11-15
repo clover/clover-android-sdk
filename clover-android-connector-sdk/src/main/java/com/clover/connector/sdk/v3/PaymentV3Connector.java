@@ -34,6 +34,7 @@ import com.clover.sdk.v3.remotepay.TipAdded;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthResponse;
 import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 
 import android.accounts.Account;
@@ -297,6 +298,14 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
      * @param response The response
      */
     void onCloseoutResponse(CloseoutResponse response);
+
+    /**
+     * Called in response to a VoidPaymentRefundRequest
+     *
+     * @param response The response
+     */
+    void onVoidPaymentRefundResponse(VoidPaymentRefundResponse response);
+
   }
 
   private static class PaymentServiceListenerParent extends IPaymentServiceListener.Stub {
@@ -494,6 +503,16 @@ public class PaymentV3Connector extends ServiceConnector<IPaymentServiceV3> {
         @Override
         public void run() {
           getListener().onCloseoutResponse(response);
+        }
+      });
+    }
+
+    @Override
+    public void onVoidPaymentRefundResponse(final VoidPaymentRefundResponse response) throws RemoteException {
+      conditionallyRunTask(new PaymentConnectorTask() {
+        @Override
+        public void run() {
+          getListener().onVoidPaymentRefundResponse(response);
         }
       });
     }

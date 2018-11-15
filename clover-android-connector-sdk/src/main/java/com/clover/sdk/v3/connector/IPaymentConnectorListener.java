@@ -17,6 +17,7 @@ import com.clover.sdk.v3.remotepay.TipAdded;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthResponse;
 import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 
 /**
@@ -134,5 +135,12 @@ public interface IPaymentConnectorListener extends IDeviceConnectorListener{
    * @param response
    */
   void onRetrievePaymentResponse(RetrievePaymentResponse response);
+
+  /**
+   * Called in response to a voidPaymentRefund(...) request
+   *
+   * @param response
+   */
+  void onVoidPaymentRefundResponse(VoidPaymentRefundResponse response);
 }
 

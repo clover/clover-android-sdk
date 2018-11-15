@@ -16,7 +16,7 @@ import com.clover.sdk.v3.remotepay.TipAdjustAuthResponse;
 import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
-
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
 /**
  * Created by glennbedwell on 9/6/16.
  */
@@ -132,5 +132,12 @@ interface IPaymentServiceListener {
    * @param response The response
    */
   void onCloseoutResponse(in CloseoutResponse response);
+
+  /**
+     * Called in response to a VoidPaymentRefundRequest
+     *
+     * @param response The response
+     */
+  void onVoidPaymentRefundResponse(in VoidPaymentRefundResponse response);
 }
 

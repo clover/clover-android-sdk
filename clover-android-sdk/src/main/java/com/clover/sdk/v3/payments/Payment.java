@@ -62,6 +62,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCashAdvanceExtra cashAdvanceExtra}</li>
  * <li>{@link #getTransactionInfo transactionInfo}</li>
  * <li>{@link #getSignatureDisclaimer signatureDisclaimer}</li>
+ * <li>{@link #getExternalReferenceId externalReferenceId}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -251,12 +252,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-   * Information displayed to customer for storing electronic signatures
+   * External Reference ID
    */
-  public com.clover.sdk.v3.payments.SignatureDisclaimer getSignatureDisclaimer() {
-    return genClient.cacheGet(CacheKey.signatureDisclaimer);
+  public String getExternalReferenceId() {
+    return genClient.cacheGet(CacheKey.externalReferenceId);
   }
-
 
 
 
@@ -445,6 +445,12 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
       @Override
       public Object extractValue(Payment instance) {
         return instance.genClient.extractRecord("signatureDisclaimer", com.clover.sdk.v3.payments.SignatureDisclaimer.JSON_CREATOR);
+      }
+    },
+    externalReferenceId {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractOther("externalReferenceId", java.lang.String.class);
       }
     },
       ;
@@ -686,7 +692,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.signatureDisclaimer);
   }
 
-
+  /** Checks whether the 'externalReferenceId' field is set and is not null */
+  public boolean isNotNullExternalReferenceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
+  }
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -843,6 +852,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.signatureDisclaimer);
   }
 
+  /** Checks whether the 'externalReferenceId' field has been set, however the value could be null */
+  public boolean hasExternalReferenceId() {
+    return genClient.cacheHasKey(CacheKey.externalReferenceId);
+  }
 
   /**
    * Sets the field 'id'.
@@ -1095,6 +1108,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setRecord(signatureDisclaimer, CacheKey.signatureDisclaimer);
   }
 
+  /**
+   * Sets the field 'externalReferenceId'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setExternalReferenceId(String externalReferenceId) {
+    return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1220,7 +1241,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearSignatureDisclaimer() {
     genClient.clear(CacheKey.signatureDisclaimer);
   }
-
+  /** Clears the 'externalReferenceId' field, the 'has' method for this field will now return false */
+  public void clearExternalReferenceId() {
+    genClient.clear(CacheKey.externalReferenceId);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1313,6 +1337,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean CASHADVANCEEXTRA_IS_REQUIRED = false;
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
     public static final boolean SIGNATUREDISCLAIMER_IS_REQUIRED = false;
+    public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
 
   }
 

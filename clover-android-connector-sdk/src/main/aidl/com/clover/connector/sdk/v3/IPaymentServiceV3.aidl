@@ -20,6 +20,7 @@ import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
 import com.clover.sdk.v1.configuration.UIConfiguration;
+import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
 
 /**
  * This service mirrors the functionality of {@link IOrderService} but uses a different
@@ -204,4 +205,11 @@ interface IPaymentServiceV3 {
    * @param message - A string to distinguish log messages
   */
   void sendDebugLog(in String message);
+
+  /**
+     * Sends a request to void a payment refund
+     *
+     * @param request The request details
+     */
+  void voidPaymentRefund(in VoidPaymentRefundRequest request);
 }

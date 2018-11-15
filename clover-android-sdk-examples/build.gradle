@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '213'
+version = '215'
 
 apply from: file("${project.rootDir}/versions.gradle")
 
@@ -44,3 +44,4 @@ android {
 dependencies {
   compile project(':clover-android-sdk')
 }
+
