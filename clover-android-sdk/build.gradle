@@ -16,10 +16,10 @@
 group = 'com.clover.sdk'
 version = '215'
 
-apply from: file("${androidBuild}/lib.gradle")
+apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
-  compile 'com.clover:calc:264'
+  compile files('lib/calc-264.jar')
 }
 
 

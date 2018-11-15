@@ -17,7 +17,7 @@ group = 'com.clover.sdk'
 version = '215'
 
 
-apply from: file("${androidBuild}/lib.gradle")
+apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
   compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"

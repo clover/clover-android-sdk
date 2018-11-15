@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 buildscript {
-  apply from: "${androidBuild}/deps.gradle"
+  apply from: "${project.rootDir}/deps.gradle"
   repositories {
     mavenLocal()
     if (project.properties.containsKey("localArtifactoryUrl")) {
