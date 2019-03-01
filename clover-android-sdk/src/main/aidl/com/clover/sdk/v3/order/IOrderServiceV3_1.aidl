@@ -299,4 +299,6 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   RefundFdParcelable refund2(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
+
+  OrderFdParcelable cleanUpPreAuthAfterTransaction(String orderId, in VoidReason voidReason, out ResultStatus status);
 }

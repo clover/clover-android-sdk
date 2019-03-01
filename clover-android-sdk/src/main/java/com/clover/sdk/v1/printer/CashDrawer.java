@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,10 @@ package com.clover.sdk.v1.printer;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.content.Intent;
+import android.hardware.usb.UsbDevice;
+import android.net.Uri;
+import android.os.Bundle;
+
 import com.clover.sdk.v1.Intents;
 
 /**
@@ -27,6 +30,11 @@ import com.clover.sdk.v1.Intents;
  * API for working with cash drawers, consider using {@link com.clover.sdk.cashdrawer}.
  */
 public class CashDrawer {
+  public static final String POP_CASH_DRAWER_METHOD = "POP_CASH_DRAWER_METHOD";
+  public static final String CASH_DRAWER_AUTHORITY = "com.clover.engine.printer.cashdrawerprovider";
+  public static final Uri CASH_DRAWER_AUTHORITY_URI = Uri.parse("content://" + CASH_DRAWER_AUTHORITY);
+  public static final String USB_DEVICE = "USB_DEVICE";
+
   private static final String SERVICE_HOST = "com.clover.engine";
 
   private CashDrawer() {
@@ -40,7 +48,7 @@ public class CashDrawer {
    * @param account A Clover account.
    */
   public static void open(Context context, Account account) {
-    open(context, account, null);
+    open(context, account, null, null, null, null);
   }
 
   /**
@@ -52,7 +60,7 @@ public class CashDrawer {
    *                         cash drawers. This value can be '1' for those printers which support only one cash drawer port
    */
   public static void open(Context context, Account account, int cashDrawerNumber) {
-    open(context, account, null, null, cashDrawerNumber);
+    open(context, account, null, null, cashDrawerNumber, null);
   }
 
   /**
@@ -66,7 +74,7 @@ public class CashDrawer {
    *                opens the cash drawer numbered '1').
    */
   public static void open(Context context, Account account, boolean openAny) {
-    open(context, account, null, openAny, null);
+    open(context, account, null, openAny, null, null);
   }
 
   /**
@@ -77,7 +85,7 @@ public class CashDrawer {
    * @param printer The printer to which the cash drawer is connected.
    */
   public static void open(Context context, Account account, Printer printer) {
-    open(context, account, printer, false, null);
+    open(context, account, printer, false, null, null);
   }
 
 
@@ -92,17 +100,22 @@ public class CashDrawer {
    *                         cash drawers. This value can be '1' for those printers which support only one cash drawer port
    */
   public static void open(Context context, Account account, Printer printer, int cashDrawerNumber) {
-    open(context, account, printer, null, cashDrawerNumber);
+    open(context, account, printer, null, cashDrawerNumber, null);
   }
 
-  private static void open(Context context, Account account, Printer printer, Boolean openAny, Integer cashDrawerNumber) {
-    Intent intent = new Intent(PrinterIntent.ACTION_OPEN_CASH_DRAWER_SERVICE);
-    intent.setPackage(SERVICE_HOST);
-    intent.putExtra(Intents.EXTRA_ACCOUNT, account);
-    intent.putExtra(PrinterIntent.EXTRA_PRINTER, printer);
-    intent.putExtra(PrinterIntent.EXTRA_OPEN_ANY, openAny);
-    intent.putExtra(PrinterIntent.CASH_DRAWER_NUMBER, cashDrawerNumber);
+  public static void open(Context context, Account account, UsbDevice usbDevice) {
+    open(context, account, null, null, null, usbDevice);
+  }
 
-    context.startService(intent);
+  private static void open(Context context, Account account, Printer printer, Boolean openAny, Integer cashDrawerNumber, UsbDevice usbDevice) {
+    Bundle extras = new Bundle();
+    extras.putParcelable(Intents.EXTRA_ACCOUNT, account);
+    extras.putParcelable(PrinterIntent.EXTRA_PRINTER, printer);
+    extras.putBoolean(PrinterIntent.EXTRA_OPEN_ANY, (openAny == null) ? Boolean.FALSE : openAny);
+    extras.putString(PrinterIntent.CASH_DRAWER_NUMBER,
+            (cashDrawerNumber == null) ? null : cashDrawerNumber.toString());
+    extras.putParcelable(USB_DEVICE, usbDevice);
+    context.getContentResolver().call(CASH_DRAWER_AUTHORITY_URI, POP_CASH_DRAWER_METHOD,
+            null, extras);
   }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '215'
+version = '219.5'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
@@ -101,5 +101,3 @@ signing {
 nexusStaging {
   packageGroup = "com.clover" //optional if packageGroup == project.getGroup() ------>  NOTE: project.getGroup() returns com.clover.sdk
 }
-
-

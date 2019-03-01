@@ -231,6 +231,10 @@ public class OrderCalc {
       return new Decimal(taxRate.getRate()).divide(TAX_RATE_DIVISOR);
     }
 
+    public Long getRateAsLong() {
+      return taxRate.getRate();
+    }
+
     @Override
     public Price getFlatTaxAmount() {
       return taxRate.isNotNullTaxAmount() ? new Price(taxRate.getTaxAmount()) : null;

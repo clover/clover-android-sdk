@@ -134,6 +134,8 @@ public class PayIntent implements Parcelable {
     private Credit originatingCredit;
     // Optional map of values passed through to the server NOT used in payment processing or persisted
     private Map<String, String> passThroughValues;
+    //Optional map of application specific values
+    private Map<String,String> applicationSpecificValues;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -232,6 +234,9 @@ public class PayIntent implements Parcelable {
       }
       if (intent.hasExtra(Intents.EXTRA_PASS_THROUGH_VALUES)) {
         passThroughValues = (Map<String, String>) intent.getSerializableExtra(Intents.EXTRA_PASS_THROUGH_VALUES);
+      }
+      if (intent.hasExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES)) {
+        applicationSpecificValues = (Map<String, String>) intent.getSerializableExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES);
       }
       return this;
     }
@@ -362,6 +367,9 @@ public class PayIntent implements Parcelable {
       }
       this.originatingCredit = payIntent.originatingCredit;
       this.passThroughValues = payIntent.passThroughValues;
+      if (payIntent.applicationSpecificValues != null) {
+        this.applicationSpecificValues = new HashMap<>(payIntent.applicationSpecificValues);
+      }
       return this;
     }
 
@@ -591,6 +599,12 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder applicationSpecificValues(Map<String, String> originatingappSpecificValues) {
+      boolean create = originatingappSpecificValues != null && !(originatingappSpecificValues instanceof Serializable);
+      this.applicationSpecificValues = create ? new HashMap<>(originatingappSpecificValues) : originatingappSpecificValues;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -605,7 +619,7 @@ public class PayIntent implements Parcelable {
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
           germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings,
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
-          themeName, originatingPayment, originatingCredit, passThroughValues);
+          themeName, originatingPayment, originatingCredit, passThroughValues,applicationSpecificValues);
     }
   }
 
@@ -659,6 +673,7 @@ public class PayIntent implements Parcelable {
   public final Payment originatingPayment;
   public final Credit originatingCredit;
   public final Map<String, String> passThroughValues;
+  public final Map<String, String> applicationSpecificValues;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -671,7 +686,7 @@ public class PayIntent implements Parcelable {
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
                     GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings,
-                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues) {
+                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues, Map<String, String> applicationSpecificValues) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -722,6 +737,7 @@ public class PayIntent implements Parcelable {
 
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
+    this.applicationSpecificValues = applicationSpecificValues;
   }
 
   private TransactionSettings buildTransactionSettingsPrivate(Long tippableAmountIn, boolean isDisableCashBackIn, int cardEntryMethodsIn,
@@ -870,6 +886,9 @@ public class PayIntent implements Parcelable {
     if (passThroughValues != null) {
       intent.putExtra(Intents.EXTRA_PASS_THROUGH_VALUES, (Serializable) passThroughValues);
     }
+    if (applicationSpecificValues != null) {
+      intent.putExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES, (Serializable)applicationSpecificValues);
+    }
   }
 
   @Override
@@ -913,6 +932,7 @@ public class PayIntent implements Parcelable {
            ", vasSettings=" + vasSettings +
            ", themeName=" + themeName +
            ", passThroughValues=" + passThroughValues +
+           ", passThroughValues=" + applicationSpecificValues +
            '}';
   }
 
@@ -1052,6 +1072,10 @@ public class PayIntent implements Parcelable {
 
     if (passThroughValues != null) {
       bundle.putSerializable(Intents.EXTRA_PASS_THROUGH_VALUES, (Serializable) passThroughValues);
+    }
+
+    if (applicationSpecificValues != null && !applicationSpecificValues.isEmpty()) {
+      bundle.putSerializable(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES, (Serializable)applicationSpecificValues);
     }
 
     // write out
@@ -1220,6 +1244,13 @@ public class PayIntent implements Parcelable {
         final Serializable originatingPassThroughValues = bundle.getSerializable(Intents.EXTRA_PASS_THROUGH_VALUES);
         if (originatingPassThroughValues instanceof Map) {
           builder.passThroughValues((Map<String, String>) originatingPassThroughValues);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES)) {
+        final Serializable originatingAppSpecificValues = bundle.getSerializable(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES);
+        if (originatingAppSpecificValues instanceof Map) {
+          builder.applicationSpecificValues((Map<String, String>) originatingAppSpecificValues);
         }
       }
 

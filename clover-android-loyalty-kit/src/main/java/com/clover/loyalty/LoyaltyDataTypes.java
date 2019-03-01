@@ -62,8 +62,8 @@ public class LoyaltyDataTypes {
 
   public static final boolean removeListedType(String type) {
     if (!isListedType(type)) {
-      return dataTypes.add(type);
+      return dataTypes.remove(type);
     }
-    return false; // not added, already there
+    return false; //not removed, not there
   }
 }

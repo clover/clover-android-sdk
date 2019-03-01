@@ -8,9 +8,9 @@ repositories {
 }
 
 dependencies {
-  testCompile "junit:junit:$JUNIT_VERSION"
-  testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
-  testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+  testImplementation "junit:junit:$JUNIT_VERSION"
+  testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
+  testImplementation "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
 
 configurations.compile.resolutionStrategy {

@@ -76,8 +76,8 @@ public final class Platform2 {
    */
   public enum Feature {
     /**
-     * Device supports the Clover Secure Payments application for taking Mag-stripe, EMV ICC and/or
-     * NFC payments.
+     * Device supports taking card present payments using the {@link Intents#ACTION_SECURE_PAY}
+     * intent.
      */
     SECURE_PAYMENTS {
       @Override

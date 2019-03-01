@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getDescription description}</li>
  * <li>{@link #getTagline tagline}</li>
+ * <li>{@link #getBenefits benefits}</li>
  * <li>{@link #getVideoUrl videoUrl}</li>
  * <li>{@link #getActivationUrl activationUrl}</li>
  * <li>{@link #getSiteUrl siteUrl}</li>
@@ -51,6 +52,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getFilenameIcon filenameIcon}</li>
  * <li>{@link #getFilenameIconSmall filenameIconSmall}</li>
  * <li>{@link #getFilenameIconLarge filenameIconLarge}</li>
+ * <li>{@link #getFilenameCover filenameCover}</li>
+ * <li>{@link #getFilenameBanner filenameBanner}</li>
  * <li>{@link #getInstallCount installCount}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getPermissionMerchantRead permissionMerchantRead}</li>
@@ -104,6 +107,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEquipmentName equipmentName}</li>
  * <li>{@link #getFirstPublishedTime firstPublishedTime}</li>
  * <li>{@link #getFirstApprovalTime firstApprovalTime}</li>
+ * <li>{@link #getFirstSubmittedTime firstSubmittedTime}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getAppBundle appBundle}</li>
  * <li>{@link #getEditorPick editorPick}</li>
  * <li>{@link #getPopularity popularity}</li>
@@ -113,23 +118,24 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCategories categories}</li>
  * <li>{@link #getPartnerId partnerId}</li>
  * <li>{@link #getLocales locales}</li>
+ * <li>{@link #getAggregateRating aggregateRating}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class App extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public java.lang.String getId() {
+  public String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Name of the app
    */
-  public java.lang.String getName() {
+  public String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
-  public java.lang.Boolean getPublished() {
+  public Boolean getPublished() {
     return genClient.cacheGet(CacheKey.published);
   }
 
@@ -147,176 +153,197 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * App Description
    */
-  public java.lang.String getDescription() {
+  public String getDescription() {
     return genClient.cacheGet(CacheKey.description);
   }
 
   /**
    * Short tagline for the app
    */
-  public java.lang.String getTagline() {
+  public String getTagline() {
     return genClient.cacheGet(CacheKey.tagline);
+  }
+
+  /**
+   * Brief description about benefits of app
+   */
+  public java.util.List<String> getBenefits() {
+    return genClient.cacheGet(CacheKey.benefits);
   }
 
   /**
    * URL for embedded video
    */
-  public java.lang.String getVideoUrl() {
+  public String getVideoUrl() {
     return genClient.cacheGet(CacheKey.videoUrl);
   }
 
   /**
    * Activation url for redirecting users after app installation.
    */
-  public java.lang.String getActivationUrl() {
+  public String getActivationUrl() {
     return genClient.cacheGet(CacheKey.activationUrl);
   }
 
   /**
    * Site url for oauth redirect and web app launch from appmarket.
    */
-  public java.lang.String getSiteUrl() {
+  public String getSiteUrl() {
     return genClient.cacheGet(CacheKey.siteUrl);
   }
 
   /**
    * Default oauth response type.
    */
-  public com.clover.sdk.v3.apps.OAuthResponseType getDefaultResponseType() {
+  public OAuthResponseType getDefaultResponseType() {
     return genClient.cacheGet(CacheKey.defaultResponseType);
   }
 
-  public java.lang.String getAppDomain() {
+  public String getAppDomain() {
     return genClient.cacheGet(CacheKey.appDomain);
   }
 
-  public com.clover.sdk.v3.apps.AndroidVersion getAndroidVersion() {
+  public AndroidVersion getAndroidVersion() {
     return genClient.cacheGet(CacheKey.androidVersion);
   }
 
-  public java.lang.String getPackageName() {
+  public String getPackageName() {
     return genClient.cacheGet(CacheKey.packageName);
   }
 
-  public java.lang.Boolean getApproved() {
+  public Boolean getApproved() {
     return genClient.cacheGet(CacheKey.approved);
   }
 
-  public java.lang.Boolean getSystemApp() {
+  public Boolean getSystemApp() {
     return genClient.cacheGet(CacheKey.systemApp);
   }
 
-  public java.lang.Boolean getHidden() {
+  public Boolean getHidden() {
     return genClient.cacheGet(CacheKey.hidden);
   }
 
-  public java.lang.String getFilenameIcon() {
+  public String getFilenameIcon() {
     return genClient.cacheGet(CacheKey.filenameIcon);
   }
 
   /**
    * URL to the icon of the app. Generated from filenameIcon.
    */
-  public java.lang.String getFilenameIconSmall() {
+  public String getFilenameIconSmall() {
     return genClient.cacheGet(CacheKey.filenameIconSmall);
   }
 
   /**
    * URL to the icon of the app. Generated from filenameIcon.
    */
-  public java.lang.String getFilenameIconLarge() {
+  public String getFilenameIconLarge() {
     return genClient.cacheGet(CacheKey.filenameIconLarge);
   }
 
-  public java.lang.Long getInstallCount() {
+  /**
+   * URL to the cover images of the app. To be displayed on app market details page.
+   */
+  public String getFilenameCover() {
+    return genClient.cacheGet(CacheKey.filenameCover);
+  }
+
+  /**
+   * URL to the hero images of the app. To be displayed on app market home page.
+   */
+  public String getFilenameBanner() {
+    return genClient.cacheGet(CacheKey.filenameBanner);
+  }
+
+  public Long getInstallCount() {
     return genClient.cacheGet(CacheKey.installCount);
   }
 
-  public java.lang.Long getSortOrder() {
+  public Long getSortOrder() {
     return genClient.cacheGet(CacheKey.sortOrder);
   }
 
-  public java.lang.Boolean getPermissionMerchantRead() {
+  public Boolean getPermissionMerchantRead() {
     return genClient.cacheGet(CacheKey.permissionMerchantRead);
   }
 
-  public java.lang.Boolean getPermissionMerchantWrite() {
+  public Boolean getPermissionMerchantWrite() {
     return genClient.cacheGet(CacheKey.permissionMerchantWrite);
   }
 
-  public java.lang.Boolean getPermissionCustomersRead() {
+  public Boolean getPermissionCustomersRead() {
     return genClient.cacheGet(CacheKey.permissionCustomersRead);
   }
 
-  public java.lang.Boolean getPermissionCustomersWrite() {
+  public Boolean getPermissionCustomersWrite() {
     return genClient.cacheGet(CacheKey.permissionCustomersWrite);
   }
 
-  public java.lang.Boolean getPermissionInventoryRead() {
+  public Boolean getPermissionInventoryRead() {
     return genClient.cacheGet(CacheKey.permissionInventoryRead);
   }
 
-  public java.lang.Boolean getPermissionInventoryWrite() {
+  public Boolean getPermissionInventoryWrite() {
     return genClient.cacheGet(CacheKey.permissionInventoryWrite);
   }
 
-  public java.lang.Boolean getPermissionOrdersRead() {
+  public Boolean getPermissionOrdersRead() {
     return genClient.cacheGet(CacheKey.permissionOrdersRead);
   }
 
-  public java.lang.Boolean getPermissionOrdersWrite() {
+  public Boolean getPermissionOrdersWrite() {
     return genClient.cacheGet(CacheKey.permissionOrdersWrite);
   }
 
-  public java.lang.Boolean getPermissionPaymentsRead() {
+  public Boolean getPermissionPaymentsRead() {
     return genClient.cacheGet(CacheKey.permissionPaymentsRead);
   }
 
-  public java.lang.Boolean getPermissionPaymentsWrite() {
+  public Boolean getPermissionPaymentsWrite() {
     return genClient.cacheGet(CacheKey.permissionPaymentsWrite);
   }
 
-  public java.lang.Boolean getPermissionEmployeesRead() {
+  public Boolean getPermissionEmployeesRead() {
     return genClient.cacheGet(CacheKey.permissionEmployeesRead);
   }
 
-  public java.lang.Boolean getPermissionEmployeesWrite() {
+  public Boolean getPermissionEmployeesWrite() {
     return genClient.cacheGet(CacheKey.permissionEmployeesWrite);
   }
 
-  public java.lang.Boolean getPermissionProcessCards() {
+  public Boolean getPermissionProcessCards() {
     return genClient.cacheGet(CacheKey.permissionProcessCards);
   }
 
-  public java.lang.Boolean getPermissionMidRead() {
+  public Boolean getPermissionMidRead() {
     return genClient.cacheGet(CacheKey.permissionMidRead);
   }
 
-  public java.lang.String getPrivacyPolicy() {
+  public String getPrivacyPolicy() {
     return genClient.cacheGet(CacheKey.privacyPolicy);
   }
 
-  public java.lang.String getEula() {
+  public String getEula() {
     return genClient.cacheGet(CacheKey.eula);
   }
 
-  public java.lang.String getSupportPhone() {
+  public String getSupportPhone() {
     return genClient.cacheGet(CacheKey.supportPhone);
   }
 
-  public java.lang.String getSupportPhoneHours() {
+  public String getSupportPhoneHours() {
     return genClient.cacheGet(CacheKey.supportPhoneHours);
   }
 
-  public java.lang.String getSupportEmail() {
+  public String getSupportEmail() {
     return genClient.cacheGet(CacheKey.supportEmail);
   }
 
-  public java.lang.String getSupportUrl() {
+  public String getSupportUrl() {
     return genClient.cacheGet(CacheKey.supportUrl);
   }
 
-  public com.clover.sdk.v3.apps.ProductType getProductType() {
+  public ProductType getProductType() {
     return genClient.cacheGet(CacheKey.productType);
   }
 
@@ -327,147 +354,147 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * The app's android permissions
    */
-  public java.util.List<com.clover.sdk.v3.apps.AndroidPermission> getAndroidPermissions() {
+  public java.util.List<AndroidPermission> getAndroidPermissions() {
     return genClient.cacheGet(CacheKey.androidPermissions);
   }
 
   /**
    * The app's screenshots
    */
-  public java.util.List<com.clover.sdk.v3.apps.Screenshot> getScreenshots() {
+  public java.util.List<Screenshot> getScreenshots() {
     return genClient.cacheGet(CacheKey.screenshots);
   }
 
   /**
    * Available subscription options for this app
    */
-  public java.util.List<com.clover.sdk.v3.apps.AppSubscription> getAvailableSubscriptions() {
+  public java.util.List<AppSubscription> getAvailableSubscriptions() {
     return genClient.cacheGet(CacheKey.availableSubscriptions);
   }
 
   /**
    * Subscription options for this app
    */
-  public java.util.List<com.clover.sdk.v3.apps.AppSubscription> getSubscriptions() {
+  public java.util.List<AppSubscription> getSubscriptions() {
     return genClient.cacheGet(CacheKey.subscriptions);
   }
 
   /**
    * Available metered options for this app
    */
-  public java.util.List<com.clover.sdk.v3.apps.AppMetered> getAvailableMetereds() {
+  public java.util.List<AppMetered> getAvailableMetereds() {
     return genClient.cacheGet(CacheKey.availableMetereds);
   }
 
   /**
    * Metered options for this app
    */
-  public java.util.List<com.clover.sdk.v3.apps.AppMetered> getMetereds() {
+  public java.util.List<AppMetered> getMetereds() {
     return genClient.cacheGet(CacheKey.metereds);
   }
 
   /**
    * USB devices with which this app will communicate
    */
-  public java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> getUsbDevices() {
+  public java.util.List<AppUsbDevice> getUsbDevices() {
     return genClient.cacheGet(CacheKey.usbDevices);
   }
 
   /**
    * DEPRECATED: This is now derived directly from billingStartTime (if future -> in trial; if past -> not in trial).  So it is now unnecessary.  Please update client code to not use it.
    */
-  public java.lang.Boolean getIsMerchantInTrial() {
+  public Boolean getIsMerchantInTrial() {
     return genClient.cacheGet(CacheKey.isMerchantInTrial);
   }
 
   /**
    * The merchant's current subscription for this app
    */
-  public com.clover.sdk.v3.apps.AppSubscription getCurrentSubscription() {
+  public AppSubscription getCurrentSubscription() {
     return genClient.cacheGet(CacheKey.currentSubscription);
   }
 
   /**
    * The app's web hook
    */
-  public com.clover.sdk.v3.apps.WebHook getWebhook() {
+  public WebHook getWebhook() {
     return genClient.cacheGet(CacheKey.webhook);
   }
 
   /**
    * The app's uploaded apks
    */
-  public java.util.List<com.clover.sdk.v3.apps.AndroidVersion> getAndroidVersions() {
+  public java.util.List<AndroidVersion> getAndroidVersions() {
     return genClient.cacheGet(CacheKey.androidVersions);
   }
 
   /**
    *  Whether the app is installed 
    */
-  public java.lang.Boolean getInstalled() {
+  public Boolean getInstalled() {
     return genClient.cacheGet(CacheKey.installed);
   }
 
   /**
    * If the merchant has the app installed, this is the timestamp of when they installed the app.
    */
-  public java.lang.Long getInstalledTime() {
+  public Long getInstalledTime() {
     return genClient.cacheGet(CacheKey.installedTime);
   }
 
   /**
    * If the app is a paid app, this tells whether it currently offers a 30 day free trial or not.  Developer can toggle at will.
    */
-  public java.lang.Boolean getPaidAppHasTrial() {
+  public Boolean getPaidAppHasTrial() {
     return genClient.cacheGet(CacheKey.paidAppHasTrial);
   }
 
   /**
    * Records the time that the approval status last changed
    */
-  public java.lang.Long getApprovalStatusModifiedTime() {
+  public Long getApprovalStatusModifiedTime() {
     return genClient.cacheGet(CacheKey.approvalStatusModifiedTime);
   }
 
   /**
    * Text will print on printed receipts for this app
    */
-  public java.lang.String getSmartReceiptText() {
+  public String getSmartReceiptText() {
     return genClient.cacheGet(CacheKey.smartReceiptText);
   }
 
   /**
    * URL we will expose on printed and web receipts for this app
    */
-  public java.lang.String getSmartReceiptUrl() {
+  public String getSmartReceiptUrl() {
     return genClient.cacheGet(CacheKey.smartReceiptUrl);
   }
 
   /**
    * If the merchant has the app installed, this is the timestamp of when they start/started paying.  If the merchant doesn't have the app installed, this is the timestamp of when they would start paying.  In UTC.  Applies to paid apps only.
    */
-  public java.lang.Long getBillingStartTime() {
+  public Long getBillingStartTime() {
     return genClient.cacheGet(CacheKey.billingStartTime);
   }
 
   /**
    * App's client secret for use with oauth
    */
-  public java.lang.String getAppSecret() {
+  public String getAppSecret() {
     return genClient.cacheGet(CacheKey.appSecret);
   }
 
   /**
    * App's associated business types
    */
-  public java.util.List<com.clover.sdk.v3.apps.BusinessType> getBusinessTypes() {
+  public java.util.List<BusinessType> getBusinessTypes() {
     return genClient.cacheGet(CacheKey.businessTypes);
   }
 
   /**
    * App's supported device types
    */
-  public java.util.List<com.clover.sdk.v3.apps.DeviceType> getDeviceTypes() {
+  public java.util.List<DeviceType> getDeviceTypes() {
     return genClient.cacheGet(CacheKey.deviceTypes);
   }
 
@@ -475,50 +502,64 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheGet(CacheKey.modules);
   }
 
-  public java.lang.String getTaxClassificationCode() {
+  public String getTaxClassificationCode() {
     return genClient.cacheGet(CacheKey.taxClassificationCode);
   }
 
   /**
    * When set, this provides a friendly id that can be used to link an external application to this app.
    */
-  public java.lang.String getApplicationId() {
+  public String getApplicationId() {
     return genClient.cacheGet(CacheKey.applicationId);
   }
 
   /**
    * True if the app developer handles the billing for this app.
    */
-  public java.lang.Boolean getNonCloverBilling() {
+  public Boolean getNonCloverBilling() {
     return genClient.cacheGet(CacheKey.nonCloverBilling);
   }
 
   /**
    * Used to associate this developer/app combination with a specific equipment code in First Data back office systems
    */
-  public java.lang.String getEquipmentCode() {
+  public String getEquipmentCode() {
     return genClient.cacheGet(CacheKey.equipmentCode);
   }
 
   /**
    * Used to associate this developer/app combination with a specific equipment code in First Data back office systems
    */
-  public java.lang.String getEquipmentName() {
+  public String getEquipmentName() {
     return genClient.cacheGet(CacheKey.equipmentName);
   }
 
   /**
    * Timestamp of first time this app transitions to approvalStatus PUBLISHED
    */
-  public java.lang.Long getFirstPublishedTime() {
+  public Long getFirstPublishedTime() {
     return genClient.cacheGet(CacheKey.firstPublishedTime);
   }
 
   /**
    * Timestamp of first time this app transitions to approvalStatus APPROVED
    */
-  public java.lang.Long getFirstApprovalTime() {
+  public Long getFirstApprovalTime() {
     return genClient.cacheGet(CacheKey.firstApprovalTime);
+  }
+
+  /**
+   * Timestamp of first time this app transitions to approvalStatus PENDING
+   */
+  public Long getFirstSubmittedTime() {
+    return genClient.cacheGet(CacheKey.firstSubmittedTime);
+  }
+
+  /**
+   * Timestamp of first time this app was created
+   */
+  public Long getCreatedTime() {
+    return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
@@ -531,35 +572,35 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * True if the App has been tagged as an editor's pick.
    */
-  public java.lang.Boolean getEditorPick() {
+  public Boolean getEditorPick() {
     return genClient.cacheGet(CacheKey.editorPick);
   }
 
   /**
    * Number of installs by billable production merchants once this app is published.
    */
-  public java.lang.Long getPopularity() {
+  public Long getPopularity() {
     return genClient.cacheGet(CacheKey.popularity);
   }
 
   /**
    * Only applies to default apps of plan, if true allow merchant to uninstall app.
    */
-  public java.lang.Boolean getAllowUninstall() {
+  public Boolean getAllowUninstall() {
     return genClient.cacheGet(CacheKey.allowUninstall);
   }
 
   /**
    * Only applies to default apps of plan, if true then charge for app.
    */
-  public java.lang.Boolean getCharge() {
+  public Boolean getCharge() {
     return genClient.cacheGet(CacheKey.charge);
   }
 
   /**
-   * Text for external link to this app's detail page in the app market.
+   * Link label to rebrand and promote apps
    */
-  public java.lang.String getLinkLabel() {
+  public String getLinkLabel() {
     return genClient.cacheGet(CacheKey.linkLabel);
   }
 
@@ -573,7 +614,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * Used to identify a semi-int developer app.
    */
-  public java.lang.String getPartnerId() {
+  public String getPartnerId() {
     return genClient.cacheGet(CacheKey.partnerId);
   }
 
@@ -584,6 +625,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheGet(CacheKey.locales);
   }
 
+  /**
+   * Aggregate ratings & reviews data for this app.
+   */
+  public com.clover.sdk.v3.apps.AggregateRating getAggregateRating() {
+    return genClient.cacheGet(CacheKey.aggregateRating);
+  }
+
 
 
 
@@ -591,19 +639,19 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     id {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
+        return instance.genClient.extractOther("id", String.class);
       }
     },
     name {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
+        return instance.genClient.extractOther("name", String.class);
       }
     },
     published {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("published", java.lang.Boolean.class);
+        return instance.genClient.extractOther("published", Boolean.class);
       }
     },
     developer {
@@ -621,229 +669,247 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     description {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("description", java.lang.String.class);
+        return instance.genClient.extractOther("description", String.class);
       }
     },
     tagline {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("tagline", java.lang.String.class);
+        return instance.genClient.extractOther("tagline", String.class);
+      }
+    },
+    benefits {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractListOther("benefits", String.class);
       }
     },
     videoUrl {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("videoUrl", java.lang.String.class);
+        return instance.genClient.extractOther("videoUrl", String.class);
       }
     },
     activationUrl {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("activationUrl", java.lang.String.class);
+        return instance.genClient.extractOther("activationUrl", String.class);
       }
     },
     siteUrl {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("siteUrl", java.lang.String.class);
+        return instance.genClient.extractOther("siteUrl", String.class);
       }
     },
     defaultResponseType {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractEnum("defaultResponseType", com.clover.sdk.v3.apps.OAuthResponseType.class);
+        return instance.genClient.extractEnum("defaultResponseType", OAuthResponseType.class);
       }
     },
     appDomain {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("appDomain", java.lang.String.class);
+        return instance.genClient.extractOther("appDomain", String.class);
       }
     },
     androidVersion {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractRecord("androidVersion", com.clover.sdk.v3.apps.AndroidVersion.JSON_CREATOR);
+        return instance.genClient.extractRecord("androidVersion", AndroidVersion.JSON_CREATOR);
       }
     },
     packageName {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("packageName", java.lang.String.class);
+        return instance.genClient.extractOther("packageName", String.class);
       }
     },
     approved {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("approved", java.lang.Boolean.class);
+        return instance.genClient.extractOther("approved", Boolean.class);
       }
     },
     systemApp {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("systemApp", java.lang.Boolean.class);
+        return instance.genClient.extractOther("systemApp", Boolean.class);
       }
     },
     hidden {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("hidden", java.lang.Boolean.class);
+        return instance.genClient.extractOther("hidden", Boolean.class);
       }
     },
     filenameIcon {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("filenameIcon", java.lang.String.class);
+        return instance.genClient.extractOther("filenameIcon", String.class);
       }
     },
     filenameIconSmall {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("filenameIconSmall", java.lang.String.class);
+        return instance.genClient.extractOther("filenameIconSmall", String.class);
       }
     },
     filenameIconLarge {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("filenameIconLarge", java.lang.String.class);
+        return instance.genClient.extractOther("filenameIconLarge", String.class);
+      }
+    },
+    filenameCover {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("filenameCover", String.class);
+      }
+    },
+    filenameBanner {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("filenameBanner", String.class);
       }
     },
     installCount {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("installCount", java.lang.Long.class);
+        return instance.genClient.extractOther("installCount", Long.class);
       }
     },
     sortOrder {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("sortOrder", java.lang.Long.class);
+        return instance.genClient.extractOther("sortOrder", Long.class);
       }
     },
     permissionMerchantRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionMerchantRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionMerchantRead", Boolean.class);
       }
     },
     permissionMerchantWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionMerchantWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionMerchantWrite", Boolean.class);
       }
     },
     permissionCustomersRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionCustomersRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionCustomersRead", Boolean.class);
       }
     },
     permissionCustomersWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionCustomersWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionCustomersWrite", Boolean.class);
       }
     },
     permissionInventoryRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionInventoryRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionInventoryRead", Boolean.class);
       }
     },
     permissionInventoryWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionInventoryWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionInventoryWrite", Boolean.class);
       }
     },
     permissionOrdersRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionOrdersRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionOrdersRead", Boolean.class);
       }
     },
     permissionOrdersWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionOrdersWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionOrdersWrite", Boolean.class);
       }
     },
     permissionPaymentsRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionPaymentsRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionPaymentsRead", Boolean.class);
       }
     },
     permissionPaymentsWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionPaymentsWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionPaymentsWrite", Boolean.class);
       }
     },
     permissionEmployeesRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionEmployeesRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionEmployeesRead", Boolean.class);
       }
     },
     permissionEmployeesWrite {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionEmployeesWrite", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionEmployeesWrite", Boolean.class);
       }
     },
     permissionProcessCards {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionProcessCards", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionProcessCards", Boolean.class);
       }
     },
     permissionMidRead {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("permissionMidRead", java.lang.Boolean.class);
+        return instance.genClient.extractOther("permissionMidRead", Boolean.class);
       }
     },
     privacyPolicy {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("privacyPolicy", java.lang.String.class);
+        return instance.genClient.extractOther("privacyPolicy", String.class);
       }
     },
     eula {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("eula", java.lang.String.class);
+        return instance.genClient.extractOther("eula", String.class);
       }
     },
     supportPhone {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("supportPhone", java.lang.String.class);
+        return instance.genClient.extractOther("supportPhone", String.class);
       }
     },
     supportPhoneHours {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("supportPhoneHours", java.lang.String.class);
+        return instance.genClient.extractOther("supportPhoneHours", String.class);
       }
     },
     supportEmail {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("supportEmail", java.lang.String.class);
+        return instance.genClient.extractOther("supportEmail", String.class);
       }
     },
     supportUrl {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("supportUrl", java.lang.String.class);
+        return instance.genClient.extractOther("supportUrl", String.class);
       }
     },
     productType {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractEnum("productType", com.clover.sdk.v3.apps.ProductType.class);
+        return instance.genClient.extractEnum("productType", ProductType.class);
       }
     },
     approvalStatus {
@@ -855,127 +921,127 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     androidPermissions {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("androidPermissions", com.clover.sdk.v3.apps.AndroidPermission.JSON_CREATOR);
+        return instance.genClient.extractListRecord("androidPermissions", AndroidPermission.JSON_CREATOR);
       }
     },
     screenshots {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("screenshots", com.clover.sdk.v3.apps.Screenshot.JSON_CREATOR);
+        return instance.genClient.extractListRecord("screenshots", Screenshot.JSON_CREATOR);
       }
     },
     availableSubscriptions {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("availableSubscriptions", com.clover.sdk.v3.apps.AppSubscription.JSON_CREATOR);
+        return instance.genClient.extractListRecord("availableSubscriptions", AppSubscription.JSON_CREATOR);
       }
     },
     subscriptions {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("subscriptions", com.clover.sdk.v3.apps.AppSubscription.JSON_CREATOR);
+        return instance.genClient.extractListRecord("subscriptions", AppSubscription.JSON_CREATOR);
       }
     },
     availableMetereds {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("availableMetereds", com.clover.sdk.v3.apps.AppMetered.JSON_CREATOR);
+        return instance.genClient.extractListRecord("availableMetereds", AppMetered.JSON_CREATOR);
       }
     },
     metereds {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("metereds", com.clover.sdk.v3.apps.AppMetered.JSON_CREATOR);
+        return instance.genClient.extractListRecord("metereds", AppMetered.JSON_CREATOR);
       }
     },
     usbDevices {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("usbDevices", com.clover.sdk.v3.apps.AppUsbDevice.JSON_CREATOR);
+        return instance.genClient.extractListRecord("usbDevices", AppUsbDevice.JSON_CREATOR);
       }
     },
     isMerchantInTrial {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("isMerchantInTrial", java.lang.Boolean.class);
+        return instance.genClient.extractOther("isMerchantInTrial", Boolean.class);
       }
     },
     currentSubscription {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractRecord("currentSubscription", com.clover.sdk.v3.apps.AppSubscription.JSON_CREATOR);
+        return instance.genClient.extractRecord("currentSubscription", AppSubscription.JSON_CREATOR);
       }
     },
     webhook {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractRecord("webhook", com.clover.sdk.v3.apps.WebHook.JSON_CREATOR);
+        return instance.genClient.extractRecord("webhook", WebHook.JSON_CREATOR);
       }
     },
     androidVersions {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("androidVersions", com.clover.sdk.v3.apps.AndroidVersion.JSON_CREATOR);
+        return instance.genClient.extractListRecord("androidVersions", AndroidVersion.JSON_CREATOR);
       }
     },
     installed {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("installed", java.lang.Boolean.class);
+        return instance.genClient.extractOther("installed", Boolean.class);
       }
     },
     installedTime {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("installedTime", java.lang.Long.class);
+        return instance.genClient.extractOther("installedTime", Long.class);
       }
     },
     paidAppHasTrial {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("paidAppHasTrial", java.lang.Boolean.class);
+        return instance.genClient.extractOther("paidAppHasTrial", Boolean.class);
       }
     },
     approvalStatusModifiedTime {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("approvalStatusModifiedTime", java.lang.Long.class);
+        return instance.genClient.extractOther("approvalStatusModifiedTime", Long.class);
       }
     },
     smartReceiptText {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("smartReceiptText", java.lang.String.class);
+        return instance.genClient.extractOther("smartReceiptText", String.class);
       }
     },
     smartReceiptUrl {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("smartReceiptUrl", java.lang.String.class);
+        return instance.genClient.extractOther("smartReceiptUrl", String.class);
       }
     },
     billingStartTime {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("billingStartTime", java.lang.Long.class);
+        return instance.genClient.extractOther("billingStartTime", Long.class);
       }
     },
     appSecret {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("appSecret", java.lang.String.class);
+        return instance.genClient.extractOther("appSecret", String.class);
       }
     },
     businessTypes {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("businessTypes", com.clover.sdk.v3.apps.BusinessType.JSON_CREATOR);
+        return instance.genClient.extractListRecord("businessTypes", BusinessType.JSON_CREATOR);
       }
     },
     deviceTypes {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractListRecord("deviceTypes", com.clover.sdk.v3.apps.DeviceType.JSON_CREATOR);
+        return instance.genClient.extractListRecord("deviceTypes", DeviceType.JSON_CREATOR);
       }
     },
     modules {
@@ -987,43 +1053,55 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     taxClassificationCode {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("taxClassificationCode", java.lang.String.class);
+        return instance.genClient.extractOther("taxClassificationCode", String.class);
       }
     },
     applicationId {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("applicationId", java.lang.String.class);
+        return instance.genClient.extractOther("applicationId", String.class);
       }
     },
     nonCloverBilling {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("nonCloverBilling", java.lang.Boolean.class);
+        return instance.genClient.extractOther("nonCloverBilling", Boolean.class);
       }
     },
     equipmentCode {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("equipmentCode", java.lang.String.class);
+        return instance.genClient.extractOther("equipmentCode", String.class);
       }
     },
     equipmentName {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("equipmentName", java.lang.String.class);
+        return instance.genClient.extractOther("equipmentName", String.class);
       }
     },
     firstPublishedTime {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("firstPublishedTime", java.lang.Long.class);
+        return instance.genClient.extractOther("firstPublishedTime", Long.class);
       }
     },
     firstApprovalTime {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("firstApprovalTime", java.lang.Long.class);
+        return instance.genClient.extractOther("firstApprovalTime", Long.class);
+      }
+    },
+    firstSubmittedTime {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("firstSubmittedTime", Long.class);
+      }
+    },
+    createdTime {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractOther("createdTime", Long.class);
       }
     },
     appBundle {
@@ -1035,31 +1113,31 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     editorPick {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("editorPick", java.lang.Boolean.class);
+        return instance.genClient.extractOther("editorPick", Boolean.class);
       }
     },
     popularity {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("popularity", java.lang.Long.class);
+        return instance.genClient.extractOther("popularity", Long.class);
       }
     },
     allowUninstall {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("allowUninstall", java.lang.Boolean.class);
+        return instance.genClient.extractOther("allowUninstall", Boolean.class);
       }
     },
     charge {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("charge", java.lang.Boolean.class);
+        return instance.genClient.extractOther("charge", Boolean.class);
       }
     },
     linkLabel {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("linkLabel", java.lang.String.class);
+        return instance.genClient.extractOther("linkLabel", String.class);
       }
     },
     categories {
@@ -1071,7 +1149,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     partnerId {
       @Override
       public Object extractValue(App instance) {
-        return instance.genClient.extractOther("partnerId", java.lang.String.class);
+        return instance.genClient.extractOther("partnerId", String.class);
       }
     },
     locales {
@@ -1080,14 +1158,20 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         return instance.genClient.extractListRecord("locales", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
+    aggregateRating {
+      @Override
+      public Object extractValue(App instance) {
+        return instance.genClient.extractRecord("aggregateRating", com.clover.sdk.v3.apps.AggregateRating.JSON_CREATOR);
+      }
+    },
       ;
   }
 
   private GenericClient<App> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public App() {
     genClient = new GenericClient<App>(this);
   }
@@ -1098,8 +1182,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected App(boolean noInit) {
     genClient = null;
   }
@@ -1164,11 +1248,15 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
     genClient.validateLength(getPackageName(), 255);
 
-    genClient.validateLength(getFilenameIcon(), 100);
+    genClient.validateLength(getFilenameIcon(), 255);
 
     genClient.validateLength(getFilenameIconSmall(), 255);
 
     genClient.validateLength(getFilenameIconLarge(), 255);
+
+    genClient.validateLength(getFilenameCover(), 255);
+
+    genClient.validateLength(getFilenameBanner(), 255);
 
     genClient.validateLength(getPrivacyPolicy(), 255);
 
@@ -1223,6 +1311,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public boolean isNotNullTagline() {
     return genClient.cacheValueIsNotNull(CacheKey.tagline);
   }
+
+  /** Checks whether the 'benefits' field is set and is not null */
+  public boolean isNotNullBenefits() {
+    return genClient.cacheValueIsNotNull(CacheKey.benefits);
+  }
+
+  /** Checks whether the 'benefits' field is set and is not null and is not empty */
+  public boolean isNotEmptyBenefits() { return isNotNullBenefits() && !getBenefits().isEmpty(); }
 
   /** Checks whether the 'videoUrl' field is set and is not null */
   public boolean isNotNullVideoUrl() {
@@ -1287,6 +1383,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'filenameIconLarge' field is set and is not null */
   public boolean isNotNullFilenameIconLarge() {
     return genClient.cacheValueIsNotNull(CacheKey.filenameIconLarge);
+  }
+
+  /** Checks whether the 'filenameCover' field is set and is not null */
+  public boolean isNotNullFilenameCover() {
+    return genClient.cacheValueIsNotNull(CacheKey.filenameCover);
+  }
+
+  /** Checks whether the 'filenameBanner' field is set and is not null */
+  public boolean isNotNullFilenameBanner() {
+    return genClient.cacheValueIsNotNull(CacheKey.filenameBanner);
   }
 
   /** Checks whether the 'installCount' field is set and is not null */
@@ -1587,6 +1693,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.firstApprovalTime);
   }
 
+  /** Checks whether the 'firstSubmittedTime' field is set and is not null */
+  public boolean isNotNullFirstSubmittedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.firstSubmittedTime);
+  }
+
+  /** Checks whether the 'createdTime' field is set and is not null */
+  public boolean isNotNullCreatedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.createdTime);
+  }
+
   /** Checks whether the 'appBundle' field is set and is not null */
   public boolean isNotNullAppBundle() {
     return genClient.cacheValueIsNotNull(CacheKey.appBundle);
@@ -1638,6 +1754,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'locales' field is set and is not null and is not empty */
   public boolean isNotEmptyLocales() { return isNotNullLocales() && !getLocales().isEmpty(); }
 
+  /** Checks whether the 'aggregateRating' field is set and is not null */
+  public boolean isNotNullAggregateRating() {
+    return genClient.cacheValueIsNotNull(CacheKey.aggregateRating);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1673,6 +1794,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'tagline' field has been set, however the value could be null */
   public boolean hasTagline() {
     return genClient.cacheHasKey(CacheKey.tagline);
+  }
+
+  /** Checks whether the 'benefits' field has been set, however the value could be null */
+  public boolean hasBenefits() {
+    return genClient.cacheHasKey(CacheKey.benefits);
   }
 
   /** Checks whether the 'videoUrl' field has been set, however the value could be null */
@@ -1738,6 +1864,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'filenameIconLarge' field has been set, however the value could be null */
   public boolean hasFilenameIconLarge() {
     return genClient.cacheHasKey(CacheKey.filenameIconLarge);
+  }
+
+  /** Checks whether the 'filenameCover' field has been set, however the value could be null */
+  public boolean hasFilenameCover() {
+    return genClient.cacheHasKey(CacheKey.filenameCover);
+  }
+
+  /** Checks whether the 'filenameBanner' field has been set, however the value could be null */
+  public boolean hasFilenameBanner() {
+    return genClient.cacheHasKey(CacheKey.filenameBanner);
   }
 
   /** Checks whether the 'installCount' field has been set, however the value could be null */
@@ -2005,6 +2141,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.firstApprovalTime);
   }
 
+  /** Checks whether the 'firstSubmittedTime' field has been set, however the value could be null */
+  public boolean hasFirstSubmittedTime() {
+    return genClient.cacheHasKey(CacheKey.firstSubmittedTime);
+  }
+
+  /** Checks whether the 'createdTime' field has been set, however the value could be null */
+  public boolean hasCreatedTime() {
+    return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
   /** Checks whether the 'appBundle' field has been set, however the value could be null */
   public boolean hasAppBundle() {
     return genClient.cacheHasKey(CacheKey.appBundle);
@@ -2050,25 +2196,30 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.locales);
   }
 
+  /** Checks whether the 'aggregateRating' field has been set, however the value could be null */
+  public boolean hasAggregateRating() {
+    return genClient.cacheHasKey(CacheKey.aggregateRating);
+  }
+
 
   /**
    * Sets the field 'id'.
    */
-  public App setId(java.lang.String id) {
+  public App setId(String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public App setName(java.lang.String name) {
+  public App setName(String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'published'.
    */
-  public App setPublished(java.lang.Boolean published) {
+  public App setPublished(Boolean published) {
     return genClient.setOther(published, CacheKey.published);
   }
 
@@ -2093,49 +2244,58 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * Sets the field 'description'.
    */
-  public App setDescription(java.lang.String description) {
+  public App setDescription(String description) {
     return genClient.setOther(description, CacheKey.description);
   }
 
   /**
    * Sets the field 'tagline'.
    */
-  public App setTagline(java.lang.String tagline) {
+  public App setTagline(String tagline) {
     return genClient.setOther(tagline, CacheKey.tagline);
+  }
+
+  /**
+   * Sets the field 'benefits'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setBenefits(java.util.List<String> benefits) {
+    return genClient.setArrayOther(benefits, CacheKey.benefits);
   }
 
   /**
    * Sets the field 'videoUrl'.
    */
-  public App setVideoUrl(java.lang.String videoUrl) {
+  public App setVideoUrl(String videoUrl) {
     return genClient.setOther(videoUrl, CacheKey.videoUrl);
   }
 
   /**
    * Sets the field 'activationUrl'.
    */
-  public App setActivationUrl(java.lang.String activationUrl) {
+  public App setActivationUrl(String activationUrl) {
     return genClient.setOther(activationUrl, CacheKey.activationUrl);
   }
 
   /**
    * Sets the field 'siteUrl'.
    */
-  public App setSiteUrl(java.lang.String siteUrl) {
+  public App setSiteUrl(String siteUrl) {
     return genClient.setOther(siteUrl, CacheKey.siteUrl);
   }
 
   /**
    * Sets the field 'defaultResponseType'.
    */
-  public App setDefaultResponseType(com.clover.sdk.v3.apps.OAuthResponseType defaultResponseType) {
+  public App setDefaultResponseType(OAuthResponseType defaultResponseType) {
     return genClient.setOther(defaultResponseType, CacheKey.defaultResponseType);
   }
 
   /**
    * Sets the field 'appDomain'.
    */
-  public App setAppDomain(java.lang.String appDomain) {
+  public App setAppDomain(String appDomain) {
     return genClient.setOther(appDomain, CacheKey.appDomain);
   }
 
@@ -2144,217 +2304,231 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public App setAndroidVersion(com.clover.sdk.v3.apps.AndroidVersion androidVersion) {
+  public App setAndroidVersion(AndroidVersion androidVersion) {
     return genClient.setRecord(androidVersion, CacheKey.androidVersion);
   }
 
   /**
    * Sets the field 'packageName'.
    */
-  public App setPackageName(java.lang.String packageName) {
+  public App setPackageName(String packageName) {
     return genClient.setOther(packageName, CacheKey.packageName);
   }
 
   /**
    * Sets the field 'approved'.
    */
-  public App setApproved(java.lang.Boolean approved) {
+  public App setApproved(Boolean approved) {
     return genClient.setOther(approved, CacheKey.approved);
   }
 
   /**
    * Sets the field 'systemApp'.
    */
-  public App setSystemApp(java.lang.Boolean systemApp) {
+  public App setSystemApp(Boolean systemApp) {
     return genClient.setOther(systemApp, CacheKey.systemApp);
   }
 
   /**
    * Sets the field 'hidden'.
    */
-  public App setHidden(java.lang.Boolean hidden) {
+  public App setHidden(Boolean hidden) {
     return genClient.setOther(hidden, CacheKey.hidden);
   }
 
   /**
    * Sets the field 'filenameIcon'.
    */
-  public App setFilenameIcon(java.lang.String filenameIcon) {
+  public App setFilenameIcon(String filenameIcon) {
     return genClient.setOther(filenameIcon, CacheKey.filenameIcon);
   }
 
   /**
    * Sets the field 'filenameIconSmall'.
    */
-  public App setFilenameIconSmall(java.lang.String filenameIconSmall) {
+  public App setFilenameIconSmall(String filenameIconSmall) {
     return genClient.setOther(filenameIconSmall, CacheKey.filenameIconSmall);
   }
 
   /**
    * Sets the field 'filenameIconLarge'.
    */
-  public App setFilenameIconLarge(java.lang.String filenameIconLarge) {
+  public App setFilenameIconLarge(String filenameIconLarge) {
     return genClient.setOther(filenameIconLarge, CacheKey.filenameIconLarge);
+  }
+
+  /**
+   * Sets the field 'filenameCover'.
+   */
+  public App setFilenameCover(String filenameCover) {
+    return genClient.setOther(filenameCover, CacheKey.filenameCover);
+  }
+
+  /**
+   * Sets the field 'filenameBanner'.
+   */
+  public App setFilenameBanner(String filenameBanner) {
+    return genClient.setOther(filenameBanner, CacheKey.filenameBanner);
   }
 
   /**
    * Sets the field 'installCount'.
    */
-  public App setInstallCount(java.lang.Long installCount) {
+  public App setInstallCount(Long installCount) {
     return genClient.setOther(installCount, CacheKey.installCount);
   }
 
   /**
    * Sets the field 'sortOrder'.
    */
-  public App setSortOrder(java.lang.Long sortOrder) {
+  public App setSortOrder(Long sortOrder) {
     return genClient.setOther(sortOrder, CacheKey.sortOrder);
   }
 
   /**
    * Sets the field 'permissionMerchantRead'.
    */
-  public App setPermissionMerchantRead(java.lang.Boolean permissionMerchantRead) {
+  public App setPermissionMerchantRead(Boolean permissionMerchantRead) {
     return genClient.setOther(permissionMerchantRead, CacheKey.permissionMerchantRead);
   }
 
   /**
    * Sets the field 'permissionMerchantWrite'.
    */
-  public App setPermissionMerchantWrite(java.lang.Boolean permissionMerchantWrite) {
+  public App setPermissionMerchantWrite(Boolean permissionMerchantWrite) {
     return genClient.setOther(permissionMerchantWrite, CacheKey.permissionMerchantWrite);
   }
 
   /**
    * Sets the field 'permissionCustomersRead'.
    */
-  public App setPermissionCustomersRead(java.lang.Boolean permissionCustomersRead) {
+  public App setPermissionCustomersRead(Boolean permissionCustomersRead) {
     return genClient.setOther(permissionCustomersRead, CacheKey.permissionCustomersRead);
   }
 
   /**
    * Sets the field 'permissionCustomersWrite'.
    */
-  public App setPermissionCustomersWrite(java.lang.Boolean permissionCustomersWrite) {
+  public App setPermissionCustomersWrite(Boolean permissionCustomersWrite) {
     return genClient.setOther(permissionCustomersWrite, CacheKey.permissionCustomersWrite);
   }
 
   /**
    * Sets the field 'permissionInventoryRead'.
    */
-  public App setPermissionInventoryRead(java.lang.Boolean permissionInventoryRead) {
+  public App setPermissionInventoryRead(Boolean permissionInventoryRead) {
     return genClient.setOther(permissionInventoryRead, CacheKey.permissionInventoryRead);
   }
 
   /**
    * Sets the field 'permissionInventoryWrite'.
    */
-  public App setPermissionInventoryWrite(java.lang.Boolean permissionInventoryWrite) {
+  public App setPermissionInventoryWrite(Boolean permissionInventoryWrite) {
     return genClient.setOther(permissionInventoryWrite, CacheKey.permissionInventoryWrite);
   }
 
   /**
    * Sets the field 'permissionOrdersRead'.
    */
-  public App setPermissionOrdersRead(java.lang.Boolean permissionOrdersRead) {
+  public App setPermissionOrdersRead(Boolean permissionOrdersRead) {
     return genClient.setOther(permissionOrdersRead, CacheKey.permissionOrdersRead);
   }
 
   /**
    * Sets the field 'permissionOrdersWrite'.
    */
-  public App setPermissionOrdersWrite(java.lang.Boolean permissionOrdersWrite) {
+  public App setPermissionOrdersWrite(Boolean permissionOrdersWrite) {
     return genClient.setOther(permissionOrdersWrite, CacheKey.permissionOrdersWrite);
   }
 
   /**
    * Sets the field 'permissionPaymentsRead'.
    */
-  public App setPermissionPaymentsRead(java.lang.Boolean permissionPaymentsRead) {
+  public App setPermissionPaymentsRead(Boolean permissionPaymentsRead) {
     return genClient.setOther(permissionPaymentsRead, CacheKey.permissionPaymentsRead);
   }
 
   /**
    * Sets the field 'permissionPaymentsWrite'.
    */
-  public App setPermissionPaymentsWrite(java.lang.Boolean permissionPaymentsWrite) {
+  public App setPermissionPaymentsWrite(Boolean permissionPaymentsWrite) {
     return genClient.setOther(permissionPaymentsWrite, CacheKey.permissionPaymentsWrite);
   }
 
   /**
    * Sets the field 'permissionEmployeesRead'.
    */
-  public App setPermissionEmployeesRead(java.lang.Boolean permissionEmployeesRead) {
+  public App setPermissionEmployeesRead(Boolean permissionEmployeesRead) {
     return genClient.setOther(permissionEmployeesRead, CacheKey.permissionEmployeesRead);
   }
 
   /**
    * Sets the field 'permissionEmployeesWrite'.
    */
-  public App setPermissionEmployeesWrite(java.lang.Boolean permissionEmployeesWrite) {
+  public App setPermissionEmployeesWrite(Boolean permissionEmployeesWrite) {
     return genClient.setOther(permissionEmployeesWrite, CacheKey.permissionEmployeesWrite);
   }
 
   /**
    * Sets the field 'permissionProcessCards'.
    */
-  public App setPermissionProcessCards(java.lang.Boolean permissionProcessCards) {
+  public App setPermissionProcessCards(Boolean permissionProcessCards) {
     return genClient.setOther(permissionProcessCards, CacheKey.permissionProcessCards);
   }
 
   /**
    * Sets the field 'permissionMidRead'.
    */
-  public App setPermissionMidRead(java.lang.Boolean permissionMidRead) {
+  public App setPermissionMidRead(Boolean permissionMidRead) {
     return genClient.setOther(permissionMidRead, CacheKey.permissionMidRead);
   }
 
   /**
    * Sets the field 'privacyPolicy'.
    */
-  public App setPrivacyPolicy(java.lang.String privacyPolicy) {
+  public App setPrivacyPolicy(String privacyPolicy) {
     return genClient.setOther(privacyPolicy, CacheKey.privacyPolicy);
   }
 
   /**
    * Sets the field 'eula'.
    */
-  public App setEula(java.lang.String eula) {
+  public App setEula(String eula) {
     return genClient.setOther(eula, CacheKey.eula);
   }
 
   /**
    * Sets the field 'supportPhone'.
    */
-  public App setSupportPhone(java.lang.String supportPhone) {
+  public App setSupportPhone(String supportPhone) {
     return genClient.setOther(supportPhone, CacheKey.supportPhone);
   }
 
   /**
    * Sets the field 'supportPhoneHours'.
    */
-  public App setSupportPhoneHours(java.lang.String supportPhoneHours) {
+  public App setSupportPhoneHours(String supportPhoneHours) {
     return genClient.setOther(supportPhoneHours, CacheKey.supportPhoneHours);
   }
 
   /**
    * Sets the field 'supportEmail'.
    */
-  public App setSupportEmail(java.lang.String supportEmail) {
+  public App setSupportEmail(String supportEmail) {
     return genClient.setOther(supportEmail, CacheKey.supportEmail);
   }
 
   /**
    * Sets the field 'supportUrl'.
    */
-  public App setSupportUrl(java.lang.String supportUrl) {
+  public App setSupportUrl(String supportUrl) {
     return genClient.setOther(supportUrl, CacheKey.supportUrl);
   }
 
   /**
    * Sets the field 'productType'.
    */
-  public App setProductType(com.clover.sdk.v3.apps.ProductType productType) {
+  public App setProductType(ProductType productType) {
     return genClient.setOther(productType, CacheKey.productType);
   }
 
@@ -2370,7 +2544,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setAndroidPermissions(java.util.List<com.clover.sdk.v3.apps.AndroidPermission> androidPermissions) {
+  public App setAndroidPermissions(java.util.List<AndroidPermission> androidPermissions) {
     return genClient.setArrayRecord(androidPermissions, CacheKey.androidPermissions);
   }
 
@@ -2379,7 +2553,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setScreenshots(java.util.List<com.clover.sdk.v3.apps.Screenshot> screenshots) {
+  public App setScreenshots(java.util.List<Screenshot> screenshots) {
     return genClient.setArrayRecord(screenshots, CacheKey.screenshots);
   }
 
@@ -2388,7 +2562,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setAvailableSubscriptions(java.util.List<com.clover.sdk.v3.apps.AppSubscription> availableSubscriptions) {
+  public App setAvailableSubscriptions(java.util.List<AppSubscription> availableSubscriptions) {
     return genClient.setArrayRecord(availableSubscriptions, CacheKey.availableSubscriptions);
   }
 
@@ -2397,7 +2571,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setSubscriptions(java.util.List<com.clover.sdk.v3.apps.AppSubscription> subscriptions) {
+  public App setSubscriptions(java.util.List<AppSubscription> subscriptions) {
     return genClient.setArrayRecord(subscriptions, CacheKey.subscriptions);
   }
 
@@ -2406,7 +2580,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setAvailableMetereds(java.util.List<com.clover.sdk.v3.apps.AppMetered> availableMetereds) {
+  public App setAvailableMetereds(java.util.List<AppMetered> availableMetereds) {
     return genClient.setArrayRecord(availableMetereds, CacheKey.availableMetereds);
   }
 
@@ -2415,7 +2589,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setMetereds(java.util.List<com.clover.sdk.v3.apps.AppMetered> metereds) {
+  public App setMetereds(java.util.List<AppMetered> metereds) {
     return genClient.setArrayRecord(metereds, CacheKey.metereds);
   }
 
@@ -2424,14 +2598,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setUsbDevices(java.util.List<com.clover.sdk.v3.apps.AppUsbDevice> usbDevices) {
+  public App setUsbDevices(java.util.List<AppUsbDevice> usbDevices) {
     return genClient.setArrayRecord(usbDevices, CacheKey.usbDevices);
   }
 
   /**
    * Sets the field 'isMerchantInTrial'.
    */
-  public App setIsMerchantInTrial(java.lang.Boolean isMerchantInTrial) {
+  public App setIsMerchantInTrial(Boolean isMerchantInTrial) {
     return genClient.setOther(isMerchantInTrial, CacheKey.isMerchantInTrial);
   }
 
@@ -2440,7 +2614,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public App setCurrentSubscription(com.clover.sdk.v3.apps.AppSubscription currentSubscription) {
+  public App setCurrentSubscription(AppSubscription currentSubscription) {
     return genClient.setRecord(currentSubscription, CacheKey.currentSubscription);
   }
 
@@ -2449,7 +2623,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public App setWebhook(com.clover.sdk.v3.apps.WebHook webhook) {
+  public App setWebhook(WebHook webhook) {
     return genClient.setRecord(webhook, CacheKey.webhook);
   }
 
@@ -2458,63 +2632,63 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setAndroidVersions(java.util.List<com.clover.sdk.v3.apps.AndroidVersion> androidVersions) {
+  public App setAndroidVersions(java.util.List<AndroidVersion> androidVersions) {
     return genClient.setArrayRecord(androidVersions, CacheKey.androidVersions);
   }
 
   /**
    * Sets the field 'installed'.
    */
-  public App setInstalled(java.lang.Boolean installed) {
+  public App setInstalled(Boolean installed) {
     return genClient.setOther(installed, CacheKey.installed);
   }
 
   /**
    * Sets the field 'installedTime'.
    */
-  public App setInstalledTime(java.lang.Long installedTime) {
+  public App setInstalledTime(Long installedTime) {
     return genClient.setOther(installedTime, CacheKey.installedTime);
   }
 
   /**
    * Sets the field 'paidAppHasTrial'.
    */
-  public App setPaidAppHasTrial(java.lang.Boolean paidAppHasTrial) {
+  public App setPaidAppHasTrial(Boolean paidAppHasTrial) {
     return genClient.setOther(paidAppHasTrial, CacheKey.paidAppHasTrial);
   }
 
   /**
    * Sets the field 'approvalStatusModifiedTime'.
    */
-  public App setApprovalStatusModifiedTime(java.lang.Long approvalStatusModifiedTime) {
+  public App setApprovalStatusModifiedTime(Long approvalStatusModifiedTime) {
     return genClient.setOther(approvalStatusModifiedTime, CacheKey.approvalStatusModifiedTime);
   }
 
   /**
    * Sets the field 'smartReceiptText'.
    */
-  public App setSmartReceiptText(java.lang.String smartReceiptText) {
+  public App setSmartReceiptText(String smartReceiptText) {
     return genClient.setOther(smartReceiptText, CacheKey.smartReceiptText);
   }
 
   /**
    * Sets the field 'smartReceiptUrl'.
    */
-  public App setSmartReceiptUrl(java.lang.String smartReceiptUrl) {
+  public App setSmartReceiptUrl(String smartReceiptUrl) {
     return genClient.setOther(smartReceiptUrl, CacheKey.smartReceiptUrl);
   }
 
   /**
    * Sets the field 'billingStartTime'.
    */
-  public App setBillingStartTime(java.lang.Long billingStartTime) {
+  public App setBillingStartTime(Long billingStartTime) {
     return genClient.setOther(billingStartTime, CacheKey.billingStartTime);
   }
 
   /**
    * Sets the field 'appSecret'.
    */
-  public App setAppSecret(java.lang.String appSecret) {
+  public App setAppSecret(String appSecret) {
     return genClient.setOther(appSecret, CacheKey.appSecret);
   }
 
@@ -2523,7 +2697,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setBusinessTypes(java.util.List<com.clover.sdk.v3.apps.BusinessType> businessTypes) {
+  public App setBusinessTypes(java.util.List<BusinessType> businessTypes) {
     return genClient.setArrayRecord(businessTypes, CacheKey.businessTypes);
   }
 
@@ -2532,7 +2706,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public App setDeviceTypes(java.util.List<com.clover.sdk.v3.apps.DeviceType> deviceTypes) {
+  public App setDeviceTypes(java.util.List<DeviceType> deviceTypes) {
     return genClient.setArrayRecord(deviceTypes, CacheKey.deviceTypes);
   }
 
@@ -2548,50 +2722,64 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * Sets the field 'taxClassificationCode'.
    */
-  public App setTaxClassificationCode(java.lang.String taxClassificationCode) {
+  public App setTaxClassificationCode(String taxClassificationCode) {
     return genClient.setOther(taxClassificationCode, CacheKey.taxClassificationCode);
   }
 
   /**
    * Sets the field 'applicationId'.
    */
-  public App setApplicationId(java.lang.String applicationId) {
+  public App setApplicationId(String applicationId) {
     return genClient.setOther(applicationId, CacheKey.applicationId);
   }
 
   /**
    * Sets the field 'nonCloverBilling'.
    */
-  public App setNonCloverBilling(java.lang.Boolean nonCloverBilling) {
+  public App setNonCloverBilling(Boolean nonCloverBilling) {
     return genClient.setOther(nonCloverBilling, CacheKey.nonCloverBilling);
   }
 
   /**
    * Sets the field 'equipmentCode'.
    */
-  public App setEquipmentCode(java.lang.String equipmentCode) {
+  public App setEquipmentCode(String equipmentCode) {
     return genClient.setOther(equipmentCode, CacheKey.equipmentCode);
   }
 
   /**
    * Sets the field 'equipmentName'.
    */
-  public App setEquipmentName(java.lang.String equipmentName) {
+  public App setEquipmentName(String equipmentName) {
     return genClient.setOther(equipmentName, CacheKey.equipmentName);
   }
 
   /**
    * Sets the field 'firstPublishedTime'.
    */
-  public App setFirstPublishedTime(java.lang.Long firstPublishedTime) {
+  public App setFirstPublishedTime(Long firstPublishedTime) {
     return genClient.setOther(firstPublishedTime, CacheKey.firstPublishedTime);
   }
 
   /**
    * Sets the field 'firstApprovalTime'.
    */
-  public App setFirstApprovalTime(java.lang.Long firstApprovalTime) {
+  public App setFirstApprovalTime(Long firstApprovalTime) {
     return genClient.setOther(firstApprovalTime, CacheKey.firstApprovalTime);
+  }
+
+  /**
+   * Sets the field 'firstSubmittedTime'.
+   */
+  public App setFirstSubmittedTime(Long firstSubmittedTime) {
+    return genClient.setOther(firstSubmittedTime, CacheKey.firstSubmittedTime);
+  }
+
+  /**
+   * Sets the field 'createdTime'.
+   */
+  public App setCreatedTime(Long createdTime) {
+    return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
@@ -2606,35 +2794,35 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * Sets the field 'editorPick'.
    */
-  public App setEditorPick(java.lang.Boolean editorPick) {
+  public App setEditorPick(Boolean editorPick) {
     return genClient.setOther(editorPick, CacheKey.editorPick);
   }
 
   /**
    * Sets the field 'popularity'.
    */
-  public App setPopularity(java.lang.Long popularity) {
+  public App setPopularity(Long popularity) {
     return genClient.setOther(popularity, CacheKey.popularity);
   }
 
   /**
    * Sets the field 'allowUninstall'.
    */
-  public App setAllowUninstall(java.lang.Boolean allowUninstall) {
+  public App setAllowUninstall(Boolean allowUninstall) {
     return genClient.setOther(allowUninstall, CacheKey.allowUninstall);
   }
 
   /**
    * Sets the field 'charge'.
    */
-  public App setCharge(java.lang.Boolean charge) {
+  public App setCharge(Boolean charge) {
     return genClient.setOther(charge, CacheKey.charge);
   }
 
   /**
    * Sets the field 'linkLabel'.
    */
-  public App setLinkLabel(java.lang.String linkLabel) {
+  public App setLinkLabel(String linkLabel) {
     return genClient.setOther(linkLabel, CacheKey.linkLabel);
   }
 
@@ -2650,7 +2838,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * Sets the field 'partnerId'.
    */
-  public App setPartnerId(java.lang.String partnerId) {
+  public App setPartnerId(String partnerId) {
     return genClient.setOther(partnerId, CacheKey.partnerId);
   }
 
@@ -2661,6 +2849,15 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App setLocales(java.util.List<com.clover.sdk.v3.base.Reference> locales) {
     return genClient.setArrayRecord(locales, CacheKey.locales);
+  }
+
+  /**
+   * Sets the field 'aggregateRating'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public App setAggregateRating(com.clover.sdk.v3.apps.AggregateRating aggregateRating) {
+    return genClient.setRecord(aggregateRating, CacheKey.aggregateRating);
   }
 
 
@@ -2691,6 +2888,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'tagline' field, the 'has' method for this field will now return false */
   public void clearTagline() {
     genClient.clear(CacheKey.tagline);
+  }
+  /** Clears the 'benefits' field, the 'has' method for this field will now return false */
+  public void clearBenefits() {
+    genClient.clear(CacheKey.benefits);
   }
   /** Clears the 'videoUrl' field, the 'has' method for this field will now return false */
   public void clearVideoUrl() {
@@ -2743,6 +2944,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'filenameIconLarge' field, the 'has' method for this field will now return false */
   public void clearFilenameIconLarge() {
     genClient.clear(CacheKey.filenameIconLarge);
+  }
+  /** Clears the 'filenameCover' field, the 'has' method for this field will now return false */
+  public void clearFilenameCover() {
+    genClient.clear(CacheKey.filenameCover);
+  }
+  /** Clears the 'filenameBanner' field, the 'has' method for this field will now return false */
+  public void clearFilenameBanner() {
+    genClient.clear(CacheKey.filenameBanner);
   }
   /** Clears the 'installCount' field, the 'has' method for this field will now return false */
   public void clearInstallCount() {
@@ -2956,6 +3165,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearFirstApprovalTime() {
     genClient.clear(CacheKey.firstApprovalTime);
   }
+  /** Clears the 'firstSubmittedTime' field, the 'has' method for this field will now return false */
+  public void clearFirstSubmittedTime() {
+    genClient.clear(CacheKey.firstSubmittedTime);
+  }
+  /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
+  public void clearCreatedTime() {
+    genClient.clear(CacheKey.createdTime);
+  }
   /** Clears the 'appBundle' field, the 'has' method for this field will now return false */
   public void clearAppBundle() {
     genClient.clear(CacheKey.appBundle);
@@ -2991,6 +3208,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'locales' field, the 'has' method for this field will now return false */
   public void clearLocales() {
     genClient.clear(CacheKey.locales);
+  }
+  /** Clears the 'aggregateRating' field, the 'has' method for this field will now return false */
+  public void clearAggregateRating() {
+    genClient.clear(CacheKey.aggregateRating);
   }
 
 
@@ -3062,6 +3283,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final long DESCRIPTION_MAX_LEN = 2000;
     public static final boolean TAGLINE_IS_REQUIRED = false;
     public static final long TAGLINE_MAX_LEN = 255;
+    public static final boolean BENEFITS_IS_REQUIRED = false;
     public static final boolean VIDEOURL_IS_REQUIRED = false;
     public static final long VIDEOURL_MAX_LEN = 255;
     public static final boolean ACTIVATIONURL_IS_REQUIRED = false;
@@ -3078,11 +3300,15 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean SYSTEMAPP_IS_REQUIRED = false;
     public static final boolean HIDDEN_IS_REQUIRED = false;
     public static final boolean FILENAMEICON_IS_REQUIRED = false;
-    public static final long FILENAMEICON_MAX_LEN = 100;
+    public static final long FILENAMEICON_MAX_LEN = 255;
     public static final boolean FILENAMEICONSMALL_IS_REQUIRED = false;
     public static final long FILENAMEICONSMALL_MAX_LEN = 255;
     public static final boolean FILENAMEICONLARGE_IS_REQUIRED = false;
     public static final long FILENAMEICONLARGE_MAX_LEN = 255;
+    public static final boolean FILENAMECOVER_IS_REQUIRED = false;
+    public static final long FILENAMECOVER_MAX_LEN = 255;
+    public static final boolean FILENAMEBANNER_IS_REQUIRED = false;
+    public static final long FILENAMEBANNER_MAX_LEN = 255;
     public static final boolean INSTALLCOUNT_IS_REQUIRED = false;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean PERMISSIONMERCHANTREAD_IS_REQUIRED = false;
@@ -3145,6 +3371,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean EQUIPMENTNAME_IS_REQUIRED = false;
     public static final boolean FIRSTPUBLISHEDTIME_IS_REQUIRED = false;
     public static final boolean FIRSTAPPROVALTIME_IS_REQUIRED = false;
+    public static final boolean FIRSTSUBMITTEDTIME_IS_REQUIRED = false;
+    public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
     public static final boolean EDITORPICK_IS_REQUIRED = false;
     public static final boolean POPULARITY_IS_REQUIRED = false;
@@ -3154,6 +3382,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean CATEGORIES_IS_REQUIRED = false;
     public static final boolean PARTNERID_IS_REQUIRED = false;
     public static final boolean LOCALES_IS_REQUIRED = false;
+    public static final boolean AGGREGATERATING_IS_REQUIRED = false;
 
   }
 

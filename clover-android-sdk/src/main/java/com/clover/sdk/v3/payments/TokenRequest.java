@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getType type}</li>
  * <li>{@link #getEmployee employee}</li>
  * <li>{@link #getDevice device}</li>
+ * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getTender tender}</li>
  * <li>{@link #getCustomer customer}</li>
  * <li>{@link #getExternalReferenceId externalReferenceId}</li>
@@ -44,6 +45,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
+ * <li>{@link #getTransactionInfo transactionInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -75,6 +77,13 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
+  }
+
+  /**
+   * The merchant associate with this token request
+   */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return genClient.cacheGet(CacheKey.merchant);
   }
 
   /**
@@ -140,6 +149,13 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.deletedTime);
   }
 
+  /**
+   * Information over transaction information
+   */
+  public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
+    return genClient.cacheGet(CacheKey.transactionInfo);
+  }
+
 
 
 
@@ -166,6 +182,12 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
       @Override
       public Object extractValue(TokenRequest instance) {
         return instance.genClient.extractRecord("device", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
+      }
+    },
+    merchant {
+      @Override
+      public Object extractValue(TokenRequest instance) {
+        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
       }
     },
     tender {
@@ -220,6 +242,12 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
       @Override
       public Object extractValue(TokenRequest instance) {
         return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
+      }
+    },
+    transactionInfo {
+      @Override
+      public Object extractValue(TokenRequest instance) {
+        return instance.genClient.extractRecord("transactionInfo", com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR);
       }
     },
       ;
@@ -314,6 +342,11 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.device);
   }
 
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
   /** Checks whether the 'tender' field is set and is not null */
   public boolean isNotNullTender() {
     return genClient.cacheValueIsNotNull(CacheKey.tender);
@@ -359,6 +392,11 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
   }
 
+  /** Checks whether the 'transactionInfo' field is set and is not null */
+  public boolean isNotNullTransactionInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionInfo);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -379,6 +417,11 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'device' field has been set, however the value could be null */
   public boolean hasDevice() {
     return genClient.cacheHasKey(CacheKey.device);
+  }
+
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return genClient.cacheHasKey(CacheKey.merchant);
   }
 
   /** Checks whether the 'tender' field has been set, however the value could be null */
@@ -426,6 +469,11 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.deletedTime);
   }
 
+  /** Checks whether the 'transactionInfo' field has been set, however the value could be null */
+  public boolean hasTransactionInfo() {
+    return genClient.cacheHasKey(CacheKey.transactionInfo);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -457,6 +505,15 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
    */
   public TokenRequest setDevice(com.clover.sdk.v3.base.Reference device) {
     return genClient.setRecord(device, CacheKey.device);
+  }
+
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public TokenRequest setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    return genClient.setRecord(merchant, CacheKey.merchant);
   }
 
   /**
@@ -528,6 +585,15 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
+  /**
+   * Sets the field 'transactionInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public TokenRequest setTransactionInfo(com.clover.sdk.v3.payments.TransactionInfo transactionInfo) {
+    return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -544,6 +610,10 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'device' field, the 'has' method for this field will now return false */
   public void clearDevice() {
     genClient.clear(CacheKey.device);
+  }
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    genClient.clear(CacheKey.merchant);
   }
   /** Clears the 'tender' field, the 'has' method for this field will now return false */
   public void clearTender() {
@@ -580,6 +650,10 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
   public void clearDeletedTime() {
     genClient.clear(CacheKey.deletedTime);
+  }
+  /** Clears the 'transactionInfo' field, the 'has' method for this field will now return false */
+  public void clearTransactionInfo() {
+    genClient.clear(CacheKey.transactionInfo);
   }
 
 
@@ -645,6 +719,7 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
     public static final boolean DEVICE_IS_REQUIRED = false;
+    public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean TENDER_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
@@ -656,6 +731,7 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
 
   }
 

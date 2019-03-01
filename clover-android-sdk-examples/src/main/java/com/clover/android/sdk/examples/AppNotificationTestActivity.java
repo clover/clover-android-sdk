@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,14 +27,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.clover.sdk.util.AuthTask;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.app.AppConnector;
 import com.clover.sdk.v1.app.AppNotification;
 import com.clover.sdk.v1.app.AppNotificationReceiver;
+
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -61,7 +61,6 @@ public class AppNotificationTestActivity extends Activity {
   private AuthTask authTask;
   private Spinner connectionTypeSpinner;
   private CloverAuth.AuthResult authResult;
-  private AppConnector connector;
 
   private SimpleDateFormat dateFormat = new SimpleDateFormat("H:mm:ss");
 
@@ -146,14 +145,6 @@ public class AppNotificationTestActivity extends Activity {
       AppNotification notification = new AppNotification(appEvent, payload);
 
       switch (getConnectionType()) {
-        case BoundService:
-          try {
-            connector.notify(notification, serviceNotifyCallback);
-          } catch (RemoteException e) {
-            log("Unable to call service: " + e);
-          }
-          break;
-
         case HTTP:
           if (authResult == null) {
             Toast.makeText(AppNotificationTestActivity.this, R.string.cannot_send_auth_failed, Toast.LENGTH_LONG).show();
@@ -208,8 +199,6 @@ public class AppNotificationTestActivity extends Activity {
     };
     authTask.execute(account);
 
-    // Connect to the app service.
-    connector = new AppConnector(this, account);
   }
 
   @Override
@@ -217,7 +206,6 @@ public class AppNotificationTestActivity extends Activity {
     super.onDestroy();
     authTask.cancel(true);
     receiver.unregister();
-    connector.disconnect();
   }
 
   /**

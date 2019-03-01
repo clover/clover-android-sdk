@@ -49,6 +49,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAutoAcceptSignature autoAcceptSignature}</li>
  * <li>{@link #getReturnResultOnTransactionComplete returnResultOnTransactionComplete}</li>
  * <li>{@link #getTipSuggestions tipSuggestions}</li>
+ * <li>{@link #getRegionalExtras regionalExtras}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -124,6 +125,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
 
   public java.util.List<com.clover.sdk.v3.merchant.TipSuggestion> getTipSuggestions() {
     return genClient.cacheGet(CacheKey.tipSuggestions);
+  }
+
+  public java.util.Map<java.lang.String,java.lang.String> getRegionalExtras() {
+    return genClient.cacheGet(CacheKey.regionalExtras);
   }
 
 
@@ -236,6 +241,12 @@ public class TransactionSettings extends GenericParcelable implements com.clover
       @Override
       public Object extractValue(TransactionSettings instance) {
         return instance.genClient.extractListRecord("tipSuggestions", com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR);
+      }
+    },
+    regionalExtras {
+      @Override
+      public Object extractValue(TransactionSettings instance) {
+        return instance.genClient.extractMap("regionalExtras");
       }
     },
     ;
@@ -398,6 +409,14 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'tipSuggestions' field is set and is not null and is not empty */
   public boolean isNotEmptyTipSuggestions() { return isNotNullTipSuggestions() && !getTipSuggestions().isEmpty(); }
 
+  /** Checks whether the 'regionalExtras' field is set and is not null */
+  public boolean isNotNullRegionalExtras() {
+    return genClient.cacheValueIsNotNull(CacheKey.regionalExtras);
+  }
+
+  /** Checks whether the 'regionalExtras' field is set and is not null and is not empty */
+  public boolean isNotEmptyRegionalExtras() { return isNotNullRegionalExtras() && !getRegionalExtras().isEmpty(); }
+
 
 
   /** Checks whether the 'cardEntryMethods' field has been set, however the value could be null */
@@ -488,6 +507,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'tipSuggestions' field has been set, however the value could be null */
   public boolean hasTipSuggestions() {
     return genClient.cacheHasKey(CacheKey.tipSuggestions);
+  }
+
+  /** Checks whether the 'regionalExtras' field has been set, however the value could be null */
+  public boolean hasRegionalExtras() {
+    return genClient.cacheHasKey(CacheKey.regionalExtras);
   }
 
 
@@ -619,6 +643,13 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.setArrayRecord(tipSuggestions, CacheKey.tipSuggestions);
   }
 
+  /**
+   * Sets the field 'regionalExtras'.
+   */
+  public TransactionSettings setRegionalExtras(java.util.Map<java.lang.String,java.lang.String> regionalExtras) {
+    return genClient.setOther(regionalExtras, CacheKey.regionalExtras);
+  }
+
 
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   public void clearCardEntryMethods() {
@@ -691,6 +722,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Clears the 'tipSuggestions' field, the 'has' method for this field will now return false */
   public void clearTipSuggestions() {
     genClient.clear(CacheKey.tipSuggestions);
+  }
+  /** Clears the 'regionalExtras' field, the 'has' method for this field will now return false */
+  public void clearRegionalExtras() {
+    genClient.clear(CacheKey.regionalExtras);
   }
 
 
@@ -769,6 +804,7 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean AUTOACCEPTSIGNATURE_IS_REQUIRED = false;
     public static final boolean RETURNRESULTONTRANSACTIONCOMPLETE_IS_REQUIRED = false;
     public static final boolean TIPSUGGESTIONS_IS_REQUIRED = false;
+    public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
 
   }
 

@@ -140,6 +140,14 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   }
 
   /**
+   * A map of values for regional specific data
+   */
+  @Override
+  public java.util.Map<java.lang.String,java.lang.String> getRegionalExtras() {
+    return genClient.cacheGet(CacheKey.regionalExtras);
+  }
+
+  /**
    * Identifier for the request
    */
   @Override
@@ -235,6 +243,12 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
       @Override
       public Object extractValue(ManualRefundRequest instance) {
         return instance.genClient.extractMap("extras");
+      }
+    },
+    regionalExtras {
+      @Override
+      public Object extractValue(ManualRefundRequest instance) {
+        return instance.genClient.extractMap("regionalExtras");
       }
     },
     requestId {
@@ -407,6 +421,15 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   /** Checks whether the 'extras' field is set and is not null and is not empty */
   public boolean isNotEmptyExtras() { return isNotNullExtras() && !getExtras().isEmpty(); }
 
+  /** Checks whether the 'regionalExtras' field is set and is not null */
+  @Override
+  public boolean isNotNullRegionalExtras() {
+    return genClient.cacheValueIsNotNull(CacheKey.regionalExtras);
+  }
+
+  /** Checks whether the 'regionalExtras' field is set and is not null and is not empty */
+  public boolean isNotEmptyRegionalExtras() { return isNotNullRegionalExtras() && !getRegionalExtras().isEmpty(); }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -497,6 +520,12 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   @Override
   public boolean hasExtras() {
     return genClient.cacheHasKey(CacheKey.extras);
+  }
+
+  /** Checks whether the 'regionalExtras' field has been set, however the value could be null */
+  @Override
+  public boolean hasRegionalExtras() {
+    return genClient.cacheHasKey(CacheKey.regionalExtras);
   }
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
@@ -619,6 +648,14 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   }
 
   /**
+   * Sets the field 'regionalExtras'.
+   */
+  @Override
+  public BaseTransactionRequest setRegionalExtras(java.util.Map<java.lang.String,java.lang.String> regionalExtras) {
+    return genClient.setOther(regionalExtras, CacheKey.regionalExtras);
+  }
+
+  /**
    * Sets the field 'requestId'.
    */
   @Override
@@ -699,6 +736,11 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   @Override
   public void clearExtras() {
     genClient.clear(CacheKey.extras);
+  }
+  /** Clears the 'regionalExtras' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearRegionalExtras() {
+    genClient.clear(CacheKey.regionalExtras);
   }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
@@ -783,6 +825,7 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean AUTOACCEPTPAYMENTCONFIRMATIONS_IS_REQUIRED = false;
     public static final boolean EXTRAS_IS_REQUIRED = false;
+    public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

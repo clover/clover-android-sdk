@@ -1008,6 +1008,9 @@ public class PaymentConnector implements IPaymentConnector {
   @Override
   public void voidPaymentRefund(final VoidPaymentRefundRequest request) {
     try {
+      if(request != null) {
+        request.setVersion(2); //allows for validation
+      }
       if(paymentV3Connector != null) {
         if(paymentV3Connector.isConnected()) {
           paymentV3Connector.getService().voidPaymentRefund(request);
