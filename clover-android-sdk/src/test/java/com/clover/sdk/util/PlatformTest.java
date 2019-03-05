@@ -1,13 +1,9 @@
 package com.clover.sdk.util;
 
-import com.clover.android.sdk.BuildConfig;
-import com.clover.sdk.CloverRobolectricRunner;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.Arrays;
 
@@ -46,8 +42,7 @@ import static com.clover.sdk.util.Platform.productName;
 import static com.clover.sdk.util.Platform.productQualifier;
 import static com.clover.sdk.util.Platform.supportsFeature;
 
-@RunWith(CloverRobolectricRunner.class)
-@Config(constants = BuildConfig.class)
+@RunWith(RobolectricTestRunner.class)
 public class PlatformTest {
   @Test
   public void testIsCloverStation() throws Exception {

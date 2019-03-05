@@ -1,10 +1,11 @@
 package com.clover.sdk.cashdrawer;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbDeviceConnection;
-import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
+
+import com.clover.sdk.util.CloverAccount;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -13,9 +14,6 @@ import java.util.Set;
 class APG554aCashDrawer extends CashDrawer {
   private static final int VENDOR_ID = 0x07c5;
   private static final int PRODUCT_ID = 0x0500;
-
-  private static final byte[] CMD_POP = new byte[]{0x00, 0x01};
-
 
   static class Discovery extends CashDrawer.Discovery<APG554aCashDrawer> {
 
@@ -41,39 +39,18 @@ class APG554aCashDrawer extends CashDrawer {
   }
 
   private final UsbDevice usbDevice;
+  private final Account cloverAccount;
 
   protected APG554aCashDrawer(Context context, UsbDevice usbDevice) {
     super(context, 1);
     this.usbDevice = usbDevice;
+    this.cloverAccount = CloverAccount.getAccount(context);
+
   }
 
   @Override
   public boolean pop() {
-    UsbManager usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
-    UsbDeviceConnection connection = usbManager.openDevice(usbDevice);
-    if (connection == null) {
-      return false;
-    }
-    try {
-      UsbInterface intf = usbDevice.getInterface(0);
-      if (intf == null) {
-        return false;
-      }
-      if (!connection.claimInterface(intf, true)) {
-        return false;
-      }
-      try {
-        int c = connection.controlTransfer(0x21, 0x09, 0x200, 0, CMD_POP, CMD_POP.length, 0);
-        if (c != CMD_POP.length) {
-          return false;
-        }
-      } finally {
-        connection.releaseInterface(intf);
-      }
-    } finally {
-      connection.close();
-    }
-
+    com.clover.sdk.v1.printer.CashDrawer.open(context, cloverAccount, usbDevice);
     return true;
   }
 

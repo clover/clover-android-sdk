@@ -15,12 +15,12 @@
  */
 package com.clover.sdk.v1.app;
 
+import com.clover.core.internal.Objects;
+
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import com.clover.core.internal.Objects;
-import junit.framework.Assert;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,7 +57,6 @@ public class AppNotification implements Parcelable {
   }
 
   public AppNotification(Intent intent) {
-    Assert.assertEquals(AppNotificationIntent.ACTION_APP_NOTIFICATION, intent.getAction());
     appEvent = intent.getStringExtra(AppNotificationIntent.EXTRA_APP_EVENT);
     payload = intent.getStringExtra(AppNotificationIntent.EXTRA_PAYLOAD);
   }

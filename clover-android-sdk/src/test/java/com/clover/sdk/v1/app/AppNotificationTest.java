@@ -16,21 +16,15 @@
 package com.clover.sdk.v1.app;
 
 import android.os.Parcel;
-
-import com.clover.android.sdk.BuildConfig;
-import com.clover.sdk.CloverRobolectricRunner;
-
 import junit.framework.Assert;
-
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(CloverRobolectricRunner.class)
-@Config(constants = BuildConfig.class)
+@RunWith(RobolectricTestRunner.class)
 public class AppNotificationTest {
 
   /**

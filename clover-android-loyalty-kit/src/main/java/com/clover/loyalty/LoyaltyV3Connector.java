@@ -36,15 +36,15 @@ import java.util.Map;
  */
 public class LoyaltyV3Connector extends ServiceConnector<ILoyaltyServiceV3> {
 
-  // I *think* this needs to be the value of the package from the AndroidManifest of the
+  // This needs to be the value of the package from the AndroidManifest of the
   // APK that contains the Service for this.
   //
-  //  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  //      package="com.clover.loyalty"
-  //      xmlns:tools="http://schemas.android.com/tools"
-  //      android:versionCode="1"
-  //      android:versionName="2.0">
-  private static final String SERVICE_HOST = "com.clover.loyalty";
+  // <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  //  xmlns:tools="http://schemas.android.com/tools"
+  //      package="com.clover.payment.builder.pay"
+  //  android:versionCode="1"
+  //  android:versionName="1.0">
+  private static final String SERVICE_HOST = "com.clover.payment.builder.pay";
 
   public LoyaltyV3Connector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);

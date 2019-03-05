@@ -436,6 +436,16 @@ public class Intents {
   public static final String ACTION_SECURE_PAY = "clover.intent.action.START_SECURE_PAYMENT";
 
   /**
+   * Launches station pay activity (Only used on Station)
+   */
+  public static final String ACTION_STATION_PAY = "clover.intent.action.START_STATION_PAYMENT";
+
+  /**
+   * Launches station secure pay activity (Only used on Station 2018)
+   */
+  public static final String ACTION_STATION_SECURE_PAY = "clover.intent.action.START_STATION_SECURE_PAYMENT";
+
+  /**
    * Services that implement the IVasProvider interface
    */
   public static final String SERVICE_VAS_PROVIDER = "clover.intent.action.VAS_PROVIDER";
@@ -1014,6 +1024,9 @@ public class Intents {
   /** {@link String}, message shown upon failure */
   public static final String EXTRA_FAILURE_MESSAGE ="clover.intent.extra.FAILURE_MESSAGE";
 
+  /** {@link String}, indicator of a network failure */
+  public static final String EXTRA_NETWORK_FAILURE ="clover.intent.extra.NETWORK_FAILURE";
+
   /** {@link com.clover.sdk.v3.payments.CardTransaction}, originating transaction */
   public static final String EXTRA_ORIGINATING_TRANSACTION = "originatingTransaction";
 
@@ -1108,6 +1121,9 @@ public class Intents {
 
   /** {@link java.util.Map<String, String>} set of key/value pairs that are passed through to the server */
   public static final String EXTRA_PASS_THROUGH_VALUES = "clover.intent.extra.PASS_THROUGH_VALUES";
+
+  /** {@link java.util.Map<String, String>} set of key/value pairs used for application specific implementations */
+  public static final String EXTRA_APPLICATION_SPECIFIC_VALUES = "clover.intent.extra.APPLICATION_SPECIFIC_VALUES";
 
   /** {@link com.clover.sdk.v3.payments.TipMode}, where tips are entered/provided (e.g. on screen
    * after/before, on paper, provided or no tip) for this transaction */

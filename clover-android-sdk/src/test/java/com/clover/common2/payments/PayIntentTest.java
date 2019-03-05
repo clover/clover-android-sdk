@@ -1,14 +1,12 @@
 package com.clover.common2.payments;
 
-import com.clover.android.sdk.BuildConfig;
-import com.clover.sdk.CloverRobolectricRunner;
 import com.clover.sdk.v1.Intents;
 
 import android.content.Intent;
 import android.os.Parcel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
+import org.robolectric.RobolectricTestRunner;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -17,8 +15,7 @@ import static junit.framework.Assert.assertTrue;
  * Author: leonid
  * Date: 10/3/17.
  */
-@RunWith(CloverRobolectricRunner.class)
-@Config(constants = BuildConfig.class)
+@RunWith(RobolectricTestRunner.class)
 public class PayIntentTest {
 
   @Test

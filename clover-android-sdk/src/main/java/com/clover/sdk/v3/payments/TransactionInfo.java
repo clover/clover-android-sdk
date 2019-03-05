@@ -56,10 +56,13 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTransactionResult transactionResult}</li>
  * <li>{@link #getTransactionTags transactionTags}</li>
  * <li>{@link #getTxFormat txFormat}</li>
- * <li>{@link #getReversalReason reversalReason}</li>
  * <li>{@link #getPanMask panMask}</li>
  * <li>{@link #getTransactionSequenceCounter transactionSequenceCounter}</li>
  * <li>{@link #getApplicationPanSequenceNumber applicationPanSequenceNumber}</li>
+ * <li>{@link #getReversalReason reversalReason}</li>
+ * <li>{@link #getIsTokenBasedTx isTokenBasedTx}</li>
+ * <li>{@link #getOrigTransactionSequenceCounter origTransactionSequenceCounter}</li>
+ * <li>{@link #getTransactionSequenceCounterUpdate transactionSequenceCounterUpdate}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -68,67 +71,67 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /**
    * 2 character language used for the transaction.  Deprecated in factor of transactionLocale.
    */
-  public java.lang.String getLanguageIndicator() {
+  public String getLanguageIndicator() {
     return genClient.cacheGet(CacheKey.languageIndicator);
   }
 
   /**
    * Locale for the transaction (e.g. en-CA)
    */
-  public java.lang.String getTransactionLocale() {
+  public String getTransactionLocale() {
     return genClient.cacheGet(CacheKey.transactionLocale);
   }
 
-  public com.clover.sdk.v3.payments.AccountType getAccountSelection() {
+  public AccountType getAccountSelection() {
     return genClient.cacheGet(CacheKey.accountSelection);
   }
 
   /**
    * Consists of 4 digits prefix + 8 digits
    */
-  public java.lang.String getFiscalInvoiceNumber() {
+  public String getFiscalInvoiceNumber() {
     return genClient.cacheGet(CacheKey.fiscalInvoiceNumber);
   }
 
   /**
    * AR Installments: number of installments
    */
-  public java.lang.Integer getInstallmentsQuantity() {
+  public Integer getInstallmentsQuantity() {
     return genClient.cacheGet(CacheKey.installmentsQuantity);
   }
 
   /**
    * AR Installments: plan alphanum code
    */
-  public java.lang.String getInstallmentsPlanCode() {
+  public String getInstallmentsPlanCode() {
     return genClient.cacheGet(CacheKey.installmentsPlanCode);
   }
 
   /**
    * AR Installments: selected plan id
    */
-  public java.lang.String getInstallmentsPlanId() {
+  public String getInstallmentsPlanId() {
     return genClient.cacheGet(CacheKey.installmentsPlanId);
   }
 
   /**
    * AR Installments: selected plan desc
    */
-  public java.lang.String getInstallmentsPlanDesc() {
+  public String getInstallmentsPlanDesc() {
     return genClient.cacheGet(CacheKey.installmentsPlanDesc);
   }
 
   /**
    * Card type label
    */
-  public java.lang.String getCardTypeLabel() {
+  public String getCardTypeLabel() {
     return genClient.cacheGet(CacheKey.cardTypeLabel);
   }
 
   /**
    * STAN(System Audit Trace Number)
    */
-  public java.lang.Integer getStan() {
+  public Integer getStan() {
     return genClient.cacheGet(CacheKey.stan);
   }
 
@@ -142,188 +145,212 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /**
    * Transaction Batch Number
    */
-  public java.lang.String getBatchNumber() {
+  public String getBatchNumber() {
     return genClient.cacheGet(CacheKey.batchNumber);
   }
 
   /**
    * Transaction Receipt Number
    */
-  public java.lang.String getReceiptNumber() {
+  public String getReceiptNumber() {
     return genClient.cacheGet(CacheKey.receiptNumber);
   }
 
   /**
    * STAN for reversal
    */
-  public java.lang.Integer getReversalStan() {
+  public Integer getReversalStan() {
     return genClient.cacheGet(CacheKey.reversalStan);
   }
 
   /**
    * MAC for reversal
    */
-  public java.lang.String getReversalMac() {
+  public String getReversalMac() {
     return genClient.cacheGet(CacheKey.reversalMac);
   }
 
   /**
    * MAC KSN for reversal
    */
-  public java.lang.String getReversalMacKsn() {
+  public String getReversalMacKsn() {
     return genClient.cacheGet(CacheKey.reversalMacKsn);
   }
 
   /**
    * Designates the unique location of a terminal at a merchant
    */
-  public java.lang.String getTerminalIdentification() {
+  public String getTerminalIdentification() {
     return genClient.cacheGet(CacheKey.terminalIdentification);
   }
 
   /**
    * When concatenated with the Acquirer Identifier, uniquely identifies a given merchant
    */
-  public java.lang.String getMerchantIdentifier() {
+  public String getMerchantIdentifier() {
     return genClient.cacheGet(CacheKey.merchantIdentifier);
   }
 
   /**
    * Indicates the name and location of the merchant
    */
-  public java.lang.String getMerchantNameLocation() {
+  public String getMerchantNameLocation() {
     return genClient.cacheGet(CacheKey.merchantNameLocation);
   }
 
   /**
    * Masked track2 data
    */
-  public java.lang.String getMaskedTrack2() {
+  public String getMaskedTrack2() {
     return genClient.cacheGet(CacheKey.maskedTrack2);
   }
 
   /**
    * Extra data for receipt
    */
-  public java.lang.String getReceiptExtraData() {
+  public String getReceiptExtraData() {
     return genClient.cacheGet(CacheKey.receiptExtraData);
   }
 
   /**
    * Defines the Financial Service selected for the transaction
    */
-  public com.clover.sdk.v3.payments.SelectedService getSelectedService() {
+  public SelectedService getSelectedService() {
     return genClient.cacheGet(CacheKey.selectedService);
   }
 
   /**
    * Result of the transaction
    */
-  public com.clover.sdk.v3.payments.TransactionResult getTransactionResult() {
+  public TransactionResult getTransactionResult() {
     return genClient.cacheGet(CacheKey.transactionResult);
   }
 
   /**
    * Contains a hex string with needed TLV tags for certification
    */
-  public java.lang.String getTransactionTags() {
+  public String getTransactionTags() {
     return genClient.cacheGet(CacheKey.transactionTags);
   }
 
   /**
    * Contains the information how the data inside transactionTags should be coded - initially we cause default and nexo as formats
    */
-  public com.clover.sdk.v3.payments.TxFormat getTxFormat() {
+  public TxFormat getTxFormat() {
     return genClient.cacheGet(CacheKey.txFormat);
+  }
+
+  /**
+   * Contains the information how the PAN should masked.
+   */
+  public String getPanMask() {
+    return genClient.cacheGet(CacheKey.panMask);
+  }
+
+  /**
+   * Counter maintained by the terminal that is incremented for each transaction at the beginning of the Perform Service function.
+   */
+  public String getTransactionSequenceCounter() {
+    return genClient.cacheGet(CacheKey.transactionSequenceCounter);
+  }
+
+  /**
+   * Identifies and differentiates cards with the same PAN.
+   */
+  public String getApplicationPanSequenceNumber() {
+    return genClient.cacheGet(CacheKey.applicationPanSequenceNumber);
   }
 
   /**
    * Contains the reason why the transaction should be reversed in the host. It has to be mapped in server with the expected value by the corresponding gateway
    */
-  public com.clover.sdk.v3.payments.ReversalReason getReversalReason() {
+  public ReversalReason getReversalReason() {
     return genClient.cacheGet(CacheKey.reversalReason);
   }
 
   /**
-   * Contains a hex string with the information how the PAN on cardholder receipts shall be masked
+   * Boolean to determine if the transaction done using a vaulted card is a token based transaction
    */
-  public java.lang.String getPanMask() {
-    return genClient.cacheGet(CacheKey.panMask);
+  public Boolean getIsTokenBasedTx() {
+    return genClient.cacheGet(CacheKey.isTokenBasedTx);
   }
 
   /**
-   * Counter maintained by the terminal that is incremented for each transaction at the beginning of the Perform Service function
+   * For reversal and capture transactions, this contains the reference (transactionSequenceCounter) to the originating transaction.
    */
-  public java.lang.String getTransactionSequenceCounter() {
-    return genClient.cacheGet(CacheKey.transactionSequenceCounter);
+  public String getOrigTransactionSequenceCounter() {
+    return genClient.cacheGet(CacheKey.origTransactionSequenceCounter);
   }
 
   /**
-   * Identifies and differentiates cards with the same PAN
+   * This field is populated when the TSC of a terminal is out of sync and is provided with an update.
    */
-  public java.lang.String getApplicationPanSequenceNumber() {
-    return genClient.cacheGet(CacheKey.applicationPanSequenceNumber);
+  public String getTransactionSequenceCounterUpdate() {
+    return genClient.cacheGet(CacheKey.transactionSequenceCounterUpdate);
   }
+
+
+
 
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TransactionInfo> {
     languageIndicator {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("languageIndicator", java.lang.String.class);
+        return instance.genClient.extractOther("languageIndicator", String.class);
       }
     },
     transactionLocale {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("transactionLocale", java.lang.String.class);
+        return instance.genClient.extractOther("transactionLocale", String.class);
       }
     },
     accountSelection {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractEnum("accountSelection", com.clover.sdk.v3.payments.AccountType.class);
+        return instance.genClient.extractEnum("accountSelection", AccountType.class);
       }
     },
     fiscalInvoiceNumber {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("fiscalInvoiceNumber", java.lang.String.class);
+        return instance.genClient.extractOther("fiscalInvoiceNumber", String.class);
       }
     },
     installmentsQuantity {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("installmentsQuantity", java.lang.Integer.class);
+        return instance.genClient.extractOther("installmentsQuantity", Integer.class);
       }
     },
     installmentsPlanCode {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("installmentsPlanCode", java.lang.String.class);
+        return instance.genClient.extractOther("installmentsPlanCode", String.class);
       }
     },
     installmentsPlanId {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("installmentsPlanId", java.lang.String.class);
+        return instance.genClient.extractOther("installmentsPlanId", String.class);
       }
     },
     installmentsPlanDesc {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("installmentsPlanDesc", java.lang.String.class);
+        return instance.genClient.extractOther("installmentsPlanDesc", String.class);
       }
     },
     cardTypeLabel {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("cardTypeLabel", java.lang.String.class);
+        return instance.genClient.extractOther("cardTypeLabel", String.class);
       }
     },
     stan {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("stan", java.lang.Integer.class);
+        return instance.genClient.extractOther("stan", Integer.class);
       }
     },
     identityDocument {
@@ -335,109 +362,127 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     batchNumber {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("batchNumber", java.lang.String.class);
+        return instance.genClient.extractOther("batchNumber", String.class);
       }
     },
     receiptNumber {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("receiptNumber", java.lang.String.class);
+        return instance.genClient.extractOther("receiptNumber", String.class);
       }
     },
     reversalStan {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("reversalStan", java.lang.Integer.class);
+        return instance.genClient.extractOther("reversalStan", Integer.class);
       }
     },
     reversalMac {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("reversalMac", java.lang.String.class);
+        return instance.genClient.extractOther("reversalMac", String.class);
       }
     },
     reversalMacKsn {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("reversalMacKsn", java.lang.String.class);
+        return instance.genClient.extractOther("reversalMacKsn", String.class);
       }
     },
     terminalIdentification {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("terminalIdentification", java.lang.String.class);
+        return instance.genClient.extractOther("terminalIdentification", String.class);
       }
     },
     merchantIdentifier {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("merchantIdentifier", java.lang.String.class);
+        return instance.genClient.extractOther("merchantIdentifier", String.class);
       }
     },
     merchantNameLocation {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("merchantNameLocation", java.lang.String.class);
+        return instance.genClient.extractOther("merchantNameLocation", String.class);
       }
     },
     maskedTrack2 {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("maskedTrack2", java.lang.String.class);
+        return instance.genClient.extractOther("maskedTrack2", String.class);
       }
     },
     receiptExtraData {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("receiptExtraData", java.lang.String.class);
+        return instance.genClient.extractOther("receiptExtraData", String.class);
       }
     },
     selectedService {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractEnum("selectedService", com.clover.sdk.v3.payments.SelectedService.class);
+        return instance.genClient.extractEnum("selectedService", SelectedService.class);
       }
     },
     transactionResult {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractEnum("transactionResult", com.clover.sdk.v3.payments.TransactionResult.class);
+        return instance.genClient.extractEnum("transactionResult", TransactionResult.class);
       }
     },
     transactionTags {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("transactionTags", java.lang.String.class);
+        return instance.genClient.extractOther("transactionTags", String.class);
       }
     },
     txFormat {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractEnum("txFormat", com.clover.sdk.v3.payments.TxFormat.class);
-      }
-    },
-    reversalReason {
-      @Override
-      public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractEnum("reversalReason", com.clover.sdk.v3.payments.ReversalReason.class);
+        return instance.genClient.extractEnum("txFormat", TxFormat.class);
       }
     },
     panMask {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("panMask", java.lang.String.class);
+        return instance.genClient.extractOther("panMask", String.class);
       }
     },
     transactionSequenceCounter {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("transactionSequenceCounter", java.lang.String.class);
+        return instance.genClient.extractOther("transactionSequenceCounter", String.class);
       }
     },
     applicationPanSequenceNumber {
       @Override
       public Object extractValue(TransactionInfo instance) {
-        return instance.genClient.extractOther("applicationPanSequenceNumber", java.lang.String.class);
+        return instance.genClient.extractOther("applicationPanSequenceNumber", String.class);
+      }
+    },
+    reversalReason {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractEnum("reversalReason", ReversalReason.class);
+      }
+    },
+    isTokenBasedTx {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("isTokenBasedTx", Boolean.class);
+      }
+    },
+    origTransactionSequenceCounter {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("origTransactionSequenceCounter", String.class);
+      }
+    },
+    transactionSequenceCounterUpdate {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("transactionSequenceCounterUpdate", String.class);
       }
     },
       ;
@@ -510,6 +555,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     genClient.validateLength(getFiscalInvoiceNumber(), 12);
 
     genClient.validateLength(getInstallmentsPlanCode(), 1);
+
+    genClient.validateLength(getPanMask(), 14);
   }
 
   /** Checks whether the 'languageIndicator' field is set and is not null */
@@ -637,11 +684,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.txFormat);
   }
 
-  /** Checks whether the 'reversalReason' field is set and is not null */
-  public boolean isNotNullReversalReason() {
-    return genClient.cacheValueIsNotNull(CacheKey.reversalReason);
-  }
-
   /** Checks whether the 'panMask' field is set and is not null */
   public boolean isNotNullPanMask() {
     return genClient.cacheValueIsNotNull(CacheKey.panMask);
@@ -656,6 +698,27 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public boolean isNotNullApplicationPanSequenceNumber() {
     return genClient.cacheValueIsNotNull(CacheKey.applicationPanSequenceNumber);
   }
+
+  /** Checks whether the 'reversalReason' field is set and is not null */
+  public boolean isNotNullReversalReason() {
+    return genClient.cacheValueIsNotNull(CacheKey.reversalReason);
+  }
+
+  /** Checks whether the 'isTokenBasedTx' field is set and is not null */
+  public boolean isNotNullIsTokenBasedTx() {
+    return genClient.cacheValueIsNotNull(CacheKey.isTokenBasedTx);
+  }
+
+  /** Checks whether the 'origTransactionSequenceCounter' field is set and is not null */
+  public boolean isNotNullOrigTransactionSequenceCounter() {
+    return genClient.cacheValueIsNotNull(CacheKey.origTransactionSequenceCounter);
+  }
+
+  /** Checks whether the 'transactionSequenceCounterUpdate' field is set and is not null */
+  public boolean isNotNullTransactionSequenceCounterUpdate() {
+    return genClient.cacheValueIsNotNull(CacheKey.transactionSequenceCounterUpdate);
+  }
+
 
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
@@ -783,11 +846,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.txFormat);
   }
 
-  /** Checks whether the 'reversalReason' field has been set, however the value could be null */
-  public boolean hasReversalReason() {
-    return genClient.cacheHasKey(CacheKey.reversalReason);
-  }
-
   /** Checks whether the 'panMask' field has been set, however the value could be null */
   public boolean hasPanMask() {
     return genClient.cacheHasKey(CacheKey.panMask);
@@ -803,73 +861,94 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.applicationPanSequenceNumber);
   }
 
+  /** Checks whether the 'reversalReason' field has been set, however the value could be null */
+  public boolean hasReversalReason() {
+    return genClient.cacheHasKey(CacheKey.reversalReason);
+  }
+
+  /** Checks whether the 'isTokenBasedTx' field has been set, however the value could be null */
+  public boolean hasIsTokenBasedTx() {
+    return genClient.cacheHasKey(CacheKey.isTokenBasedTx);
+  }
+
+  /** Checks whether the 'origTransactionSequenceCounter' field has been set, however the value could be null */
+  public boolean hasOrigTransactionSequenceCounter() {
+    return genClient.cacheHasKey(CacheKey.origTransactionSequenceCounter);
+  }
+
+  /** Checks whether the 'transactionSequenceCounterUpdate' field has been set, however the value could be null */
+  public boolean hasTransactionSequenceCounterUpdate() {
+    return genClient.cacheHasKey(CacheKey.transactionSequenceCounterUpdate);
+  }
+
+
   /**
    * Sets the field 'languageIndicator'.
    */
-  public TransactionInfo setLanguageIndicator(java.lang.String languageIndicator) {
+  public TransactionInfo setLanguageIndicator(String languageIndicator) {
     return genClient.setOther(languageIndicator, CacheKey.languageIndicator);
   }
 
   /**
    * Sets the field 'transactionLocale'.
    */
-  public TransactionInfo setTransactionLocale(java.lang.String transactionLocale) {
+  public TransactionInfo setTransactionLocale(String transactionLocale) {
     return genClient.setOther(transactionLocale, CacheKey.transactionLocale);
   }
 
   /**
    * Sets the field 'accountSelection'.
    */
-  public TransactionInfo setAccountSelection(com.clover.sdk.v3.payments.AccountType accountSelection) {
+  public TransactionInfo setAccountSelection(AccountType accountSelection) {
     return genClient.setOther(accountSelection, CacheKey.accountSelection);
   }
 
   /**
    * Sets the field 'fiscalInvoiceNumber'.
    */
-  public TransactionInfo setFiscalInvoiceNumber(java.lang.String fiscalInvoiceNumber) {
+  public TransactionInfo setFiscalInvoiceNumber(String fiscalInvoiceNumber) {
     return genClient.setOther(fiscalInvoiceNumber, CacheKey.fiscalInvoiceNumber);
   }
 
   /**
    * Sets the field 'installmentsQuantity'.
    */
-  public TransactionInfo setInstallmentsQuantity(java.lang.Integer installmentsQuantity) {
+  public TransactionInfo setInstallmentsQuantity(Integer installmentsQuantity) {
     return genClient.setOther(installmentsQuantity, CacheKey.installmentsQuantity);
   }
 
   /**
    * Sets the field 'installmentsPlanCode'.
    */
-  public TransactionInfo setInstallmentsPlanCode(java.lang.String installmentsPlanCode) {
+  public TransactionInfo setInstallmentsPlanCode(String installmentsPlanCode) {
     return genClient.setOther(installmentsPlanCode, CacheKey.installmentsPlanCode);
   }
 
   /**
    * Sets the field 'installmentsPlanId'.
    */
-  public TransactionInfo setInstallmentsPlanId(java.lang.String installmentsPlanId) {
+  public TransactionInfo setInstallmentsPlanId(String installmentsPlanId) {
     return genClient.setOther(installmentsPlanId, CacheKey.installmentsPlanId);
   }
 
   /**
    * Sets the field 'installmentsPlanDesc'.
    */
-  public TransactionInfo setInstallmentsPlanDesc(java.lang.String installmentsPlanDesc) {
+  public TransactionInfo setInstallmentsPlanDesc(String installmentsPlanDesc) {
     return genClient.setOther(installmentsPlanDesc, CacheKey.installmentsPlanDesc);
   }
 
   /**
    * Sets the field 'cardTypeLabel'.
    */
-  public TransactionInfo setCardTypeLabel(java.lang.String cardTypeLabel) {
+  public TransactionInfo setCardTypeLabel(String cardTypeLabel) {
     return genClient.setOther(cardTypeLabel, CacheKey.cardTypeLabel);
   }
 
   /**
    * Sets the field 'stan'.
    */
-  public TransactionInfo setStan(java.lang.Integer stan) {
+  public TransactionInfo setStan(Integer stan) {
     return genClient.setOther(stan, CacheKey.stan);
   }
 
@@ -885,128 +964,150 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /**
    * Sets the field 'batchNumber'.
    */
-  public TransactionInfo setBatchNumber(java.lang.String batchNumber) {
+  public TransactionInfo setBatchNumber(String batchNumber) {
     return genClient.setOther(batchNumber, CacheKey.batchNumber);
   }
 
   /**
    * Sets the field 'receiptNumber'.
    */
-  public TransactionInfo setReceiptNumber(java.lang.String receiptNumber) {
+  public TransactionInfo setReceiptNumber(String receiptNumber) {
     return genClient.setOther(receiptNumber, CacheKey.receiptNumber);
   }
 
   /**
    * Sets the field 'reversalStan'.
    */
-  public TransactionInfo setReversalStan(java.lang.Integer reversalStan) {
+  public TransactionInfo setReversalStan(Integer reversalStan) {
     return genClient.setOther(reversalStan, CacheKey.reversalStan);
   }
 
   /**
    * Sets the field 'reversalMac'.
    */
-  public TransactionInfo setReversalMac(java.lang.String reversalMac) {
+  public TransactionInfo setReversalMac(String reversalMac) {
     return genClient.setOther(reversalMac, CacheKey.reversalMac);
   }
 
   /**
    * Sets the field 'reversalMacKsn'.
    */
-  public TransactionInfo setReversalMacKsn(java.lang.String reversalMacKsn) {
+  public TransactionInfo setReversalMacKsn(String reversalMacKsn) {
     return genClient.setOther(reversalMacKsn, CacheKey.reversalMacKsn);
   }
 
   /**
    * Sets the field 'terminalIdentification'.
    */
-  public TransactionInfo setTerminalIdentification(java.lang.String terminalIdentification) {
+  public TransactionInfo setTerminalIdentification(String terminalIdentification) {
     return genClient.setOther(terminalIdentification, CacheKey.terminalIdentification);
   }
 
   /**
    * Sets the field 'merchantIdentifier'.
    */
-  public TransactionInfo setMerchantIdentifier(java.lang.String merchantIdentifier) {
+  public TransactionInfo setMerchantIdentifier(String merchantIdentifier) {
     return genClient.setOther(merchantIdentifier, CacheKey.merchantIdentifier);
   }
 
   /**
    * Sets the field 'merchantNameLocation'.
    */
-  public TransactionInfo setMerchantNameLocation(java.lang.String merchantNameLocation) {
+  public TransactionInfo setMerchantNameLocation(String merchantNameLocation) {
     return genClient.setOther(merchantNameLocation, CacheKey.merchantNameLocation);
   }
 
   /**
    * Sets the field 'maskedTrack2'.
    */
-  public TransactionInfo setMaskedTrack2(java.lang.String maskedTrack2) {
+  public TransactionInfo setMaskedTrack2(String maskedTrack2) {
     return genClient.setOther(maskedTrack2, CacheKey.maskedTrack2);
   }
 
   /**
    * Sets the field 'receiptExtraData'.
    */
-  public TransactionInfo setReceiptExtraData(java.lang.String receiptExtraData) {
+  public TransactionInfo setReceiptExtraData(String receiptExtraData) {
     return genClient.setOther(receiptExtraData, CacheKey.receiptExtraData);
   }
 
   /**
    * Sets the field 'selectedService'.
    */
-  public TransactionInfo setSelectedService(com.clover.sdk.v3.payments.SelectedService selectedService) {
+  public TransactionInfo setSelectedService(SelectedService selectedService) {
     return genClient.setOther(selectedService, CacheKey.selectedService);
   }
 
   /**
    * Sets the field 'transactionResult'.
    */
-  public TransactionInfo setTransactionResult(com.clover.sdk.v3.payments.TransactionResult transactionResult) {
+  public TransactionInfo setTransactionResult(TransactionResult transactionResult) {
     return genClient.setOther(transactionResult, CacheKey.transactionResult);
   }
 
   /**
    * Sets the field 'transactionTags'.
    */
-  public TransactionInfo setTransactionTags(java.lang.String transactionTags) {
+  public TransactionInfo setTransactionTags(String transactionTags) {
     return genClient.setOther(transactionTags, CacheKey.transactionTags);
   }
 
   /**
    * Sets the field 'txFormat'.
    */
-  public TransactionInfo setTxFormat(com.clover.sdk.v3.payments.TxFormat txFormat) {
+  public TransactionInfo setTxFormat(TxFormat txFormat) {
     return genClient.setOther(txFormat, CacheKey.txFormat);
-  }
-
-  /**
-   * Sets the field 'reversalReason'.
-   */
-  public TransactionInfo setReversalReason(com.clover.sdk.v3.payments.ReversalReason reversalReason) {
-    return genClient.setOther(reversalReason, CacheKey.reversalReason);
   }
 
   /**
    * Sets the field 'panMask'.
    */
-  public TransactionInfo setPanMask(java.lang.String panMask) {
+  public TransactionInfo setPanMask(String panMask) {
     return genClient.setOther(panMask, CacheKey.panMask);
   }
 
   /**
-   * Sets the field 'transacitonSequenceCounter'.
+   * Sets the field 'transactionSequenceCounter'.
    */
-  public TransactionInfo setTransactionSequenceCounter(java.lang.String transactionSequenceCounter) {
+  public TransactionInfo setTransactionSequenceCounter(String transactionSequenceCounter) {
     return genClient.setOther(transactionSequenceCounter, CacheKey.transactionSequenceCounter);
   }
 
   /**
    * Sets the field 'applicationPanSequenceNumber'.
    */
-  public TransactionInfo setApplicationPanSequenceNumber(java.lang.String applicationPanSequenceNumber) {
+  public TransactionInfo setApplicationPanSequenceNumber(String applicationPanSequenceNumber) {
     return genClient.setOther(applicationPanSequenceNumber, CacheKey.applicationPanSequenceNumber);
   }
+
+  /**
+   * Sets the field 'reversalReason'.
+   */
+  public TransactionInfo setReversalReason(ReversalReason reversalReason) {
+    return genClient.setOther(reversalReason, CacheKey.reversalReason);
+  }
+
+  /**
+   * Sets the field 'isTokenBasedTx'.
+   */
+  public TransactionInfo setIsTokenBasedTx(Boolean isTokenBasedTx) {
+    return genClient.setOther(isTokenBasedTx, CacheKey.isTokenBasedTx);
+  }
+
+  /**
+   * Sets the field 'origTransactionSequenceCounter'.
+   */
+  public TransactionInfo setOrigTransactionSequenceCounter(String origTransactionSequenceCounter) {
+    return genClient.setOther(origTransactionSequenceCounter, CacheKey.origTransactionSequenceCounter);
+  }
+
+  /**
+   * Sets the field 'transactionSequenceCounterUpdate'.
+   */
+  public TransactionInfo setTransactionSequenceCounterUpdate(String transactionSequenceCounterUpdate) {
+    return genClient.setOther(transactionSequenceCounterUpdate, CacheKey.transactionSequenceCounterUpdate);
+  }
+
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -1108,10 +1209,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearTxFormat() {
     genClient.clear(CacheKey.txFormat);
   }
-  /** Clears the 'reversalReason' field, the 'has' method for this field will now return false */
-  public void clearReversalReason() {
-    genClient.clear(CacheKey.reversalReason);
-  }
   /** Clears the 'panMask' field, the 'has' method for this field will now return false */
   public void clearPanMask() {
     genClient.clear(CacheKey.panMask);
@@ -1124,6 +1221,23 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearApplicationPanSequenceNumber() {
     genClient.clear(CacheKey.applicationPanSequenceNumber);
   }
+  /** Clears the 'reversalReason' field, the 'has' method for this field will now return false */
+  public void clearReversalReason() {
+    genClient.clear(CacheKey.reversalReason);
+  }
+  /** Clears the 'isTokenBasedTx' field, the 'has' method for this field will now return false */
+  public void clearIsTokenBasedTx() {
+    genClient.clear(CacheKey.isTokenBasedTx);
+  }
+  /** Clears the 'origTransactionSequenceCounter' field, the 'has' method for this field will now return false */
+  public void clearOrigTransactionSequenceCounter() {
+    genClient.clear(CacheKey.origTransactionSequenceCounter);
+  }
+  /** Clears the 'transactionSequenceCounterUpdate' field, the 'has' method for this field will now return false */
+  public void clearTransactionSequenceCounterUpdate() {
+    genClient.clear(CacheKey.transactionSequenceCounterUpdate);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1210,10 +1324,14 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean TRANSACTIONRESULT_IS_REQUIRED = false;
     public static final boolean TRANSACTIONTAGS_IS_REQUIRED = false;
     public static final boolean TXFORMAT_IS_REQUIRED = false;
-    public static final boolean REVERSALREASON_IS_REQUIRED = false;
     public static final boolean PANMASK_IS_REQUIRED = false;
+    public static final long PANMASK_MAX_LEN = 14;
     public static final boolean TRANSACTIONSEQUENCECOUNTER_IS_REQUIRED = false;
-    public static final boolean APPLICTIONPANSEQUENCENUMBER_IS_REQUIRED = false;
+    public static final boolean APPLICATIONPANSEQUENCENUMBER_IS_REQUIRED = false;
+    public static final boolean REVERSALREASON_IS_REQUIRED = false;
+    public static final boolean ISTOKENBASEDTX_IS_REQUIRED = false;
+    public static final boolean ORIGTRANSACTIONSEQUENCECOUNTER_IS_REQUIRED = false;
+    public static final boolean TRANSACTIONSEQUENCECOUNTERUPDATE_IS_REQUIRED = false;
 
   }
 

@@ -35,6 +35,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getDescription description}</li>
  * <li>{@link #getPrice price}</li>
+ * <li>{@link #getTrialDays trialDays}</li>
+ * <li>{@link #getTrialExpirationTime trialExpirationTime}</li>
  * <li>{@link #getModules modules}</li>
  * <li>{@link #getAppBundle appBundle}</li>
  * <li>{@link #getDefaultPlan defaultPlan}</li>
@@ -74,6 +76,20 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
 
   public java.lang.Long getPrice() {
     return genClient.cacheGet(CacheKey.price);
+  }
+
+  /**
+   * Free trial period, in days, if offered.
+   */
+  public java.lang.Long getTrialDays() {
+    return genClient.cacheGet(CacheKey.trialDays);
+  }
+
+  /**
+   * Date/time this plan's trial will expire for the merchant with this plan. This is a transient value only applicable to the merchant assigned to this plan.
+   */
+  public java.lang.Long getTrialExpirationTime() {
+    return genClient.cacheGet(CacheKey.trialExpirationTime);
   }
 
   public java.util.List<com.clover.sdk.v3.merchant.Module> getModules() {
@@ -169,6 +185,18 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
         return instance.genClient.extractOther("price", java.lang.Long.class);
       }
     },
+    trialDays {
+      @Override
+      public Object extractValue(MerchantPlan instance) {
+        return instance.genClient.extractOther("trialDays", java.lang.Long.class);
+      }
+    },
+    trialExpirationTime {
+      @Override
+      public Object extractValue(MerchantPlan instance) {
+        return instance.genClient.extractOther("trialExpirationTime", java.lang.Long.class);
+      }
+    },
     modules {
       @Override
       public Object extractValue(MerchantPlan instance) {
@@ -241,8 +269,8 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   private GenericClient<MerchantPlan> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantPlan() {
     genClient = new GenericClient<MerchantPlan>(this);
   }
@@ -253,8 +281,8 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantPlan(boolean noInit) {
     genClient = null;
   }
@@ -327,6 +355,16 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'price' field is set and is not null */
   public boolean isNotNullPrice() {
     return genClient.cacheValueIsNotNull(CacheKey.price);
+  }
+
+  /** Checks whether the 'trialDays' field is set and is not null */
+  public boolean isNotNullTrialDays() {
+    return genClient.cacheValueIsNotNull(CacheKey.trialDays);
+  }
+
+  /** Checks whether the 'trialExpirationTime' field is set and is not null */
+  public boolean isNotNullTrialExpirationTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.trialExpirationTime);
   }
 
   /** Checks whether the 'modules' field is set and is not null */
@@ -407,6 +445,16 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'price' field has been set, however the value could be null */
   public boolean hasPrice() {
     return genClient.cacheHasKey(CacheKey.price);
+  }
+
+  /** Checks whether the 'trialDays' field has been set, however the value could be null */
+  public boolean hasTrialDays() {
+    return genClient.cacheHasKey(CacheKey.trialDays);
+  }
+
+  /** Checks whether the 'trialExpirationTime' field has been set, however the value could be null */
+  public boolean hasTrialExpirationTime() {
+    return genClient.cacheHasKey(CacheKey.trialExpirationTime);
   }
 
   /** Checks whether the 'modules' field has been set, however the value could be null */
@@ -491,6 +539,20 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public MerchantPlan setPrice(java.lang.Long price) {
     return genClient.setOther(price, CacheKey.price);
+  }
+
+  /**
+   * Sets the field 'trialDays'.
+   */
+  public MerchantPlan setTrialDays(java.lang.Long trialDays) {
+    return genClient.setOther(trialDays, CacheKey.trialDays);
+  }
+
+  /**
+   * Sets the field 'trialExpirationTime'.
+   */
+  public MerchantPlan setTrialExpirationTime(java.lang.Long trialExpirationTime) {
+    return genClient.setOther(trialExpirationTime, CacheKey.trialExpirationTime);
   }
 
   /**
@@ -594,6 +656,14 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'price' field, the 'has' method for this field will now return false */
   public void clearPrice() {
     genClient.clear(CacheKey.price);
+  }
+  /** Clears the 'trialDays' field, the 'has' method for this field will now return false */
+  public void clearTrialDays() {
+    genClient.clear(CacheKey.trialDays);
+  }
+  /** Clears the 'trialExpirationTime' field, the 'has' method for this field will now return false */
+  public void clearTrialExpirationTime() {
+    genClient.clear(CacheKey.trialExpirationTime);
   }
   /** Clears the 'modules' field, the 'has' method for this field will now return false */
   public void clearModules() {
@@ -705,6 +775,8 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
     public static final long DESCRIPTION_MAX_LEN = 2047;
     public static final boolean PRICE_IS_REQUIRED = false;
+    public static final boolean TRIAL_DAYS_IS_REQUIRED = false;
+    public static final boolean TRIALEXPIRATIONTIME_IS_REQUIRED = false;
     public static final boolean MODULES_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
     public static final boolean DEFAULTPLAN_IS_REQUIRED = false;

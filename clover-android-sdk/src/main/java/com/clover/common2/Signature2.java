@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Signature2 implements Parcelable {
-  private static final String TAG = "SignatureView2";
+  private static final String TAG = "Signature2";
 
   int width = -1;
   int height = -1;
@@ -60,7 +60,9 @@ public class Signature2 implements Parcelable {
   }
 
   public void transform(int newWidth, int newHeight, boolean expand) {
-    Log.v(TAG, String.format("width=%d, new width=%d, height=%d, new height=%d", width, newWidth, height, newHeight));
+    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+      Log.v(TAG, String.format("width=%d, new width=%d, height=%d, new height=%d", width, newWidth, height, newHeight));
+    }
 
     if (width != -1 && height != -1) {
       Pair<Point, Point> bounds = getBounds();
@@ -79,12 +81,16 @@ public class Signature2 implements Parcelable {
       if (expand) {
         float xFactor = (float) newWidth / diff.x;
         float yFactor = (float) newHeight / diff.y;
-        Log.v(TAG, String.format("expanding, x factor=%f, y factor=%f", xFactor, yFactor));
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          Log.v(TAG, String.format("expanding, x factor=%f, y factor=%f", xFactor, yFactor));
+        }
         factor = Math.min(xFactor, yFactor);
       } else {
         float xFactor = (float) newWidth / width;
         float yFactor = (float) newHeight / height;
-        Log.v(TAG, String.format("not expanding, x factor=%f, y factor=%f", xFactor, yFactor));
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          Log.v(TAG, String.format("not expanding, x factor=%f, y factor=%f", xFactor, yFactor));
+        }
         if (diff.x > diff.y) {
           factor = xFactor;
         } else {
@@ -103,7 +109,9 @@ public class Signature2 implements Parcelable {
           int newX = Math.round(nx);
           int newY = Math.round(ny);
 
-          Log.v(TAG, String.format("stroke %d, point %d: x=%d->%d (%f), y=%d->%d (%f), factor=%f", strokeNum, pointNum, p.x, newX, nx, p.y, newY, ny, factor));
+          if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, String.format("stroke %d, point %d: x=%d->%d (%f), y=%d->%d (%f), factor=%f", strokeNum, pointNum, p.x, newX, nx, p.y, newY, ny, factor));
+          }
 
           p.x = Math.round(newX);
           p.y = Math.round(newY);

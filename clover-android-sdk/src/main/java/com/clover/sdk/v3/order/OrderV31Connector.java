@@ -803,6 +803,16 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order cleanUpPreAuthAfterTransaction(final String orderId,
+                                              final VoidReason voidReason) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.cleanUpPreAuthAfterTransaction(orderId, voidReason, status));
+      }
+    });
+  }
+
   public interface OnOrderUpdateListener2 {
     void onOrderUpdated(String orderId, boolean selfChange);
 

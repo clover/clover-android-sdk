@@ -14,12 +14,23 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '215'
+version = '219.5'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
+android {
+  defaultConfig {
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+}
+
 dependencies {
-  compile files('lib/calc-264.jar')
+  compile files('lib/calc-270.3.jar')
+
+  // Android tests
+  androidTestImplementation("com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION", {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
 }
 
 

@@ -131,7 +131,11 @@ public interface ILoyaltyDataService {
       if (customerInfo != null) {
         map.put(com.clover.loyalty.ILoyaltyDataService.Configuration.Customer.EXTERNAL_ID, customerInfo.getExternalId());
         map.put(com.clover.loyalty.ILoyaltyDataService.Configuration.Customer.EXTERNAL_SYSTEM_NAME, customerInfo.getExternalSystemName());
-        map.put(com.clover.loyalty.ILoyaltyDataService.Configuration.Customer.CLOVER_ID, customerInfo.getCustomer().getId());
+        String customerId = null; // SEMI-2968
+        if (customerInfo.getCustomer() != null) {
+          customerId = customerInfo.getCustomer().getId();
+        }
+        map.put(com.clover.loyalty.ILoyaltyDataService.Configuration.Customer.CLOVER_ID, customerId);
       }
       map.put(ILoyaltyDataService.Configuration.Order.CLOVER_ID, orderId);
       return map;

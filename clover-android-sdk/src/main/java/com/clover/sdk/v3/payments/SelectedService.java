@@ -15,7 +15,10 @@ public enum SelectedService implements Parcelable {
   DEFERRED_PAYMENT((byte) 0x08),
   DEFERRED_PAYMENT_COMPLETION((byte) 0x09),
   VOICE_AUTHORISATION((byte) 0x10),
-  CARDHOLDER_DETECTION((byte) 0x11);
+  CARDHOLDER_DETECTION((byte) 0x11),
+  // No NEXO-Services (default mode)
+  TOKEN_REQUEST((byte) 0x50),
+  VERIFICATION((byte) 0x51);
 
   final byte value;
 

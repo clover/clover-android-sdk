@@ -1,8 +1,6 @@
 package com.clover.sdk.cashdrawer;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import com.clover.android.sdk.R;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,22 +26,10 @@ public class CashDrawers {
   public CashDrawers(Context context) {
     this.context = context.getApplicationContext();
 
-    checkPermission();
-
     discoverers.add(new StationPrinterCashDrawer.Discovery(context));
     discoverers.add(new MiniPrinterCashDrawer.Discovery(context));
     discoverers.add(new APG554aCashDrawer.Discovery(context));
     discoverers.add(new Station2018PrinterCashDrawer.Discovery(context));
-  }
-
-  private void checkPermission() throws SecurityException {
-    String oldPermission = context.getString(R.string.permission_pop_cash_drawer);
-    String newPermission = context.getString(R.string.permission_pop_cash_drawer_new);
-    boolean gotOldPermission = (context.checkCallingOrSelfPermission(oldPermission) == PackageManager.PERMISSION_GRANTED);
-    boolean gotNewPermission = (context.checkCallingOrSelfPermission(newPermission) == PackageManager.PERMISSION_GRANTED);
-    if (!(gotNewPermission || gotOldPermission)) {
-      throw new SecurityException("Application is not granted permission: " + newPermission);
-    }
   }
 
   /**
