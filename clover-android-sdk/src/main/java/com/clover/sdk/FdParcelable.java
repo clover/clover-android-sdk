@@ -3,14 +3,21 @@ package com.clover.sdk;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
+import android.system.ErrnoException;
+import android.system.Os;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import static android.system.OsConstants.AF_UNIX;
+import static android.system.OsConstants.SOCK_SEQPACKET;
 
 /**
  * A {@link Parcelable} that transfers data over a pipe
@@ -19,10 +26,17 @@ import java.util.concurrent.Future;
  * of any size, limited only by the heap space of the sender and receiver process.
  * <p/>
  * This class is not thread safe.
+ * <p/>
+ * To enable verbose logging:
+ * <code>
+ *   adb shell setprop log.tag.FdParcelable VERBOSE
+ * </code>
  *
  * @param <V> Value object, per contract of {@link Parcel#writeValue(Object)}.
  */
 public class FdParcelable<V> implements Parcelable {
+  private static final String TAG = FdParcelable.class.getSimpleName();
+
   // Use up to 8 threads to write data.
   private static final ExecutorService exec = Executors.newFixedThreadPool(8);
 
@@ -33,8 +47,8 @@ public class FdParcelable<V> implements Parcelable {
   // If value is null and bytes are !null, then we have not unparceled yet (no call to getValue())
   // If both are null, either we were passed a null value, or unparceling failed.
 
-  private V value = null;
-  private byte[] bytes = null;
+  private V value;
+  private byte[] bytes;
 
   public FdParcelable(V value) {
     this.value = value;
@@ -47,30 +61,43 @@ public class FdParcelable<V> implements Parcelable {
   }
 
   public FdParcelable(Parcel in) {
-    ParcelFileDescriptor readFd = in.readParcelable(getClass().getClassLoader());
+    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+      Log.v(TAG, this + ": unparceling...");
+    }
 
-    FileInputStream fis = new ParcelFileDescriptor.AutoCloseInputStream(readFd);
+    ParcelFileDescriptor readFd = in.readParcelable(getClass().getClassLoader());
     ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-    byte[] b = new byte[16 * 1024];
-    int n;
+    if (readFd != null) {
+      FileInputStream fis = new ParcelFileDescriptor.AutoCloseInputStream(readFd);
 
-    try {
-      while ((n = fis.read(b)) != -1) {
-        out.write(b, 0, n);
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } finally {
+      byte[] b = new byte[16 * 1024];
+      int n;
+
       try {
-        fis.close();
+        while ((n = fis.read(b)) != -1) {
+          out.write(b, 0, n);
+        }
       } catch (IOException e) {
-        e.printStackTrace();
+        throw new RuntimeException(e);
+      } finally {
+        try {
+          fis.close();
+          if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, String.format("%s: closed read", this));
+          }
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     }
 
     this.value = null;
     this.bytes = out.toByteArray();
+
+    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+      Log.v(TAG, String.format("%s: unparceled %d bytes", this, this.bytes.length));
+    }
   }
 
   public static final Creator<FdParcelable> CREATOR = new Creator<FdParcelable>() {
@@ -92,18 +119,35 @@ public class FdParcelable<V> implements Parcelable {
     return value;
   }
 
-  protected static Future<?> write(final byte[] data, final ParcelFileDescriptor writeFd) {
+  protected Future<?> write(final byte[] data, final ParcelFileDescriptor readFd, final ParcelFileDescriptor writeFd) {
     return exec.submit(new Runnable() {
       @Override
       public void run() {
+        if (Log.isLoggable(TAG, Log.VERBOSE)) {
+          Log.v(TAG, String.format("%s: writing %d bytes...", FdParcelable.this, data.length));
+        }
         FileOutputStream fos = new ParcelFileDescriptor.AutoCloseOutputStream(writeFd);
         try {
           fos.write(data);
+          if (Log.isLoggable(TAG, Log.VERBOSE)) {
+            Log.v(TAG, String.format("%s: done writing %d bytes...", FdParcelable.this, data.length));
+          }
         } catch (IOException e) {
           e.printStackTrace();
         } finally {
           try {
             fos.close();
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+              Log.v(TAG, String.format("%s: closed write", FdParcelable.this));
+            }
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          try {
+            readFd.close();
+            if (Log.isLoggable(TAG, Log.VERBOSE)) {
+              Log.v(TAG, String.format("%s: closed read", FdParcelable.this));
+            }
           } catch (IOException e) {
             e.printStackTrace();
           }
@@ -113,6 +157,10 @@ public class FdParcelable<V> implements Parcelable {
   }
 
   public void writeToParcel(Parcel out, int flags) {
+    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+      Log.v(TAG, String.format("%s: parceling...", this));
+    }
+
     ParcelFileDescriptor[] fds;
     try {
       fds = ParcelFileDescriptor.createPipe();
@@ -123,7 +171,10 @@ public class FdParcelable<V> implements Parcelable {
     if (bytes == null) {
       bytes = marshall(value);
     }
-    write(bytes, fds[1]);
+    if (Log.isLoggable(TAG, Log.VERBOSE)) {
+      Log.v(TAG, String.format("%s: parceled %d bytes...", this, bytes.length));
+    }
+    write(bytes, fds[0], fds[1]);
   }
 
   @Override
@@ -148,7 +199,7 @@ public class FdParcelable<V> implements Parcelable {
     }
     Parcel parcel = Parcel.obtain();
     parcel.unmarshall(bytes, 0, bytes.length);
-    parcel.setDataPosition(0); // this is extremely important!
+    parcel.setDataPosition(0); // This is extremely important!
 
     V value = (V) parcel.readValue(FdParcelable.class.getClassLoader());
     parcel.recycle();

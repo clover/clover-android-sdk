@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '219.5'
+version = '221.9'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-  compile files('lib/calc-270.3.jar')
+  compile files('lib/calc-270.9.jar')
 
   // Android tests
   androidTestImplementation("com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION", {

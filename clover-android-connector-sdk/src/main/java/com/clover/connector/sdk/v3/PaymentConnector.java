@@ -65,6 +65,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -239,14 +240,34 @@ public class PaymentConnector implements IPaymentConnector {
     }
   };
 
+  /**
+   * @deprecated This constructor is deprecated. Please use {@link #PaymentConnector(Context, Account, IPaymentConnectorListener, String)}
+   * @param context
+   * @param account
+   * @param paymentConnectorListener
+   */
+  @Deprecated
   public PaymentConnector(Context context, Account account, IPaymentConnectorListener paymentConnectorListener) {
+    this(context, account, paymentConnectorListener, null);
+  }
+
+  public PaymentConnector(Context context, Account account, IPaymentConnectorListener paymentConnectorListener, String remoteApplicationId) {
     if (paymentConnectorListener != null) {
       addCloverConnectorListener(paymentConnectorListener);
     }
-    connectToPaymentService(context, account);
+
+    if (remoteApplicationId == null || remoteApplicationId.isEmpty()) {
+      try {
+        Toast.makeText(context, "Warning! No remote application ID provided!", Toast.LENGTH_LONG).show();
+      } catch (Exception e) {
+        //most likely did not run on UI thread
+        Log.e(this.getClass().getSimpleName(), "Tried to make a Toast on non UI Thread", e);
+      }
+    }
+    connectToPaymentService(context, account, remoteApplicationId);
   }
 
-  private void connectToPaymentService(final Context context, Account account) {
+  private void connectToPaymentService(final Context context, Account account, String remoteApplicationId) {
     if (paymentV3Connector == null) {
       paymentV3Connector = new PaymentV3Connector(context, account, new ServiceConnector.OnServiceConnectedListener() {
         @Override
@@ -266,16 +287,9 @@ public class PaymentConnector implements IPaymentConnector {
           try {
             String sourceSDK = context.getString(R.string.sdkName);
             String sourceSDKVersion = context.getString(R.string.sdkVersion);
-            String appId = null; // TODO: Not sure how to accurately retrieve this id
-            try {
-              appId = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.name;
-            } catch (PackageManager.NameNotFoundException e) {
-              // eat it and move on
-            }
             final AppTracking appTracking = new AppTracking()
-                .setApplicationID(context.getPackageName())
+                .setApplicationID(remoteApplicationId)
                 .setApplicationVersion(getAppVersion(context))
-                .setDeveloperAppId(appId)
                 .setSourceSDK(sourceSDK)
                 .setSourceSDKVersion(sourceSDKVersion);
             Log.d(this.getClass().getSimpleName(), "appTracking = " + appTracking.getJSONObject().toString());
@@ -1022,7 +1036,7 @@ public class PaymentConnector implements IPaymentConnector {
               try {
                 paymentV3Connector.getService().voidPaymentRefund(request);
               } catch (RemoteException e) {
-                Log.e(this.getClass().getSimpleName(), "sendDebugLog", e);
+                Log.e(this.getClass().getSimpleName(), "voidPaymentRefund", e);
               }
               return null;
             }
@@ -1036,6 +1050,33 @@ public class PaymentConnector implements IPaymentConnector {
     }
   }
 
+  @Override
+  public void resetDevice() {
+    try {
+      if(paymentV3Connector != null) {
+        if(paymentV3Connector.isConnected()) {
+          paymentV3Connector.getService().resetDevice();
+        } else {
+          this.paymentV3Connector.connect();
+          waitingTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+              try {
+                paymentV3Connector.getService().resetDevice();
+              } catch (RemoteException e) {
+                Log.e(this.getClass().getSimpleName(), "resetDevice", e);
+              }
+              return null;
+            }
+          };
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      Log.e(this.getClass().getSimpleName(), " resetDevice", e);
+    } catch (RemoteException e) {
+      Log.e(this.getClass().getSimpleName(), " resetDevice", e);
+    }
+  }
 
   public static String getAppVersion(Context context) {
     String version = "Unknown";

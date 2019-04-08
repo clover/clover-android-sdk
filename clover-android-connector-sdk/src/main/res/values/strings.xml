@@ -17,5 +17,5 @@
 
 <resources>
   <string name="sdkName">com.clover.connector.sdk.v3.PaymentConnector</string>
-  <string name="sdkVersion">1.4.0</string>
+  <string name="sdkVersion">3.0.0</string>
 </resources>

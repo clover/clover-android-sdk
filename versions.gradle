@@ -38,7 +38,7 @@ ext {
   RETROFIT_ADAPTER_VERSION = "2.4.0"
   OKHTTP_VERSION = "3.10.0"
 
-  JACKSON_VERSION = "2.7.9" // Latest version compatible with API 17 https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.9#android
+  JACKSON_DATE_TIME_MODULE_VERSION = "2.9.8"
 
   // Libraries
   HTTP_LIBRARY = 'org.apache.http.legacy'

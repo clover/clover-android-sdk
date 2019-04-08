@@ -25,16 +25,24 @@ if (gradleMajorVersion == 4) {
 if (gradleMajorVersion == 4) {
   if (gradleMinorVersion < 4) {
     androidPlugin = "com.android.tools.build:gradle:3.0.0"
-  } else {
+  } else if (gradleMinorVersion < 6 ) {
     androidPlugin = "com.android.tools.build:gradle:3.1.0"
+  } else {
+    androidPlugin = "com.android.tools.build:gradle:3.2.1"
   }
 }
 
-project.ext.set("mavenPlugin",mavenPlugin)
-project.ext.set("androidPlugin",androidPlugin)
+ext.mavenPlugin = mavenPlugin
+ext.androidPlugin = androidPlugin
 
-if (gradleMajorVersion < 4 || (gradleMajorVersion == 4 && gradleMinorVersion < 1)) {
-  println "WARNING: Using Gradle version < 4.1 is unsupported"
+ext {
+  kotlin_version = "1.3.11"
+
+  kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+}
+
+if (gradleMajorVersion < 4 || (gradleMajorVersion == 4 && gradleMinorVersion < 8)) {
+  println "WARNING: Using Gradle version < 4.8 is unsupported"
 }
 
 if (printVersions) {
@@ -43,4 +51,5 @@ if (printVersions) {
   println "gradleMaintenanceVersion = " + gradleMaintenanceVersion
   println "androidPlugin = " + androidPlugin
   println "mavenPlugin = " + mavenPlugin
+  println "kotlinPlugin = " + kotlinPlugin
 }

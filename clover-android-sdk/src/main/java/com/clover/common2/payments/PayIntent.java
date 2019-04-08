@@ -105,6 +105,7 @@ public class PayIntent implements Parcelable {
     private String cardDataMessage;
     @Deprecated // Please use TransactionSettings
     private boolean remotePrint;
+    @Deprecated // generated internally in the SPS/SPA
     private String transactionNo;
     @Deprecated // Please use TransactionSettings
     private boolean isForceSwipePinEntry;
@@ -461,6 +462,10 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated , generated internally in the SPS/SPA
+     */
+    @Deprecated
     public Builder transactionNo(String transactionNo) {
       this.transactionNo = transactionNo;
       return this;
@@ -647,6 +652,10 @@ public class PayIntent implements Parcelable {
   public final String cardDataMessage;
   @Deprecated // Please use TransactionSettings
   public final boolean remotePrint;
+  /**
+   * @deprecated , generated internally in the SPS/SPA
+   */
+  @Deprecated
   public final String transactionNo;
   @Deprecated // Please use TransactionSettings
   public final boolean isForceSwipePinEntry;

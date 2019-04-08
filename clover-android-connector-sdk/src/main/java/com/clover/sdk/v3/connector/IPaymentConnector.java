@@ -163,4 +163,10 @@ public interface IPaymentConnector extends IDeviceConnector{
    */
   void voidPaymentRefund(VoidPaymentRefundRequest request);
 
+  /**
+   * Used to reset the device if it gets in an invalid state from POS perspective.
+   * This could cause a missed transaction or other missed information, so it
+   * needs to be used cautiously as a last resort
+   */
+  void resetDevice();
 }

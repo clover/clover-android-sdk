@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getHasDefaultEmployee hasDefaultEmployee}</li>
  * <li>{@link #getTipRateDefault tipRateDefault}</li>
  * <li>{@link #getOnPaperTipSignatures onPaperTipSignatures}</li>
+ * <li>{@link #getNoSignatureProgramEligible noSignatureProgramEligible}</li>
  * <li>{@link #getAutoLogout autoLogout}</li>
  * <li>{@link #getOrderTitle orderTitle}</li>
  * <li>{@link #getOrderTitleMax orderTitleMax}</li>
@@ -123,6 +124,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
 
   public java.lang.Boolean getOnPaperTipSignatures() {
     return genClient.cacheGet(CacheKey.onPaperTipSignatures);
+  }
+
+  public java.lang.Boolean getNoSignatureProgramEligible() {
+    return genClient.cacheGet(CacheKey.noSignatureProgramEligible);
   }
 
   public java.lang.Boolean getAutoLogout() {
@@ -400,6 +405,12 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
       @Override
       public Object extractValue(MerchantProperties instance) {
         return instance.genClient.extractOther("onPaperTipSignatures", java.lang.Boolean.class);
+      }
+    },
+    noSignatureProgramEligible {
+      @Override
+      public Object extractValue(MerchantProperties instance) {
+        return instance.genClient.extractOther("noSignatureProgramEligible", java.lang.Boolean.class);
       }
     },
     autoLogout {
@@ -800,6 +811,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.onPaperTipSignatures);
   }
 
+  /** Checks whether the 'noSignatureProgramEligible' field is set and is not null */
+  public boolean isNotNullNoSignatureProgramEligible() {
+    return genClient.cacheValueIsNotNull(CacheKey.noSignatureProgramEligible);
+  }
+
   /** Checks whether the 'autoLogout' field is set and is not null */
   public boolean isNotNullAutoLogout() {
     return genClient.cacheValueIsNotNull(CacheKey.autoLogout);
@@ -1065,6 +1081,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Checks whether the 'onPaperTipSignatures' field has been set, however the value could be null */
   public boolean hasOnPaperTipSignatures() {
     return genClient.cacheHasKey(CacheKey.onPaperTipSignatures);
+  }
+
+  /** Checks whether the 'noSignatureProgramEligible' field has been set, however the value could be null */
+  public boolean hasNoSignatureProgramEligible() {
+    return genClient.cacheHasKey(CacheKey.noSignatureProgramEligible);
   }
 
   /** Checks whether the 'autoLogout' field has been set, however the value could be null */
@@ -1351,6 +1372,13 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
    */
   public MerchantProperties setOnPaperTipSignatures(java.lang.Boolean onPaperTipSignatures) {
     return genClient.setOther(onPaperTipSignatures, CacheKey.onPaperTipSignatures);
+  }
+
+  /**
+   * Sets the field 'noSignatureProgramEligible'.
+   */
+  public MerchantProperties setNoSignatureProgramEligible(java.lang.Boolean noSignatureProgramEligible) {
+    return genClient.setOther(noSignatureProgramEligible, CacheKey.noSignatureProgramEligible);
   }
 
   /**
@@ -1698,6 +1726,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   public void clearOnPaperTipSignatures() {
     genClient.clear(CacheKey.onPaperTipSignatures);
   }
+  /** Clears the 'noSignatureProgramEligible' field, the 'has' method for this field will now return false */
+  public void clearNoSignatureProgramEligible() {
+    genClient.clear(CacheKey.noSignatureProgramEligible);
+  }
   /** Clears the 'autoLogout' field, the 'has' method for this field will now return false */
   public void clearAutoLogout() {
     genClient.clear(CacheKey.autoLogout);
@@ -1943,6 +1975,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean HASDEFAULTEMPLOYEE_IS_REQUIRED = false;
     public static final boolean TIPRATEDEFAULT_IS_REQUIRED = false;
     public static final boolean ONPAPERTIPSIGNATURES_IS_REQUIRED = false;
+    public static final boolean NOSIGNATUREPROGRAMELIGIBLE_IS_REQUIRED = false;
     public static final boolean AUTOLOGOUT_IS_REQUIRED = false;
     public static final boolean ORDERTITLE_IS_REQUIRED = false;
     public static final boolean ORDERTITLEMAX_IS_REQUIRED = false;
