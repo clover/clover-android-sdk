@@ -1,0 +1,94 @@
+{
+  "href": "https:\/\/dev1.dev.clover.com\/v3\/merchants\/GARENZRPEFZ6E\/orders\/ZK6BEAGXBPGST",
+  "id": "ZK6BEAGXBPGST",
+  "currency": "USD",
+  "employee": {
+    "href": "https:\/\/dev1.dev.clover.com\/v3\/merchants\/GARENZRPEFZ6E\/employees\/DFLTEMPLOYEE",
+    "id": "DFLTEMPLOYEE",
+    "name": "Employee",
+    "role": "EMPLOYEE",
+    "orders": {
+      "href": "https:\/\/dev1.dev.clover.com\/v3\/merchants\/GARENZRPEFZ6E\/employees\/DFLTEMPLOYEE\/orders"
+    }
+  },
+  "total": 1545,
+  "title": "02",
+  "orderType": {
+    "id": "E870YV8HZ6T8R",
+    "label": "Jeff's To Go",
+    "taxable": true,
+    "isDefault": true,
+    "filterCategories": false,
+    "isHidden": false,
+    "fee": 0,
+    "minOrderAmount": 0,
+    "maxOrderAmount": 0,
+    "avgOrderTime": 0,
+    "hoursAvailable": "BUSINESS"
+  },
+  "taxRemoved": false,
+  "isVat": false,
+  "state": "open",
+  "manualTransaction": false,
+  "groupLineItems": false,
+  "testMode": false,
+  "createdTime": 1546559371000,
+  "clientCreatedTime": 1546559370000,
+  "modifiedTime": 1546559370000,
+  "lineItems": {
+    "elements": [
+      {
+        "id": "NNNJG34932ENW",
+        "orderRef": {
+          "id": "ZK6BEAGXBPGST"
+        },
+        "item": {
+          "id": "NFB3QFXEJ303E"
+        },
+        "name": "Chicken Fried Steak",
+        "price": 1295,
+        "itemCode": "",
+        "printed": false,
+        "createdTime": 1546559370000,
+        "orderClientCreatedTime": 1546559370000,
+        "exchanged": false,
+        "refunded": false,
+        "isRevenue": true,
+        "taxRates": {
+          "elements": [
+            {
+              "id": "W08ZT5GZSQT9J",
+              "lineItemRef": {
+                "id": "NNNJG34932ENW"
+              },
+              "name": "San Jose",
+              "rate": 825000,
+              "isDefault": true
+            },
+            {
+              "id": "W950Y3P9EMTDW",
+              "lineItemRef": {
+                "id": "NNNJG34932ENW"
+              },
+              "name": "foo",
+              "rate": 100000,
+              "isDefault": true
+            },
+            {
+              "id": "S3GBE5S16Q0JR",
+              "lineItemRef": {
+                "id": "NNNJG34932ENW"
+              },
+              "name": "bar",
+              "rate": 1000000,
+              "isDefault": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "device": {
+    "id": "0f011c55-ad89-9be3-a60d-073d7aca0ce4"
+  }
+}

@@ -989,7 +989,10 @@ public class Intents {
   /** {@link Boolean}, if true printing will be delegated to remote device */
   public static final String EXTRA_REMOTE_PRINT = "remotePrint";
 
-  /** {@link String}, payment transaction number */
+  /**
+   * {@link String}, payment transaction number
+   * @deprecated , internally in the SPS/SPA
+   */
   public static final String EXTRA_TRANSACTION_NO = "transactionNo";
 
   /** {@link Boolean}, if only payment option will be swipe debit */

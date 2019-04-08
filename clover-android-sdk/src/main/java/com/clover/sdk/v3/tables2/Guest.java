@@ -35,6 +35,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNumber number}</li>
  * <li>{@link #getTableOrder tableOrder}</li>
  * <li>{@link #getMerchant merchant}</li>
+ * <li>{@link #getName name}</li>
+ * <li>{@link #getTable table}</li>
+ * <li>{@link #getOrder order}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
@@ -69,6 +72,27 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public com.clover.sdk.v3.merchant.Merchant getMerchant() {
     return genClient.cacheGet(CacheKey.merchant);
+  }
+
+  /**
+   * Name of the guest
+   */
+  public java.lang.String getName() {
+    return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * Reference to the table the guest belongs to
+   */
+  public com.clover.sdk.v3.tables2.Table getTable() {
+    return genClient.cacheGet(CacheKey.table);
+  }
+
+  /**
+   * Reference to the order with which the guest is associated.
+   */
+  public com.clover.sdk.v3.order.Order getOrder() {
+    return genClient.cacheGet(CacheKey.order);
   }
 
   /**
@@ -120,6 +144,24 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
         return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.merchant.Merchant.JSON_CREATOR);
       }
     },
+    name {
+      @Override
+      public Object extractValue(Guest instance) {
+        return instance.genClient.extractOther("name", java.lang.String.class);
+      }
+    },
+    table {
+      @Override
+      public Object extractValue(Guest instance) {
+        return instance.genClient.extractRecord("table", com.clover.sdk.v3.tables2.Table.JSON_CREATOR);
+      }
+    },
+    order {
+      @Override
+      public Object extractValue(Guest instance) {
+        return instance.genClient.extractRecord("order", com.clover.sdk.v3.order.Order.JSON_CREATOR);
+      }
+    },
     createdTime {
       @Override
       public Object extractValue(Guest instance) {
@@ -144,8 +186,8 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   private GenericClient<Guest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Guest() {
     genClient = new GenericClient<Guest>(this);
   }
@@ -156,8 +198,8 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Guest(boolean noInit) {
     genClient = null;
   }
@@ -204,6 +246,8 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
+
+    genClient.validateLength(getName(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -224,6 +268,21 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'merchant' field is set and is not null */
   public boolean isNotNullMerchant() {
     return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
+  /** Checks whether the 'name' field is set and is not null */
+  public boolean isNotNullName() {
+    return genClient.cacheValueIsNotNull(CacheKey.name);
+  }
+
+  /** Checks whether the 'table' field is set and is not null */
+  public boolean isNotNullTable() {
+    return genClient.cacheValueIsNotNull(CacheKey.table);
+  }
+
+  /** Checks whether the 'order' field is set and is not null */
+  public boolean isNotNullOrder() {
+    return genClient.cacheValueIsNotNull(CacheKey.order);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -261,6 +320,21 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'merchant' field has been set, however the value could be null */
   public boolean hasMerchant() {
     return genClient.cacheHasKey(CacheKey.merchant);
+  }
+
+  /** Checks whether the 'name' field has been set, however the value could be null */
+  public boolean hasName() {
+    return genClient.cacheHasKey(CacheKey.name);
+  }
+
+  /** Checks whether the 'table' field has been set, however the value could be null */
+  public boolean hasTable() {
+    return genClient.cacheHasKey(CacheKey.table);
+  }
+
+  /** Checks whether the 'order' field has been set, however the value could be null */
+  public boolean hasOrder() {
+    return genClient.cacheHasKey(CacheKey.order);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -312,6 +386,31 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
+   * Sets the field 'name'.
+   */
+  public Guest setName(java.lang.String name) {
+    return genClient.setOther(name, CacheKey.name);
+  }
+
+  /**
+   * Sets the field 'table'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Guest setTable(com.clover.sdk.v3.tables2.Table table) {
+    return genClient.setRecord(table, CacheKey.table);
+  }
+
+  /**
+   * Sets the field 'order'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Guest setOrder(com.clover.sdk.v3.order.Order order) {
+    return genClient.setRecord(order, CacheKey.order);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public Guest setCreatedTime(java.lang.Long createdTime) {
@@ -348,6 +447,18 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Clears the 'merchant' field, the 'has' method for this field will now return false */
   public void clearMerchant() {
     genClient.clear(CacheKey.merchant);
+  }
+  /** Clears the 'name' field, the 'has' method for this field will now return false */
+  public void clearName() {
+    genClient.clear(CacheKey.name);
+  }
+  /** Clears the 'table' field, the 'has' method for this field will now return false */
+  public void clearTable() {
+    genClient.clear(CacheKey.table);
+  }
+  /** Clears the 'order' field, the 'has' method for this field will now return false */
+  public void clearOrder() {
+    genClient.clear(CacheKey.order);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -425,6 +536,10 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean NUMBER_IS_REQUIRED = false;
     public static final boolean TABLEORDER_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
+    public static final boolean NAME_IS_REQUIRED = false;
+    public static final long NAME_MAX_LEN = 127;
+    public static final boolean TABLE_IS_REQUIRED = false;
+    public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;

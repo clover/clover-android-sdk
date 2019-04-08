@@ -53,7 +53,6 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
 
 
 
-
   private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MccAppCarousel> {
     mccCode {
       @Override

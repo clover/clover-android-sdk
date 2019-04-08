@@ -197,19 +197,26 @@ interface IPaymentServiceV3 {
   /**
    * Set configuration object (e.g. theme)
    * @param configuration - An object containing custom configurations
-  */
+   */
   void setUIConfiguration(in UIConfiguration configuration);
 
   /**
    * Send device logs
    * @param message - A string to distinguish log messages
-  */
+   */
   void sendDebugLog(in String message);
 
   /**
-     * Sends a request to void a payment refund
-     *
-     * @param request The request details
-     */
+   * Sends a request to void a payment refund
+   *
+   * @param request The request details
+   */
   void voidPaymentRefund(in VoidPaymentRefundRequest request);
+
+  /**
+   * Used to reset the device if it gets in an invalid state from POS perspective.
+   * This could cause a missed transaction or other missed information, so it
+   * needs to be used cautiously as a last resort
+   */
+  void resetDevice();
 }
