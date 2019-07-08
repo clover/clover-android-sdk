@@ -15,18 +15,24 @@
  */
 package com.clover.sdk.v1.printer.job;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v3.order.Order;
 
+import java.util.ArrayList;
+
 public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parcelable {
   private static final String BUNDLE_KEY_ORDER = "o";
   private static final String BUNDLE_KEY_REASON = "r";
+  private static final String BUNDLE_KEY_URIS = "u";
+
 
   public abstract static class Builder extends PrintJob.Builder {
     protected Order order;
     protected String reason;
+    public ArrayList<Uri> footerUris = new ArrayList<>();
 
     public Builder staticOrderBasedPrintJob(StaticOrderBasedPrintJob pj) {
       printJob(pj);
@@ -46,8 +52,16 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
       }
       return this;
     }
+
+    protected StaticOrderBasedPrintJob.Builder footerUri(Uri... footerUris) {
+      for (Uri uri: footerUris) {
+        this.footerUris.add(uri);
+      }
+      return this;
+    }
   }
 
+  public ArrayList<Uri> footerUris;
   public final Order order;
   // yes, this is not final
   // reason is that for backwards compat we needed subclass to possible write this value in the unparceling ctor
@@ -65,6 +79,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     super(builder);
     this.order = builder.order;
     this.reason = builder.reason;
+    this.footerUris = builder.footerUris;
   }
 
   protected StaticOrderBasedPrintJob(Parcel in) {
@@ -72,6 +87,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     order = bundle.getParcelable(BUNDLE_KEY_ORDER);
     reason = bundle.getString(BUNDLE_KEY_REASON);
+    footerUris = bundle.getParcelableArrayList(BUNDLE_KEY_URIS);
     // Add more data here, but remember old apps might not provide it!
   }
 
@@ -81,6 +97,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     Bundle bundle = new Bundle();
     bundle.putParcelable(BUNDLE_KEY_ORDER, order);
     bundle.putString(BUNDLE_KEY_REASON, reason);
+    bundle.putParcelableArrayList(BUNDLE_KEY_URIS, footerUris);
     dest.writeBundle(bundle);
   }
 }

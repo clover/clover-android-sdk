@@ -567,8 +567,8 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   private GenericClient<Merchant> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Merchant() {
     genClient = new GenericClient<Merchant>(this);
   }
@@ -579,8 +579,8 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Merchant(boolean noInit) {
     genClient = null;
   }

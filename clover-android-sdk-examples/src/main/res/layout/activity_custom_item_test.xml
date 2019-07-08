@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center">
+
+  <Button android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/order"
+          android:layout_marginBottom="5dp"
+          android:gravity="left"
+          android:text="@string/create_new_order"/>
+
+  <RelativeLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_horizontal"
+                  android:orientation="vertical"
+                  android:layout_marginTop="5dp"
+                  android:visibility="gone"
+                  android:id="@+id/mainLayout">
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_alignParentTop="true"
+                  android:id="@+id/llone"
+                  android:gravity="left">
+
+      <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:text="@string/item_name"/>
+
+      <EditText android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/edItemName"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_below="@id/llone"
+                  android:id="@+id/lltwo"
+                  android:gravity="left">
+
+      <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:text="@string/quantity_per_unit"/>
+
+      <EditText android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="20sp"
+                android:id="@+id/edItemQuantity"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_below="@id/lltwo"
+                  android:id="@+id/llthree"
+                  android:gravity="left">
+
+      <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:text="@string/item_price"/>
+
+      <EditText android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:id="@+id/edItemPrice"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:gravity="left"
+                  android:layout_below="@id/llthree"
+                  android:id="@+id/llfour">
+
+      <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:text="@string/item_unit"/>
+
+      <EditText android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Like oz, lb.."
+                android:textSize="20sp"
+                android:id="@+id/edItemUnit"/>
+    </LinearLayout>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lineitem"
+            android:layout_below="@id/llfour"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+
+            android:text="@string/add_item_to_order"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:id="@+id/bCompleteOrder"
+            android:layout_below="@id/lineitem"
+            android:gravity="center_horizontal"
+            android:text="@string/complete_order"/>
+  </RelativeLayout>
+
+  <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/tvCreatedOrder"/>
+</LinearLayout>

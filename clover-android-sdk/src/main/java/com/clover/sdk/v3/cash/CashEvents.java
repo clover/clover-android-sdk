@@ -55,8 +55,7 @@ public class CashEvents {
     Bundle response = context.getContentResolver().call(CashContract.CashEvent.CONTENT_URI, METHOD_ADD_ENTRY, null, extras);
 
     if (response != null && response.getBoolean(ARG_SUCCESS, false)) {
-      CashDrawer.open(context, account);
-      return true;
+      return CashDrawer.open2(context, account);
     }
     return false;
   }

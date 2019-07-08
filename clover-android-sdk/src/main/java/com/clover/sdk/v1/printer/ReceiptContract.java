@@ -74,6 +74,11 @@ public final class ReceiptContract {
   public static final String PARAM_FLAGS = "flags";
 
   /**
+   * The receipt width
+   */
+  public static final String PARAM_RECEIPT_WIDTH = "receipt_width";
+
+  /**
    * Column name for returning text-only receipt data. Must map to a string column value.
    */
   public interface TextColumns {
@@ -85,6 +90,7 @@ public final class ReceiptContract {
      * Image receipt data content type.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/receipt_image";
+
   }
 
   public static final class Text implements BaseColumns, TextColumns {

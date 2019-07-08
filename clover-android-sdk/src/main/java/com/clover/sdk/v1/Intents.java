@@ -350,53 +350,44 @@ public class Intents {
   public static final String ACTION_UPDATE_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_UPDATE_PAYMENT_REMOTE_VIEWS";
 
   /**
-   * Launch activity to authenticate an employee (Enter PIN)
-   * <p>
-   * Extras passed:
+   * Launch a dialog tyle activity to authenticate an employee. Pick one of the following
+   * ways to authenticate an employee:
+   * <ol>
+   *   <li>Authenticate an explicit employee by passing {@link #EXTRA_EMPLOYEE_ID} with the employee id</li>
+   *   <li>Allow any manager or admin to authenticate by passing {@link #EXTRA_VALIDATE_ROLE} with boolean value true</li>
+   *   <li>Authenticate an employee that has the permission specified by {@link #EXTRA_PERMISSIONS}
+   *   <li>Authenticate an employee that has one of the provided
+   *   {@link com.clover.sdk.v3.employees.AccountRole}s specified in {@link #EXTRA_ACCOUNT_ROLES}.</li>
+   * </ol>
+   * <p/>
+   * Optionally you may add the following extras:
    * <ul>
-   * <li>{@link #EXTRA_VALIDATE_ROLE} - if set then use role levels instead of permissions for authentication {@link #EXTRA_VALIDATE_ROLE} (Required) </li>
-   * <li>{@link #EXTRA_ACCOUNT} - if set then get employee by this account, otherwise use currently logged in account</li>
-   * <li>{@link #EXTRA_EMPLOYEE_ID} - if set then authenticate requires this particular employee, if not set then authenticate any employee and return id in result</li>
-   * <li>{@link #EXTRA_REASON} - written explanation for authentication, visible on pin entry layout</li>
-   * <li>{@link #EXTRA_SHOW_CANCEL_BUTTON} - If true, show cancel button on pin entry layout, default false</li>
-   * <li>{@link #EXTRA_PERMISSIONS} - Permission, if set then you must authenticate an employee granted this particular permission</li>
-   * <li>{@link #EXTRA_PACKAGE} - package name associated with permission identified by {@link #EXTRA_PERMISSIONS}</li>
+   *   <li>{@link #EXTRA_REASON} - written explanation for authentication</li>
+   *   <li>{@link #EXTRA_SHOW_CANCEL_BUTTON} - If true, show cancel button on the dialog, default false</li>
+   *   <li>{@link #EXTRA_PACKAGE} - package name associated with permission identified by {@link #EXTRA_PERMISSIONS} if validating some other package</li>
    * </ul>
    * <p>
    * Result data includes:
    * <ul>
-   * <li>{@link #EXTRA_EMPLOYEE_ID} Integer representing the authenticated employee id (not returned if {@link #EXTRA_EMPLOYEE_ID} was passed </li>
-   * <li>Nothing if {@link #EXTRA_EMPLOYEE_ID} is set in input params</li>
+   *   <li>{@link #EXTRA_EMPLOYEE_ID} String of the authenticated employee id if successful</li>
    * </ul>
    * <p>
    * Result codes:
    * <ul>
-   *     <li>{@link android.app.Activity#RESULT_OK} - authenticated successfully</li>
-   *     <li>{@link android.app.Activity#RESULT_CANCELED} - did not authenticate successfully (Cancel button)</li>
+   *   <li>{@link android.app.Activity#RESULT_OK} - authenticated successfully</li>
+   *   <li>{@link android.app.Activity#RESULT_CANCELED} - did not authenticate successfully</li>
    * </ul>
    */
   public static final String ACTION_AUTHENTICATE_EMPLOYEE = "clover.intent.action.AUTHENTICATE_EMPLOYEE";
 
   /**
-   * Launch activity to authenticate for requested role (Enter PIN)
-   * <p>
-   * Extras passed:
-   * <ul>
-   * <li>{@link #EXTRA_ROLE} - role required to authenticate employee PIN (Required)</li>
-   * <li>{@link #EXTRA_TITLE} - custom title shown on PIN entry layout</li>
-   *</ul>
-   * <p>
-   * <p>
-   * Result codes:
-   * <ul>
-   *     <li>{@link android.app.Activity#RESULT_OK} - employee with required role, successfully authenticated</li>
-   *     <li>{@link android.app.Activity#RESULT_CANCELED} - did not authenticate successfully (Cancel button)</li>
-   * </ul>
+   * @deprecated Use {@link #ACTION_AUTHENTICATE_EMPLOYEE} with {@link #EXTRA_ACCOUNT_ROLES}.
    */
   public static final String ACTION_REQUEST_ROLE = "com.clover.intent.action.REQUEST_ROLE";
 
   /**
-   * Launch the secure payment activity (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
+   * Launch the secure payment activity. First check if the device is able to do this using
+   * {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS}.
    * <p>
    * Extras passed:
    * <ul>
@@ -451,7 +442,8 @@ public class Intents {
   public static final String SERVICE_VAS_PROVIDER = "clover.intent.action.VAS_PROVIDER";
 
   /**
-   * Launch activity to securely capture card data on Mobile or Mini (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
+   * Launch activity to securely capture card data. First check if the device is able to do this using
+   * {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS}.
    * <p>
    * Extras passed:
    * <ul>
@@ -474,7 +466,8 @@ public class Intents {
   public static final String ACTION_SECURE_CARD_DATA = "clover.intent.action.START_SECURE_CARD_DATA";
 
   /**
-   * Launch activity to check credt/debit card balance on Mobile, Mini, or Flex (Requires that your app has "clover.permission.ACTION_PAY" in its AndroidManifest.xml file)
+   * Launch activity to check credt/debit card balance. First check if the device is able to do this using
+   *    * {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS}.
    * <p>
    * Extras passed:
    * <ul>
@@ -738,6 +731,9 @@ public class Intents {
 
   /** {@link String}, the UUID of an Employee object */
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
+
+  /** An {@link java.util.ArrayList} of {@link com.clover.sdk.v3.employees.AccountRole}. */
+  public static final String EXTRA_ACCOUNT_ROLES = "clover.intent.extra.ACCOUNT_ROLES";
 
   /** {@link String}, the ID of a Client or external payment */
   public static final String EXTRA_CLIENT_ID = "clover.intent.extra.CLIENT_ID";
@@ -1344,5 +1340,11 @@ public class Intents {
      * transaction result is available
     */
   public static final String EXTRA_SEND_RESULT_ON_TRANSACTION_COMPLETE = "clover.intent.extra_ECR_SEND_RESULT_ON_TRANSACTION_COMPLETE";
+
+  /** {@link String} A regular expression to check the validity of invoice number*/
+  public static final String EXTRA_INVOICE_ID_REGEX = "clover.intent.extra.INVOICE_ID_REGEX";
+
+  /** {@link Boolean} Flag to check if invoice feature is available for merchant*/
+  public static final String EXTRA_INVOICE_ID_AVAILABLE = "clover.intent.extra.INVOICE_ID_AVAILABLE";
 
 }

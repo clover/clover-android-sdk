@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -194,6 +194,7 @@ public class Merchant implements Parcelable {
     }
     return null;
   }
+
   /**
    * @return merchant gateway batchCloseEnabled property
    */
@@ -334,7 +335,7 @@ public class Merchant implements Parcelable {
 
   @Override
   public String toString() {
-    return String.format("%s{id=%s, name=%s, currency=%s, timeZone=%s (%s), account=%s, address=%s, deviceId=%s, phoneNumber=%s}", getClass().getSimpleName(), getId(), getName(), getCurrency(), getTimeZone().getDisplayName(), getTimeZone().getID(), getAccount().toString(), getAddress().toString(), getDeviceId(), getPhoneNumber());
+    return String.format(Locale.US, "%s{id=%s, name=%s, currency=%s, timeZone=%s (%s), account=%s, address=%s, deviceId=%s, phoneNumber=%s}", getClass().getSimpleName(), getId(), getName(), getCurrency(), getTimeZone().getDisplayName(), getTimeZone().getID(), getAccount().toString(), getAddress().toString(), getDeviceId(), getPhoneNumber());
   }
 
 }

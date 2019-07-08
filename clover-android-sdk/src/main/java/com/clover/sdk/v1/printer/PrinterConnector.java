@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,18 +15,20 @@
  */
 package com.clover.sdk.v1.printer;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.printer.IPrinterService}.
@@ -44,43 +46,6 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
 
   private static final String TAG = "PrinterConnector";
   private static final String SERVICE_HOST = "com.clover.engine";
-
-  private abstract static class PrinterCallable<T> implements ServiceCallable<IPrinterService, T> {
-  }
-
-  private abstract static class PrinterRunnable implements ServiceRunnable<IPrinterService> {
-  }
-
-  /**
-   * Connector callbacks are deprecated, prefer to simply invoke connector methods which do not
-   * use callbacks on a non-main thread.
-   * <p/>
-   * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
-   * for receiving asynchronous results from {@link PrinterConnector}
-   * methods that provides default method implementations.
-   * <p/>
-   * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
-   * invocation.
-   *
-   * @param <T> the result type.
-   */
-  @Deprecated
-  public static class PrinterCallback<T> implements Callback<T> {
-    @Override
-    public void onServiceSuccess(T result, ResultStatus status) {
-      Log.d(TAG, String.format("on service success: %s", status));
-    }
-
-    @Override
-    public void onServiceFailure(ResultStatus status) {
-      Log.w(TAG, String.format("on service failure: %s", status));
-    }
-
-    @Override
-    public void onServiceConnectionFailure() {
-      Log.w(TAG, String.format("on service connect failure"));
-    }
-  }
 
   /**
    * Construct a new printer connector.
@@ -253,6 +218,43 @@ public class PrinterConnector extends ServiceConnector<IPrinterService> {
         return service.getPrinterTypeDetails(printer, status);
       }
     });
+  }
+
+  private abstract static class PrinterCallable<T> implements ServiceCallable<IPrinterService, T> {
+  }
+
+  private abstract static class PrinterRunnable implements ServiceRunnable<IPrinterService> {
+  }
+
+  /**
+   * Connector callbacks are deprecated, prefer to simply invoke connector methods which do not
+   * use callbacks on a non-main thread.
+   * <p/>
+   * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
+   * for receiving asynchronous results from {@link PrinterConnector}
+   * methods that provides default method implementations.
+   * <p/>
+   * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
+   * invocation.
+   *
+   * @param <T> the result type.
+   */
+  @Deprecated
+  public static class PrinterCallback<T> implements Callback<T> {
+    @Override
+    public void onServiceSuccess(T result, ResultStatus status) {
+      Log.d(TAG, String.format(Locale.US, "on service success: %s", status));
+    }
+
+    @Override
+    public void onServiceFailure(ResultStatus status) {
+      Log.w(TAG, String.format(Locale.US, "on service failure: %s", status));
+    }
+
+    @Override
+    public void onServiceConnectionFailure() {
+      Log.w(TAG, String.format(Locale.US, "on service connect failure"));
+    }
   }
 
 }

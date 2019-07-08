@@ -132,8 +132,8 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
   private GenericClient<AppTracking> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AppTracking() {
     genClient = new GenericClient<AppTracking>(this);
   }
@@ -144,8 +144,8 @@ public class AppTracking extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppTracking(boolean noInit) {
     genClient = null;
   }

@@ -75,14 +75,20 @@ public enum Platform {
   @Deprecated
   C302L("Clover Mini", "2nd generation", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
   @Deprecated
+  C303U("Clover Mini", "Si", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
+  C303E("Clover Mini", "Si", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
+  C303L("Clover Mini", "Si", Orientation.LANDSCAPE, Feature.CUSTOMER_MODE, Feature.SECURE_PAYMENTS, Feature.MOBILE_DATA, Feature.DEFAULT_EMPLOYEE, Feature.ETHERNET, Feature.SECURE_TOUCH),
+  @Deprecated
   OTHER("Unknown", null, Orientation.LANDSCAPE),
   ;
 
   private static final String CLOVER_MANUFACTURER = "Clover";
 
   private static final EnumSet<Platform> FLEX = EnumSet.of(C400, C400U, C400E, C401U, C401E, C401L);
-  private static final EnumSet<Platform> MINI = EnumSet.of(C300, C301, C302, C302U, C302E, C302L);
-  private static final EnumSet<Platform> MINI_GEN2 = EnumSet.of(C302, C302U, C302E, C302L);
+  private static final EnumSet<Platform> MINI = EnumSet.of(C300, C301, C302, C302U, C302E, C302L, C303U, C303E, C303L);
+  private static final EnumSet<Platform> MINI_GEN2 = EnumSet.of(C302, C302U, C302E, C302L, C303U, C303E, C303L);
   private static final EnumSet<Platform> MOBILE = EnumSet.of(C200, C201);
   private static final EnumSet<Platform> STATION = EnumSet.of(C100);
   private static final EnumSet<Platform> STATION_2018 = EnumSet.of(C500, C550);

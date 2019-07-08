@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 package com.clover.sdk.v1.printer.job;
+
+import com.clover.sdk.internal.util.OutputUriFactory;
+import com.clover.sdk.internal.util.Views;
+import com.clover.sdk.v1.printer.Category;
+import com.clover.sdk.v1.printer.ReceiptFileContract;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,10 +28,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
-import com.clover.sdk.internal.util.OutputUriFactory;
-import com.clover.sdk.internal.util.Views;
-import com.clover.sdk.v1.printer.Category;
-import com.clover.sdk.v1.printer.ReceiptFileContract;
+import android.view.ViewGroup;
 
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
@@ -44,10 +46,22 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
     protected View view;
 
     /**
-     * The view to print in this PrintJob.
+     * Set the view to print in this PrintJob. {@link #layoutAndMeasureView(View, int)} or equivalent
+     * on your View before calling this method.
      */
     public Builder view(View view) {
       this.view = view;
+      return this;
+    }
+
+    /**
+     * This method differs from {@link #view(View)} as it prepares the View for printing by measuring it.
+     * @see #view(View)
+     *
+     */
+    public Builder view(View view, int viewWidth) {
+      this.view = view;
+      layoutAndMeasureView(view, viewWidth);
       return this;
     }
 
@@ -55,13 +69,25 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
     public ViewPrintJob build() {
       return new ViewPrintJob(this);
     }
+
+    /**
+     * Measure and layout the view that was passed to {@link #view(View, int)}
+     * */
+    public void layoutAndMeasureView(View view, int viewWidth) {
+      int measuredWidth = View.MeasureSpec.makeMeasureSpec(viewWidth, View.MeasureSpec.EXACTLY);
+      int measuredHeight = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT, View.MeasureSpec.UNSPECIFIED);
+      view.measure(measuredWidth, measuredHeight);
+      view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+      view.requestLayout();
+    }
   }
 
   public final ArrayList<String> imageFiles;
   private static final String BUNDLE_KEY_IMAGE_FILES = "i";
 
   @Deprecated
-  protected ViewPrintJob(View view, int flags) {
+  protected ViewPrintJob(View view,
+                         int flags) {
     this((ViewPrintJob.Builder) new Builder().view(view).flags(flags));
   }
 
@@ -94,7 +120,7 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
 
   protected ViewPrintJob(Parcel in) {
     super(in);
-    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
+    Bundle bundle = in.readBundle(((Object) this).getClass().getClassLoader());
     imageFiles = bundle.getStringArrayList(BUNDLE_KEY_IMAGE_FILES);
     // Add more data here, but remember old apps might not provide it!
   }

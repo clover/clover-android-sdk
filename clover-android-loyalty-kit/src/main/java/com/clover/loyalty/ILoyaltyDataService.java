@@ -20,6 +20,7 @@ import com.clover.sdk.v3.customers.CustomerInfo;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -69,7 +70,7 @@ public interface ILoyaltyDataService {
      * @see LoyaltyDataTypes
      */
     public static String getServiceStateEventAction(String dynamicService) {
-      return String.format(LOYALTY_SERVICE_STATE_PATTERN, dynamicService);
+      return String.format(Locale.US, LOYALTY_SERVICE_STATE_PATTERN, dynamicService);
     }
 
     /**
@@ -80,7 +81,7 @@ public interface ILoyaltyDataService {
      * @see LoyaltyDataTypes
      */
     public static String getServiceAction(String dynamicService) {
-      return String.format(LOYALTY_SERVICE_ACTION_PATTERN, dynamicService);
+      return String.format(Locale.US, LOYALTY_SERVICE_ACTION_PATTERN, dynamicService);
     }
 
     // Before calling this, a system would typically put in VasSettings extras.

@@ -317,6 +317,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public List<LineItem> splitLineItems(final String orderId, final List<String> lineItemIds, final List<String> binNames) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.splitLineItems(orderId, lineItemIds, binNames, status));
+      }
+    });
+  }
+
   public List<LineItem> updateLineItems(final String orderId, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
       @Override
@@ -1136,5 +1145,21 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       return null;
     }
     return fdp.getValue();
+  }
+
+  /**
+   * @param orderId The ID of the order to be updated.
+   * @param creditId The ID of the credit to be refunded.
+   * @return the CreditRefund object constructed using the RefundResponse the serverf returns
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public CreditRefund vaultedCreditRefund(final String orderId, final String creditId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, CreditRefund>() {
+      @Override
+      public CreditRefund call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.vaultedCreditRefund(orderId, creditId, status);
+      }
+    });
   }
 }

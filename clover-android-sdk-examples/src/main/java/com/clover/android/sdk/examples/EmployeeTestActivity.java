@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 package com.clover.android.sdk.examples;
+
+import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.Intents;
+import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
+import com.clover.sdk.v1.merchant.Merchant;
+import com.clover.sdk.v1.merchant.MerchantConnector;
+import com.clover.sdk.v3.employees.AccountRole;
+import com.clover.sdk.v3.employees.Employee;
+import com.clover.sdk.v3.employees.EmployeeConnector;
+import com.clover.sdk.v3.employees.EmployeeIntent;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -32,20 +43,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.Intents;
-import com.clover.sdk.v1.ResultStatus;
-import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.merchant.Merchant;
-import com.clover.sdk.v1.merchant.MerchantConnector;
-import com.clover.sdk.v3.employees.AccountRole;
-import com.clover.sdk.v3.employees.Employee;
-import com.clover.sdk.v3.employees.EmployeeConnector;
-import com.clover.sdk.v3.employees.EmployeeIntent;
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EmployeeTestActivity extends Activity
     implements EmployeeConnector.OnActiveEmployeeChangedListener,
@@ -519,7 +521,7 @@ public class EmployeeTestActivity extends Activity
   private void notifyActiveEmployeeChanged(Employee employee) {
     String msg;
     if (employee != null) {
-      msg = String.format("Active employee changed: %s (%s)", employee.getName(), employee.getId());
+      msg = String.format(Locale.US, "Active employee changed: %s (%s)", employee.getName(), employee.getId());
     } else {
       msg = "Employee logged out";
     }
@@ -575,7 +577,9 @@ public class EmployeeTestActivity extends Activity
   }
 
   private AccountRole getRoleFromString(String role) {
-    if (role == null) throw new IllegalArgumentException("Role must not be null");
+    if (role == null) {
+      throw new IllegalArgumentException("Role must not be null");
+    }
     if (role.equals("MANAGER")) {
       return AccountRole.MANAGER;
     } else if (role.equals("ADMIN")) {
