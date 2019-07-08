@@ -21,7 +21,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.util.Log;
 import android.view.Surface;
 import android.view.WindowManager;
 
@@ -63,16 +62,15 @@ public final class Platform2 {
 
   private Platform2() { }
 
+  // Below devices that didn't implement hasSystemFeature correctly, new models will not be added
   private static final String CARDHU = "cardhu";
   private static final String MAPLECUTTER = "maplecutter";
   private static final String LEAFCUTTER = "leafcutter";
   private static final String BAYLEAF = "bayleaf";
   private static final String GOLDENOAK = "goldenoak";
-  private static final String KNOTTYPINE = "knottypine";
 
   /**
-   * List of features that may be present on Clover devices. Non-Clover devices will return false
-   * for all features.
+   * List of features that may be present on Clover devices.
    */
   public enum Feature {
     /**
@@ -81,7 +79,7 @@ public final class Platform2 {
      */
     SECURE_PAYMENTS {
       @Override
-      public boolean isSupportedInternal(Context context) {
+      public boolean isSupported(Context context) {
         // Check if an app is installed which can handle this intent
         Intent actionSecurePay = new Intent(Intents.ACTION_SECURE_PAY);
         List<ResolveInfo> infoList = context.getPackageManager()
@@ -99,7 +97,7 @@ public final class Platform2 {
      */
     CUSTOMER_MODE {
       @Override
-      public boolean isSupportedInternal(Context context) {
+      public boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
@@ -107,7 +105,6 @@ public final class Platform2 {
           case LEAFCUTTER:
           case BAYLEAF:
           case GOLDENOAK:
-          case KNOTTYPINE:
             return true;
         }
 
@@ -120,7 +117,7 @@ public final class Platform2 {
      */
     MOBILE_DATA {
       @Override
-      public boolean isSupportedInternal(Context context) {
+      public boolean isSupported(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
       }
     },
@@ -130,7 +127,7 @@ public final class Platform2 {
      */
     DEFAULT_EMPLOYEE {
       @Override
-      protected boolean isSupportedInternal(Context context) {
+      protected boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
@@ -139,7 +136,6 @@ public final class Platform2 {
           case LEAFCUTTER:
           case BAYLEAF:
           case GOLDENOAK:
-          case KNOTTYPINE:
             return true;
         }
 
@@ -152,7 +148,7 @@ public final class Platform2 {
      */
     ETHERNET {
       @Override
-      public boolean isSupportedInternal(Context context) {
+      public boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
@@ -160,7 +156,6 @@ public final class Platform2 {
           case CARDHU:
           case MAPLECUTTER:
           case GOLDENOAK:
-          case KNOTTYPINE:
             return true;
         }
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_ETHERNET);
@@ -171,14 +166,13 @@ public final class Platform2 {
      */
     SECURE_TOUCH {
       @Override
-      protected boolean isSupportedInternal(Context context) {
+      protected boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
           case MAPLECUTTER:
           case LEAFCUTTER:
           case BAYLEAF:
-          case KNOTTYPINE:
             return true;
         }
 
@@ -190,7 +184,7 @@ public final class Platform2 {
      */
     CUSTOMER_FACING_EXTERNAL_DISPLAY {
       @Override
-      protected boolean isSupportedInternal(Context context) {
+      protected boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
@@ -206,7 +200,7 @@ public final class Platform2 {
      */
     CUSTOMER_ROTATION {
       @Override
-      protected boolean isSupportedInternal(Context context) {
+      protected boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
         String device = Build.DEVICE;
         switch (device) {
@@ -220,20 +214,7 @@ public final class Platform2 {
     },
     ;
 
-    protected abstract boolean isSupportedInternal(Context context);
-
-    // Cached value
-    private Boolean supported;
-
-    public final boolean isSupported(Context context) {
-      // synchronization not needed, getting/setting references is thread-safe
-      if (supported != null) {
-        return supported;
-      }
-
-      supported = isSupportedInternal(context);
-      return supported;
-    }
+    protected abstract boolean isSupported(Context context);
   }
 
   public enum Orientation {
@@ -241,13 +222,13 @@ public final class Platform2 {
     PORTRAIT,
   }
 
-  private static final String CLOVER_MANUFACTURER = "Clover";
+  private static final boolean CLOVER_DEVICE = Build.MANUFACTURER.equals("Clover");
 
   /**
    * Returns true when running on Clover hardware.
    */
   public static boolean isClover() {
-    return Build.MANUFACTURER.equals(CLOVER_MANUFACTURER);
+    return CLOVER_DEVICE;
   }
 
   /**

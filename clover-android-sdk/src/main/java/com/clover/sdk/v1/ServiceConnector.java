@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,9 +29,11 @@ import android.os.IInterface;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
+
 import com.clover.sdk.internal.util.Strings;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
@@ -142,11 +144,11 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     List<ResolveInfo> providerInfos = mContext.getPackageManager().queryIntentServices(intent, PackageManager.GET_META_DATA);
     if (providerInfos != null && providerInfos.size() > 0) {
       if (providerInfos.size() > 1) {
-        Log.w(TAG, String.format("Multiple services map to intent %s there are %d", intent, providerInfos.size()));
+        Log.w(TAG, String.format(Locale.US, "Multiple services map to intent %s there are %d", intent, providerInfos.size()));
       }
       return true;
     } else {
-      Log.w(TAG, String.format("No services map to intent %s, it cannot be used", intent));
+      Log.w(TAG, String.format(Locale.US, "No services map to intent %s, it cannot be used", intent));
     }
     return false;
   }

@@ -37,6 +37,9 @@ import java.io.OutputStream;
  * <code>
  *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
  * </code>
+ *
+ * @deprecated Use {@link ImagePrintJob2}. This class writes files into external storage that
+ * are not cleaned up and can eventually exhaust the device's storage.
  */
 
 public class ImagePrintJob extends PrintJob implements Parcelable {

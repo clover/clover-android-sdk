@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum TransactionType implements Parcelable {
-  PAYMENT, CREDIT, AUTH, DATA, BALANCE_INQUIRY;
+  PAYMENT, CREDIT, AUTH, DATA, BALANCE_INQUIRY, PAYMENT_REVERSAL, PAYMENT_ADJUSTMENT, CREDIT_REVERSAL, REFUND_ADJUSTMENT, CASH_ADVANCE, CAPTURE_PREAUTH, VAS_DATA;
 
   @Override
   public int describeContents() {

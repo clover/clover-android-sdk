@@ -840,8 +840,8 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   private GenericClient<MerchantBoarding> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantBoarding() {
     genClient = new GenericClient<MerchantBoarding>(this);
   }
@@ -852,8 +852,8 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantBoarding(boolean noInit) {
     genClient = null;
   }

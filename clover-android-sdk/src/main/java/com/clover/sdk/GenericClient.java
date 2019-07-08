@@ -15,6 +15,8 @@
  */
 package com.clover.sdk;
 
+import android.util.Log;
+
 public final class GenericClient<D> {
 
   private org.json.JSONObject jsonObject = null;
@@ -26,6 +28,7 @@ public final class GenericClient<D> {
   private static String errorNullMessage = " is required to be non-null";
   private D callingClass = null;
   private final Object LOCK = new Object();
+  private static final String TAG = "GenericClient";
 
   public static final byte STATE_NOT_CACHED = 0;
   public static final byte STATE_CACHED_NO_VALUE = 1;
@@ -238,19 +241,27 @@ public final class GenericClient<D> {
   public <T> java.util.List<T> extractListRecord(String name, com.clover.sdk.JSONifiable.Creator<T> JSON_CREATOR) {
     if (getJSONObject().isNull(name)) { return null; }
 
-    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject(name);
-    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-    java.util.List<T> itemList = new java.util.ArrayList<T>(itemArray.length());
-    for (int i = 0; i < itemArray.length(); i++) {
-      org.json.JSONObject obj = itemArray.optJSONObject(i);
-      if (obj == null) {
-        continue;
+    try {
+      org.json.JSONObject elementsContainer = getJSONObject().optJSONObject(name);
+      org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
+      java.util.List<T> itemList = new java.util.ArrayList<T>(itemArray.length());
+      for (int i = 0; i < itemArray.length(); i++) {
+        org.json.JSONObject obj = itemArray.optJSONObject(i);
+        if (obj == null) {
+          continue;
+        }
+        T item = JSON_CREATOR.create(obj);
+        itemList.add(item);
       }
-      T item = JSON_CREATOR.create(obj);
-      itemList.add(item);
-    }
 
-    return java.util.Collections.unmodifiableList(itemList);
+      return java.util.Collections.unmodifiableList(itemList);
+    }
+    catch (NullPointerException e) {
+      // on an NPE just return null (eg. when elements unexpectedly doesn't exist)
+      Log.e(TAG, "exception extracting 'elements' array", e);
+
+      return null;
+    }
   }
 
   /**

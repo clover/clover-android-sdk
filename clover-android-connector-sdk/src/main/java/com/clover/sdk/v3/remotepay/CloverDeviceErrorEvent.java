@@ -93,8 +93,8 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   private GenericClient<CloverDeviceErrorEvent> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CloverDeviceErrorEvent() {
     genClient = new GenericClient<CloverDeviceErrorEvent>(this);
   }
@@ -105,8 +105,8 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CloverDeviceErrorEvent(boolean noInit) {
     genClient = null;
   }

@@ -45,6 +45,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIdentityDocument identityDocument}</li>
  * <li>{@link #getBatchNumber batchNumber}</li>
  * <li>{@link #getReceiptNumber receiptNumber}</li>
+ * <li>{@link #getReversalStanRefNum reversalStanRefNum}</li>
  * <li>{@link #getReversalStan reversalStan}</li>
  * <li>{@link #getReversalMac reversalMac}</li>
  * <li>{@link #getReversalMacKsn reversalMacKsn}</li>
@@ -64,6 +65,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsTokenBasedTx isTokenBasedTx}</li>
  * <li>{@link #getOrigTransactionSequenceCounter origTransactionSequenceCounter}</li>
  * <li>{@link #getTransactionSequenceCounterUpdate transactionSequenceCounterUpdate}</li>
+ * <li>{@link #getEmergencyFlag emergencyFlag}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -162,6 +164,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
    */
   public java.lang.String getReceiptNumber() {
     return genClient.cacheGet(CacheKey.receiptNumber);
+  }
+
+  /**
+   * Reversal STAN Ref Num
+   */
+  public java.lang.String getReversalStanRefNum() {
+    return genClient.cacheGet(CacheKey.reversalStanRefNum);
   }
 
   /**
@@ -297,6 +306,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.transactionSequenceCounterUpdate);
   }
 
+  /**
+   * Boolean value defining if the corresponding TX was performed in NEXO emergency mode according NEXO IS Spec chapter 10.2
+   */
+  public java.lang.Boolean getEmergencyFlag() {
+    return genClient.cacheGet(CacheKey.emergencyFlag);
+  }
+
 
 
 
@@ -383,6 +399,12 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(TransactionInfo instance) {
         return instance.genClient.extractOther("receiptNumber", java.lang.String.class);
+      }
+    },
+    reversalStanRefNum {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("reversalStanRefNum", java.lang.String.class);
       }
     },
     reversalStan {
@@ -497,6 +519,12 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
       @Override
       public Object extractValue(TransactionInfo instance) {
         return instance.genClient.extractOther("transactionSequenceCounterUpdate", java.lang.String.class);
+      }
+    },
+    emergencyFlag {
+      @Override
+      public Object extractValue(TransactionInfo instance) {
+        return instance.genClient.extractOther("emergencyFlag", java.lang.Boolean.class);
       }
     },
       ;
@@ -645,6 +673,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.receiptNumber);
   }
 
+  /** Checks whether the 'reversalStanRefNum' field is set and is not null */
+  public boolean isNotNullReversalStanRefNum() {
+    return genClient.cacheValueIsNotNull(CacheKey.reversalStanRefNum);
+  }
+
   /** Checks whether the 'reversalStan' field is set and is not null */
   public boolean isNotNullReversalStan() {
     return genClient.cacheValueIsNotNull(CacheKey.reversalStan);
@@ -740,6 +773,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.transactionSequenceCounterUpdate);
   }
 
+  /** Checks whether the 'emergencyFlag' field is set and is not null */
+  public boolean isNotNullEmergencyFlag() {
+    return genClient.cacheValueIsNotNull(CacheKey.emergencyFlag);
+  }
+
 
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
@@ -810,6 +848,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'receiptNumber' field has been set, however the value could be null */
   public boolean hasReceiptNumber() {
     return genClient.cacheHasKey(CacheKey.receiptNumber);
+  }
+
+  /** Checks whether the 'reversalStanRefNum' field has been set, however the value could be null */
+  public boolean hasReversalStanRefNum() {
+    return genClient.cacheHasKey(CacheKey.reversalStanRefNum);
   }
 
   /** Checks whether the 'reversalStan' field has been set, however the value could be null */
@@ -905,6 +948,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'transactionSequenceCounterUpdate' field has been set, however the value could be null */
   public boolean hasTransactionSequenceCounterUpdate() {
     return genClient.cacheHasKey(CacheKey.transactionSequenceCounterUpdate);
+  }
+
+  /** Checks whether the 'emergencyFlag' field has been set, however the value could be null */
+  public boolean hasEmergencyFlag() {
+    return genClient.cacheHasKey(CacheKey.emergencyFlag);
   }
 
 
@@ -1006,6 +1054,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
    */
   public TransactionInfo setReceiptNumber(java.lang.String receiptNumber) {
     return genClient.setOther(receiptNumber, CacheKey.receiptNumber);
+  }
+
+  /**
+   * Sets the field 'reversalStanRefNum'.
+   */
+  public TransactionInfo setReversalStanRefNum(java.lang.String reversalStanRefNum) {
+    return genClient.setOther(reversalStanRefNum, CacheKey.reversalStanRefNum);
   }
 
   /**
@@ -1141,6 +1196,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(transactionSequenceCounterUpdate, CacheKey.transactionSequenceCounterUpdate);
   }
 
+  /**
+   * Sets the field 'emergencyFlag'.
+   */
+  public TransactionInfo setEmergencyFlag(java.lang.Boolean emergencyFlag) {
+    return genClient.setOther(emergencyFlag, CacheKey.emergencyFlag);
+  }
+
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -1197,6 +1259,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Clears the 'receiptNumber' field, the 'has' method for this field will now return false */
   public void clearReceiptNumber() {
     genClient.clear(CacheKey.receiptNumber);
+  }
+  /** Clears the 'reversalStanRefNum' field, the 'has' method for this field will now return false */
+  public void clearReversalStanRefNum() {
+    genClient.clear(CacheKey.reversalStanRefNum);
   }
   /** Clears the 'reversalStan' field, the 'has' method for this field will now return false */
   public void clearReversalStan() {
@@ -1273,6 +1339,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Clears the 'transactionSequenceCounterUpdate' field, the 'has' method for this field will now return false */
   public void clearTransactionSequenceCounterUpdate() {
     genClient.clear(CacheKey.transactionSequenceCounterUpdate);
+  }
+  /** Clears the 'emergencyFlag' field, the 'has' method for this field will now return false */
+  public void clearEmergencyFlag() {
+    genClient.clear(CacheKey.emergencyFlag);
   }
 
 
@@ -1351,6 +1421,7 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean IDENTITYDOCUMENT_IS_REQUIRED = false;
     public static final boolean BATCHNUMBER_IS_REQUIRED = false;
     public static final boolean RECEIPTNUMBER_IS_REQUIRED = false;
+    public static final boolean REVERSALSTANREFNUM_IS_REQUIRED = false;
     public static final boolean REVERSALSTAN_IS_REQUIRED = false;
     public static final boolean REVERSALMAC_IS_REQUIRED = false;
     public static final boolean REVERSALMACKSN_IS_REQUIRED = false;
@@ -1371,6 +1442,7 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean ISTOKENBASEDTX_IS_REQUIRED = false;
     public static final boolean ORIGTRANSACTIONSEQUENCECOUNTER_IS_REQUIRED = false;
     public static final boolean TRANSACTIONSEQUENCECOUNTERUPDATE_IS_REQUIRED = false;
+    public static final boolean EMERGENCYFLAG_IS_REQUIRED = false;
 
   }
 

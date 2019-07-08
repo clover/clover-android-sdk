@@ -370,8 +370,8 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   private GenericClient<MerchantHierarchy> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantHierarchy() {
     genClient = new GenericClient<MerchantHierarchy>(this);
   }
@@ -382,8 +382,8 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantHierarchy(boolean noInit) {
     genClient = null;
   }

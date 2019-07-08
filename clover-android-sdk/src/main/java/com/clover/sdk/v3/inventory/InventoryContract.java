@@ -15,26 +15,70 @@
  */
 package com.clover.sdk.v3.inventory;
 
+import com.clover.sdk.v1.printer.Printer;
+import com.clover.sdk.v3.order.OrderType;
+
 import android.accounts.Account;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.provider.BaseColumns;
 
 /**
- * The contract between the inventory provider and applications. Contains definitions for the supported URIs and columns.
- * <p>
- * The Content Provider for inventory may be used directly by applications wishing to use a {@link android.database.Cursor}
- * to navigate a large inventory database.  Basic item and category information is accessible through the Content Provider, and
- * more detailed information about items, categories and related information may then be retrieved using the
- * {@link com.clover.sdk.v3.inventory.IInventoryService} via binding to the AIDL service, or through the wrapper class
+ * The contract between the inventory provider and apps. For more detailed
+ * information about inventory please read {@link IInventoryService}.
+ * <p/>
+ * The content provider for inventory may be used directly by apps wishing to
+ * use a {@link android.database.Cursor} to navigate a large inventory
+ * database. Read
+ * <a href="https://developer.android.com/guide/topics/providers/content-provider-basics">Content provider basics</a>
+ * for an overview of how to interact with a content provider. In this case
+ * only methods which read data such as
+ * {@link android.content.ContentResolver#query(Uri, String[], Bundle, CancellationSignal)}
+ * will work. Methods which write data will be rejected.
+ * <p/>
+ * Using this contract requires the client app have
+ * {@link com.clover.sdk.v3.employees.Permission#INVENTORY_R} permission.
+ * <p/>
+ * Note that there are frequently multiple content URIs which join multiple
+ * tables such as {@link InventoryContract.ItemModifierGroup#CONTENT_WITH_NAME_URI}.
+ * These join tables are very helpful when a client app needs to display
+ * filtered results. In this particular example an app can retrieve
+ * {@link ModifierGroup} details for a particular
+ * {@link com.clover.sdk.v3.inventory.Item} by querying the above content URI
+ * and selecting by {@link InventoryContract.ItemModifierGroup#ITEM_ID}.
+ * <p/>
+ * To insert/update/delete inventory use the
+ * {@link com.clover.sdk.v3.inventory.IInventoryService} via binding to the
+ * AIDL service, or through the wrapper class
  * {@link com.clover.sdk.v3.inventory.InventoryConnector}.
- * <p>
- * The inventory database is typically kept up to date using push notifications from the Clover server to the client,
- * so in most cases any changes made through the web or through another device will be immediately reflected
- * on all devices belonging to a particular merchant.  When network connections are unreliable, the inventory service will attempt
- * to synchronize its local database (i.e. the backing store for this content provider) with the server on a regular basis,
- * usually on an interval no greater than 3 hours.
+ * <p/>
+ * The inventory database is typically kept up to date using push notifications
+ * from the Clover server to the client, so in most cases any changes made
+ * through the web or through another device will be immediately reflected
+ * on all devices belonging to a particular merchant. When network connections
+ * are available but unreliable, the inventory service will attempt to
+ * synchronize its local database (i.e. the backing store for this content
+ * provider) with the server on a regular basis, usually on an interval no
+ * greater than 3 hours.
  */
 public final class InventoryContract {
+
+  /**
+   * Call method to get the inventory item count.
+   */
+  public static final String GET_COUNT_METHOD = "getCount";
+
+  /**
+   * Call method to get the inventory item count.
+   */
+  public static final String GET_ITEM_MOD_OR_VAR_COUNT_METHOD = "getItemModifiedOrVariantCount";
+
+  /**
+   * Integer result returned by call count methods.
+   */
+  public static final String COUNT_KEY = "count";
+
   /**
    * The authority for the inventory provider
    */
@@ -45,38 +89,82 @@ public final class InventoryContract {
    */
   public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
+  /**
+   * Clover use only.
+   * @y.exclude
+   */
   public static final String AUTH_TOKEN_PARAM = "token";
+
+  /**
+   * Clover use only.
+   * @y.exclude
+   */
   public static final String ACCOUNT_NAME_PARAM = "account_name";
+
+  /**
+   * Clover use only.
+   * @y.exclude
+   */
   public static final String ACCOUNT_TYPE_PARAM = "account_type";
 
+  /**
+   * Clover use only.
+   * @y.exclude
+   */
+  public static final String IS_SYNC_PARAM = "is_sync";
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Item}.
+   */
   public interface ItemColumns {
     /**
-     * Unique identifier for an item
+     * Unique identifier for an item, identical to {@link #UUID}.
      * <p>
      * Type: TEXT
      */
     public static final String ID = "uuid";
 
     /**
-     * Name of the item
+     * Unique identifier for an item. Generated by Clover. Required.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+    /**
+     * Name of the item. Required.
      * <p>
      * Type: TEXT
      */
     public static final String NAME = "name";
 
     /**
-     * Alternate name of the item
+     * Alternate name of the item.
      * <p>
      * Type: TEXT
      */
     public static final String ALTERNATE_NAME = "alternate_name";
 
     /**
-     * Item price, typically in cents.
+     * Item price in cents. Required.
      * <p>
      * Type: INTEGER
      */
     public static final String PRICE = "price";
+
+    /**
+     * Item Price without VAT.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String PRICE_WITHOUT_VAT = "price_without_vat";
+
+    /**
+     * Whether an item is taxable or not.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    @Deprecated
+    public static final String TAXABLE = "taxable";
 
     /**
      * Item product code, e.g. UPC, EAN, etc.
@@ -93,18 +181,11 @@ public final class InventoryContract {
     public static final String PRICE_TYPE = "price_type";
 
     /**
-     * Item unit name, e.g. "oz", "lb", etc.
+     * Item unit name (e.g. "oz", "lb", etc) if this is item is sold by units.
      * <p>
      * Type: TEXT
      */
     public static final String UNIT_NAME = "unit_name";
-
-    /**
-     * Modified time
-     *
-     * Type: LONG
-     */
-    public static final String MODIFIED_TIME = "modified_time";
 
     /**
      * Flag to indicate whether or not to use default tax rates; a call to
@@ -114,8 +195,63 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String DEFAULT_TAX_RATES = "default_tax_rates";
+
+    /**
+     * @deprecated Use {@link ItemStockColumns#QUANTITY} instead. Count of items in stock.
+     * <p/>
+     * Type: INTEGER
+     */
+    @Deprecated
+    public static final String COUNT = "count";
+
+    /**
+     * Item cost in cents. This is not the price the customer pays for the
+     * item but how much it costs the merchant.
+     * <p/>
+     * Type: INTEGER
+     */
+    public static final String COST = "cost";
+
+    /**
+     * Item sku
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String SKU = "sku";
+
+    /**
+     * Whether this item is hidden from Clover Register app.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String HIDDEN = "hidden";
+
+    /**
+     * Whether this item should be counted as a revenue when sold.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String IS_REVENUE = "is_revenue";
+
+    /**
+     * Item group uuid if this item belongs to an item group.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String ITEM_GROUP_UUID = "item_group_uuid";
+
+    /**
+     * Last modified time.
+     * <p>
+     * Type: LONG
+     */
+    public static final String MODIFIED_TIME = "modified_time";
+
   }
 
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Item} instances via content provider.
+   */
   public static final class Item implements BaseColumns, ItemColumns {
     /**
      * This utility class cannot be instantiated
@@ -132,6 +268,16 @@ public final class InventoryContract {
      * The content:// style URI for this table
      */
     public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * base content directory for all modifiers and modifier groups for an item (does not map to an actual table)
+     */
+    public static final String MODIFIERS_CONTENT_DIRECTORY = "modifiers_for_item";
+
+    /**
+     * URI to get all modifiers and modifier groups for an item
+     */
+    public static final Uri MODIFIERS_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, MODIFIERS_CONTENT_DIRECTORY);
 
     /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
@@ -154,4 +300,1382 @@ public final class InventoryContract {
       return builder.build();
     }
   }
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Category}.
+   */
+  public interface CategoryColumns {
+    /**
+     * Layout uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Layout Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Layout sort position.
+     * <p>
+     * Type: INT
+     */
+    public static final String SORT_ORDER = "sort_order";
+
+    /**
+     * Layout Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEMS = "items";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Category} instances via content provider.
+   */
+  public static final class Category implements BaseColumns, CategoryColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Category() {
+    }
+
+    /**
+     * base content directory for modifier
+     */
+    public static final String CONTENT_DIRECTORY = "category";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/category";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single modifier.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/category";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Modifier}.
+   */
+  public interface ModifierColumns {
+    /**
+     * Modifier uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Modifier name. Required.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Modifier alternate name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ALTERNATE_NAME = "alternate_name";
+
+    /**
+     * Modifier price. Required.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String PRICE = "price";
+
+    /**
+     * Modifier group id. Required.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String GROUP_ID = "group_id";
+
+    /**
+     * Order it is shown in the group.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String ORDER = "sort_order";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Modifier} instances via content provider.
+   */
+  public static final class Modifier implements BaseColumns, ModifierColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Modifier() {
+    }
+
+    /**
+     * base content directory for modifier
+     */
+    public static final String CONTENT_DIRECTORY = "modifier";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifier";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single modifier.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/modifier";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.ModifierGroup}.
+   */
+  public interface GroupColumns {
+    /**
+     * Modifier group uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Modifier group Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Causes this modifier group to show immediately when item being added to order in Clover Register app.
+     * <p>
+     * Type: BOOLEAN
+     */
+    public static final String SHOW_BY_DEFAULT = "show_by_default";
+
+    /**
+     * Modifier group minimum required selections.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MIN_REQUIRED = "min_required";
+
+    /**
+     * Modifier group maximum required selections.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MAX_ALLOWED = "max_allowed";
+
+    /**
+     * The relative order that this modifier group should appear in the list of modifier
+     * groups.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String SORT_ORDER = "sort_order";
+
+    /**
+     * A count of modifiers in this group. Only provided when using the {@link Group#CONTENT_WITH_COUNT_URI}.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MODIFIER_COUNT = "modifier_count";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.ModifierGroup} instances via content provider.
+   */
+  public static final class Group implements BaseColumns, GroupColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Group() {
+    }
+
+    /**
+     * base content directory for modifiers
+     */
+    public static final String CONTENT_DIRECTORY = "modifier_group";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for this table with an additional count of the number of modifiers in this group.
+     */
+    public static final Uri CONTENT_WITH_COUNT_URI = Uri.withAppendedPath(AUTHORITY_URI, "modifier_group_with_count");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of groups.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifiergroup";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single group.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/modifiergroup";
+
+    /**
+     * Use as ORDER BY to get the default sort order for modifier groups.
+     */
+    public static final String DEFAULT_ORDER_BY =
+        "COALESCE(" + CONTENT_DIRECTORY + "." + SORT_ORDER + "," + Integer.MAX_VALUE + "), " + CONTENT_DIRECTORY + "." + NAME + " COLLATE LOCALIZED ASC";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentWithCountUriWithToken(String token) {
+      return CONTENT_WITH_COUNT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.ItemModifierGroup}.
+   */
+  public interface ItemModifierGroupColumns {
+    /**
+     * Modifier Group id.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String GROUP_ID = "group_id";
+
+    /**
+     * ClientItem id.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_ID = "item_id";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.ItemModifierGroup} instances via content provider.
+   */
+  public static final class ItemModifierGroup implements BaseColumns, ItemModifierGroupColumns {
+
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemModifierGroup() {
+    }
+
+    /**
+     * Base content directory for modifier.
+     */
+    public static final String CONTENT_DIRECTORY = "item_modifier_group";
+
+    /**
+     * The content:// style URI for this table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for this table joined with the modifier_group table.
+     */
+    public static final Uri CONTENT_WITH_NAME_URI = Uri.withAppendedPath(AUTHORITY_URI, "item_modifier_group_with_name");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item modifier group.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemmodifiergroup";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item modifier group.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/itemmodifiergroup";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentWithNameUriWithToken(String token) {
+      return CONTENT_WITH_NAME_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentWithNameUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_WITH_NAME_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.TaxRate}.
+   */
+  public interface TaxRateColumns {
+    /**
+     * Tax Rate uuid.
+     * <p>
+     * Type: TEXT
+     */
+    String UUID = "uuid";
+
+    /**
+     * Tax Rate Name.
+     * <p>
+     * Type: TEXT
+     */
+    String NAME = "name";
+
+    /**
+     * Tax Type (for Argentina's taxes)
+     * <p>
+     *   Type: ENUN: 'VAT_TAXABLE','VAT_NON_TAXABLE','VAT_EXEMPT', 'INTERNAL_TAX'
+     * </p>
+     */
+    String TAX_TYPE = "tax_type";
+
+    /**
+     * Tax Rate - The actual rate.
+     * <p>
+     * Type: LONG
+     */
+    String RATE = "rate";
+
+    /**
+     * Tax Fixed Amount - The fixed flat amount.
+     * <p>
+     * Type: LONG
+     */
+    String TAX_AMOUNT = "tax_amount";
+
+    /**
+     * If the tax rate is a default or not.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String DEFAULT = "is_default";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.TaxRate} instances via content provider.
+   */
+  public static final class TaxRate implements BaseColumns, TaxRateColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private TaxRate() {
+    }
+
+    /**
+     * base content directory for a tax rate
+     */
+    public static final String CONTENT_DIRECTORY = "tax_rate";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for this table joined with the item_tax_rates
+     */
+    public static final Uri CONTENT_FOR_ITEMS_URI = Uri.withAppendedPath(AUTHORITY_URI, "tax_rates_for_item");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of tax rates.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/taxrate";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single tax rate.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/taxrate";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of taxes for items.
+     */
+    public static final String CONTENT_ITEMS_WITH_TAX = "vnd.android.cursor.dir/tax_rates_for_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of taxes for items.
+     */
+    public static final String CONTENT_ITEM_WITH_TAX = "vnd.android.cursor.item/tax_rates_for_item";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentForItemsUriWithToken(String token) {
+      return CONTENT_FOR_ITEMS_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentForItemsUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_FOR_ITEMS_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.TaxRateItem}.
+   */
+  public interface ItemTaxRateColumns {
+    /**
+     * Tax Rate uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String TAX_RATE_UUID = "tax_rate_uuid";
+
+    /**
+     * Item UUID.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_UUID = "item_uuid";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.TaxRateItem} instances via content provider.
+   */
+  public static final class ItemTaxRate implements BaseColumns, ItemTaxRateColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemTaxRate() {
+    }
+
+    /**
+     * base content directory for modifier
+     */
+    public static final String CONTENT_DIRECTORY = "item_tax_rate";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item to tax rates.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemtaxrate";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item to tax rate.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/itemtaxrate";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Discount}.
+   */
+  public interface DiscountColumns {
+
+    /**
+     * Discount uuid.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Discount name. Required.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Discount amount in cents.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String AMOUNT = "amount";
+
+    /**
+     * Discount percent.
+     * <p/>
+     * Type: INTEGER
+     */
+    public static final String PERCENTAGE = "percentage";
+
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Discount} instances via content provider.
+   */
+  public static final class Discount implements BaseColumns, DiscountColumns {
+
+    private Discount() {
+    }
+
+    /**
+     * base content directory for a tax rate
+     */
+    public static final String CONTENT_DIRECTORY = "discount";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of discounts.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd." + AUTHORITY + ".discount";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single discount.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd." + AUTHORITY + ".discount";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Tag}.
+   */
+  public interface TagColumns {
+    /**
+     * Tag uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Tag name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+
+    /**
+     * Show this tag (label) in reports
+     */
+    public static final String SHOW_IN_REPORTS = "show_in_reports";
+
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Tag} instances via content provider.
+   */
+  public static final class Tag implements BaseColumns, TagColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Tag() {
+    }
+
+    /**
+     * base content directory for a tag
+     */
+    public static final String CONTENT_DIRECTORY = "tag";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for this table joined with the item table
+     */
+    public static final Uri CONTENT_FOR_ITEMS_URI = Uri.withAppendedPath(AUTHORITY_URI, "tags_for_item");
+
+    /**
+     * The content:// style URI for this table joined with the printers table
+     */
+    public static final Uri CONTENT_FOR_PRINTERS_URI = Uri.withAppendedPath(AUTHORITY_URI, "tags_for_printer");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of tax rates.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/tag";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single tag.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/tag";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of tags for items.
+     */
+    public static final String CONTENT_ITEMS_WITH_TAG = "vnd.android.cursor.dir/tags_for_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of taxes for items.
+     */
+    public static final String CONTENT_ITEM_WITH_TAG = "vnd.android.cursor.item/tags_for_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of tags for printers.
+     */
+    public static final String CONTENT_PRINTERS_WITH_TAG = "vnd.android.cursor.dir/tags_for_printer";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of taxes for printers.
+     */
+    public static final String CONTENT_PRINTER_WITH_TAG = "vnd.android.cursor.item/tags_for_printer";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentForItemsUriWithToken(String token) {
+      return CONTENT_FOR_ITEMS_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentForItemsUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_FOR_ITEMS_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentForPrintersUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_FOR_PRINTERS_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.TagItem}.
+   */
+  public interface ItemTagColumns {
+    /**
+     * Tag uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String TAG_UUID = "tag_uuid";
+
+    /**
+     * Item UUID.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_UUID = "item_uuid";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.TagItem} instances via content provider.
+   */
+  public static final class ItemTag implements BaseColumns, ItemTagColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemTag() {
+    }
+
+    /**
+     * base content directory for tag
+     */
+    public static final String CONTENT_DIRECTORY = "item_tag";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item to tag.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemtag";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item to tag.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/itemtag";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.TagPrinter}.
+   */
+  public interface PrinterTagColumns {
+    /**
+     * Tag uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String TAG_UUID = "tag_uuid";
+
+    /**
+     * Printer unique id (NOT printer uuid!), one of the following: mac address for network printers, "MY_LOCAL" to
+     * indicate the attached local printer if there is one, and in future some kind of unique identifier for the printer
+     * of some other device. Printer unique id corresponds to {@link Printer#getUniqueId()}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String PRINTER_UID = "printer_uid";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.TagPrinter} instances via content provider.
+   */
+  public static final class PrinterTag implements BaseColumns, PrinterTagColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private PrinterTag() {
+    }
+
+    /**
+     * base content directory for tag
+     */
+    public static final String CONTENT_DIRECTORY = "printer_tag";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of printer to tag.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/printertag";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single printer to tag.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/printertag";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Attribute}.
+   */
+  public interface AttributeColumns {
+    /**
+     * Attribute uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Attribute Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Item group uuid that this attribute belongs to
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String ITEM_GROUP_UUID = "item_group_uuid";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Attribute} instances via content provider.
+   */
+  public static final class Attribute implements BaseColumns, AttributeColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Attribute() {
+    }
+
+    /**
+     * base content directory for attributes
+     */
+    public static final String CONTENT_DIRECTORY = "attribute";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of attributes.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/attribute";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single attribute.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/attribute";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.OptionItem}.
+   */
+  public interface ItemOptionColumns {
+    /**
+     * Option uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String OPTION_UUID = "option_uuid";
+
+    /**
+     * Item UUID.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_UUID = "item_uuid";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.OptionItem} instances via content provider.
+   */
+  public static final class ItemOption implements BaseColumns, ItemOptionColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemOption() {
+    }
+
+    /**
+     * base content directory for item option
+     */
+    public static final String CONTENT_DIRECTORY = "item_option";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item to option.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemoption";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item to option.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/itemoption";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Option}.
+   */
+  public interface OptionColumns {
+    /**
+     * Option uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Attribute uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ATTRIBUTE_UUID = "attribute_uuid";
+
+    /**
+     * Option Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Option} instances via content provider.
+   */
+  public static final class Option implements BaseColumns, OptionColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Option() {
+    }
+
+    /**
+     * base content directory for options
+     */
+    public static final String CONTENT_DIRECTORY = "option";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for this table joined with the item table
+     */
+    public static final Uri CONTENT_FOR_ITEMS_URI = Uri.withAppendedPath(AUTHORITY_URI, "options_for_item");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of options.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/option";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single option.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/option";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of options for items.
+     */
+    public static final String CONTENT_ITEMS_WITH_OPTIONS = "vnd.android.cursor.dir/options_for_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} providing a directory of options for items.
+     */
+    public static final String CONTENT_ITEM_WITH_OPTIONS = "vnd.android.cursor.item/options_for_item";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentForItemsUriWithToken(String token) {
+      return CONTENT_FOR_ITEMS_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentForItemsUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_FOR_ITEMS_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.ItemGroup}.
+   */
+  public interface ItemGroupColumns {
+    /**
+     * Item Group uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Item Group Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+  }
+
+  /**
+   * These column names are used to access fields of
+   * {@link com.clover.sdk.v3.inventory.ItemGroup} which have names identical
+   * to {@link com.clover.sdk.v3.inventory.Item} or which are computed when
+   * querying via the {@link ItemGroup#CONTENT_URI_AND_ITEMS} URI.
+   */
+  public interface ItemGroupsAndItemsColumns extends ItemColumns {
+    /**
+     * Item Group Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_GROUP_NAME = "item_group_name";
+
+    /**
+     * Item Count in Item Group.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String ITEM_GROUP_ITEMS_COUNT = "item_group_items_count";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.ItemGroup} instances via content provider.
+   */
+  public static final class ItemGroup implements BaseColumns, ItemGroupColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemGroup() {
+    }
+
+    /**
+     * base content directory for item group
+     */
+    public static final String CONTENT_DIRECTORY = "item_group";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The content:// style URI for the item group and item tables joined.
+     */
+    public static final Uri CONTENT_URI_AND_ITEMS = Uri.withAppendedPath(AUTHORITY_URI, "item_groups_and_items");
+
+    /**
+     * Join table that has items and item groups data (including item count for a group).
+     * Each row represents either item that has no group or one sample item from a group plus group information.
+     */
+    public static final Uri CONTENT_URI_AND_SAMPLE_ITEMS = Uri.withAppendedPath(AUTHORITY_URI, "item_groups_and_sample_items");
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item groups.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/item_group";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item group.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/item_group";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentUriAndItemWithToken(String token) {
+      return CONTENT_URI_AND_ITEMS.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriAndItemWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI_AND_ITEMS.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentUriAndSampleItemWithToken(String token) {
+      return CONTENT_URI_AND_SAMPLE_ITEMS.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriAndSampleItemWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI_AND_SAMPLE_ITEMS.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.ItemStock}.
+   */
+  public interface ItemStockColumns {
+    /**
+     * Associated item uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_UUID = "item_uuid";
+
+    /**
+     * Associated item uuid.
+     * <p>
+     * Type: NUMERIC
+     */
+    public static final String QUANTITY = "quantity";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.ItemStock} instances via content provider.
+   */
+  public static final class ItemStock implements BaseColumns, ItemStockColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemStock() {
+    }
+
+    /**
+     * base content directory for item_stocks
+     */
+    public static final String CONTENT_DIRECTORY = "item_stock";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item_stocks.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/item_stock";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single item_stock.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/item_stock";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * Columns containing data for tax rules. Tax rules currently can only be created and modified by Clover.
+   */
+  public interface TaxRuleColumns {
+
+    public static final String UUID = "uuid";
+
+    /**
+     * Name for this tax rule.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Order type, obtained via {@link OrderType#getId()}, that this particular tax rule applies to.
+     */
+    public static final String ORDER_TYPE = "order_type_uuid";
+
+    public static final String CREATED_TIME = "created_time";
+
+    public static final String MODIFIED_TIME = "modified_time";
+
+    public static final String DELETED_TIME = "deleted_time";
+
+  }
+
+  /**
+   * Columns for rows of data mapping UUIDs of tax rules to items.
+   */
+  public interface TaxRuleItemColumns {
+
+    public static final String TAX_RULE_UUID = "tax_rule_uuid";
+
+    public static final String ITEM_UUID = "item_uuid";
+
+    public static final String CREATED_TIME = "created_time";
+
+    public static final String MODIFIED_TIME = "modified_time";
+
+    public static final String DELETED_TIME = "deleted_time";
+
+  }
+
+  /**
+   * Contract for accessing tax rule and {@link com.clover.sdk.v3.inventory.Item}
+   * associations via content provider. Objects for data provided through this
+   * contract are not currently provided.
+   */
+  public static final class TaxRuleItem implements BaseColumns, TaxRuleItemColumns {
+
+    public static final String CONTENT_DIRECTORY = "tax_rule_item";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/tax_rule_item";
+
+    public static final String CONTENT_TAX_RULE_TYPE = "vnd.android.cursor.item/tax_rule_item";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * Contract for accessing tax rule information. Objects for data provided
+   * through this contract are not currently provided.
+   */
+  public static final class TaxRule implements BaseColumns, TaxRuleColumns {
+
+    public static final String CONTENT_DIRECTORY = "tax_rule";
+
+    public static final String TAX_EXCLUSION_PATH = "tax_exclusion_rule";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * A content URI providing a join of {@link TaxRuleItem#CONTENT_DIRECTORY} rows
+     * with {@link TaxRate#CONTENT_DIRECTORY} rows.
+     */
+    public static final Uri CONTENT_WITH_RATE_URI = Uri.withAppendedPath(AUTHORITY_URI, TAX_EXCLUSION_PATH);
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/tax_rule";
+
+    public static final String CONTENT_TAX_RULE_TYPE = "vnd.android.cursor.item/tax_rule";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * Columns for rows of data mapping UUIDs of tax rule to {@link com.clover.sdk.v3.inventory.TaxRate}.
+   */
+  public interface TaxRuleTaxRateColumns {
+
+    public static final String TAX_RULE_UUID = "tax_rule_uuid";
+
+    public static final String TAX_RATE_UUID = "tax_rate_uuid";
+
+    public static final String CREATED_TIME = "created_time";
+
+    public static final String MODIFIED_TIME = "modified_time";
+
+    public static final String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing tax rule and {@link com.clover.sdk.v3.inventory.TaxRate}
+   * association data. Objects for data provided through this contract are not
+   * currently provided.
+   */
+  public static final class TaxRuleTaxRate implements BaseColumns, TaxRuleTaxRateColumns {
+
+    public static final String CONTENT_DIRECTORY = "tax_rule_tax_rate";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/tax_rule_tax_rate";
+
+    public static final String CONTENT_TAX_RULE_TYPE = "vnd.android.cursor.item/tax_rule_tax_rate";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
 }

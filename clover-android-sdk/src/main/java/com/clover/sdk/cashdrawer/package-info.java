@@ -23,8 +23,5 @@
  * }
  * </code>
  * </pre>
- *
- * Your application must be granted the permission <code>clover.permission.POP_CASH_DRAWER_NEW</code> in order to use
- * the classes in this package.
  */
 package com.clover.sdk.cashdrawer;

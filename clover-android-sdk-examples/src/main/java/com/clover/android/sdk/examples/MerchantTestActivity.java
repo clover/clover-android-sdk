@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 package com.clover.android.sdk.examples;
+
+import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
+import com.clover.sdk.v1.merchant.Merchant;
+import com.clover.sdk.v1.merchant.MerchantAddress;
+import com.clover.sdk.v1.merchant.MerchantConnector;
+import com.clover.sdk.v1.merchant.MerchantIntent;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -30,13 +38,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.ResultStatus;
-import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.merchant.Merchant;
-import com.clover.sdk.v1.merchant.MerchantAddress;
-import com.clover.sdk.v1.merchant.MerchantConnector;
-import com.clover.sdk.v1.merchant.MerchantIntent;
 
 import java.text.DateFormat;
 import java.util.Date;

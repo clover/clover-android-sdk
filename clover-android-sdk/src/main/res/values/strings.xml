@@ -29,5 +29,7 @@
   <string name="returnToMerchant">Please return this device to an employee</string>
 
   <string name="returnToMerchantFontFamily">sans-serif-light</string>
+  <string name="register_uri">Register URI</string>
+  <string name="print_label">Print</string>
 
 </resources>

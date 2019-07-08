@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '221.9'
+version = '228.3'
 
-apply from: file("${project.rootDir}/versions.gradle")
-
-apply plugin: 'com.android.application'
+apply from: file("${project.rootDir}/app.gradle")
 
 repositories {
   mavenLocal()
@@ -33,7 +31,6 @@ android {
       }
   compileSdkVersion COMPILE_SDK_VERSION
   buildToolsVersion BUILD_TOOLS_VERSION
-  useLibrary HTTP_LIBRARY
 
   defaultConfig {
     minSdkVersion MIN_SDK_VERSION
@@ -43,5 +40,7 @@ android {
 
 dependencies {
   compile project(':clover-android-sdk')
+  implementation 'com.android.support:recyclerview-v7:28.0.0'
+  implementation "com.android.support:support-compat:28.0.0"
+  implementation 'com.android.support:cardview-v7:28.0.0'
 }
-

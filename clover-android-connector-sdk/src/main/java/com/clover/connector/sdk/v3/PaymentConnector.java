@@ -256,18 +256,10 @@ public class PaymentConnector implements IPaymentConnector {
       addCloverConnectorListener(paymentConnectorListener);
     }
 
-    if (remoteApplicationId == null || remoteApplicationId.isEmpty()) {
-      try {
-        Toast.makeText(context, "Warning! No remote application ID provided!", Toast.LENGTH_LONG).show();
-      } catch (Exception e) {
-        //most likely did not run on UI thread
-        Log.e(this.getClass().getSimpleName(), "Tried to make a Toast on non UI Thread", e);
-      }
-    }
     connectToPaymentService(context, account, remoteApplicationId);
   }
 
-  private void connectToPaymentService(final Context context, Account account, String remoteApplicationId) {
+  private void connectToPaymentService(final Context context, Account account, final String remoteApplicationId) {
     if (paymentV3Connector == null) {
       paymentV3Connector = new PaymentV3Connector(context, account, new ServiceConnector.OnServiceConnectedListener() {
         @Override

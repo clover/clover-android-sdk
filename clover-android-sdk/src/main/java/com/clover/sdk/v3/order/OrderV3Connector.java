@@ -1017,4 +1017,19 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
     });
   }
 
+  /**
+   * @param orderId The ID of the order to be updated.
+   * @param creditId The ID of the credit to be refunded.
+   * @return the CreditRefund object constructed using the RefundResponse the serverf returns
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public CreditRefund vaultedCreditRefund(final String orderId, final String creditId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderService, CreditRefund>() {
+      @Override
+      public CreditRefund call(IOrderService service, ResultStatus status) throws RemoteException {
+        return service.vaultedCreditRefund(orderId, creditId, status);
+      }
+    });
+  }
 }

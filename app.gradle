@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply from: file("${project.rootDir}/common.gradle")
+//apply from: file("${project.rootDir}/signing.gradle")
+apply from: file("${project.rootDir}/versions.gradle")
+
+/**
+ * Gets the full path of the proguard file specified by `name`.
+ *
+ * The current options are:
+ *     proguard-clover-apps.txt
+ */
+ext.getCommonProguardFile = { name ->
+  def fileName = "${androidBuild}/$name"
+  if (!new File(fileName).exists()) {
+    throw new IllegalArgumentException("'$name' is not a valid proguard config file")
+  }
+  return fileName
+}
+
+def manifestFile = new File(project.projectDir, '/src/main/AndroidManifest.xml')
+
+def getPackage = { ->
+  def parser = new groovy.util.XmlParser(false, true)
+  def rootNode = parser.parse(manifestFile)
+  def attributes = rootNode.attributes()
+  def pkg = attributes['package']
+  return pkg
+}
+
+def getVersionCode = { ->
+  def code = project.hasProperty('versionCode') ? versionCode.toInteger() : 32000
+  return code
+}
+
+def getVersionName = { ->
+  def ns = new groovy.xml.Namespace('http://schemas.android.com/apk/res/android', 'ns')
+  def parser = new groovy.util.XmlParser(false, true)
+  def rootNode = parser.parse(manifestFile)
+  def attributes = rootNode.attributes()
+  def baseCode = attributes[ns.versionName] ?: '1.0'
+  def name = baseCode + "-" + getVersionCode()
+  return name;
+}
+
+def releaseBuildTypes = ['release', 'releaseSigned']
+
+android.applicationVariants.all { variant ->
+  if (releaseBuildTypes.contains(buildType.name)) {
+    String pkg = getPackage()
+    if (!variant.productFlavors.empty) {
+      logger.warn('There are product flavors in the project, going to use package names from their override')
+      if (variant.productFlavors.get(0).applicationId != null) {
+        pkg = variant.productFlavors.get(0).applicationId
+      }
+    }
+
+    String versionName = getVersionName()
+    variant.outputs.all { output ->
+      outputFileName = new File(output.outputFile.name.replace(project.archivesBaseName, "${pkg}-${versionName}"))
+    }
+  }
+}
+
+android {
+  compileSdkVersion COMPILE_SDK_VERSION
+  buildToolsVersion BUILD_TOOLS_VERSION
+  useLibrary HTTP_LIBRARY
+
+  defaultConfig {
+    versionCode getVersionCode()
+    versionName getVersionName()
+
+    minSdkVersion MIN_SDK_VERSION
+    targetSdkVersion TARGET_SDK_VERSION
+  }
+
+  packagingOptions {
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  dexOptions {
+   preDexLibraries = Boolean.valueOf(System.getProperty("androidPreDex", "true"))
+  }
+}

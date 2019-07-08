@@ -49,6 +49,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getResult result}</li>
  * <li>{@link #getCardTransaction cardTransaction}</li>
  * <li>{@link #getServiceCharge serviceCharge}</li>
+ * <li>{@link #getAttributes attributes}</li>
  * <li>{@link #getAdditionalCharges additionalCharges}</li>
  * <li>{@link #getTaxRates taxRates}</li>
  * <li>{@link #getRefunds refunds}</li>
@@ -184,7 +185,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.serviceCharge);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
+  public java.util.Map<String, String> getAttributes() {
+    return genClient.cacheGet(CacheKey.attributes);
+  }
+
+  public java.util.List<AdditionalChargeAmount> getAdditionalCharges() {
     return genClient.cacheGet(CacheKey.additionalCharges);
   }
 
@@ -387,7 +392,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     serviceCharge {
       @Override
       public Object extractValue(Payment instance) {
-        return instance.genClient.extractRecord("serviceCharge", com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR);
+        return instance.genClient.extractRecord("serviceCharge", ServiceChargeAmount.JSON_CREATOR);
+      }
+    },
+    attributes {
+      @Override
+      public Object extractValue(Payment instance) {
+        return instance.genClient.extractMap("attributes");
       }
     },
     additionalCharges {
@@ -648,6 +659,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.serviceCharge);
   }
 
+  /** Checks whether the 'attributes' field is set and is not null */
+  public boolean isNotNullAttributes() {
+    return genClient.cacheValueIsNotNull(CacheKey.attributes);
+  }
+
+  /** Checks whether the 'attributes' field is set and is not null and is not empty */
+  public boolean isNotEmptyAttributes() { return isNotNullAttributes() && !getAttributes().isEmpty(); }
+
   /** Checks whether the 'additionalCharges' field is set and is not null */
   public boolean isNotNullAdditionalCharges() {
     return genClient.cacheValueIsNotNull(CacheKey.additionalCharges);
@@ -830,6 +849,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'serviceCharge' field has been set, however the value could be null */
   public boolean hasServiceCharge() {
     return genClient.cacheHasKey(CacheKey.serviceCharge);
+  }
+
+  /** Checks whether the 'attributes' field has been set, however the value could be null */
+  public boolean hasAttributes() {
+    return genClient.cacheHasKey(CacheKey.attributes);
   }
 
   /** Checks whether the 'additionalCharges' field has been set, however the value could be null */
@@ -1052,6 +1076,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'attributes'.
+   */
+  public Payment setAttributes(java.util.Map<String, String> attributes) {
+    return genClient.setOther(attributes, CacheKey.attributes);
+  }
+
+  /**
    * Sets the field 'additionalCharges'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -1262,6 +1293,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearServiceCharge() {
     genClient.clear(CacheKey.serviceCharge);
   }
+  /** Clears the 'attributes' field, the 'has' method for this field will now return false */
+  public void clearAttributes() {
+    genClient.clear(CacheKey.attributes);
+  }
   /** Clears the 'additionalCharges' field, the 'has' method for this field will now return false */
   public void clearAdditionalCharges() {
     genClient.clear(CacheKey.additionalCharges);
@@ -1405,6 +1440,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean CARDTRANSACTION_IS_REQUIRED = false;
     public static final boolean SERVICECHARGE_IS_REQUIRED = false;
+    public static final boolean ATTRIBUTES_IS_REQUIRED = false;
     public static final boolean ADDITIONALCHARGES_IS_REQUIRED = false;
     public static final boolean TAXRATES_IS_REQUIRED = false;
     public static final boolean REFUNDS_IS_REQUIRED = false;
