@@ -57,8 +57,8 @@ public class TransactionTypeEnum extends GenericParcelable implements com.clover
   private GenericClient<TransactionTypeEnum> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public TransactionTypeEnum() {
     genClient = new GenericClient<TransactionTypeEnum>(this);
   }
@@ -69,8 +69,8 @@ public class TransactionTypeEnum extends GenericParcelable implements com.clover
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected TransactionTypeEnum(boolean noInit) {
     genClient = null;
   }

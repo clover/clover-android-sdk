@@ -3,7 +3,7 @@ apply from: file("${project.rootDir}/versions.gradle")
 repositories {
   mavenLocal()
   google()
-  mavenCentral() 
+  mavenCentral()
   jcenter()
 }
 
@@ -30,4 +30,3 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 }
-

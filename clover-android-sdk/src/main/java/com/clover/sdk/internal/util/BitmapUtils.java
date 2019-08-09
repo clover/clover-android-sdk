@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Locale;
 
 public class BitmapUtils {
 
@@ -53,7 +54,7 @@ public class BitmapUtils {
 
       int samplesize = sampledHeight * sampledWidth;
       if ((sampledHeight * sampledWidth) > MAX_ALLOWED_SIZE) {
-        throw new RuntimeException(String.format(MAX_SIZE_EXCEEDED, samplesize));
+        throw new RuntimeException(String.format(Locale.US,MAX_SIZE_EXCEEDED, samplesize));
       }
 
       // This handler attempts to decode into an existing bitmap which may fail,
@@ -154,7 +155,7 @@ public class BitmapUtils {
 
         handleInputStream(bitmapInputStream, options);
       } catch (IOException ioe) {
-        Log.w(TAG, String.format("Could not load image from url %s",
+        Log.w(TAG, String.format(Locale.US,"Could not load image from url %s",
             bitmapUrlString), ioe);
         return false;
       } finally {

@@ -12,6 +12,7 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -29,7 +30,7 @@ import static android.system.OsConstants.SOCK_SEQPACKET;
  * <p/>
  * To enable verbose logging:
  * <code>
- *   adb shell setprop log.tag.FdParcelable VERBOSE
+ * adb shell setprop log.tag.FdParcelable VERBOSE
  * </code>
  *
  * @param <V> Value object, per contract of {@link Parcel#writeValue(Object)}.
@@ -84,7 +85,7 @@ public class FdParcelable<V> implements Parcelable {
         try {
           fis.close();
           if (Log.isLoggable(TAG, Log.VERBOSE)) {
-            Log.v(TAG, String.format("%s: closed read", this));
+            Log.v(TAG, String.format(Locale.US, "%s: closed read", this));
           }
         } catch (IOException e) {
           e.printStackTrace();
@@ -96,7 +97,7 @@ public class FdParcelable<V> implements Parcelable {
     this.bytes = out.toByteArray();
 
     if (Log.isLoggable(TAG, Log.VERBOSE)) {
-      Log.v(TAG, String.format("%s: unparceled %d bytes", this, this.bytes.length));
+      Log.v(TAG, String.format(Locale.US, "%s: unparceled %d bytes", this, this.bytes.length));
     }
   }
 
@@ -124,13 +125,13 @@ public class FdParcelable<V> implements Parcelable {
       @Override
       public void run() {
         if (Log.isLoggable(TAG, Log.VERBOSE)) {
-          Log.v(TAG, String.format("%s: writing %d bytes...", FdParcelable.this, data.length));
+          Log.v(TAG, String.format(Locale.US, "%s: writing %d bytes...", FdParcelable.this, data.length));
         }
         FileOutputStream fos = new ParcelFileDescriptor.AutoCloseOutputStream(writeFd);
         try {
           fos.write(data);
           if (Log.isLoggable(TAG, Log.VERBOSE)) {
-            Log.v(TAG, String.format("%s: done writing %d bytes...", FdParcelable.this, data.length));
+            Log.v(TAG, String.format(Locale.US, "%s: done writing %d bytes...", FdParcelable.this, data.length));
           }
         } catch (IOException e) {
           e.printStackTrace();
@@ -138,7 +139,7 @@ public class FdParcelable<V> implements Parcelable {
           try {
             fos.close();
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
-              Log.v(TAG, String.format("%s: closed write", FdParcelable.this));
+              Log.v(TAG, String.format(Locale.US, "%s: closed write", FdParcelable.this));
             }
           } catch (IOException e) {
             e.printStackTrace();
@@ -146,7 +147,7 @@ public class FdParcelable<V> implements Parcelable {
           try {
             readFd.close();
             if (Log.isLoggable(TAG, Log.VERBOSE)) {
-              Log.v(TAG, String.format("%s: closed read", FdParcelable.this));
+              Log.v(TAG, String.format(Locale.US, "%s: closed read", FdParcelable.this));
             }
           } catch (IOException e) {
             e.printStackTrace();
@@ -158,7 +159,7 @@ public class FdParcelable<V> implements Parcelable {
 
   public void writeToParcel(Parcel out, int flags) {
     if (Log.isLoggable(TAG, Log.VERBOSE)) {
-      Log.v(TAG, String.format("%s: parceling...", this));
+      Log.v(TAG, String.format(Locale.US, "%s: parceling...", this));
     }
 
     ParcelFileDescriptor[] fds;
@@ -172,7 +173,7 @@ public class FdParcelable<V> implements Parcelable {
       bytes = marshall(value);
     }
     if (Log.isLoggable(TAG, Log.VERBOSE)) {
-      Log.v(TAG, String.format("%s: parceled %d bytes...", this, bytes.length));
+      Log.v(TAG, String.format(Locale.US, "%s: parceled %d bytes...", this, bytes.length));
     }
     write(bytes, fds[0], fds[1]);
   }

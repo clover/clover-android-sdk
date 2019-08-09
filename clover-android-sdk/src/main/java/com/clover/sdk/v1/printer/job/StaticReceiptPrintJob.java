@@ -15,17 +15,27 @@
  */
 package com.clover.sdk.v1.printer.job;
 
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v3.order.Order;
 
+import java.util.ArrayList;
+
 public class StaticReceiptPrintJob extends StaticOrderBasedPrintJob implements Parcelable {
 
   public static class Builder extends StaticOrderBasedPrintJob.Builder {
+
     public Builder staticReceiptPrintJob(StaticReceiptPrintJob pj) {
       staticOrderBasedPrintJob(pj);
 
+      return this;
+    }
+
+    public Builder footerUris(Uri... footerUris) {
+      super.footerUri(footerUris);
       return this;
     }
 

@@ -16,6 +16,7 @@ ext {
   ROBOLECTRIC_VERSION =  "4.0.2" //https://github.com/robolectric/robolectric/releases
   JAVAX_INJECT_VERSION = "1"
   J_MOCK_VERSION = "2.6.0"
+  MOCKITO_K_VERSION = "1.9"
 
   MULTIDEX_SUPPORT_VERSION = "1.0.3"
   CONSTRAINT_LAYOUT_VERSION = "1.1.3"
@@ -38,7 +39,7 @@ ext {
   RETROFIT_ADAPTER_VERSION = "2.4.0"
   OKHTTP_VERSION = "3.10.0"
 
-  JACKSON_DATE_TIME_MODULE_VERSION = "2.9.8"
+  JACKSON_VERSION = "2.7.9" // Latest version compatible with API 17 https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.9#android
 
   // Libraries
   HTTP_LIBRARY = 'org.apache.http.legacy'

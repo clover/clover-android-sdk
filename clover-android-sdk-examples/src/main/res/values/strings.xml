@@ -38,6 +38,8 @@
     <string name="print_test">Print Test</string>
     <string name="receipt_registration_test">Receipt Registration Test</string>
     <string name="authenticate_employee">Authenticate Employee</string>
+    <string name="print_task_test">PrintTaskTestActivity</string>
+    <string name="print_image_footer">Print Footer-Image Activity</string>
 
     <array name="connection_type">
         <item>Use app service</item>
@@ -51,5 +53,23 @@
 
     <string name="title_activity_barcode_scanner_test">BarcodeScannerTestActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="view_print">View Print</string>
+    <string name="image_print">Image Print</string>
+    <string name="view_print_2">View Print 2</string>
+    <string name="select_a_printer_below">Select a printer below :</string>
+    <string name="lockscreen_test_activity">Lockscreen Test</string>
+    <string name="unlock">Unlock</string>
+    <string name="lock">Lock</string>
+    <string name="select_string">Please select an employee below :\n(Deselect to disable)</string>
+  <string name="custom_item_test_activity">Order Custom Item Test</string>
+    <string name="order_id_custom_item">Order id :</string>
+    <string name="create_new_order">Create new order</string>
+    <string name="item_name">Item Name</string>
+    <string name="quantity_per_unit">Quantity - per unit</string>
+    <string name="item_unit">Item Unit</string>
+    <string name="item_price">Price</string>
+    <string name="add_item_to_order">Add item to order</string>
+    <string name="complete_order">Complete Order</string>
+
 
 </resources>

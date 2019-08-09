@@ -16,9 +16,6 @@
 
 package com.clover.sdk.v3.order;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import com.clover.core.internal.Lists;
 import com.clover.core.internal.calc.Calc;
 import com.clover.core.internal.calc.Decimal;
@@ -26,6 +23,9 @@ import com.clover.core.internal.calc.Price;
 import com.clover.sdk.v3.base.ServiceCharge;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v3.payments.Payment;
+
+import android.os.Bundle;
+import android.util.Log;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -354,12 +354,25 @@ public class OrderCalc {
     return getCalc().getLineSubtotalWithoutDiscounts(toCalcLines(lines)).getCents();
   }
 
+  /** @return the line item price without discounts and modifiers. */
+  public long getLineExtendedPrice(LineItem line) {
+    return getCalc().getExtendedPrice(new CalcLineItem(line)).getCents();
+  }
+
   public long getServiceCharge() {
     return getCalc().getServiceCharge().getCents();
   }
 
   public long getServiceCharge(Collection<LineItem> lines) {
     return getCalc().getServiceCharge(toCalcLines(lines)).getCents();
+  }
+
+  public long getServiceChargeBeforeRefunds() {
+    return getCalc().getServiceChargeBeforeRefunds().getCents();
+  }
+
+  public long getServiceChargeBeforeRefunds(Collection<LineItem> lines) {
+    return getCalc().getServiceChargeBeforeRefunds(toCalcLines(lines)).getCents();
   }
 
   public long getTotalWithTip(Collection<LineItem> lines) {
@@ -381,5 +394,30 @@ public class OrderCalc {
 
   public Calc.PaymentDetails getPaymentDetails(long paymentAmount, Collection<LineItem> lines) {
     return getCalc().getPaymentDetails(new Price(paymentAmount), toCalcLines(lines));
+  }
+
+  /**
+   * Pass VAT inclusive price Line Item and get back VAT exclusive price
+   *
+   * @param lineItem input Line Item whose VAT exclusive price needs to find out
+   * @return VAT exclusive price
+   * @throws IllegalArgumentException if price on Line item is negative or Flat tax rate on line Item is grater than item
+   *                                  itself
+   */
+  public long getPriceWithoutVAT(LineItem lineItem) {
+    CalcLineItem calcLineItem = new CalcLineItem(lineItem);
+    return getCalc().getPriceWithoutVat(calcLineItem).getCents();
+  }
+
+  /**
+   * Pass VAT exclusive price Line Item and get back VAT inclusive price
+   *
+   * @param lineItem input Line Item whose VAT inclusive price needs to find out
+   * @return VAT inclusive price
+   * @throws IllegalArgumentException if price on Line Item is negative
+   */
+  public long getPriceWithVAT(LineItem lineItem) {
+    CalcLineItem calcLineItem = new CalcLineItem(lineItem);
+    return getCalc().getPriceWithVat(calcLineItem).getCents();
   }
 }

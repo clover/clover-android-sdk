@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Locale;
+
 public class ReceiptRegistration implements Parcelable {
   public static class Builder {
     private String pkg = null;
@@ -59,7 +61,7 @@ public class ReceiptRegistration implements Parcelable {
 
   @Override
   public String toString() {
-    return String.format("%s{pkg=%s, uri=%s}", getClass().getSimpleName(), pkg, uri);
+    return String.format(Locale.US,"%s{pkg=%s, uri=%s}", getClass().getSimpleName(), pkg, uri);
   }
 
   @Override

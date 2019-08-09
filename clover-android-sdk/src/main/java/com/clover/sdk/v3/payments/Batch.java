@@ -163,8 +163,8 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   private GenericClient<Batch> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Batch() {
     genClient = new GenericClient<Batch>(this);
   }
@@ -175,8 +175,8 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Batch(boolean noInit) {
     genClient = null;
   }

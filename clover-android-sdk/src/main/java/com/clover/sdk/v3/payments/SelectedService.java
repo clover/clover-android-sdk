@@ -39,6 +39,10 @@ public enum SelectedService implements Parcelable {
     return null;
   }
 
+  public byte getValue() {
+    return value;
+  }
+
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeByte(value);

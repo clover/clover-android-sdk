@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,6 +26,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 
+import java.util.Locale;
+
 
 /**
  * This class allows an app to check and update the state of customer mode. Customer mode is a
@@ -33,18 +35,23 @@ import android.view.Display;
  * on the primary display without the navigation bar or status bar and without the ability to
  * do a gesture to bring them back.
  * <p/>
- * Activities running on secondary display of a multi-display device need not invoke the methods
- * here since secondary display is always fullscreen and has no exit gestures by default. The
- * enable and disable methods will attempt to detect if the passed context is an activity and if
- * so will perform no action.
- * <p/>
  * Unless you intend for all users of the device to be locked out of all other applications you
  * should ensure that your application always has some way to exit customer mode so the operator
  * can exit your app and manage the device.
- * <p/>
+ *
+ * <h3>Secondary Display Support</h3>
+ *
+ * Activities running on secondary display of a multi-display device need not invoke the methods
+ * here since secondary display has no navigation bar or status bar and has no exit gestures by
+ * default. The enable and disable methods will attempt to detect if the passed context is an
+ * activity and if so will perform no action on a secondary display activity.
+ *
+ * <h3>Original Station</h3>
+ *
  * If you are writing an application for the original Clover Station, this class won't function
  * properly. Instead using the following code snippet to get Clover Station into customer mode.
- * <code>
+ * <pre class="prettyprint">
+ *   if (!Platform2.supportsFeature(context, Platform2.Feature.CUSTOMER_MODE)) {
  *       getWindow().getDecorView().setSystemUiVisibility(
  *           View.SYSTEM_UI_FLAG_LAYOUT_STABLE
  *           | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -52,8 +59,9 @@ import android.view.Display;
  *           | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
  *           | View.SYSTEM_UI_FLAG_LOW_PROFILE
  *           | View.SYSTEM_UI_FLAG_FULLSCREEN
- *           | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
- * </code>
+ *           | 0x10000000);
+ *   }
+ * </pre>
  */
 public class CustomerMode {
 
@@ -101,6 +109,7 @@ public class CustomerMode {
   private static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
   private static final String SET_CUSTOMER_MODE_METHOD = "setCustomerMode";
+  /** Old terminology, actually refers to the employee passcode */
   private static final String EXTRA_REQUIRE_PIN = "requirePin";
 
   /**
@@ -108,7 +117,8 @@ public class CustomerMode {
    * static.
    */
   @Deprecated
-  public CustomerMode() { }
+  public CustomerMode() {
+  }
 
   /**
    * Enable customer mode. Hide the navigation bar and status bar on the primary display. This
@@ -143,9 +153,9 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar on the primary display. 
-   * This method has no effect if the passed context is an activity which is running on a 
-   * non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
+   * and show the lockscreen. This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
    * <p/>
    * Deprecated in favor of {@link #disable(Activity)}.
    */
@@ -155,24 +165,27 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar. This
-   * method has no effect if the passed activity is running on a non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
+   * and show the lockscreen. This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
    */
   public static void disable(Activity activity) {
     disable((Context) activity);
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar. This method has no 
-   * effect if the passed context is an activity which is running on a non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
+   * and show the lockscreen. This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
    * <p/>
    * Deprecated in favor of {@link #disable(Activity, boolean)}.
    *
-   * @param requirePin true if you want to force the employee lockscreen to appear without the
-   *                   "default employee" option
+   * @param requireEmployeePasscode true if you want to force the employee lockscreen to appear
+   *                                without the "default employee" option if the merchant has
+   *                                enabled "default employee".
    */
   @Deprecated
-  public static void disable(Context context, boolean requirePin) {
+  public static void disable(Context context, boolean requireEmployeePasscode) {
     if (Platform2.supportsFeature(context, Platform2.Feature.CUSTOMER_MODE)) {
       if (context instanceof Activity) {
         Activity activity = (Activity) context;
@@ -183,7 +196,7 @@ public class CustomerMode {
 
       try {
         Bundle bundle = new Bundle();
-        bundle.putBoolean(EXTRA_REQUIRE_PIN, requirePin);
+        bundle.putBoolean(EXTRA_REQUIRE_PIN, requireEmployeePasscode);
         context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), bundle);
       } catch (IllegalArgumentException e) {
       }
@@ -191,14 +204,16 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar. Has no effect when
-   * invoked for an activity running on a non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
+   * and show the lockscreen. This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
    *
-   * @param requirePin true if you want to force the employee lockscreen to appear without the
-   *                   "default employee" option
+   * @param requireEmployeePasscode true if you want to force the employee lockscreen to appear
+   *                                without the "default employee" option if the merchant has
+   *                                enabled "default employee".
    */
-  public static void disable(Activity activity, boolean requirePin) {
-    disable((Context) activity, requirePin);
+  public static void disable(Activity activity, boolean requireEmployeePasscode) {
+    disable((Context) activity, requireEmployeePasscode);
   }
 
   /**
@@ -249,8 +264,8 @@ public class CustomerMode {
     Display d = activity.getWindowManager().getDefaultDisplay();
     // Display may be null in very early startup: before super#onCreate()
     if (d == null) {
-      String warning = String.format("Unable to detect display for Activity %s. "
-          + "Ensure that CustomerMode.isShownOnPrimaryDisplay() is invoked after super.onCreate().",
+      String warning = String.format(Locale.US, "Unable to detect display for Activity %s. "
+                                                + "Ensure that CustomerMode.isShownOnPrimaryDisplay() is invoked after super.onCreate().",
           activity.getClass());
       Throwable throwable = new Exception(warning).fillInStackTrace();
       Log.w("CustomerMode", throwable);

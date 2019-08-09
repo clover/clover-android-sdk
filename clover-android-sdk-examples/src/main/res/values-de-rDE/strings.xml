@@ -17,8 +17,6 @@
 
 <resources>
 
-  <string name="title_activity_account_chooser">Clover-Konten</string>
-
   <string name="action_settings">Settings</string>
   <string name="app_event_name">App event name</string>
   <string name="app_name">Clover Android SDK Examples</string>

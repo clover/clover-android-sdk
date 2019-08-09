@@ -305,8 +305,8 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   private GenericClient<Gateway> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Gateway() {
     genClient = new GenericClient<Gateway>(this);
   }
@@ -317,8 +317,8 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Gateway(boolean noInit) {
     genClient = null;
   }

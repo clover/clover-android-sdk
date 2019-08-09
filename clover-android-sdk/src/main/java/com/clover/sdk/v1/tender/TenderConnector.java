@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,18 +15,20 @@
  */
 package com.clover.sdk.v1.tender;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.tender.ITenderService}.
@@ -86,17 +88,17 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
   public static class TenderCallback<T> implements Callback<T> {
     @Override
     public void onServiceSuccess(T result, ResultStatus status) {
-      Log.d(TAG, String.format("on service success: %s", status));
+      Log.d(TAG, String.format(Locale.US, "on service success: %s", status));
     }
 
     @Override
     public void onServiceFailure(ResultStatus status) {
-      Log.w(TAG, String.format("on service failure: %s", status));
+      Log.w(TAG, String.format(Locale.US, "on service failure: %s", status));
     }
 
     @Override
     public void onServiceConnectionFailure() {
-      Log.w(TAG, String.format("on service connect failure"));
+      Log.w(TAG, String.format(Locale.US, "on service connect failure"));
     }
   }
 

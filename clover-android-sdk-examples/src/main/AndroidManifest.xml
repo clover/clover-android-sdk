@@ -24,6 +24,8 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="clover.permission.POP_CASH_DRAWER_NEW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
 tools:replace="android:label"
@@ -121,6 +123,32 @@ tools:replace="android:label"
             android:label="Order Paid Example" >
         </activity>
 
+        <activity
+            android:name="com.clover.android.sdk.examples.PrintTaskTestActivity"
+            android:label="@string/print_task_test" >
+        </activity>
+        <activity
+            android:name=".LockScreenTestActivity"
+            android:label="@string/lockscreen_test_activity" >
+        </activity>
+
+        <activity android:name=".ImagePrinterActivity"
+            android:label="@string/print_image_footer"/>
+
+        <activity
+            android:name=".CustomItemTestActivity"
+            android:label="@string/custom_item_test_activity" >
+        </activity>
+        <receiver android:name=".LockScreenBootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name=".PrinterImageProvider"
+            android:authorities="com.clover.receipt_registration_sample"
+            android:exported="true" />
     </application>
 
 </manifest>

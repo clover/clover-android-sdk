@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,19 +15,22 @@
  */
 package com.clover.sdk.v3.employees;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
+import com.clover.sdk.Lockscreen;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 
+import android.accounts.Account;
+import android.content.Context;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -45,9 +48,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @see com.clover.sdk.v3.employees.IEmployeeService
  */
 public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
+
   private static final String TAG = "EmployeeConnector";
   private static final String SERVICE_HOST = "com.clover.engine";
-
 
   private final List<WeakReference<OnActiveEmployeeChangedListener>> mOnActiveEmployeeChangedListener = new CopyOnWriteArrayList<WeakReference<OnActiveEmployeeChangedListener>>();
 
@@ -77,17 +80,17 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   public static class EmployeeCallback<T> implements Callback<T> {
     @Override
     public void onServiceSuccess(T result, ResultStatus status) {
-      Log.d(TAG, String.format("on service success: %s", status));
+      Log.d(TAG, String.format(Locale.US, "on service success: %s", status));
     }
 
     @Override
     public void onServiceFailure(ResultStatus status) {
-      Log.w(TAG, String.format("on service failure: %s", status));
+      Log.w(TAG, String.format(Locale.US, "on service failure: %s", status));
     }
 
     @Override
     public void onServiceConnectionFailure() {
-      Log.w(TAG, String.format("on service connect failure"));
+      Log.w(TAG, String.format(Locale.US, "on service connect failure"));
     }
   }
 
@@ -174,6 +177,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     super.disconnect();
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getActiveEmployee(ResultStatus)}.
+   */
   public void getEmployee(EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -183,6 +189,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getActiveEmployee(ResultStatus)}.
+   */
   public Employee getEmployee() throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
@@ -192,6 +201,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getEmployee(String, ResultStatus)}.
+   */
   public void getEmployee(final String id, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -201,6 +213,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getEmployee(String, ResultStatus)}.
+   */
   public Employee getEmployee(final String id) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
@@ -210,6 +225,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getEmployees(ResultStatus)}.
+   */
   public void getEmployees(EmployeeCallback<List<Employee>> callback) {
     execute(new EmployeeCallable<List<Employee>>() {
       @Override
@@ -219,6 +237,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#getEmployees(ResultStatus)}.
+   */
   public List<Employee> getEmployees() throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<List<Employee>>() {
       @Override
@@ -228,6 +249,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#createEmployee(Employee, ResultStatus)}.
+   */
   public Employee createEmployee(final Employee employee) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
@@ -237,6 +261,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#createEmployee(Employee, ResultStatus)}.
+   */
   public void createEmployee(final Employee employee, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -246,6 +273,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#updateEmployee(Employee, ResultStatus)}.
+   */
   public Employee updateEmployee(final Employee employee) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
@@ -255,6 +285,10 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
+   */
+  @Deprecated
   public void setEmployeePin(final String id, final String pin, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -264,6 +298,10 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
+   */
+  @Deprecated
   public Employee setEmployeePin(final String id, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new EmployeeCallable<Employee>() {
       @Override
@@ -287,6 +325,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       }
     });
   }
+
   /**
    * Not available to non-Clover apps.
    *
@@ -302,7 +341,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
-
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#updateEmployee(Employee, ResultStatus)}.
+   */
   public void updateEmployee(final Employee employee, EmployeeCallback<Employee> callback) {
     execute(new EmployeeCallable<Employee>() {
       @Override
@@ -312,6 +353,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#deleteEmployee(String, ResultStatus)}.
+   */
   public void deleteEmployee(final String employeeId) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new EmployeeCallable<Void>() {
       @Override
@@ -322,6 +366,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#deleteEmployee(String, ResultStatus)}.
+   */
   public void deleteEmployee(final String employeeId, EmployeeCallback<Void> callback) {
     execute(new EmployeeCallable<Void>() {
       @Override
@@ -331,6 +378,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       }
     }, callback);
   }
+
   /**
    * Not available to non-Clover apps.
    *
@@ -344,6 +392,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       }
     });
   }
+
   /**
    * Not available to non-Clover apps.
    *
@@ -490,6 +539,10 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * @deprecated Please use {@link Lockscreen#unlock()}, {@link Lockscreen#unlock(String)},
+   * or {@link Lockscreen#unlockDefault()}.
+   */
   public void login(EmployeeCallback<Void> callback) {
     execute(new EmployeeCallable<Void>() {
       @Override
@@ -500,6 +553,11 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * @deprecated Please use {@link Lockscreen#unlock()}, {@link Lockscreen#unlock(String)},
+   * or {@link Lockscreen#unlockDefault()}.
+   */
+  @Deprecated
   public void login() throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new EmployeeRunnable() {
       @Override
@@ -509,6 +567,10 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * @deprecated Please use {@link Lockscreen#lock()}.
+   */
+  @Deprecated
   public void logout(EmployeeCallback<Void> callback) {
     execute(new EmployeeCallable<Void>() {
       @Override
@@ -519,6 +581,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     }, callback);
   }
 
+  /**
+   * @deprecated Please use {@link Lockscreen#lock()}.
+   */
   public void logout() throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new EmployeeRunnable() {
       @Override
@@ -537,6 +602,10 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     });
   }
 
+  /**
+   * Register a listener to be called when the active employee changes, which
+   * coincides with the lockscreen being shown or dismissed.
+   */
   public void addOnActiveEmployeeChangedListener(OnActiveEmployeeChangedListener listener) {
     if (mOnActiveEmployeeChangedListener.isEmpty()) {
       execute(new EmployeeCallable<Void>() {
@@ -555,6 +624,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
     mOnActiveEmployeeChangedListener.add(new WeakReference<OnActiveEmployeeChangedListener>(listener));
   }
 
+  /**
+   * Unregister a previously registered employee changed listener.
+   */
   public void removeOnActiveEmployeeChangedListener(OnActiveEmployeeChangedListener listener) {
     if (mOnActiveEmployeeChangedListener != null && !mOnActiveEmployeeChangedListener.isEmpty()) {
       WeakReference<OnActiveEmployeeChangedListener> listenerWeakReference = null;

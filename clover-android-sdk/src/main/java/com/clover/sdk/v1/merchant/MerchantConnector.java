@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,17 +15,19 @@
  */
 package com.clover.sdk.v1.merchant;
 
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.ServiceConnector;
+import com.clover.sdk.v1.ServiceException;
+
 import android.accounts.Account;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ResultStatus;
-import com.clover.sdk.v1.ServiceCallback;
-import com.clover.sdk.v1.ServiceConnector;
-import com.clover.sdk.v1.ServiceException;
+
+import java.util.Locale;
 
 /**
  * A class that encapsulates interaction with {@link com.clover.sdk.v1.merchant.IMerchantService}.
@@ -42,77 +44,7 @@ import com.clover.sdk.v1.ServiceException;
 public class MerchantConnector extends ServiceConnector<IMerchantService> {
   private static final String TAG = "MerchantConnector";
   private static final String SERVICE_HOST = "com.clover.engine";
-
-  /**
-   * A listener that is invoked when the merchant changes.
-   */
-  public static interface OnMerchantChangedListener {
-    void onMerchantChanged(Merchant merchant);
-  }
-
-  private abstract static class MerchantCallable<T> implements ServiceCallable<IMerchantService, T> {
-  }
-
-  private abstract static class MerchantRunnable implements ServiceRunnable<IMerchantService> {
-  }
-
-  /**
-   * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
-   * for receiving asynchronous results from {@link com.clover.sdk.v1.merchant.MerchantConnector}
-   * methods that provides default method implementations.
-   * <p>
-   * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
-   * invocation.
-   *
-   * @param <T> the result type.
-   */
-  public static class MerchantCallback<T> implements Callback<T> {
-    @Override
-    public void onServiceSuccess(T result, ResultStatus status) {
-      Log.d(TAG, String.format("on service success: %s", status));
-    }
-
-    @Override
-    public void onServiceFailure(ResultStatus status) {
-      Log.w(TAG, String.format("on service failure: %s", status));
-    }
-
-    @Override
-    public void onServiceConnectionFailure() {
-      Log.w(TAG, String.format("on service connect failure"));
-    }
-  }
-
   private OnMerchantChangedListener merchantChangedListener;
-
-  private class OnMerchantChangedListenerParent extends IMerchantListener.Stub {
-
-    private MerchantConnector mConnector;
-
-    private OnMerchantChangedListenerParent(MerchantConnector connector) {
-      mConnector = connector;
-    }
-
-    @Override
-    public void onMerchantChanged(final Merchant merchant) {
-      if (merchantChangedListener != null) {
-        mHandler.post(new Runnable() {
-          @Override
-          public void run() {
-            merchantChangedListener.onMerchantChanged(merchant);
-          }
-        });
-      }
-    }
-
-    // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
-    // AIDL services Android unnecessarily retains pointers to otherwise unreferenced instances of this class which in
-    // turn are referencing Context objects that consume large amounts of memory.
-    public void destroy() {
-      mConnector = null;
-    }
-  }
-
   private OnMerchantChangedListenerParent mListener;
 
   /**
@@ -317,6 +249,74 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
         service.setTrackStock(trackStock, status);
       }
     });
+  }
+
+  /**
+   * A listener that is invoked when the merchant changes.
+   */
+  public static interface OnMerchantChangedListener {
+    void onMerchantChanged(Merchant merchant);
+  }
+
+  private abstract static class MerchantCallable<T> implements ServiceCallable<IMerchantService, T> {
+  }
+
+  private abstract static class MerchantRunnable implements ServiceRunnable<IMerchantService> {
+  }
+
+  /**
+   * An implementation of the {@link com.clover.sdk.v1.ServiceConnector.Callback} interface
+   * for receiving asynchronous results from {@link com.clover.sdk.v1.merchant.MerchantConnector}
+   * methods that provides default method implementations.
+   * <p>
+   * The default implementations log the {@link com.clover.sdk.v1.ResultStatus} of the service
+   * invocation.
+   *
+   * @param <T> the result type.
+   */
+  public static class MerchantCallback<T> implements Callback<T> {
+    @Override
+    public void onServiceSuccess(T result, ResultStatus status) {
+      Log.d(TAG, String.format(Locale.US, "on service success: %s", status));
+    }
+
+    @Override
+    public void onServiceFailure(ResultStatus status) {
+      Log.w(TAG, String.format(Locale.US, "on service failure: %s", status));
+    }
+
+    @Override
+    public void onServiceConnectionFailure() {
+      Log.w(TAG, String.format(Locale.US, "on service connect failure"));
+    }
+  }
+
+  private class OnMerchantChangedListenerParent extends IMerchantListener.Stub {
+
+    private MerchantConnector mConnector;
+
+    private OnMerchantChangedListenerParent(MerchantConnector connector) {
+      mConnector = connector;
+    }
+
+    @Override
+    public void onMerchantChanged(final Merchant merchant) {
+      if (merchantChangedListener != null) {
+        mHandler.post(new Runnable() {
+          @Override
+          public void run() {
+            merchantChangedListener.onMerchantChanged(merchant);
+          }
+        });
+      }
+    }
+
+    // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
+    // AIDL services Android unnecessarily retains pointers to otherwise unreferenced instances of this class which in
+    // turn are referencing Context objects that consume large amounts of memory.
+    public void destroy() {
+      mConnector = null;
+    }
   }
 
 

@@ -49,8 +49,8 @@ public class PrintJobsConnector extends CallConnector {
   /**
    * Get the state of a previously printed print job.
    *
-   * Only the last 100 print jobs are retained for historical purposes. If the print job for the given
-   * ID has been purged from the database, null is returned.
+   * Print jobs older than one hour are deleted regardless of their state. If the print job
+   * for the given ID has been deleted from the database, null is returned.
    *
    * @param printJobId a {@link String}, the print job ID.
    *

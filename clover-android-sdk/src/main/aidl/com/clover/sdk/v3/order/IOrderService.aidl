@@ -466,4 +466,13 @@ interface IOrderService {
    * @y.exclude
    */
   Order voidPaymentCardPresent(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in VoidReason reason, String source, out ResultStatus status);
+
+  /**
+   * @param orderId The ID of the order to be updated.
+   * @param creditId The ID of the credit to be refunded.
+   * @return the CreditRefund object constructed using the RefundResponse the serverf returns
+   * Not available to non-Clover apps.
+   * @y.exclude
+  */
+  CreditRefund vaultedCreditRefund(in String orderId, in String creditId, out ResultStatus status);
 }

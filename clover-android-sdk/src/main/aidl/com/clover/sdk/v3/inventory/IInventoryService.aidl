@@ -40,6 +40,10 @@ import com.clover.sdk.v1.ResultStatus;
  * Typically a merchant customizes their inventory either by importing data from a spreadsheet or
  * manually entering their inventory data on the web or through the Clover Inventory app.
  * <p>
+ * Invoking methods through this service generally requires INVENTORY_R and/or INVENTORY_W
+ * permission. See <a href="https://docs.clover.com/clover-platform/docs/permissions">Clover app
+ * permissions</a>
+ * <p>
  * <h2>Items</h2>
  * <p>
  * The basic unit of a merchant's inventory is the {@link Item}. Items could be goods such as shoes
@@ -106,21 +110,22 @@ import com.clover.sdk.v1.ResultStatus;
 interface IInventoryService {
 
   /**
-   * Retrieves all items from the local database; this will return a maximum of 500 items before
-   * returning a fault.  For iterating through the entire item database efficiently, use the
-   * content provider described by {@link com.clover.sdk.v3.inventory.InventoryContract}
-   * or get a list of item IDs via getItemIds() and retrieve individual items through the getItem() call.
+   * @deprecated Many merchants have a large inventory of items that cannot be retrieved in a
+   * single shot due to binder and memory limits. As a precaution always use the
+   * {@link com.clover.sdk.v3.inventory.InventoryContract} to retrieve the entire set of inventory
+   * items.
+   * <p/>
+   * This method will return a maximum of 500 items before returning a fault.
    */
   List<Item> getItems(out ResultStatus resultStatus);
 
   /**
-   * Same as getItems() but returns the list of categories to which each item belongs.
+   * @deprecated See note on {@link #getItems(ResultStatus).
    */
   List<Item> getItemsWithCategories(out ResultStatus resultStatus);
 
   /**
-   * Retrieves all item IDs from the local database; use this in place of getItems() when the
-   * inventory database is large, and make subsequent calls to getItem() for the full item as necessary.
+   * @deprecated See note on {@link #getItems(ResultStatus).
    */
   List<String> getItemIds(out ResultStatus resultStatus);
 
@@ -312,6 +317,8 @@ interface IInventoryService {
 
   /**
    * Gets all defined tags for the merchant.
+   * <p/>
+   * This method will return a maximum of 500 values before returning a fault.
    */
   List<com.clover.sdk.v3.inventory.Tag> getTags(out ResultStatus resultStatus);
 
@@ -393,6 +400,8 @@ interface IInventoryService {
 
   /**
    * Gets all defined attributes for the merchant.
+   * <p/>
+   * This method will return a maximum of 500 values before returning a fault.
    */
   List<com.clover.sdk.v3.inventory.Attribute> getAttributes(out ResultStatus resultStatus);
 
@@ -418,6 +427,8 @@ interface IInventoryService {
 
   /**
    * Gets all defined options for the merchant.
+   * <p/>
+   * This method will return a maximum of 500 values before returning a fault.
    */
   List<com.clover.sdk.v3.inventory.Option> getOptions(out ResultStatus resultStatus);
 

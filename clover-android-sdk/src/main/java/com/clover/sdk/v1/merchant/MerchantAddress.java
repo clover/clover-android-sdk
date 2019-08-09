@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,64 +19,23 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Locale;
+
 /**
  * A class representing a merchant address. Instances of this class are immutable.
  * To construct a new instance of this class, use
  * {@link com.clover.sdk.v1.merchant.MerchantAddress.Builder}.
  */
 public class MerchantAddress implements Parcelable {
-  /**
-   * Builder class for constructing {@link com.clover.sdk.v1.merchant.MerchantAddress}s.
-   */
-  public static class Builder {
-    private String address1 = null;
-    private String address2 = null;
-    private String address3 = null;
-    private String city = null;
-    private String state = null;
-    private String zip = null;
-    private String country = null;
-
-    public Builder address1(String address1) {
-      this.address1 = address1;
-      return this;
+  public static final Parcelable.Creator<MerchantAddress> CREATOR = new Parcelable.Creator<MerchantAddress>() {
+    public MerchantAddress createFromParcel(Parcel in) {
+      return new MerchantAddress(in);
     }
 
-    public Builder address2(String address2) {
-      this.address2 = address2;
-      return this;
+    public MerchantAddress[] newArray(int size) {
+      return new MerchantAddress[size];
     }
-
-    public Builder address3(String address3) {
-      this.address3 = address3;
-      return this;
-    }
-
-    public Builder city(String city) {
-      this.city = city;
-      return this;
-    }
-
-    public Builder state(String state) {
-      this.state = state;
-      return this;
-    }
-
-    public Builder zip(String zip) {
-      this.zip = zip;
-      return this;
-    }
-
-    public Builder country(String country) {
-      this.country = country;
-      return this;
-    }
-
-    public MerchantAddress build() {
-      return new MerchantAddress(address1, address2, address3, city, state, zip, country);
-    }
-  }
-
+  };
   private static final String KEY_ADDRESS1 = "address1";
   private static final String KEY_ADDRESS2 = "address2";
   private static final String KEY_ADDRESS3 = "address3";
@@ -246,18 +205,60 @@ public class MerchantAddress implements Parcelable {
     dest.writeBundle(data);
   }
 
-  public static final Parcelable.Creator<MerchantAddress> CREATOR = new Parcelable.Creator<MerchantAddress>() {
-    public MerchantAddress createFromParcel(Parcel in) {
-      return new MerchantAddress(in);
-    }
-
-    public MerchantAddress[] newArray(int size) {
-      return new MerchantAddress[size];
-    }
-  };
-
   @Override
   public String toString() {
-    return String.format("%s{address1=%s, address2=%s, address3=%s, city=%s, state=%s, zip=%s, country=%s", getClass().getSimpleName(), getAddress1(), getAddress2(), getAddress3(), getCity(), getState(), getZip(), getCountry());
+    return String.format(Locale.US, "%s{address1=%s, address2=%s, address3=%s, city=%s, state=%s, zip=%s, country=%s", getClass().getSimpleName(), getAddress1(), getAddress2(), getAddress3(), getCity(), getState(), getZip(), getCountry());
+  }
+
+  /**
+   * Builder class for constructing {@link com.clover.sdk.v1.merchant.MerchantAddress}s.
+   */
+  public static class Builder {
+    private String address1 = null;
+    private String address2 = null;
+    private String address3 = null;
+    private String city = null;
+    private String state = null;
+    private String zip = null;
+    private String country = null;
+
+    public Builder address1(String address1) {
+      this.address1 = address1;
+      return this;
+    }
+
+    public Builder address2(String address2) {
+      this.address2 = address2;
+      return this;
+    }
+
+    public Builder address3(String address3) {
+      this.address3 = address3;
+      return this;
+    }
+
+    public Builder city(String city) {
+      this.city = city;
+      return this;
+    }
+
+    public Builder state(String state) {
+      this.state = state;
+      return this;
+    }
+
+    public Builder zip(String zip) {
+      this.zip = zip;
+      return this;
+    }
+
+    public Builder country(String country) {
+      this.country = country;
+      return this;
+    }
+
+    public MerchantAddress build() {
+      return new MerchantAddress(address1, address2, address3, city, state, zip, country);
+    }
   }
 }

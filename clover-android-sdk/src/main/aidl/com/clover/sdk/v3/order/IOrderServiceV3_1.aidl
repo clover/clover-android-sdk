@@ -19,6 +19,7 @@ import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.PaymentListFdParcelable;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
 import com.clover.sdk.v3.payments.CreditRefundFdParcelable;
+import com.clover.sdk.v3.payments.CreditRefund;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
 import com.clover.sdk.v3.payments.TransactionInfo;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
@@ -301,4 +302,36 @@ interface IOrderServiceV3_1 {
   RefundFdParcelable refund2(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
 
   OrderFdParcelable cleanUpPreAuthAfterTransaction(String orderId, in VoidReason voidReason, out ResultStatus status);
+
+  /**
+   * Splits line items without taking a payment. Each {@link LineItem} in {@code lineItemIds} is
+   * equally split across all bins in {@code binNames}.
+   *
+   * For example, given a single line item ID and bin names "a" and "b", then two new line items are
+   * created. One for bin "a" and another for bin "b". The original line item is then deleted. Each
+   * new line item represents an equal fraction of the original by using a fraction of the
+   * original's unit quantity.
+   *
+   * Using this method allows for items to be shared without locking the order.
+   *
+   * <p>Restrictions
+   *
+   * A line item may not be split more than once. If a line item cannot be split, it is skipped.
+   *
+   * @param orderId the ID of the order to modify.
+   * @param lineItemIds the line items to split.
+   * @param binNames the bin names to split {@code lineItemIds} across.
+   *
+   * @return the newly created {@link LineItem}s.
+   */
+  LineItemListFdParcelable splitLineItems(String orderId, in List<String> lineItemIds, in List<String> binNames, out ResultStatus resultStatus);
+
+  /**
+   * @param orderId The ID of the order to be updated.
+   * @param creditId The ID of the credit to be refunded.
+   * @return the CreditRefund object constructed using the RefundResponse the serverf returns
+   * Not available to non-Clover apps.
+   * @y.exclude
+  */
+  CreditRefund vaultedCreditRefund(in String orderId, in String creditId, out ResultStatus status);
 }
