@@ -1,8 +1,5 @@
 package com.clover.sdk.v3.connector;
 
-/**
- * Created by glennbedwell on 7/14/17.
- */
 public interface IDeviceConnector {
   /**
    * Initialize the connector's connection. Must be called before calling any other method other than to add or remove listeners

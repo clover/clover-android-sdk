@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,6 +33,8 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getPaymentId paymentId}</li>
+ * <li>{@link #getRefundId refundId}</li>
+ * <li>{@link #getCreditId creditId}</li>
  * <li>{@link #getDisablePrinting disablePrinting}</li>
  * </ul>
  */
@@ -53,6 +55,20 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     return genClient.cacheGet(CacheKey.paymentId);
   }
 
+  /**
+   * Unique identifier
+   */
+  public java.lang.String getRefundId() {
+    return genClient.cacheGet(CacheKey.refundId);
+  }
+
+  /**
+   * Unique identifier
+   */
+  public java.lang.String getCreditId() {
+    return genClient.cacheGet(CacheKey.creditId);
+  }
+
   public java.lang.Boolean getDisablePrinting() {
     return genClient.cacheGet(CacheKey.disablePrinting);
   }
@@ -60,33 +76,36 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DisplayReceiptOptionsRequest> {
-    orderId {
-      @Override
-      public Object extractValue(DisplayReceiptOptionsRequest instance) {
-        return instance.genClient.extractOther("orderId", java.lang.String.class);
-      }
-    },
-    paymentId {
-      @Override
-      public Object extractValue(DisplayReceiptOptionsRequest instance) {
-        return instance.genClient.extractOther("paymentId", java.lang.String.class);
-      }
-    },
-    disablePrinting {
-      @Override
-      public Object extractValue(DisplayReceiptOptionsRequest instance) {
-        return instance.genClient.extractOther("disablePrinting", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    orderId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    paymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    refundId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    creditId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    disablePrinting
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DisplayReceiptOptionsRequest> genClient;
+  private final GenericClient<DisplayReceiptOptionsRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DisplayReceiptOptionsRequest() {
     genClient = new GenericClient<DisplayReceiptOptionsRequest>(this);
   }
@@ -97,8 +116,8 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DisplayReceiptOptionsRequest(boolean noInit) {
     genClient = null;
   }
@@ -147,6 +166,10 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     genClient.validateLength(getOrderId(), 13);
 
     genClient.validateLength(getPaymentId(), 13);
+
+    genClient.validateLength(getRefundId(), 13);
+
+    genClient.validateLength(getCreditId(), 13);
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -157,6 +180,16 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   /** Checks whether the 'paymentId' field is set and is not null */
   public boolean isNotNullPaymentId() {
     return genClient.cacheValueIsNotNull(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'refundId' field is set and is not null */
+  public boolean isNotNullRefundId() {
+    return genClient.cacheValueIsNotNull(CacheKey.refundId);
+  }
+
+  /** Checks whether the 'creditId' field is set and is not null */
+  public boolean isNotNullCreditId() {
+    return genClient.cacheValueIsNotNull(CacheKey.creditId);
   }
 
   /** Checks whether the 'disablePrinting' field is set and is not null */
@@ -174,6 +207,16 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   /** Checks whether the 'paymentId' field has been set, however the value could be null */
   public boolean hasPaymentId() {
     return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'refundId' field has been set, however the value could be null */
+  public boolean hasRefundId() {
+    return genClient.cacheHasKey(CacheKey.refundId);
+  }
+
+  /** Checks whether the 'creditId' field has been set, however the value could be null */
+  public boolean hasCreditId() {
+    return genClient.cacheHasKey(CacheKey.creditId);
   }
 
   /** Checks whether the 'disablePrinting' field has been set, however the value could be null */
@@ -197,6 +240,20 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   }
 
   /**
+   * Sets the field 'refundId'.
+   */
+  public DisplayReceiptOptionsRequest setRefundId(java.lang.String refundId) {
+    return genClient.setOther(refundId, CacheKey.refundId);
+  }
+
+  /**
+   * Sets the field 'creditId'.
+   */
+  public DisplayReceiptOptionsRequest setCreditId(java.lang.String creditId) {
+    return genClient.setOther(creditId, CacheKey.creditId);
+  }
+
+  /**
    * Sets the field 'disablePrinting'.
    */
   public DisplayReceiptOptionsRequest setDisablePrinting(java.lang.Boolean disablePrinting) {
@@ -211,6 +268,14 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
   public void clearPaymentId() {
     genClient.clear(CacheKey.paymentId);
+  }
+  /** Clears the 'refundId' field, the 'has' method for this field will now return false */
+  public void clearRefundId() {
+    genClient.clear(CacheKey.refundId);
+  }
+  /** Clears the 'creditId' field, the 'has' method for this field will now return false */
+  public void clearCreditId() {
+    genClient.clear(CacheKey.creditId);
   }
   /** Clears the 'disablePrinting' field, the 'has' method for this field will now return false */
   public void clearDisablePrinting() {
@@ -279,6 +344,10 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final long PAYMENTID_MAX_LEN = 13;
+    public static final boolean REFUNDID_IS_REQUIRED = false;
+    public static final long REFUNDID_MAX_LEN = 13;
+    public static final boolean CREDITID_IS_REQUIRED = false;
+    public static final long CREDITID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
 
   }

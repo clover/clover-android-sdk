@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -71,39 +71,34 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeveloperMerchantLimits> {
-    requestLimit {
-      @Override
-      public Object extractValue(DeveloperMerchantLimits instance) {
-        return instance.genClient.extractOther("requestLimit", java.lang.Integer.class);
-      }
-    },
-    merchantRequestLimit {
-      @Override
-      public Object extractValue(DeveloperMerchantLimits instance) {
-        return instance.genClient.extractOther("merchantRequestLimit", java.lang.Integer.class);
-      }
-    },
-    concurrentRequestLimit {
-      @Override
-      public Object extractValue(DeveloperMerchantLimits instance) {
-        return instance.genClient.extractOther("concurrentRequestLimit", java.lang.Integer.class);
-      }
-    },
-    concurrentMerchantRequestLimit {
-      @Override
-      public Object extractValue(DeveloperMerchantLimits instance) {
-        return instance.genClient.extractOther("concurrentMerchantRequestLimit", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    requestLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    merchantRequestLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    concurrentRequestLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    concurrentMerchantRequestLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeveloperMerchantLimits> genClient;
+  private final GenericClient<DeveloperMerchantLimits> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DeveloperMerchantLimits() {
     genClient = new GenericClient<DeveloperMerchantLimits>(this);
   }
@@ -114,8 +109,8 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DeveloperMerchantLimits(boolean noInit) {
     genClient = null;
   }

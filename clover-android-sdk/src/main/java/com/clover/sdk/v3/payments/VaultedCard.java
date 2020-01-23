@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -64,45 +64,36 @@ public class VaultedCard extends GenericParcelable implements com.clover.sdk.v3.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VaultedCard> {
-    first6 {
-      @Override
-      public Object extractValue(VaultedCard instance) {
-        return instance.genClient.extractOther("first6", java.lang.String.class);
-      }
-    },
-    last4 {
-      @Override
-      public Object extractValue(VaultedCard instance) {
-        return instance.genClient.extractOther("last4", java.lang.String.class);
-      }
-    },
-    cardholderName {
-      @Override
-      public Object extractValue(VaultedCard instance) {
-        return instance.genClient.extractOther("cardholderName", java.lang.String.class);
-      }
-    },
-    expirationDate {
-      @Override
-      public Object extractValue(VaultedCard instance) {
-        return instance.genClient.extractOther("expirationDate", java.lang.String.class);
-      }
-    },
-    token {
-      @Override
-      public Object extractValue(VaultedCard instance) {
-        return instance.genClient.extractOther("token", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    first6
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    last4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardholderName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    expirationDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    token
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VaultedCard> genClient;
+  private final GenericClient<VaultedCard> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VaultedCard() {
     genClient = new GenericClient<VaultedCard>(this);
   }
@@ -113,8 +104,8 @@ public class VaultedCard extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VaultedCard(boolean noInit) {
     genClient = null;
   }

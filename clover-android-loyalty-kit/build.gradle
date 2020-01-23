@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '228.3'
+version = '248.4'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
 
 dependencies {
-  compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
-  compile project(':clover-android-sdk')
+  implementation project(':clover-android-sdk')
+  implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
 }
 
 apply plugin: 'signing'

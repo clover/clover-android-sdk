@@ -5,51 +5,389 @@
  */
 
 
+/*
+ * Copyright (C) 2019 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.clover.sdk.v3.resellers;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getFdClientId fdClientId}</li>
+ * <li>{@link #getName name}</li>
+ * <li>{@link #getAlternateName alternateName}</li>
+ * <li>{@link #getCode code}</li>
+ * <li>{@link #getOwner owner}</li>
+ * <li>{@link #getDefaultPaymentProcessor defaultPaymentProcessor}</li>
+ * <li>{@link #getDefaultProcessorKey defaultProcessorKey}</li>
+ * <li>{@link #getDefaultCountryCode defaultCountryCode}</li>
+ * <li>{@link #getSupportsNakedCredit supportsNakedCredit}</li>
+ * <li>{@link #getSupportsOutboundBoarding supportsOutboundBoarding}</li>
+ * <li>{@link #getEnforceMerchantPlan enforceMerchantPlan}</li>
+ * <li>{@link #getSupportPhone supportPhone}</li>
+ * <li>{@link #getSupportEmail supportEmail}</li>
+ * <li>{@link #getFilterApps filterApps}</li>
+ * <li>{@link #getForcePhone forcePhone}</li>
+ * <li>{@link #getStationsOnClassic stationsOnClassic}</li>
+ * <li>{@link #getAllowBlackhole allowBlackhole}</li>
+ * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getParentReseller parentReseller}</li>
+ * <li>{@link #getBrandAssets brandAssets}</li>
+ * <li>{@link #getBroadcastMessage broadcastMessage}</li>
+ * <li>{@link #getFeaturedApps featuredApps}</li>
+ * <li>{@link #getTasqCustomerNumber tasqCustomerNumber}</li>
+ * <li>{@link #getIsBulkPurchaser isBulkPurchaser}</li>
+ * <li>{@link #getPartnerSupportEmail partnerSupportEmail}</li>
+ * <li>{@link #getIsRkiIdentifier isRkiIdentifier}</li>
+ * <li>{@link #getMerchantPlanGroup merchantPlanGroup}</li>
+ * <li>{@link #getIsSelfBoarding isSelfBoarding}</li>
+ * <li>{@link #getIsIntercomEnabled isIntercomEnabled}</li>
+ * <li>{@link #getLocale locale}</li>
+ * <li>{@link #getResellerPrivacyPolicyUrl resellerPrivacyPolicyUrl}</li>
+ * <li>{@link #getIsRapidDepositEnabled isRapidDepositEnabled}</li>
+ * <li>{@link #getRapidDepositServiceEntitlementNumber rapidDepositServiceEntitlementNumber}</li>
+ * <li>{@link #getIsCodelessActivation isCodelessActivation}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
-public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Reseller extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
-  public String getName() {
+  /**
+   * First Data Client ID
+   */
+  public java.lang.String getFdClientId() {
+    return genClient.cacheGet(CacheKey.fdClientId);
+  }
+
+  /**
+   * Name of the reseller
+   */
+  public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Reseller> {
-    id {
-      @Override
-      public Object extractValue(Reseller instance) {
-        return instance.genClient.extractOther("id", String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Reseller instance) {
-        return instance.genClient.extractOther("name", String.class);
-      }
-    },
-    ;
+  /**
+   * Alternate FD name of the reseller
+   */
+  public java.lang.String getAlternateName() {
+    return genClient.cacheGet(CacheKey.alternateName);
   }
 
-  private GenericClient<Reseller> genClient = new GenericClient<Reseller>(this);
+  public java.lang.String getCode() {
+    return genClient.cacheGet(CacheKey.code);
+  }
+
+  /**
+   * The owner of the reseller
+   */
+  public com.clover.sdk.v3.account.Account getOwner() {
+    return genClient.cacheGet(CacheKey.owner);
+  }
+
+  public com.clover.sdk.v3.pay.PaymentProcessor getDefaultPaymentProcessor() {
+    return genClient.cacheGet(CacheKey.defaultPaymentProcessor);
+  }
+
+  public com.clover.sdk.v3.pay.ProcessorKey getDefaultProcessorKey() {
+    return genClient.cacheGet(CacheKey.defaultProcessorKey);
+  }
+
+  public java.lang.String getDefaultCountryCode() {
+    return genClient.cacheGet(CacheKey.defaultCountryCode);
+  }
+
+  /**
+   * Indicates if reseller supports naked credit
+   */
+  public java.lang.Boolean getSupportsNakedCredit() {
+    return genClient.cacheGet(CacheKey.supportsNakedCredit);
+  }
+
+  /**
+   * Indicates if the reseller supports outbound boarding, this is true only for demo resellers
+   */
+  public java.lang.Boolean getSupportsOutboundBoarding() {
+    return genClient.cacheGet(CacheKey.supportsOutboundBoarding);
+  }
+
+  /**
+   * Reseller's merchants cannot change their merchant plan as long as this flag is set for the reseller
+   */
+  public java.lang.Boolean getEnforceMerchantPlan() {
+    return genClient.cacheGet(CacheKey.enforceMerchantPlan);
+  }
+
+  public java.lang.String getSupportPhone() {
+    return genClient.cacheGet(CacheKey.supportPhone);
+  }
+
+  public java.lang.String getSupportEmail() {
+    return genClient.cacheGet(CacheKey.supportEmail);
+  }
+
+  /**
+   * Indicates whether the reseller has capability to filter Apps
+   */
+  public java.lang.Boolean getFilterApps() {
+    return genClient.cacheGet(CacheKey.filterApps);
+  }
+
+  /**
+   * Indicates whether the the support phone for all merchants for the reseller should be forced to reseller's support phone
+   */
+  public java.lang.Boolean getForcePhone() {
+    return genClient.cacheGet(CacheKey.forcePhone);
+  }
+
+  /**
+   * Indicates whether the station devices for the reseller are on Classic
+   */
+  public java.lang.Boolean getStationsOnClassic() {
+    return genClient.cacheGet(CacheKey.stationsOnClassic);
+  }
+
+  /**
+   * Indicates whether blackhole processing is allowed for the reseller
+   */
+  public java.lang.Boolean getAllowBlackhole() {
+    return genClient.cacheGet(CacheKey.allowBlackhole);
+  }
+
+  public java.lang.Long getCreatedTime() {
+    return genClient.cacheGet(CacheKey.createdTime);
+  }
+
+  /**
+   * The parent reseller
+   */
+  public com.clover.sdk.v3.resellers.Reseller getParentReseller() {
+    return genClient.cacheGet(CacheKey.parentReseller);
+  }
+
+  public java.util.List<com.clover.sdk.v3.base.Reference> getBrandAssets() {
+    return genClient.cacheGet(CacheKey.brandAssets);
+  }
+
+  public com.clover.sdk.v3.base.Reference getBroadcastMessage() {
+    return genClient.cacheGet(CacheKey.broadcastMessage);
+  }
+
+  public java.util.List<com.clover.sdk.v3.base.Reference> getFeaturedApps() {
+    return genClient.cacheGet(CacheKey.featuredApps);
+  }
+
+  public java.lang.String getTasqCustomerNumber() {
+    return genClient.cacheGet(CacheKey.tasqCustomerNumber);
+  }
+
+  /**
+   * Indicates whether the reseller is a bulk purchaser
+   */
+  public java.lang.Boolean getIsBulkPurchaser() {
+    return genClient.cacheGet(CacheKey.isBulkPurchaser);
+  }
+
+  public java.lang.String getPartnerSupportEmail() {
+    return genClient.cacheGet(CacheKey.partnerSupportEmail);
+  }
+
+  /**
+   * Indicates if the reseller is a 'generic' reseller whose name will be used during RKI requests for resellers devices under it in hierarchy
+   */
+  public java.lang.Boolean getIsRkiIdentifier() {
+    return genClient.cacheGet(CacheKey.isRkiIdentifier);
+  }
+
+  public com.clover.sdk.v3.base.Reference getMerchantPlanGroup() {
+    return genClient.cacheGet(CacheKey.merchantPlanGroup);
+  }
+
+  /**
+   * Indicates if it is a self-boarding reseller
+   */
+  public java.lang.Boolean getIsSelfBoarding() {
+    return genClient.cacheGet(CacheKey.isSelfBoarding);
+  }
+
+  /**
+   * Indicates if intercom is enabled for reseller
+   */
+  public java.lang.Boolean getIsIntercomEnabled() {
+    return genClient.cacheGet(CacheKey.isIntercomEnabled);
+  }
+
+  /**
+   * Language/country of the reseller in locale format
+   */
+  public java.lang.String getLocale() {
+    return genClient.cacheGet(CacheKey.locale);
+  }
+
+  /**
+   * Reseller Privacy Policy URL
+   */
+  public java.lang.String getResellerPrivacyPolicyUrl() {
+    return genClient.cacheGet(CacheKey.resellerPrivacyPolicyUrl);
+  }
+
+  /**
+   * Indicates if rapid deposit is enabled for the reseller
+   */
+  public java.lang.Boolean getIsRapidDepositEnabled() {
+    return genClient.cacheGet(CacheKey.isRapidDepositEnabled);
+  }
+
+  public java.lang.String getRapidDepositServiceEntitlementNumber() {
+    return genClient.cacheGet(CacheKey.rapidDepositServiceEntitlementNumber);
+  }
+
+  /**
+   * Indicates whether the reseller is setup with codeless activation
+   */
+  public java.lang.Boolean getIsCodelessActivation() {
+    return genClient.cacheGet(CacheKey.isCodelessActivation);
+  }
+
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    fdClientId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alternateName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    code
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    owner
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.account.Account.JSON_CREATOR)),
+    defaultPaymentProcessor
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.PaymentProcessor.JSON_CREATOR)),
+    defaultProcessorKey
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.ProcessorKey.JSON_CREATOR)),
+    defaultCountryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportsNakedCredit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsOutboundBoarding
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enforceMerchantPlan
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportPhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filterApps
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    forcePhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    stationsOnClassic
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    allowBlackhole
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    parentReseller
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.resellers.Reseller.JSON_CREATOR)),
+    brandAssets
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    broadcastMessage
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    featuredApps
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    tasqCustomerNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isBulkPurchaser
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    partnerSupportEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isRkiIdentifier
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    merchantPlanGroup
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    isSelfBoarding
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isIntercomEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    locale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    resellerPrivacyPolicyUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isRapidDepositEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    rapidDepositServiceEntitlementNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isCodelessActivation
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Reseller> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public Reseller() { }
+  public Reseller() {
+    genClient = new GenericClient<Reseller>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+   * Constructs a new empty instance.
+   */
+  protected Reseller(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Reseller(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -62,6 +400,7 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
    * reflected in this instance and vice-versa.
    */
   public Reseller(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -69,6 +408,7 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Reseller(Reseller src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -82,10 +422,30 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
     return genClient.getJSONObject();
   }
 
-
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
+
+    genClient.validateLength(getFdClientId(), 10);
+
+    genClient.validateNull(getName(), "name");
+    genClient.validateLength(getName(), 127);
+
+    genClient.validateLength(getAlternateName(), 127);
+
+    genClient.validateLength(getCode(), 20);
+
+    genClient.validateLength(getDefaultCountryCode(), 2);
+
+    genClient.validateLength(getSupportPhone(), 25);
+
+    genClient.validateLength(getSupportEmail(), 127);
+
+    genClient.validateLength(getTasqCustomerNumber(), 6);
+
+    genClient.validateLength(getPartnerSupportEmail(), 127);
+
+    genClient.validateLength(getLocale(), 5);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -93,43 +453,763 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
-  /** Checks whether the 'Name' field is set and is not null */
+  /** Checks whether the 'fdClientId' field is set and is not null */
+  public boolean isNotNullFdClientId() {
+    return genClient.cacheValueIsNotNull(CacheKey.fdClientId);
+  }
+
+  /** Checks whether the 'name' field is set and is not null */
   public boolean isNotNullName() {
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
+
+  /** Checks whether the 'alternateName' field is set and is not null */
+  public boolean isNotNullAlternateName() {
+    return genClient.cacheValueIsNotNull(CacheKey.alternateName);
+  }
+
+  /** Checks whether the 'code' field is set and is not null */
+  public boolean isNotNullCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.code);
+  }
+
+  /** Checks whether the 'owner' field is set and is not null */
+  public boolean isNotNullOwner() {
+    return genClient.cacheValueIsNotNull(CacheKey.owner);
+  }
+
+  /** Checks whether the 'defaultPaymentProcessor' field is set and is not null */
+  public boolean isNotNullDefaultPaymentProcessor() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultPaymentProcessor);
+  }
+
+  /** Checks whether the 'defaultProcessorKey' field is set and is not null */
+  public boolean isNotNullDefaultProcessorKey() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultProcessorKey);
+  }
+
+  /** Checks whether the 'defaultCountryCode' field is set and is not null */
+  public boolean isNotNullDefaultCountryCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultCountryCode);
+  }
+
+  /** Checks whether the 'supportsNakedCredit' field is set and is not null */
+  public boolean isNotNullSupportsNakedCredit() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportsNakedCredit);
+  }
+
+  /** Checks whether the 'supportsOutboundBoarding' field is set and is not null */
+  public boolean isNotNullSupportsOutboundBoarding() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportsOutboundBoarding);
+  }
+
+  /** Checks whether the 'enforceMerchantPlan' field is set and is not null */
+  public boolean isNotNullEnforceMerchantPlan() {
+    return genClient.cacheValueIsNotNull(CacheKey.enforceMerchantPlan);
+  }
+
+  /** Checks whether the 'supportPhone' field is set and is not null */
+  public boolean isNotNullSupportPhone() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportPhone);
+  }
+
+  /** Checks whether the 'supportEmail' field is set and is not null */
+  public boolean isNotNullSupportEmail() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportEmail);
+  }
+
+  /** Checks whether the 'filterApps' field is set and is not null */
+  public boolean isNotNullFilterApps() {
+    return genClient.cacheValueIsNotNull(CacheKey.filterApps);
+  }
+
+  /** Checks whether the 'forcePhone' field is set and is not null */
+  public boolean isNotNullForcePhone() {
+    return genClient.cacheValueIsNotNull(CacheKey.forcePhone);
+  }
+
+  /** Checks whether the 'stationsOnClassic' field is set and is not null */
+  public boolean isNotNullStationsOnClassic() {
+    return genClient.cacheValueIsNotNull(CacheKey.stationsOnClassic);
+  }
+
+  /** Checks whether the 'allowBlackhole' field is set and is not null */
+  public boolean isNotNullAllowBlackhole() {
+    return genClient.cacheValueIsNotNull(CacheKey.allowBlackhole);
+  }
+
+  /** Checks whether the 'createdTime' field is set and is not null */
+  public boolean isNotNullCreatedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'parentReseller' field is set and is not null */
+  public boolean isNotNullParentReseller() {
+    return genClient.cacheValueIsNotNull(CacheKey.parentReseller);
+  }
+
+  /** Checks whether the 'brandAssets' field is set and is not null */
+  public boolean isNotNullBrandAssets() {
+    return genClient.cacheValueIsNotNull(CacheKey.brandAssets);
+  }
+
+  /** Checks whether the 'brandAssets' field is set and is not null and is not empty */
+  public boolean isNotEmptyBrandAssets() { return isNotNullBrandAssets() && !getBrandAssets().isEmpty(); }
+
+  /** Checks whether the 'broadcastMessage' field is set and is not null */
+  public boolean isNotNullBroadcastMessage() {
+    return genClient.cacheValueIsNotNull(CacheKey.broadcastMessage);
+  }
+
+  /** Checks whether the 'featuredApps' field is set and is not null */
+  public boolean isNotNullFeaturedApps() {
+    return genClient.cacheValueIsNotNull(CacheKey.featuredApps);
+  }
+
+  /** Checks whether the 'featuredApps' field is set and is not null and is not empty */
+  public boolean isNotEmptyFeaturedApps() { return isNotNullFeaturedApps() && !getFeaturedApps().isEmpty(); }
+
+  /** Checks whether the 'tasqCustomerNumber' field is set and is not null */
+  public boolean isNotNullTasqCustomerNumber() {
+    return genClient.cacheValueIsNotNull(CacheKey.tasqCustomerNumber);
+  }
+
+  /** Checks whether the 'isBulkPurchaser' field is set and is not null */
+  public boolean isNotNullIsBulkPurchaser() {
+    return genClient.cacheValueIsNotNull(CacheKey.isBulkPurchaser);
+  }
+
+  /** Checks whether the 'partnerSupportEmail' field is set and is not null */
+  public boolean isNotNullPartnerSupportEmail() {
+    return genClient.cacheValueIsNotNull(CacheKey.partnerSupportEmail);
+  }
+
+  /** Checks whether the 'isRkiIdentifier' field is set and is not null */
+  public boolean isNotNullIsRkiIdentifier() {
+    return genClient.cacheValueIsNotNull(CacheKey.isRkiIdentifier);
+  }
+
+  /** Checks whether the 'merchantPlanGroup' field is set and is not null */
+  public boolean isNotNullMerchantPlanGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantPlanGroup);
+  }
+
+  /** Checks whether the 'isSelfBoarding' field is set and is not null */
+  public boolean isNotNullIsSelfBoarding() {
+    return genClient.cacheValueIsNotNull(CacheKey.isSelfBoarding);
+  }
+
+  /** Checks whether the 'isIntercomEnabled' field is set and is not null */
+  public boolean isNotNullIsIntercomEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.isIntercomEnabled);
+  }
+
+  /** Checks whether the 'locale' field is set and is not null */
+  public boolean isNotNullLocale() {
+    return genClient.cacheValueIsNotNull(CacheKey.locale);
+  }
+
+  /** Checks whether the 'resellerPrivacyPolicyUrl' field is set and is not null */
+  public boolean isNotNullResellerPrivacyPolicyUrl() {
+    return genClient.cacheValueIsNotNull(CacheKey.resellerPrivacyPolicyUrl);
+  }
+
+  /** Checks whether the 'isRapidDepositEnabled' field is set and is not null */
+  public boolean isNotNullIsRapidDepositEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.isRapidDepositEnabled);
+  }
+
+  /** Checks whether the 'rapidDepositServiceEntitlementNumber' field is set and is not null */
+  public boolean isNotNullRapidDepositServiceEntitlementNumber() {
+    return genClient.cacheValueIsNotNull(CacheKey.rapidDepositServiceEntitlementNumber);
+  }
+
+  /** Checks whether the 'isCodelessActivation' field is set and is not null */
+  public boolean isNotNullIsCodelessActivation() {
+    return genClient.cacheValueIsNotNull(CacheKey.isCodelessActivation);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
   }
 
-  /** Checks whether the 'Name' field has been set, however the value could be null */
+  /** Checks whether the 'fdClientId' field has been set, however the value could be null */
+  public boolean hasFdClientId() {
+    return genClient.cacheHasKey(CacheKey.fdClientId);
+  }
+
+  /** Checks whether the 'name' field has been set, however the value could be null */
   public boolean hasName() {
     return genClient.cacheHasKey(CacheKey.name);
   }
 
+  /** Checks whether the 'alternateName' field has been set, however the value could be null */
+  public boolean hasAlternateName() {
+    return genClient.cacheHasKey(CacheKey.alternateName);
+  }
+
+  /** Checks whether the 'code' field has been set, however the value could be null */
+  public boolean hasCode() {
+    return genClient.cacheHasKey(CacheKey.code);
+  }
+
+  /** Checks whether the 'owner' field has been set, however the value could be null */
+  public boolean hasOwner() {
+    return genClient.cacheHasKey(CacheKey.owner);
+  }
+
+  /** Checks whether the 'defaultPaymentProcessor' field has been set, however the value could be null */
+  public boolean hasDefaultPaymentProcessor() {
+    return genClient.cacheHasKey(CacheKey.defaultPaymentProcessor);
+  }
+
+  /** Checks whether the 'defaultProcessorKey' field has been set, however the value could be null */
+  public boolean hasDefaultProcessorKey() {
+    return genClient.cacheHasKey(CacheKey.defaultProcessorKey);
+  }
+
+  /** Checks whether the 'defaultCountryCode' field has been set, however the value could be null */
+  public boolean hasDefaultCountryCode() {
+    return genClient.cacheHasKey(CacheKey.defaultCountryCode);
+  }
+
+  /** Checks whether the 'supportsNakedCredit' field has been set, however the value could be null */
+  public boolean hasSupportsNakedCredit() {
+    return genClient.cacheHasKey(CacheKey.supportsNakedCredit);
+  }
+
+  /** Checks whether the 'supportsOutboundBoarding' field has been set, however the value could be null */
+  public boolean hasSupportsOutboundBoarding() {
+    return genClient.cacheHasKey(CacheKey.supportsOutboundBoarding);
+  }
+
+  /** Checks whether the 'enforceMerchantPlan' field has been set, however the value could be null */
+  public boolean hasEnforceMerchantPlan() {
+    return genClient.cacheHasKey(CacheKey.enforceMerchantPlan);
+  }
+
+  /** Checks whether the 'supportPhone' field has been set, however the value could be null */
+  public boolean hasSupportPhone() {
+    return genClient.cacheHasKey(CacheKey.supportPhone);
+  }
+
+  /** Checks whether the 'supportEmail' field has been set, however the value could be null */
+  public boolean hasSupportEmail() {
+    return genClient.cacheHasKey(CacheKey.supportEmail);
+  }
+
+  /** Checks whether the 'filterApps' field has been set, however the value could be null */
+  public boolean hasFilterApps() {
+    return genClient.cacheHasKey(CacheKey.filterApps);
+  }
+
+  /** Checks whether the 'forcePhone' field has been set, however the value could be null */
+  public boolean hasForcePhone() {
+    return genClient.cacheHasKey(CacheKey.forcePhone);
+  }
+
+  /** Checks whether the 'stationsOnClassic' field has been set, however the value could be null */
+  public boolean hasStationsOnClassic() {
+    return genClient.cacheHasKey(CacheKey.stationsOnClassic);
+  }
+
+  /** Checks whether the 'allowBlackhole' field has been set, however the value could be null */
+  public boolean hasAllowBlackhole() {
+    return genClient.cacheHasKey(CacheKey.allowBlackhole);
+  }
+
+  /** Checks whether the 'createdTime' field has been set, however the value could be null */
+  public boolean hasCreatedTime() {
+    return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'parentReseller' field has been set, however the value could be null */
+  public boolean hasParentReseller() {
+    return genClient.cacheHasKey(CacheKey.parentReseller);
+  }
+
+  /** Checks whether the 'brandAssets' field has been set, however the value could be null */
+  public boolean hasBrandAssets() {
+    return genClient.cacheHasKey(CacheKey.brandAssets);
+  }
+
+  /** Checks whether the 'broadcastMessage' field has been set, however the value could be null */
+  public boolean hasBroadcastMessage() {
+    return genClient.cacheHasKey(CacheKey.broadcastMessage);
+  }
+
+  /** Checks whether the 'featuredApps' field has been set, however the value could be null */
+  public boolean hasFeaturedApps() {
+    return genClient.cacheHasKey(CacheKey.featuredApps);
+  }
+
+  /** Checks whether the 'tasqCustomerNumber' field has been set, however the value could be null */
+  public boolean hasTasqCustomerNumber() {
+    return genClient.cacheHasKey(CacheKey.tasqCustomerNumber);
+  }
+
+  /** Checks whether the 'isBulkPurchaser' field has been set, however the value could be null */
+  public boolean hasIsBulkPurchaser() {
+    return genClient.cacheHasKey(CacheKey.isBulkPurchaser);
+  }
+
+  /** Checks whether the 'partnerSupportEmail' field has been set, however the value could be null */
+  public boolean hasPartnerSupportEmail() {
+    return genClient.cacheHasKey(CacheKey.partnerSupportEmail);
+  }
+
+  /** Checks whether the 'isRkiIdentifier' field has been set, however the value could be null */
+  public boolean hasIsRkiIdentifier() {
+    return genClient.cacheHasKey(CacheKey.isRkiIdentifier);
+  }
+
+  /** Checks whether the 'merchantPlanGroup' field has been set, however the value could be null */
+  public boolean hasMerchantPlanGroup() {
+    return genClient.cacheHasKey(CacheKey.merchantPlanGroup);
+  }
+
+  /** Checks whether the 'isSelfBoarding' field has been set, however the value could be null */
+  public boolean hasIsSelfBoarding() {
+    return genClient.cacheHasKey(CacheKey.isSelfBoarding);
+  }
+
+  /** Checks whether the 'isIntercomEnabled' field has been set, however the value could be null */
+  public boolean hasIsIntercomEnabled() {
+    return genClient.cacheHasKey(CacheKey.isIntercomEnabled);
+  }
+
+  /** Checks whether the 'locale' field has been set, however the value could be null */
+  public boolean hasLocale() {
+    return genClient.cacheHasKey(CacheKey.locale);
+  }
+
+  /** Checks whether the 'resellerPrivacyPolicyUrl' field has been set, however the value could be null */
+  public boolean hasResellerPrivacyPolicyUrl() {
+    return genClient.cacheHasKey(CacheKey.resellerPrivacyPolicyUrl);
+  }
+
+  /** Checks whether the 'isRapidDepositEnabled' field has been set, however the value could be null */
+  public boolean hasIsRapidDepositEnabled() {
+    return genClient.cacheHasKey(CacheKey.isRapidDepositEnabled);
+  }
+
+  /** Checks whether the 'rapidDepositServiceEntitlementNumber' field has been set, however the value could be null */
+  public boolean hasRapidDepositServiceEntitlementNumber() {
+    return genClient.cacheHasKey(CacheKey.rapidDepositServiceEntitlementNumber);
+  }
+
+  /** Checks whether the 'isCodelessActivation' field has been set, however the value could be null */
+  public boolean hasIsCodelessActivation() {
+    return genClient.cacheHasKey(CacheKey.isCodelessActivation);
+  }
+
+
   /**
    * Sets the field 'id'.
    */
-  public Reseller setId(String id) {
+  public Reseller setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
-   * Sets the field 'Name'.
+   * Sets the field 'fdClientId'.
    */
-  public Reseller setName(String name) {
+  public Reseller setFdClientId(java.lang.String fdClientId) {
+    return genClient.setOther(fdClientId, CacheKey.fdClientId);
+  }
+
+  /**
+   * Sets the field 'name'.
+   */
+  public Reseller setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
   }
+
+  /**
+   * Sets the field 'alternateName'.
+   */
+  public Reseller setAlternateName(java.lang.String alternateName) {
+    return genClient.setOther(alternateName, CacheKey.alternateName);
+  }
+
+  /**
+   * Sets the field 'code'.
+   */
+  public Reseller setCode(java.lang.String code) {
+    return genClient.setOther(code, CacheKey.code);
+  }
+
+  /**
+   * Sets the field 'owner'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setOwner(com.clover.sdk.v3.account.Account owner) {
+    return genClient.setRecord(owner, CacheKey.owner);
+  }
+
+  /**
+   * Sets the field 'defaultPaymentProcessor'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setDefaultPaymentProcessor(com.clover.sdk.v3.pay.PaymentProcessor defaultPaymentProcessor) {
+    return genClient.setRecord(defaultPaymentProcessor, CacheKey.defaultPaymentProcessor);
+  }
+
+  /**
+   * Sets the field 'defaultProcessorKey'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setDefaultProcessorKey(com.clover.sdk.v3.pay.ProcessorKey defaultProcessorKey) {
+    return genClient.setRecord(defaultProcessorKey, CacheKey.defaultProcessorKey);
+  }
+
+  /**
+   * Sets the field 'defaultCountryCode'.
+   */
+  public Reseller setDefaultCountryCode(java.lang.String defaultCountryCode) {
+    return genClient.setOther(defaultCountryCode, CacheKey.defaultCountryCode);
+  }
+
+  /**
+   * Sets the field 'supportsNakedCredit'.
+   */
+  public Reseller setSupportsNakedCredit(java.lang.Boolean supportsNakedCredit) {
+    return genClient.setOther(supportsNakedCredit, CacheKey.supportsNakedCredit);
+  }
+
+  /**
+   * Sets the field 'supportsOutboundBoarding'.
+   */
+  public Reseller setSupportsOutboundBoarding(java.lang.Boolean supportsOutboundBoarding) {
+    return genClient.setOther(supportsOutboundBoarding, CacheKey.supportsOutboundBoarding);
+  }
+
+  /**
+   * Sets the field 'enforceMerchantPlan'.
+   */
+  public Reseller setEnforceMerchantPlan(java.lang.Boolean enforceMerchantPlan) {
+    return genClient.setOther(enforceMerchantPlan, CacheKey.enforceMerchantPlan);
+  }
+
+  /**
+   * Sets the field 'supportPhone'.
+   */
+  public Reseller setSupportPhone(java.lang.String supportPhone) {
+    return genClient.setOther(supportPhone, CacheKey.supportPhone);
+  }
+
+  /**
+   * Sets the field 'supportEmail'.
+   */
+  public Reseller setSupportEmail(java.lang.String supportEmail) {
+    return genClient.setOther(supportEmail, CacheKey.supportEmail);
+  }
+
+  /**
+   * Sets the field 'filterApps'.
+   */
+  public Reseller setFilterApps(java.lang.Boolean filterApps) {
+    return genClient.setOther(filterApps, CacheKey.filterApps);
+  }
+
+  /**
+   * Sets the field 'forcePhone'.
+   */
+  public Reseller setForcePhone(java.lang.Boolean forcePhone) {
+    return genClient.setOther(forcePhone, CacheKey.forcePhone);
+  }
+
+  /**
+   * Sets the field 'stationsOnClassic'.
+   */
+  public Reseller setStationsOnClassic(java.lang.Boolean stationsOnClassic) {
+    return genClient.setOther(stationsOnClassic, CacheKey.stationsOnClassic);
+  }
+
+  /**
+   * Sets the field 'allowBlackhole'.
+   */
+  public Reseller setAllowBlackhole(java.lang.Boolean allowBlackhole) {
+    return genClient.setOther(allowBlackhole, CacheKey.allowBlackhole);
+  }
+
+  /**
+   * Sets the field 'createdTime'.
+   */
+  public Reseller setCreatedTime(java.lang.Long createdTime) {
+    return genClient.setOther(createdTime, CacheKey.createdTime);
+  }
+
+  /**
+   * Sets the field 'parentReseller'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setParentReseller(com.clover.sdk.v3.resellers.Reseller parentReseller) {
+    return genClient.setRecord(parentReseller, CacheKey.parentReseller);
+  }
+
+  /**
+   * Sets the field 'brandAssets'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Reseller setBrandAssets(java.util.List<com.clover.sdk.v3.base.Reference> brandAssets) {
+    return genClient.setArrayRecord(brandAssets, CacheKey.brandAssets);
+  }
+
+  /**
+   * Sets the field 'broadcastMessage'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setBroadcastMessage(com.clover.sdk.v3.base.Reference broadcastMessage) {
+    return genClient.setRecord(broadcastMessage, CacheKey.broadcastMessage);
+  }
+
+  /**
+   * Sets the field 'featuredApps'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Reseller setFeaturedApps(java.util.List<com.clover.sdk.v3.base.Reference> featuredApps) {
+    return genClient.setArrayRecord(featuredApps, CacheKey.featuredApps);
+  }
+
+  /**
+   * Sets the field 'tasqCustomerNumber'.
+   */
+  public Reseller setTasqCustomerNumber(java.lang.String tasqCustomerNumber) {
+    return genClient.setOther(tasqCustomerNumber, CacheKey.tasqCustomerNumber);
+  }
+
+  /**
+   * Sets the field 'isBulkPurchaser'.
+   */
+  public Reseller setIsBulkPurchaser(java.lang.Boolean isBulkPurchaser) {
+    return genClient.setOther(isBulkPurchaser, CacheKey.isBulkPurchaser);
+  }
+
+  /**
+   * Sets the field 'partnerSupportEmail'.
+   */
+  public Reseller setPartnerSupportEmail(java.lang.String partnerSupportEmail) {
+    return genClient.setOther(partnerSupportEmail, CacheKey.partnerSupportEmail);
+  }
+
+  /**
+   * Sets the field 'isRkiIdentifier'.
+   */
+  public Reseller setIsRkiIdentifier(java.lang.Boolean isRkiIdentifier) {
+    return genClient.setOther(isRkiIdentifier, CacheKey.isRkiIdentifier);
+  }
+
+  /**
+   * Sets the field 'merchantPlanGroup'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reseller setMerchantPlanGroup(com.clover.sdk.v3.base.Reference merchantPlanGroup) {
+    return genClient.setRecord(merchantPlanGroup, CacheKey.merchantPlanGroup);
+  }
+
+  /**
+   * Sets the field 'isSelfBoarding'.
+   */
+  public Reseller setIsSelfBoarding(java.lang.Boolean isSelfBoarding) {
+    return genClient.setOther(isSelfBoarding, CacheKey.isSelfBoarding);
+  }
+
+  /**
+   * Sets the field 'isIntercomEnabled'.
+   */
+  public Reseller setIsIntercomEnabled(java.lang.Boolean isIntercomEnabled) {
+    return genClient.setOther(isIntercomEnabled, CacheKey.isIntercomEnabled);
+  }
+
+  /**
+   * Sets the field 'locale'.
+   */
+  public Reseller setLocale(java.lang.String locale) {
+    return genClient.setOther(locale, CacheKey.locale);
+  }
+
+  /**
+   * Sets the field 'resellerPrivacyPolicyUrl'.
+   */
+  public Reseller setResellerPrivacyPolicyUrl(java.lang.String resellerPrivacyPolicyUrl) {
+    return genClient.setOther(resellerPrivacyPolicyUrl, CacheKey.resellerPrivacyPolicyUrl);
+  }
+
+  /**
+   * Sets the field 'isRapidDepositEnabled'.
+   */
+  public Reseller setIsRapidDepositEnabled(java.lang.Boolean isRapidDepositEnabled) {
+    return genClient.setOther(isRapidDepositEnabled, CacheKey.isRapidDepositEnabled);
+  }
+
+  /**
+   * Sets the field 'rapidDepositServiceEntitlementNumber'.
+   */
+  public Reseller setRapidDepositServiceEntitlementNumber(java.lang.String rapidDepositServiceEntitlementNumber) {
+    return genClient.setOther(rapidDepositServiceEntitlementNumber, CacheKey.rapidDepositServiceEntitlementNumber);
+  }
+
+  /**
+   * Sets the field 'isCodelessActivation'.
+   */
+  public Reseller setIsCodelessActivation(java.lang.Boolean isCodelessActivation) {
+    return genClient.setOther(isCodelessActivation, CacheKey.isCodelessActivation);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
   }
-  /** Clears the 'Name' field, the 'has' method for this field will now return false */
+  /** Clears the 'fdClientId' field, the 'has' method for this field will now return false */
+  public void clearFdClientId() {
+    genClient.clear(CacheKey.fdClientId);
+  }
+  /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
   }
+  /** Clears the 'alternateName' field, the 'has' method for this field will now return false */
+  public void clearAlternateName() {
+    genClient.clear(CacheKey.alternateName);
+  }
+  /** Clears the 'code' field, the 'has' method for this field will now return false */
+  public void clearCode() {
+    genClient.clear(CacheKey.code);
+  }
+  /** Clears the 'owner' field, the 'has' method for this field will now return false */
+  public void clearOwner() {
+    genClient.clear(CacheKey.owner);
+  }
+  /** Clears the 'defaultPaymentProcessor' field, the 'has' method for this field will now return false */
+  public void clearDefaultPaymentProcessor() {
+    genClient.clear(CacheKey.defaultPaymentProcessor);
+  }
+  /** Clears the 'defaultProcessorKey' field, the 'has' method for this field will now return false */
+  public void clearDefaultProcessorKey() {
+    genClient.clear(CacheKey.defaultProcessorKey);
+  }
+  /** Clears the 'defaultCountryCode' field, the 'has' method for this field will now return false */
+  public void clearDefaultCountryCode() {
+    genClient.clear(CacheKey.defaultCountryCode);
+  }
+  /** Clears the 'supportsNakedCredit' field, the 'has' method for this field will now return false */
+  public void clearSupportsNakedCredit() {
+    genClient.clear(CacheKey.supportsNakedCredit);
+  }
+  /** Clears the 'supportsOutboundBoarding' field, the 'has' method for this field will now return false */
+  public void clearSupportsOutboundBoarding() {
+    genClient.clear(CacheKey.supportsOutboundBoarding);
+  }
+  /** Clears the 'enforceMerchantPlan' field, the 'has' method for this field will now return false */
+  public void clearEnforceMerchantPlan() {
+    genClient.clear(CacheKey.enforceMerchantPlan);
+  }
+  /** Clears the 'supportPhone' field, the 'has' method for this field will now return false */
+  public void clearSupportPhone() {
+    genClient.clear(CacheKey.supportPhone);
+  }
+  /** Clears the 'supportEmail' field, the 'has' method for this field will now return false */
+  public void clearSupportEmail() {
+    genClient.clear(CacheKey.supportEmail);
+  }
+  /** Clears the 'filterApps' field, the 'has' method for this field will now return false */
+  public void clearFilterApps() {
+    genClient.clear(CacheKey.filterApps);
+  }
+  /** Clears the 'forcePhone' field, the 'has' method for this field will now return false */
+  public void clearForcePhone() {
+    genClient.clear(CacheKey.forcePhone);
+  }
+  /** Clears the 'stationsOnClassic' field, the 'has' method for this field will now return false */
+  public void clearStationsOnClassic() {
+    genClient.clear(CacheKey.stationsOnClassic);
+  }
+  /** Clears the 'allowBlackhole' field, the 'has' method for this field will now return false */
+  public void clearAllowBlackhole() {
+    genClient.clear(CacheKey.allowBlackhole);
+  }
+  /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
+  public void clearCreatedTime() {
+    genClient.clear(CacheKey.createdTime);
+  }
+  /** Clears the 'parentReseller' field, the 'has' method for this field will now return false */
+  public void clearParentReseller() {
+    genClient.clear(CacheKey.parentReseller);
+  }
+  /** Clears the 'brandAssets' field, the 'has' method for this field will now return false */
+  public void clearBrandAssets() {
+    genClient.clear(CacheKey.brandAssets);
+  }
+  /** Clears the 'broadcastMessage' field, the 'has' method for this field will now return false */
+  public void clearBroadcastMessage() {
+    genClient.clear(CacheKey.broadcastMessage);
+  }
+  /** Clears the 'featuredApps' field, the 'has' method for this field will now return false */
+  public void clearFeaturedApps() {
+    genClient.clear(CacheKey.featuredApps);
+  }
+  /** Clears the 'tasqCustomerNumber' field, the 'has' method for this field will now return false */
+  public void clearTasqCustomerNumber() {
+    genClient.clear(CacheKey.tasqCustomerNumber);
+  }
+  /** Clears the 'isBulkPurchaser' field, the 'has' method for this field will now return false */
+  public void clearIsBulkPurchaser() {
+    genClient.clear(CacheKey.isBulkPurchaser);
+  }
+  /** Clears the 'partnerSupportEmail' field, the 'has' method for this field will now return false */
+  public void clearPartnerSupportEmail() {
+    genClient.clear(CacheKey.partnerSupportEmail);
+  }
+  /** Clears the 'isRkiIdentifier' field, the 'has' method for this field will now return false */
+  public void clearIsRkiIdentifier() {
+    genClient.clear(CacheKey.isRkiIdentifier);
+  }
+  /** Clears the 'merchantPlanGroup' field, the 'has' method for this field will now return false */
+  public void clearMerchantPlanGroup() {
+    genClient.clear(CacheKey.merchantPlanGroup);
+  }
+  /** Clears the 'isSelfBoarding' field, the 'has' method for this field will now return false */
+  public void clearIsSelfBoarding() {
+    genClient.clear(CacheKey.isSelfBoarding);
+  }
+  /** Clears the 'isIntercomEnabled' field, the 'has' method for this field will now return false */
+  public void clearIsIntercomEnabled() {
+    genClient.clear(CacheKey.isIntercomEnabled);
+  }
+  /** Clears the 'locale' field, the 'has' method for this field will now return false */
+  public void clearLocale() {
+    genClient.clear(CacheKey.locale);
+  }
+  /** Clears the 'resellerPrivacyPolicyUrl' field, the 'has' method for this field will now return false */
+  public void clearResellerPrivacyPolicyUrl() {
+    genClient.clear(CacheKey.resellerPrivacyPolicyUrl);
+  }
+  /** Clears the 'isRapidDepositEnabled' field, the 'has' method for this field will now return false */
+  public void clearIsRapidDepositEnabled() {
+    genClient.clear(CacheKey.isRapidDepositEnabled);
+  }
+  /** Clears the 'rapidDepositServiceEntitlementNumber' field, the 'has' method for this field will now return false */
+  public void clearRapidDepositServiceEntitlementNumber() {
+    genClient.clear(CacheKey.rapidDepositServiceEntitlementNumber);
+  }
+  /** Clears the 'isCodelessActivation' field, the 'has' method for this field will now return false */
+  public void clearIsCodelessActivation() {
+    genClient.clear(CacheKey.isCodelessActivation);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -164,29 +1244,6 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Reseller> CREATOR = new android.os.Parcelable.Creator<Reseller>() {
     @Override
     public Reseller createFromParcel(android.os.Parcel in) {
@@ -209,13 +1266,54 @@ public final class Reseller implements android.os.Parcelable, com.clover.sdk.v3.
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
-    public static final boolean NAME_IS_REQUIRED = false;
+    public static final boolean FDCLIENTID_IS_REQUIRED = false;
+    public static final long FDCLIENTID_MAX_LEN = 10;
+    public static final boolean NAME_IS_REQUIRED = true;
+    public static final long NAME_MAX_LEN = 127;
+    public static final boolean ALTERNATENAME_IS_REQUIRED = false;
+    public static final long ALTERNATENAME_MAX_LEN = 127;
+    public static final boolean CODE_IS_REQUIRED = false;
+    public static final long CODE_MAX_LEN = 20;
+    public static final boolean OWNER_IS_REQUIRED = false;
+    public static final boolean DEFAULTPAYMENTPROCESSOR_IS_REQUIRED = false;
+    public static final boolean DEFAULTPROCESSORKEY_IS_REQUIRED = false;
+    public static final boolean DEFAULTCOUNTRYCODE_IS_REQUIRED = false;
+    public static final long DEFAULTCOUNTRYCODE_MAX_LEN = 2;
+    public static final boolean SUPPORTSNAKEDCREDIT_IS_REQUIRED = false;
+    public static final boolean SUPPORTSOUTBOUNDBOARDING_IS_REQUIRED = false;
+    public static final boolean ENFORCEMERCHANTPLAN_IS_REQUIRED = false;
+    public static final boolean SUPPORTPHONE_IS_REQUIRED = false;
+    public static final long SUPPORTPHONE_MAX_LEN = 25;
+    public static final boolean SUPPORTEMAIL_IS_REQUIRED = false;
+    public static final long SUPPORTEMAIL_MAX_LEN = 127;
+    public static final boolean FILTERAPPS_IS_REQUIRED = false;
+    public static final boolean FORCEPHONE_IS_REQUIRED = false;
+    public static final boolean STATIONSONCLASSIC_IS_REQUIRED = false;
+    public static final boolean ALLOWBLACKHOLE_IS_REQUIRED = false;
+    public static final boolean CREATEDTIME_IS_REQUIRED = false;
+    public static final boolean PARENTRESELLER_IS_REQUIRED = false;
+    public static final boolean BRANDASSETS_IS_REQUIRED = false;
+    public static final boolean BROADCASTMESSAGE_IS_REQUIRED = false;
+    public static final boolean FEATUREDAPPS_IS_REQUIRED = false;
+    public static final boolean TASQCUSTOMERNUMBER_IS_REQUIRED = false;
+    public static final long TASQCUSTOMERNUMBER_MAX_LEN = 6;
+    public static final boolean ISBULKPURCHASER_IS_REQUIRED = false;
+    public static final boolean PARTNERSUPPORTEMAIL_IS_REQUIRED = false;
+    public static final long PARTNERSUPPORTEMAIL_MAX_LEN = 127;
+    public static final boolean ISRKIIDENTIFIER_IS_REQUIRED = false;
+    public static final boolean MERCHANTPLANGROUP_IS_REQUIRED = false;
+    public static final boolean ISSELFBOARDING_IS_REQUIRED = false;
+    public static final boolean ISINTERCOMENABLED_IS_REQUIRED = false;
+    public static final boolean LOCALE_IS_REQUIRED = false;
+    public static final long LOCALE_MAX_LEN = 5;
+    public static final boolean RESELLERPRIVACYPOLICYURL_IS_REQUIRED = false;
+    public static final boolean ISRAPIDDEPOSITENABLED_IS_REQUIRED = false;
+    public static final boolean RAPIDDEPOSITSERVICEENTITLEMENTNUMBER_IS_REQUIRED = false;
+    public static final boolean ISCODELESSACTIVATION_IS_REQUIRED = false;
 
   }
 

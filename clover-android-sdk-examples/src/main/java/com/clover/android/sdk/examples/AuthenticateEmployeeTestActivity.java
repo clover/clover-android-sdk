@@ -29,8 +29,11 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
+import com.clover.sdk.v3.employees.AccountRole;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
+
+import java.io.Serializable;
 
 
 public class AuthenticateEmployeeTestActivity extends Activity {
@@ -39,48 +42,40 @@ public class AuthenticateEmployeeTestActivity extends Activity {
 
   private static final int REQUEST_ANY_EMPLOYEE = 1;
   private static final int REQUEST_EMPLOYEE = 2;
+  private static final int REQUEST_ROLE = 3;
 
   private TextView logTextView;
   private Account account;
   private Employee employee;
   private EmployeeConnector employeeConnector;
 
-  private boolean dialog = false;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_authenticate_employee_test);
 
-    logTextView = (TextView) findViewById(R.id.log_text);
+    logTextView = findViewById(R.id.log_text);
 
-    ((CheckBox) findViewById(R.id.checkBox)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        dialog = isChecked;
-      }
+    findViewById(R.id.btn_any).setOnClickListener(v -> {
+      Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
+      i.putExtra(Intents.EXTRA_REASON, "Enter passcode");
+      startActivityForResult(i, REQUEST_ANY_EMPLOYEE);
     });
 
-    findViewById(R.id.btn_any).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
-        i.putExtra(Intents.EXTRA_REASON, "Enter PIN");
-        i.putExtra(Intents.EXTRA_DIALOG, dialog);
-        startActivityForResult(i, REQUEST_ANY_EMPLOYEE);
-      }
+    findViewById(R.id.btn_active).setOnClickListener(v -> {
+      if (employee == null) return;
+      Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
+      i.putExtra(Intents.EXTRA_EMPLOYEE_ID, employee.getId());
+      i.putExtra(Intents.EXTRA_REASON, "Enter passcode for employee: " + employee.getName());
+      startActivityForResult(i, REQUEST_EMPLOYEE);
     });
 
-    findViewById(R.id.btn_active).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (employee == null) return;
-        Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
-        i.putExtra(Intents.EXTRA_EMPLOYEE_ID, employee.getId());
-        i.putExtra(Intents.EXTRA_REASON, "Enter PIN for " + employee.getName());
-        i.putExtra(Intents.EXTRA_DIALOG, dialog);
-        startActivityForResult(i, REQUEST_EMPLOYEE);
-      }
+    findViewById(R.id.btn_request_admin_role).setOnClickListener(v -> {
+      if (employee == null) return;
+      Intent i = new Intent(Intents.ACTION_REQUEST_ROLE);
+      i.putExtra(Intents.EXTRA_ROLE, (Serializable) AccountRole.ADMIN);
+      i.putExtra(Intents.EXTRA_TITLE, "Enter admin passcode:");
+      startActivityForResult(i, REQUEST_ROLE);
     });
 
   }

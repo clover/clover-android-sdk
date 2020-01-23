@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -104,75 +104,46 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CountryInfo> {
-    countryCode {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("countryCode", java.lang.String.class);
-      }
-    },
-    displayName {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("displayName", java.lang.String.class);
-      }
-    },
-    localDisplayName {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("localDisplayName", java.lang.String.class);
-      }
-    },
-    defaultCurrency {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("defaultCurrency", java.lang.String.class);
-      }
-    },
-    defaultTimezone {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("defaultTimezone", java.lang.String.class);
-      }
-    },
-    stateProvinceRequired {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("stateProvinceRequired", java.lang.Boolean.class);
-      }
-    },
-    zipPostalRequired {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("zipPostalRequired", java.lang.Boolean.class);
-      }
-    },
-    countyRequired {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("countyRequired", java.lang.Boolean.class);
-      }
-    },
-    defaultLocale {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("defaultLocale", java.lang.String.class);
-      }
-    },
-    appMarketBillingEnabled {
-      @Override
-      public Object extractValue(CountryInfo instance) {
-        return instance.genClient.extractOther("appMarketBillingEnabled", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    countryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    displayName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    localDisplayName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    defaultCurrency
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    defaultTimezone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    stateProvinceRequired
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    zipPostalRequired
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    countyRequired
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    defaultLocale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    appMarketBillingEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CountryInfo> genClient;
+  private final GenericClient<CountryInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CountryInfo() {
     genClient = new GenericClient<CountryInfo>(this);
   }
@@ -183,8 +154,8 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CountryInfo(boolean noInit) {
     genClient = null;
   }

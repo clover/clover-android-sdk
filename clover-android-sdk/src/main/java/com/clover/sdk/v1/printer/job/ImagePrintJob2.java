@@ -81,7 +81,7 @@ public class ImagePrintJob2 extends PrintJob implements Parcelable {
 
   protected ImagePrintJob2(Builder builder) {
     super(builder);
-    ArrayList<String> files = null;
+    ArrayList<String> files = new ArrayList<>();
     try {
       files = writeBitmapChucks(builder.bitmaps, new ReceiptFileOutputFactory(builder.context));
     } catch (Exception e) {

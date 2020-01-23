@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '228.3'
+version = '248.4'
 
 apply from: file("${project.rootDir}/app.gradle")
 
@@ -26,11 +26,19 @@ repositories {
 }
 
 android {
-      lintOptions {
-          abortOnError false
-      }
+  lintOptions {
+    abortOnError false
+  }
+  buildTypes {
+    all {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile(
+          'proguard-android-optimize.txt'),
+          'proguard-rules.pro'
+    }
+  }
+
   compileSdkVersion COMPILE_SDK_VERSION
-  buildToolsVersion BUILD_TOOLS_VERSION
 
   defaultConfig {
     minSdkVersion MIN_SDK_VERSION
@@ -39,8 +47,10 @@ android {
 }
 
 dependencies {
-  compile project(':clover-android-sdk')
-  implementation 'com.android.support:recyclerview-v7:28.0.0'
-  implementation "com.android.support:support-compat:28.0.0"
-  implementation 'com.android.support:cardview-v7:28.0.0'
+  implementation project(':clover-android-sdk')
+  implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
+  implementation "androidx.lifecycle:lifecycle-extensions:$ANDROIDX_LIFECYCLE_VERSION"
+  implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
+  implementation "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
+  implementation "androidx.cardview:cardview:$ANDROIDX_CARDVIEW_VERSION"
 }

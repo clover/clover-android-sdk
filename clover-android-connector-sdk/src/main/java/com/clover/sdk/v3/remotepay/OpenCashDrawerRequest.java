@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -72,39 +72,34 @@ public class OpenCashDrawerRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<OpenCashDrawerRequest> {
-    reason {
-      @Override
-      public Object extractValue(OpenCashDrawerRequest instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    deviceId {
-      @Override
-      public Object extractValue(OpenCashDrawerRequest instance) {
-        return instance.genClient.extractOther("deviceId", java.lang.String.class);
-      }
-    },
-    requestId {
-      @Override
-      public Object extractValue(OpenCashDrawerRequest instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(OpenCashDrawerRequest instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<OpenCashDrawerRequest> genClient;
+  private final GenericClient<OpenCashDrawerRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public OpenCashDrawerRequest() {
     super(false);
     genClient = new GenericClient<OpenCashDrawerRequest>(this);
@@ -116,8 +111,8 @@ public class OpenCashDrawerRequest extends com.clover.sdk.v3.remotepay.BaseReque
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected OpenCashDrawerRequest(boolean noInit) {
     super(false);
     genClient = null;

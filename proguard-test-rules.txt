@@ -1,0 +1,19 @@
+# ProGuard rules for Android connected tests.
+#
+# For more details, see
+#   https://developer.android.com/studio/build/shrink-code.html
+#   https://www.guardsquare.com/en/proguard/manual/usage
+
+-ignorewarnings
+
+-keepattributes *Annotation*
+
+-dontnote junit.framework.**
+-dontnote junit.runner.**
+
+-dontwarn android.test.**
+-dontwarn android.support.test.**
+-dontwarn org.junit.**
+-dontwarn org.hamcrest.**
+-dontwarn com.squareup.javawriter.JavaWriter
+-dontwarn org.mockito.**

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
  * <li>{@link #getDisplayName displayName}</li>
+ * <li>{@link #getSdkVersion sdkVersion}</li>
  * <li>{@link #getModels models}</li>
  * </ul>
  */
@@ -55,6 +56,13 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheGet(CacheKey.displayName);
   }
 
+  /**
+   * SDK version supported by device
+   */
+  public java.lang.Integer getSdkVersion() {
+    return genClient.cacheGet(CacheKey.sdkVersion);
+  }
+
   public java.lang.String getModels() {
     return genClient.cacheGet(CacheKey.models);
   }
@@ -62,39 +70,36 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeviceType> {
-    id {
-      @Override
-      public Object extractValue(DeviceType instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(DeviceType instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    displayName {
-      @Override
-      public Object extractValue(DeviceType instance) {
-        return instance.genClient.extractOther("displayName", java.lang.String.class);
-      }
-    },
-    models {
-      @Override
-      public Object extractValue(DeviceType instance) {
-        return instance.genClient.extractOther("models", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    displayName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sdkVersion
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    models
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeviceType> genClient;
+  private final GenericClient<DeviceType> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DeviceType() {
     genClient = new GenericClient<DeviceType>(this);
   }
@@ -105,8 +110,8 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DeviceType(boolean noInit) {
     genClient = null;
   }
@@ -176,6 +181,11 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.displayName);
   }
 
+  /** Checks whether the 'sdkVersion' field is set and is not null */
+  public boolean isNotNullSdkVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.sdkVersion);
+  }
+
   /** Checks whether the 'models' field is set and is not null */
   public boolean isNotNullModels() {
     return genClient.cacheValueIsNotNull(CacheKey.models);
@@ -196,6 +206,11 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'displayName' field has been set, however the value could be null */
   public boolean hasDisplayName() {
     return genClient.cacheHasKey(CacheKey.displayName);
+  }
+
+  /** Checks whether the 'sdkVersion' field has been set, however the value could be null */
+  public boolean hasSdkVersion() {
+    return genClient.cacheHasKey(CacheKey.sdkVersion);
   }
 
   /** Checks whether the 'models' field has been set, however the value could be null */
@@ -226,6 +241,13 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
+   * Sets the field 'sdkVersion'.
+   */
+  public DeviceType setSdkVersion(java.lang.Integer sdkVersion) {
+    return genClient.setOther(sdkVersion, CacheKey.sdkVersion);
+  }
+
+  /**
    * Sets the field 'models'.
    */
   public DeviceType setModels(java.lang.String models) {
@@ -244,6 +266,10 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'displayName' field, the 'has' method for this field will now return false */
   public void clearDisplayName() {
     genClient.clear(CacheKey.displayName);
+  }
+  /** Clears the 'sdkVersion' field, the 'has' method for this field will now return false */
+  public void clearSdkVersion() {
+    genClient.clear(CacheKey.sdkVersion);
   }
   /** Clears the 'models' field, the 'has' method for this field will now return false */
   public void clearModels() {
@@ -314,6 +340,7 @@ public class DeviceType extends GenericParcelable implements com.clover.sdk.v3.V
     public static final long NAME_MAX_LEN = 255;
     public static final boolean DISPLAYNAME_IS_REQUIRED = false;
     public static final long DISPLAYNAME_MAX_LEN = 255;
+    public static final boolean SDKVERSION_IS_REQUIRED = false;
     public static final boolean MODELS_IS_REQUIRED = false;
     public static final long MODELS_MAX_LEN = 255;
 

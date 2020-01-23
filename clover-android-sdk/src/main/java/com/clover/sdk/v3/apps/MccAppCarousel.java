@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * Mapping between MCC to AppCarousel
+ * Mapping between MCC to AppCarousel. Schema should never be exposed to endpoints. Instead use AppCarousel schema to expose the association.
  * <p>
  * <h3>Fields</h3>
  * <ul>
@@ -40,7 +40,7 @@ import com.clover.sdk.GenericParcelable;
 @SuppressWarnings("all")
 public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public java.lang.String getMccCode() {
+  public java.lang.Integer getMccCode() {
     return genClient.cacheGet(CacheKey.mccCode);
   }
 
@@ -53,27 +53,31 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MccAppCarousel> {
-    mccCode {
-      @Override
-      public Object extractValue(MccAppCarousel instance) {
-        return instance.genClient.extractOther("mccCode", java.lang.String.class);
-      }
-    },
-    appCarousel {
-      @Override
-      public Object extractValue(MccAppCarousel instance) {
-        return instance.genClient.extractRecord("appCarousel", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    mccCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    appCarousel
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MccAppCarousel> genClient;
+  private final GenericClient<MccAppCarousel> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MccAppCarousel() {
     genClient = new GenericClient<MccAppCarousel>(this);
   }
@@ -84,8 +88,8 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MccAppCarousel(boolean noInit) {
     genClient = null;
   }
@@ -131,7 +135,9 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getMccCode(), 13);
+    genClient.validateNull(getMccCode(), "mccCode");
+
+    genClient.validateNull(getAppCarousel(), "appCarousel");
   }
 
   /** Checks whether the 'mccCode' field is set and is not null */
@@ -160,7 +166,7 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
   /**
    * Sets the field 'mccCode'.
    */
-  public MccAppCarousel setMccCode(java.lang.String mccCode) {
+  public MccAppCarousel setMccCode(java.lang.Integer mccCode) {
     return genClient.setOther(mccCode, CacheKey.mccCode);
   }
 
@@ -241,9 +247,8 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
 
   public interface Constraints {
 
-    public static final boolean MCCCODE_IS_REQUIRED = false;
-    public static final long MCCCODE_MAX_LEN = 13;
-    public static final boolean APPCAROUSEL_IS_REQUIRED = false;
+    public static final boolean MCCCODE_IS_REQUIRED = true;
+    public static final boolean APPCAROUSEL_IS_REQUIRED = true;
 
   }
 

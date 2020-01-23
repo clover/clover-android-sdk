@@ -29,8 +29,6 @@
       android:layout_height="wrap_content"
       android:text="Accept"
       android:id="@+id/acceptButton"
-      android:layout_below="@+id/textView"
-      android:layout_alignLeft="@+id/textView"
       android:layout_marginTop="14dp"/>
 
   <Button

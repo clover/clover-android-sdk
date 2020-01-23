@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,6 +39,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAgent agent}</li>
  * <li>{@link #getBank bank}</li>
  * <li>{@link #getBusiness business}</li>
+ * <li>{@link #getMaps maps}</li>
+ * <li>{@link #getAssociation association}</li>
+ * <li>{@link #getCustomer customer}</li>
  * <li>{@link #getBillName billName}</li>
  * <li>{@link #getDbaName dbaName}</li>
  * <li>{@link #getDbaAttention dbaAttention}</li>
@@ -101,6 +104,27 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
    */
   public java.lang.String getBusiness() {
     return genClient.cacheGet(CacheKey.business);
+  }
+
+  /**
+   * MAPS ID
+   */
+  public java.lang.String getMaps() {
+    return genClient.cacheGet(CacheKey.maps);
+  }
+
+  /**
+   * Association Number
+   */
+  public java.lang.String getAssociation() {
+    return genClient.cacheGet(CacheKey.association);
+  }
+
+  /**
+   * Customer ID
+   */
+  public java.lang.String getCustomer() {
+    return genClient.cacheGet(CacheKey.customer);
   }
 
   /**
@@ -225,149 +249,74 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantHierarchy> {
-    mid {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("mid", java.lang.String.class);
-      }
-    },
-    chain {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("chain", java.lang.String.class);
-      }
-    },
-    corporate {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("corporate", java.lang.String.class);
-      }
-    },
-    agent {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("agent", java.lang.String.class);
-      }
-    },
-    bank {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("bank", java.lang.String.class);
-      }
-    },
-    business {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("business", java.lang.String.class);
-      }
-    },
-    billName {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billName", java.lang.String.class);
-      }
-    },
-    dbaName {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaName", java.lang.String.class);
-      }
-    },
-    dbaAttention {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaAttention", java.lang.String.class);
-      }
-    },
-    legalName {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("legalName", java.lang.String.class);
-      }
-    },
-    billToAttention {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billToAttention", java.lang.String.class);
-      }
-    },
-    email {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("email", java.lang.String.class);
-      }
-    },
-    abaAccountNumber {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("abaAccountNumber", java.lang.String.class);
-      }
-    },
-    ddaAccountNumber {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("ddaAccountNumber", java.lang.String.class);
-      }
-    },
-    dbaAddress {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaAddress", java.lang.String.class);
-      }
-    },
-    dbaCity {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaCity", java.lang.String.class);
-      }
-    },
-    dbaState {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaState", java.lang.String.class);
-      }
-    },
-    dbaZip {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaZip", java.lang.String.class);
-      }
-    },
-    dbaPhoneNumber {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("dbaPhoneNumber", java.lang.String.class);
-      }
-    },
-    billCity {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billCity", java.lang.String.class);
-      }
-    },
-    billState {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billState", java.lang.String.class);
-      }
-    },
-    billZip {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billZip", java.lang.String.class);
-      }
-    },
-    billPhoneNumber {
-      @Override
-      public Object extractValue(MerchantHierarchy instance) {
-        return instance.genClient.extractOther("billPhoneNumber", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    mid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    chain
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    corporate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    agent
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bank
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    business
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maps
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    association
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaAttention
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    legalName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billToAttention
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    email
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    abaAccountNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ddaAccountNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaCity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaState
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaZip
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dbaPhoneNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billCity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billState
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billZip
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billPhoneNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantHierarchy> genClient;
+  private final GenericClient<MerchantHierarchy> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -441,6 +390,12 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
 
     genClient.validateLength(getBusiness(), 12);
 
+    genClient.validateLength(getMaps(), 12);
+
+    genClient.validateLength(getAssociation(), 12);
+
+    genClient.validateLength(getCustomer(), 12);
+
     genClient.validateLength(getBillName(), 50);
 
     genClient.validateLength(getDbaName(), 50);
@@ -504,6 +459,21 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   /** Checks whether the 'business' field is set and is not null */
   public boolean isNotNullBusiness() {
     return genClient.cacheValueIsNotNull(CacheKey.business);
+  }
+
+  /** Checks whether the 'maps' field is set and is not null */
+  public boolean isNotNullMaps() {
+    return genClient.cacheValueIsNotNull(CacheKey.maps);
+  }
+
+  /** Checks whether the 'association' field is set and is not null */
+  public boolean isNotNullAssociation() {
+    return genClient.cacheValueIsNotNull(CacheKey.association);
+  }
+
+  /** Checks whether the 'customer' field is set and is not null */
+  public boolean isNotNullCustomer() {
+    return genClient.cacheValueIsNotNull(CacheKey.customer);
   }
 
   /** Checks whether the 'billName' field is set and is not null */
@@ -621,6 +591,21 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   /** Checks whether the 'business' field has been set, however the value could be null */
   public boolean hasBusiness() {
     return genClient.cacheHasKey(CacheKey.business);
+  }
+
+  /** Checks whether the 'maps' field has been set, however the value could be null */
+  public boolean hasMaps() {
+    return genClient.cacheHasKey(CacheKey.maps);
+  }
+
+  /** Checks whether the 'association' field has been set, however the value could be null */
+  public boolean hasAssociation() {
+    return genClient.cacheHasKey(CacheKey.association);
+  }
+
+  /** Checks whether the 'customer' field has been set, however the value could be null */
+  public boolean hasCustomer() {
+    return genClient.cacheHasKey(CacheKey.customer);
   }
 
   /** Checks whether the 'billName' field has been set, however the value could be null */
@@ -749,6 +734,27 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
    */
   public MerchantHierarchy setBusiness(java.lang.String business) {
     return genClient.setOther(business, CacheKey.business);
+  }
+
+  /**
+   * Sets the field 'maps'.
+   */
+  public MerchantHierarchy setMaps(java.lang.String maps) {
+    return genClient.setOther(maps, CacheKey.maps);
+  }
+
+  /**
+   * Sets the field 'association'.
+   */
+  public MerchantHierarchy setAssociation(java.lang.String association) {
+    return genClient.setOther(association, CacheKey.association);
+  }
+
+  /**
+   * Sets the field 'customer'.
+   */
+  public MerchantHierarchy setCustomer(java.lang.String customer) {
+    return genClient.setOther(customer, CacheKey.customer);
   }
 
   /**
@@ -895,6 +901,18 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   public void clearBusiness() {
     genClient.clear(CacheKey.business);
   }
+  /** Clears the 'maps' field, the 'has' method for this field will now return false */
+  public void clearMaps() {
+    genClient.clear(CacheKey.maps);
+  }
+  /** Clears the 'association' field, the 'has' method for this field will now return false */
+  public void clearAssociation() {
+    genClient.clear(CacheKey.association);
+  }
+  /** Clears the 'customer' field, the 'has' method for this field will now return false */
+  public void clearCustomer() {
+    genClient.clear(CacheKey.customer);
+  }
   /** Clears the 'billName' field, the 'has' method for this field will now return false */
   public void clearBillName() {
     genClient.clear(CacheKey.billName);
@@ -1034,6 +1052,12 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
     public static final long BANK_MAX_LEN = 12;
     public static final boolean BUSINESS_IS_REQUIRED = false;
     public static final long BUSINESS_MAX_LEN = 12;
+    public static final boolean MAPS_IS_REQUIRED = false;
+    public static final long MAPS_MAX_LEN = 12;
+    public static final boolean ASSOCIATION_IS_REQUIRED = false;
+    public static final long ASSOCIATION_MAX_LEN = 12;
+    public static final boolean CUSTOMER_IS_REQUIRED = false;
+    public static final long CUSTOMER_MAX_LEN = 12;
     public static final boolean BILLNAME_IS_REQUIRED = false;
     public static final long BILLNAME_MAX_LEN = 50;
     public static final boolean DBANAME_IS_REQUIRED = false;

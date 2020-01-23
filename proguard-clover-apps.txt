@@ -1,0 +1,74 @@
+# Default ProGuard rules for Clover apps. It is assumed that these rules will be
+# applied after the default android rules.
+#
+# For more details, see
+#   https://developer.android.com/studio/build/shrink-code.html
+#   https://www.guardsquare.com/en/proguard/manual/usage
+
+-dontobfuscate
+
+# Enable below if obfuscating code
+#-repackageclasses ''
+#-allowaccessmodification
+#-keepattributes SourceFile,LineNumberTable
+
+-dontnote com.clover.impl.**
+
+-dontwarn java.util.ConcurrentNavigableMap
+-dontwarn javax.naming.**
+-dontwarn javax.annotation.**
+
+-dontwarn edu.umd.cs.findbugs.annotations.SuppressFBWarnings # core for Country and currency
+-dontnote org.apache.harmony.xnet.provider.jsse.NativeCrypto
+-dontwarn org.joda.**
+-dontwarn org.w3c.dom.bootstrap.**
+
+-keepattributes InnerClasses,EnclosingMethod # core for com.fasterxml.jackson
+
+# com.clover.common2.LogConfig accesses a field 'DEBUG' dynamically
+-keep class com.clover.*.BuildConfig {
+  boolean DEBUG;
+}
+
+# Jackson
+-keep @com.fasterxml.jackson.annotation.JsonIgnoreProperties class * { *; }
+-keep class com.fasterxml.** { *; }
+-keep class org.codehaus.** { *; }
+-keepnames class com.fasterxml.jackson.** { *; }
+-keepclassmembers public final enum com.fasterxml.jackson.annotation.JsonAutoDetect$Visibility {
+    public static final com.fasterxml.jackson.annotation.JsonAutoDetect$Visibility *;
+}
+
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+  static final long serialVersionUID;
+  private static final java.io.ObjectStreamField[] serialPersistentFields;
+  !static !transient <fields>;
+  !private <fields>;
+  !private <methods>;
+  private void writeObject(java.io.ObjectOutputStream);
+  private void readObject(java.io.ObjectInputStream);
+  java.lang.Object writeReplace();
+  java.lang.Object readResolve();
+}
+
+# Keep custom views.
+-keep public class * extends android.view.View {
+  public <init>(android.content.Context);
+  public <init>(android.content.Context, android.util.AttributeSet);
+  public <init>(android.content.Context, android.util.AttributeSet, int);
+  public void set*(...);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# Parcelable
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator CREATOR;
+}

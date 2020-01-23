@@ -64,4 +64,5 @@ public class CardTransactionConstants {
   public static final String IPG_RECEIPT_NUMBER = "receiptNumber";
   public static final String IPG_RESPONSE_MESSAGE = "responseMessage";
   public static final String IPG_RESPONSE_CODE = "responseCode";
+  public static final String IPG_PROMOTIONAL_MESSAGE = "promotionalMessage";
 }

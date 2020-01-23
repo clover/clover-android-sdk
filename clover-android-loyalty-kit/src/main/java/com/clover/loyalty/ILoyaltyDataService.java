@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Created by michaelhampton on 7/5/18.
- */
 public interface ILoyaltyDataService {
 
   String LOYALTY_SERVICE_ACTION_PREFIX = "com.clover.loyalty.service";
@@ -33,6 +30,8 @@ public interface ILoyaltyDataService {
   String LOYALTY_SERVICE_STATE_EVENT = LOYALTY_SERVICE_ACTION_PREFIX + ".state";
   String LOYALTY_SERVICE_STATE_EVENT_RUNNING = LOYALTY_SERVICE_STATE_EVENT + ".running";
   String LOYALTY_SERVICE_STATE_EVENT_NOT_RUNNING = LOYALTY_SERVICE_STATE_EVENT + ".not.running";
+
+  String LOYALTY_SERVICE_STATE_EVENT_NOT_RUNNING_FORCE = LOYALTY_SERVICE_STATE_EVENT_NOT_RUNNING + ".force";
 
   String EXTRA_LOYALTY_SERVICE_CONFIGURATION = LOYALTY_SERVICE_ACTION_PREFIX + ".extra.configuration";
   String EXTRA_LOYALTY_SERVICE_DATA_VALUES = LOYALTY_SERVICE_ACTION_PREFIX + ".extra.data_values";

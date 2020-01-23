@@ -23,6 +23,8 @@ import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierFdParcelable;
+import com.clover.sdk.v3.onlineorder.OrderState;
+import com.clover.sdk.v3.onlineorder.Reason;
 import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
@@ -413,6 +415,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public LineItem call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.exchangeItem(orderId, oldLineItemId, itemId, binName, userData, status));
+      }
+    });
+  }
+
+  public Order addPrintGroup(final String orderId, final PrintGroup printGroup) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPrintGroup(orderId, new PrintGroupFdParcelable(printGroup), status));
       }
     });
   }
@@ -1161,5 +1172,9 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
         return service.vaultedCreditRefund(orderId, creditId, status);
       }
     });
+  }
+
+  public void updateOnlineOrderState(String orderId, OrderState orderState, Reason reason) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute((ServiceRunnable<IOrderServiceV3_1>) (service, status) -> service.updateOnlineOrderState(orderId, orderState, reason, status));
   }
 }

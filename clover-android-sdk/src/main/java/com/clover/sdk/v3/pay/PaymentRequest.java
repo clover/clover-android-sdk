@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -163,117 +163,60 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentRequest> {
-    id {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    orderId {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("orderId", java.lang.String.class);
-      }
-    },
-    timestamp {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("timestamp", java.lang.Long.class);
-      }
-    },
-    tender {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractRecord("tender", com.clover.sdk.v3.base.Tender.JSON_CREATOR);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    tipAmount {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
-      }
-    },
-    taxAmount {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
-      }
-    },
-    cashBackAmount {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("cashBackAmount", java.lang.Long.class);
-      }
-    },
-    cashTendered {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("cashTendered", java.lang.Long.class);
-      }
-    },
-    employeeId {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("employeeId", java.lang.String.class);
-      }
-    },
-    employeeName {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("employeeName", java.lang.String.class);
-      }
-    },
-    authorizationCode {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("authorizationCode", java.lang.String.class);
-      }
-    },
-    externalPaymentId {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractOther("externalPaymentId", java.lang.String.class);
-      }
-    },
-    serviceChargeAmount {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractRecord("serviceChargeAmount", com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR);
-      }
-    },
-    taxableAmountRates {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractListRecord("taxableAmountRates", com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR);
-      }
-    },
-    lineItems {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractListRecord("lineItems", com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR);
-      }
-    },
-    card {
-      @Override
-      public Object extractValue(PaymentRequest instance) {
-        return instance.genClient.extractRecord("card", com.clover.sdk.v3.pay.PaymentRequestCardDetails.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    orderId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    timestamp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tender
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tipAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    taxAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    cashBackAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    cashTendered
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    employeeId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    employeeName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    authorizationCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    externalPaymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceChargeAmount
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
+    taxableAmountRates
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR)),
+    lineItems
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR)),
+    card
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.PaymentRequestCardDetails.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PaymentRequest> genClient;
+  private final GenericClient<PaymentRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PaymentRequest() {
     genClient = new GenericClient<PaymentRequest>(this);
   }
@@ -284,8 +227,8 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PaymentRequest(boolean noInit) {
     genClient = null;
   }

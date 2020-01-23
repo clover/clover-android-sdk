@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,7 +56,7 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-   * Type of Tax Type
+   * to support Argentina's tax type
    */
   public com.clover.sdk.v3.inventory.TaxType getTaxType() {
     return genClient.cacheGet(CacheKey.taxType);
@@ -104,65 +104,40 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TaxRate> {
-    id {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    taxType {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractEnum("taxType", com.clover.sdk.v3.inventory.TaxType.class);
-      }
-    },
-    rate {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("rate", java.lang.Long.class);
-      }
-    },
-    isDefault {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("isDefault", java.lang.Boolean.class);
-      }
-    },
-    items {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    taxAmount {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(TaxRate instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    taxType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.TaxType.class)),
+    rate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    isDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    taxAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<TaxRate> genClient;
+  private final GenericClient<TaxRate> genClient;
 
   /**
    * Constructs a new empty instance.

@@ -17,9 +17,6 @@ import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
 
-/**
- * Created by glennbedwell on 9/6/16.
- */
 public interface IPaymentConnector extends IDeviceConnector{
   /**
    * Sale method, aka "purchase"

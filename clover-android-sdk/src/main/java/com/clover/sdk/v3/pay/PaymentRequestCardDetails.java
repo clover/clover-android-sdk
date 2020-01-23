@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -209,219 +209,94 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentRequestCardDetails> {
-    track1 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("track1", java.lang.String.class);
-      }
-    },
-    track2 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("track2", java.lang.String.class);
-      }
-    },
-    track3 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("track3", java.lang.String.class);
-      }
-    },
-    encrypted {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("encrypted", java.lang.Boolean.class);
-      }
-    },
-    maskedTrack1 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("maskedTrack1", java.lang.String.class);
-      }
-    },
-    maskedTrack2 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("maskedTrack2", java.lang.String.class);
-      }
-    },
-    maskedTrack3 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("maskedTrack3", java.lang.String.class);
-      }
-    },
-    uniqueToken {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("uniqueToken", java.lang.String.class);
-      }
-    },
-    pan {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("pan", java.lang.String.class);
-      }
-    },
-    firstName {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("firstName", java.lang.String.class);
-      }
-    },
-    lastName {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("lastName", java.lang.String.class);
-      }
-    },
-    countryCode {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("countryCode", java.lang.String.class);
-      }
-    },
-    exp {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("exp", java.lang.String.class);
-      }
-    },
-    streetAddress {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("streetAddress", java.lang.String.class);
-      }
-    },
-    zip {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("zip", java.lang.String.class);
-      }
-    },
-    cvv {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("cvv", java.lang.String.class);
-      }
-    },
-    last4 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("last4", java.lang.String.class);
-      }
-    },
-    first4 {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("first4", java.lang.String.class);
-      }
-    },
-    dukptSerial {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("dukptSerial", java.lang.String.class);
-      }
-    },
-    swipeStatus {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("swipeStatus", java.lang.String.class);
-      }
-    },
-    fingerprint {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("fingerprint", java.lang.String.class);
-      }
-    },
-    deviceSerial {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("deviceSerial", java.lang.String.class);
-      }
-    },
-    manualEntered {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("manualEntered", java.lang.Boolean.class);
-      }
-    },
-    async {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("async", java.lang.Boolean.class);
-      }
-    },
-    isFallback {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("isFallback", java.lang.Boolean.class);
-      }
-    },
-    isAuth {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("isAuth", java.lang.Boolean.class);
-      }
-    },
-    isPrepaid {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("isPrepaid", java.lang.Boolean.class);
-      }
-    },
-    cardFunction {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractEnum("cardFunction", com.clover.sdk.v3.pay.CardFunction.class);
-      }
-    },
-    qrCode {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("qrCode", java.lang.Boolean.class);
-      }
-    },
-    cardType {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractEnum("cardType", com.clover.sdk.v3.payments.CardType.class);
-      }
-    },
-    entryType {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractEnum("entryType", com.clover.sdk.v3.payments.CardEntryType.class);
-      }
-    },
-    transactionNo {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("transactionNo", java.lang.String.class);
-      }
-    },
-    cardholderName {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractOther("cardholderName", java.lang.String.class);
-      }
-    },
-    transactionData {
-      @Override
-      public Object extractValue(PaymentRequestCardDetails instance) {
-        return instance.genClient.extractRecord("transactionData", com.clover.sdk.v3.pay.TransactionData.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    track1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track3
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    encrypted
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    maskedTrack1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedTrack3
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    uniqueToken
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pan
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    firstName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lastName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    countryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    exp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    streetAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    zip
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cvv
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    last4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    first4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dukptSerial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    swipeStatus
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    fingerprint
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceSerial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    manualEntered
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    async
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isFallback
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isPrepaid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    cardFunction
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.CardFunction.class)),
+    qrCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    cardType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardType.class)),
+    entryType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardEntryType.class)),
+    transactionNo
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardholderName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionData
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.TransactionData.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PaymentRequestCardDetails> genClient;
+  private final GenericClient<PaymentRequestCardDetails> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PaymentRequestCardDetails() {
     genClient = new GenericClient<PaymentRequestCardDetails>(this);
   }
@@ -432,8 +307,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PaymentRequestCardDetails(boolean noInit) {
     genClient = null;
   }

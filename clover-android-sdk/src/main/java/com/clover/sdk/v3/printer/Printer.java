@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -81,51 +81,38 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Printer> {
-    id {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    mac {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractOther("mac", java.lang.String.class);
-      }
-    },
-    model {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractOther("model", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    ipAddress {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractOther("ipAddress", java.lang.String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(Printer instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.printer.PrinterType.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mac
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    model
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ipAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.printer.PrinterType.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Printer> genClient;
+  private final GenericClient<Printer> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Printer() {
     genClient = new GenericClient<Printer>(this);
   }
@@ -136,8 +123,8 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Printer(boolean noInit) {
     genClient = null;
   }

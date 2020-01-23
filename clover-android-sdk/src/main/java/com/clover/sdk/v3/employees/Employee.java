@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -48,6 +48,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPayments payments}</li>
  * <li>{@link #getOrders orders}</li>
  * <li>{@link #getEmployeeCards employeeCards}</li>
+ * <li>{@link #getMerchant merchant}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -169,120 +170,72 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.employeeCards);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Employee> {
-    id {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    nickname {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("nickname", java.lang.String.class);
-      }
-    },
-    customId {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("customId", java.lang.String.class);
-      }
-    },
-    email {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("email", java.lang.String.class);
-      }
-    },
-    inviteSent {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("inviteSent", java.lang.Boolean.class);
-      }
-    },
-    claimedTime {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("claimedTime", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    pin {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("pin", java.lang.String.class);
-      }
-    },
-    unhashedPin {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("unhashedPin", java.lang.String.class);
-      }
-    },
-    role {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractEnum("role", com.clover.sdk.v3.employees.AccountRole.class);
-      }
-    },
-    roles {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractListRecord("roles", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    isOwner {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractOther("isOwner", java.lang.Boolean.class);
-      }
-    },
-    shifts {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractListRecord("shifts", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    payments {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractListRecord("payments", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    orders {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractListRecord("orders", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    employeeCards {
-      @Override
-      public Object extractValue(Employee instance) {
-        return instance.genClient.extractListRecord("employeeCards", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-      ;
+  /**
+   * The merchant employing this employee
+   */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return genClient.cacheGet(CacheKey.merchant);
   }
 
-  private GenericClient<Employee> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    nickname
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    email
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    inviteSent
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    claimedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    pin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    unhashedPin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    role
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.employees.AccountRole.class)),
+    roles
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    isOwner
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    shifts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    payments
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    orders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    employeeCards
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Employee> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Employee() {
     genClient = new GenericClient<Employee>(this);
   }
@@ -293,8 +246,8 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Employee(boolean noInit) {
     genClient = null;
   }
@@ -454,6 +407,11 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'employeeCards' field is set and is not null and is not empty */
   public boolean isNotEmptyEmployeeCards() { return isNotNullEmployeeCards() && !getEmployeeCards().isEmpty(); }
 
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -539,6 +497,11 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'employeeCards' field has been set, however the value could be null */
   public boolean hasEmployeeCards() {
     return genClient.cacheHasKey(CacheKey.employeeCards);
+  }
+
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return genClient.cacheHasKey(CacheKey.merchant);
   }
 
 
@@ -671,6 +634,15 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setArrayRecord(employeeCards, CacheKey.employeeCards);
   }
 
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Employee setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    return genClient.setRecord(merchant, CacheKey.merchant);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -739,6 +711,10 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'employeeCards' field, the 'has' method for this field will now return false */
   public void clearEmployeeCards() {
     genClient.clear(CacheKey.employeeCards);
+  }
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    genClient.clear(CacheKey.merchant);
   }
 
 
@@ -822,6 +798,7 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PAYMENTS_IS_REQUIRED = false;
     public static final boolean ORDERS_IS_REQUIRED = false;
     public static final boolean EMPLOYEECARDS_IS_REQUIRED = false;
+    public static final boolean MERCHANT_IS_REQUIRED = false;
 
   }
 

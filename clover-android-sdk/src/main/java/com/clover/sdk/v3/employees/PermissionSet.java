@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEmployeeDefault employeeDefault}</li>
  * <li>{@link #getManagerDefault managerDefault}</li>
  * <li>{@link #getPermissions permissions}</li>
+ * <li>{@link #getEmployeePermissions employeePermissions}</li>
  * <li>{@link #getRoles roles}</li>
  * <li>{@link #getModule module}</li>
  * </ul>
@@ -85,6 +86,10 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.permissions);
   }
 
+  public java.util.List<com.clover.sdk.v3.employees.EmployeePermission> getEmployeePermissions() {
+    return genClient.cacheGet(CacheKey.employeePermissions);
+  }
+
   /**
    * roles enabled for this merchant
    */
@@ -103,69 +108,46 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
 
   public static final String AUTHORITY = "com.clover.roles";
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PermissionSet> {
-    id {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    label {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractOther("label", java.lang.String.class);
-      }
-    },
-    app {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractRecord("app", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    employeeDefault {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractOther("employeeDefault", java.lang.Boolean.class);
-      }
-    },
-    managerDefault {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractOther("managerDefault", java.lang.Boolean.class);
-      }
-    },
-    permissions {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractRecord("permissions", com.clover.sdk.v3.employees.Permissions.JSON_CREATOR);
-      }
-    },
-    roles {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractListRecord("roles", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    module {
-      @Override
-      public Object extractValue(PermissionSet instance) {
-        return instance.genClient.extractRecord("module", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    label
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    app
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    employeeDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    managerDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    permissions
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Permissions.JSON_CREATOR)),
+    employeePermissions
+        (com.clover.sdk.extractors.EnumListExtractionStrategy.instance(com.clover.sdk.v3.employees.EmployeePermission.class)),
+    roles
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    module
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PermissionSet> genClient;
+  private final GenericClient<PermissionSet> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PermissionSet() {
     genClient = new GenericClient<PermissionSet>(this);
   }
@@ -176,8 +158,8 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PermissionSet(boolean noInit) {
     genClient = null;
   }
@@ -265,6 +247,14 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.permissions);
   }
 
+  /** Checks whether the 'employeePermissions' field is set and is not null */
+  public boolean isNotNullEmployeePermissions() {
+    return genClient.cacheValueIsNotNull(CacheKey.employeePermissions);
+  }
+
+  /** Checks whether the 'employeePermissions' field is set and is not null and is not empty */
+  public boolean isNotEmptyEmployeePermissions() { return isNotNullEmployeePermissions() && !getEmployeePermissions().isEmpty(); }
+
   /** Checks whether the 'roles' field is set and is not null */
   public boolean isNotNullRoles() {
     return genClient.cacheValueIsNotNull(CacheKey.roles);
@@ -313,6 +303,11 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'permissions' field has been set, however the value could be null */
   public boolean hasPermissions() {
     return genClient.cacheHasKey(CacheKey.permissions);
+  }
+
+  /** Checks whether the 'employeePermissions' field has been set, however the value could be null */
+  public boolean hasEmployeePermissions() {
+    return genClient.cacheHasKey(CacheKey.employeePermissions);
   }
 
   /** Checks whether the 'roles' field has been set, however the value could be null */
@@ -380,6 +375,15 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'employeePermissions'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public PermissionSet setEmployeePermissions(java.util.List<com.clover.sdk.v3.employees.EmployeePermission> employeePermissions) {
+    return genClient.setArrayOther(employeePermissions, CacheKey.employeePermissions);
+  }
+
+  /**
    * Sets the field 'roles'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -425,6 +429,10 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'permissions' field, the 'has' method for this field will now return false */
   public void clearPermissions() {
     genClient.clear(CacheKey.permissions);
+  }
+  /** Clears the 'employeePermissions' field, the 'has' method for this field will now return false */
+  public void clearEmployeePermissions() {
+    genClient.clear(CacheKey.employeePermissions);
   }
   /** Clears the 'roles' field, the 'has' method for this field will now return false */
   public void clearRoles() {
@@ -503,6 +511,7 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
     public static final boolean EMPLOYEEDEFAULT_IS_REQUIRED = false;
     public static final boolean MANAGERDEFAULT_IS_REQUIRED = false;
     public static final boolean PERMISSIONS_IS_REQUIRED = false;
+    public static final boolean EMPLOYEEPERMISSIONS_IS_REQUIRED = false;
     public static final boolean ROLES_IS_REQUIRED = false;
     public static final boolean MODULE_IS_REQUIRED = false;
 

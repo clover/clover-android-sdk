@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -103,63 +103,42 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DCCInfo> {
-    inquiryRateId {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("inquiryRateId", java.lang.Long.class);
-      }
-    },
-    dccApplied {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("dccApplied", java.lang.Boolean.class);
-      }
-    },
-    foreignCurrencyCode {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("foreignCurrencyCode", java.lang.String.class);
-      }
-    },
-    foreignAmount {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("foreignAmount", java.lang.Long.class);
-      }
-    },
-    exchangeRate {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("exchangeRate", java.lang.Double.class);
-      }
-    },
-    marginRatePercentage {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("marginRatePercentage", java.lang.String.class);
-      }
-    },
-    exchangeRateSourceName {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("exchangeRateSourceName", java.lang.String.class);
-      }
-    },
-    exchangeRateSourceTimeStamp {
-      @Override
-      public Object extractValue(DCCInfo instance) {
-        return instance.genClient.extractOther("exchangeRateSourceTimeStamp", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    inquiryRateId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    dccApplied
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    foreignCurrencyCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    foreignAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    exchangeRate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    marginRatePercentage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    exchangeRateSourceName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    exchangeRateSourceTimeStamp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DCCInfo> genClient;
+  private final GenericClient<DCCInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DCCInfo() {
     genClient = new GenericClient<DCCInfo>(this);
   }
@@ -170,8 +149,8 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DCCInfo(boolean noInit) {
     genClient = null;
   }

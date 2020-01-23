@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -112,75 +112,46 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ModifierGroup> {
-    id {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    alternateName {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("alternateName", java.lang.String.class);
-      }
-    },
-    minRequired {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("minRequired", java.lang.Integer.class);
-      }
-    },
-    maxAllowed {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("maxAllowed", java.lang.Integer.class);
-      }
-    },
-    showByDefault {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("showByDefault", java.lang.Boolean.class);
-      }
-    },
-    modifiers {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractListRecord("modifiers", com.clover.sdk.v3.inventory.Modifier.JSON_CREATOR);
-      }
-    },
-    modifierIds {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("modifierIds", java.lang.String.class);
-      }
-    },
-    items {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    sortOrder {
-      @Override
-      public Object extractValue(ModifierGroup instance) {
-        return instance.genClient.extractOther("sortOrder", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alternateName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    minRequired
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    maxAllowed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    showByDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    modifiers
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Modifier.JSON_CREATOR)),
+    modifierIds
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    sortOrder
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ModifierGroup> genClient;
+  private final GenericClient<ModifierGroup> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ModifierGroup() {
     genClient = new GenericClient<ModifierGroup>(this);
   }
@@ -191,8 +162,8 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ModifierGroup(boolean noInit) {
     genClient = null;
   }

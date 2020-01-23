@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getRows rows}</li>
  * <li>{@link #getTotal total}</li>
+ * <li>{@link #getMajorLabelsExist majorLabelsExist}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -54,30 +55,42 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheGet(CacheKey.total);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<SummarySection> {
-    rows {
-      @Override
-      public Object extractValue(SummarySection instance) {
-        return instance.genClient.extractListRecord("rows", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
-      }
-    },
-    total {
-      @Override
-      public Object extractValue(SummarySection instance) {
-        return instance.genClient.extractRecord("total", com.clover.sdk.v3.report.Summary.JSON_CREATOR);
-      }
-    },
-      ;
+  /**
+   * Optional flag used for revenue class to indicate whether the merchant has any labels marked 'Show in Reporting?'
+   */
+  public java.lang.Boolean getMajorLabelsExist() {
+    return genClient.cacheGet(CacheKey.majorLabelsExist);
   }
 
-  private GenericClient<SummarySection> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    rows
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
+    total
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
+    majorLabelsExist
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<SummarySection> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public SummarySection() {
     genClient = new GenericClient<SummarySection>(this);
   }
@@ -88,8 +101,8 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected SummarySection(boolean noInit) {
     genClient = null;
   }
@@ -150,6 +163,11 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.total);
   }
 
+  /** Checks whether the 'majorLabelsExist' field is set and is not null */
+  public boolean isNotNullMajorLabelsExist() {
+    return genClient.cacheValueIsNotNull(CacheKey.majorLabelsExist);
+  }
+
 
 
   /** Checks whether the 'rows' field has been set, however the value could be null */
@@ -160,6 +178,11 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'total' field has been set, however the value could be null */
   public boolean hasTotal() {
     return genClient.cacheHasKey(CacheKey.total);
+  }
+
+  /** Checks whether the 'majorLabelsExist' field has been set, however the value could be null */
+  public boolean hasMajorLabelsExist() {
+    return genClient.cacheHasKey(CacheKey.majorLabelsExist);
   }
 
 
@@ -181,6 +204,13 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     return genClient.setRecord(total, CacheKey.total);
   }
 
+  /**
+   * Sets the field 'majorLabelsExist'.
+   */
+  public SummarySection setMajorLabelsExist(java.lang.Boolean majorLabelsExist) {
+    return genClient.setOther(majorLabelsExist, CacheKey.majorLabelsExist);
+  }
+
 
   /** Clears the 'rows' field, the 'has' method for this field will now return false */
   public void clearRows() {
@@ -189,6 +219,10 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'total' field, the 'has' method for this field will now return false */
   public void clearTotal() {
     genClient.clear(CacheKey.total);
+  }
+  /** Clears the 'majorLabelsExist' field, the 'has' method for this field will now return false */
+  public void clearMajorLabelsExist() {
+    genClient.clear(CacheKey.majorLabelsExist);
   }
 
 
@@ -251,6 +285,7 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
 
     public static final boolean ROWS_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
+    public static final boolean MAJORLABELSEXIST_IS_REQUIRED = false;
 
   }
 

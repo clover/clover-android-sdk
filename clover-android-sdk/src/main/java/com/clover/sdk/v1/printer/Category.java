@@ -21,7 +21,7 @@ import android.util.Log;
 
 public enum Category implements Parcelable {
 
-  ORDER, RECEIPT, FISCAL;
+  ORDER, RECEIPT, FISCAL, LABEL;
 
   private static final String TAG = Category.class.getSimpleName();
 

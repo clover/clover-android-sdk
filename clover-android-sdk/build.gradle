@@ -14,25 +14,28 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '228.3'
+version = '248.4'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
 android {
   defaultConfig {
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    multiDexEnabled true
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes.all {
+    consumerProguardFiles 'proguard-rules.pro'
   }
 }
 
 dependencies {
-  compile files('lib/calc-277.3.jar')
+  api files('lib/calc-297.4.jar')
 
   // Android tests
-  androidTestImplementation("com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION", {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+  androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
+  androidTestImplementation "androidx.multidex:multidex:$ANDROIDX_MULTIDEX_VERSION"
 }
-
 
 ant.importBuild 'javadoc.xml'
 
@@ -69,7 +72,7 @@ uploadArchives {
 
         name 'Clover Android SDK'
         description 'Android services and objects used for interacting with Clover Services'
-        url 'http://www.clover.com/'
+        url 'https://www.clover.com/'
 
         licenses {
           license {
@@ -88,7 +91,7 @@ uploadArchives {
         developers {
           developer {
             name 'Clover Engineering Team'
-            url 'https://www.clover.com/team'
+            url 'https://www.clover.com'
           }
         }
       }

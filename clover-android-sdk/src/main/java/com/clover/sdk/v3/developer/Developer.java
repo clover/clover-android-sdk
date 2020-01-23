@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -64,6 +64,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPrPhone prPhone}</li>
  * <li>{@link #getWebsite website}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getFirstSubmittedTime firstSubmittedTime}</li>
+ * <li>{@link #getFirstApprovalTime firstApprovalTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getOwner owner}</li>
  * <li>{@link #getAppBillingSystem appBillingSystem}</li>
@@ -312,6 +314,20 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Timestamp indicating the time the developer information was first submitted.
+   */
+  public java.lang.Long getFirstSubmittedTime() {
+    return genClient.cacheGet(CacheKey.firstSubmittedTime);
+  }
+
+  /**
+   * Timestamp indicating the time the developer was first approved.
+   */
+  public java.lang.Long getFirstApprovalTime() {
+    return genClient.cacheGet(CacheKey.firstApprovalTime);
+  }
+
+  /**
    * Timestamp indicating the last time the developer was modified.
    */
   public java.lang.Long getModifiedTime() {
@@ -412,297 +428,124 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Developer> {
-    id {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    firstName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("firstName", java.lang.String.class);
-      }
-    },
-    lastName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("lastName", java.lang.String.class);
-      }
-    },
-    email {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("email", java.lang.String.class);
-      }
-    },
-    phone {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("phone", java.lang.String.class);
-      }
-    },
-    dob {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("dob", java.lang.String.class);
-      }
-    },
-    ssn {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("ssn", java.lang.String.class);
-      }
-    },
-    address {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("address", java.lang.String.class);
-      }
-    },
-    city {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("city", java.lang.String.class);
-      }
-    },
-    county {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("county", java.lang.String.class);
-      }
-    },
-    state {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("state", java.lang.String.class);
-      }
-    },
-    country {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("country", java.lang.String.class);
-      }
-    },
-    postalCode {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("postalCode", java.lang.String.class);
-      }
-    },
-    bankAccountNumber {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("bankAccountNumber", java.lang.String.class);
-      }
-    },
-    bankInfo {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractRecord("bankInfo", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    bankRoutingNumber {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("bankRoutingNumber", java.lang.String.class);
-      }
-    },
-    businessLegalName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessLegalName", java.lang.String.class);
-      }
-    },
-    vatRegisterNumber {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("vatRegisterNumber", java.lang.String.class);
-      }
-    },
-    businessAddress {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessAddress", java.lang.String.class);
-      }
-    },
-    businessCity {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessCity", java.lang.String.class);
-      }
-    },
-    businessState {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessState", java.lang.String.class);
-      }
-    },
-    businessCountry {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessCountry", java.lang.String.class);
-      }
-    },
-    businessPostalCode {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("businessPostalCode", java.lang.String.class);
-      }
-    },
-    billingStatus {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractEnum("billingStatus", com.clover.sdk.v3.developer.DeveloperBillingStatus.class);
-      }
-    },
-    billingStatusMessage {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("billingStatusMessage", java.lang.String.class);
-      }
-    },
-    approvalStatus {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractEnum("approvalStatus", com.clover.sdk.v3.base.ApprovalStatus.class);
-      }
-    },
-    acceptedAgreement {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("acceptedAgreement", java.lang.Boolean.class);
-      }
-    },
-    prName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("prName", java.lang.String.class);
-      }
-    },
-    prEmail {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("prEmail", java.lang.String.class);
-      }
-    },
-    prPhone {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("prPhone", java.lang.String.class);
-      }
-    },
-    website {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("website", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    owner {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractRecord("owner", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    appBillingSystem {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("appBillingSystem", java.lang.String.class);
-      }
-    },
-    infoleaseVendorCode {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("infoleaseVendorCode", java.lang.String.class);
-      }
-    },
-    infoleaseGlCode {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("infoleaseGlCode", java.lang.String.class);
-      }
-    },
-    revShare {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("revShare", java.lang.Integer.class);
-      }
-    },
-    isRevShareFlatRate {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("isRevShareFlatRate", java.lang.Boolean.class);
-      }
-    },
-    revShareEffectiveTime {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("revShareEffectiveTime", java.lang.Long.class);
-      }
-    },
-    signorName {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("signorName", java.lang.String.class);
-      }
-    },
-    signorTitle {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("signorTitle", java.lang.String.class);
-      }
-    },
-    referralSubmissionTime {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("referralSubmissionTime", java.lang.Long.class);
-      }
-    },
-    emergencyEmail {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("emergencyEmail", java.lang.String.class);
-      }
-    },
-    collectionApprovalStatus {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractEnum("collectionApprovalStatus", com.clover.sdk.v3.developer.CollectionApprovalStatus.class);
-      }
-    },
-    isIsv {
-      @Override
-      public Object extractValue(Developer instance) {
-        return instance.genClient.extractOther("isIsv", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    firstName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lastName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    email
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    phone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dob
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ssn
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    address
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    city
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    county
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    state
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    country
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    postalCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bankAccountNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bankInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    bankRoutingNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessLegalName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    vatRegisterNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessCity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessState
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessCountry
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessPostalCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billingStatus
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.developer.DeveloperBillingStatus.class)),
+    billingStatusMessage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    approvalStatus
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.base.ApprovalStatus.class)),
+    acceptedAgreement
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    prName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    prEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    prPhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    website
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    firstSubmittedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    firstApprovalTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    owner
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    appBillingSystem
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    infoleaseVendorCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    infoleaseGlCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    revShare
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    isRevShareFlatRate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    revShareEffectiveTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    signorName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    signorTitle
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    referralSubmissionTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    emergencyEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    collectionApprovalStatus
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.developer.CollectionApprovalStatus.class)),
+    isIsv
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Developer> genClient;
+  private final GenericClient<Developer> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Developer() {
     genClient = new GenericClient<Developer>(this);
   }
@@ -713,8 +556,8 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Developer(boolean noInit) {
     genClient = null;
   }
@@ -994,6 +837,16 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
   }
 
+  /** Checks whether the 'firstSubmittedTime' field is set and is not null */
+  public boolean isNotNullFirstSubmittedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.firstSubmittedTime);
+  }
+
+  /** Checks whether the 'firstApprovalTime' field is set and is not null */
+  public boolean isNotNullFirstApprovalTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.firstApprovalTime);
+  }
+
   /** Checks whether the 'modifiedTime' field is set and is not null */
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
@@ -1229,6 +1082,16 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
   public boolean hasCreatedTime() {
     return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'firstSubmittedTime' field has been set, however the value could be null */
+  public boolean hasFirstSubmittedTime() {
+    return genClient.cacheHasKey(CacheKey.firstSubmittedTime);
+  }
+
+  /** Checks whether the 'firstApprovalTime' field has been set, however the value could be null */
+  public boolean hasFirstApprovalTime() {
+    return genClient.cacheHasKey(CacheKey.firstApprovalTime);
   }
 
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
@@ -1536,6 +1399,20 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'firstSubmittedTime'.
+   */
+  public Developer setFirstSubmittedTime(java.lang.Long firstSubmittedTime) {
+    return genClient.setOther(firstSubmittedTime, CacheKey.firstSubmittedTime);
+  }
+
+  /**
+   * Sets the field 'firstApprovalTime'.
+   */
+  public Developer setFirstApprovalTime(java.lang.Long firstApprovalTime) {
+    return genClient.setOther(firstApprovalTime, CacheKey.firstApprovalTime);
+  }
+
+  /**
    * Sets the field 'modifiedTime'.
    */
   public Developer setModifiedTime(java.lang.Long modifiedTime) {
@@ -1768,6 +1645,14 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
   }
+  /** Clears the 'firstSubmittedTime' field, the 'has' method for this field will now return false */
+  public void clearFirstSubmittedTime() {
+    genClient.clear(CacheKey.firstSubmittedTime);
+  }
+  /** Clears the 'firstApprovalTime' field, the 'has' method for this field will now return false */
+  public void clearFirstApprovalTime() {
+    genClient.clear(CacheKey.firstApprovalTime);
+  }
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
@@ -1944,6 +1829,8 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean WEBSITE_IS_REQUIRED = false;
     public static final long WEBSITE_MAX_LEN = 255;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
+    public static final boolean FIRSTSUBMITTEDTIME_IS_REQUIRED = false;
+    public static final boolean FIRSTAPPROVALTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean OWNER_IS_REQUIRED = false;
     public static final boolean APPBILLINGSYSTEM_IS_REQUIRED = false;

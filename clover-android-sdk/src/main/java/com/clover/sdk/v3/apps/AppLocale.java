@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,10 +37,13 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getDescription description}</li>
  * <li>{@link #getTagline tagline}</li>
+ * <li>{@link #getBenefits benefits}</li>
  * <li>{@link #getVideoUrl videoUrl}</li>
  * <li>{@link #getFilenameIcon filenameIcon}</li>
  * <li>{@link #getFilenameIconSmall filenameIconSmall}</li>
  * <li>{@link #getFilenameIconLarge filenameIconLarge}</li>
+ * <li>{@link #getFilenameCover filenameCover}</li>
+ * <li>{@link #getFilenameBanner filenameBanner}</li>
  * <li>{@link #getPrivacyPolicy privacyPolicy}</li>
  * <li>{@link #getEula eula}</li>
  * <li>{@link #getSupportPhone supportPhone}</li>
@@ -95,6 +98,13 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Brief description about benefits of app
+   */
+  public java.util.List<java.lang.String> getBenefits() {
+    return genClient.cacheGet(CacheKey.benefits);
+  }
+
+  /**
    * URL for embedded video
    */
   public java.lang.String getVideoUrl() {
@@ -117,6 +127,20 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public java.lang.String getFilenameIconLarge() {
     return genClient.cacheGet(CacheKey.filenameIconLarge);
+  }
+
+  /**
+   * URL to the cover images of the app. To be displayed on app market details page.
+   */
+  public java.lang.String getFilenameCover() {
+    return genClient.cacheGet(CacheKey.filenameCover);
+  }
+
+  /**
+   * URL to the hero images of the app. To be displayed on app market home page.
+   */
+  public java.lang.String getFilenameBanner() {
+    return genClient.cacheGet(CacheKey.filenameBanner);
   }
 
   public java.lang.String getPrivacyPolicy() {
@@ -167,129 +191,70 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppLocale> {
-    id {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    app {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractRecord("app", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    locale {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("locale", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    description {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("description", java.lang.String.class);
-      }
-    },
-    tagline {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("tagline", java.lang.String.class);
-      }
-    },
-    videoUrl {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("videoUrl", java.lang.String.class);
-      }
-    },
-    filenameIcon {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("filenameIcon", java.lang.String.class);
-      }
-    },
-    filenameIconSmall {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("filenameIconSmall", java.lang.String.class);
-      }
-    },
-    filenameIconLarge {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("filenameIconLarge", java.lang.String.class);
-      }
-    },
-    privacyPolicy {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("privacyPolicy", java.lang.String.class);
-      }
-    },
-    eula {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("eula", java.lang.String.class);
-      }
-    },
-    supportPhone {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("supportPhone", java.lang.String.class);
-      }
-    },
-    supportPhoneHours {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("supportPhoneHours", java.lang.String.class);
-      }
-    },
-    supportEmail {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("supportEmail", java.lang.String.class);
-      }
-    },
-    supportUrl {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("supportUrl", java.lang.String.class);
-      }
-    },
-    smartReceiptText {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("smartReceiptText", java.lang.String.class);
-      }
-    },
-    smartReceiptUrl {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("smartReceiptUrl", java.lang.String.class);
-      }
-    },
-    linkLabel {
-      @Override
-      public Object extractValue(AppLocale instance) {
-        return instance.genClient.extractOther("linkLabel", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    app
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    locale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    description
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tagline
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    benefits
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+    videoUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filenameIcon
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filenameIconSmall
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filenameIconLarge
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filenameCover
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filenameBanner
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    privacyPolicy
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    eula
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportPhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportPhoneHours
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    smartReceiptText
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    smartReceiptUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    linkLabel
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AppLocale> genClient;
+  private final GenericClient<AppLocale> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AppLocale() {
     genClient = new GenericClient<AppLocale>(this);
   }
@@ -300,8 +265,8 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppLocale(boolean noInit) {
     genClient = null;
   }
@@ -366,6 +331,10 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
 
     genClient.validateLength(getFilenameIconLarge(), 255);
 
+    genClient.validateLength(getFilenameCover(), 255);
+
+    genClient.validateLength(getFilenameBanner(), 255);
+
     genClient.validateLength(getPrivacyPolicy(), 255);
 
     genClient.validateLength(getEula(), 255);
@@ -413,6 +382,14 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.tagline);
   }
 
+  /** Checks whether the 'benefits' field is set and is not null */
+  public boolean isNotNullBenefits() {
+    return genClient.cacheValueIsNotNull(CacheKey.benefits);
+  }
+
+  /** Checks whether the 'benefits' field is set and is not null and is not empty */
+  public boolean isNotEmptyBenefits() { return isNotNullBenefits() && !getBenefits().isEmpty(); }
+
   /** Checks whether the 'videoUrl' field is set and is not null */
   public boolean isNotNullVideoUrl() {
     return genClient.cacheValueIsNotNull(CacheKey.videoUrl);
@@ -431,6 +408,16 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'filenameIconLarge' field is set and is not null */
   public boolean isNotNullFilenameIconLarge() {
     return genClient.cacheValueIsNotNull(CacheKey.filenameIconLarge);
+  }
+
+  /** Checks whether the 'filenameCover' field is set and is not null */
+  public boolean isNotNullFilenameCover() {
+    return genClient.cacheValueIsNotNull(CacheKey.filenameCover);
+  }
+
+  /** Checks whether the 'filenameBanner' field is set and is not null */
+  public boolean isNotNullFilenameBanner() {
+    return genClient.cacheValueIsNotNull(CacheKey.filenameBanner);
   }
 
   /** Checks whether the 'privacyPolicy' field is set and is not null */
@@ -510,6 +497,11 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheHasKey(CacheKey.tagline);
   }
 
+  /** Checks whether the 'benefits' field has been set, however the value could be null */
+  public boolean hasBenefits() {
+    return genClient.cacheHasKey(CacheKey.benefits);
+  }
+
   /** Checks whether the 'videoUrl' field has been set, however the value could be null */
   public boolean hasVideoUrl() {
     return genClient.cacheHasKey(CacheKey.videoUrl);
@@ -528,6 +520,16 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'filenameIconLarge' field has been set, however the value could be null */
   public boolean hasFilenameIconLarge() {
     return genClient.cacheHasKey(CacheKey.filenameIconLarge);
+  }
+
+  /** Checks whether the 'filenameCover' field has been set, however the value could be null */
+  public boolean hasFilenameCover() {
+    return genClient.cacheHasKey(CacheKey.filenameCover);
+  }
+
+  /** Checks whether the 'filenameBanner' field has been set, however the value could be null */
+  public boolean hasFilenameBanner() {
+    return genClient.cacheHasKey(CacheKey.filenameBanner);
   }
 
   /** Checks whether the 'privacyPolicy' field has been set, however the value could be null */
@@ -621,6 +623,15 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'benefits'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public AppLocale setBenefits(java.util.List<java.lang.String> benefits) {
+    return genClient.setArrayOther(benefits, CacheKey.benefits);
+  }
+
+  /**
    * Sets the field 'videoUrl'.
    */
   public AppLocale setVideoUrl(java.lang.String videoUrl) {
@@ -646,6 +657,20 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public AppLocale setFilenameIconLarge(java.lang.String filenameIconLarge) {
     return genClient.setOther(filenameIconLarge, CacheKey.filenameIconLarge);
+  }
+
+  /**
+   * Sets the field 'filenameCover'.
+   */
+  public AppLocale setFilenameCover(java.lang.String filenameCover) {
+    return genClient.setOther(filenameCover, CacheKey.filenameCover);
+  }
+
+  /**
+   * Sets the field 'filenameBanner'.
+   */
+  public AppLocale setFilenameBanner(java.lang.String filenameBanner) {
+    return genClient.setOther(filenameBanner, CacheKey.filenameBanner);
   }
 
   /**
@@ -736,6 +761,10 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearTagline() {
     genClient.clear(CacheKey.tagline);
   }
+  /** Clears the 'benefits' field, the 'has' method for this field will now return false */
+  public void clearBenefits() {
+    genClient.clear(CacheKey.benefits);
+  }
   /** Clears the 'videoUrl' field, the 'has' method for this field will now return false */
   public void clearVideoUrl() {
     genClient.clear(CacheKey.videoUrl);
@@ -751,6 +780,14 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'filenameIconLarge' field, the 'has' method for this field will now return false */
   public void clearFilenameIconLarge() {
     genClient.clear(CacheKey.filenameIconLarge);
+  }
+  /** Clears the 'filenameCover' field, the 'has' method for this field will now return false */
+  public void clearFilenameCover() {
+    genClient.clear(CacheKey.filenameCover);
+  }
+  /** Clears the 'filenameBanner' field, the 'has' method for this field will now return false */
+  public void clearFilenameBanner() {
+    genClient.clear(CacheKey.filenameBanner);
   }
   /** Clears the 'privacyPolicy' field, the 'has' method for this field will now return false */
   public void clearPrivacyPolicy() {
@@ -858,6 +895,7 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long DESCRIPTION_MAX_LEN = 2000;
     public static final boolean TAGLINE_IS_REQUIRED = false;
     public static final long TAGLINE_MAX_LEN = 255;
+    public static final boolean BENEFITS_IS_REQUIRED = false;
     public static final boolean VIDEOURL_IS_REQUIRED = false;
     public static final long VIDEOURL_MAX_LEN = 255;
     public static final boolean FILENAMEICON_IS_REQUIRED = false;
@@ -866,6 +904,10 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long FILENAMEICONSMALL_MAX_LEN = 255;
     public static final boolean FILENAMEICONLARGE_IS_REQUIRED = false;
     public static final long FILENAMEICONLARGE_MAX_LEN = 255;
+    public static final boolean FILENAMECOVER_IS_REQUIRED = false;
+    public static final long FILENAMECOVER_MAX_LEN = 255;
+    public static final boolean FILENAMEBANNER_IS_REQUIRED = false;
+    public static final long FILENAMEBANNER_MAX_LEN = 255;
     public static final boolean PRIVACYPOLICY_IS_REQUIRED = false;
     public static final long PRIVACYPOLICY_MAX_LEN = 255;
     public static final boolean EULA_IS_REQUIRED = false;

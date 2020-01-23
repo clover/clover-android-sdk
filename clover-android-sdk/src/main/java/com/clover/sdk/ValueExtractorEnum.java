@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +16,11 @@
 package com.clover.sdk;
 
 /**
- * An interface to get a value from a CacheKey enum.
+ * Deprecated. Replaced by {@link com.clover.sdk.extractors.ExtractionStrategy}.
  */
-public interface ValueExtractorEnum<T> {
+@Deprecated
+public interface ValueExtractorEnum<T> extends ExtractableEnum {
+
     Object extractValue(T instance);
-    String name();
-    int ordinal();
-    Class<?> getDeclaringClass();
+
 }

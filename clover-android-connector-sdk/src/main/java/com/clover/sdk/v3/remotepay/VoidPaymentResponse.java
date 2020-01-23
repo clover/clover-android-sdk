@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,13 +34,41 @@ import com.clover.sdk.GenericClient;
  * </ul>
  */
 @SuppressWarnings("all")
-public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
+public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.PaymentResponse {
 
   /**
    * The id of the payment voided
    */
   public java.lang.String getPaymentId() {
     return genClient.cacheGet(CacheKey.paymentId);
+  }
+
+  /**
+   * The payment from the sale
+   */
+  @Override
+  public com.clover.sdk.v3.payments.Payment getPayment() {
+    return genClient.cacheGet(CacheKey.payment);
+  }
+
+  @Override
+  public java.lang.Boolean getIsSale() {
+    return genClient.cacheGet(CacheKey.isSale);
+  }
+
+  @Override
+  public java.lang.Boolean getIsPreAuth() {
+    return genClient.cacheGet(CacheKey.isPreAuth);
+  }
+
+  @Override
+  public java.lang.Boolean getIsAuth() {
+    return genClient.cacheGet(CacheKey.isAuth);
+  }
+
+  @Override
+  public com.clover.sdk.v3.base.Signature getSignature() {
+    return genClient.cacheGet(CacheKey.signature);
   }
 
   /**
@@ -78,45 +106,46 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VoidPaymentResponse> {
-    paymentId {
-      @Override
-      public Object extractValue(VoidPaymentResponse instance) {
-        return instance.genClient.extractOther("paymentId", java.lang.String.class);
-      }
-    },
-    success {
-      @Override
-      public Object extractValue(VoidPaymentResponse instance) {
-        return instance.genClient.extractOther("success", java.lang.Boolean.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(VoidPaymentResponse instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(VoidPaymentResponse instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(VoidPaymentResponse instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    paymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    isSale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isPreAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    signature
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Signature.JSON_CREATOR)),
+    success
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VoidPaymentResponse> genClient;
+  private final GenericClient<VoidPaymentResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VoidPaymentResponse() {
     super(false);
     genClient = new GenericClient<VoidPaymentResponse>(this);
@@ -128,8 +157,8 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VoidPaymentResponse(boolean noInit) {
     super(false);
     genClient = null;
@@ -183,6 +212,36 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
     return genClient.cacheValueIsNotNull(CacheKey.paymentId);
   }
 
+  /** Checks whether the 'payment' field is set and is not null */
+  @Override
+  public boolean isNotNullPayment() {
+    return genClient.cacheValueIsNotNull(CacheKey.payment);
+  }
+
+  /** Checks whether the 'isSale' field is set and is not null */
+  @Override
+  public boolean isNotNullIsSale() {
+    return genClient.cacheValueIsNotNull(CacheKey.isSale);
+  }
+
+  /** Checks whether the 'isPreAuth' field is set and is not null */
+  @Override
+  public boolean isNotNullIsPreAuth() {
+    return genClient.cacheValueIsNotNull(CacheKey.isPreAuth);
+  }
+
+  /** Checks whether the 'isAuth' field is set and is not null */
+  @Override
+  public boolean isNotNullIsAuth() {
+    return genClient.cacheValueIsNotNull(CacheKey.isAuth);
+  }
+
+  /** Checks whether the 'signature' field is set and is not null */
+  @Override
+  public boolean isNotNullSignature() {
+    return genClient.cacheValueIsNotNull(CacheKey.signature);
+  }
+
   /** Checks whether the 'success' field is set and is not null */
   @Override
   public boolean isNotNullSuccess() {
@@ -212,6 +271,36 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
   /** Checks whether the 'paymentId' field has been set, however the value could be null */
   public boolean hasPaymentId() {
     return genClient.cacheHasKey(CacheKey.paymentId);
+  }
+
+  /** Checks whether the 'payment' field has been set, however the value could be null */
+  @Override
+  public boolean hasPayment() {
+    return genClient.cacheHasKey(CacheKey.payment);
+  }
+
+  /** Checks whether the 'isSale' field has been set, however the value could be null */
+  @Override
+  public boolean hasIsSale() {
+    return genClient.cacheHasKey(CacheKey.isSale);
+  }
+
+  /** Checks whether the 'isPreAuth' field has been set, however the value could be null */
+  @Override
+  public boolean hasIsPreAuth() {
+    return genClient.cacheHasKey(CacheKey.isPreAuth);
+  }
+
+  /** Checks whether the 'isAuth' field has been set, however the value could be null */
+  @Override
+  public boolean hasIsAuth() {
+    return genClient.cacheHasKey(CacheKey.isAuth);
+  }
+
+  /** Checks whether the 'signature' field has been set, however the value could be null */
+  @Override
+  public boolean hasSignature() {
+    return genClient.cacheHasKey(CacheKey.signature);
   }
 
   /** Checks whether the 'success' field has been set, however the value could be null */
@@ -244,6 +333,50 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
    */
   public VoidPaymentResponse setPaymentId(java.lang.String paymentId) {
     return genClient.setOther(paymentId, CacheKey.paymentId);
+  }
+
+  /**
+   * Sets the field 'payment'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  @Override
+  public PaymentResponse setPayment(com.clover.sdk.v3.payments.Payment payment) {
+    return genClient.setRecord(payment, CacheKey.payment);
+  }
+
+  /**
+   * Sets the field 'isSale'.
+   */
+  @Override
+  public PaymentResponse setIsSale(java.lang.Boolean isSale) {
+    return genClient.setOther(isSale, CacheKey.isSale);
+  }
+
+  /**
+   * Sets the field 'isPreAuth'.
+   */
+  @Override
+  public PaymentResponse setIsPreAuth(java.lang.Boolean isPreAuth) {
+    return genClient.setOther(isPreAuth, CacheKey.isPreAuth);
+  }
+
+  /**
+   * Sets the field 'isAuth'.
+   */
+  @Override
+  public PaymentResponse setIsAuth(java.lang.Boolean isAuth) {
+    return genClient.setOther(isAuth, CacheKey.isAuth);
+  }
+
+  /**
+   * Sets the field 'signature'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  @Override
+  public PaymentResponse setSignature(com.clover.sdk.v3.base.Signature signature) {
+    return genClient.setRecord(signature, CacheKey.signature);
   }
 
   /**
@@ -282,6 +415,31 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
   /** Clears the 'paymentId' field, the 'has' method for this field will now return false */
   public void clearPaymentId() {
     genClient.clear(CacheKey.paymentId);
+  }
+  /** Clears the 'payment' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearPayment() {
+    genClient.clear(CacheKey.payment);
+  }
+  /** Clears the 'isSale' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearIsSale() {
+    genClient.clear(CacheKey.isSale);
+  }
+  /** Clears the 'isPreAuth' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearIsPreAuth() {
+    genClient.clear(CacheKey.isPreAuth);
+  }
+  /** Clears the 'isAuth' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearIsAuth() {
+    genClient.clear(CacheKey.isAuth);
+  }
+  /** Clears the 'signature' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearSignature() {
+    genClient.clear(CacheKey.signature);
   }
   /** Clears the 'success' field, the 'has' method for this field will now return false */
   @Override
@@ -363,6 +521,11 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespons
   public interface Constraints {
 
     public static final boolean PAYMENTID_IS_REQUIRED = false;
+    public static final boolean PAYMENT_IS_REQUIRED = false;
+    public static final boolean ISSALE_IS_REQUIRED = false;
+    public static final boolean ISPREAUTH_IS_REQUIRED = false;
+    public static final boolean ISAUTH_IS_REQUIRED = false;
+    public static final boolean SIGNATURE_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -79,45 +79,36 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Screenshot> {
-    name {
-      @Override
-      public Object extractValue(Screenshot instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    locale {
-      @Override
-      public Object extractValue(Screenshot instance) {
-        return instance.genClient.extractOther("locale", java.lang.String.class);
-      }
-    },
-    small {
-      @Override
-      public Object extractValue(Screenshot instance) {
-        return instance.genClient.extractOther("small", java.lang.String.class);
-      }
-    },
-    medium {
-      @Override
-      public Object extractValue(Screenshot instance) {
-        return instance.genClient.extractOther("medium", java.lang.String.class);
-      }
-    },
-    large {
-      @Override
-      public Object extractValue(Screenshot instance) {
-        return instance.genClient.extractOther("large", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    locale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    small
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    medium
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    large
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Screenshot> genClient;
+  private final GenericClient<Screenshot> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Screenshot() {
     genClient = new GenericClient<Screenshot>(this);
   }
@@ -128,8 +119,8 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Screenshot(boolean noInit) {
     genClient = null;
   }

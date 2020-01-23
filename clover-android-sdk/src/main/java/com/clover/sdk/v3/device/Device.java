@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModel model}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getOrderPrefix orderPrefix}</li>
+ * <li>{@link #getTerminalId terminalId}</li>
  * <li>{@link #getTerminalPrefix terminalPrefix}</li>
  * <li>{@link #getSerial serial}</li>
  * <li>{@link #getBuildNumber buildNumber}</li>
@@ -48,6 +49,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDeviceCertificate deviceCertificate}</li>
  * <li>{@link #getPedCertificate pedCertificate}</li>
  * <li>{@link #getDeviceTypeName deviceTypeName}</li>
+ * <li>{@link #getProductName productName}</li>
  * <li>{@link #getPinDisabled pinDisabled}</li>
  * <li>{@link #getOfflinePayments offlinePayments}</li>
  * <li>{@link #getOfflinePaymentsAll offlinePaymentsAll}</li>
@@ -96,6 +98,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public java.lang.String getOrderPrefix() {
     return genClient.cacheGet(CacheKey.orderPrefix);
+  }
+
+  /**
+   * The merchant device's terminal Id. FD-IPG sets the merchant_device terminal Id for LATAM devices
+   */
+  public java.lang.String getTerminalId() {
+    return genClient.cacheGet(CacheKey.terminalId);
   }
 
   public java.lang.Integer getTerminalPrefix() {
@@ -154,11 +163,12 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.pedCertificate);
   }
 
-  /**
-   * The type of device. Possible values are "GOLDLEAF" (Station), "LEAFCUTTER" (Mobile), "MAPLECUTTER" (Mini), "CLOVER_GO" (Clover Go), or "OTHER" (Unknown).
-   */
   public java.lang.String getDeviceTypeName() {
     return genClient.cacheGet(CacheKey.deviceTypeName);
+  }
+
+  public java.lang.String getProductName() {
+    return genClient.cacheGet(CacheKey.productName);
   }
 
   /**
@@ -231,213 +241,96 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Device> {
-    id {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    model {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("model", java.lang.String.class);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    orderPrefix {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("orderPrefix", java.lang.String.class);
-      }
-    },
-    terminalPrefix {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("terminalPrefix", java.lang.Integer.class);
-      }
-    },
-    serial {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("serial", java.lang.String.class);
-      }
-    },
-    buildNumber {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("buildNumber", java.lang.Long.class);
-      }
-    },
-    secureId {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("secureId", java.lang.String.class);
-      }
-    },
-    buildType {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractEnum("buildType", com.clover.sdk.v3.device.BuildType.class);
-      }
-    },
-    cpuId {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("cpuId", java.lang.String.class);
-      }
-    },
-    imei {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("imei", java.lang.String.class);
-      }
-    },
-    imsi {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("imsi", java.lang.String.class);
-      }
-    },
-    simIccid {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("simIccid", java.lang.String.class);
-      }
-    },
-    deviceCertificate {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("deviceCertificate", java.lang.String.class);
-      }
-    },
-    pedCertificate {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("pedCertificate", java.lang.String.class);
-      }
-    },
-    deviceTypeName {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("deviceTypeName", java.lang.String.class);
-      }
-    },
-    pinDisabled {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("pinDisabled", java.lang.Boolean.class);
-      }
-    },
-    offlinePayments {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePayments", java.lang.Boolean.class);
-      }
-    },
-    offlinePaymentsAll {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsAll", java.lang.Boolean.class);
-      }
-    },
-    offlinePaymentsLimit {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsLimit", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsPromptThreshold {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsPromptThreshold", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsTotalPaymentsLimit {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsTotalPaymentsLimit", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsLimitDefault {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsLimitDefault", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsPromptThresholdDefault {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsPromptThresholdDefault", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsTotalPaymentsLimitDefault {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsTotalPaymentsLimitDefault", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsMaxLimit {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsMaxLimit", java.lang.Long.class);
-      }
-    },
-    offlinePaymentsMaxTotalPaymentsLimit {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("offlinePaymentsMaxTotalPaymentsLimit", java.lang.Long.class);
-      }
-    },
-    showOfflinePayments {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("showOfflinePayments", java.lang.Boolean.class);
-      }
-    },
-    maxOfflineDays {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("maxOfflineDays", java.lang.Long.class);
-      }
-    },
-    allowStoreAndForward {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("allowStoreAndForward", java.lang.Boolean.class);
-      }
-    },
-    secureReports {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractListRecord("secureReports", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    bundleIndicator {
-      @Override
-      public Object extractValue(Device instance) {
-        return instance.genClient.extractOther("bundleIndicator", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    model
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    orderPrefix
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    terminalId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    terminalPrefix
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    serial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    buildNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    secureId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    buildType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.device.BuildType.class)),
+    cpuId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    imei
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    imsi
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    simIccid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceCertificate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pedCertificate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceTypeName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    productName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pinDisabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    offlinePayments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    offlinePaymentsAll
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    offlinePaymentsLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsPromptThreshold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsTotalPaymentsLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsLimitDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsPromptThresholdDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsTotalPaymentsLimitDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsMaxLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsMaxTotalPaymentsLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    showOfflinePayments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    maxOfflineDays
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    allowStoreAndForward
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    secureReports
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    bundleIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Device> genClient;
+  private final GenericClient<Device> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Device() {
     genClient = new GenericClient<Device>(this);
   }
@@ -448,8 +341,8 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Device(boolean noInit) {
     genClient = null;
   }
@@ -503,6 +396,8 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
 
     genClient.validateLength(getOrderPrefix(), 1);
 
+    genClient.validateLength(getTerminalId(), 8);
+
     genClient.validateLength(getSerial(), 32);
 
     genClient.validateLength(getSecureId(), 32);
@@ -545,6 +440,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'orderPrefix' field is set and is not null */
   public boolean isNotNullOrderPrefix() {
     return genClient.cacheValueIsNotNull(CacheKey.orderPrefix);
+  }
+
+  /** Checks whether the 'terminalId' field is set and is not null */
+  public boolean isNotNullTerminalId() {
+    return genClient.cacheValueIsNotNull(CacheKey.terminalId);
   }
 
   /** Checks whether the 'terminalPrefix' field is set and is not null */
@@ -605,6 +505,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'deviceTypeName' field is set and is not null */
   public boolean isNotNullDeviceTypeName() {
     return genClient.cacheValueIsNotNull(CacheKey.deviceTypeName);
+  }
+
+  /** Checks whether the 'productName' field is set and is not null */
+  public boolean isNotNullProductName() {
+    return genClient.cacheValueIsNotNull(CacheKey.productName);
   }
 
   /** Checks whether the 'pinDisabled' field is set and is not null */
@@ -717,6 +622,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.orderPrefix);
   }
 
+  /** Checks whether the 'terminalId' field has been set, however the value could be null */
+  public boolean hasTerminalId() {
+    return genClient.cacheHasKey(CacheKey.terminalId);
+  }
+
   /** Checks whether the 'terminalPrefix' field has been set, however the value could be null */
   public boolean hasTerminalPrefix() {
     return genClient.cacheHasKey(CacheKey.terminalPrefix);
@@ -775,6 +685,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'deviceTypeName' field has been set, however the value could be null */
   public boolean hasDeviceTypeName() {
     return genClient.cacheHasKey(CacheKey.deviceTypeName);
+  }
+
+  /** Checks whether the 'productName' field has been set, however the value could be null */
+  public boolean hasProductName() {
+    return genClient.cacheHasKey(CacheKey.productName);
   }
 
   /** Checks whether the 'pinDisabled' field has been set, however the value could be null */
@@ -896,6 +811,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'terminalId'.
+   */
+  public Device setTerminalId(java.lang.String terminalId) {
+    return genClient.setOther(terminalId, CacheKey.terminalId);
+  }
+
+  /**
    * Sets the field 'terminalPrefix'.
    */
   public Device setTerminalPrefix(java.lang.Integer terminalPrefix) {
@@ -977,6 +899,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Device setDeviceTypeName(java.lang.String deviceTypeName) {
     return genClient.setOther(deviceTypeName, CacheKey.deviceTypeName);
+  }
+
+  /**
+   * Sets the field 'productName'.
+   */
+  public Device setProductName(java.lang.String productName) {
+    return genClient.setOther(productName, CacheKey.productName);
   }
 
   /**
@@ -1114,6 +1043,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearOrderPrefix() {
     genClient.clear(CacheKey.orderPrefix);
   }
+  /** Clears the 'terminalId' field, the 'has' method for this field will now return false */
+  public void clearTerminalId() {
+    genClient.clear(CacheKey.terminalId);
+  }
   /** Clears the 'terminalPrefix' field, the 'has' method for this field will now return false */
   public void clearTerminalPrefix() {
     genClient.clear(CacheKey.terminalPrefix);
@@ -1161,6 +1094,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Clears the 'deviceTypeName' field, the 'has' method for this field will now return false */
   public void clearDeviceTypeName() {
     genClient.clear(CacheKey.deviceTypeName);
+  }
+  /** Clears the 'productName' field, the 'has' method for this field will now return false */
+  public void clearProductName() {
+    genClient.clear(CacheKey.productName);
   }
   /** Clears the 'pinDisabled' field, the 'has' method for this field will now return false */
   public void clearPinDisabled() {
@@ -1294,6 +1231,8 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean ORDERPREFIX_IS_REQUIRED = false;
     public static final long ORDERPREFIX_MAX_LEN = 1;
+    public static final boolean TERMINALID_IS_REQUIRED = false;
+    public static final long TERMINALID_MAX_LEN = 8;
     public static final boolean TERMINALPREFIX_IS_REQUIRED = false;
     public static final boolean SERIAL_IS_REQUIRED = false;
     public static final long SERIAL_MAX_LEN = 32;
@@ -1314,6 +1253,7 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean PEDCERTIFICATE_IS_REQUIRED = false;
     public static final long PEDCERTIFICATE_MAX_LEN = 2048;
     public static final boolean DEVICETYPENAME_IS_REQUIRED = false;
+    public static final boolean PRODUCTNAME_IS_REQUIRED = false;
     public static final boolean PINDISABLED_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTS_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSALL_IS_REQUIRED = false;

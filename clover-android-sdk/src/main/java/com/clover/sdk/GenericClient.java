@@ -1,11 +1,11 @@
-/**
- * Copyright (C) 2016 Clover Network, Inc.
+/*
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,9 @@ package com.clover.sdk;
 
 import android.util.Log;
 
+/**
+ * For internal use only.
+ */
 public final class GenericClient<D> {
 
   private org.json.JSONObject jsonObject = null;
@@ -24,8 +27,8 @@ public final class GenericClient<D> {
   private android.os.Bundle changeLog = null;
   private volatile Object[] cache = null;
   private byte[] cacheState = null;
-  private static String errorLengthMessage = "Maximum string length exceeded for ";
-  private static String errorNullMessage = " is required to be non-null";
+  private static final String errorLengthMessage = "Maximum string length exceeded for ";
+  private static final String errorNullMessage = " is required to be non-null";
   private D callingClass = null;
   private final Object LOCK = new Object();
   private static final String TAG = "GenericClient";
@@ -53,32 +56,33 @@ public final class GenericClient<D> {
   /**
    * Replacement for the various cache methods.
    */
-  public <T> T cacheGet(ValueExtractorEnum<D> cacheKey) {
+  @SuppressWarnings("unchecked")
+  public <T> T cacheGet(ExtractableEnum cacheKey) {
     int index = cacheKey.ordinal();
     populateCache(index, cacheKey);
     return (T) cache[index];
   }
 
-  public boolean cacheValueIsNotNull(ValueExtractorEnum<D> cacheKey) {
+  public boolean cacheValueIsNotNull(ExtractableEnum cacheKey) {
     int index = cacheKey.ordinal();
     populateCache(index, cacheKey);
     return cache[index] != null;
   }
 
-  public boolean cacheHasKey(ValueExtractorEnum<D> cacheKey) {
+  public boolean cacheHasKey(ExtractableEnum cacheKey) {
     int index = cacheKey.ordinal();
     populateCache(index, cacheKey);
     return cacheState[index] == STATE_CACHED_VALUE;
   }
 
-  public void cacheRemoveValue(ValueExtractorEnum<D> cacheKey) {
+  public void cacheRemoveValue(ExtractableEnum cacheKey) {
     int index = cacheKey.ordinal();
     populateCache(index, cacheKey);
     cache[index] = null;
     cacheState[index] = STATE_CACHED_NO_VALUE;
   }
 
-  public void cacheMarkDirty(ValueExtractorEnum<D> cacheKey) {
+  public void cacheMarkDirty(ExtractableEnum cacheKey) {
     if (cache != null) {
       int index = cacheKey.ordinal();
       cache[index] = null;
@@ -86,7 +90,8 @@ public final class GenericClient<D> {
     }
   }
 
-  private void populateCache(int index, ValueExtractorEnum<D> cacheKey) {
+  @SuppressWarnings("unchecked")
+  private void populateCache(int index, ExtractableEnum cacheKey) {
     if (cache == null || cacheState == null) {
       synchronized (LOCK) {
         if (cache == null || cacheState == null) {
@@ -99,7 +104,11 @@ public final class GenericClient<D> {
 
     if (cacheState[index] == STATE_NOT_CACHED) {
       if (getJSONObject().has(cacheKey.name())) {
-        cache[index] = cacheKey.extractValue(callingClass);
+        if (cacheKey instanceof ValueExtractorEnum) {
+          cache[index] = ((ValueExtractorEnum<D>) cacheKey).extractValue(callingClass);
+        } else {
+          cache[index] = ((ExtractionStrategyEnum) cacheKey).getExtractionStrategy().extractValue(this, cacheKey.name());
+        }
         cacheState[index] = STATE_CACHED_VALUE;
       }
       else {
@@ -186,7 +195,7 @@ public final class GenericClient<D> {
   /**
    * Clears the 'field' field, the 'has' method for this field will now return false
    */
-  public void clear(ValueExtractorEnum<D> key) {
+  public void clear(ExtractableEnum key) {
     unlogChange(key.name());
     getJSONObject().remove(key.name());
     cacheRemoveValue(key);
@@ -292,6 +301,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that returns a list of T items. Replacement for the "extract" methods which dealt with a list of other items (neither Records nor Enums).
    */
+  @SuppressWarnings("unchecked")
   public <T> java.util.List<T> extractListOther(String name, Class<T> clazz) {
     if (getJSONObject().isNull(name)) { return null; }
 
@@ -341,6 +351,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "extract" methods which dealt with anything else (not a Record, Enum, or Map).
    */
+  @SuppressWarnings("unchecked")
   public <T> T extractOther(String name, Class<T> clazz) {
     return getJSONObject().isNull(name) ? null : (T) returnType(name, clazz);
   }
@@ -404,7 +415,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "set" methods which dealt with Arrays that hold Records.
    */
-  public <T extends com.clover.sdk.JSONifiable> D setArrayRecord(java.util.List<T> list, ValueExtractorEnum<D> key) {
+  public <T extends com.clover.sdk.JSONifiable> D setArrayRecord(java.util.List<T> list, ExtractableEnum key) {
     logChange(key.name());
 
     try {
@@ -432,7 +443,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "set" methods which dealt with Arrays that hold non-Records.
    */
-  public <T> D setArrayOther(java.util.List<T> list, ValueExtractorEnum<D> key) {
+  public <T> D setArrayOther(java.util.List<T> list, ExtractableEnum key) {
     logChange(key.name());
 
     try {
@@ -460,7 +471,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "set" methods which dealt with Records.
    */
-  public <T extends com.clover.sdk.JSONifiable> D setRecord(T item, ValueExtractorEnum<D> key) {
+  public <T extends com.clover.sdk.JSONifiable> D setRecord(T item, ExtractableEnum key) {
     logChange(key.name());
 
     try {
@@ -475,7 +486,7 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "set" methods which dealt with anything else (not an Array or Record).
    */
-  public <T> D setOther(T item, ValueExtractorEnum<D> key) {
+  public <T> D setOther(T item, ExtractableEnum key) {
     logChange(key.name());
 
     try {

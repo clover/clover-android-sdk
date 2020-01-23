@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -128,87 +128,50 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantDeviceBoarding> {
-    merchantRef {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractRecord("merchantRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    productType {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("productType", java.lang.String.class);
-      }
-    },
-    equipmentNumber {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("equipmentNumber", java.lang.String.class);
-      }
-    },
-    businessType {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("businessType", java.lang.String.class);
-      }
-    },
-    status {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("status", java.lang.String.class);
-      }
-    },
-    transArmorIndicator {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("transArmorIndicator", java.lang.String.class);
-      }
-    },
-    forceCloseTime {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("forceCloseTime", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    serialNumber {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("serialNumber", java.lang.String.class);
-      }
-    },
-    bundleIndicator {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("bundleIndicator", java.lang.String.class);
-      }
-    },
-    removalTime {
-      @Override
-      public Object extractValue(MerchantDeviceBoarding instance) {
-        return instance.genClient.extractOther("removalTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    merchantRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    productType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    equipmentNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    status
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    forceCloseTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    serialNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bundleIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    removalTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantDeviceBoarding> genClient;
+  private final GenericClient<MerchantDeviceBoarding> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantDeviceBoarding() {
     genClient = new GenericClient<MerchantDeviceBoarding>(this);
   }
@@ -219,8 +182,8 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantDeviceBoarding(boolean noInit) {
     genClient = null;
   }

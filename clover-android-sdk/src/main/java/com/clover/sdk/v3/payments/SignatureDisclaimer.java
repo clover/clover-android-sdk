@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -52,27 +52,30 @@ public class SignatureDisclaimer extends GenericParcelable implements com.clover
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<SignatureDisclaimer> {
-    disclaimerText {
-      @Override
-      public Object extractValue(SignatureDisclaimer instance) {
-        return instance.genClient.extractOther("disclaimerText", java.lang.String.class);
-      }
-    },
-    disclaimerValues {
-      @Override
-      public Object extractValue(SignatureDisclaimer instance) {
-        return instance.genClient.extractMap("disclaimerValues");
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    disclaimerText
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    disclaimerValues
+        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<SignatureDisclaimer> genClient;
+  private final GenericClient<SignatureDisclaimer> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public SignatureDisclaimer() {
     genClient = new GenericClient<SignatureDisclaimer>(this);
   }
@@ -83,8 +86,8 @@ public class SignatureDisclaimer extends GenericParcelable implements com.clover
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected SignatureDisclaimer(boolean noInit) {
     genClient = null;
   }

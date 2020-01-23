@@ -30,3 +30,17 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 }
+
+// Reduce tests when asked
+gradle.taskGraph.useFilter { Task task ->
+  if (project.hasProperty('reduceTests')) {
+    if (task.name.contains("ReleaseSignedUnitTest")) {
+      return false
+    }
+    if (task.name.contains("ReleaseUnitTest")) {
+      return false
+    }
+  }
+
+  return true
+}

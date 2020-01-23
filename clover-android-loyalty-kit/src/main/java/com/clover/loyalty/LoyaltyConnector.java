@@ -20,17 +20,8 @@ import android.content.Context;
 
 import java.util.Map;
 
-/**
- * Created by michaelhampton on 6/6/18.
- */
 public class LoyaltyConnector extends LoyaltyV3Connector implements ILoyaltyKit {
 
-  /**
-   *
-   * @param context
-   * @param account
-   * @param client
-   */
   public LoyaltyConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);
   }
@@ -43,5 +34,10 @@ public class LoyaltyConnector extends LoyaltyV3Connector implements ILoyaltyKit 
   @Override
   public boolean stopLoyaltyService(String dynamicService) throws Exception {
     return stop(dynamicService);
+  }
+
+  @Override
+  public boolean stopLoyaltyService(String dynamicService, Map<String, String> dataExtras) throws Exception {
+    return stop(dynamicService, dataExtras);
   }
 }

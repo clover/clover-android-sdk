@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,11 +38,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCardType cardType}</li>
  * <li>{@link #getLast4 last4}</li>
  * <li>{@link #getAuthcode authcode}</li>
+ * <li>{@link #getToken token}</li>
  * <li>{@link #getType type}</li>
  * <li>{@link #getNote note}</li>
+ * <li>{@link #getExternalReferenceId externalReferenceId}</li>
  * <li>{@link #getClosingPayment closingPayment}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
- * <li>{@link #getToken createdTime}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -97,12 +98,26 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.authcode);
   }
 
+  /**
+   * Token used for the authorization
+   */
+  public java.lang.String getToken() {
+    return genClient.cacheGet(CacheKey.token);
+  }
+
   public com.clover.sdk.v3.payments.Type getType() {
     return genClient.cacheGet(CacheKey.type);
   }
 
   public java.lang.String getNote() {
     return genClient.cacheGet(CacheKey.note);
+  }
+
+  /**
+   * The external reference id if associated with the payment
+   */
+  public java.lang.String getExternalReferenceId() {
+    return genClient.cacheGet(CacheKey.externalReferenceId);
   }
 
   /**
@@ -119,95 +134,55 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
-  /**
-   * Token used for the authorization
-   */
-  public java.lang.String getToken() {
-    return genClient.cacheGet(CacheKey.token);
-  }
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Authorization> {
-    id {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    payment {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractRecord("payment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    tabName {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("tabName", java.lang.String.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    cardType {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractEnum("cardType", com.clover.sdk.v3.payments.CardType.class);
-      }
-    },
-    last4 {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("last4", java.lang.String.class);
-      }
-    },
-    authcode {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("authcode", java.lang.String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.payments.Type.class);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    closingPayment {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractRecord("closingPayment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    token {
-      @Override
-      public Object extractValue(Authorization instance) {
-        return instance.genClient.extractOther("token", java.lang.String.class);
-      }
-    },
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    tabName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    cardType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardType.class)),
+    last4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    authcode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    token
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.Type.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    externalReferenceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    closingPayment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Authorization> genClient;
+  private final GenericClient<Authorization> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Authorization() {
     genClient = new GenericClient<Authorization>(this);
   }
@@ -218,8 +193,8 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Authorization(boolean noInit) {
     genClient = null;
   }
@@ -273,6 +248,8 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
 
     genClient.validateLength(getAuthcode(), 255);
 
+    genClient.validateLength(getToken(), 72);
+
     genClient.validateLength(getNote(), 255);
   }
 
@@ -311,6 +288,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.authcode);
   }
 
+  /** Checks whether the 'token' field is set and is not null */
+  public boolean isNotNullToken() {
+    return genClient.cacheValueIsNotNull(CacheKey.token);
+  }
+
   /** Checks whether the 'type' field is set and is not null */
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
@@ -319,6 +301,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'note' field is set and is not null */
   public boolean isNotNullNote() {
     return genClient.cacheValueIsNotNull(CacheKey.note);
+  }
+
+  /** Checks whether the 'externalReferenceId' field is set and is not null */
+  public boolean isNotNullExternalReferenceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
   }
 
   /** Checks whether the 'closingPayment' field is set and is not null */
@@ -331,10 +318,6 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
   }
 
-  /** Checks whether the 'token' field is set and is not null */
-  public boolean isNotNullToken() {
-    return genClient.cacheValueIsNotNull(CacheKey.token);
-  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -372,6 +355,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheHasKey(CacheKey.authcode);
   }
 
+  /** Checks whether the 'token' field has been set, however the value could be null */
+  public boolean hasToken() {
+    return genClient.cacheHasKey(CacheKey.token);
+  }
+
   /** Checks whether the 'type' field has been set, however the value could be null */
   public boolean hasType() {
     return genClient.cacheHasKey(CacheKey.type);
@@ -380,6 +368,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'note' field has been set, however the value could be null */
   public boolean hasNote() {
     return genClient.cacheHasKey(CacheKey.note);
+  }
+
+  /** Checks whether the 'externalReferenceId' field has been set, however the value could be null */
+  public boolean hasExternalReferenceId() {
+    return genClient.cacheHasKey(CacheKey.externalReferenceId);
   }
 
   /** Checks whether the 'closingPayment' field has been set, however the value could be null */
@@ -392,10 +385,6 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheHasKey(CacheKey.createdTime);
   }
 
-  /** Checks whether the 'token' field has been set, however the value could be null */
-  public boolean hasToken() {
-    return genClient.cacheHasKey(CacheKey.token);
-  }
 
   /**
    * Sets the field 'id'.
@@ -449,6 +438,13 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'token'.
+   */
+  public Authorization setToken(java.lang.String token) {
+    return genClient.setOther(token, CacheKey.token);
+  }
+
+  /**
    * Sets the field 'type'.
    */
   public Authorization setType(com.clover.sdk.v3.payments.Type type) {
@@ -460,6 +456,13 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
    */
   public Authorization setNote(java.lang.String note) {
     return genClient.setOther(note, CacheKey.note);
+  }
+
+  /**
+   * Sets the field 'externalReferenceId'.
+   */
+  public Authorization setExternalReferenceId(java.lang.String externalReferenceId) {
+    return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
   }
 
   /**
@@ -478,12 +481,6 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
-  /**
-   * Sets the field 'token'.
-   */
-  public Authorization setToken(java.lang.String token) {
-    return genClient.setOther(token, CacheKey.token);
-  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -513,6 +510,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   public void clearAuthcode() {
     genClient.clear(CacheKey.authcode);
   }
+  /** Clears the 'token' field, the 'has' method for this field will now return false */
+  public void clearToken() {
+    genClient.clear(CacheKey.token);
+  }
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
     genClient.clear(CacheKey.type);
@@ -520,6 +521,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'note' field, the 'has' method for this field will now return false */
   public void clearNote() {
     genClient.clear(CacheKey.note);
+  }
+  /** Clears the 'externalReferenceId' field, the 'has' method for this field will now return false */
+  public void clearExternalReferenceId() {
+    genClient.clear(CacheKey.externalReferenceId);
   }
   /** Clears the 'closingPayment' field, the 'has' method for this field will now return false */
   public void clearClosingPayment() {
@@ -529,10 +534,7 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
   }
-  /** Clears the 'token' field, the 'has' method for this field will now return false */
-  public void clearToken() {
-    genClient.clear(CacheKey.token);
-  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -602,12 +604,14 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     public static final long LAST4_MAX_LEN = 4;
     public static final boolean AUTHCODE_IS_REQUIRED = false;
     public static final long AUTHCODE_MAX_LEN = 255;
+    public static final boolean TOKEN_IS_REQUIRED = false;
+    public static final long TOKEN_MAX_LEN = 72;
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean NOTE_IS_REQUIRED = false;
     public static final long NOTE_MAX_LEN = 255;
+    public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
     public static final boolean CLOSINGPAYMENT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-    public static final boolean TOKEN_IS_REQUIRED = false;
 
   }
 

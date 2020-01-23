@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,57 +95,40 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CustomerMetadata> {
-    businessName {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("businessName", java.lang.String.class);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    dobYear {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("dobYear", java.lang.Integer.class);
-      }
-    },
-    dobMonth {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("dobMonth", java.lang.Integer.class);
-      }
-    },
-    dobDay {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("dobDay", java.lang.Integer.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    customer {
-      @Override
-      public Object extractValue(CustomerMetadata instance) {
-        return instance.genClient.extractRecord("customer", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    businessName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    dobYear
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    dobMonth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    dobDay
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    customer
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CustomerMetadata> genClient;
+  private final GenericClient<CustomerMetadata> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CustomerMetadata() {
     genClient = new GenericClient<CustomerMetadata>(this);
   }
@@ -156,8 +139,8 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CustomerMetadata(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -67,45 +67,36 @@ public class PaymentResponse extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentResponse> {
-    requestSuccessful {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("requestSuccessful", java.lang.Boolean.class);
-      }
-    },
-    responseErrorMessage {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("responseErrorMessage", java.lang.String.class);
-      }
-    },
-    payment {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractRecord("payment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    clientData {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractMap("clientData");
-      }
-    },
-    syncPaymentObject {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("syncPaymentObject", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    requestSuccessful
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    responseErrorMessage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    clientData
+        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+    syncPaymentObject
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PaymentResponse> genClient;
+  private final GenericClient<PaymentResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PaymentResponse() {
     genClient = new GenericClient<PaymentResponse>(this);
   }
@@ -116,8 +107,8 @@ public class PaymentResponse extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PaymentResponse(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -48,6 +48,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTokenType tokenType}</li>
  * <li>{@link #getGroupId groupId}</li>
  * <li>{@link #getDebitKeyCode debitKeyCode}</li>
+ * <li>{@link #getSredCode sredCode}</li>
  * <li>{@link #getSupportsTipAdjust supportsTipAdjust}</li>
  * <li>{@link #getSupportsNakedCredit supportsNakedCredit}</li>
  * <li>{@link #getSupportsMultiPayToken supportsMultiPayToken}</li>
@@ -130,6 +131,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.debitKeyCode);
   }
 
+  public java.lang.String getSredCode() {
+    return genClient.cacheGet(CacheKey.sredCode);
+  }
+
   public java.lang.Boolean getSupportsTipAdjust() {
     return genClient.cacheGet(CacheKey.supportsTipAdjust);
   }
@@ -160,149 +165,70 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Gateway> {
-    paymentProcessorName {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("paymentProcessorName", java.lang.String.class);
-      }
-    },
-    authorizationFrontEnd {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("authorizationFrontEnd", java.lang.String.class);
-      }
-    },
-    acquiringBackEnd {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("acquiringBackEnd", java.lang.String.class);
-      }
-    },
-    paymentGatewayApi {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("paymentGatewayApi", java.lang.String.class);
-      }
-    },
-    accountName {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("accountName", java.lang.String.class);
-      }
-    },
-    altMid {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("altMid", java.lang.String.class);
-      }
-    },
-    mid {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("mid", java.lang.String.class);
-      }
-    },
-    fns {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("fns", java.lang.String.class);
-      }
-    },
-    tid {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("tid", java.lang.String.class);
-      }
-    },
-    storeId {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("storeId", java.lang.String.class);
-      }
-    },
-    supportsTipping {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("supportsTipping", java.lang.Boolean.class);
-      }
-    },
-    frontendMid {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("frontendMid", java.lang.String.class);
-      }
-    },
-    backendMid {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("backendMid", java.lang.String.class);
-      }
-    },
-    mcc {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("mcc", java.lang.String.class);
-      }
-    },
-    tokenType {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("tokenType", java.lang.String.class);
-      }
-    },
-    groupId {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("groupId", java.lang.String.class);
-      }
-    },
-    debitKeyCode {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("debitKeyCode", java.lang.String.class);
-      }
-    },
-    supportsTipAdjust {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("supportsTipAdjust", java.lang.Boolean.class);
-      }
-    },
-    supportsNakedCredit {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("supportsNakedCredit", java.lang.Boolean.class);
-      }
-    },
-    supportsMultiPayToken {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("supportsMultiPayToken", java.lang.Boolean.class);
-      }
-    },
-    closingTime {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("closingTime", java.lang.String.class);
-      }
-    },
-    newBatchCloseEnabled {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("newBatchCloseEnabled", java.lang.Boolean.class);
-      }
-    },
-    production {
-      @Override
-      public Object extractValue(Gateway instance) {
-        return instance.genClient.extractOther("production", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    paymentProcessorName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    authorizationFrontEnd
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    acquiringBackEnd
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    paymentGatewayApi
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    accountName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    altMid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    fns
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    storeId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportsTipping
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    frontendMid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    backendMid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mcc
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tokenType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    groupId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debitKeyCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sredCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportsTipAdjust
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsNakedCredit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsMultiPayToken
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    closingTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    newBatchCloseEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    production
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Gateway> genClient;
+  private final GenericClient<Gateway> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -456,6 +382,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.debitKeyCode);
   }
 
+  /** Checks whether the 'sredCode' field is set and is not null */
+  public boolean isNotNullSredCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.sredCode);
+  }
+
   /** Checks whether the 'supportsTipAdjust' field is set and is not null */
   public boolean isNotNullSupportsTipAdjust() {
     return genClient.cacheValueIsNotNull(CacheKey.supportsTipAdjust);
@@ -571,6 +502,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'debitKeyCode' field has been set, however the value could be null */
   public boolean hasDebitKeyCode() {
     return genClient.cacheHasKey(CacheKey.debitKeyCode);
+  }
+
+  /** Checks whether the 'sredCode' field has been set, however the value could be null */
+  public boolean hasSredCode() {
+    return genClient.cacheHasKey(CacheKey.sredCode);
   }
 
   /** Checks whether the 'supportsTipAdjust' field has been set, however the value could be null */
@@ -724,6 +660,13 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'sredCode'.
+   */
+  public Gateway setSredCode(java.lang.String sredCode) {
+    return genClient.setOther(sredCode, CacheKey.sredCode);
+  }
+
+  /**
    * Sets the field 'supportsTipAdjust'.
    */
   public Gateway setSupportsTipAdjust(java.lang.Boolean supportsTipAdjust) {
@@ -834,6 +777,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearDebitKeyCode() {
     genClient.clear(CacheKey.debitKeyCode);
   }
+  /** Clears the 'sredCode' field, the 'has' method for this field will now return false */
+  public void clearSredCode() {
+    genClient.clear(CacheKey.sredCode);
+  }
   /** Clears the 'supportsTipAdjust' field, the 'has' method for this field will now return false */
   public void clearSupportsTipAdjust() {
     genClient.clear(CacheKey.supportsTipAdjust);
@@ -937,6 +884,7 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean TOKENTYPE_IS_REQUIRED = false;
     public static final boolean GROUPID_IS_REQUIRED = false;
     public static final boolean DEBITKEYCODE_IS_REQUIRED = false;
+    public static final boolean SREDCODE_IS_REQUIRED = false;
     public static final boolean SUPPORTSTIPADJUST_IS_REQUIRED = false;
     public static final boolean SUPPORTSNAKEDCREDIT_IS_REQUIRED = false;
     public static final boolean SUPPORTSMULTIPAYTOKEN_IS_REQUIRED = false;

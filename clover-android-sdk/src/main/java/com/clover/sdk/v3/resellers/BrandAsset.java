@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,26 +24,44 @@
 package com.clover.sdk.v3.resellers;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getFilename filename}</li>
+ * <li>{@link #getMimeType mimeType}</li>
+ * <li>{@link #getUrl url}</li>
+ * <li>{@link #getReseller reseller}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
-public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class BrandAsset extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
-  public String getType() {
+  public java.lang.String getType() {
     return genClient.cacheGet(CacheKey.type);
   }
 
-  public String getFilename() {
+  public java.lang.String getFilename() {
     return genClient.cacheGet(CacheKey.filename);
   }
 
-  public String getUrl() {
+  public java.lang.String getMimeType() {
+    return genClient.cacheGet(CacheKey.mimeType);
+  }
+
+  public java.lang.String getUrl() {
     return genClient.cacheGet(CacheKey.url);
   }
 
@@ -53,51 +71,60 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<BrandAsset> {
-    id {
-      @Override
-      public Object extractValue(BrandAsset instance) {
-        return instance.genClient.extractOther("id", String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(BrandAsset instance) {
-        return instance.genClient.extractOther("type", String.class);
-      }
-    },
-    filename {
-      @Override
-      public Object extractValue(BrandAsset instance) {
-        return instance.genClient.extractOther("filename", String.class);
-      }
-    },
-    url {
-      @Override
-      public Object extractValue(BrandAsset instance) {
-        return instance.genClient.extractOther("url", String.class);
-      }
-    },
-    reseller {
-      @Override
-      public Object extractValue(BrandAsset instance) {
-        return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    ;
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    filename
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mimeType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    url
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    reseller
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<BrandAsset> genClient = new GenericClient<BrandAsset>(this);
+  private final GenericClient<BrandAsset> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public BrandAsset() { }
+  public BrandAsset() {
+    genClient = new GenericClient<BrandAsset>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+   * Constructs a new empty instance.
+   */
+  protected BrandAsset(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public BrandAsset(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -110,6 +137,7 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
    * reflected in this instance and vice-versa.
    */
   public BrandAsset(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -117,6 +145,7 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public BrandAsset(BrandAsset src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -129,7 +158,6 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -151,6 +179,11 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.filename);
   }
 
+  /** Checks whether the 'mimeType' field is set and is not null */
+  public boolean isNotNullMimeType() {
+    return genClient.cacheValueIsNotNull(CacheKey.mimeType);
+  }
+
   /** Checks whether the 'url' field is set and is not null */
   public boolean isNotNullUrl() {
     return genClient.cacheValueIsNotNull(CacheKey.url);
@@ -160,6 +193,7 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
   public boolean isNotNullReseller() {
     return genClient.cacheValueIsNotNull(CacheKey.reseller);
   }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -177,6 +211,11 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
     return genClient.cacheHasKey(CacheKey.filename);
   }
 
+  /** Checks whether the 'mimeType' field has been set, however the value could be null */
+  public boolean hasMimeType() {
+    return genClient.cacheHasKey(CacheKey.mimeType);
+  }
+
   /** Checks whether the 'url' field has been set, however the value could be null */
   public boolean hasUrl() {
     return genClient.cacheHasKey(CacheKey.url);
@@ -191,28 +230,35 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
   /**
    * Sets the field 'id'.
    */
-  public BrandAsset setId(String id) {
+  public BrandAsset setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'type'.
    */
-  public BrandAsset setType(String type) {
+  public BrandAsset setType(java.lang.String type) {
     return genClient.setOther(type, CacheKey.type);
   }
 
   /**
    * Sets the field 'filename'.
    */
-  public BrandAsset setFilename(String filename) {
+  public BrandAsset setFilename(java.lang.String filename) {
     return genClient.setOther(filename, CacheKey.filename);
+  }
+
+  /**
+   * Sets the field 'mimeType'.
+   */
+  public BrandAsset setMimeType(java.lang.String mimeType) {
+    return genClient.setOther(mimeType, CacheKey.mimeType);
   }
 
   /**
    * Sets the field 'url'.
    */
-  public BrandAsset setUrl(String url) {
+  public BrandAsset setUrl(java.lang.String url) {
     return genClient.setOther(url, CacheKey.url);
   }
 
@@ -237,6 +283,10 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
   /** Clears the 'filename' field, the 'has' method for this field will now return false */
   public void clearFilename() {
     genClient.clear(CacheKey.filename);
+  }
+  /** Clears the 'mimeType' field, the 'has' method for this field will now return false */
+  public void clearMimeType() {
+    genClient.clear(CacheKey.mimeType);
   }
   /** Clears the 'url' field, the 'has' method for this field will now return false */
   public void clearUrl() {
@@ -281,29 +331,6 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<BrandAsset> CREATOR = new android.os.Parcelable.Creator<BrandAsset>() {
     @Override
     public BrandAsset createFromParcel(android.os.Parcel in) {
@@ -326,18 +353,14 @@ public final class BrandAsset implements android.os.Parcelable, com.clover.sdk.v
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean TYPE_IS_REQUIRED = false;
-
     public static final boolean FILENAME_IS_REQUIRED = false;
-
+    public static final boolean MIMETYPE_IS_REQUIRED = false;
     public static final boolean URL_IS_REQUIRED = false;
-
     public static final boolean RESELLER_IS_REQUIRED = false;
 
   }

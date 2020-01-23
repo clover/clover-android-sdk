@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -94,57 +94,40 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RefundPaymentResponse> {
-    orderId {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractOther("orderId", java.lang.String.class);
-      }
-    },
-    paymentId {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractOther("paymentId", java.lang.String.class);
-      }
-    },
-    refund {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractRecord("refund", com.clover.sdk.v3.payments.Refund.JSON_CREATOR);
-      }
-    },
-    success {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractOther("success", java.lang.Boolean.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(RefundPaymentResponse instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    orderId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    paymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    refund
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
+    success
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<RefundPaymentResponse> genClient;
+  private final GenericClient<RefundPaymentResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public RefundPaymentResponse() {
     super(false);
     genClient = new GenericClient<RefundPaymentResponse>(this);
@@ -156,8 +139,8 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected RefundPaymentResponse(boolean noInit) {
     super(false);
     genClient = null;

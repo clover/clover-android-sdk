@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,27 +49,30 @@ public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DevicePriceInfo> {
-    price {
-      @Override
-      public Object extractValue(DevicePriceInfo instance) {
-        return instance.genClient.extractOther("price", java.lang.Long.class);
-      }
-    },
-    deviceCountInfo {
-      @Override
-      public Object extractValue(DevicePriceInfo instance) {
-        return instance.genClient.extractRecord("deviceCountInfo", com.clover.sdk.v3.billing.DeviceCountInfo.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    price
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deviceCountInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.billing.DeviceCountInfo.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DevicePriceInfo> genClient;
+  private final GenericClient<DevicePriceInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DevicePriceInfo() {
     genClient = new GenericClient<DevicePriceInfo>(this);
   }
@@ -80,8 +83,8 @@ public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DevicePriceInfo(boolean noInit) {
     genClient = null;
   }

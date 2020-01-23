@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -84,51 +84,38 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<GiftCard> {
-    track2 {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("track2", java.lang.String.class);
-      }
-    },
-    cardNumber {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("cardNumber", java.lang.String.class);
-      }
-    },
-    isManuallyEntered {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("isManuallyEntered", java.lang.Boolean.class);
-      }
-    },
-    deviceSerial {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("deviceSerial", java.lang.String.class);
-      }
-    },
-    virtual {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("virtual", java.lang.Boolean.class);
-      }
-    },
-    promoCode {
-      @Override
-      public Object extractValue(GiftCard instance) {
-        return instance.genClient.extractOther("promoCode", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    track2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isManuallyEntered
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    deviceSerial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    virtual
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    promoCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<GiftCard> genClient;
+  private final GenericClient<GiftCard> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public GiftCard() {
     genClient = new GenericClient<GiftCard>(this);
   }
@@ -139,8 +126,8 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected GiftCard(boolean noInit) {
     genClient = null;
   }

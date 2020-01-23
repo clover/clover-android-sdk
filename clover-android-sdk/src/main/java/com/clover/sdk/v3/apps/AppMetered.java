@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,57 +95,40 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppMetered> {
-    id {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    action {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractOther("action", java.lang.String.class);
-      }
-    },
-    active {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractOther("active", java.lang.Boolean.class);
-      }
-    },
-    meteredCountries {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractListRecord("meteredCountries", com.clover.sdk.v3.apps.AppMeteredCountry.JSON_CREATOR);
-      }
-    },
-    app {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractRecord("app", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    label {
-      @Override
-      public Object extractValue(AppMetered instance) {
-        return instance.genClient.extractOther("label", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    action
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    active
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    meteredCountries
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.apps.AppMeteredCountry.JSON_CREATOR)),
+    app
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    label
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AppMetered> genClient;
+  private final GenericClient<AppMetered> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AppMetered() {
     genClient = new GenericClient<AppMetered>(this);
   }
@@ -156,8 +139,8 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppMetered(boolean noInit) {
     genClient = null;
   }

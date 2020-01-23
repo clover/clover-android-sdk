@@ -20,9 +20,6 @@ import com.clover.sdk.v1.Intents;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by michaelhampton on 6/8/18.
- */
 @SuppressWarnings("WeakerAccess")
 public class LoyaltyDataTypes {
 

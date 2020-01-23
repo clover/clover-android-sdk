@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -174,177 +174,80 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<GermanInfo> {
-    cardTrack2 {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("cardTrack2", java.lang.String.class);
-      }
-    },
-    cardSequenceNumber {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("cardSequenceNumber", java.lang.String.class);
-      }
-    },
-    transactionCaseGermany {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("transactionCaseGermany", java.lang.String.class);
-      }
-    },
-    transactionTypeGermany {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("transactionTypeGermany", java.lang.String.class);
-      }
-    },
-    terminalID {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("terminalID", java.lang.String.class);
-      }
-    },
-    traceNumber {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("traceNumber", java.lang.String.class);
-      }
-    },
-    oldTraceNumber {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("oldTraceNumber", java.lang.String.class);
-      }
-    },
-    receiptNumber {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("receiptNumber", java.lang.String.class);
-      }
-    },
-    transactionAID {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("transactionAID", java.lang.String.class);
-      }
-    },
-    transactionMSApp {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("transactionMSApp", java.lang.String.class);
-      }
-    },
-    transactionScriptResults {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("transactionScriptResults", java.lang.String.class);
-      }
-    },
-    receiptType {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("receiptType", java.lang.String.class);
-      }
-    },
-    customerTransactionDOLValues {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("customerTransactionDOLValues", java.lang.String.class);
-      }
-    },
-    merchantTransactionDOLValues {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("merchantTransactionDOLValues", java.lang.String.class);
-      }
-    },
-    merchantJournalDOL {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("merchantJournalDOL", java.lang.String.class);
-      }
-    },
-    merchantJournalDOLValues {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("merchantJournalDOLValues", java.lang.String.class);
-      }
-    },
-    configMerchantId {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("configMerchantId", java.lang.String.class);
-      }
-    },
-    configProductLabel {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("configProductLabel", java.lang.String.class);
-      }
-    },
-    hostResponseAidParBMP53 {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("hostResponseAidParBMP53", java.lang.String.class);
-      }
-    },
-    hostResponsePrintDataBM60 {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("hostResponsePrintDataBM60", java.lang.String.class);
-      }
-    },
-    sepaElvReceiptFormat {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvReceiptFormat", java.lang.String.class);
-      }
-    },
-    sepaElvExtAppLabel {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvExtAppLabel", java.lang.String.class);
-      }
-    },
-    sepaElvPreNotification {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvPreNotification", java.lang.String.class);
-      }
-    },
-    sepaElvMandate {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvMandate", java.lang.String.class);
-      }
-    },
-    sepaElvCreditorId {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvCreditorId", java.lang.String.class);
-      }
-    },
-    sepaElvMandateId {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvMandateId", java.lang.String.class);
-      }
-    },
-    sepaElvIban {
-      @Override
-      public Object extractValue(GermanInfo instance) {
-        return instance.genClient.extractOther("sepaElvIban", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    cardTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardSequenceNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionCaseGermany
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionTypeGermany
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    terminalID
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    traceNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    oldTraceNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    receiptNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionAID
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionMSApp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionScriptResults
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    receiptType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customerTransactionDOLValues
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantTransactionDOLValues
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantJournalDOL
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantJournalDOLValues
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    configMerchantId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    configProductLabel
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    hostResponseAidParBMP53
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    hostResponsePrintDataBM60
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvReceiptFormat
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvExtAppLabel
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvPreNotification
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvMandate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvCreditorId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvMandateId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sepaElvIban
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<GermanInfo> genClient;
+  private final GenericClient<GermanInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public GermanInfo() {
     genClient = new GenericClient<GermanInfo>(this);
   }
@@ -355,8 +258,8 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected GermanInfo(boolean noInit) {
     genClient = null;
   }

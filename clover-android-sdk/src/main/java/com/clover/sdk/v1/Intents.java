@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,14 @@
  */
 package com.clover.sdk.v1;
 
+import com.clover.sdk.v3.scanner.BarcodeScanner;
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 /**
- * This class contains most of the Clover specific intents available to developer apps. These
+ * This class contains most of the Clover-specific intents available to developer apps. These
  * intents allow apps to listen for events and start Clover activities. See Android documentation
  * for information about how to use Intents:
  * <a href="https://developer.android.com/guide/components/intents-filters.html" target="_blank>
@@ -110,7 +113,8 @@ public class Intents {
   public static final String ACTION_CLOVER_PAY = "com.clover.intent.action.PAY";
 
   /**
-   * Received by your app's broadcast receiver to launch your modify order activity,  (See <a href="https://github.com/clover/android-examples/tree/master/modifyorderbutton">Example Usage</a>)
+   * Received by your app's broadcast receiver to launch your modify order activity,  (See
+   * <a href="https://github.com/clover/android-examples/tree/master/modifyorderbutton">Example Usage</a>)
    * <p>
    * Extras passed:
    * <ul>
@@ -125,7 +129,8 @@ public class Intents {
   public static final String ACTION_MODIFY_ORDER = "clover.intent.action.MODIFY_ORDER";
 
   /**
-   * Received by your app's broadcast receiver to launch your modify amount activity (See <a href="https://github.com/clover/android-examples/tree/master/modifyamountbutton">Example Usage</a>)
+   * Received by your app's broadcast receiver to launch your modify amount activity (See
+   * <a href="https://github.com/clover/android-examples/tree/master/modifyamountbutton">Example Usage</a>)
    * <p>
    * Extras passed:
    * <ul>
@@ -280,7 +285,6 @@ public class Intents {
    * <ul>
    * <li>NONE</li>
    * </ul>
-   *
    */
   public static final String ACTION_CLOSEOUT_BATCH = "clover.intent.action.CLOSEOUT_BATCH";
 
@@ -326,8 +330,8 @@ public class Intents {
    * <ul>
    * <li>NONE (Remote views should be passed back via {@link #ACTION_UPDATE_PAYMENT_REMOTE_VIEWS}</li>
    * </ul>
-   * @see #ACTION_REQUEST_PAYMENT_REMOTE_VIEWS
    *
+   * @see #ACTION_REQUEST_PAYMENT_REMOTE_VIEWS
    */
   public static final String ACTION_REQUEST_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_REQUEST_PAYMENT_REMOTE_VIEWS";
 
@@ -345,12 +349,11 @@ public class Intents {
    * <ul>
    * <li>NONE</li>
    * </ul>
-   *
    */
   public static final String ACTION_UPDATE_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_UPDATE_PAYMENT_REMOTE_VIEWS";
 
   /**
-   * Launch a dialog tyle activity to authenticate an employee. Pick one of the following
+   * Launch a dialog-style activity to authenticate an employee. Pick one of the following
    * ways to authenticate an employee:
    * <ol>
    *   <li>Authenticate an explicit employee by passing {@link #EXTRA_EMPLOYEE_ID} with the employee id</li>
@@ -409,6 +412,9 @@ public class Intents {
    * <li>{@link #EXTRA_FORCE_SWIPE_PIN_ENTRY} - if only payment option will be swipe debit, default false</li>
    * <li>{@link #EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED} - if activity will end after failed transaction, default false</li>
    * <li>{@link #EXTRA_EXTERNAL_PAYMENT_ID} - external payment id, used for integration with other POS platforms</li>
+   * <li>{@link #EXTRA_CUSTOMER_TENDER} - Pre-selected customer tender. If present, pay with this tender.
+   * The customer will not have the option to select a different tender or pay with a card. If the tender is not valid for this merchant this extra is ignored.
+   * See {@link #ACTION_CUSTOMER_TENDER}.</li>
    * </ul>
    * <p>
    * Result data includes:
@@ -466,8 +472,8 @@ public class Intents {
   public static final String ACTION_SECURE_CARD_DATA = "clover.intent.action.START_SECURE_CARD_DATA";
 
   /**
-   * Launch activity to check credt/debit card balance. First check if the device is able to do this using
-   *    * {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS}.
+   * Launch activity to check credit/debit card balance. First check if the device is
+   * able to do this using {@link com.clover.sdk.util.Platform2.Feature#SECURE_PAYMENTS}.
    * <p>
    * Extras passed:
    * <ul>
@@ -488,22 +494,23 @@ public class Intents {
    * </ul>
    */
   public static final String ACTION_SECURE_BALANCE_CHECK = "clover.intent.action.START_SECURE_BALANCE_CHECK";
+
   /**
-   * Intent passed to start your app's customer-facing extensible tender activity (See <a href="https://github.com/clover/android-examples/tree/master/extensibletenderexample">Example Usage</a>)
-   *
-   *<p>
+   * Intent passed to start your app's customer-facing extensible tender activity (See
+   * <a href="https://github.com/clover/android-examples/tree/master/extensibletenderexample">Example Usage</a>)
+   * <p>
    * Extras passed:
    * <ul>
    * <li>{@link #EXTRA_AMOUNT} - the transaction amount</li>
    * <li>{@link #EXTRA_CURRENCY} - the transaction currency</li>
    * <li>{@link #EXTRA_TAX_AMOUNT} - the transaction's tax amount</li>
-   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT} - the transactions' service charge amount</li>
-   * <li>{@link #EXTRA_TIP_AMOUNT} - the transactions' tip amount</li>
+   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT} - the transaction's service charge amount</li>
+   * <li>{@link #EXTRA_TIP_AMOUNT} - the transaction's tip amount</li>
    * <li>{@link #EXTRA_ORDER_ID} - the Clover order ID</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID} - the ID of the employee who initiated the payment</li>
    * <li>{@link #EXTRA_TENDER} - the tender for the transaction</li>
    * </ul>
-   *</p>
+   * </p>
    * <p>
    * Result data must include:
    * <ul>
@@ -526,28 +533,30 @@ public class Intents {
   public static final String ACTION_CUSTOMER_TENDER = "clover.intent.action.CUSTOMER_TENDER";
 
   /**
-   * Intent passed to start your app's merchant-facing extensible tender activity (See <a href="https://github.com/clover/android-examples/tree/master/extensibletenderexample">Example Usage</a>)
+   * Intent passed to start your app's merchant-facing extensible tender activity (See
+   * <a href="https://github.com/clover/android-examples/tree/master/extensibletenderexample">Example Usage</a>)
    *
-   *<p>
+   * <p>
    * Extras passed:
    * <ul>
    * <li>{@link #EXTRA_AMOUNT} - the transaction amount</li>
    * <li>{@link #EXTRA_CURRENCY} - the transaction currency</li>
    * <li>{@link #EXTRA_TAX_AMOUNT} - the transaction's tax amount</li>
-   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT} - the transactions' service charge amount</li>
+   * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT} - the transaction's service charge amount</li>
    * <li>{@link #EXTRA_ORDER_ID} - the Clover order ID</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID} - the ID of the employee who initiated the payment</li>
    * <li>{@link #EXTRA_TENDER} - the tender for the transaction</li>
    * <li>{@link #EXTRA_ORDER} - the order for the transaction</li>
    * <li>{@link #EXTRA_NOTE} - the order note for the transaction</li>
    * </ul>
-   *</p>
+   * </p>
    * <p>
-   * Result data must include:
+   * Result data includes:
    * <ul>
    * <li>(Required) {@link #EXTRA_AMOUNT} - the approved transaction amount </li>
    * <li>(Optional) {@link #EXTRA_CLIENT_ID} - the client ID / external payment ID</li>
    * <li>(Optional) {@link #EXTRA_NOTE} - the payment note</li>
+   * <li>(Optional) {@link #EXTRA_TIP_AMOUNT} - the transaction's tip amount</li>
    * </ul>
    * <p>
    * Result codes:
@@ -592,8 +601,10 @@ public class Intents {
   public static final String ACTION_REFUND = "clover.intent.action.REFUND";
 
   /**
+   * @deprecated This does not work on recent devices. Use {@link BarcodeScanner} instead.
+   * <p/>
    * Broadcast to start barcode scanner service on Station or Mini (Mobile scanner must be activated via physical trigger)
-   * <p>
+   * <p/>
    * Extras passed:
    * <ul>
    * <li>{@link #EXTRA_START_SCAN} - true will start scanner, false will close scanner (Required)</li>
@@ -607,16 +618,29 @@ public class Intents {
    * <li>{@link #EXTRA_SHOW_LED_BUTTON} - whether scanner preview will have an LED toggle, default is true</li>
    * </ul>
    */
+  @Deprecated
   public static final String ACTION_SCAN = "clover.intent.action.BARCODE_SCAN";
 
   /**
-   * A service intent that signifies that your app was installed or updated to a new version.
-   * Note that this is a service intent, not a broadcast intent. It must be
-   * received by a service, not a broadcast receiver.
+   * A broadcast intent sent to your app when it is installed or updated to a
+   * new version.
+   * <p/>
+   * When an Android app is first installed it is placed in a stopped state. While in
+   * the stopped state an app may not receive implicit broadcasts. An app exits the
+   * stopped state when it has had an activity, service, or explicit broadcast started by
+   * the user or another app. If you implement a receiver for this broadcast and register
+   * it in your app manifest then your app will immediately move out of the stopped
+   * state upon installation.
+   * <p/>
+   * <b>
+   * The service version of this intent is deprecated. Versions of Android 26 and greater
+   * place restrictions of background execution that prevent non-foreground services from
+   * being started. Receive this intent as a broadcast, as described below:
+   * </b>
    * <pre>
    * {@code
-   * <service
-   *     android:name=".MyAppInstalledService"
+   * <receiver
+   *     android:name=".MyAppInstalledReceiver"
    *     android:exported="true">
    *   <intent-filter>
    *     <action android:name="com.clover.intent.action.APP_INSTALL_DONE"/>
@@ -624,17 +648,60 @@ public class Intents {
    * </service>
    * }
    * </pre>
-   * Your service implementation is started with {@link android.content.Context#startService(Intent)}.
-   * It can be any manner of Android service, including an {@link android.app.IntentService}.
+   * Apps are restricted from performing blocking or otherwise long running operations in
+   * a receiver's {@link android.content.BroadcastReceiver#onReceive(Context, Intent)}.
+   * If you need to perform such work as a result on this intent use
+   * <code>JobIntentService</code> from the support or androidx library.
+   * You can find an example of this in <code>AppInstallDoneService</code> in
+   * the SDK Examples.
    * <p/>
-   * Android apps may not receive broadcasts until they have had an activity or service
-   * explicitly started by the user or another app. Once this service intent is received,
-   * your app maye receive broadcasts.
-   * <p/>
-   * This service intent is only received by the app that was installed. That is, you will
-   * not receive this service intent when other apps are installed or updated.
+   * If you are developing an app and installing it via ADB (Android Studio or command
+   * line) then you must manually invoke this broadcast receiver with the following
+   * command:
+   * <pre>
+   *   adb shell am broadcast -a com.clover.intent.action.APP_INSTALL_DONE -n your.packagename/.MyAppInstalledReceiver
+   * </pre>
+   * This broadcast intent is only received by the app that was installed. You will
+   * not receive this intent when other apps are installed or updated.
+   *
+   * @see <a href="https://developer.android.com/reference/androidx/core/app/JobIntentService">JobIntentService</a>
    */
   public static final String ACTION_APP_INSTALL_DONE = "com.clover.intent.action.APP_INSTALL_DONE";
+
+  /**
+   * An intent service intent that indicates the target app will be uninstalled in the
+   * next 5 seconds. After 5 seconds any processes associated with the app are killed and the app is
+   * uninstalled. The service started by this intent must be an intent service.
+   * <p/>
+   * Apps can use this time to perform any required cleanup actions. For example, remove any
+   * inventory items your app created that do not make sense without your app
+   * or order types created that are specific to your app. This intent should not trigger
+   * anything that is visible to or require any interaction with the user. Preferably
+   * all work is completed synchronously within the bounds of the
+   * {@link android.app.IntentService}'s
+   * {@link android.app.IntentService#onHandleIntent(Intent)} method.
+   * <p/>
+   * Note that this is a service intent, not a broadcast intent. It must be
+   * received by an (intent) service, not a broadcast receiver.
+   * <pre>
+   * {@code
+   * <service
+   *     android:name=".MyCleanupService"
+   *     android:exported="true">
+   *   <intent-filter>
+   *     <action android:name="com.clover.intent.action._APP_PRE_UNINSTALL"/>
+   *   </intent-filter>
+   * </service>
+   * }
+   * </pre>
+   * This is only invoked for apps installed via the Clover app store, it is not invoked
+   * on development devices when adb uninstall is used. To test during development you
+   * may invoke this manually with the following command:
+   * <pre>
+   *   adb shell am startservice -a com.clover.intent.action.APP_PRE_UNINSTALL -n your.packagename/.MyCleanupService
+   * </pre>
+   */
+  public static final String ACTION_APP_PRE_UNINSTALL = "com.clover.intent.action.APP_PRE_UNINSTALL";
 
   /** @deprecated Replaced by {@link #ACTION_MERCHANT_TENDER} and {@link #ACTION_CUSTOMER_TENDER} */
   public static final String ACTION_PAY = "clover.intent.action.PAY";
@@ -857,11 +924,29 @@ public class Intents {
   /** {@link Boolean}, whether scanner preview video will have a LED light toggle */
   public static final String EXTRA_SHOW_LED_BUTTON = "clover.intent.extra.SHOW_LED_BUTTON";
 
-  /** @deprecated  */
   public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";
 
-  /** @deprecated  */
   public static final String EXTRA_SCAN_Y = "clover.intent.extra.SCAN_Y";
+
+  /**
+   * On devices where multiple barcode scanners are available, select a barcode scanner to
+   * start. Set this extra into the {@link Bundle} passed to
+   * {@link BarcodeScanner#startScan(Bundle)}.
+   * The value passed must be one of the results from
+   * {@link BarcodeScanner#getAvailable()}. The result of passing a value that is not in
+   * the result of {@link BarcodeScanner#getAvailable()} is undefined.
+   * <p/>
+   * If not present, this defaults to either {@link BarcodeScanner#BARCODE_SCANNER_FACING_DUAL} or
+   * {@link BarcodeScanner#BARCODE_SCANNER_FACING_MERCHANT},
+   * depending on what is available on the device.
+   *
+   * @see BarcodeScanner#getAvailable()
+   * @see BarcodeScanner#startScan(Bundle)
+   * @see BarcodeScanner#BARCODE_SCANNER_FACING_DUAL
+   * @see BarcodeScanner#BARCODE_SCANNER_FACING_MERCHANT
+   * @see BarcodeScanner#BARCODE_SCANNER_FACING_CUSTOMER
+   */
+  public static final String EXTRA_SCANNER_FACING = "clover.intent.extra.SCANNER_FACING";
 
   /** {@link Boolean}, whether order should respect merchant's setting for firing after payment */
   public static final String EXTRA_ALLOW_FIRE = "clover.intent.extra.ALLOW_FIRE";
@@ -957,7 +1042,6 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.TokenRequest}, token request objects   */
   public static final String  EXTRA_TOKEN_REQUEST = "clover.intent.extra.TOKEN_REQUEST";
 
-
   /** {@link Boolean}, card not present, used during manual card entry */
   public static final String EXTRA_CARD_NOT_PRESENT = "clover.intent.extra.CARD_NOT_PRESENT";
 
@@ -966,6 +1050,9 @@ public class Intents {
 
   /** {@link Boolean}, allow offline payments to be accepted without an approval prompt */
   public static final String EXTRA_OFFLINE_NO_PROMPT = "clover.intent.extra.OFFLINE_NO_PROMPT";
+
+  /** {@link Boolean}, force payments to be accepted offline */
+  public static final String EXTRA_FORCE_OFFLINE = "clover.intent.extra.FORCE_OFFLINE";
 
   /** {@link String}, street address for use with AVS */
   public static final String EXTRA_AVS_STREET_ADDRESS = "clover.intent.extra.AVS_STREET_ADDRESS";
@@ -1007,6 +1094,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.base.Tender}, a Tender object */
   public static final String EXTRA_TENDER = "clover.intent.extra.TENDER";
+
+  /** {@link com.clover.sdk.v3.base.Tender}, Pre-selected customer tender */
+  public static final String EXTRA_CUSTOMER_TENDER = "clover.intent.extra.CUSTOMER_TENDER";
 
   /** {@link String}, a card number */
   public static final String EXTRA_CARD_NUMBER = "clover.intent.extra.CARD_NUMBER";
@@ -1109,7 +1199,8 @@ public class Intents {
   /** Vas Settings */
   public static final String EXTRA_VAS_SETTINGS = "clover.intent.extra.VAS_SETTINGS";
 
-  /** Transaction Settings Section Start */
+  /* Transaction Settings Section Start */
+
   public static final String EXTRA_TRANSACTION_SETTINGS = "clover.intent.extra.TRANSACTION_SETTINGS";
 
   /** {@link Boolean}, are tips enabled for this transaction */
@@ -1154,7 +1245,8 @@ public class Intents {
   public static final String GERMAN_ELV_ONLINE  = "germanElvOnline";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
   public static final String GERMAN_ELV_OFFLINE  = "germanElvOffline";
-  /** Transaction Settings Section End */
+
+  /* Transaction Settings Section End */
 
   /**
    * Broadcast from Clover, indicating an order was created
@@ -1309,7 +1401,7 @@ public class Intents {
    * <p>
    * Extras passed:
    * <ul>
-   * <li>{@link #EXTRA_REMOTECUSTOMER} - the RemoteCustomer object that was identified. (Required)</li>
+   * <li>{@link #EXTRA_CUSTOMERINFO} - the RemoteCustomer object that was identified. (Required)</li>
    * </ul>
    */
   public static final String ACTION_V1_CUSTOMER_IDENTIFIED = "clover.intent.action.V1_CUSTOMER_IDENTIFIED";
@@ -1335,10 +1427,10 @@ public class Intents {
   /** {@link String} Indicates name of theme to be used in station-pay/secure-pay*/
   public static final String EXTRA_THEME_NAME = "clover.intent.extra_THEME_NAME";
 
-    /** {@link Boolean} flag Indicates if the secure pay app should send the transaction result when the transaction is complete.
-     * Usually the result is sent when spa finishes, but this flag indicates, that the result shall be sent as soon as the
-     * transaction result is available
-    */
+  /** {@link Boolean} flag Indicates if the secure pay app should send the transaction result when the transaction is complete.
+   * Usually the result is sent when spa finishes, but this flag indicates, that the result shall be sent as soon as the
+   * transaction result is available
+   */
   public static final String EXTRA_SEND_RESULT_ON_TRANSACTION_COMPLETE = "clover.intent.extra_ECR_SEND_RESULT_ON_TRANSACTION_COMPLETE";
 
   /** {@link String} A regular expression to check the validity of invoice number*/
@@ -1346,5 +1438,4 @@ public class Intents {
 
   /** {@link Boolean} Flag to check if invoice feature is available for merchant*/
   public static final String EXTRA_INVOICE_ID_AVAILABLE = "clover.intent.extra.INVOICE_ID_AVAILABLE";
-
 }

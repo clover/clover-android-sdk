@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -113,93 +113,52 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<WebHook> {
-    url {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("url", java.lang.String.class);
-      }
-    },
-    secret {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("secret", java.lang.String.class);
-      }
-    },
-    valid {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("valid", java.lang.Boolean.class);
-      }
-    },
-    verification {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("verification", java.lang.String.class);
-      }
-    },
-    orders {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("orders", java.lang.Boolean.class);
-      }
-    },
-    app {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("app", java.lang.Boolean.class);
-      }
-    },
-    payments {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("payments", java.lang.Boolean.class);
-      }
-    },
-    inventory {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("inventory", java.lang.Boolean.class);
-      }
-    },
-    customers {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("customers", java.lang.Boolean.class);
-      }
-    },
-    merchants {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("merchants", java.lang.Boolean.class);
-      }
-    },
-    employees {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("employees", java.lang.Boolean.class);
-      }
-    },
-    cashAdjustment {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("cashAdjustment", java.lang.Boolean.class);
-      }
-    },
-    exports {
-      @Override
-      public Object extractValue(WebHook instance) {
-        return instance.genClient.extractOther("exports", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    url
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    secret
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    valid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    verification
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    orders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    app
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    payments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    inventory
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    customers
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    merchants
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    employees
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    cashAdjustment
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    exports
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<WebHook> genClient;
+  private final GenericClient<WebHook> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public WebHook() {
     genClient = new GenericClient<WebHook>(this);
   }
@@ -210,8 +169,8 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected WebHook(boolean noInit) {
     genClient = null;
   }

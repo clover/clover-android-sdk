@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getItems items}</li>
+ * <li>{@link #getTotal total}</li>
  * <li>{@link #getItemsHaveMultipleCategories itemsHaveMultipleCategories}</li>
  * </ul>
  */
@@ -40,6 +41,13 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
 
   public java.util.List<com.clover.sdk.v3.report.ReportItem> getItems() {
     return genClient.cacheGet(CacheKey.items);
+  }
+
+  /**
+   * Total of all items in the array
+   */
+  public com.clover.sdk.v3.report.ReportItem getTotal() {
+    return genClient.cacheGet(CacheKey.total);
   }
 
   /**
@@ -52,23 +60,28 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<LineItemsArrayAndWarning> {
-    items {
-      @Override
-      public Object extractValue(LineItemsArrayAndWarning instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.report.ReportItem.JSON_CREATOR);
-      }
-    },
-    itemsHaveMultipleCategories {
-      @Override
-      public Object extractValue(LineItemsArrayAndWarning instance) {
-        return instance.genClient.extractOther("itemsHaveMultipleCategories", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.ReportItem.JSON_CREATOR)),
+    total
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ReportItem.JSON_CREATOR)),
+    itemsHaveMultipleCategories
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<LineItemsArrayAndWarning> genClient;
+  private final GenericClient<LineItemsArrayAndWarning> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -140,6 +153,11 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   /** Checks whether the 'items' field is set and is not null and is not empty */
   public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
 
+  /** Checks whether the 'total' field is set and is not null */
+  public boolean isNotNullTotal() {
+    return genClient.cacheValueIsNotNull(CacheKey.total);
+  }
+
   /** Checks whether the 'itemsHaveMultipleCategories' field is set and is not null */
   public boolean isNotNullItemsHaveMultipleCategories() {
     return genClient.cacheValueIsNotNull(CacheKey.itemsHaveMultipleCategories);
@@ -150,6 +168,11 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
+  }
+
+  /** Checks whether the 'total' field has been set, however the value could be null */
+  public boolean hasTotal() {
+    return genClient.cacheHasKey(CacheKey.total);
   }
 
   /** Checks whether the 'itemsHaveMultipleCategories' field has been set, however the value could be null */
@@ -168,6 +191,15 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   }
 
   /**
+   * Sets the field 'total'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public LineItemsArrayAndWarning setTotal(com.clover.sdk.v3.report.ReportItem total) {
+    return genClient.setRecord(total, CacheKey.total);
+  }
+
+  /**
    * Sets the field 'itemsHaveMultipleCategories'.
    */
   public LineItemsArrayAndWarning setItemsHaveMultipleCategories(java.lang.Boolean itemsHaveMultipleCategories) {
@@ -178,6 +210,10 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
     genClient.clear(CacheKey.items);
+  }
+  /** Clears the 'total' field, the 'has' method for this field will now return false */
+  public void clearTotal() {
+    genClient.clear(CacheKey.total);
   }
   /** Clears the 'itemsHaveMultipleCategories' field, the 'has' method for this field will now return false */
   public void clearItemsHaveMultipleCategories() {
@@ -243,6 +279,7 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   public interface Constraints {
 
     public static final boolean ITEMS_IS_REQUIRED = false;
+    public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean ITEMSHAVEMULTIPLECATEGORIES_IS_REQUIRED = false;
 
   }

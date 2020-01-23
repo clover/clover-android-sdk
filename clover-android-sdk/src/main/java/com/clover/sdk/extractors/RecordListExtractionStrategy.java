@@ -1,0 +1,52 @@
+/*
+ * Copyright (C) 2019 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.clover.sdk.extractors;
+
+import com.clover.sdk.GenericClient;
+import com.clover.sdk.JSONifiable;
+
+import java.util.HashMap;
+
+/**
+ * For internal use only.
+ */
+public final class RecordListExtractionStrategy extends ExtractionStrategy {
+
+  private final JSONifiable.Creator creator;
+
+  private RecordListExtractionStrategy(JSONifiable.Creator<?> creator) {
+    this.creator = creator;
+  }
+
+  @Override
+  public Object extractValue(GenericClient g, String name) {
+    return g.extractListRecord(name, creator);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static final HashMap<JSONifiable.Creator, RecordListExtractionStrategy> cache = new HashMap();
+
+  public synchronized static RecordListExtractionStrategy instance(JSONifiable.Creator creator) {
+    RecordListExtractionStrategy instance = cache.get(creator);
+    if (instance == null) {
+      instance = new RecordListExtractionStrategy(creator);
+      cache.put(creator, instance);
+    }
+
+    return instance;
+  }
+
+}

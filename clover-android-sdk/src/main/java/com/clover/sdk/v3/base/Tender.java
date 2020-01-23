@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -111,69 +111,44 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Tender> {
-    id {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    editable {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("editable", java.lang.Boolean.class);
-      }
-    },
-    labelKey {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("labelKey", java.lang.String.class);
-      }
-    },
-    label {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("label", java.lang.String.class);
-      }
-    },
-    opensCashDrawer {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("opensCashDrawer", java.lang.Boolean.class);
-      }
-    },
-    supportsTipping {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("supportsTipping", java.lang.Boolean.class);
-      }
-    },
-    enabled {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("enabled", java.lang.Boolean.class);
-      }
-    },
-    visible {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("visible", java.lang.Boolean.class);
-      }
-    },
-    instructions {
-      @Override
-      public Object extractValue(Tender instance) {
-        return instance.genClient.extractOther("instructions", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    editable
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    labelKey
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    label
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    opensCashDrawer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsTipping
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    visible
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    instructions
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Tender> genClient;
+  private final GenericClient<Tender> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Tender() {
     genClient = new GenericClient<Tender>(this);
   }
@@ -184,8 +159,8 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Tender(boolean noInit) {
     genClient = null;
   }

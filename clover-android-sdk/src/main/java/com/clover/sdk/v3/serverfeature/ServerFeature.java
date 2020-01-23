@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -67,45 +67,36 @@ public class ServerFeature extends GenericParcelable implements com.clover.sdk.v
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ServerFeature> {
-    id {
-      @Override
-      public Object extractValue(ServerFeature instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(ServerFeature instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    config {
-      @Override
-      public Object extractValue(ServerFeature instance) {
-        return instance.genClient.extractOther("config", java.lang.String.class);
-      }
-    },
-    enabled {
-      @Override
-      public Object extractValue(ServerFeature instance) {
-        return instance.genClient.extractOther("enabled", java.lang.Boolean.class);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(ServerFeature instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    config
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    enabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ServerFeature> genClient;
+  private final GenericClient<ServerFeature> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ServerFeature() {
     genClient = new GenericClient<ServerFeature>(this);
   }
@@ -116,8 +107,8 @@ public class ServerFeature extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ServerFeature(boolean noInit) {
     genClient = null;
   }

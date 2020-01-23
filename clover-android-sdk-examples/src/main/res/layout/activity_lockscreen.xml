@@ -26,9 +26,9 @@
             android:id="@+id/selectTextView"
             android:visibility="gone"/>
 
-  <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
+  <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                           android:layout_height="match_parent"
                                           android:id="@+id/rvEmployeeList"
-                                          android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+                                          android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,6 +43,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getScanStatus scanStatus}</li>
  * <li>{@link #getScanId scanId}</li>
  * <li>{@link #getMinSdkVersion minSdkVersion}</li>
+ * <li>{@link #getTargetSdkVersion targetSdkVersion}</li>
  * <li>{@link #getDigestAlg digestAlg}</li>
  * <li>{@link #getApkUrl apkUrl}</li>
  * <li>{@link #getPermissions permissions}</li>
@@ -118,6 +119,13 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * The targetSdkVersion attribute parsed from the AndroidManifest.xml
+   */
+  public java.lang.Long getTargetSdkVersion() {
+    return genClient.cacheGet(CacheKey.targetSdkVersion);
+  }
+
+  /**
    * The message digest algorithm used to digest the entries of the APK
    */
   public java.lang.String getDigestAlg() {
@@ -162,123 +170,64 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AndroidVersion> {
-    id {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    createdAt {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("createdAt", java.lang.Long.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("version", java.lang.Long.class);
-      }
-    },
-    versionName {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("versionName", java.lang.String.class);
-      }
-    },
-    approved {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("approved", java.lang.Boolean.class);
-      }
-    },
-    hash {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("hash", java.lang.String.class);
-      }
-    },
-    deviceInstallCount {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("deviceInstallCount", java.lang.Long.class);
-      }
-    },
-    hashOriginal {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("hashOriginal", java.lang.String.class);
-      }
-    },
-    approvalStatus {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractEnum("approvalStatus", com.clover.sdk.v3.base.ApprovalStatus.class);
-      }
-    },
-    scanStatus {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractEnum("scanStatus", com.clover.sdk.v3.apps.ScanStatus.class);
-      }
-    },
-    scanId {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("scanId", java.lang.String.class);
-      }
-    },
-    minSdkVersion {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("minSdkVersion", java.lang.Long.class);
-      }
-    },
-    digestAlg {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("digestAlg", java.lang.String.class);
-      }
-    },
-    apkUrl {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractOther("apkUrl", java.lang.String.class);
-      }
-    },
-    permissions {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractListOther("permissions", java.lang.String.class);
-      }
-    },
-    app {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractRecord("app", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    releaseNote {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractRecord("releaseNote", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchantGroups {
-      @Override
-      public Object extractValue(AndroidVersion instance) {
-        return instance.genClient.extractListRecord("merchantGroups", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdAt
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    versionName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    approved
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    hash
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceInstallCount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    hashOriginal
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    approvalStatus
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.base.ApprovalStatus.class)),
+    scanStatus
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.ScanStatus.class)),
+    scanId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    minSdkVersion
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    targetSdkVersion
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    digestAlg
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    apkUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    permissions
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+    app
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    releaseNote
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchantGroups
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AndroidVersion> genClient;
+  private final GenericClient<AndroidVersion> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AndroidVersion() {
     genClient = new GenericClient<AndroidVersion>(this);
   }
@@ -289,8 +238,8 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AndroidVersion(boolean noInit) {
     genClient = null;
   }
@@ -405,6 +354,11 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.minSdkVersion);
   }
 
+  /** Checks whether the 'targetSdkVersion' field is set and is not null */
+  public boolean isNotNullTargetSdkVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.targetSdkVersion);
+  }
+
   /** Checks whether the 'digestAlg' field is set and is not null */
   public boolean isNotNullDigestAlg() {
     return genClient.cacheValueIsNotNull(CacheKey.digestAlg);
@@ -501,6 +455,11 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'minSdkVersion' field has been set, however the value could be null */
   public boolean hasMinSdkVersion() {
     return genClient.cacheHasKey(CacheKey.minSdkVersion);
+  }
+
+  /** Checks whether the 'targetSdkVersion' field has been set, however the value could be null */
+  public boolean hasTargetSdkVersion() {
+    return genClient.cacheHasKey(CacheKey.targetSdkVersion);
   }
 
   /** Checks whether the 'digestAlg' field has been set, however the value could be null */
@@ -619,6 +578,13 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * Sets the field 'targetSdkVersion'.
+   */
+  public AndroidVersion setTargetSdkVersion(java.lang.Long targetSdkVersion) {
+    return genClient.setOther(targetSdkVersion, CacheKey.targetSdkVersion);
+  }
+
+  /**
    * Sets the field 'digestAlg'.
    */
   public AndroidVersion setDigestAlg(java.lang.String digestAlg) {
@@ -716,6 +682,10 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'minSdkVersion' field, the 'has' method for this field will now return false */
   public void clearMinSdkVersion() {
     genClient.clear(CacheKey.minSdkVersion);
+  }
+  /** Clears the 'targetSdkVersion' field, the 'has' method for this field will now return false */
+  public void clearTargetSdkVersion() {
+    genClient.clear(CacheKey.targetSdkVersion);
   }
   /** Clears the 'digestAlg' field, the 'has' method for this field will now return false */
   public void clearDigestAlg() {
@@ -816,6 +786,7 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
     public static final boolean SCANSTATUS_IS_REQUIRED = false;
     public static final boolean SCANID_IS_REQUIRED = false;
     public static final boolean MINSDKVERSION_IS_REQUIRED = false;
+    public static final boolean TARGETSDKVERSION_IS_REQUIRED = false;
     public static final boolean DIGESTALG_IS_REQUIRED = false;
     public static final boolean APKURL_IS_REQUIRED = false;
     public static final boolean PERMISSIONS_IS_REQUIRED = false;

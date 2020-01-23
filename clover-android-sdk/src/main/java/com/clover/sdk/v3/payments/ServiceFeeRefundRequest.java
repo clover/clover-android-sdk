@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,24 +40,31 @@ public class ServiceFeeRefundRequest extends GenericParcelable implements com.cl
   /**
    * Service fee refund object
    */
-  public Refund getRefund() {
+  public com.clover.sdk.v3.payments.Refund getRefund() {
     return genClient.cacheGet(CacheKey.refund);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ServiceFeeRefundRequest> {
-    refund {
-      @Override
-      public Object extractValue(ServiceFeeRefundRequest instance) {
-        return instance.genClient.extractRecord("refund", Refund.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    refund
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ServiceFeeRefundRequest> genClient;
+  private final GenericClient<ServiceFeeRefundRequest> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -139,7 +146,7 @@ public class ServiceFeeRefundRequest extends GenericParcelable implements com.cl
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public ServiceFeeRefundRequest setRefund(Refund refund) {
+  public ServiceFeeRefundRequest setRefund(com.clover.sdk.v3.payments.Refund refund) {
     return genClient.setRecord(refund, CacheKey.refund);
   }
 

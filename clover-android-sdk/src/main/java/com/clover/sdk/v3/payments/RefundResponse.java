@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,7 +35,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getResponseErrorMessage responseErrorMessage}</li>
  * <li>{@link #getRefund refund}</li>
  * <li>{@link #getPayment payment}</li>
- * <li>{@link #getClientData clientData}</li>
  * <li>{@link #getExtra extra}</li>
  * </ul>
  */
@@ -59,13 +58,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-   * Additional data sent back from the gateway
-   */
-  public java.util.Map<java.lang.String,java.lang.String> getClientData() {
-    return genClient.cacheGet(CacheKey.clientData);
-  }
-
-  /**
    * extra stuff
    */
   public java.util.Map<java.lang.String,java.lang.String> getExtra() {
@@ -75,47 +67,32 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RefundResponse> {
-    requestSuccessful {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractOther("requestSuccessful", java.lang.Boolean.class);
-      }
-    },
-    responseErrorMessage {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractOther("responseErrorMessage", java.lang.String.class);
-      }
-    },
-    refund {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractRecord("refund", com.clover.sdk.v3.payments.Refund.JSON_CREATOR);
-      }
-    },
-    payment {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractRecord("payment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    clientData {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractMap("clientData");
-      }
-    },
-    extra {
-      @Override
-      public Object extractValue(RefundResponse instance) {
-        return instance.genClient.extractMap("extra");
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    requestSuccessful
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    responseErrorMessage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    refund
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
+    payment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    extra
+        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<RefundResponse> genClient;
+  private final GenericClient<RefundResponse> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -199,14 +176,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.payment);
   }
 
-  /** Checks whether the 'clientData' field is set and is not null */
-  public boolean isNotNullClientData() {
-    return genClient.cacheValueIsNotNull(CacheKey.clientData);
-  }
-
-  /** Checks whether the 'clientData' field is set and is not null and is not empty */
-  public boolean isNotEmptyClientData() { return isNotNullClientData() && !getClientData().isEmpty(); }
-
   /** Checks whether the 'extra' field is set and is not null */
   public boolean isNotNullExtra() {
     return genClient.cacheValueIsNotNull(CacheKey.extra);
@@ -235,11 +204,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'payment' field has been set, however the value could be null */
   public boolean hasPayment() {
     return genClient.cacheHasKey(CacheKey.payment);
-  }
-
-  /** Checks whether the 'clientData' field has been set, however the value could be null */
-  public boolean hasClientData() {
-    return genClient.cacheHasKey(CacheKey.clientData);
   }
 
   /** Checks whether the 'extra' field has been set, however the value could be null */
@@ -281,13 +245,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-   * Sets the field 'clientData'.
-   */
-  public RefundResponse setClientData(java.util.Map<java.lang.String,java.lang.String> clientData) {
-    return genClient.setOther(clientData, CacheKey.clientData);
-  }
-
-  /**
    * Sets the field 'extra'.
    */
   public RefundResponse setExtra(java.util.Map<java.lang.String,java.lang.String> extra) {
@@ -310,10 +267,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'payment' field, the 'has' method for this field will now return false */
   public void clearPayment() {
     genClient.clear(CacheKey.payment);
-  }
-  /** Clears the 'clientData' field, the 'has' method for this field will now return false */
-  public void clearClientData() {
-    genClient.clear(CacheKey.clientData);
   }
   /** Clears the 'extra' field, the 'has' method for this field will now return false */
   public void clearExtra() {
@@ -382,7 +335,6 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
     public static final boolean RESPONSEERRORMESSAGE_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
-    public static final boolean CLIENTDATA_IS_REQUIRED = false;
     public static final boolean EXTRA_IS_REQUIRED = false;
 
   }

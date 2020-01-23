@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,63 +43,58 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
   /**
    * amount (cents) of the service fee
    */
-  public Long getAmount() {
+  public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
   /**
    * Unique identifier of the order with which this payment is associated (will be auto-populated by client connector)
    */
-  public String getOrderId() {
+  public java.lang.String getOrderId() {
     return genClient.cacheGet(CacheKey.orderId);
   }
 
   /**
    * Unique identifier of the primary payment the serivce fee is associated with
    */
-  public String getSourcePaymentId() {
+  public java.lang.String getSourcePaymentId() {
     return genClient.cacheGet(CacheKey.sourcePaymentId);
   }
 
   /**
    * Vaulted card to use to bill the service fee
    */
-  public VaultedCard getVaultedCard() {
+  public com.clover.sdk.v3.payments.VaultedCard getVaultedCard() {
     return genClient.cacheGet(CacheKey.vaultedCard);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ServiceFeeRequest> {
-    amount {
-      @Override
-      public Object extractValue(ServiceFeeRequest instance) {
-        return instance.genClient.extractOther("amount", Long.class);
-      }
-    },
-    orderId {
-      @Override
-      public Object extractValue(ServiceFeeRequest instance) {
-        return instance.genClient.extractOther("orderId", String.class);
-      }
-    },
-    sourcePaymentId {
-      @Override
-      public Object extractValue(ServiceFeeRequest instance) {
-        return instance.genClient.extractOther("sourcePaymentId", String.class);
-      }
-    },
-    vaultedCard {
-      @Override
-      public Object extractValue(ServiceFeeRequest instance) {
-        return instance.genClient.extractRecord("vaultedCard", VaultedCard.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    orderId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sourcePaymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    vaultedCard
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ServiceFeeRequest> genClient;
+  private final GenericClient<ServiceFeeRequest> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -213,21 +208,21 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
   /**
    * Sets the field 'amount'.
    */
-  public ServiceFeeRequest setAmount(Long amount) {
+  public ServiceFeeRequest setAmount(java.lang.Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
 
   /**
    * Sets the field 'orderId'.
    */
-  public ServiceFeeRequest setOrderId(String orderId) {
+  public ServiceFeeRequest setOrderId(java.lang.String orderId) {
     return genClient.setOther(orderId, CacheKey.orderId);
   }
 
   /**
    * Sets the field 'sourcePaymentId'.
    */
-  public ServiceFeeRequest setSourcePaymentId(String sourcePaymentId) {
+  public ServiceFeeRequest setSourcePaymentId(java.lang.String sourcePaymentId) {
     return genClient.setOther(sourcePaymentId, CacheKey.sourcePaymentId);
   }
 
@@ -236,7 +231,7 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public ServiceFeeRequest setVaultedCard(VaultedCard vaultedCard) {
+  public ServiceFeeRequest setVaultedCard(com.clover.sdk.v3.payments.VaultedCard vaultedCard) {
     return genClient.setRecord(vaultedCard, CacheKey.vaultedCard);
   }
 

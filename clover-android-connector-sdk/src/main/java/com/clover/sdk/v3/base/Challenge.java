@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,33 +63,32 @@ public class Challenge extends GenericParcelable implements com.clover.sdk.v3.Va
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Challenge> {
-    type {
-      @Override
-      public Object extractValue(Challenge instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.base.ChallengeType.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(Challenge instance) {
-        return instance.genClient.extractEnum("reason", com.clover.sdk.v3.order.VoidReason.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(Challenge instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.base.ChallengeType.class)),
+    reason
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReason.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Challenge> genClient;
+  private final GenericClient<Challenge> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Challenge() {
     genClient = new GenericClient<Challenge>(this);
   }
@@ -100,8 +99,8 @@ public class Challenge extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Challenge(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,6 +50,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModifierGroups modifierGroups}</li>
  * <li>{@link #getCategories categories}</li>
  * <li>{@link #getTags tags}</li>
+ * <li>{@link #getCanonical canonical}</li>
  * <li>{@link #getItemStock itemStock}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
@@ -186,6 +187,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Reference to canonical items
+   */
+  public com.clover.sdk.v3.base.Reference getCanonical() {
+    return genClient.cacheGet(CacheKey.canonical);
+  }
+
+  /**
    * Item stock attribute that can be expanded to show stock quantity
    */
   public com.clover.sdk.v3.inventory.ItemStock getItemStock() {
@@ -214,149 +222,70 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
 
   public static final String AUTHORITY = "com.clover.inventory";
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Item> {
-    id {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    hidden {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("hidden", java.lang.Boolean.class);
-      }
-    },
-    itemGroup {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractRecord("itemGroup", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    options {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractListRecord("options", com.clover.sdk.v3.inventory.Option.JSON_CREATOR);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    alternateName {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("alternateName", java.lang.String.class);
-      }
-    },
-    code {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("code", java.lang.String.class);
-      }
-    },
-    sku {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("sku", java.lang.String.class);
-      }
-    },
-    price {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("price", java.lang.Long.class);
-      }
-    },
-    priceType {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractEnum("priceType", com.clover.sdk.v3.inventory.PriceType.class);
-      }
-    },
-    defaultTaxRates {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("defaultTaxRates", java.lang.Boolean.class);
-      }
-    },
-    unitName {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("unitName", java.lang.String.class);
-      }
-    },
-    cost {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("cost", java.lang.Long.class);
-      }
-    },
-    isRevenue {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("isRevenue", java.lang.Boolean.class);
-      }
-    },
-    stockCount {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("stockCount", java.lang.Long.class);
-      }
-    },
-    taxRates {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractListRecord("taxRates", com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR);
-      }
-    },
-    modifierGroups {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractListRecord("modifierGroups", com.clover.sdk.v3.inventory.ModifierGroup.JSON_CREATOR);
-      }
-    },
-    categories {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractListRecord("categories", com.clover.sdk.v3.inventory.Category.JSON_CREATOR);
-      }
-    },
-    tags {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractListRecord("tags", com.clover.sdk.v3.inventory.Tag.JSON_CREATOR);
-      }
-    },
-    itemStock {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractRecord("itemStock", com.clover.sdk.v3.inventory.ItemStock.JSON_CREATOR);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    priceWithoutVat {
-      @Override
-      public Object extractValue(Item instance) {
-        return instance.genClient.extractOther("priceWithoutVat", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    hidden
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    itemGroup
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    options
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Option.JSON_CREATOR)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alternateName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    code
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sku
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    price
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    priceType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.PriceType.class)),
+    defaultTaxRates
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    unitName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cost
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    isRevenue
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    stockCount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    taxRates
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR)),
+    modifierGroups
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.ModifierGroup.JSON_CREATOR)),
+    categories
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Category.JSON_CREATOR)),
+    tags
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Tag.JSON_CREATOR)),
+    canonical
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    itemStock
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.ItemStock.JSON_CREATOR)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    priceWithoutVat
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Item> genClient;
+  private final GenericClient<Item> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -547,6 +476,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'tags' field is set and is not null and is not empty */
   public boolean isNotEmptyTags() { return isNotNullTags() && !getTags().isEmpty(); }
 
+  /** Checks whether the 'canonical' field is set and is not null */
+  public boolean isNotNullCanonical() {
+    return genClient.cacheValueIsNotNull(CacheKey.canonical);
+  }
+
   /** Checks whether the 'itemStock' field is set and is not null */
   public boolean isNotNullItemStock() {
     return genClient.cacheValueIsNotNull(CacheKey.itemStock);
@@ -662,6 +596,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'tags' field has been set, however the value could be null */
   public boolean hasTags() {
     return genClient.cacheHasKey(CacheKey.tags);
+  }
+
+  /** Checks whether the 'canonical' field has been set, however the value could be null */
+  public boolean hasCanonical() {
+    return genClient.cacheHasKey(CacheKey.canonical);
   }
 
   /** Checks whether the 'itemStock' field has been set, however the value could be null */
@@ -831,6 +770,15 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Sets the field 'canonical'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Item setCanonical(com.clover.sdk.v3.base.Reference canonical) {
+    return genClient.setRecord(canonical, CacheKey.canonical);
+  }
+
+  /**
    * Sets the field 'itemStock'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -937,6 +885,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   public void clearTags() {
     genClient.clear(CacheKey.tags);
   }
+  /** Clears the 'canonical' field, the 'has' method for this field will now return false */
+  public void clearCanonical() {
+    genClient.clear(CacheKey.canonical);
+  }
   /** Clears the 'itemStock' field, the 'has' method for this field will now return false */
   public void clearItemStock() {
     genClient.clear(CacheKey.itemStock);
@@ -1039,6 +991,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean MODIFIERGROUPS_IS_REQUIRED = false;
     public static final boolean CATEGORIES_IS_REQUIRED = false;
     public static final boolean TAGS_IS_REQUIRED = false;
+    public static final boolean CANONICAL_IS_REQUIRED = false;
     public static final boolean ITEMSTOCK_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;

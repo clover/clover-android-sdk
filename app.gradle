@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 apply from: file("${project.rootDir}/common.gradle")
-//apply from: file("${project.rootDir}/signing.gradle")
 apply from: file("${project.rootDir}/versions.gradle")
 
 /**
@@ -11,7 +10,7 @@ apply from: file("${project.rootDir}/versions.gradle")
  *     proguard-clover-apps.txt
  */
 ext.getCommonProguardFile = { name ->
-  def fileName = "${androidBuild}/$name"
+  def fileName = "${project.rootDir}/$name"
   if (!new File(fileName).exists()) {
     throw new IllegalArgumentException("'$name' is not a valid proguard config file")
   }
@@ -63,8 +62,30 @@ android.applicationVariants.all { variant ->
 }
 
 android {
+
+  buildTypes {
+    debug {
+      zipAlignEnabled true
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'),
+          getCommonProguardFile('proguard-clover-apps.txt'),
+          // Force apps to have a proguard file if ProGuard is enabled
+          'proguard-rules.pro'
+      testProguardFiles getCommonProguardFile('proguard-test-rules.txt')
+    }
+
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'),
+          getCommonProguardFile('proguard-clover-apps.txt'),
+          // Force apps to have a proguard file if ProGuard is enabled
+          'proguard-rules.pro'
+      testProguardFiles getCommonProguardFile('proguard-test-rules.txt')
+    }
+  }
+
   compileSdkVersion COMPILE_SDK_VERSION
-  buildToolsVersion BUILD_TOOLS_VERSION
+
   useLibrary HTTP_LIBRARY
 
   defaultConfig {
@@ -78,6 +99,7 @@ android {
   packagingOptions {
     exclude 'META-INF/LICENSE'
     exclude 'META-INF/NOTICE'
+    pickFirst 'META-INF/ASL2.0'
   }
 
   lintOptions {

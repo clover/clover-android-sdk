@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,33 +63,32 @@ public class Img extends GenericParcelable implements com.clover.sdk.v3.Validato
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Img> {
-    src {
-      @Override
-      public Object extractValue(Img instance) {
-        return instance.genClient.extractOther("src", java.lang.String.class);
-      }
-    },
-    width {
-      @Override
-      public Object extractValue(Img instance) {
-        return instance.genClient.extractOther("width", java.lang.Long.class);
-      }
-    },
-    height {
-      @Override
-      public Object extractValue(Img instance) {
-        return instance.genClient.extractOther("height", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    src
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    width
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    height
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Img> genClient;
+  private final GenericClient<Img> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Img() {
     genClient = new GenericClient<Img>(this);
   }
@@ -100,8 +99,8 @@ public class Img extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Img(boolean noInit) {
     genClient = null;
   }

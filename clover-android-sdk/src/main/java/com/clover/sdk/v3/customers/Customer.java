@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -114,87 +114,50 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Customer> {
-    id {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    firstName {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractOther("firstName", java.lang.String.class);
-      }
-    },
-    lastName {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractOther("lastName", java.lang.String.class);
-      }
-    },
-    marketingAllowed {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractOther("marketingAllowed", java.lang.Boolean.class);
-      }
-    },
-    customerSince {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractOther("customerSince", java.lang.Long.class);
-      }
-    },
-    orders {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractListRecord("orders", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    addresses {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractListRecord("addresses", com.clover.sdk.v3.customers.Address.JSON_CREATOR);
-      }
-    },
-    emailAddresses {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractListRecord("emailAddresses", com.clover.sdk.v3.customers.EmailAddress.JSON_CREATOR);
-      }
-    },
-    phoneNumbers {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractListRecord("phoneNumbers", com.clover.sdk.v3.customers.PhoneNumber.JSON_CREATOR);
-      }
-    },
-    cards {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractListRecord("cards", com.clover.sdk.v3.customers.Card.JSON_CREATOR);
-      }
-    },
-    metadata {
-      @Override
-      public Object extractValue(Customer instance) {
-        return instance.genClient.extractRecord("metadata", com.clover.sdk.v3.customers.CustomerMetadata.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    firstName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lastName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    marketingAllowed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    customerSince
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    orders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    addresses
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.Address.JSON_CREATOR)),
+    emailAddresses
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.EmailAddress.JSON_CREATOR)),
+    phoneNumbers
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.PhoneNumber.JSON_CREATOR)),
+    cards
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.Card.JSON_CREATOR)),
+    metadata
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.customers.CustomerMetadata.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Customer> genClient;
+  private final GenericClient<Customer> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Customer() {
     genClient = new GenericClient<Customer>(this);
   }
@@ -205,8 +168,8 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Customer(boolean noInit) {
     genClient = null;
   }

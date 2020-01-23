@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getEmailAddress emailAddress}</li>
  * <li>{@link #getVerifiedTime verifiedTime}</li>
+ * <li>{@link #getPrimaryEmail primaryEmail}</li>
  * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
@@ -52,6 +53,10 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.verifiedTime);
   }
 
+  public java.lang.Boolean getPrimaryEmail() {
+    return genClient.cacheGet(CacheKey.primaryEmail);
+  }
+
   /**
    * Customer who this email address belongs to.
    */
@@ -62,39 +67,36 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<EmailAddress> {
-    id {
-      @Override
-      public Object extractValue(EmailAddress instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    emailAddress {
-      @Override
-      public Object extractValue(EmailAddress instance) {
-        return instance.genClient.extractOther("emailAddress", java.lang.String.class);
-      }
-    },
-    verifiedTime {
-      @Override
-      public Object extractValue(EmailAddress instance) {
-        return instance.genClient.extractOther("verifiedTime", java.lang.Long.class);
-      }
-    },
-    customer {
-      @Override
-      public Object extractValue(EmailAddress instance) {
-        return instance.genClient.extractRecord("customer", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    emailAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    verifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    primaryEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    customer
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<EmailAddress> genClient;
+  private final GenericClient<EmailAddress> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public EmailAddress() {
     genClient = new GenericClient<EmailAddress>(this);
   }
@@ -105,8 +107,8 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected EmailAddress(boolean noInit) {
     genClient = null;
   }
@@ -171,6 +173,11 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.verifiedTime);
   }
 
+  /** Checks whether the 'primaryEmail' field is set and is not null */
+  public boolean isNotNullPrimaryEmail() {
+    return genClient.cacheValueIsNotNull(CacheKey.primaryEmail);
+  }
+
   /** Checks whether the 'customer' field is set and is not null */
   public boolean isNotNullCustomer() {
     return genClient.cacheValueIsNotNull(CacheKey.customer);
@@ -191,6 +198,11 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'verifiedTime' field has been set, however the value could be null */
   public boolean hasVerifiedTime() {
     return genClient.cacheHasKey(CacheKey.verifiedTime);
+  }
+
+  /** Checks whether the 'primaryEmail' field has been set, however the value could be null */
+  public boolean hasPrimaryEmail() {
+    return genClient.cacheHasKey(CacheKey.primaryEmail);
   }
 
   /** Checks whether the 'customer' field has been set, however the value could be null */
@@ -221,6 +233,13 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'primaryEmail'.
+   */
+  public EmailAddress setPrimaryEmail(java.lang.Boolean primaryEmail) {
+    return genClient.setOther(primaryEmail, CacheKey.primaryEmail);
+  }
+
+  /**
    * Sets the field 'customer'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -241,6 +260,10 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'verifiedTime' field, the 'has' method for this field will now return false */
   public void clearVerifiedTime() {
     genClient.clear(CacheKey.verifiedTime);
+  }
+  /** Clears the 'primaryEmail' field, the 'has' method for this field will now return false */
+  public void clearPrimaryEmail() {
+    genClient.clear(CacheKey.primaryEmail);
   }
   /** Clears the 'customer' field, the 'has' method for this field will now return false */
   public void clearCustomer() {
@@ -308,6 +331,7 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean EMAILADDRESS_IS_REQUIRED = true;
     public static final boolean VERIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean PRIMARYEMAIL_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }

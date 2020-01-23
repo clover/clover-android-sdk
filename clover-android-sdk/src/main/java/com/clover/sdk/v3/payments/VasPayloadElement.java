@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -79,45 +79,36 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VasPayloadElement> {
-    dataType {
-      @Override
-      public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractRecord("dataType", com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR);
-      }
-    },
-    responseFormat {
-      @Override
-      public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractEnum("responseFormat", com.clover.sdk.v3.payments.VasResponseFormat.class);
-      }
-    },
-    vasData {
-      @Override
-      public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractOther("vasData", java.lang.String.class);
-      }
-    },
-    protocolId {
-      @Override
-      public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractEnum("protocolId", com.clover.sdk.v3.payments.VasProtocol.class);
-      }
-    },
-    merchantId {
-      @Override
-      public Object extractValue(VasPayloadElement instance) {
-        return instance.genClient.extractOther("merchantId", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    dataType
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR)),
+    responseFormat
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.VasResponseFormat.class)),
+    vasData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    protocolId
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.VasProtocol.class)),
+    merchantId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VasPayloadElement> genClient;
+  private final GenericClient<VasPayloadElement> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VasPayloadElement() {
     genClient = new GenericClient<VasPayloadElement>(this);
   }
@@ -128,8 +119,8 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VasPayloadElement(boolean noInit) {
     genClient = null;
   }

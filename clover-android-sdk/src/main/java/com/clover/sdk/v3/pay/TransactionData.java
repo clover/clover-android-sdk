@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -514,585 +514,216 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TransactionData> {
-    txResult {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("txResult", com.clover.sdk.v3.pay.TxResult.class);
-      }
-    },
-    txError {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("txError", com.clover.sdk.v3.pay.ErrorCode.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("amount", java.lang.Double.class);
-      }
-    },
-    tipAmount {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("tipAmount", java.lang.Double.class);
-      }
-    },
-    cashBackAmount {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("cashBackAmount", java.lang.Double.class);
-      }
-    },
-    errorCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("errorCode", java.lang.String.class);
-      }
-    },
-    errorText {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("errorText", java.lang.String.class);
-      }
-    },
-    transactionDate {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transactionDate", java.lang.String.class);
-      }
-    },
-    transactionTime {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transactionTime", java.lang.String.class);
-      }
-    },
-    msrContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("msrContainer", java.lang.String.class);
-      }
-    },
-    msrMaskedTrack1 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("msrMaskedTrack1", java.lang.String.class);
-      }
-    },
-    msrMaskedTrack2 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("msrMaskedTrack2", java.lang.String.class);
-      }
-    },
-    maskedManualPan {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("maskedManualPan", java.lang.String.class);
-      }
-    },
-    sredContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("sredContainer", java.lang.String.class);
-      }
-    },
-    sred {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("sred", java.lang.String.class);
-      }
-    },
-    ksn {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("ksn", java.lang.String.class);
-      }
-    },
-    transArmorContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorContainer", java.lang.String.class);
-      }
-    },
-    transArmorKey {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorKey", java.lang.String.class);
-      }
-    },
-    transArmorKeyId {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorKeyId", java.lang.String.class);
-      }
-    },
-    transArmorEncryptedTrack1 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorEncryptedTrack1", java.lang.String.class);
-      }
-    },
-    transArmorEncryptedTrack2 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorEncryptedTrack2", java.lang.String.class);
-      }
-    },
-    transArmorEncryptedEmvTag57 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorEncryptedEmvTag57", java.lang.String.class);
-      }
-    },
-    transArmorEncryptedEmvTag5A {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorEncryptedEmvTag5A", java.lang.String.class);
-      }
-    },
-    transArmorEncryptedManualKeyedData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("transArmorEncryptedManualKeyedData", java.lang.String.class);
-      }
-    },
-    iccContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccContainer", java.lang.String.class);
-      }
-    },
-    iccApplicationInterchangeProfile {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationInterchangeProfile", java.lang.String.class);
-      }
-    },
-    iccMaskedEmv57 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccMaskedEmv57", java.lang.String.class);
-      }
-    },
-    iccMaskedEmv5A {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccMaskedEmv5A", java.lang.String.class);
-      }
-    },
-    iccApplicationPanSequenceNumber {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationPanSequenceNumber", java.lang.String.class);
-      }
-    },
-    iccApplicationExpirationDate {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationExpirationDate", java.lang.String.class);
-      }
-    },
-    iccApplicationEffectiveDate {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationEffectiveDate", java.lang.String.class);
-      }
-    },
-    iccAmountAuthorized {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccAmountAuthorized", java.lang.String.class);
-      }
-    },
-    iccAmountOther {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccAmountOther", java.lang.String.class);
-      }
-    },
-    iccTransactionCurrencyCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionCurrencyCode", java.lang.String.class);
-      }
-    },
-    iccTransactionCurrencyExponent {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionCurrencyExponent", java.lang.String.class);
-      }
-    },
-    iccApplicationUsageControl {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationUsageControl", java.lang.String.class);
-      }
-    },
-    iccIssuerActionCodeDefault {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerActionCodeDefault", java.lang.String.class);
-      }
-    },
-    iccIssuerActionCodeDenial {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerActionCodeDenial", java.lang.String.class);
-      }
-    },
-    iccIssuerActionCodeOnline {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerActionCodeOnline", java.lang.String.class);
-      }
-    },
-    iccApplicationLabel {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationLabel", java.lang.String.class);
-      }
-    },
-    iccApplicationCryptogram {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationCryptogram", java.lang.String.class);
-      }
-    },
-    iccApplicationIdentifierCard {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationIdentifierCard", java.lang.String.class);
-      }
-    },
-    iccApplicationIdentifierTerminal {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationIdentifierTerminal", java.lang.String.class);
-      }
-    },
-    iccApplicationTransactionCounter {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationTransactionCounter", java.lang.String.class);
-      }
-    },
-    iccApplicationVersionNumber {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccApplicationVersionNumber", java.lang.String.class);
-      }
-    },
-    iccCryptogramInformationData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccCryptogramInformationData", java.lang.String.class);
-      }
-    },
-    iccCvmResults {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccCvmResults", java.lang.String.class);
-      }
-    },
-    iccInterfaceDeviceSerialNumber {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccInterfaceDeviceSerialNumber", java.lang.String.class);
-      }
-    },
-    iccIssuerApplicationData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerApplicationData", java.lang.String.class);
-      }
-    },
-    iccPosEntryModeCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccPosEntryModeCode", java.lang.String.class);
-      }
-    },
-    iccTerminalCapabilities {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTerminalCapabilities", java.lang.String.class);
-      }
-    },
-    iccTerminalCountryCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTerminalCountryCode", java.lang.String.class);
-      }
-    },
-    iccTerminalType {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTerminalType", java.lang.String.class);
-      }
-    },
-    iccTvr {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTvr", java.lang.String.class);
-      }
-    },
-    iccTransactionDate {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionDate", java.lang.String.class);
-      }
-    },
-    iccTsi {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTsi", java.lang.String.class);
-      }
-    },
-    iccTransactionType {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionType", java.lang.String.class);
-      }
-    },
-    iccUnpredictableNumber {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccUnpredictableNumber", java.lang.String.class);
-      }
-    },
-    iccTransactionTime {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionTime", java.lang.String.class);
-      }
-    },
-    iccAdditionalTerminalCapabilities {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccAdditionalTerminalCapabilities", java.lang.String.class);
-      }
-    },
-    iccTransactionCategoryCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccTransactionCategoryCode", java.lang.String.class);
-      }
-    },
-    iccIssuerApplicationPreferredName {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerApplicationPreferredName", java.lang.String.class);
-      }
-    },
-    iccCardholderName {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccCardholderName", java.lang.String.class);
-      }
-    },
-    iccIssuerCodeTableIndex {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerCodeTableIndex", java.lang.String.class);
-      }
-    },
-    iccIssuerScripts {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerScripts", java.lang.String.class);
-      }
-    },
-    iccIssuerScriptResults {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("iccIssuerScriptResults", java.lang.String.class);
-      }
-    },
-    debugTrack2EquivalentData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugTrack2EquivalentData", java.lang.String.class);
-      }
-    },
-    debugApplicationPan {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugApplicationPan", java.lang.String.class);
-      }
-    },
-    debugAmountAuthorizedBinary {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugAmountAuthorizedBinary", java.lang.String.class);
-      }
-    },
-    debugAmountOtherBinary {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugAmountOtherBinary", java.lang.String.class);
-      }
-    },
-    debugTransactionStatusInformation {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugTransactionStatusInformation", java.lang.String.class);
-      }
-    },
-    debugPlainTrack1 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugPlainTrack1", java.lang.String.class);
-      }
-    },
-    debugPlainTrack2 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("debugPlainTrack2", java.lang.String.class);
-      }
-    },
-    schemePunATC {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("schemePunATC", java.lang.String.class);
-      }
-    },
-    schemeThirdPartyData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("schemeThirdPartyData", java.lang.String.class);
-      }
-    },
-    schemeMerchantCustomData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("schemeMerchantCustomData", java.lang.String.class);
-      }
-    },
-    schemeTerminalEntryCapability {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("schemeTerminalEntryCapability", java.lang.String.class);
-      }
-    },
-    pinBlockContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("pinBlockContainer", java.lang.String.class);
-      }
-    },
-    pinBlock {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("pinBlock", java.lang.String.class);
-      }
-    },
-    pinBlockKsn {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("pinBlockKsn", java.lang.String.class);
-      }
-    },
-    mac {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("mac", java.lang.String.class);
-      }
-    },
-    macKsn {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("macKsn", java.lang.String.class);
-      }
-    },
-    gwContainer {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwContainer", java.lang.String.class);
-      }
-    },
-    gwIssuerAuthenticationData {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwIssuerAuthenticationData", java.lang.String.class);
-      }
-    },
-    gwIssuerScriptTemplate1 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwIssuerScriptTemplate1", java.lang.String.class);
-      }
-    },
-    gwIssuerScriptTemplate2 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwIssuerScriptTemplate2", java.lang.String.class);
-      }
-    },
-    gwIssuerAuthorizationResponseCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwIssuerAuthorizationResponseCode", java.lang.String.class);
-      }
-    },
-    gwMessageControlField {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("gwMessageControlField", java.lang.String.class);
-      }
-    },
-    gwTxResult {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("gwTxResult", com.clover.sdk.v3.pay.GwTxResult.class);
-      }
-    },
-    cvmResult {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("cvmResult", com.clover.sdk.v3.payments.CvmResult.class);
-      }
-    },
-    serviceCode1 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("serviceCode1", com.clover.sdk.v3.pay.ServiceCode1.class);
-      }
-    },
-    serviceCode2 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("serviceCode2", com.clover.sdk.v3.pay.ServiceCode2.class);
-      }
-    },
-    serviceCode3 {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractEnum("serviceCode3", com.clover.sdk.v3.pay.ServiceCode3.class);
-      }
-    },
-    offlineApprovalAuthCode {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("offlineApprovalAuthCode", java.lang.String.class);
-      }
-    },
-    availableOfflineSpendingAmount {
-      @Override
-      public Object extractValue(TransactionData instance) {
-        return instance.genClient.extractOther("availableOfflineSpendingAmount", java.lang.Double.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    txResult
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.TxResult.class)),
+    txError
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.ErrorCode.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    tipAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    cashBackAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    errorCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    errorText
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transactionTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    msrContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    msrMaskedTrack1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    msrMaskedTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedManualPan
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sredContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sred
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ksn
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorKey
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorKeyId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorEncryptedTrack1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorEncryptedTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorEncryptedEmvTag57
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorEncryptedEmvTag5A
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorEncryptedManualKeyedData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationInterchangeProfile
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccMaskedEmv57
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccMaskedEmv5A
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationPanSequenceNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationExpirationDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationEffectiveDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccAmountAuthorized
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccAmountOther
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionCurrencyCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionCurrencyExponent
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationUsageControl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerActionCodeDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerActionCodeDenial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerActionCodeOnline
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationLabel
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationCryptogram
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationIdentifierCard
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationIdentifierTerminal
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationTransactionCounter
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccApplicationVersionNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccCryptogramInformationData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccCvmResults
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccInterfaceDeviceSerialNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerApplicationData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccPosEntryModeCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTerminalCapabilities
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTerminalCountryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTerminalType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTvr
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTsi
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccUnpredictableNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccAdditionalTerminalCapabilities
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccTransactionCategoryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerApplicationPreferredName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccCardholderName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerCodeTableIndex
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerScripts
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    iccIssuerScriptResults
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugTrack2EquivalentData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugApplicationPan
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugAmountAuthorizedBinary
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugAmountOtherBinary
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugTransactionStatusInformation
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugPlainTrack1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    debugPlainTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    schemePunATC
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    schemeThirdPartyData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    schemeMerchantCustomData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    schemeTerminalEntryCapability
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pinBlockContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pinBlock
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pinBlockKsn
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mac
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    macKsn
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwContainer
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwIssuerAuthenticationData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwIssuerScriptTemplate1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwIssuerScriptTemplate2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwIssuerAuthorizationResponseCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwMessageControlField
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gwTxResult
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.GwTxResult.class)),
+    cvmResult
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CvmResult.class)),
+    serviceCode1
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.ServiceCode1.class)),
+    serviceCode2
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.ServiceCode2.class)),
+    serviceCode3
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.pay.ServiceCode3.class)),
+    offlineApprovalAuthCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    availableOfflineSpendingAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<TransactionData> genClient;
+  private final GenericClient<TransactionData> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public TransactionData() {
     genClient = new GenericClient<TransactionData>(this);
   }
@@ -1103,8 +734,8 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected TransactionData(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -69,51 +69,38 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeviceCountInfo> {
-    totalDevices {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("totalDevices", java.lang.Long.class);
-      }
-    },
-    numStations {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("numStations", java.lang.Long.class);
-      }
-    },
-    numMobiles {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("numMobiles", java.lang.Long.class);
-      }
-    },
-    numMinis {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("numMinis", java.lang.Long.class);
-      }
-    },
-    numBayleafs {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("numBayleafs", java.lang.Long.class);
-      }
-    },
-    numGoldenoaks {
-      @Override
-      public Object extractValue(DeviceCountInfo instance) {
-        return instance.genClient.extractOther("numGoldenoaks", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    totalDevices
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numStations
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numMobiles
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numMinis
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numBayleafs
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numGoldenoaks
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeviceCountInfo> genClient;
+  private final GenericClient<DeviceCountInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DeviceCountInfo() {
     genClient = new GenericClient<DeviceCountInfo>(this);
   }
@@ -124,8 +111,8 @@ public class DeviceCountInfo extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DeviceCountInfo(boolean noInit) {
     genClient = null;
   }

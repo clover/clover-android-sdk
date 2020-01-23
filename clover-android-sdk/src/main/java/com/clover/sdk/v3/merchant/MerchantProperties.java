@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchantRef merchantRef}</li>
  * <li>{@link #getDefaultCurrency defaultCurrency}</li>
  * <li>{@link #getTipsEnabled tipsEnabled}</li>
+ * <li>{@link #getMaxTipPercentage maxTipPercentage}</li>
  * <li>{@link #getReceiptProperties receiptProperties}</li>
  * <li>{@link #getSummaryHour summaryHour}</li>
  * <li>{@link #getSignatureThreshold signatureThreshold}</li>
@@ -61,6 +62,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSupportPhone supportPhone}</li>
  * <li>{@link #getSupportEmail supportEmail}</li>
  * <li>{@link #getManualCloseout manualCloseout}</li>
+ * <li>{@link #getManualCloseoutPerDevice manualCloseoutPerDevice}</li>
  * <li>{@link #getShowCloseoutOrders showCloseoutOrders}</li>
  * <li>{@link #getSendCloseoutEmail sendCloseoutEmail}</li>
  * <li>{@link #getStayInCategory stayInCategory}</li>
@@ -85,6 +87,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getHasConsented hasConsented}</li>
  * <li>{@link #getMerchantBoardingStatus merchantBoardingStatus}</li>
  * <li>{@link #getAlwaysRequireSignature alwaysRequireSignature}</li>
+ * <li>{@link #getPrintedFirstDataReceiptLogoEnabled printedFirstDataReceiptLogoEnabled}</li>
+ * <li>{@link #getPrivacyPolicyMode privacyPolicyMode}</li>
+ * <li>{@link #getMerchantPrivacyPolicyUrl merchantPrivacyPolicyUrl}</li>
+ * <li>{@link #getDisablePrintTaxesPaymentOnReceipts disablePrintTaxesPaymentOnReceipts}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -100,6 +106,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
 
   public java.lang.Boolean getTipsEnabled() {
     return genClient.cacheGet(CacheKey.tipsEnabled);
+  }
+
+  public java.lang.Long getMaxTipPercentage() {
+    return genClient.cacheGet(CacheKey.maxTipPercentage);
   }
 
   public java.lang.String getReceiptProperties() {
@@ -208,6 +218,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
 
   public java.lang.Boolean getManualCloseout() {
     return genClient.cacheGet(CacheKey.manualCloseout);
+  }
+
+  public java.lang.Boolean getManualCloseoutPerDevice() {
+    return genClient.cacheGet(CacheKey.manualCloseoutPerDevice);
   }
 
   public java.lang.Boolean getShowCloseoutOrders() {
@@ -348,343 +362,178 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheGet(CacheKey.alwaysRequireSignature);
   }
 
+  /**
+   * Whether we display the First Data receipt logo
+   */
+  public java.lang.Boolean getPrintedFirstDataReceiptLogoEnabled() {
+    return genClient.cacheGet(CacheKey.printedFirstDataReceiptLogoEnabled);
+  }
+
+  /**
+   * Designates the privacy policy mode for this merchant (EU_GDPR_STRICT, EU_GDPR_FLEX, US_HIPPA)
+   */
+  public java.lang.String getPrivacyPolicyMode() {
+    return genClient.cacheGet(CacheKey.privacyPolicyMode);
+  }
+
+  /**
+   * Merchant-specified privacy policy url
+   */
+  public java.lang.String getMerchantPrivacyPolicyUrl() {
+    return genClient.cacheGet(CacheKey.merchantPrivacyPolicyUrl);
+  }
+
+  /**
+   * Whether we display the taxes table on receipts
+   */
+  public java.lang.Boolean getDisablePrintTaxesPaymentOnReceipts() {
+    return genClient.cacheGet(CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.merchants";
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantProperties> {
-    merchantRef {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractRecord("merchantRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    defaultCurrency {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("defaultCurrency", java.lang.String.class);
-      }
-    },
-    tipsEnabled {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("tipsEnabled", java.lang.Boolean.class);
-      }
-    },
-    receiptProperties {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("receiptProperties", java.lang.String.class);
-      }
-    },
-    summaryHour {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("summaryHour", java.lang.Integer.class);
-      }
-    },
-    signatureThreshold {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("signatureThreshold", java.lang.Long.class);
-      }
-    },
-    hasDefaultEmployee {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("hasDefaultEmployee", java.lang.Boolean.class);
-      }
-    },
-    tipRateDefault {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("tipRateDefault", java.lang.Integer.class);
-      }
-    },
-    onPaperTipSignatures {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("onPaperTipSignatures", java.lang.Boolean.class);
-      }
-    },
-    noSignatureProgramEligible {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("noSignatureProgramEligible", java.lang.Boolean.class);
-      }
-    },
-    autoLogout {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("autoLogout", java.lang.Boolean.class);
-      }
-    },
-    orderTitle {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractEnum("orderTitle", com.clover.sdk.v3.merchant.OrderTitle.class);
-      }
-    },
-    orderTitleMax {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("orderTitleMax", java.lang.Integer.class);
-      }
-    },
-    resetOnReportingTime {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("resetOnReportingTime", java.lang.Boolean.class);
-      }
-    },
-    notesOnOrders {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("notesOnOrders", java.lang.Boolean.class);
-      }
-    },
-    deleteOrders {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("deleteOrders", java.lang.Boolean.class);
-      }
-    },
-    removeTaxEnabled {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("removeTaxEnabled", java.lang.Boolean.class);
-      }
-    },
-    groupLineItems {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("groupLineItems", java.lang.Boolean.class);
-      }
-    },
-    alternateInventoryNames {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("alternateInventoryNames", java.lang.Boolean.class);
-      }
-    },
-    autoPrint {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("autoPrint", java.lang.Boolean.class);
-      }
-    },
-    hardwareProfile {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("hardwareProfile", java.lang.String.class);
-      }
-    },
-    infoleaseSuppressBilling {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("infoleaseSuppressBilling", java.lang.Boolean.class);
-      }
-    },
-    infoleaseSuppressPlanBilling {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("infoleaseSuppressPlanBilling", java.lang.Boolean.class);
-      }
-    },
-    shippingAddress {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("shippingAddress", java.lang.String.class);
-      }
-    },
-    marketingEnabled {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("marketingEnabled", java.lang.Boolean.class);
-      }
-    },
-    marketingPreferenceText {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("marketingPreferenceText", java.lang.String.class);
-      }
-    },
-    bankMarker {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("bankMarker", java.lang.Integer.class);
-      }
-    },
-    supportPhone {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("supportPhone", java.lang.String.class);
-      }
-    },
-    supportEmail {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("supportEmail", java.lang.String.class);
-      }
-    },
-    manualCloseout {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("manualCloseout", java.lang.Boolean.class);
-      }
-    },
-    showCloseoutOrders {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("showCloseoutOrders", java.lang.Boolean.class);
-      }
-    },
-    sendCloseoutEmail {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("sendCloseoutEmail", java.lang.Boolean.class);
-      }
-    },
-    stayInCategory {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("stayInCategory", java.lang.Boolean.class);
-      }
-    },
-    locale {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("locale", java.lang.String.class);
-      }
-    },
-    timezone {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("timezone", java.lang.String.class);
-      }
-    },
-    vat {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("vat", java.lang.Boolean.class);
-      }
-    },
-    vatTaxName {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("vatTaxName", java.lang.String.class);
-      }
-    },
-    appBillingSystem {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("appBillingSystem", java.lang.String.class);
-      }
-    },
-    abaAccountNumber {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("abaAccountNumber", java.lang.String.class);
-      }
-    },
-    ddaAccountNumber {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("ddaAccountNumber", java.lang.String.class);
-      }
-    },
-    trackStock {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("trackStock", java.lang.Boolean.class);
-      }
-    },
-    updateStock {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("updateStock", java.lang.Boolean.class);
-      }
-    },
-    allowClockOutWithOpenOrders {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("allowClockOutWithOpenOrders", java.lang.Boolean.class);
-      }
-    },
-    logInClockInPrompt {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("logInClockInPrompt", java.lang.Boolean.class);
-      }
-    },
-    accountType {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("accountType", java.lang.String.class);
-      }
-    },
-    businessTypeCode {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractEnum("businessTypeCode", com.clover.sdk.v3.base.BusinessTypeCode.class);
-      }
-    },
-    pinLength {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("pinLength", java.lang.Integer.class);
-      }
-    },
-    cashBackEnabled {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("cashBackEnabled", java.lang.Boolean.class);
-      }
-    },
-    cashBackOptions {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("cashBackOptions", java.lang.String.class);
-      }
-    },
-    maxCashBack {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("maxCashBack", java.lang.Long.class);
-      }
-    },
-    hierarchy {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("hierarchy", java.lang.String.class);
-      }
-    },
-    hasConsented {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("hasConsented", java.lang.Boolean.class);
-      }
-    },
-    merchantBoardingStatus {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("merchantBoardingStatus", java.lang.String.class);
-      }
-    },
-    alwaysRequireSignature {
-      @Override
-      public Object extractValue(MerchantProperties instance) {
-        return instance.genClient.extractOther("alwaysRequireSignature", java.lang.Boolean.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    merchantRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    defaultCurrency
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tipsEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    maxTipPercentage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    receiptProperties
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    summaryHour
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    signatureThreshold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    hasDefaultEmployee
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    tipRateDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    onPaperTipSignatures
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    noSignatureProgramEligible
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    autoLogout
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    orderTitle
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.merchant.OrderTitle.class)),
+    orderTitleMax
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    resetOnReportingTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    notesOnOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    deleteOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    removeTaxEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    groupLineItems
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    alternateInventoryNames
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    autoPrint
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    hardwareProfile
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    infoleaseSuppressBilling
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    infoleaseSuppressPlanBilling
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    shippingAddress
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    marketingEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    marketingPreferenceText
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bankMarker
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    supportPhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    manualCloseout
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    manualCloseoutPerDevice
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    showCloseoutOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    sendCloseoutEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    stayInCategory
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    locale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    timezone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    vat
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    vatTaxName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    appBillingSystem
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    abaAccountNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ddaAccountNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    trackStock
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    updateStock
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    allowClockOutWithOpenOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    logInClockInPrompt
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    accountType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessTypeCode
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.base.BusinessTypeCode.class)),
+    pinLength
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    cashBackEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    cashBackOptions
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maxCashBack
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    hierarchy
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    hasConsented
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    merchantBoardingStatus
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alwaysRequireSignature
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    printedFirstDataReceiptLogoEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    privacyPolicyMode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantPrivacyPolicyUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    disablePrintTaxesPaymentOnReceipts
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantProperties> genClient;
+  private final GenericClient<MerchantProperties> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantProperties() {
     genClient = new GenericClient<MerchantProperties>(this);
   }
@@ -695,8 +544,8 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantProperties(boolean noInit) {
     genClient = null;
   }
@@ -763,7 +612,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
 
     genClient.validateLength(getDdaAccountNumber(), 40);
 
-    genClient.validateLength(getHierarchy(), 127);
+    genClient.validateLength(getHierarchy(), 255);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -779,6 +628,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Checks whether the 'tipsEnabled' field is set and is not null */
   public boolean isNotNullTipsEnabled() {
     return genClient.cacheValueIsNotNull(CacheKey.tipsEnabled);
+  }
+
+  /** Checks whether the 'maxTipPercentage' field is set and is not null */
+  public boolean isNotNullMaxTipPercentage() {
+    return genClient.cacheValueIsNotNull(CacheKey.maxTipPercentage);
   }
 
   /** Checks whether the 'receiptProperties' field is set and is not null */
@@ -916,6 +770,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.manualCloseout);
   }
 
+  /** Checks whether the 'manualCloseoutPerDevice' field is set and is not null */
+  public boolean isNotNullManualCloseoutPerDevice() {
+    return genClient.cacheValueIsNotNull(CacheKey.manualCloseoutPerDevice);
+  }
+
   /** Checks whether the 'showCloseoutOrders' field is set and is not null */
   public boolean isNotNullShowCloseoutOrders() {
     return genClient.cacheValueIsNotNull(CacheKey.showCloseoutOrders);
@@ -1036,6 +895,26 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.alwaysRequireSignature);
   }
 
+  /** Checks whether the 'printedFirstDataReceiptLogoEnabled' field is set and is not null */
+  public boolean isNotNullPrintedFirstDataReceiptLogoEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.printedFirstDataReceiptLogoEnabled);
+  }
+
+  /** Checks whether the 'privacyPolicyMode' field is set and is not null */
+  public boolean isNotNullPrivacyPolicyMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.privacyPolicyMode);
+  }
+
+  /** Checks whether the 'merchantPrivacyPolicyUrl' field is set and is not null */
+  public boolean isNotNullMerchantPrivacyPolicyUrl() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantPrivacyPolicyUrl);
+  }
+
+  /** Checks whether the 'disablePrintTaxesPaymentOnReceipts' field is set and is not null */
+  public boolean isNotNullDisablePrintTaxesPaymentOnReceipts() {
+    return genClient.cacheValueIsNotNull(CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
+
 
 
   /** Checks whether the 'merchantRef' field has been set, however the value could be null */
@@ -1051,6 +930,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Checks whether the 'tipsEnabled' field has been set, however the value could be null */
   public boolean hasTipsEnabled() {
     return genClient.cacheHasKey(CacheKey.tipsEnabled);
+  }
+
+  /** Checks whether the 'maxTipPercentage' field has been set, however the value could be null */
+  public boolean hasMaxTipPercentage() {
+    return genClient.cacheHasKey(CacheKey.maxTipPercentage);
   }
 
   /** Checks whether the 'receiptProperties' field has been set, however the value could be null */
@@ -1188,6 +1072,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheHasKey(CacheKey.manualCloseout);
   }
 
+  /** Checks whether the 'manualCloseoutPerDevice' field has been set, however the value could be null */
+  public boolean hasManualCloseoutPerDevice() {
+    return genClient.cacheHasKey(CacheKey.manualCloseoutPerDevice);
+  }
+
   /** Checks whether the 'showCloseoutOrders' field has been set, however the value could be null */
   public boolean hasShowCloseoutOrders() {
     return genClient.cacheHasKey(CacheKey.showCloseoutOrders);
@@ -1308,6 +1197,26 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheHasKey(CacheKey.alwaysRequireSignature);
   }
 
+  /** Checks whether the 'printedFirstDataReceiptLogoEnabled' field has been set, however the value could be null */
+  public boolean hasPrintedFirstDataReceiptLogoEnabled() {
+    return genClient.cacheHasKey(CacheKey.printedFirstDataReceiptLogoEnabled);
+  }
+
+  /** Checks whether the 'privacyPolicyMode' field has been set, however the value could be null */
+  public boolean hasPrivacyPolicyMode() {
+    return genClient.cacheHasKey(CacheKey.privacyPolicyMode);
+  }
+
+  /** Checks whether the 'merchantPrivacyPolicyUrl' field has been set, however the value could be null */
+  public boolean hasMerchantPrivacyPolicyUrl() {
+    return genClient.cacheHasKey(CacheKey.merchantPrivacyPolicyUrl);
+  }
+
+  /** Checks whether the 'disablePrintTaxesPaymentOnReceipts' field has been set, however the value could be null */
+  public boolean hasDisablePrintTaxesPaymentOnReceipts() {
+    return genClient.cacheHasKey(CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
+
 
   /**
    * Sets the field 'merchantRef'.
@@ -1330,6 +1239,13 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
    */
   public MerchantProperties setTipsEnabled(java.lang.Boolean tipsEnabled) {
     return genClient.setOther(tipsEnabled, CacheKey.tipsEnabled);
+  }
+
+  /**
+   * Sets the field 'maxTipPercentage'.
+   */
+  public MerchantProperties setMaxTipPercentage(java.lang.Long maxTipPercentage) {
+    return genClient.setOther(maxTipPercentage, CacheKey.maxTipPercentage);
   }
 
   /**
@@ -1522,6 +1438,13 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   }
 
   /**
+   * Sets the field 'manualCloseoutPerDevice'.
+   */
+  public MerchantProperties setManualCloseoutPerDevice(java.lang.Boolean manualCloseoutPerDevice) {
+    return genClient.setOther(manualCloseoutPerDevice, CacheKey.manualCloseoutPerDevice);
+  }
+
+  /**
    * Sets the field 'showCloseoutOrders'.
    */
   public MerchantProperties setShowCloseoutOrders(java.lang.Boolean showCloseoutOrders) {
@@ -1689,6 +1612,34 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.setOther(alwaysRequireSignature, CacheKey.alwaysRequireSignature);
   }
 
+  /**
+   * Sets the field 'printedFirstDataReceiptLogoEnabled'.
+   */
+  public MerchantProperties setPrintedFirstDataReceiptLogoEnabled(java.lang.Boolean printedFirstDataReceiptLogoEnabled) {
+    return genClient.setOther(printedFirstDataReceiptLogoEnabled, CacheKey.printedFirstDataReceiptLogoEnabled);
+  }
+
+  /**
+   * Sets the field 'privacyPolicyMode'.
+   */
+  public MerchantProperties setPrivacyPolicyMode(java.lang.String privacyPolicyMode) {
+    return genClient.setOther(privacyPolicyMode, CacheKey.privacyPolicyMode);
+  }
+
+  /**
+   * Sets the field 'merchantPrivacyPolicyUrl'.
+   */
+  public MerchantProperties setMerchantPrivacyPolicyUrl(java.lang.String merchantPrivacyPolicyUrl) {
+    return genClient.setOther(merchantPrivacyPolicyUrl, CacheKey.merchantPrivacyPolicyUrl);
+  }
+
+  /**
+   * Sets the field 'disablePrintTaxesPaymentOnReceipts'.
+   */
+  public MerchantProperties setDisablePrintTaxesPaymentOnReceipts(java.lang.Boolean disablePrintTaxesPaymentOnReceipts) {
+    return genClient.setOther(disablePrintTaxesPaymentOnReceipts, CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
+
 
   /** Clears the 'merchantRef' field, the 'has' method for this field will now return false */
   public void clearMerchantRef() {
@@ -1701,6 +1652,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Clears the 'tipsEnabled' field, the 'has' method for this field will now return false */
   public void clearTipsEnabled() {
     genClient.clear(CacheKey.tipsEnabled);
+  }
+  /** Clears the 'maxTipPercentage' field, the 'has' method for this field will now return false */
+  public void clearMaxTipPercentage() {
+    genClient.clear(CacheKey.maxTipPercentage);
   }
   /** Clears the 'receiptProperties' field, the 'has' method for this field will now return false */
   public void clearReceiptProperties() {
@@ -1810,6 +1765,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   public void clearManualCloseout() {
     genClient.clear(CacheKey.manualCloseout);
   }
+  /** Clears the 'manualCloseoutPerDevice' field, the 'has' method for this field will now return false */
+  public void clearManualCloseoutPerDevice() {
+    genClient.clear(CacheKey.manualCloseoutPerDevice);
+  }
   /** Clears the 'showCloseoutOrders' field, the 'has' method for this field will now return false */
   public void clearShowCloseoutOrders() {
     genClient.clear(CacheKey.showCloseoutOrders);
@@ -1906,6 +1865,22 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   public void clearAlwaysRequireSignature() {
     genClient.clear(CacheKey.alwaysRequireSignature);
   }
+  /** Clears the 'printedFirstDataReceiptLogoEnabled' field, the 'has' method for this field will now return false */
+  public void clearPrintedFirstDataReceiptLogoEnabled() {
+    genClient.clear(CacheKey.printedFirstDataReceiptLogoEnabled);
+  }
+  /** Clears the 'privacyPolicyMode' field, the 'has' method for this field will now return false */
+  public void clearPrivacyPolicyMode() {
+    genClient.clear(CacheKey.privacyPolicyMode);
+  }
+  /** Clears the 'merchantPrivacyPolicyUrl' field, the 'has' method for this field will now return false */
+  public void clearMerchantPrivacyPolicyUrl() {
+    genClient.clear(CacheKey.merchantPrivacyPolicyUrl);
+  }
+  /** Clears the 'disablePrintTaxesPaymentOnReceipts' field, the 'has' method for this field will now return false */
+  public void clearDisablePrintTaxesPaymentOnReceipts() {
+    genClient.clear(CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
 
 
   /**
@@ -1969,6 +1944,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
     public static final boolean TIPSENABLED_IS_REQUIRED = false;
+    public static final boolean MAXTIPPERCENTAGE_IS_REQUIRED = false;
     public static final boolean RECEIPTPROPERTIES_IS_REQUIRED = false;
     public static final boolean SUMMARYHOUR_IS_REQUIRED = false;
     public static final boolean SIGNATURETHRESHOLD_IS_REQUIRED = false;
@@ -2000,6 +1976,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean SUPPORTEMAIL_IS_REQUIRED = false;
     public static final long SUPPORTEMAIL_MAX_LEN = 127;
     public static final boolean MANUALCLOSEOUT_IS_REQUIRED = false;
+    public static final boolean MANUALCLOSEOUTPERDEVICE_IS_REQUIRED = false;
     public static final boolean SHOWCLOSEOUTORDERS_IS_REQUIRED = false;
     public static final boolean SENDCLOSEOUTEMAIL_IS_REQUIRED = false;
     public static final boolean STAYINCATEGORY_IS_REQUIRED = false;
@@ -2026,10 +2003,14 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean CASHBACKOPTIONS_IS_REQUIRED = false;
     public static final boolean MAXCASHBACK_IS_REQUIRED = false;
     public static final boolean HIERARCHY_IS_REQUIRED = false;
-    public static final long HIERARCHY_MAX_LEN = 127;
+    public static final long HIERARCHY_MAX_LEN = 255;
     public static final boolean HASCONSENTED_IS_REQUIRED = false;
     public static final boolean MERCHANTBOARDINGSTATUS_IS_REQUIRED = false;
     public static final boolean ALWAYSREQUIRESIGNATURE_IS_REQUIRED = false;
+    public static final boolean PRINTEDFIRSTDATARECEIPTLOGOENABLED_IS_REQUIRED = false;
+    public static final boolean PRIVACYPOLICYMODE_IS_REQUIRED = false;
+    public static final boolean MERCHANTPRIVACYPOLICYURL_IS_REQUIRED = false;
+    public static final boolean DISABLEPRINTTAXESPAYMENTONRECEIPTS_IS_REQUIRED = false;
 
   }
 

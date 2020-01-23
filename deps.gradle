@@ -1,52 +1,30 @@
-def mavenPlugin = "com.github.dcendents:android-maven-plugin:1.2"
-def androidPlugin = "com.android.tools.build:gradle:1.2.3"
+apply from: file("${project.rootDir}/versions.gradle")
+
 def printVersions = false
 
-def gradleVersions = gradle.gradleVersion.split('\\.')
-def gradleMajorVersion = gradleVersions[0].toInteger()
-def gradleMinorVersion = gradleVersions[1].toInteger()
-def gradleMaintenanceVersion = 0
-if (gradleVersions.length >= 3) {
-  gradleMaintenanceVersion = gradleVersions[2].toInteger()
+def requiredGradleVersion = new File("${project.rootDir}/gradleVersion").text.split('-')[1].trim()
+if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
+  print "ERROR: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
+  throw new GradleException("Unsupported Gradle version.")
 }
 
-// Setup Maven Plugin
-if (gradleMajorVersion == 4) {
-  if (gradleMinorVersion < 4) {
-    mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:1.5"
-  } else if (gradleMinorVersion < 6) {
-    mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:2.0"
-  } else {
-    mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:2.1"
-  }
-}
-
-// Setup Android Plugin
-if (gradleMajorVersion == 4) {
-  if (gradleMinorVersion < 4) {
-    androidPlugin = "com.android.tools.build:gradle:3.0.0"
-  } else if (gradleMinorVersion < 6 ) {
-    androidPlugin = "com.android.tools.build:gradle:3.1.0"
-  } else {
-    androidPlugin = "com.android.tools.build:gradle:3.2.1"
-  }
-}
-
-ext.mavenPlugin = mavenPlugin
-ext.androidPlugin = androidPlugin
 
 ext {
-  kotlin_version = "1.3.11"
-  kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-  sonarqubeVersion = "2.6.1"
-  sonarqubePlugin = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$sonarqubeVersion"
-}
-
-if (gradleMajorVersion < 4 || (gradleMajorVersion == 4 && gradleMinorVersion < 8)) {
-  println "WARNING: Using Gradle version < 4.8 is unsupported"
+  mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:$MAVEN_PLUGIN_VERSION"
+  androidPlugin = "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
+  kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+  sonarqubePlugin = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$SONARQUBE_VERSION"
 }
 
 if (printVersions) {
+  def gradleVersions = gradle.gradleVersion.split('\\.')
+  def gradleMajorVersion = gradleVersions[0].toInteger()
+  def gradleMinorVersion = gradleVersions[1].toInteger()
+  def gradleMaintenanceVersion = 0
+  if (gradleVersions.length >= 3) {
+    gradleMaintenanceVersion = gradleVersions[2].toInteger()
+  }
+
   println "gradleMajorVersion = " + gradleMajorVersion
   println "gradleMinorVersion = " + gradleMinorVersion
   println "gradleMaintenanceVersion = " + gradleMaintenanceVersion

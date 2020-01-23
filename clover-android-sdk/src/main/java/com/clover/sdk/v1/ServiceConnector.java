@@ -16,6 +16,7 @@
 package com.clover.sdk.v1;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -184,6 +185,14 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     boolean result;
 
     while (!isConnected() && retryCount < MAX_RETRY_ATTEMPTS) {
+      if (mContext instanceof Activity) {
+        Activity activity = (Activity) mContext;
+        // Android prevents destroyed activities from binding so don't try
+        if (activity.isDestroyed()) {
+          break;
+        }
+      }
+
       result = connect();
 
       try {

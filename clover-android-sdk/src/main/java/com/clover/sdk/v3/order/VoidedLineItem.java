@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -104,63 +104,42 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VoidedLineItem> {
-    lineItem {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractRecord("lineItem", com.clover.sdk.v3.order.LineItem.JSON_CREATOR);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    removedBy {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractRecord("removedBy", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    createdBy {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractRecord("createdBy", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    environment {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractOther("environment", java.lang.String.class);
-      }
-    },
-    clientEventType {
-      @Override
-      public Object extractValue(VoidedLineItem instance) {
-        return instance.genClient.extractEnum("clientEventType", com.clover.sdk.v3.order.ClientEventType.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    lineItem
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItem.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    removedBy
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    createdBy
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    environment
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    clientEventType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.ClientEventType.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VoidedLineItem> genClient;
+  private final GenericClient<VoidedLineItem> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VoidedLineItem() {
     genClient = new GenericClient<VoidedLineItem>(this);
   }
@@ -171,8 +150,8 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VoidedLineItem(boolean noInit) {
     genClient = null;
   }

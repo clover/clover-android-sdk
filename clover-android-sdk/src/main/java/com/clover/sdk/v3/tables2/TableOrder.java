@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getTable table}</li>
+ * <li>{@link #getGuests guests}</li>
  * <li>{@link #getOrder order}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
@@ -57,6 +58,13 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public com.clover.sdk.v3.tables2.Table getTable() {
     return genClient.cacheGet(CacheKey.table);
+  }
+
+  /**
+   * Guests associated with this table
+   */
+  public java.util.List<com.clover.sdk.v3.tables2.GuestV2> getGuests() {
+    return genClient.cacheGet(CacheKey.guests);
   }
 
   /**
@@ -97,57 +105,42 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TableOrder> {
-    id {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    table {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractRecord("table", com.clover.sdk.v3.tables2.Table.JSON_CREATOR);
-      }
-    },
-    order {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractRecord("order", com.clover.sdk.v3.order.Order.JSON_CREATOR);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.merchant.Merchant.JSON_CREATOR);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(TableOrder instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    table
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.tables2.Table.JSON_CREATOR)),
+    guests
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.tables2.GuestV2.JSON_CREATOR)),
+    order
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.Order.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.Merchant.JSON_CREATOR)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<TableOrder> genClient;
+  private final GenericClient<TableOrder> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public TableOrder() {
     genClient = new GenericClient<TableOrder>(this);
   }
@@ -158,8 +151,8 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected TableOrder(boolean noInit) {
     genClient = null;
   }
@@ -218,6 +211,14 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.table);
   }
 
+  /** Checks whether the 'guests' field is set and is not null */
+  public boolean isNotNullGuests() {
+    return genClient.cacheValueIsNotNull(CacheKey.guests);
+  }
+
+  /** Checks whether the 'guests' field is set and is not null and is not empty */
+  public boolean isNotEmptyGuests() { return isNotNullGuests() && !getGuests().isEmpty(); }
+
   /** Checks whether the 'order' field is set and is not null */
   public boolean isNotNullOrder() {
     return genClient.cacheValueIsNotNull(CacheKey.order);
@@ -253,6 +254,11 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'table' field has been set, however the value could be null */
   public boolean hasTable() {
     return genClient.cacheHasKey(CacheKey.table);
+  }
+
+  /** Checks whether the 'guests' field has been set, however the value could be null */
+  public boolean hasGuests() {
+    return genClient.cacheHasKey(CacheKey.guests);
   }
 
   /** Checks whether the 'order' field has been set, however the value could be null */
@@ -295,6 +301,15 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public TableOrder setTable(com.clover.sdk.v3.tables2.Table table) {
     return genClient.setRecord(table, CacheKey.table);
+  }
+
+  /**
+   * Sets the field 'guests'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public TableOrder setGuests(java.util.List<com.clover.sdk.v3.tables2.GuestV2> guests) {
+    return genClient.setArrayRecord(guests, CacheKey.guests);
   }
 
   /**
@@ -344,6 +359,10 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'table' field, the 'has' method for this field will now return false */
   public void clearTable() {
     genClient.clear(CacheKey.table);
+  }
+  /** Clears the 'guests' field, the 'has' method for this field will now return false */
+  public void clearGuests() {
+    genClient.clear(CacheKey.guests);
   }
   /** Clears the 'order' field, the 'has' method for this field will now return false */
   public void clearOrder() {
@@ -427,6 +446,7 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean TABLE_IS_REQUIRED = false;
+    public static final boolean GUESTS_IS_REQUIRED = false;
     public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
