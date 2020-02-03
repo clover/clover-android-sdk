@@ -1,5 +1,6 @@
 com.clover.sdk
 com.clover.sdk.cashdrawer
+com.clover.sdk.extractors
 com.clover.sdk.fragment
 com.clover.sdk.util
 com.clover.sdk.v1
@@ -12,10 +13,12 @@ com.clover.sdk.v1.printer
 com.clover.sdk.v1.printer.job
 com.clover.sdk.v1.tender
 com.clover.sdk.v3
+com.clover.sdk.v3.account
 com.clover.sdk.v3.analytics
 com.clover.sdk.v3.apps
 com.clover.sdk.v3.base
 com.clover.sdk.v3.billing
+com.clover.sdk.v3.boarding
 com.clover.sdk.v3.cacheindex
 com.clover.sdk.v3.cash
 com.clover.sdk.v3.custom
@@ -24,9 +27,11 @@ com.clover.sdk.v3.developer
 com.clover.sdk.v3.device
 com.clover.sdk.v3.employees
 com.clover.sdk.v3.entitlements
+com.clover.sdk.v3.happyhour
 com.clover.sdk.v3.hours
 com.clover.sdk.v3.inventory
 com.clover.sdk.v3.merchant
+com.clover.sdk.v3.onlineorder
 com.clover.sdk.v3.order
 com.clover.sdk.v3.pay
 com.clover.sdk.v3.payments
@@ -36,3 +41,4 @@ com.clover.sdk.v3.resellers
 com.clover.sdk.v3.scanner
 com.clover.sdk.v3.serverfeature
 com.clover.sdk.v3.tables2
+com.clover.sdk.v3.tokens
