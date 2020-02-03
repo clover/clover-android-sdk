@@ -22,9 +22,6 @@ import java.util.Map;
 
 /**
  * The interface of the Loyalty Kit
- *
- *
- * Created by michaelhampton on 6/6/18.
  */
 public interface ILoyaltyKit {
   /**
@@ -81,6 +78,8 @@ public interface ILoyaltyKit {
    * @throws Exception if something bad happens.
    */
   boolean stopLoyaltyService(final String dynamicService) throws Exception;
+
+  boolean stopLoyaltyService(final String dynamicService, Map<String, String> dataExtras) throws Exception;
 
   /**
    * Called by dynamic services to indicate an update in the service state.

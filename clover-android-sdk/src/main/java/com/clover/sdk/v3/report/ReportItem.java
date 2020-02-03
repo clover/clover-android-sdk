@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,6 +63,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAverageNetSales averageNetSales}</li>
  * <li>{@link #getPercentTotalNetSales percentTotalNetSales}</li>
  * <li>{@link #getPartialRefundAmount partialRefundAmount}</li>
+ * <li>{@link #getPartialRefundRepaymentAmount partialRefundRepaymentAmount}</li>
  * <li>{@link #getCategory category}</li>
  * </ul>
  */
@@ -252,6 +253,13 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
+   * Total amount of refunds that partially refunded the item but did not fully refund the item and then were later re-paid.
+   */
+  public java.lang.Long getPartialRefundRepaymentAmount() {
+    return genClient.cacheGet(CacheKey.partialRefundRepaymentAmount);
+  }
+
+  /**
    * The oldest active category that the item belongs to. If item belongs to categories that are all deleted, then this is the most recently deleted category. If there are no categories for this item, then this is empty. 
    */
   public com.clover.sdk.v3.report.ItemSalesBucket getCategory() {
@@ -261,209 +269,90 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ReportItem> {
-    id {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    numberSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("numberSold", java.lang.Double.class);
-      }
-    },
-    revenueSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("revenueSold", java.lang.Long.class);
-      }
-    },
-    numNonRevenueSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("numNonRevenueSold", java.lang.Double.class);
-      }
-    },
-    priceSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("priceSold", java.lang.Double.class);
-      }
-    },
-    numRefunds {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("numRefunds", java.lang.Double.class);
-      }
-    },
-    refundAmount {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("refundAmount", java.lang.Long.class);
-      }
-    },
-    numExchanges {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("numExchanges", java.lang.Double.class);
-      }
-    },
-    exchangeAmount {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("exchangeAmount", java.lang.Long.class);
-      }
-    },
-    inACategory {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("inACategory", java.lang.Boolean.class);
-      }
-    },
-    inventoryItem {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractRecord("inventoryItem", com.clover.sdk.v3.inventory.Item.JSON_CREATOR);
-      }
-    },
-    discountSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("discountSales", com.clover.sdk.v3.report.BaseSale.JSON_CREATOR);
-      }
-    },
-    orderLevelDiscounts {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("orderLevelDiscounts", com.clover.sdk.v3.report.BaseSale.JSON_CREATOR);
-      }
-    },
-    labels {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("labels", com.clover.sdk.v3.report.ReportLabel.JSON_CREATOR);
-      }
-    },
-    categories {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("categories", com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR);
-      }
-    },
-    deletedCategories {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("deletedCategories", com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR);
-      }
-    },
-    modifierSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractListRecord("modifierSales", com.clover.sdk.v3.report.BaseSale.JSON_CREATOR);
-      }
-    },
-    grossModifierSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("grossModifierSales", java.lang.Long.class);
-      }
-    },
-    totalDiscounts {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("totalDiscounts", java.lang.Long.class);
-      }
-    },
-    netNumberSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("netNumberSold", java.lang.Double.class);
-      }
-    },
-    grossItemSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("grossItemSales", java.lang.Long.class);
-      }
-    },
-    grossSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("grossSales", java.lang.Long.class);
-      }
-    },
-    netItemSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("netItemSales", java.lang.Long.class);
-      }
-    },
-    netModifierSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("netModifierSales", java.lang.Long.class);
-      }
-    },
-    netSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("netSales", java.lang.Long.class);
-      }
-    },
-    costOfGoodsSold {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("costOfGoodsSold", java.lang.Long.class);
-      }
-    },
-    grossProfit {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("grossProfit", java.lang.Long.class);
-      }
-    },
-    grossProfitMargin {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("grossProfitMargin", java.lang.Double.class);
-      }
-    },
-    averageNetSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("averageNetSales", java.lang.Long.class);
-      }
-    },
-    percentTotalNetSales {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("percentTotalNetSales", java.lang.Double.class);
-      }
-    },
-    partialRefundAmount {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractOther("partialRefundAmount", java.lang.Long.class);
-      }
-    },
-    category {
-      @Override
-      public Object extractValue(ReportItem instance) {
-        return instance.genClient.extractRecord("category", com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    numberSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    revenueSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numNonRevenueSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    priceSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    numRefunds
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    refundAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numExchanges
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    exchangeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    inACategory
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    inventoryItem
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.Item.JSON_CREATOR)),
+    discountSales
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.BaseSale.JSON_CREATOR)),
+    orderLevelDiscounts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.BaseSale.JSON_CREATOR)),
+    labels
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.ReportLabel.JSON_CREATOR)),
+    categories
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR)),
+    deletedCategories
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR)),
+    modifierSales
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.BaseSale.JSON_CREATOR)),
+    grossModifierSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    totalDiscounts
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    netNumberSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    grossItemSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    grossSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    netItemSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    netModifierSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    netSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    costOfGoodsSold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    grossProfit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    grossProfitMargin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    averageNetSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    percentTotalNetSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    partialRefundAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    partialRefundRepaymentAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    category
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ItemSalesBucket.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ReportItem> genClient;
+  private final GenericClient<ReportItem> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -707,6 +596,11 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.partialRefundAmount);
   }
 
+  /** Checks whether the 'partialRefundRepaymentAmount' field is set and is not null */
+  public boolean isNotNullPartialRefundRepaymentAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.partialRefundRepaymentAmount);
+  }
+
   /** Checks whether the 'category' field is set and is not null */
   public boolean isNotNullCategory() {
     return genClient.cacheValueIsNotNull(CacheKey.category);
@@ -872,6 +766,11 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'partialRefundAmount' field has been set, however the value could be null */
   public boolean hasPartialRefundAmount() {
     return genClient.cacheHasKey(CacheKey.partialRefundAmount);
+  }
+
+  /** Checks whether the 'partialRefundRepaymentAmount' field has been set, however the value could be null */
+  public boolean hasPartialRefundRepaymentAmount() {
+    return genClient.cacheHasKey(CacheKey.partialRefundRepaymentAmount);
   }
 
   /** Checks whether the 'category' field has been set, however the value could be null */
@@ -1119,6 +1018,13 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
+   * Sets the field 'partialRefundRepaymentAmount'.
+   */
+  public ReportItem setPartialRefundRepaymentAmount(java.lang.Long partialRefundRepaymentAmount) {
+    return genClient.setOther(partialRefundRepaymentAmount, CacheKey.partialRefundRepaymentAmount);
+  }
+
+  /**
    * Sets the field 'category'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1256,6 +1162,10 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   public void clearPartialRefundAmount() {
     genClient.clear(CacheKey.partialRefundAmount);
   }
+  /** Clears the 'partialRefundRepaymentAmount' field, the 'has' method for this field will now return false */
+  public void clearPartialRefundRepaymentAmount() {
+    genClient.clear(CacheKey.partialRefundRepaymentAmount);
+  }
   /** Clears the 'category' field, the 'has' method for this field will now return false */
   public void clearCategory() {
     genClient.clear(CacheKey.category);
@@ -1352,6 +1262,7 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean AVERAGENETSALES_IS_REQUIRED = false;
     public static final boolean PERCENTTOTALNETSALES_IS_REQUIRED = false;
     public static final boolean PARTIALREFUNDAMOUNT_IS_REQUIRED = false;
+    public static final boolean PARTIALREFUNDREPAYMENTAMOUNT_IS_REQUIRED = false;
     public static final boolean CATEGORY_IS_REQUIRED = false;
 
   }

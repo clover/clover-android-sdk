@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:gravity="center_horizontal">
 
-  <android.support.v7.widget.CardView android:layout_width="wrap_content"
+  <androidx.cardview.widget.CardView android:layout_width="wrap_content"
                                       android:layout_height="wrap_content"
                                       android:background="@color/cardview_dark_background"
                                       android:layout_marginTop="5dp"
@@ -19,7 +19,7 @@
               android:layout_gravity="center_vertical"
               android:background="@drawable/employee_item_effects"
               android:textSize="20sp"/>
-  </android.support.v7.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

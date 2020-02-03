@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -180,123 +180,62 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
 
   public static final String AUTHORITY = "com.clover.merchants";
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<OrderType> {
-    id {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    labelKey {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("labelKey", java.lang.String.class);
-      }
-    },
-    label {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("label", java.lang.String.class);
-      }
-    },
-    taxable {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("taxable", java.lang.Boolean.class);
-      }
-    },
-    isDefault {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("isDefault", java.lang.Boolean.class);
-      }
-    },
-    filterCategories {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("filterCategories", java.lang.Boolean.class);
-      }
-    },
-    isHidden {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("isHidden", java.lang.Boolean.class);
-      }
-    },
-    fee {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("fee", java.lang.Long.class);
-      }
-    },
-    minOrderAmount {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("minOrderAmount", java.lang.Long.class);
-      }
-    },
-    maxOrderAmount {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("maxOrderAmount", java.lang.Long.class);
-      }
-    },
-    maxRadius {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("maxRadius", java.lang.Long.class);
-      }
-    },
-    avgOrderTime {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("avgOrderTime", java.lang.Long.class);
-      }
-    },
-    hoursAvailable {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractEnum("hoursAvailable", com.clover.sdk.v3.order.HoursAvailable.class);
-      }
-    },
-    customerIdMethod {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractEnum("customerIdMethod", com.clover.sdk.v3.order.CustomerIdMethod.class);
-      }
-    },
-    isDeleted {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("isDeleted", java.lang.Boolean.class);
-      }
-    },
-    systemOrderTypeId {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractOther("systemOrderTypeId", java.lang.String.class);
-      }
-    },
-    hours {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractRecord("hours", com.clover.sdk.v3.hours.HoursSet.JSON_CREATOR);
-      }
-    },
-    categories {
-      @Override
-      public Object extractValue(OrderType instance) {
-        return instance.genClient.extractListRecord("categories", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    labelKey
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    label
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    taxable
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    filterCategories
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isHidden
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    fee
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    minOrderAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    maxOrderAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    maxRadius
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    avgOrderTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    hoursAvailable
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.HoursAvailable.class)),
+    customerIdMethod
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.CustomerIdMethod.class)),
+    isDeleted
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    systemOrderTypeId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    hours
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.hours.HoursSet.JSON_CREATOR)),
+    categories
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<OrderType> genClient;
+  private final GenericClient<OrderType> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public OrderType() {
     genClient = new GenericClient<OrderType>(this);
   }
@@ -307,8 +246,8 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected OrderType(boolean noInit) {
     genClient = null;
   }

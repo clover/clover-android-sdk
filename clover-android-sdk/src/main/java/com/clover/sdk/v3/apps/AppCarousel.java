@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,8 +32,9 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
- * <li>{@link #getDisplayName displayName}</li>
  * <li>{@link #getName name}</li>
+ * <li>{@link #getDisplayName displayName}</li>
+ * <li>{@link #getDescription description}</li>
  * <li>{@link #getCountryCode countryCode}</li>
  * <li>{@link #getReseller reseller}</li>
  * <li>{@link #getMerchantGroup merchantGroup}</li>
@@ -44,6 +45,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAutoInstall autoInstall}</li>
  * <li>{@link #getCarouselApps carouselApps}</li>
  * <li>{@link #getSortBy sortBy}</li>
+ * <li>{@link #getAppPopulatedBy appPopulatedBy}</li>
+ * <li>{@link #getCollectionGroup collectionGroup}</li>
+ * <li>{@link #getCollectionStyle collectionStyle}</li>
+ * <li>{@link #getShowInAppMarket showInAppMarket}</li>
+ * <li>{@link #getShowInAppDetail showInAppDetail}</li>
+ * <li>{@link #getShowInDashboard showInDashboard}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -56,12 +63,25 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.id);
   }
 
+  /**
+   * Name of the collection
+   */
+  public java.lang.String getName() {
+    return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * Display name of the collection
+   */
   public java.lang.String getDisplayName() {
     return genClient.cacheGet(CacheKey.displayName);
   }
 
-  public java.lang.String getName() {
-    return genClient.cacheGet(CacheKey.name);
+  /**
+   * Description about the collection
+   */
+  public java.lang.String getDescription() {
+    return genClient.cacheGet(CacheKey.description);
   }
 
   public java.lang.String getCountryCode() {
@@ -76,11 +96,14 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.merchantGroup);
   }
 
+  /**
+   * Maximum number of apps in a collection
+   */
   public java.lang.Integer getMaxSize() {
     return genClient.cacheGet(CacheKey.maxSize);
   }
 
-  public java.lang.Integer getSortOrder() {
+  public java.lang.Long getSortOrder() {
     return genClient.cacheGet(CacheKey.sortOrder);
   }
 
@@ -99,104 +122,125 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.autoInstall);
   }
 
+  /**
+   * List of apps to be in a collection
+   */
   public java.util.List<com.clover.sdk.v3.base.Reference> getCarouselApps() {
     return genClient.cacheGet(CacheKey.carouselApps);
   }
 
+  /**
+   * Sort strategy to order apps in a collection
+   */
   public com.clover.sdk.v3.apps.CarouselSortBy getSortBy() {
     return genClient.cacheGet(CacheKey.sortBy);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppCarousel> {
-    id {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    displayName {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("displayName", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    countryCode {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("countryCode", java.lang.String.class);
-      }
-    },
-    reseller {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchantGroup {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractRecord("merchantGroup", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    maxSize {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("maxSize", java.lang.Integer.class);
-      }
-    },
-    sortOrder {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("sortOrder", java.lang.Integer.class);
-      }
-    },
-    viewAllButton {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("viewAllButton", java.lang.String.class);
-      }
-    },
-    resultLabel {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("resultLabel", java.lang.String.class);
-      }
-    },
-    autoInstall {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractOther("autoInstall", java.lang.Boolean.class);
-      }
-    },
-    carouselApps {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractListRecord("carouselApps", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    sortBy {
-      @Override
-      public Object extractValue(AppCarousel instance) {
-        return instance.genClient.extractEnum("sortBy", com.clover.sdk.v3.apps.CarouselSortBy.class);
-      }
-    },
-      ;
+  /**
+   * Population strategy to populated apps in a collection
+   */
+  public com.clover.sdk.v3.apps.AppCollectionPopulation getAppPopulatedBy() {
+    return genClient.cacheGet(CacheKey.appPopulatedBy);
   }
 
-  private GenericClient<AppCarousel> genClient;
+  /**
+   * Group a collection belong to. Used to display collection in a group. More info: https://confluence.dev.clover.com/display/AM/Functional+Spec+-+Phase+1+-+App+Market+Collection+-+Server#FunctionalSpec-Phase1-AppMarketCollection-Server-CollectionGroup
+   */
+  public com.clover.sdk.v3.apps.AppCollectionGroup getCollectionGroup() {
+    return genClient.cacheGet(CacheKey.collectionGroup);
+  }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Style to be used for consistent display across clients. More info: https://confluence.dev.clover.com/display/AM/Functional+Spec+-+Phase+1+-+App+Market+Collection+-+Server#FunctionalSpec-Phase1-AppMarketCollection-Server-CollectionStyle
+   */
+  public com.clover.sdk.v3.apps.AppCollectionStyle getCollectionStyle() {
+    return genClient.cacheGet(CacheKey.collectionStyle);
+  }
+
+  /**
+   * Boolean to decide whether collection needs to be shown in app market page
+   */
+  public java.lang.Boolean getShowInAppMarket() {
+    return genClient.cacheGet(CacheKey.showInAppMarket);
+  }
+
+  /**
+   * Boolean to decide whether collection needs to be shown in app detail page
+   */
+  public java.lang.Boolean getShowInAppDetail() {
+    return genClient.cacheGet(CacheKey.showInAppDetail);
+  }
+
+  /**
+   * Boolean to decide whether collection needs to be shown in merchant dashboard
+   */
+  public java.lang.Boolean getShowInDashboard() {
+    return genClient.cacheGet(CacheKey.showInDashboard);
+  }
+
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    displayName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    description
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    countryCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    reseller
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchantGroup
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    maxSize
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    sortOrder
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    viewAllButton
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    resultLabel
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    autoInstall
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    carouselApps
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    sortBy
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.CarouselSortBy.class)),
+    appPopulatedBy
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.AppCollectionPopulation.class)),
+    collectionGroup
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.AppCollectionGroup.class)),
+    collectionStyle
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.AppCollectionStyle.class)),
+    showInAppMarket
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    showInAppDetail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    showInDashboard
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<AppCarousel> genClient;
+
+  /**
+   * Constructs a new empty instance.
+   */
   public AppCarousel() {
     genClient = new GenericClient<AppCarousel>(this);
   }
@@ -207,8 +251,8 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppCarousel(boolean noInit) {
     genClient = null;
   }
@@ -256,15 +300,24 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   public void validate() {
     genClient.validateLength(getId(), 13);
 
-    genClient.validateLength(getDisplayName(), 127);
-
+    genClient.validateNull(getName(), "name");
     genClient.validateLength(getName(), 127);
 
+    genClient.validateNull(getDisplayName(), "displayName");
+    genClient.validateLength(getDisplayName(), 127);
+
+    genClient.validateNull(getCountryCode(), "countryCode");
     genClient.validateLength(getCountryCode(), 2);
+
+    genClient.validateNull(getMaxSize(), "maxSize");
 
     genClient.validateLength(getViewAllButton(), 127);
 
     genClient.validateLength(getResultLabel(), 127);
+
+    genClient.validateNull(getAppPopulatedBy(), "appPopulatedBy");
+
+    genClient.validateNull(getCollectionStyle(), "collectionStyle");
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -272,14 +325,19 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
+  /** Checks whether the 'name' field is set and is not null */
+  public boolean isNotNullName() {
+    return genClient.cacheValueIsNotNull(CacheKey.name);
+  }
+
   /** Checks whether the 'displayName' field is set and is not null */
   public boolean isNotNullDisplayName() {
     return genClient.cacheValueIsNotNull(CacheKey.displayName);
   }
 
-  /** Checks whether the 'name' field is set and is not null */
-  public boolean isNotNullName() {
-    return genClient.cacheValueIsNotNull(CacheKey.name);
+  /** Checks whether the 'description' field is set and is not null */
+  public boolean isNotNullDescription() {
+    return genClient.cacheValueIsNotNull(CacheKey.description);
   }
 
   /** Checks whether the 'countryCode' field is set and is not null */
@@ -335,6 +393,36 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.sortBy);
   }
 
+  /** Checks whether the 'appPopulatedBy' field is set and is not null */
+  public boolean isNotNullAppPopulatedBy() {
+    return genClient.cacheValueIsNotNull(CacheKey.appPopulatedBy);
+  }
+
+  /** Checks whether the 'collectionGroup' field is set and is not null */
+  public boolean isNotNullCollectionGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.collectionGroup);
+  }
+
+  /** Checks whether the 'collectionStyle' field is set and is not null */
+  public boolean isNotNullCollectionStyle() {
+    return genClient.cacheValueIsNotNull(CacheKey.collectionStyle);
+  }
+
+  /** Checks whether the 'showInAppMarket' field is set and is not null */
+  public boolean isNotNullShowInAppMarket() {
+    return genClient.cacheValueIsNotNull(CacheKey.showInAppMarket);
+  }
+
+  /** Checks whether the 'showInAppDetail' field is set and is not null */
+  public boolean isNotNullShowInAppDetail() {
+    return genClient.cacheValueIsNotNull(CacheKey.showInAppDetail);
+  }
+
+  /** Checks whether the 'showInDashboard' field is set and is not null */
+  public boolean isNotNullShowInDashboard() {
+    return genClient.cacheValueIsNotNull(CacheKey.showInDashboard);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -342,14 +430,19 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.id);
   }
 
+  /** Checks whether the 'name' field has been set, however the value could be null */
+  public boolean hasName() {
+    return genClient.cacheHasKey(CacheKey.name);
+  }
+
   /** Checks whether the 'displayName' field has been set, however the value could be null */
   public boolean hasDisplayName() {
     return genClient.cacheHasKey(CacheKey.displayName);
   }
 
-  /** Checks whether the 'name' field has been set, however the value could be null */
-  public boolean hasName() {
-    return genClient.cacheHasKey(CacheKey.name);
+  /** Checks whether the 'description' field has been set, however the value could be null */
+  public boolean hasDescription() {
+    return genClient.cacheHasKey(CacheKey.description);
   }
 
   /** Checks whether the 'countryCode' field has been set, however the value could be null */
@@ -402,12 +495,49 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.sortBy);
   }
 
+  /** Checks whether the 'appPopulatedBy' field has been set, however the value could be null */
+  public boolean hasAppPopulatedBy() {
+    return genClient.cacheHasKey(CacheKey.appPopulatedBy);
+  }
+
+  /** Checks whether the 'collectionGroup' field has been set, however the value could be null */
+  public boolean hasCollectionGroup() {
+    return genClient.cacheHasKey(CacheKey.collectionGroup);
+  }
+
+  /** Checks whether the 'collectionStyle' field has been set, however the value could be null */
+  public boolean hasCollectionStyle() {
+    return genClient.cacheHasKey(CacheKey.collectionStyle);
+  }
+
+  /** Checks whether the 'showInAppMarket' field has been set, however the value could be null */
+  public boolean hasShowInAppMarket() {
+    return genClient.cacheHasKey(CacheKey.showInAppMarket);
+  }
+
+  /** Checks whether the 'showInAppDetail' field has been set, however the value could be null */
+  public boolean hasShowInAppDetail() {
+    return genClient.cacheHasKey(CacheKey.showInAppDetail);
+  }
+
+  /** Checks whether the 'showInDashboard' field has been set, however the value could be null */
+  public boolean hasShowInDashboard() {
+    return genClient.cacheHasKey(CacheKey.showInDashboard);
+  }
+
 
   /**
    * Sets the field 'id'.
    */
   public AppCarousel setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'name'.
+   */
+  public AppCarousel setName(java.lang.String name) {
+    return genClient.setOther(name, CacheKey.name);
   }
 
   /**
@@ -418,10 +548,10 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-   * Sets the field 'name'.
+   * Sets the field 'description'.
    */
-  public AppCarousel setName(java.lang.String name) {
-    return genClient.setOther(name, CacheKey.name);
+  public AppCarousel setDescription(java.lang.String description) {
+    return genClient.setOther(description, CacheKey.description);
   }
 
   /**
@@ -459,7 +589,7 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   /**
    * Sets the field 'sortOrder'.
    */
-  public AppCarousel setSortOrder(java.lang.Integer sortOrder) {
+  public AppCarousel setSortOrder(java.lang.Long sortOrder) {
     return genClient.setOther(sortOrder, CacheKey.sortOrder);
   }
 
@@ -500,18 +630,64 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.setOther(sortBy, CacheKey.sortBy);
   }
 
+  /**
+   * Sets the field 'appPopulatedBy'.
+   */
+  public AppCarousel setAppPopulatedBy(com.clover.sdk.v3.apps.AppCollectionPopulation appPopulatedBy) {
+    return genClient.setOther(appPopulatedBy, CacheKey.appPopulatedBy);
+  }
+
+  /**
+   * Sets the field 'collectionGroup'.
+   */
+  public AppCarousel setCollectionGroup(com.clover.sdk.v3.apps.AppCollectionGroup collectionGroup) {
+    return genClient.setOther(collectionGroup, CacheKey.collectionGroup);
+  }
+
+  /**
+   * Sets the field 'collectionStyle'.
+   */
+  public AppCarousel setCollectionStyle(com.clover.sdk.v3.apps.AppCollectionStyle collectionStyle) {
+    return genClient.setOther(collectionStyle, CacheKey.collectionStyle);
+  }
+
+  /**
+   * Sets the field 'showInAppMarket'.
+   */
+  public AppCarousel setShowInAppMarket(java.lang.Boolean showInAppMarket) {
+    return genClient.setOther(showInAppMarket, CacheKey.showInAppMarket);
+  }
+
+  /**
+   * Sets the field 'showInAppDetail'.
+   */
+  public AppCarousel setShowInAppDetail(java.lang.Boolean showInAppDetail) {
+    return genClient.setOther(showInAppDetail, CacheKey.showInAppDetail);
+  }
+
+  /**
+   * Sets the field 'showInDashboard'.
+   */
+  public AppCarousel setShowInDashboard(java.lang.Boolean showInDashboard) {
+    return genClient.setOther(showInDashboard, CacheKey.showInDashboard);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
   }
+  /** Clears the 'name' field, the 'has' method for this field will now return false */
+  public void clearName() {
+    genClient.clear(CacheKey.name);
+  }
   /** Clears the 'displayName' field, the 'has' method for this field will now return false */
   public void clearDisplayName() {
     genClient.clear(CacheKey.displayName);
   }
-  /** Clears the 'name' field, the 'has' method for this field will now return false */
-  public void clearName() {
-    genClient.clear(CacheKey.name);
+  /** Clears the 'description' field, the 'has' method for this field will now return false */
+  public void clearDescription() {
+    genClient.clear(CacheKey.description);
   }
   /** Clears the 'countryCode' field, the 'has' method for this field will now return false */
   public void clearCountryCode() {
@@ -552,6 +728,30 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'sortBy' field, the 'has' method for this field will now return false */
   public void clearSortBy() {
     genClient.clear(CacheKey.sortBy);
+  }
+  /** Clears the 'appPopulatedBy' field, the 'has' method for this field will now return false */
+  public void clearAppPopulatedBy() {
+    genClient.clear(CacheKey.appPopulatedBy);
+  }
+  /** Clears the 'collectionGroup' field, the 'has' method for this field will now return false */
+  public void clearCollectionGroup() {
+    genClient.clear(CacheKey.collectionGroup);
+  }
+  /** Clears the 'collectionStyle' field, the 'has' method for this field will now return false */
+  public void clearCollectionStyle() {
+    genClient.clear(CacheKey.collectionStyle);
+  }
+  /** Clears the 'showInAppMarket' field, the 'has' method for this field will now return false */
+  public void clearShowInAppMarket() {
+    genClient.clear(CacheKey.showInAppMarket);
+  }
+  /** Clears the 'showInAppDetail' field, the 'has' method for this field will now return false */
+  public void clearShowInAppDetail() {
+    genClient.clear(CacheKey.showInAppDetail);
+  }
+  /** Clears the 'showInDashboard' field, the 'has' method for this field will now return false */
+  public void clearShowInDashboard() {
+    genClient.clear(CacheKey.showInDashboard);
   }
 
 
@@ -614,15 +814,16 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-    public static final boolean DISPLAYNAME_IS_REQUIRED = false;
-    public static final long DISPLAYNAME_MAX_LEN = 127;
-    public static final boolean NAME_IS_REQUIRED = false;
+    public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-    public static final boolean COUNTRYCODE_IS_REQUIRED = false;
+    public static final boolean DISPLAYNAME_IS_REQUIRED = true;
+    public static final long DISPLAYNAME_MAX_LEN = 127;
+    public static final boolean DESCRIPTION_IS_REQUIRED = false;
+    public static final boolean COUNTRYCODE_IS_REQUIRED = true;
     public static final long COUNTRYCODE_MAX_LEN = 2;
     public static final boolean RESELLER_IS_REQUIRED = false;
     public static final boolean MERCHANTGROUP_IS_REQUIRED = false;
-    public static final boolean MAXSIZE_IS_REQUIRED = false;
+    public static final boolean MAXSIZE_IS_REQUIRED = true;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean VIEWALLBUTTON_IS_REQUIRED = false;
     public static final long VIEWALLBUTTON_MAX_LEN = 127;
@@ -631,6 +832,12 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean AUTOINSTALL_IS_REQUIRED = false;
     public static final boolean CAROUSELAPPS_IS_REQUIRED = false;
     public static final boolean SORTBY_IS_REQUIRED = false;
+    public static final boolean APPPOPULATEDBY_IS_REQUIRED = true;
+    public static final boolean COLLECTIONGROUP_IS_REQUIRED = false;
+    public static final boolean COLLECTIONSTYLE_IS_REQUIRED = true;
+    public static final boolean SHOWINAPPMARKET_IS_REQUIRED = false;
+    public static final boolean SHOWINAPPDETAIL_IS_REQUIRED = false;
+    public static final boolean SHOWINDASHBOARD_IS_REQUIRED = false;
 
   }
 

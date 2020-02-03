@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -128,111 +128,58 @@ public class Charge extends GenericParcelable implements com.clover.sdk.v3.Valid
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Charge> {
-    id {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    currency {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("currency", java.lang.String.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    tax {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("tax", java.lang.Long.class);
-      }
-    },
-    developerPortion {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("developerPortion", java.lang.Long.class);
-      }
-    },
-    status {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractEnum("status", com.clover.sdk.v3.billing.ChargeStatus.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.billing.ChargeType.class);
-      }
-    },
-    taxClassificationCode {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("taxClassificationCode", java.lang.String.class);
-      }
-    },
-    startDate {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("startDate", java.lang.Long.class);
-      }
-    },
-    endDate {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("endDate", java.lang.Long.class);
-      }
-    },
-    exportMonth {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("exportMonth", java.lang.Long.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    merchantAppCharge {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractRecord("merchantAppCharge", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchantPlanCharge {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractRecord("merchantPlanCharge", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    infoleaseChargeAttempts {
-      @Override
-      public Object extractValue(Charge instance) {
-        return instance.genClient.extractListRecord("infoleaseChargeAttempts", com.clover.sdk.v3.billing.InfoleaseChargeAttempt.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    currency
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tax
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    developerPortion
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    status
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.billing.ChargeStatus.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.billing.ChargeType.class)),
+    taxClassificationCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    startDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    endDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    exportMonth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    merchantAppCharge
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchantPlanCharge
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    infoleaseChargeAttempts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.billing.InfoleaseChargeAttempt.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Charge> genClient;
+  private final GenericClient<Charge> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Charge() {
     genClient = new GenericClient<Charge>(this);
   }
@@ -243,8 +190,8 @@ public class Charge extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Charge(boolean noInit) {
     genClient = null;
   }

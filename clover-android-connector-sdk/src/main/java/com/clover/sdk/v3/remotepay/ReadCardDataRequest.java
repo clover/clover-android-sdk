@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,39 +70,34 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ReadCardDataRequest> {
-    isForceSwipePinEntry {
-      @Override
-      public Object extractValue(ReadCardDataRequest instance) {
-        return instance.genClient.extractOther("isForceSwipePinEntry", java.lang.Boolean.class);
-      }
-    },
-    cardEntryMethods {
-      @Override
-      public Object extractValue(ReadCardDataRequest instance) {
-        return instance.genClient.extractOther("cardEntryMethods", java.lang.Integer.class);
-      }
-    },
-    requestId {
-      @Override
-      public Object extractValue(ReadCardDataRequest instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(ReadCardDataRequest instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    isForceSwipePinEntry
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    cardEntryMethods
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ReadCardDataRequest> genClient;
+  private final GenericClient<ReadCardDataRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ReadCardDataRequest() {
     super(false);
     genClient = new GenericClient<ReadCardDataRequest>(this);
@@ -114,8 +109,8 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ReadCardDataRequest(boolean noInit) {
     super(false);
     genClient = null;

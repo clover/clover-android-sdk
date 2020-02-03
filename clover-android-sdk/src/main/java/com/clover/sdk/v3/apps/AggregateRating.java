@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,37 +43,40 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   /**
    * Total number of reviews that merchants have written about this app
    */
-  public Long getReviewCount() {
+  public java.lang.Long getReviewCount() {
     return genClient.cacheGet(CacheKey.reviewCount);
   }
 
   /**
    * Sum of the number of stars this app has received for all of its reviews
    */
-  public Long getTotalStars() {
+  public java.lang.Long getTotalStars() {
     return genClient.cacheGet(CacheKey.totalStars);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AggregateRating> {
-    reviewCount {
-      @Override
-      public Object extractValue(AggregateRating instance) {
-        return instance.genClient.extractOther("reviewCount", Long.class);
-      }
-    },
-    totalStars {
-      @Override
-      public Object extractValue(AggregateRating instance) {
-        return instance.genClient.extractOther("totalStars", Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    reviewCount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    totalStars
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AggregateRating> genClient;
+  private final GenericClient<AggregateRating> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -163,14 +166,14 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   /**
    * Sets the field 'reviewCount'.
    */
-  public AggregateRating setReviewCount(Long reviewCount) {
+  public AggregateRating setReviewCount(java.lang.Long reviewCount) {
     return genClient.setOther(reviewCount, CacheKey.reviewCount);
   }
 
   /**
    * Sets the field 'totalStars'.
    */
-  public AggregateRating setTotalStars(Long totalStars) {
+  public AggregateRating setTotalStars(java.lang.Long totalStars) {
     return genClient.setOther(totalStars, CacheKey.totalStars);
   }
 

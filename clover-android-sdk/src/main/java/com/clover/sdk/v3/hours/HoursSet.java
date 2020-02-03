@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,75 +95,46 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<HoursSet> {
-    id {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    reference {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractRecord("reference", com.clover.sdk.v3.hours.Reference.JSON_CREATOR);
-      }
-    },
-    sunday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("sunday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    monday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("monday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    tuesday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("tuesday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    wednesday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("wednesday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    thursday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("thursday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    friday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("friday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
-    saturday {
-      @Override
-      public Object extractValue(HoursSet instance) {
-        return instance.genClient.extractListRecord("saturday", com.clover.sdk.v3.hours.HourRange.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    reference
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.hours.Reference.JSON_CREATOR)),
+    sunday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    monday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    tuesday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    wednesday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    thursday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    friday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
+    saturday
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HourRange.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<HoursSet> genClient;
+  private final GenericClient<HoursSet> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public HoursSet() {
     genClient = new GenericClient<HoursSet>(this);
   }
@@ -174,8 +145,8 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected HoursSet(boolean noInit) {
     genClient = null;
   }

@@ -13,4 +13,5 @@ interface ILoyaltyServiceV3 {
    boolean stop(String dynamicServiceType, out ResultStatus status);
    void updateServiceState(String dynamicService, String state, out ResultStatus status);
    void announceCustomerProvidedDataWithEventId(String uuid, in LoyaltyDataConfig config, String payload, out ResultStatus status);
+   boolean stopWithConfiguration(String dynamicServiceType, in Map configuration, out ResultStatus status);
 }

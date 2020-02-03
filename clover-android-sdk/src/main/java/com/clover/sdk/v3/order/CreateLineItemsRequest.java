@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,21 +47,28 @@ public class CreateLineItemsRequest extends GenericParcelable implements com.clo
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CreateLineItemsRequest> {
-    items {
-      @Override
-      public Object extractValue(CreateLineItemsRequest instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.order.LineItem.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.LineItem.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CreateLineItemsRequest> genClient;
+  private final GenericClient<CreateLineItemsRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CreateLineItemsRequest() {
     genClient = new GenericClient<CreateLineItemsRequest>(this);
   }
@@ -72,8 +79,8 @@ public class CreateLineItemsRequest extends GenericParcelable implements com.clo
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CreateLineItemsRequest(boolean noInit) {
     genClient = null;
   }

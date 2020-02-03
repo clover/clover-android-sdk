@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getBatchDetails batchDetails}</li>
+ * <li>{@link #getBatchTransactions batchTransactions}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -99,68 +100,52 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheGet(CacheKey.batchDetails);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Batch> {
-    id {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    txCount {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("txCount", java.lang.Long.class);
-      }
-    },
-    totalBatchAmount {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("totalBatchAmount", java.lang.Long.class);
-      }
-    },
-    devices {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("devices", java.lang.String.class);
-      }
-    },
-    state {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractEnum("state", com.clover.sdk.v3.payments.BatchState.class);
-      }
-    },
-    batchType {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractEnum("batchType", com.clover.sdk.v3.payments.BatchType.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    batchDetails {
-      @Override
-      public Object extractValue(Batch instance) {
-        return instance.genClient.extractRecord("batchDetails", com.clover.sdk.v3.payments.BatchDetail.JSON_CREATOR);
-      }
-    },
-      ;
+  /**
+   * List of payments, refunds, and gift card transaction reference objects in the batch
+   */
+  public com.clover.sdk.v3.payments.BatchTransactions getBatchTransactions() {
+    return genClient.cacheGet(CacheKey.batchTransactions);
   }
 
-  private GenericClient<Batch> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    txCount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    totalBatchAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    devices
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    state
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchState.class)),
+    batchType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchType.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    batchDetails
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchDetail.JSON_CREATOR)),
+    batchTransactions
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTransactions.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Batch> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -270,6 +255,11 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheValueIsNotNull(CacheKey.batchDetails);
   }
 
+  /** Checks whether the 'batchTransactions' field is set and is not null */
+  public boolean isNotNullBatchTransactions() {
+    return genClient.cacheValueIsNotNull(CacheKey.batchTransactions);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -315,6 +305,11 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'batchDetails' field has been set, however the value could be null */
   public boolean hasBatchDetails() {
     return genClient.cacheHasKey(CacheKey.batchDetails);
+  }
+
+  /** Checks whether the 'batchTransactions' field has been set, however the value could be null */
+  public boolean hasBatchTransactions() {
+    return genClient.cacheHasKey(CacheKey.batchTransactions);
   }
 
 
@@ -383,6 +378,15 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.setRecord(batchDetails, CacheKey.batchDetails);
   }
 
+  /**
+   * Sets the field 'batchTransactions'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Batch setBatchTransactions(com.clover.sdk.v3.payments.BatchTransactions batchTransactions) {
+    return genClient.setRecord(batchTransactions, CacheKey.batchTransactions);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -419,6 +423,10 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Clears the 'batchDetails' field, the 'has' method for this field will now return false */
   public void clearBatchDetails() {
     genClient.clear(CacheKey.batchDetails);
+  }
+  /** Clears the 'batchTransactions' field, the 'has' method for this field will now return false */
+  public void clearBatchTransactions() {
+    genClient.clear(CacheKey.batchTransactions);
   }
 
 
@@ -489,6 +497,7 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean BATCHDETAILS_IS_REQUIRED = false;
+    public static final boolean BATCHTRANSACTIONS_IS_REQUIRED = false;
 
   }
 

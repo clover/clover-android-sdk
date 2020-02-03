@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -110,69 +110,44 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantBankProcessing> {
-    merchantRef {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractRecord("merchantRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    bin {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("bin", java.lang.String.class);
-      }
-    },
-    payCode {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("payCode", java.lang.String.class);
-      }
-    },
-    clearingCode {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("clearingCode", java.lang.String.class);
-      }
-    },
-    ica {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("ica", java.lang.String.class);
-      }
-    },
-    payCycle {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("payCycle", java.lang.String.class);
-      }
-    },
-    achRollup {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("achRollup", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(MerchantBankProcessing instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    merchantRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    bin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    clearingCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ica
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payCycle
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    achRollup
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantBankProcessing> genClient;
+  private final GenericClient<MerchantBankProcessing> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantBankProcessing() {
     genClient = new GenericClient<MerchantBankProcessing>(this);
   }
@@ -183,8 +158,8 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantBankProcessing(boolean noInit) {
     genClient = null;
   }

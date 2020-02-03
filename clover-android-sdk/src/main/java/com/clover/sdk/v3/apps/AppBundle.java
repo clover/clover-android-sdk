@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -84,51 +84,38 @@ public class AppBundle extends GenericParcelable implements com.clover.sdk.v3.Va
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppBundle> {
-    id {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    price {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractOther("price", java.lang.Long.class);
-      }
-    },
-    pricePerDevice {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractOther("pricePerDevice", java.lang.Long.class);
-      }
-    },
-    includedApps {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractListRecord("includedApps", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    bundleCountries {
-      @Override
-      public Object extractValue(AppBundle instance) {
-        return instance.genClient.extractListRecord("bundleCountries", com.clover.sdk.v3.apps.AppBundleCountry.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    price
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    pricePerDevice
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    includedApps
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    bundleCountries
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.apps.AppBundleCountry.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AppBundle> genClient;
+  private final GenericClient<AppBundle> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AppBundle() {
     genClient = new GenericClient<AppBundle>(this);
   }
@@ -139,8 +126,8 @@ public class AppBundle extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppBundle(boolean noInit) {
     genClient = null;
   }

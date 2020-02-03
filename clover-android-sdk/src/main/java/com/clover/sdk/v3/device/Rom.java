@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,9 +24,27 @@
 package com.clover.sdk.v3.device;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getCreatedAt createdAt}</li>
+ * <li>{@link #getVersion version}</li>
+ * <li>{@link #getVersionName versionName}</li>
+ * <li>{@link #getDescription description}</li>
+ * <li>{@link #getBuildType buildType}</li>
+ * <li>{@link #getIsCritical isCritical}</li>
+ * <li>{@link #getPublished published}</li>
+ * <li>{@link #getEnabled enabled}</li>
+ * <li>{@link #getAssociationTime associationTime}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
-public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Rom extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
@@ -70,77 +88,77 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.enabled);
   }
 
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Rom> {
-    id {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    createdAt {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("createdAt", java.lang.Long.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("version", java.lang.Long.class);
-      }
-    },
-    versionName {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("versionName", java.lang.String.class);
-      }
-    },
-    description {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("description", java.lang.String.class);
-      }
-    },
-    buildType {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractEnum("buildType", com.clover.sdk.v3.device.RomBuildType.class);
-      }
-    },
-    isCritical {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("isCritical", java.lang.Boolean.class);
-      }
-    },
-    published {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("published", java.lang.Boolean.class);
-      }
-    },
-    enabled {
-      @Override
-      public Object extractValue(Rom instance) {
-        return instance.genClient.extractOther("enabled", java.lang.Boolean.class);
-      }
-    },
-    ;
+  /**
+   * When the ROM was associated with a merchant group
+   */
+  public java.lang.Long getAssociationTime() {
+    return genClient.cacheGet(CacheKey.associationTime);
   }
 
-  private GenericClient<Rom> genClient = new GenericClient<Rom>(this);
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdAt
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    versionName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    description
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    buildType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.device.RomBuildType.class)),
+    isCritical
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    published
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    associationTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Rom> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public Rom() { }
+  public Rom() {
+    genClient = new GenericClient<Rom>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+   * Constructs a new empty instance.
+   */
+  protected Rom(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public Rom(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -153,6 +171,7 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * reflected in this instance and vice-versa.
    */
   public Rom(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -160,6 +179,7 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public Rom(Rom src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -172,7 +192,6 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -226,6 +245,12 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.enabled);
   }
 
+  /** Checks whether the 'associationTime' field is set and is not null */
+  public boolean isNotNullAssociationTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.associationTime);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -270,6 +295,11 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
   /** Checks whether the 'enabled' field has been set, however the value could be null */
   public boolean hasEnabled() {
     return genClient.cacheHasKey(CacheKey.enabled);
+  }
+
+  /** Checks whether the 'associationTime' field has been set, however the value could be null */
+  public boolean hasAssociationTime() {
+    return genClient.cacheHasKey(CacheKey.associationTime);
   }
 
 
@@ -336,6 +366,13 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
     return genClient.setOther(enabled, CacheKey.enabled);
   }
 
+  /**
+   * Sets the field 'associationTime'.
+   */
+  public Rom setAssociationTime(java.lang.Long associationTime) {
+    return genClient.setOther(associationTime, CacheKey.associationTime);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -373,6 +410,10 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
   public void clearEnabled() {
     genClient.clear(CacheKey.enabled);
   }
+  /** Clears the 'associationTime' field, the 'has' method for this field will now return false */
+  public void clearAssociationTime() {
+    genClient.clear(CacheKey.associationTime);
+  }
 
 
   /**
@@ -408,29 +449,6 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<Rom> CREATOR = new android.os.Parcelable.Creator<Rom>() {
     @Override
     public Rom createFromParcel(android.os.Parcel in) {
@@ -453,28 +471,20 @@ public final class Rom implements android.os.Parcelable, com.clover.sdk.v3.Valid
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean CREATEDAT_IS_REQUIRED = false;
-
     public static final boolean VERSION_IS_REQUIRED = false;
-
     public static final boolean VERSIONNAME_IS_REQUIRED = false;
     public static final long VERSIONNAME_MAX_LEN = 255;
-
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
-
     public static final boolean BUILDTYPE_IS_REQUIRED = false;
-
     public static final boolean ISCRITICAL_IS_REQUIRED = false;
-
     public static final boolean PUBLISHED_IS_REQUIRED = false;
-
     public static final boolean ENABLED_IS_REQUIRED = false;
+    public static final boolean ASSOCIATIONTIME_IS_REQUIRED = false;
 
   }
 

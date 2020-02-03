@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,33 +65,32 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<RolloutMerchant> {
-    name {
-      @Override
-      public Object extractValue(RolloutMerchant instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    rollout {
-      @Override
-      public Object extractValue(RolloutMerchant instance) {
-        return instance.genClient.extractRecord("rollout", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(RolloutMerchant instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    rollout
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<RolloutMerchant> genClient;
+  private final GenericClient<RolloutMerchant> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public RolloutMerchant() {
     genClient = new GenericClient<RolloutMerchant>(this);
   }
@@ -102,8 +101,8 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected RolloutMerchant(boolean noInit) {
     genClient = null;
   }

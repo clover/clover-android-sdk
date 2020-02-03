@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,6 +37,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getItems items}</li>
  * <li>{@link #getDeleted deleted}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getCanonical canonical}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -86,54 +87,50 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Category> {
-    id {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    sortOrder {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractOther("sortOrder", java.lang.Integer.class);
-      }
-    },
-    items {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    deleted {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractOther("deleted", java.lang.Boolean.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Category instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-      ;
+  /**
+   * Reference to canonical category
+   */
+  public com.clover.sdk.v3.base.Reference getCanonical() {
+    return genClient.cacheGet(CacheKey.canonical);
   }
 
-  private GenericClient<Category> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sortOrder
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    deleted
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    canonical
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Category> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Category() {
     genClient = new GenericClient<Category>(this);
   }
@@ -144,8 +141,8 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Category(boolean noInit) {
     genClient = null;
   }
@@ -230,6 +227,11 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'canonical' field is set and is not null */
+  public boolean isNotNullCanonical() {
+    return genClient.cacheValueIsNotNull(CacheKey.canonical);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -260,6 +262,11 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'canonical' field has been set, however the value could be null */
+  public boolean hasCanonical() {
+    return genClient.cacheHasKey(CacheKey.canonical);
   }
 
 
@@ -307,6 +314,15 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
+  /**
+   * Sets the field 'canonical'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Category setCanonical(com.clover.sdk.v3.base.Reference canonical) {
+    return genClient.setRecord(canonical, CacheKey.canonical);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -331,6 +347,10 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
+  }
+  /** Clears the 'canonical' field, the 'has' method for this field will now return false */
+  public void clearCanonical() {
+    genClient.clear(CacheKey.canonical);
   }
 
 
@@ -399,6 +419,7 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean DELETED_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean CANONICAL_IS_REQUIRED = false;
 
   }
 

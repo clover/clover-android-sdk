@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCardType cardType}</li>
  * <li>{@link #getToken token}</li>
  * <li>{@link #getTokenType tokenType}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getCustomer customer}</li>
  * </ul>
  */
@@ -83,6 +84,13 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * The timestamp from when this card was last updated.
+   */
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
+  }
+
+  /**
    * Customer who this card belongs to.
    */
   public com.clover.sdk.v3.base.Reference getCustomer() {
@@ -92,75 +100,48 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Card> {
-    id {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    first6 {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("first6", java.lang.String.class);
-      }
-    },
-    last4 {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("last4", java.lang.String.class);
-      }
-    },
-    firstName {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("firstName", java.lang.String.class);
-      }
-    },
-    lastName {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("lastName", java.lang.String.class);
-      }
-    },
-    expirationDate {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("expirationDate", java.lang.String.class);
-      }
-    },
-    cardType {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("cardType", java.lang.String.class);
-      }
-    },
-    token {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractOther("token", java.lang.String.class);
-      }
-    },
-    tokenType {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractEnum("tokenType", com.clover.sdk.v3.customers.TokenType.class);
-      }
-    },
-    customer {
-      @Override
-      public Object extractValue(Card instance) {
-        return instance.genClient.extractRecord("customer", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    first6
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    last4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    firstName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lastName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    expirationDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    token
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tokenType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.customers.TokenType.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    customer
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Card> genClient;
+  private final GenericClient<Card> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Card() {
     genClient = new GenericClient<Card>(this);
   }
@@ -171,8 +152,8 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Card(boolean noInit) {
     genClient = null;
   }
@@ -279,6 +260,11 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.tokenType);
   }
 
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
   /** Checks whether the 'customer' field is set and is not null */
   public boolean isNotNullCustomer() {
     return genClient.cacheValueIsNotNull(CacheKey.customer);
@@ -329,6 +315,11 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'tokenType' field has been set, however the value could be null */
   public boolean hasTokenType() {
     return genClient.cacheHasKey(CacheKey.tokenType);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
   /** Checks whether the 'customer' field has been set, however the value could be null */
@@ -401,6 +392,13 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Sets the field 'modifiedTime'.
+   */
+  public Card setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
+  /**
    * Sets the field 'customer'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -445,6 +443,10 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'tokenType' field, the 'has' method for this field will now return false */
   public void clearTokenType() {
     genClient.clear(CacheKey.tokenType);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
   /** Clears the 'customer' field, the 'has' method for this field will now return false */
   public void clearCustomer() {
@@ -524,6 +526,7 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
     public static final boolean TOKENTYPE_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
 
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,21 +47,28 @@ public class VasConfig extends GenericParcelable implements com.clover.sdk.v3.Va
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VasConfig> {
-    vasProviders {
-      @Override
-      public Object extractValue(VasConfig instance) {
-        return instance.genClient.extractListRecord("vasProviders", com.clover.sdk.v3.payments.VasServiceProvider.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    vasProviders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.VasServiceProvider.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VasConfig> genClient;
+  private final GenericClient<VasConfig> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VasConfig() {
     genClient = new GenericClient<VasConfig>(this);
   }
@@ -72,8 +79,8 @@ public class VasConfig extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VasConfig(boolean noInit) {
     genClient = null;
   }

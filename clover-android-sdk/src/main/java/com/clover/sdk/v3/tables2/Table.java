@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -151,99 +151,54 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Table> {
-    id {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    topLeftX {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("topLeftX", java.lang.Integer.class);
-      }
-    },
-    topLeftY {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("topLeftY", java.lang.Integer.class);
-      }
-    },
-    width {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("width", java.lang.Integer.class);
-      }
-    },
-    section {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractRecord("section", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    height {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("height", java.lang.Integer.class);
-      }
-    },
-    guestCapacity {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("guestCapacity", java.lang.Integer.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.tables2.TableType.class);
-      }
-    },
-    rotation {
-      @Override
-      public Object extractValue(Table instance) {
-        return instance.genClient.extractOther("rotation", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    topLeftX
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    topLeftY
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    width
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    section
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    height
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    guestCapacity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.tables2.TableType.class)),
+    rotation
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Table> genClient;
+  private final GenericClient<Table> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Table() {
     genClient = new GenericClient<Table>(this);
   }
@@ -254,8 +209,8 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Table(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -80,45 +80,36 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CustomActivityRequest> {
-    action {
-      @Override
-      public Object extractValue(CustomActivityRequest instance) {
-        return instance.genClient.extractOther("action", java.lang.String.class);
-      }
-    },
-    payload {
-      @Override
-      public Object extractValue(CustomActivityRequest instance) {
-        return instance.genClient.extractOther("payload", java.lang.String.class);
-      }
-    },
-    nonBlocking {
-      @Override
-      public Object extractValue(CustomActivityRequest instance) {
-        return instance.genClient.extractOther("nonBlocking", java.lang.Boolean.class);
-      }
-    },
-    requestId {
-      @Override
-      public Object extractValue(CustomActivityRequest instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(CustomActivityRequest instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    action
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payload
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    nonBlocking
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CustomActivityRequest> genClient;
+  private final GenericClient<CustomActivityRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CustomActivityRequest() {
     super(false);
     genClient = new GenericClient<CustomActivityRequest>(this);
@@ -130,8 +121,8 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CustomActivityRequest(boolean noInit) {
     super(false);
     genClient = null;

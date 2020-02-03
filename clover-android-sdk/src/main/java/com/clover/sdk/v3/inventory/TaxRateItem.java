@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,27 +51,30 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TaxRateItem> {
-    taxRate {
-      @Override
-      public Object extractValue(TaxRateItem instance) {
-        return instance.genClient.extractRecord("taxRate", com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR);
-      }
-    },
-    item {
-      @Override
-      public Object extractValue(TaxRateItem instance) {
-        return instance.genClient.extractRecord("item", com.clover.sdk.v3.inventory.Item.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    taxRate
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR)),
+    item
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.Item.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<TaxRateItem> genClient;
+  private final GenericClient<TaxRateItem> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public TaxRateItem() {
     genClient = new GenericClient<TaxRateItem>(this);
   }
@@ -82,8 +85,8 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected TaxRateItem(boolean noInit) {
     genClient = null;
   }

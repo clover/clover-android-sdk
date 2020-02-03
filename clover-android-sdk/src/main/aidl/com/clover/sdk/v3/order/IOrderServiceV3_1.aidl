@@ -9,12 +9,15 @@ import com.clover.sdk.v3.order.IOnOrderUpdateListener2;
 import com.clover.sdk.v3.order.VoidReason;
 import com.clover.sdk.v3.order.OrderFdParcelable;
 import com.clover.sdk.v3.order.OrderListFdParcelable;
+import com.clover.sdk.v3.order.PrintGroupFdParcelable;
 import com.clover.sdk.v3.order.LineItemFdParcelable;
 import com.clover.sdk.v3.order.LineItemListFdParcelable;
 import com.clover.sdk.v3.order.LineItemMapFdParcelable;
 import com.clover.sdk.v3.order.DiscountFdParcelable;
 import com.clover.sdk.v3.order.DiscountListFdParcelable;
 import com.clover.sdk.v3.order.ModificationFdParcelable;
+import com.clover.sdk.v3.onlineorder.OrderState;
+import com.clover.sdk.v3.onlineorder.Reason;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.PaymentListFdParcelable;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
@@ -334,4 +337,24 @@ interface IOrderServiceV3_1 {
    * @y.exclude
   */
   CreditRefund vaultedCreditRefund(in String orderId, in String creditId, out ResultStatus status);
+
+  /**
+   * Update the online order state.
+   *
+   * @Param orderId The ID of the order to be updated
+   * @Param orderState The new orderstate of the online order
+   * @Param reason A reason if the order is calcelled or declined.
+   *
+  */
+  void updateOnlineOrderState(in String orderId, in OrderState orderState, in Reason reason, out ResultStatus resultStatus);
+
+  /**
+   * Add new {@link PrintGroup} on order object.
+   *
+   * @param orderId The ID of the order to be updated
+   * @param fdPrintGroup PrintGroup to be added to an Order
+   * @return the updated order
+   *
+  */
+  OrderFdParcelable addPrintGroup(String orderId, in PrintGroupFdParcelable fdPrintGroup, out ResultStatus status);
 }

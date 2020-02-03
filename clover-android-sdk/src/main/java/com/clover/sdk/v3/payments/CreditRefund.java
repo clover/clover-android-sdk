@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
@@ -70,14 +70,14 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * The time when the refund was recorded on the server
    */
-  public Long getCreatedTime() {
+  public java.lang.Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
    * The time when the refund was recorded on the client
    */
-  public Long getClientCreatedTime() {
+  public java.lang.Long getClientCreatedTime() {
     return genClient.cacheGet(CacheKey.clientCreatedTime);
   }
 
@@ -95,7 +95,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * German region-specific information
    */
-  public GermanInfo getGermanInfo() {
+  public com.clover.sdk.v3.payments.GermanInfo getGermanInfo() {
     return genClient.cacheGet(CacheKey.germanInfo);
   }
 
@@ -109,78 +109,49 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * Transaction information
    */
-  public TransactionInfo getTransactionInfo() {
+  public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
     return genClient.cacheGet(CacheKey.transactionInfo);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CreditRefund> {
-    id {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractOther("id", String.class);
-      }
-    },
-    orderRef {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("orderRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    device {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("device", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractOther("createdTime", Long.class);
-      }
-    },
-    clientCreatedTime {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractOther("clientCreatedTime", Long.class);
-      }
-    },
-    credit {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("credit", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    employee {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("employee", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    germanInfo {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("germanInfo", GermanInfo.JSON_CREATOR);
-      }
-    },
-    appTracking {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("appTracking", com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR);
-      }
-    },
-    transactionInfo {
-      @Override
-      public Object extractValue(CreditRefund instance) {
-        return instance.genClient.extractRecord("transactionInfo", TransactionInfo.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    orderRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    device
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    clientCreatedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    credit
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    employee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    germanInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
+    appTracking
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
+    transactionInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CreditRefund> genClient;
+  private final GenericClient<CreditRefund> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -350,7 +321,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * Sets the field 'id'.
    */
-  public CreditRefund setId(String id) {
+  public CreditRefund setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
@@ -375,14 +346,14 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   /**
    * Sets the field 'createdTime'.
    */
-  public CreditRefund setCreatedTime(Long createdTime) {
+  public CreditRefund setCreatedTime(java.lang.Long createdTime) {
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
    * Sets the field 'clientCreatedTime'.
    */
-  public CreditRefund setClientCreatedTime(Long clientCreatedTime) {
+  public CreditRefund setClientCreatedTime(java.lang.Long clientCreatedTime) {
     return genClient.setOther(clientCreatedTime, CacheKey.clientCreatedTime);
   }
 
@@ -409,7 +380,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public CreditRefund setGermanInfo(GermanInfo germanInfo) {
+  public CreditRefund setGermanInfo(com.clover.sdk.v3.payments.GermanInfo germanInfo) {
     return genClient.setRecord(germanInfo, CacheKey.germanInfo);
   }
 
@@ -427,7 +398,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public CreditRefund setTransactionInfo(TransactionInfo transactionInfo) {
+  public CreditRefund setTransactionInfo(com.clover.sdk.v3.payments.TransactionInfo transactionInfo) {
     return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
   }
 

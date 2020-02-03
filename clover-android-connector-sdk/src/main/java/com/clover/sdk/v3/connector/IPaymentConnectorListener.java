@@ -20,9 +20,6 @@ import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 
-/**
- * Created by glennbedwell on 9/6/16.
- */
 public interface IPaymentConnectorListener extends IDeviceConnectorListener{
 
   /**

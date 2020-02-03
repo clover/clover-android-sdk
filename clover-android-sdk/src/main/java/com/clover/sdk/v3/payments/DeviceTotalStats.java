@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -111,83 +111,46 @@ public class DeviceTotalStats extends GenericParcelable implements com.clover.sd
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeviceTotalStats> {
-    deviceId {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractOther("deviceId", java.lang.Long.class);
-      }
-    },
-    deviceSerial {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractOther("deviceSerial", java.lang.String.class);
-      }
-    },
-    deviceName {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractOther("deviceName", java.lang.String.class);
-      }
-    },
-    terminalId {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractOther("terminalId", java.lang.String.class);
-      }
-    },
-    sales {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("sales", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    refunds {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("refunds", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    net {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("net", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    giftCardLoads {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("giftCardLoads", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    giftCardCashOuts {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("giftCardCashOuts", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    tax {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("tax", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    tips {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractRecord("tips", com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR);
-      }
-    },
-    cardTotals {
-      @Override
-      public Object extractValue(DeviceTotalStats instance) {
-        return instance.genClient.extractListRecord("cardTotals", com.clover.sdk.v3.payments.BatchCardTotal.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    deviceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deviceSerial
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    terminalId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sales
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    refunds
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    net
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    giftCardLoads
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    giftCardCashOuts
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    tax
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    tips
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalType.JSON_CREATOR)),
+    cardTotals
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchCardTotal.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeviceTotalStats> genClient;
+  private final GenericClient<DeviceTotalStats> genClient;
 
   /**
    * Constructs a new empty instance.

@@ -18,7 +18,7 @@
 <resources>
 
   <!-- return to merchant -->
-  <string name="returnToMerchantPaymentSuccessful">Gracias por su compra.\n Por favor, devuelva este dispositivo a un empleado</string>
-  <string name="returnToMerchant">Por favor, devuelva este dispositivo a un empleado</string>
+  <string name="returnToMerchantPaymentSuccessful">Gracias por su compra.\n Entregue el dispositivo al empleado</string>
+  <string name="returnToMerchant">Entregue el dispositivo al empleado</string>
 
 </resources>

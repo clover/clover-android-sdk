@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getItem item}</li>
  * <li>{@link #getStockCount stockCount}</li>
  * <li>{@link #getQuantity quantity}</li>
+ * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -64,36 +65,41 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheGet(CacheKey.quantity);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ItemStock> {
-    item {
-      @Override
-      public Object extractValue(ItemStock instance) {
-        return instance.genClient.extractRecord("item", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    stockCount {
-      @Override
-      public Object extractValue(ItemStock instance) {
-        return instance.genClient.extractOther("stockCount", java.lang.Long.class);
-      }
-    },
-    quantity {
-      @Override
-      public Object extractValue(ItemStock instance) {
-        return instance.genClient.extractOther("quantity", java.lang.Double.class);
-      }
-    },
-      ;
+  public java.lang.Long getModifiedTime() {
+    return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
-  private GenericClient<ItemStock> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    item
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    stockCount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    quantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<ItemStock> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ItemStock() {
     genClient = new GenericClient<ItemStock>(this);
   }
@@ -104,8 +110,8 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ItemStock(boolean noInit) {
     genClient = null;
   }
@@ -170,6 +176,11 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.quantity);
   }
 
+  /** Checks whether the 'modifiedTime' field is set and is not null */
+  public boolean isNotNullModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
+  }
+
 
 
   /** Checks whether the 'item' field has been set, however the value could be null */
@@ -185,6 +196,11 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'quantity' field has been set, however the value could be null */
   public boolean hasQuantity() {
     return genClient.cacheHasKey(CacheKey.quantity);
+  }
+
+  /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
+  public boolean hasModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
 
@@ -211,6 +227,13 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.setOther(quantity, CacheKey.quantity);
   }
 
+  /**
+   * Sets the field 'modifiedTime'.
+   */
+  public ItemStock setModifiedTime(java.lang.Long modifiedTime) {
+    return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
+  }
+
 
   /** Clears the 'item' field, the 'has' method for this field will now return false */
   public void clearItem() {
@@ -223,6 +246,10 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'quantity' field, the 'has' method for this field will now return false */
   public void clearQuantity() {
     genClient.clear(CacheKey.quantity);
+  }
+  /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
+  public void clearModifiedTime() {
+    genClient.clear(CacheKey.modifiedTime);
   }
 
 
@@ -287,6 +314,7 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean STOCKCOUNT_IS_REQUIRED = false;
     public static final long STOCKCOUNT_MIN = 0;
     public static final boolean QUANTITY_IS_REQUIRED = false;
+    public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 
   }
 

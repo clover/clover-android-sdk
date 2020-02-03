@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -55,27 +55,30 @@ public class CacheIndex extends GenericParcelable implements com.clover.sdk.v3.V
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CacheIndex> {
-    cache_name {
-      @Override
-      public Object extractValue(CacheIndex instance) {
-        return instance.genClient.extractOther("cache_name", java.lang.String.class);
-      }
-    },
-    index {
-      @Override
-      public Object extractValue(CacheIndex instance) {
-        return instance.genClient.extractOther("index", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    cache_name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    index
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CacheIndex> genClient;
+  private final GenericClient<CacheIndex> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CacheIndex() {
     genClient = new GenericClient<CacheIndex>(this);
   }
@@ -86,8 +89,8 @@ public class CacheIndex extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CacheIndex(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -98,69 +98,44 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PaymentResponse> {
-    payment {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractRecord("payment", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    isSale {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("isSale", java.lang.Boolean.class);
-      }
-    },
-    isPreAuth {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("isPreAuth", java.lang.Boolean.class);
-      }
-    },
-    isAuth {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("isAuth", java.lang.Boolean.class);
-      }
-    },
-    signature {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractRecord("signature", com.clover.sdk.v3.base.Signature.JSON_CREATOR);
-      }
-    },
-    success {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("success", java.lang.Boolean.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(PaymentResponse instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    payment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    isSale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isPreAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    signature
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Signature.JSON_CREATOR)),
+    success
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PaymentResponse> genClient;
+  private final GenericClient<PaymentResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PaymentResponse() {
     super(false);
     genClient = new GenericClient<PaymentResponse>(this);
@@ -172,8 +147,8 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PaymentResponse(boolean noInit) {
     super(false);
     genClient = null;

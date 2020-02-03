@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -78,45 +78,36 @@ public class ResetDeviceResponse extends com.clover.sdk.v3.remotepay.BaseRespons
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ResetDeviceResponse> {
-    state {
-      @Override
-      public Object extractValue(ResetDeviceResponse instance) {
-        return instance.genClient.extractEnum("state", com.clover.sdk.v3.remotepay.ExternalDeviceState.class);
-      }
-    },
-    success {
-      @Override
-      public Object extractValue(ResetDeviceResponse instance) {
-        return instance.genClient.extractOther("success", java.lang.Boolean.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(ResetDeviceResponse instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(ResetDeviceResponse instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(ResetDeviceResponse instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    state
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ExternalDeviceState.class)),
+    success
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ResetDeviceResponse> genClient;
+  private final GenericClient<ResetDeviceResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ResetDeviceResponse() {
     super(false);
     genClient = new GenericClient<ResetDeviceResponse>(this);
@@ -128,8 +119,8 @@ public class ResetDeviceResponse extends com.clover.sdk.v3.remotepay.BaseRespons
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ResetDeviceResponse(boolean noInit) {
     super(false);
     genClient = null;

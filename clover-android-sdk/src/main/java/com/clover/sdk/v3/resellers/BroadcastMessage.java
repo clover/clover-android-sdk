@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2013 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,26 +24,39 @@
 package com.clover.sdk.v3.resellers;
 
 import com.clover.sdk.GenericClient;
+import com.clover.sdk.GenericParcelable;
 
+/**
+ * This is an auto-generated Clover data object.
+ * <p>
+ * <h3>Fields</h3>
+ * <ul>
+ * <li>{@link #getId id}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getText text}</li>
+ * <li>{@link #getUrl url}</li>
+ * <li>{@link #getReseller reseller}</li>
+ * </ul>
+ */
 @SuppressWarnings("all")
-public final class BroadcastMessage implements android.os.Parcelable, com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class BroadcastMessage extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
-  public String getType() {
+  public java.lang.String getType() {
     return genClient.cacheGet(CacheKey.type);
   }
 
-  public String getText() {
+  public java.lang.String getText() {
     return genClient.cacheGet(CacheKey.text);
   }
 
-  public String getUrl() {
+  public java.lang.String getUrl() {
     return genClient.cacheGet(CacheKey.url);
   }
 
@@ -53,51 +66,58 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<BroadcastMessage> {
-    id {
-      @Override
-      public Object extractValue(BroadcastMessage instance) {
-        return instance.genClient.extractOther("id", String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(BroadcastMessage instance) {
-        return instance.genClient.extractOther("type", String.class);
-      }
-    },
-    text {
-      @Override
-      public Object extractValue(BroadcastMessage instance) {
-        return instance.genClient.extractOther("text", String.class);
-      }
-    },
-    url {
-      @Override
-      public Object extractValue(BroadcastMessage instance) {
-        return instance.genClient.extractOther("url", String.class);
-      }
-    },
-    reseller {
-      @Override
-      public Object extractValue(BroadcastMessage instance) {
-        return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    ;
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    text
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    url
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    reseller
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<BroadcastMessage> genClient = new GenericClient<BroadcastMessage>(this);
+  private final GenericClient<BroadcastMessage> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public BroadcastMessage() { }
+  public BroadcastMessage() {
+    genClient = new GenericClient<BroadcastMessage>(this);
+  }
+
+  @Override
+  protected GenericClient getGenericClient() {
+    return genClient;
+  }
+
+  /**
+   * Constructs a new empty instance.
+   */
+  protected BroadcastMessage(boolean noInit) {
+    genClient = null;
+  }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
   public BroadcastMessage(String json) throws IllegalArgumentException {
+    this();
     try {
       genClient.setJsonObject(new org.json.JSONObject(json));
     } catch (org.json.JSONException e) {
@@ -110,6 +130,7 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
    * reflected in this instance and vice-versa.
    */
   public BroadcastMessage(org.json.JSONObject jsonObject) {
+    this();
     genClient.setJsonObject(jsonObject);
   }
 
@@ -117,6 +138,7 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
   public BroadcastMessage(BroadcastMessage src) {
+    this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
     }
@@ -129,7 +151,6 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }
-
 
   @Override
   public void validate() {
@@ -162,6 +183,7 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
   }
 
 
+
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
@@ -191,28 +213,28 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
   /**
    * Sets the field 'id'.
    */
-  public BroadcastMessage setId(String id) {
+  public BroadcastMessage setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'type'.
    */
-  public BroadcastMessage setType(String type) {
+  public BroadcastMessage setType(java.lang.String type) {
     return genClient.setOther(type, CacheKey.type);
   }
 
   /**
    * Sets the field 'text'.
    */
-  public BroadcastMessage setText(String text) {
+  public BroadcastMessage setText(java.lang.String text) {
     return genClient.setOther(text, CacheKey.text);
   }
 
   /**
    * Sets the field 'url'.
    */
-  public BroadcastMessage setUrl(String url) {
+  public BroadcastMessage setUrl(java.lang.String url) {
     return genClient.setOther(url, CacheKey.url);
   }
 
@@ -281,29 +303,6 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
     }
   }
 
-  /**
-   * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
-   * parcelled but not jsonified.
-   */
-  public android.os.Bundle getBundle() {
-    return genClient.getBundle();
-  }
-
-  @Override
-  public String toString() {
-    return genClient.toString();
-  }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(android.os.Parcel dest, int flags) {
-    genClient.writeToParcel(dest, flags);
-  }
-
   public static final android.os.Parcelable.Creator<BroadcastMessage> CREATOR = new android.os.Parcelable.Creator<BroadcastMessage>() {
     @Override
     public BroadcastMessage createFromParcel(android.os.Parcel in) {
@@ -326,18 +325,13 @@ public final class BroadcastMessage implements android.os.Parcelable, com.clover
     }
   };
 
-
   public interface Constraints {
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
     public static final boolean TYPE_IS_REQUIRED = false;
-
     public static final boolean TEXT_IS_REQUIRED = false;
-
     public static final boolean URL_IS_REQUIRED = false;
-
     public static final boolean RESELLER_IS_REQUIRED = false;
 
   }

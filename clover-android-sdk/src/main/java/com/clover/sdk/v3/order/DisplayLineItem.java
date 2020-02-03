@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -169,135 +169,66 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DisplayLineItem> {
-    id {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    orderId {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("orderId", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    alternateName {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("alternateName", java.lang.String.class);
-      }
-    },
-    price {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("price", java.lang.String.class);
-      }
-    },
-    unitPrice {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("unitPrice", java.lang.String.class);
-      }
-    },
-    quantity {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("quantity", java.lang.String.class);
-      }
-    },
-    unitQuantity {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("unitQuantity", java.lang.String.class);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    printed {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("printed", java.lang.Boolean.class);
-      }
-    },
-    binName {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("binName", java.lang.String.class);
-      }
-    },
-    userData {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("userData", java.lang.String.class);
-      }
-    },
-    discounts {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractListRecord("discounts", com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR);
-      }
-    },
-    discountAmount {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("discountAmount", java.lang.String.class);
-      }
-    },
-    exchanged {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("exchanged", java.lang.Boolean.class);
-      }
-    },
-    exchangedAmount {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("exchangedAmount", java.lang.String.class);
-      }
-    },
-    modifications {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractListRecord("modifications", com.clover.sdk.v3.order.DisplayModification.JSON_CREATOR);
-      }
-    },
-    refunded {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("refunded", java.lang.Boolean.class);
-      }
-    },
-    refundedAmount {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("refundedAmount", java.lang.String.class);
-      }
-    },
-    percent {
-      @Override
-      public Object extractValue(DisplayLineItem instance) {
-        return instance.genClient.extractOther("percent", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    orderId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alternateName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    price
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    unitPrice
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    quantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    unitQuantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    printed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    binName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    userData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    discounts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR)),
+    discountAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    exchanged
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    exchangedAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    modifications
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayModification.JSON_CREATOR)),
+    refunded
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    refundedAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    percent
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DisplayLineItem> genClient;
+  private final GenericClient<DisplayLineItem> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DisplayLineItem() {
     genClient = new GenericClient<DisplayLineItem>(this);
   }
@@ -308,9 +239,9 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
-  public DisplayLineItem(boolean noInit) {
+   * Constructs a new empty instance.
+   */
+  protected DisplayLineItem(boolean noInit) {
     genClient = null;
   }
 

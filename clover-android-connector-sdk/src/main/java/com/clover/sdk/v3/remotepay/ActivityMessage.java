@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -72,39 +72,34 @@ public class ActivityMessage extends com.clover.sdk.v3.remotepay.BaseRequest {
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<ActivityMessage> {
-    action {
-      @Override
-      public Object extractValue(ActivityMessage instance) {
-        return instance.genClient.extractOther("action", java.lang.String.class);
-      }
-    },
-    payload {
-      @Override
-      public Object extractValue(ActivityMessage instance) {
-        return instance.genClient.extractOther("payload", java.lang.String.class);
-      }
-    },
-    requestId {
-      @Override
-      public Object extractValue(ActivityMessage instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(ActivityMessage instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    action
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payload
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<ActivityMessage> genClient;
+  private final GenericClient<ActivityMessage> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public ActivityMessage() {
     super(false);
     genClient = new GenericClient<ActivityMessage>(this);
@@ -116,8 +111,8 @@ public class ActivityMessage extends com.clover.sdk.v3.remotepay.BaseRequest {
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected ActivityMessage(boolean noInit) {
     super(false);
     genClient = null;

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -130,99 +130,54 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CashAdvanceCustomerIdentification> {
-    idType {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractEnum("idType", com.clover.sdk.v3.payments.IdType.class);
-      }
-    },
-    serialNumber {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("serialNumber", java.lang.String.class);
-      }
-    },
-    maskedSerialNumber {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("maskedSerialNumber", java.lang.String.class);
-      }
-    },
-    encryptedSerialNumber {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("encryptedSerialNumber", java.lang.String.class);
-      }
-    },
-    expirationDate {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("expirationDate", java.lang.String.class);
-      }
-    },
-    issuingState {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("issuingState", java.lang.String.class);
-      }
-    },
-    issuingCountry {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("issuingCountry", java.lang.String.class);
-      }
-    },
-    customerName {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("customerName", java.lang.String.class);
-      }
-    },
-    addressStreet1 {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressStreet1", java.lang.String.class);
-      }
-    },
-    addressStreet2 {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressStreet2", java.lang.String.class);
-      }
-    },
-    addressCity {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressCity", java.lang.String.class);
-      }
-    },
-    addressState {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressState", java.lang.String.class);
-      }
-    },
-    addressZipCode {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressZipCode", java.lang.String.class);
-      }
-    },
-    addressCountry {
-      @Override
-      public Object extractValue(CashAdvanceCustomerIdentification instance) {
-        return instance.genClient.extractOther("addressCountry", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    idType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.IdType.class)),
+    serialNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedSerialNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    encryptedSerialNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    expirationDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    issuingState
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    issuingCountry
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customerName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressStreet1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressStreet2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressCity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressState
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressZipCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    addressCountry
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CashAdvanceCustomerIdentification> genClient;
+  private final GenericClient<CashAdvanceCustomerIdentification> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CashAdvanceCustomerIdentification() {
     genClient = new GenericClient<CashAdvanceCustomerIdentification>(this);
   }
@@ -233,8 +188,8 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CashAdvanceCustomerIdentification(boolean noInit) {
     genClient = null;
   }

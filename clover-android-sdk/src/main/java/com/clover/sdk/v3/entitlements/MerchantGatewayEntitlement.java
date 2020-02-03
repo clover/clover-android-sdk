@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -48,116 +48,91 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Entitlement name (e.g. MASTERCARD, VISA, etc.)
    */
-  public String getName() {
+  public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
-  public String getServiceEntitlementNumber() {
+  public java.lang.String getServiceEntitlementNumber() {
     return genClient.cacheGet(CacheKey.serviceEntitlementNumber);
   }
 
-  public String getServiceType() {
+  public java.lang.String getServiceType() {
     return genClient.cacheGet(CacheKey.serviceType);
   }
 
   /**
    * AlphaID for entitlements. Supplied by First Data.
    */
-  public String getAlphaId() {
+  public java.lang.String getAlphaId() {
     return genClient.cacheGet(CacheKey.alphaId);
   }
 
   /**
    * Updated timestamp.
    */
-  public Long getModifiedTime() {
+  public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
   /**
    * Deleted timestamp.
    */
-  public Long getDeletedTime() {
+  public java.lang.Long getDeletedTime() {
     return genClient.cacheGet(CacheKey.deletedTime);
   }
 
-  public java.util.List<EntitlementPlanCode> getPlanCodes() {
+  public java.util.List<com.clover.sdk.v3.entitlements.EntitlementPlanCode> getPlanCodes() {
     return genClient.cacheGet(CacheKey.planCodes);
   }
 
-  public java.util.List<MerchantGatewayEntitlementConfiguration> getEntitlementConfigurations() {
+  public java.util.List<com.clover.sdk.v3.entitlements.MerchantGatewayEntitlementConfiguration> getEntitlementConfigurations() {
     return genClient.cacheGet(CacheKey.entitlementConfigurations);
   }
 
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantGatewayEntitlement> {
-    id {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("id", String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("name", String.class);
-      }
-    },
-    serviceEntitlementNumber {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("serviceEntitlementNumber", String.class);
-      }
-    },
-    serviceType {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("serviceType", String.class);
-      }
-    },
-    alphaId {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("alphaId", String.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("modifiedTime", Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractOther("deletedTime", Long.class);
-      }
-    },
-    planCodes {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractListRecord("planCodes", EntitlementPlanCode.JSON_CREATOR);
-      }
-    },
-    entitlementConfigurations {
-      @Override
-      public Object extractValue(MerchantGatewayEntitlement instance) {
-        return instance.genClient.extractListRecord("entitlementConfigurations", MerchantGatewayEntitlementConfiguration.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceEntitlementNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    alphaId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    planCodes
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.entitlements.EntitlementPlanCode.JSON_CREATOR)),
+    entitlementConfigurations
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.entitlements.MerchantGatewayEntitlementConfiguration.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantGatewayEntitlement> genClient;
+  private final GenericClient<MerchantGatewayEntitlement> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -333,49 +308,49 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   /**
    * Sets the field 'id'.
    */
-  public MerchantGatewayEntitlement setId(String id) {
+  public MerchantGatewayEntitlement setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public MerchantGatewayEntitlement setName(String name) {
+  public MerchantGatewayEntitlement setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'serviceEntitlementNumber'.
    */
-  public MerchantGatewayEntitlement setServiceEntitlementNumber(String serviceEntitlementNumber) {
+  public MerchantGatewayEntitlement setServiceEntitlementNumber(java.lang.String serviceEntitlementNumber) {
     return genClient.setOther(serviceEntitlementNumber, CacheKey.serviceEntitlementNumber);
   }
 
   /**
    * Sets the field 'serviceType'.
    */
-  public MerchantGatewayEntitlement setServiceType(String serviceType) {
+  public MerchantGatewayEntitlement setServiceType(java.lang.String serviceType) {
     return genClient.setOther(serviceType, CacheKey.serviceType);
   }
 
   /**
    * Sets the field 'alphaId'.
    */
-  public MerchantGatewayEntitlement setAlphaId(String alphaId) {
+  public MerchantGatewayEntitlement setAlphaId(java.lang.String alphaId) {
     return genClient.setOther(alphaId, CacheKey.alphaId);
   }
 
   /**
    * Sets the field 'modifiedTime'.
    */
-  public MerchantGatewayEntitlement setModifiedTime(Long modifiedTime) {
+  public MerchantGatewayEntitlement setModifiedTime(java.lang.Long modifiedTime) {
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
   /**
    * Sets the field 'deletedTime'.
    */
-  public MerchantGatewayEntitlement setDeletedTime(Long deletedTime) {
+  public MerchantGatewayEntitlement setDeletedTime(java.lang.Long deletedTime) {
     return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
@@ -384,7 +359,7 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public MerchantGatewayEntitlement setPlanCodes(java.util.List<EntitlementPlanCode> planCodes) {
+  public MerchantGatewayEntitlement setPlanCodes(java.util.List<com.clover.sdk.v3.entitlements.EntitlementPlanCode> planCodes) {
     return genClient.setArrayRecord(planCodes, CacheKey.planCodes);
   }
 
@@ -393,7 +368,7 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public MerchantGatewayEntitlement setEntitlementConfigurations(java.util.List<MerchantGatewayEntitlementConfiguration> entitlementConfigurations) {
+  public MerchantGatewayEntitlement setEntitlementConfigurations(java.util.List<com.clover.sdk.v3.entitlements.MerchantGatewayEntitlementConfiguration> entitlementConfigurations) {
     return genClient.setArrayRecord(entitlementConfigurations, CacheKey.entitlementConfigurations);
   }
 

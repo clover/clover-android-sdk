@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,39 +65,34 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<BusinessType> {
-    businessTypeGroupCode {
-      @Override
-      public Object extractValue(BusinessType instance) {
-        return instance.genClient.extractEnum("businessTypeGroupCode", com.clover.sdk.v3.apps.BusinessTypeGroupCode.class);
-      }
-    },
-    businessTypeGroupName {
-      @Override
-      public Object extractValue(BusinessType instance) {
-        return instance.genClient.extractOther("businessTypeGroupName", java.lang.String.class);
-      }
-    },
-    code {
-      @Override
-      public Object extractValue(BusinessType instance) {
-        return instance.genClient.extractEnum("code", com.clover.sdk.v3.base.BusinessTypeCode.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(BusinessType instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    businessTypeGroupCode
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.BusinessTypeGroupCode.class)),
+    businessTypeGroupName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    code
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.base.BusinessTypeCode.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<BusinessType> genClient;
+  private final GenericClient<BusinessType> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public BusinessType() {
     genClient = new GenericClient<BusinessType>(this);
   }
@@ -108,8 +103,8 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected BusinessType(boolean noInit) {
     genClient = null;
   }

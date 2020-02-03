@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -65,33 +65,32 @@ public class CardlessPaymentData extends GenericParcelable implements com.clover
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CardlessPaymentData> {
-    paymentNetwork {
-      @Override
-      public Object extractValue(CardlessPaymentData instance) {
-        return instance.genClient.extractEnum("paymentNetwork", com.clover.sdk.v3.payments.CardlessPaymentNetwork.class);
-      }
-    },
-    paymentType {
-      @Override
-      public Object extractValue(CardlessPaymentData instance) {
-        return instance.genClient.extractEnum("paymentType", com.clover.sdk.v3.payments.CardlessPaymentDataType.class);
-      }
-    },
-    paymentData {
-      @Override
-      public Object extractValue(CardlessPaymentData instance) {
-        return instance.genClient.extractOther("paymentData", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    paymentNetwork
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardlessPaymentNetwork.class)),
+    paymentType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardlessPaymentDataType.class)),
+    paymentData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CardlessPaymentData> genClient;
+  private final GenericClient<CardlessPaymentData> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CardlessPaymentData() {
     genClient = new GenericClient<CardlessPaymentData>(this);
   }
@@ -102,8 +101,8 @@ public class CardlessPaymentData extends GenericParcelable implements com.clover
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CardlessPaymentData(boolean noInit) {
     genClient = null;
   }

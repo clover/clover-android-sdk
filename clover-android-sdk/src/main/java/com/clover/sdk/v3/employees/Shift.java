@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -119,75 +119,46 @@ public class Shift extends GenericParcelable implements com.clover.sdk.v3.Valida
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Shift> {
-    id {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    employee {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractRecord("employee", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
-    cashTipsCollected {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("cashTipsCollected", java.lang.Long.class);
-      }
-    },
-    serverBanking {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("serverBanking", java.lang.Boolean.class);
-      }
-    },
-    inTime {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("inTime", java.lang.Long.class);
-      }
-    },
-    overrideInTime {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("overrideInTime", java.lang.Long.class);
-      }
-    },
-    overrideInEmployee {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractRecord("overrideInEmployee", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
-    outTime {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("outTime", java.lang.Long.class);
-      }
-    },
-    overrideOutTime {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractOther("overrideOutTime", java.lang.Long.class);
-      }
-    },
-    overrideOutEmployee {
-      @Override
-      public Object extractValue(Shift instance) {
-        return instance.genClient.extractRecord("overrideOutEmployee", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    employee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
+    cashTipsCollected
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    serverBanking
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    inTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    overrideInTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    overrideInEmployee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
+    outTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    overrideOutTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    overrideOutEmployee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Shift> genClient;
+  private final GenericClient<Shift> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Shift() {
     genClient = new GenericClient<Shift>(this);
   }
@@ -198,8 +169,8 @@ public class Shift extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Shift(boolean noInit) {
     genClient = null;
   }

@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -69,51 +69,38 @@ public class GatewayTxAnalytic extends GenericParcelable implements com.clover.s
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<GatewayTxAnalytic> {
-    type {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("type", java.lang.String.class);
-      }
-    },
-    responseCode {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("responseCode", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    adjustAmount {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("adjustAmount", java.lang.Integer.class);
-      }
-    },
-    refnum {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("refnum", java.lang.String.class);
-      }
-    },
-    merchantGatewayId {
-      @Override
-      public Object extractValue(GatewayTxAnalytic instance) {
-        return instance.genClient.extractOther("merchantGatewayId", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    type
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    responseCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    adjustAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    refnum
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantGatewayId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<GatewayTxAnalytic> genClient;
+  private final GenericClient<GatewayTxAnalytic> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public GatewayTxAnalytic() {
     genClient = new GenericClient<GatewayTxAnalytic>(this);
   }
@@ -124,8 +111,8 @@ public class GatewayTxAnalytic extends GenericParcelable implements com.clover.s
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected GatewayTxAnalytic(boolean noInit) {
     genClient = null;
   }

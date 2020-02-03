@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,6 +37,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNote note}</li>
  * <li>{@link #getEmployee employee}</li>
  * <li>{@link #getDevice device}</li>
+ * <li>{@link #getMerchant merchant}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -84,54 +85,50 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheGet(CacheKey.device);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CashEvent> {
-    type {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.cash.Type.class);
-      }
-    },
-    amountChange {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractOther("amountChange", java.lang.Long.class);
-      }
-    },
-    timestamp {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractOther("timestamp", java.lang.Long.class);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    employee {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractRecord("employee", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
-    device {
-      @Override
-      public Object extractValue(CashEvent instance) {
-        return instance.genClient.extractRecord("device", com.clover.sdk.v3.device.Device.JSON_CREATOR);
-      }
-    },
-      ;
+  /**
+   * The event occurred for this merchant.
+   */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return genClient.cacheGet(CacheKey.merchant);
   }
 
-  private GenericClient<CashEvent> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.cash.Type.class)),
+    amountChange
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    timestamp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    employee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
+    device
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.device.Device.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<CashEvent> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CashEvent() {
     genClient = new GenericClient<CashEvent>(this);
   }
@@ -142,8 +139,8 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CashEvent(boolean noInit) {
     genClient = null;
   }
@@ -221,6 +218,11 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.device);
   }
 
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
 
 
   /** Checks whether the 'type' field has been set, however the value could be null */
@@ -251,6 +253,11 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'device' field has been set, however the value could be null */
   public boolean hasDevice() {
     return genClient.cacheHasKey(CacheKey.device);
+  }
+
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return genClient.cacheHasKey(CacheKey.merchant);
   }
 
 
@@ -300,6 +307,15 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.setRecord(device, CacheKey.device);
   }
 
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public CashEvent setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    return genClient.setRecord(merchant, CacheKey.merchant);
+  }
+
 
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
@@ -324,6 +340,10 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'device' field, the 'has' method for this field will now return false */
   public void clearDevice() {
     genClient.clear(CacheKey.device);
+  }
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    genClient.clear(CacheKey.merchant);
   }
 
 
@@ -390,6 +410,7 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean NOTE_IS_REQUIRED = false;
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
     public static final boolean DEVICE_IS_REQUIRED = false;
+    public static final boolean MERCHANT_IS_REQUIRED = false;
 
   }
 

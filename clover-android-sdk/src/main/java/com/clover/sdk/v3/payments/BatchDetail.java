@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,16 +31,25 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getTerminalId terminalId}</li>
  * <li>{@link #getBatchTotals batchTotals}</li>
  * <li>{@link #getServerTotals serverTotals}</li>
  * <li>{@link #getCardTotals cardTotals}</li>
  * <li>{@link #getDeviceTotals deviceTotals}</li>
+ * <li>{@link #getEndpointTotals endpointTotals}</li>
  * <li>{@link #getOpenTips openTips}</li>
  * <li>{@link #getOpenTabs openTabs}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+
+  /**
+   * Terminal ID.
+   */
+  public java.lang.String getTerminalId() {
+    return genClient.cacheGet(CacheKey.terminalId);
+  }
 
   public com.clover.sdk.v3.payments.BatchTotalStats getBatchTotals() {
     return genClient.cacheGet(CacheKey.batchTotals);
@@ -56,6 +65,10 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
 
   public java.util.List<com.clover.sdk.v3.payments.DeviceTotalStats> getDeviceTotals() {
     return genClient.cacheGet(CacheKey.deviceTotals);
+  }
+
+  public java.util.List<com.clover.sdk.v3.payments.EndpointTotalStats> getEndpointTotals() {
+    return genClient.cacheGet(CacheKey.endpointTotals);
   }
 
   /**
@@ -75,51 +88,42 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<BatchDetail> {
-    batchTotals {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractRecord("batchTotals", com.clover.sdk.v3.payments.BatchTotalStats.JSON_CREATOR);
-      }
-    },
-    serverTotals {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractListRecord("serverTotals", com.clover.sdk.v3.payments.ServerTotalStats.JSON_CREATOR);
-      }
-    },
-    cardTotals {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractListRecord("cardTotals", com.clover.sdk.v3.payments.BatchCardTotal.JSON_CREATOR);
-      }
-    },
-    deviceTotals {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractListRecord("deviceTotals", com.clover.sdk.v3.payments.DeviceTotalStats.JSON_CREATOR);
-      }
-    },
-    openTips {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractOther("openTips", java.lang.Long.class);
-      }
-    },
-    openTabs {
-      @Override
-      public Object extractValue(BatchDetail instance) {
-        return instance.genClient.extractOther("openTabs", java.lang.Long.class);
-      }
-    },
-      ;
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    terminalId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    batchTotals
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchTotalStats.JSON_CREATOR)),
+    serverTotals
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.ServerTotalStats.JSON_CREATOR)),
+    cardTotals
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchCardTotal.JSON_CREATOR)),
+    deviceTotals
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.DeviceTotalStats.JSON_CREATOR)),
+    endpointTotals
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.EndpointTotalStats.JSON_CREATOR)),
+    openTips
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    openTabs
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<BatchDetail> genClient;
+  private final GenericClient<BatchDetail> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public BatchDetail() {
     genClient = new GenericClient<BatchDetail>(this);
   }
@@ -130,8 +134,8 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected BatchDetail(boolean noInit) {
     genClient = null;
   }
@@ -179,6 +183,11 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   public void validate() {
   }
 
+  /** Checks whether the 'terminalId' field is set and is not null */
+  public boolean isNotNullTerminalId() {
+    return genClient.cacheValueIsNotNull(CacheKey.terminalId);
+  }
+
   /** Checks whether the 'batchTotals' field is set and is not null */
   public boolean isNotNullBatchTotals() {
     return genClient.cacheValueIsNotNull(CacheKey.batchTotals);
@@ -208,6 +217,14 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'deviceTotals' field is set and is not null and is not empty */
   public boolean isNotEmptyDeviceTotals() { return isNotNullDeviceTotals() && !getDeviceTotals().isEmpty(); }
 
+  /** Checks whether the 'endpointTotals' field is set and is not null */
+  public boolean isNotNullEndpointTotals() {
+    return genClient.cacheValueIsNotNull(CacheKey.endpointTotals);
+  }
+
+  /** Checks whether the 'endpointTotals' field is set and is not null and is not empty */
+  public boolean isNotEmptyEndpointTotals() { return isNotNullEndpointTotals() && !getEndpointTotals().isEmpty(); }
+
   /** Checks whether the 'openTips' field is set and is not null */
   public boolean isNotNullOpenTips() {
     return genClient.cacheValueIsNotNull(CacheKey.openTips);
@@ -219,6 +236,11 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   }
 
 
+
+  /** Checks whether the 'terminalId' field has been set, however the value could be null */
+  public boolean hasTerminalId() {
+    return genClient.cacheHasKey(CacheKey.terminalId);
+  }
 
   /** Checks whether the 'batchTotals' field has been set, however the value could be null */
   public boolean hasBatchTotals() {
@@ -240,6 +262,11 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.deviceTotals);
   }
 
+  /** Checks whether the 'endpointTotals' field has been set, however the value could be null */
+  public boolean hasEndpointTotals() {
+    return genClient.cacheHasKey(CacheKey.endpointTotals);
+  }
+
   /** Checks whether the 'openTips' field has been set, however the value could be null */
   public boolean hasOpenTips() {
     return genClient.cacheHasKey(CacheKey.openTips);
@@ -250,6 +277,13 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.openTabs);
   }
 
+
+  /**
+   * Sets the field 'terminalId'.
+   */
+  public BatchDetail setTerminalId(java.lang.String terminalId) {
+    return genClient.setOther(terminalId, CacheKey.terminalId);
+  }
 
   /**
    * Sets the field 'batchTotals'.
@@ -288,6 +322,15 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'endpointTotals'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchDetail setEndpointTotals(java.util.List<com.clover.sdk.v3.payments.EndpointTotalStats> endpointTotals) {
+    return genClient.setArrayRecord(endpointTotals, CacheKey.endpointTotals);
+  }
+
+  /**
    * Sets the field 'openTips'.
    */
   public BatchDetail setOpenTips(java.lang.Long openTips) {
@@ -302,6 +345,10 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   }
 
 
+  /** Clears the 'terminalId' field, the 'has' method for this field will now return false */
+  public void clearTerminalId() {
+    genClient.clear(CacheKey.terminalId);
+  }
   /** Clears the 'batchTotals' field, the 'has' method for this field will now return false */
   public void clearBatchTotals() {
     genClient.clear(CacheKey.batchTotals);
@@ -317,6 +364,10 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'deviceTotals' field, the 'has' method for this field will now return false */
   public void clearDeviceTotals() {
     genClient.clear(CacheKey.deviceTotals);
+  }
+  /** Clears the 'endpointTotals' field, the 'has' method for this field will now return false */
+  public void clearEndpointTotals() {
+    genClient.clear(CacheKey.endpointTotals);
   }
   /** Clears the 'openTips' field, the 'has' method for this field will now return false */
   public void clearOpenTips() {
@@ -385,10 +436,12 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
 
   public interface Constraints {
 
+    public static final boolean TERMINALID_IS_REQUIRED = false;
     public static final boolean BATCHTOTALS_IS_REQUIRED = false;
     public static final boolean SERVERTOTALS_IS_REQUIRED = false;
     public static final boolean CARDTOTALS_IS_REQUIRED = false;
     public static final boolean DEVICETOTALS_IS_REQUIRED = false;
+    public static final boolean ENDPOINTTOTALS_IS_REQUIRED = false;
     public static final boolean OPENTIPS_IS_REQUIRED = false;
     public static final boolean OPENTABS_IS_REQUIRED = false;
 

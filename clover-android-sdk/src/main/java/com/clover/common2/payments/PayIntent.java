@@ -20,24 +20,26 @@ package com.clover.common2.payments;
   the code base.
 */
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.configuration.Themes;
 import com.clover.sdk.v3.apps.AppTracking;
+import com.clover.sdk.v3.base.Tender;
 import com.clover.sdk.v3.payments.CardTransaction;
 import com.clover.sdk.v3.payments.CashAdvanceCustomerIdentification;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.GermanInfo;
 import com.clover.sdk.v3.payments.Payment;
+import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.ServiceChargeAmount;
 import com.clover.sdk.v3.payments.TaxableAmountRate;
 import com.clover.sdk.v3.payments.TransactionSettings;
 import com.clover.sdk.v3.payments.VasSettings;
 import com.clover.sdk.v3.payments.VaultedCard;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -133,6 +135,8 @@ public class PayIntent implements Parcelable {
     private Themes themeName;
     private Payment originatingPayment;
     private Credit originatingCredit;
+    private Refund refund;
+    private Tender customerTender;
     // Optional map of values passed through to the server NOT used in payment processing or persisted
     private Map<String, String> passThroughValues;
     //Optional map of application specific values
@@ -238,6 +242,12 @@ public class PayIntent implements Parcelable {
       }
       if (intent.hasExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES)) {
         applicationSpecificValues = (Map<String, String>) intent.getSerializableExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES);
+      }
+      if (intent.hasExtra(Intents.EXTRA_REFUND)) {
+        refund = intent.getParcelableExtra(Intents.EXTRA_REFUND);
+      }
+      if (intent.hasExtra(Intents.EXTRA_CUSTOMER_TENDER)) {
+        customerTender = intent.getParcelableExtra(Intents.EXTRA_CUSTOMER_TENDER);
       }
       return this;
     }
@@ -371,6 +381,8 @@ public class PayIntent implements Parcelable {
       if (payIntent.applicationSpecificValues != null) {
         this.applicationSpecificValues = new HashMap<>(payIntent.applicationSpecificValues);
       }
+      this.refund = payIntent.refund;
+      this.customerTender = payIntent.customerTender;
       return this;
     }
 
@@ -610,6 +622,23 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder refund(Refund refund) {
+      this.refund = refund;
+      return this;
+    }
+
+    /**
+     * Pre-selected customer tender. If present, pay with this tender.
+     * The customer will not have the option to select a different tender or pay with a card.
+     * If the tender is not valid for this merchant this extra is ignored.
+     *
+     * @see Intents#ACTION_CUSTOMER_TENDER
+     */
+    public Builder customerTender(Tender customerTender) {
+      this.customerTender = customerTender;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -624,7 +653,7 @@ public class PayIntent implements Parcelable {
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
           germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings,
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
-          themeName, originatingPayment, originatingCredit, passThroughValues,applicationSpecificValues);
+          themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund, customerTender);
     }
   }
 
@@ -681,6 +710,8 @@ public class PayIntent implements Parcelable {
   public final CardTransaction originatingTransaction;
   public final Payment originatingPayment;
   public final Credit originatingCredit;
+  public final Refund refund;
+  public final Tender customerTender;
   public final Map<String, String> passThroughValues;
   public final Map<String, String> applicationSpecificValues;
 
@@ -694,8 +725,10 @@ public class PayIntent implements Parcelable {
                     boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,String externalReferenceId,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
-                    GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification, TransactionSettings transactionSettings,
-                    VasSettings vasSettings, CardTransaction originatingTransaction, Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues, Map<String, String> applicationSpecificValues) {
+                    GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification,
+                    TransactionSettings transactionSettings, VasSettings vasSettings, CardTransaction originatingTransaction,
+                    Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues,
+                    Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -735,6 +768,8 @@ public class PayIntent implements Parcelable {
     this.originatingTransaction = originatingTransaction;
     this.originatingPayment = originatingPayment;
     this.originatingCredit = originatingCredit;
+    this.refund = refund;
+    this.customerTender = customerTender;
 
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
@@ -898,6 +933,13 @@ public class PayIntent implements Parcelable {
     if (applicationSpecificValues != null) {
       intent.putExtra(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES, (Serializable)applicationSpecificValues);
     }
+
+    if (refund != null) {
+      intent.putExtra(Intents.EXTRA_REFUND, refund);
+    }
+    if (customerTender != null) {
+      intent.putExtra(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
+    }
   }
 
   @Override
@@ -941,7 +983,9 @@ public class PayIntent implements Parcelable {
            ", vasSettings=" + vasSettings +
            ", themeName=" + themeName +
            ", passThroughValues=" + passThroughValues +
-           ", passThroughValues=" + applicationSpecificValues +
+           ", applicationSpecificValues=" + applicationSpecificValues +
+           ", refund=" + refund +
+           ", customerTender=" + customerTender +
            '}';
   }
 
@@ -1085,6 +1129,14 @@ public class PayIntent implements Parcelable {
 
     if (applicationSpecificValues != null && !applicationSpecificValues.isEmpty()) {
       bundle.putSerializable(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES, (Serializable)applicationSpecificValues);
+    }
+
+    if (refund != null) {
+      bundle.putParcelable(Intents.EXTRA_REFUND, refund);
+    }
+
+    if (customerTender != null) {
+      bundle.putParcelable(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
     }
 
     // write out
@@ -1260,6 +1312,20 @@ public class PayIntent implements Parcelable {
         final Serializable originatingAppSpecificValues = bundle.getSerializable(Intents.EXTRA_APPLICATION_SPECIFIC_VALUES);
         if (originatingAppSpecificValues instanceof Map) {
           builder.applicationSpecificValues((Map<String, String>) originatingAppSpecificValues);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_REFUND)) {
+        final Parcelable refundParcelable = bundle.getParcelable(Intents.EXTRA_REFUND);
+        if (refundParcelable instanceof Refund) {
+          builder.refund((Refund) refundParcelable);
+        }
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_CUSTOMER_TENDER)) {
+        final Parcelable customerTenderParcelable = bundle.getParcelable(Intents.EXTRA_CUSTOMER_TENDER);
+        if (customerTenderParcelable instanceof Tender) {
+          builder.customerTender((Tender) customerTenderParcelable);
         }
       }
 

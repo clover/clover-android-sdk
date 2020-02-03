@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -139,99 +139,54 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DisplayOrder> {
-    id {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    currency {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("currency", java.lang.String.class);
-      }
-    },
-    employee {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("employee", java.lang.String.class);
-      }
-    },
-    subtotal {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("subtotal", java.lang.String.class);
-      }
-    },
-    tax {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("tax", java.lang.String.class);
-      }
-    },
-    total {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("total", java.lang.String.class);
-      }
-    },
-    title {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("title", java.lang.String.class);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    serviceChargeName {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("serviceChargeName", java.lang.String.class);
-      }
-    },
-    serviceChargeAmount {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("serviceChargeAmount", java.lang.String.class);
-      }
-    },
-    discounts {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractListRecord("discounts", com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR);
-      }
-    },
-    lineItems {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractListRecord("lineItems", com.clover.sdk.v3.order.DisplayLineItem.JSON_CREATOR);
-      }
-    },
-    amountRemaining {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractOther("amountRemaining", java.lang.String.class);
-      }
-    },
-    payments {
-      @Override
-      public Object extractValue(DisplayOrder instance) {
-        return instance.genClient.extractListRecord("payments", com.clover.sdk.v3.order.DisplayPayment.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    currency
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    employee
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    subtotal
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tax
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    total
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    title
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceChargeName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    discounts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR)),
+    lineItems
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayLineItem.JSON_CREATOR)),
+    amountRemaining
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    payments
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayPayment.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DisplayOrder> genClient;
+  private final GenericClient<DisplayOrder> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DisplayOrder() {
     genClient = new GenericClient<DisplayOrder>(this);
   }
@@ -242,9 +197,9 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
-  public DisplayOrder(boolean noInit) {
+   * Constructs a new empty instance.
+   */
+  protected DisplayOrder(boolean noInit) {
     genClient = null;
   }
 

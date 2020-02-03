@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -79,63 +79,42 @@ public class DeveloperRole extends GenericParcelable implements com.clover.sdk.v
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeveloperRole> {
-    id {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    label {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractOther("label", java.lang.String.class);
-      }
-    },
-    system {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractOther("system", java.lang.Boolean.class);
-      }
-    },
-    templateRole {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractRecord("templateRole", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    accounts {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractListRecord("accounts", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    permissions {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractListRecord("permissions", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    developerRef {
-      @Override
-      public Object extractValue(DeveloperRole instance) {
-        return instance.genClient.extractRecord("developerRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    label
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    system
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    templateRole
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    accounts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    permissions
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    developerRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeveloperRole> genClient;
+  private final GenericClient<DeveloperRole> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DeveloperRole() {
     genClient = new GenericClient<DeveloperRole>(this);
   }
@@ -146,8 +125,8 @@ public class DeveloperRole extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DeveloperRole(boolean noInit) {
     genClient = null;
   }

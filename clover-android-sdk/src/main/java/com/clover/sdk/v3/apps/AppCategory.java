@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -63,33 +63,32 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<AppCategory> {
-    id {
-      @Override
-      public Object extractValue(AppCategory instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(AppCategory instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(AppCategory instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.apps.AppCategoryType.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.AppCategoryType.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<AppCategory> genClient;
+  private final GenericClient<AppCategory> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public AppCategory() {
     genClient = new GenericClient<AppCategory>(this);
   }
@@ -100,8 +99,8 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected AppCategory(boolean noInit) {
     genClient = null;
   }
@@ -148,6 +147,10 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
   @Override
   public void validate() {
     genClient.validateLength(getId(), 13);
+
+    genClient.validateNull(getName(), "name");
+
+    genClient.validateNull(getType(), "type");
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -278,8 +281,8 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
 
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-    public static final boolean NAME_IS_REQUIRED = false;
-    public static final boolean TYPE_IS_REQUIRED = false;
+    public static final boolean NAME_IS_REQUIRED = true;
+    public static final boolean TYPE_IS_REQUIRED = true;
 
   }
 

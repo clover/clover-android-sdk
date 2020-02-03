@@ -16,6 +16,9 @@
 
 package com.clover.sdk.v3.order;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import com.clover.core.internal.Lists;
 import com.clover.core.internal.calc.Calc;
 import com.clover.core.internal.calc.Decimal;
@@ -23,9 +26,6 @@ import com.clover.core.internal.calc.Price;
 import com.clover.sdk.v3.base.ServiceCharge;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v3.payments.Payment;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -38,7 +38,6 @@ import java.util.List;
 public class OrderCalc {
 
   private static final String TAG = OrderCalc.class.getSimpleName();
-  private static final Decimal TAX_RATE_DIVISOR = new Decimal(100000);
   private static final Decimal SERVICE_CHARGE_DIVISOR = new Decimal(10000);
   private static final Decimal UNIT_QUANTITY_DIVISOR = new Decimal(1000);
   private static final Decimal HUNDRED = new Decimal(100);
@@ -126,13 +125,24 @@ public class OrderCalc {
 
   private class CalcLineItem implements Calc.LineItem {
 
-    LineItem line;
+    public static final String KEY_PERCENT = "percent";
+
+    private final LineItem line;
+    /**
+     * Allow a partial payment to use the split percent temporarily to calculate partial tax
+     */
+    private final Decimal overrideSplitPercent;
 
     CalcLineItem(LineItem line) {
+      this(line, null);
+    }
+
+    CalcLineItem(final LineItem line, final Decimal overrideSplitPercent) {
       if (line == null) {
         throw new NullPointerException("line cannot be null");
       }
       this.line = line;
+      this.overrideSplitPercent = overrideSplitPercent;
     }
 
     @Override
@@ -203,67 +213,17 @@ public class OrderCalc {
       return order.isNotNullManualTransaction() && order.getManualTransaction();
     }
 
-    public static final String KEY_PERCENT = "percent";
-
     @Override
     public Decimal getSplitPercent() {
-      // TODO: consider removing when making this sdk public - used for transient calculations
+      if (overrideSplitPercent != null) {
+        return overrideSplitPercent;
+      }
       Bundle bundle = line.getBundle();
       LineItemPercent lineItemPercent = bundle.getParcelable(KEY_PERCENT);
       if (lineItemPercent != null) {
         return lineItemPercent.percent.multiply(HUNDRED);
       }
       return HUNDRED;
-    }
-  }
-
-  private class TaxRateCalc implements Calc.TaxRate {
-    private TaxRate taxRate;
-
-    TaxRateCalc(TaxRate taxRate) {
-      if (taxRate == null) {
-        throw new NullPointerException("taxRate cannot be null");
-      }
-      this.taxRate = taxRate;
-    }
-
-    @Override
-    public String getId() {
-      return taxRate.getId();
-    }
-
-    @Override
-    public Decimal getRate() {
-      return new Decimal(taxRate.getRate()).divide(TAX_RATE_DIVISOR);
-    }
-
-    public Long getRateAsLong() {
-      return taxRate.getRate();
-    }
-
-    @Override
-    public Price getFlatTaxAmount() {
-      return taxRate.isNotNullTaxAmount() ? new Price(taxRate.getTaxAmount()) : null;
-    }
-
-    @Override
-    public String getTaxType() {
-      return taxRate.isNotNullTaxType() ? taxRate.getTaxType().toString() : null;
-    }
-
-    public String getName() {
-      return taxRate.getName();
-    }
-
-    public int hashCode() {
-      return (getId() != null ? getId().hashCode() : super.hashCode());
-    }
-
-    public boolean equals(Object o) {
-      if (o instanceof Calc.TaxRate) {
-        return getId() != null ? getId().equals(((Calc.TaxRate) o).getId()) : super.equals(o);
-      }
-      return false;
     }
   }
 
@@ -324,15 +284,34 @@ public class OrderCalc {
     return calcOrder.getTip().getCents();
   }
 
+  /**
+   * @return The order total for the specified line items, which includes the discounted subtotal,
+   *         service charge, and tax.  Note that tip is not included in the total.
+   *         If an item was refunded or exchanged, then it does not appear in the total.
+   */
   public long getTotal(Collection<LineItem> lines) {
     return getCalc().getTotal(toCalcLines(lines)).getCents();
   }
 
+  /**
+   * @return the order total, which includes the discounted subtotal, service charge, and tax.
+   *         Note that tip is not included in the total.
+   *         If an item was refunded, then it DOES appear in the total.
+   *         If an item was exchanged, then it does not appear in the total.
+   */
+  public long getTotalBeforeRefunds(final Collection<LineItem> lines) {
+    return getCalc().getTotalBeforeRefunds(toCalcLines(lines)).getCents();
+  }
+
   private List<CalcLineItem> toCalcLines(Collection<LineItem> lines) {
+    return toCalcLines(lines, null);
+  }
+
+  private List<CalcLineItem> toCalcLines(final Iterable<LineItem> lines, final Decimal overrideSplitPercent) {
     List<CalcLineItem> calcLines = Lists.newArrayList();
     if (lines != null) {
       for (LineItem line : lines) {
-        calcLines.add(new CalcLineItem(line));
+        calcLines.add(new CalcLineItem(line, overrideSplitPercent));
       }
     }
     return calcLines;
@@ -367,14 +346,6 @@ public class OrderCalc {
     return getCalc().getServiceCharge(toCalcLines(lines)).getCents();
   }
 
-  public long getServiceChargeBeforeRefunds() {
-    return getCalc().getServiceChargeBeforeRefunds().getCents();
-  }
-
-  public long getServiceChargeBeforeRefunds(Collection<LineItem> lines) {
-    return getCalc().getServiceChargeBeforeRefunds(toCalcLines(lines)).getCents();
-  }
-
   public long getTotalWithTip(Collection<LineItem> lines) {
     Price total = getCalc().getTotal(toCalcLines(lines));
     return total.add(calcOrder.getTip()).getCents();
@@ -382,6 +353,17 @@ public class OrderCalc {
 
   public List<Calc.TaxSummary> getTaxSummaries(Collection<LineItem> lines) {
     return getCalc().getTaxSummaries(toCalcLines(lines));
+  }
+
+  /**
+   * Summarize the taxes for the given line items. If an item was refunded, still include it.
+   * If an item was exchanged, then ignore it.
+   * @param lines for this subset of line items
+   * @param overrideSplitPercent optional. if specified, then assume we're computing a partial payment and this percent is the amount of a partial payment.
+   * @return summary of the given line items at, optionally, the given partial payment percentage
+   */
+  public List<Calc.TaxSummary> getTaxSummariesBeforeRefunds(final Collection<LineItem> lines, final Decimal overrideSplitPercent) {
+    return getCalc().getTaxSummariesBeforeRefunds(toCalcLines(lines, overrideSplitPercent));
   }
 
   public Decimal getDiscountMultiplier() {

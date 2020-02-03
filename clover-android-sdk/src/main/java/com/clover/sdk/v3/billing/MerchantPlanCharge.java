@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -85,63 +85,42 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantPlanCharge> {
-    id {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    charge {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractRecord("charge", com.clover.sdk.v3.billing.Charge.JSON_CREATOR);
-      }
-    },
-    planChargeType {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractEnum("planChargeType", com.clover.sdk.v3.billing.PlanChargeType.class);
-      }
-    },
-    numOfDevices {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractOther("numOfDevices", java.lang.Long.class);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.merchant.Merchant.JSON_CREATOR);
-      }
-    },
-    merchantPlan {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractRecord("merchantPlan", com.clover.sdk.v3.merchant.MerchantPlan.JSON_CREATOR);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(MerchantPlanCharge instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    charge
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.billing.Charge.JSON_CREATOR)),
+    planChargeType
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.billing.PlanChargeType.class)),
+    numOfDevices
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.Merchant.JSON_CREATOR)),
+    merchantPlan
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantPlan.JSON_CREATOR)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantPlanCharge> genClient;
+  private final GenericClient<MerchantPlanCharge> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantPlanCharge() {
     genClient = new GenericClient<MerchantPlanCharge>(this);
   }
@@ -152,8 +131,8 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantPlanCharge(boolean noInit) {
     genClient = null;
   }

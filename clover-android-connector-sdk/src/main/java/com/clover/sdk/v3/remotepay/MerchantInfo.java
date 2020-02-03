@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -95,75 +95,46 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantInfo> {
-    merchantID {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("merchantID", java.lang.String.class);
-      }
-    },
-    merchantMID {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("merchantMID", java.lang.String.class);
-      }
-    },
-    merchantName {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("merchantName", java.lang.String.class);
-      }
-    },
-    supportsAuths {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsAuths", java.lang.Boolean.class);
-      }
-    },
-    supportsPreAuths {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsPreAuths", java.lang.Boolean.class);
-      }
-    },
-    supportsSales {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsSales", java.lang.Boolean.class);
-      }
-    },
-    supportsVaultCards {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsVaultCards", java.lang.Boolean.class);
-      }
-    },
-    supportsManualRefunds {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsManualRefunds", java.lang.Boolean.class);
-      }
-    },
-    supportsTipAdjust {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractOther("supportsTipAdjust", java.lang.Boolean.class);
-      }
-    },
-    deviceInfo {
-      @Override
-      public Object extractValue(MerchantInfo instance) {
-        return instance.genClient.extractRecord("deviceInfo", com.clover.sdk.v3.remotepay.DeviceInfo.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    merchantID
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantMID
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportsAuths
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsPreAuths
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsVaultCards
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsManualRefunds
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsTipAdjust
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    deviceInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.remotepay.DeviceInfo.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantInfo> genClient;
+  private final GenericClient<MerchantInfo> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public MerchantInfo() {
     genClient = new GenericClient<MerchantInfo>(this);
   }
@@ -174,8 +145,8 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected MerchantInfo(boolean noInit) {
     genClient = null;
   }

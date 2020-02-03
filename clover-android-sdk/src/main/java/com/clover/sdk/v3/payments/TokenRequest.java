@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -159,101 +159,52 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<TokenRequest> {
-    id {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    type {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractEnum("type", com.clover.sdk.v3.payments.TokenRequestType.class);
-      }
-    },
-    employee {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("employee", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    device {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("device", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchant {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("merchant", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    tender {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("tender", com.clover.sdk.v3.base.Tender.JSON_CREATOR);
-      }
-    },
-    customer {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("customer", com.clover.sdk.v3.customers.Customer.JSON_CREATOR);
-      }
-    },
-    externalReferenceId {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("externalReferenceId", java.lang.String.class);
-      }
-    },
-    cardTransaction {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("cardTransaction", com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR);
-      }
-    },
-    note {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("note", java.lang.String.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.payments.Result.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
-    deletedTime {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractOther("deletedTime", java.lang.Long.class);
-      }
-    },
-    transactionInfo {
-      @Override
-      public Object extractValue(TokenRequest instance) {
-        return instance.genClient.extractRecord("transactionInfo", com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TokenRequestType.class)),
+    employee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    device
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    tender
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+    customer
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.customers.Customer.JSON_CREATOR)),
+    externalReferenceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardTransaction
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.Result.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    transactionInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<TokenRequest> genClient;
+  private final GenericClient<TokenRequest> genClient;
 
   /**
    * Constructs a new empty instance.

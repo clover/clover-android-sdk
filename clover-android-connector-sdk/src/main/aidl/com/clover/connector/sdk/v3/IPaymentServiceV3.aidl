@@ -45,10 +45,6 @@ import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
  *   }
  * </pre>
  */
-
-/**
- * Created by glennbedwell on 9/6/16.
- */
 interface IPaymentServiceV3 {
   /**
    * add an ICloverConnectorListener to receive callbacks

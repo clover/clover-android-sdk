@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -80,45 +80,36 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CapturePreAuthRequest> {
-    amount {
-      @Override
-      public Object extractValue(CapturePreAuthRequest instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    tipAmount {
-      @Override
-      public Object extractValue(CapturePreAuthRequest instance) {
-        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
-      }
-    },
-    paymentId {
-      @Override
-      public Object extractValue(CapturePreAuthRequest instance) {
-        return instance.genClient.extractOther("paymentId", java.lang.String.class);
-      }
-    },
-    requestId {
-      @Override
-      public Object extractValue(CapturePreAuthRequest instance) {
-        return instance.genClient.extractOther("requestId", java.lang.String.class);
-      }
-    },
-    version {
-      @Override
-      public Object extractValue(CapturePreAuthRequest instance) {
-        return instance.genClient.extractOther("version", java.lang.Integer.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tipAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    paymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CapturePreAuthRequest> genClient;
+  private final GenericClient<CapturePreAuthRequest> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CapturePreAuthRequest() {
     super(false);
     genClient = new GenericClient<CapturePreAuthRequest>(this);
@@ -130,8 +121,8 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CapturePreAuthRequest(boolean noInit) {
     super(false);
     genClient = null;

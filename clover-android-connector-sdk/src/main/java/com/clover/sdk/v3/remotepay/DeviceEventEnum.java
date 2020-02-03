@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,27 +49,30 @@ public class DeviceEventEnum extends GenericParcelable implements com.clover.sdk
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<DeviceEventEnum> {
-    deviceErrorEventCode {
-      @Override
-      public Object extractValue(DeviceEventEnum instance) {
-        return instance.genClient.extractEnum("deviceErrorEventCode", com.clover.sdk.v3.remotepay.DeviceErrorEventCode.class);
-      }
-    },
-    deviceEventState {
-      @Override
-      public Object extractValue(DeviceEventEnum instance) {
-        return instance.genClient.extractEnum("deviceEventState", com.clover.sdk.v3.remotepay.DeviceEventState.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    deviceErrorEventCode
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.DeviceErrorEventCode.class)),
+    deviceEventState
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.DeviceEventState.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<DeviceEventEnum> genClient;
+  private final GenericClient<DeviceEventEnum> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public DeviceEventEnum() {
     genClient = new GenericClient<DeviceEventEnum>(this);
   }
@@ -80,8 +83,8 @@ public class DeviceEventEnum extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected DeviceEventEnum(boolean noInit) {
     genClient = null;
   }

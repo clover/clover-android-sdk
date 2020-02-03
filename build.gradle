@@ -18,9 +18,6 @@ buildscript {
   repositories {
     mavenLocal()
     mavenCentral()
-    if (project.properties.containsKey("localArtifactoryUrl")) {
-      maven { url localArtifactoryUrl }
-    }
     jcenter()
     google()
   }

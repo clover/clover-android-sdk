@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -89,51 +89,38 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<KeyedSummary> {
-    groupByField {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("groupByField", java.lang.String.class);
-      }
-    },
-    num {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("num", java.lang.Long.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    tipAmount {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("tipAmount", java.lang.Long.class);
-      }
-    },
-    taxAmount {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("taxAmount", java.lang.Long.class);
-      }
-    },
-    serviceChargeAmount {
-      @Override
-      public Object extractValue(KeyedSummary instance) {
-        return instance.genClient.extractOther("serviceChargeAmount", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    groupByField
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    num
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tipAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    taxAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    serviceChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<KeyedSummary> genClient;
+  private final GenericClient<KeyedSummary> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public KeyedSummary() {
     genClient = new GenericClient<KeyedSummary>(this);
   }
@@ -144,8 +131,8 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected KeyedSummary(boolean noInit) {
     genClient = null;
   }

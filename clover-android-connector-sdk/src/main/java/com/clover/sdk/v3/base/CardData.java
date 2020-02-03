@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -151,99 +151,54 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<CardData> {
-    track1 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("track1", java.lang.String.class);
-      }
-    },
-    track2 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("track2", java.lang.String.class);
-      }
-    },
-    track3 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("track3", java.lang.String.class);
-      }
-    },
-    encrypted {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("encrypted", java.lang.Boolean.class);
-      }
-    },
-    maskedTrack1 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("maskedTrack1", java.lang.String.class);
-      }
-    },
-    maskedTrack2 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("maskedTrack2", java.lang.String.class);
-      }
-    },
-    maskedTrack3 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("maskedTrack3", java.lang.String.class);
-      }
-    },
-    pan {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("pan", java.lang.String.class);
-      }
-    },
-    cardholderName {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("cardholderName", java.lang.String.class);
-      }
-    },
-    firstName {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("firstName", java.lang.String.class);
-      }
-    },
-    lastName {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("lastName", java.lang.String.class);
-      }
-    },
-    exp {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("exp", java.lang.String.class);
-      }
-    },
-    last4 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("last4", java.lang.String.class);
-      }
-    },
-    first6 {
-      @Override
-      public Object extractValue(CardData instance) {
-        return instance.genClient.extractOther("first6", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    track1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track3
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    encrypted
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    maskedTrack1
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedTrack2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    maskedTrack3
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pan
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cardholderName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    firstName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lastName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    exp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    last4
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    first6
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<CardData> genClient;
+  private final GenericClient<CardData> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public CardData() {
     genClient = new GenericClient<CardData>(this);
   }
@@ -254,8 +209,8 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected CardData(boolean noInit) {
     genClient = null;
   }

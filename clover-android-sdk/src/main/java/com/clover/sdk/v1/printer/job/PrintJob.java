@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
@@ -50,6 +51,10 @@ public abstract class PrintJob implements Parcelable {
   public static final int FLAG_CUSTOMER = 1 << 6;
   /** Print receipt for the merchant with signature line if required*/
   public static final int FLAG_MERCHANT = 1 << 7;
+  /** Enable the printing of print groups for the receipt. Equivalent to the builder method.
+   * @see Builder#includePrintGroups(boolean)
+   */
+  public static final int FLAG_USE_PRINT_GROUP = 1 << 8;
 
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
@@ -76,6 +81,22 @@ public abstract class PrintJob implements Parcelable {
      */
     public Builder flag(int flag) {
       this.flags |= flag;
+      return this;
+    }
+
+    /**
+     * Toggle for enabling print groups for the receipt.
+     *
+     * This is equivalent to calling flag(FLAG_USE_PRINT_GROUP).
+     * @see #FLAG_USE_PRINT_GROUP
+     */
+    public Builder includePrintGroups(boolean includePrintGroups) {
+      if (includePrintGroups) {
+        this.flags |= PrintJob.FLAG_USE_PRINT_GROUP;
+      } else {
+        this.flags &= ~PrintJob.FLAG_USE_PRINT_GROUP;
+      }
+
       return this;
     }
 
@@ -138,7 +159,7 @@ public abstract class PrintJob implements Parcelable {
   }
 
   protected PrintJob(Parcel in) {
-    Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader());
+    Bundle bundle = in.readBundle(((Object) this).getClass().getClassLoader());
     flags = bundle.getInt(BUNDLE_KEY_FLAGS);
     printToAny = bundle.getBoolean(BUNDLE_KEY_PRINT_TO_ANY);
     // Add more data here, but remember old apps might not provide it!

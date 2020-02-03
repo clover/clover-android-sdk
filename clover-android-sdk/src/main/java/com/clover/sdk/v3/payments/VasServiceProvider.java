@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -84,51 +84,38 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<VasServiceProvider> {
-    providerPackage {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("providerPackage", java.lang.String.class);
-      }
-    },
-    protocolId {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractEnum("protocolId", com.clover.sdk.v3.payments.VasProtocol.class);
-      }
-    },
-    supportedServices {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractListRecord("supportedServices", com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR);
-      }
-    },
-    protocolConfig {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractMap("protocolConfig");
-      }
-    },
-    pushUrl {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("pushUrl", java.lang.String.class);
-      }
-    },
-    pushTitle {
-      @Override
-      public Object extractValue(VasServiceProvider instance) {
-        return instance.genClient.extractOther("pushTitle", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    providerPackage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    protocolId
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.VasProtocol.class)),
+    supportedServices
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR)),
+    protocolConfig
+        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+    pushUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pushTitle
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<VasServiceProvider> genClient;
+  private final GenericClient<VasServiceProvider> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public VasServiceProvider() {
     genClient = new GenericClient<VasServiceProvider>(this);
   }
@@ -139,8 +126,8 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected VasServiceProvider(boolean noInit) {
     genClient = null;
   }

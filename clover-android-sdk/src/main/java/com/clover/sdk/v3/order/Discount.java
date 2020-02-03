@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -89,51 +89,38 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Discount> {
-    id {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    discount {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractRecord("discount", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    approver {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractRecord("approver", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    amount {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractOther("amount", java.lang.Long.class);
-      }
-    },
-    percentage {
-      @Override
-      public Object extractValue(Discount instance) {
-        return instance.genClient.extractOther("percentage", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    discount
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    approver
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    amount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    percentage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Discount> genClient;
+  private final GenericClient<Discount> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Discount() {
     genClient = new GenericClient<Discount>(this);
   }
@@ -144,8 +131,8 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Discount(boolean noInit) {
     genClient = null;
   }

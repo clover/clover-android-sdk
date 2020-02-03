@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -88,6 +88,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getClientRepresentative clientRepresentative}</li>
  * <li>{@link #getMerchantAuthType merchantAuthType}</li>
  * <li>{@link #getSysPrin sysPrin}</li>
+ * <li>{@link #getTaxId taxId}</li>
+ * <li>{@link #getBusinessType businessType}</li>
+ * <li>{@link #getPartnerId partnerId}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
@@ -475,6 +478,27 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   }
 
   /**
+   * tax id of this merchant
+   */
+  public java.lang.String getTaxId() {
+    return genClient.cacheGet(CacheKey.taxId);
+  }
+
+  /**
+   * business type of this merchant
+   */
+  public java.lang.String getBusinessType() {
+    return genClient.cacheGet(CacheKey.businessType);
+  }
+
+  /**
+   * partner id of this merchant
+   */
+  public java.lang.String getPartnerId() {
+    return genClient.cacheGet(CacheKey.partnerId);
+  }
+
+  /**
    * When record created
    */
   public java.lang.Long getCreatedTime() {
@@ -491,353 +515,142 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<MerchantBoarding> {
-    merchantRef {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractRecord("merchantRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    billToName {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("billToName", java.lang.String.class);
-      }
-    },
-    achBankId {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("achBankId", java.lang.String.class);
-      }
-    },
-    accountStatus {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("accountStatus", java.lang.String.class);
-      }
-    },
-    store {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("store", java.lang.String.class);
-      }
-    },
-    daylightSavings {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("daylightSavings", java.lang.Boolean.class);
-      }
-    },
-    seasonal {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("seasonal", java.lang.Boolean.class);
-      }
-    },
-    transArmorKey {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("transArmorKey", java.lang.String.class);
-      }
-    },
-    creditLimit {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("creditLimit", java.lang.Double.class);
-      }
-    },
-    authLimit {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("authLimit", java.lang.Double.class);
-      }
-    },
-    saleLimit {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("saleLimit", java.lang.Double.class);
-      }
-    },
-    externalMerchant {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("externalMerchant", java.lang.Boolean.class);
-      }
-    },
-    dynamicDba {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("dynamicDba", java.lang.Boolean.class);
-      }
-    },
-    relationshipManager {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("relationshipManager", java.lang.String.class);
-      }
-    },
-    taxExempt {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("taxExempt", java.lang.Boolean.class);
-      }
-    },
-    salesman {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("salesman", java.lang.String.class);
-      }
-    },
-    valueLink {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("valueLink", java.lang.Boolean.class);
-      }
-    },
-    valueLinkMid {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("valueLinkMid", java.lang.String.class);
-      }
-    },
-    altValueLinkMid {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("altValueLinkMid", java.lang.String.class);
-      }
-    },
-    receiptDba {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("receiptDba", java.lang.String.class);
-      }
-    },
-    bankNumber {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("bankNumber", java.lang.String.class);
-      }
-    },
-    parentMerchantId {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("parentMerchantId", java.lang.String.class);
-      }
-    },
-    multiMerchantType {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("multiMerchantType", java.lang.String.class);
-      }
-    },
-    merchantData {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("merchantData", java.lang.String.class);
-      }
-    },
-    faxPhone {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("faxPhone", java.lang.String.class);
-      }
-    },
-    merchantType {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("merchantType", java.lang.String.class);
-      }
-    },
-    multiCurrencyIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("multiCurrencyIndicator", java.lang.String.class);
-      }
-    },
-    preferredMerchant {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("preferredMerchant", java.lang.String.class);
-      }
-    },
-    visaIram {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("visaIram", java.lang.String.class);
-      }
-    },
-    transArmorIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("transArmorIndicator", java.lang.String.class);
-      }
-    },
-    signingKey {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("signingKey", java.lang.String.class);
-      }
-    },
-    visaDebitAccept {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("visaDebitAccept", java.lang.String.class);
-      }
-    },
-    mastercardDebitAccept {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("mastercardDebitAccept", java.lang.String.class);
-      }
-    },
-    sourceIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("sourceIndicator", java.lang.String.class);
-      }
-    },
-    foreignDomesticIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("foreignDomesticIndicator", java.lang.String.class);
-      }
-    },
-    accountFunding {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("accountFunding", java.lang.String.class);
-      }
-    },
-    directMarketing {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("directMarketing", java.lang.String.class);
-      }
-    },
-    participantRelationship {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("participantRelationship", java.lang.String.class);
-      }
-    },
-    processSettlement {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("processSettlement", java.lang.String.class);
-      }
-    },
-    recurringFlag {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("recurringFlag", java.lang.String.class);
-      }
-    },
-    linkFrom {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("linkFrom", java.lang.String.class);
-      }
-    },
-    linkTo {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("linkTo", java.lang.String.class);
-      }
-    },
-    emvAllowed {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("emvAllowed", java.lang.String.class);
-      }
-    },
-    previousAccountStatus {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("previousAccountStatus", java.lang.String.class);
-      }
-    },
-    leaseCompanyCode {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("leaseCompanyCode", java.lang.String.class);
-      }
-    },
-    processMode {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("processMode", java.lang.String.class);
-      }
-    },
-    agentBankIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("agentBankIndicator", java.lang.String.class);
-      }
-    },
-    nonMpaIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("nonMpaIndicator", java.lang.String.class);
-      }
-    },
-    internetIndicator {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("internetIndicator", java.lang.String.class);
-      }
-    },
-    chargeBackRetrievalAddressFlag {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("chargeBackRetrievalAddressFlag", java.lang.String.class);
-      }
-    },
-    viRelationshipParticipant {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("viRelationshipParticipant", java.lang.String.class);
-      }
-    },
-    retailDescription {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("retailDescription", java.lang.String.class);
-      }
-    },
-    clientRepresentative {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("clientRepresentative", java.lang.String.class);
-      }
-    },
-    merchantAuthType {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("merchantAuthType", java.lang.String.class);
-      }
-    },
-    sysPrin {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("sysPrin", java.lang.String.class);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    modifiedTime {
-      @Override
-      public Object extractValue(MerchantBoarding instance) {
-        return instance.genClient.extractOther("modifiedTime", java.lang.Long.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    merchantRef
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    billToName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    achBankId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    accountStatus
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    store
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    daylightSavings
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    seasonal
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    transArmorKey
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    creditLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    authLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    saleLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    externalMerchant
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    dynamicDba
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    relationshipManager
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    taxExempt
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    salesman
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    valueLink
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    valueLinkMid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    altValueLinkMid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    receiptDba
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bankNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    parentMerchantId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    multiMerchantType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    faxPhone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    multiCurrencyIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    preferredMerchant
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    visaIram
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    transArmorIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    signingKey
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    visaDebitAccept
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mastercardDebitAccept
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sourceIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    foreignDomesticIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    accountFunding
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    directMarketing
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    participantRelationship
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    processSettlement
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    recurringFlag
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    linkFrom
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    linkTo
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    emvAllowed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    previousAccountStatus
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    leaseCompanyCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    processMode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    agentBankIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    nonMpaIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    internetIndicator
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    chargeBackRetrievalAddressFlag
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    viRelationshipParticipant
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    retailDescription
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    clientRepresentative
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    merchantAuthType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sysPrin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    taxId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    businessType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    partnerId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<MerchantBoarding> genClient;
+  private final GenericClient<MerchantBoarding> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -989,6 +802,12 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     genClient.validateLength(getMerchantAuthType(), 1);
 
     genClient.validateLength(getSysPrin(), 10);
+
+    genClient.validateLength(getTaxId(), 40);
+
+    genClient.validateLength(getBusinessType(), 15);
+
+    genClient.validateLength(getPartnerId(), 64);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -1264,6 +1083,21 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'sysPrin' field is set and is not null */
   public boolean isNotNullSysPrin() {
     return genClient.cacheValueIsNotNull(CacheKey.sysPrin);
+  }
+
+  /** Checks whether the 'taxId' field is set and is not null */
+  public boolean isNotNullTaxId() {
+    return genClient.cacheValueIsNotNull(CacheKey.taxId);
+  }
+
+  /** Checks whether the 'businessType' field is set and is not null */
+  public boolean isNotNullBusinessType() {
+    return genClient.cacheValueIsNotNull(CacheKey.businessType);
+  }
+
+  /** Checks whether the 'partnerId' field is set and is not null */
+  public boolean isNotNullPartnerId() {
+    return genClient.cacheValueIsNotNull(CacheKey.partnerId);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -1551,6 +1385,21 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'sysPrin' field has been set, however the value could be null */
   public boolean hasSysPrin() {
     return genClient.cacheHasKey(CacheKey.sysPrin);
+  }
+
+  /** Checks whether the 'taxId' field has been set, however the value could be null */
+  public boolean hasTaxId() {
+    return genClient.cacheHasKey(CacheKey.taxId);
+  }
+
+  /** Checks whether the 'businessType' field has been set, however the value could be null */
+  public boolean hasBusinessType() {
+    return genClient.cacheHasKey(CacheKey.businessType);
+  }
+
+  /** Checks whether the 'partnerId' field has been set, however the value could be null */
+  public boolean hasPartnerId() {
+    return genClient.cacheHasKey(CacheKey.partnerId);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -1952,6 +1801,27 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   }
 
   /**
+   * Sets the field 'taxId'.
+   */
+  public MerchantBoarding setTaxId(java.lang.String taxId) {
+    return genClient.setOther(taxId, CacheKey.taxId);
+  }
+
+  /**
+   * Sets the field 'businessType'.
+   */
+  public MerchantBoarding setBusinessType(java.lang.String businessType) {
+    return genClient.setOther(businessType, CacheKey.businessType);
+  }
+
+  /**
+   * Sets the field 'partnerId'.
+   */
+  public MerchantBoarding setPartnerId(java.lang.String partnerId) {
+    return genClient.setOther(partnerId, CacheKey.partnerId);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public MerchantBoarding setCreatedTime(java.lang.Long createdTime) {
@@ -2186,6 +2056,18 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   public void clearSysPrin() {
     genClient.clear(CacheKey.sysPrin);
   }
+  /** Clears the 'taxId' field, the 'has' method for this field will now return false */
+  public void clearTaxId() {
+    genClient.clear(CacheKey.taxId);
+  }
+  /** Clears the 'businessType' field, the 'has' method for this field will now return false */
+  public void clearBusinessType() {
+    genClient.clear(CacheKey.businessType);
+  }
+  /** Clears the 'partnerId' field, the 'has' method for this field will now return false */
+  public void clearPartnerId() {
+    genClient.clear(CacheKey.partnerId);
+  }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
@@ -2356,6 +2238,12 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     public static final long MERCHANTAUTHTYPE_MAX_LEN = 1;
     public static final boolean SYSPRIN_IS_REQUIRED = false;
     public static final long SYSPRIN_MAX_LEN = 10;
+    public static final boolean TAXID_IS_REQUIRED = false;
+    public static final long TAXID_MAX_LEN = 40;
+    public static final boolean BUSINESSTYPE_IS_REQUIRED = false;
+    public static final long BUSINESSTYPE_MAX_LEN = 15;
+    public static final boolean PARTNERID_IS_REQUIRED = false;
+    public static final long PARTNERID_MAX_LEN = 64;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
 

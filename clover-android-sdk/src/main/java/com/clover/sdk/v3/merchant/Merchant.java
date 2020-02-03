@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -58,7 +58,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOrderTypes orderTypes}</li>
  * <li>{@link #getReseller reseller}</li>
  * <li>{@link #getOpeningHours opening_hours}</li>
- * <li>{@link #getBusinessTypeCode businessTypeCode}</li>
+ * <li>{@link #getBillingInfo billingInfo}</li>
  * <li>{@link #getIsBillable isBillable}</li>
  * <li>{@link #getDevices devices}</li>
  * <li>{@link #getMerchantGroups merchantGroups}</li>
@@ -71,6 +71,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getProgramExpresses programExpresses}</li>
  * <li>{@link #getDeviceBoardings deviceBoardings}</li>
  * <li>{@link #getSelfBoardingApplication selfBoardingApplication}</li>
+ * <li>{@link #getEquipment equipment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -227,14 +228,14 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-   * The business type of the merchant
+   * Billing information for the merchant in context.
    */
-  public com.clover.sdk.v3.base.BusinessTypeCode getBusinessTypeCode() {
-    return genClient.cacheGet(CacheKey.businessTypeCode);
+  public com.clover.sdk.v3.merchant.MerchantBillingInfo getBillingInfo() {
+    return genClient.cacheGet(CacheKey.billingInfo);
   }
 
   /**
-   * Returns true when the merchant is billable.
+   * Deprecated (use billingInfo instead): Returns true when the merchant is billable.
    */
   public java.lang.Boolean getIsBillable() {
     return genClient.cacheGet(CacheKey.isBillable);
@@ -317,254 +318,114 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.selfBoardingApplication);
   }
 
-
-
-
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Merchant> {
-    id {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    owner {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("owner", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
-    address {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("address", com.clover.sdk.v3.base.Address.JSON_CREATOR);
-      }
-    },
-    merchantPlan {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("merchantPlan", com.clover.sdk.v3.merchant.MerchantPlan.JSON_CREATOR);
-      }
-    },
-    defaultCurrency {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("defaultCurrency", java.lang.String.class);
-      }
-    },
-    phoneNumber {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("phoneNumber", java.lang.String.class);
-      }
-    },
-    website {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("website", java.lang.String.class);
-      }
-    },
-    customerContactEmail {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("customerContactEmail", java.lang.String.class);
-      }
-    },
-    logos {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("logos", com.clover.sdk.v3.merchant.Logo.JSON_CREATOR);
-      }
-    },
-    createdTime {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("createdTime", java.lang.Long.class);
-      }
-    },
-    properties {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("properties", com.clover.sdk.v3.merchant.MerchantProperties.JSON_CREATOR);
-      }
-    },
-    gateway {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("gateway", com.clover.sdk.v3.merchant.Gateway.JSON_CREATOR);
-      }
-    },
-    tipSuggestions {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("tipSuggestions", com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR);
-      }
-    },
-    employees {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("employees", com.clover.sdk.v3.employees.Employee.JSON_CREATOR);
-      }
-    },
-    items {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("items", com.clover.sdk.v3.inventory.Item.JSON_CREATOR);
-      }
-    },
-    tags {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("tags", com.clover.sdk.v3.inventory.Tag.JSON_CREATOR);
-      }
-    },
-    tenders {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("tenders", com.clover.sdk.v3.base.Tender.JSON_CREATOR);
-      }
-    },
-    shifts {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("shifts", com.clover.sdk.v3.employees.Shift.JSON_CREATOR);
-      }
-    },
-    orders {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("orders", com.clover.sdk.v3.order.Order.JSON_CREATOR);
-      }
-    },
-    payments {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("payments", com.clover.sdk.v3.payments.Payment.JSON_CREATOR);
-      }
-    },
-    taxRates {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("taxRates", com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR);
-      }
-    },
-    printers {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("printers", com.clover.sdk.v3.printer.Printer.JSON_CREATOR);
-      }
-    },
-    modifierGroups {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("modifierGroups", com.clover.sdk.v3.inventory.ModifierGroup.JSON_CREATOR);
-      }
-    },
-    orderTypes {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("orderTypes", com.clover.sdk.v3.order.OrderType.JSON_CREATOR);
-      }
-    },
-    reseller {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("reseller", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    opening_hours {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("opening_hours", com.clover.sdk.v3.hours.HoursSet.JSON_CREATOR);
-      }
-    },
-    businessTypeCode {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractEnum("businessTypeCode", com.clover.sdk.v3.base.BusinessTypeCode.class);
-      }
-    },
-    isBillable {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("isBillable", java.lang.Boolean.class);
-      }
-    },
-    devices {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("devices", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    merchantGroups {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("merchantGroups", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    partnerApp {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("partnerApp", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-    accountType {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractOther("accountType", java.lang.String.class);
-      }
-    },
-    bankProcessing {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("bankProcessing", com.clover.sdk.v3.merchant.MerchantBankProcessing.JSON_CREATOR);
-      }
-    },
-    merchantBoarding {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("merchantBoarding", com.clover.sdk.v3.merchant.MerchantBoarding.JSON_CREATOR);
-      }
-    },
-    hierarchy {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("hierarchy", com.clover.sdk.v3.merchant.MerchantHierarchy.JSON_CREATOR);
-      }
-    },
-    externalMerchants {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("externalMerchants", com.clover.sdk.v3.merchant.ExternalMerchant.JSON_CREATOR);
-      }
-    },
-    programExpresses {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("programExpresses", com.clover.sdk.v3.merchant.MerchantProgramExpress.JSON_CREATOR);
-      }
-    },
-    deviceBoardings {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractListRecord("deviceBoardings", com.clover.sdk.v3.merchant.MerchantDeviceBoarding.JSON_CREATOR);
-      }
-    },
-    selfBoardingApplication {
-      @Override
-      public Object extractValue(Merchant instance) {
-        return instance.genClient.extractRecord("selfBoardingApplication", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
-      ;
+  /**
+   * The equipment associated with the merchant. This is a combination of boarded equipment and provisioned devices.
+   */
+  public java.util.List<com.clover.sdk.v3.boarding.Equipment> getEquipment() {
+    return genClient.cacheGet(CacheKey.equipment);
   }
 
-  private GenericClient<Merchant> genClient;
+
+
+
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    owner
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
+    address
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Address.JSON_CREATOR)),
+    merchantPlan
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantPlan.JSON_CREATOR)),
+    defaultCurrency
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    phoneNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    website
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customerContactEmail
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    logos
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.Logo.JSON_CREATOR)),
+    createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    properties
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantProperties.JSON_CREATOR)),
+    gateway
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.Gateway.JSON_CREATOR)),
+    tipSuggestions
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR)),
+    employees
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
+    items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Item.JSON_CREATOR)),
+    tags
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Tag.JSON_CREATOR)),
+    tenders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+    shifts
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.employees.Shift.JSON_CREATOR)),
+    orders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.Order.JSON_CREATOR)),
+    payments
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
+    taxRates
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.TaxRate.JSON_CREATOR)),
+    printers
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.printer.Printer.JSON_CREATOR)),
+    modifierGroups
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.ModifierGroup.JSON_CREATOR)),
+    orderTypes
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.OrderType.JSON_CREATOR)),
+    reseller
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    opening_hours
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.hours.HoursSet.JSON_CREATOR)),
+    billingInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantBillingInfo.JSON_CREATOR)),
+    isBillable
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    devices
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchantGroups
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    partnerApp
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    accountType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bankProcessing
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantBankProcessing.JSON_CREATOR)),
+    merchantBoarding
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantBoarding.JSON_CREATOR)),
+    hierarchy
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantHierarchy.JSON_CREATOR)),
+    externalMerchants
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.ExternalMerchant.JSON_CREATOR)),
+    programExpresses
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantProgramExpress.JSON_CREATOR)),
+    deviceBoardings
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantDeviceBoarding.JSON_CREATOR)),
+    selfBoardingApplication
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    equipment
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.boarding.Equipment.JSON_CREATOR)),
+      ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
+  }
+
+  private final GenericClient<Merchant> genClient;
 
   /**
    * Constructs a new empty instance.
@@ -821,9 +682,9 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'opening_hours' field is set and is not null and is not empty */
   public boolean isNotEmptyOpeningHours() { return isNotNullOpeningHours() && !getOpeningHours().isEmpty(); }
 
-  /** Checks whether the 'businessTypeCode' field is set and is not null */
-  public boolean isNotNullBusinessTypeCode() {
-    return genClient.cacheValueIsNotNull(CacheKey.businessTypeCode);
+  /** Checks whether the 'billingInfo' field is set and is not null */
+  public boolean isNotNullBillingInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.billingInfo);
   }
 
   /** Checks whether the 'isBillable' field is set and is not null */
@@ -900,6 +761,14 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   public boolean isNotNullSelfBoardingApplication() {
     return genClient.cacheValueIsNotNull(CacheKey.selfBoardingApplication);
   }
+
+  /** Checks whether the 'equipment' field is set and is not null */
+  public boolean isNotNullEquipment() {
+    return genClient.cacheValueIsNotNull(CacheKey.equipment);
+  }
+
+  /** Checks whether the 'equipment' field is set and is not null and is not empty */
+  public boolean isNotEmptyEquipment() { return isNotNullEquipment() && !getEquipment().isEmpty(); }
 
 
 
@@ -1038,9 +907,9 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.opening_hours);
   }
 
-  /** Checks whether the 'businessTypeCode' field has been set, however the value could be null */
-  public boolean hasBusinessTypeCode() {
-    return genClient.cacheHasKey(CacheKey.businessTypeCode);
+  /** Checks whether the 'billingInfo' field has been set, however the value could be null */
+  public boolean hasBillingInfo() {
+    return genClient.cacheHasKey(CacheKey.billingInfo);
   }
 
   /** Checks whether the 'isBillable' field has been set, however the value could be null */
@@ -1101,6 +970,11 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'selfBoardingApplication' field has been set, however the value could be null */
   public boolean hasSelfBoardingApplication() {
     return genClient.cacheHasKey(CacheKey.selfBoardingApplication);
+  }
+
+  /** Checks whether the 'equipment' field has been set, however the value could be null */
+  public boolean hasEquipment() {
+    return genClient.cacheHasKey(CacheKey.equipment);
   }
 
 
@@ -1334,10 +1208,12 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-   * Sets the field 'businessTypeCode'.
+   * Sets the field 'billingInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Merchant setBusinessTypeCode(com.clover.sdk.v3.base.BusinessTypeCode businessTypeCode) {
-    return genClient.setOther(businessTypeCode, CacheKey.businessTypeCode);
+  public Merchant setBillingInfo(com.clover.sdk.v3.merchant.MerchantBillingInfo billingInfo) {
+    return genClient.setRecord(billingInfo, CacheKey.billingInfo);
   }
 
   /**
@@ -1442,6 +1318,15 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Merchant setSelfBoardingApplication(com.clover.sdk.v3.base.Reference selfBoardingApplication) {
     return genClient.setRecord(selfBoardingApplication, CacheKey.selfBoardingApplication);
+  }
+
+  /**
+   * Sets the field 'equipment'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Merchant setEquipment(java.util.List<com.clover.sdk.v3.boarding.Equipment> equipment) {
+    return genClient.setArrayRecord(equipment, CacheKey.equipment);
   }
 
 
@@ -1553,9 +1438,9 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearOpeningHours() {
     genClient.clear(CacheKey.opening_hours);
   }
-  /** Clears the 'businessTypeCode' field, the 'has' method for this field will now return false */
-  public void clearBusinessTypeCode() {
-    genClient.clear(CacheKey.businessTypeCode);
+  /** Clears the 'billingInfo' field, the 'has' method for this field will now return false */
+  public void clearBillingInfo() {
+    genClient.clear(CacheKey.billingInfo);
   }
   /** Clears the 'isBillable' field, the 'has' method for this field will now return false */
   public void clearIsBillable() {
@@ -1604,6 +1489,10 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'selfBoardingApplication' field, the 'has' method for this field will now return false */
   public void clearSelfBoardingApplication() {
     genClient.clear(CacheKey.selfBoardingApplication);
+  }
+  /** Clears the 'equipment' field, the 'has' method for this field will now return false */
+  public void clearEquipment() {
+    genClient.clear(CacheKey.equipment);
   }
 
 
@@ -1697,7 +1586,7 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ORDERTYPES_IS_REQUIRED = false;
     public static final boolean RESELLER_IS_REQUIRED = false;
     public static final boolean OPENING_HOURS_IS_REQUIRED = false;
-    public static final boolean BUSINESSTYPECODE_IS_REQUIRED = false;
+    public static final boolean BILLINGINFO_IS_REQUIRED = false;
     public static final boolean ISBILLABLE_IS_REQUIRED = false;
     public static final boolean DEVICES_IS_REQUIRED = false;
     public static final boolean MERCHANTGROUPS_IS_REQUIRED = false;
@@ -1711,6 +1600,7 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PROGRAMEXPRESSES_IS_REQUIRED = false;
     public static final boolean DEVICEBOARDINGS_IS_REQUIRED = false;
     public static final boolean SELFBOARDINGAPPLICATION_IS_REQUIRED = false;
+    public static final boolean EQUIPMENT_IS_REQUIRED = false;
 
   }
 

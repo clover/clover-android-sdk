@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getSystemRole systemRole}</li>
  * <li>{@link #getEmployeesRef employeesRef}</li>
+ * <li>{@link #getMerchant merchant}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -68,43 +69,47 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.employeesRef);
   }
 
+  /**
+   * The merchant this role belongs to.
+   */
+  public com.clover.sdk.v3.base.Reference getMerchant() {
+    return genClient.cacheGet(CacheKey.merchant);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.roles";
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<Role> {
-    id {
-      @Override
-      public Object extractValue(Role instance) {
-        return instance.genClient.extractOther("id", java.lang.String.class);
-      }
-    },
-    name {
-      @Override
-      public Object extractValue(Role instance) {
-        return instance.genClient.extractOther("name", java.lang.String.class);
-      }
-    },
-    systemRole {
-      @Override
-      public Object extractValue(Role instance) {
-        return instance.genClient.extractEnum("systemRole", com.clover.sdk.v3.employees.AccountRole.class);
-      }
-    },
-    employeesRef {
-      @Override
-      public Object extractValue(Role instance) {
-        return instance.genClient.extractListRecord("employeesRef", com.clover.sdk.v3.base.Reference.JSON_CREATOR);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    name
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    systemRole
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.employees.AccountRole.class)),
+    employeesRef
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    merchant
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<Role> genClient;
+  private final GenericClient<Role> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public Role() {
     genClient = new GenericClient<Role>(this);
   }
@@ -115,8 +120,8 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected Role(boolean noInit) {
     genClient = null;
   }
@@ -193,6 +198,11 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'employeesRef' field is set and is not null and is not empty */
   public boolean isNotEmptyEmployeesRef() { return isNotNullEmployeesRef() && !getEmployeesRef().isEmpty(); }
 
+  /** Checks whether the 'merchant' field is set and is not null */
+  public boolean isNotNullMerchant() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchant);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -213,6 +223,11 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'employeesRef' field has been set, however the value could be null */
   public boolean hasEmployeesRef() {
     return genClient.cacheHasKey(CacheKey.employeesRef);
+  }
+
+  /** Checks whether the 'merchant' field has been set, however the value could be null */
+  public boolean hasMerchant() {
+    return genClient.cacheHasKey(CacheKey.merchant);
   }
 
 
@@ -246,6 +261,15 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setArrayRecord(employeesRef, CacheKey.employeesRef);
   }
 
+  /**
+   * Sets the field 'merchant'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Role setMerchant(com.clover.sdk.v3.base.Reference merchant) {
+    return genClient.setRecord(merchant, CacheKey.merchant);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -262,6 +286,10 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'employeesRef' field, the 'has' method for this field will now return false */
   public void clearEmployeesRef() {
     genClient.clear(CacheKey.employeesRef);
+  }
+  /** Clears the 'merchant' field, the 'has' method for this field will now return false */
+  public void clearMerchant() {
+    genClient.clear(CacheKey.merchant);
   }
 
 
@@ -328,6 +356,7 @@ public class Role extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final long NAME_MAX_LEN = 127;
     public static final boolean SYSTEMROLE_IS_REQUIRED = true;
     public static final boolean EMPLOYEESREF_IS_REQUIRED = false;
+    public static final boolean MERCHANT_IS_REQUIRED = false;
 
   }
 

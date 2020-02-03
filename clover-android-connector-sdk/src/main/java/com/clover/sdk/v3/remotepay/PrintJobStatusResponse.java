@@ -6,13 +6,13 @@
 
 
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -88,51 +88,38 @@ public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResp
 
 
 
-  private enum CacheKey implements com.clover.sdk.ValueExtractorEnum<PrintJobStatusResponse> {
-    status {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractEnum("status", com.clover.sdk.v3.printer.PrintJobStatus.class);
-      }
-    },
-    printRequestId {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractOther("printRequestId", java.lang.String.class);
-      }
-    },
-    success {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractOther("success", java.lang.Boolean.class);
-      }
-    },
-    result {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractEnum("result", com.clover.sdk.v3.remotepay.ResponseCode.class);
-      }
-    },
-    reason {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractOther("reason", java.lang.String.class);
-      }
-    },
-    message {
-      @Override
-      public Object extractValue(PrintJobStatusResponse instance) {
-        return instance.genClient.extractOther("message", java.lang.String.class);
-      }
-    },
+  private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    status
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.printer.PrintJobStatus.class)),
+    printRequestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    success
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    result
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+    reason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    message
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
+
+    private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
+
+    private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
+      extractionStrategy = s;
+    }
+
+    @Override
+    public com.clover.sdk.extractors.ExtractionStrategy getExtractionStrategy() {
+      return extractionStrategy;
+    }
   }
 
-  private GenericClient<PrintJobStatusResponse> genClient;
+  private final GenericClient<PrintJobStatusResponse> genClient;
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   public PrintJobStatusResponse() {
     super(false);
     genClient = new GenericClient<PrintJobStatusResponse>(this);
@@ -144,8 +131,8 @@ public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResp
   }
 
   /**
-  * Constructs a new empty instance.
-  */
+   * Constructs a new empty instance.
+   */
   protected PrintJobStatusResponse(boolean noInit) {
     super(false);
     genClient = null;

@@ -17,9 +17,7 @@ import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundResponse;
-/**
- * Created by glennbedwell on 9/6/16.
- */
+
 interface IPaymentServiceListener {
 
   /**

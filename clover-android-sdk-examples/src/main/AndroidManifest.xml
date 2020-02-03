@@ -27,12 +27,16 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="clover.permission.POP_CASH_DRAWER_NEW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- For AppInstallDoneService -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
-tools:replace="android:label"
+        tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+      tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.clover.android.sdk.examples.MerchantTestActivity"
             android:label="Merchant Test" >
@@ -149,6 +153,37 @@ tools:replace="android:label"
             android:name=".PrinterImageProvider"
             android:authorities="com.clover.receipt_registration_sample"
             android:exported="true" />
-    </application>
 
+        <activity android:name=".PreUninstallTestActivity"
+            android:label="Pre-uninstall Test"
+            android:launchMode="singleTask"/>
+
+        <service android:name=".PreUninstallTestService">
+            <intent-filter>
+                <action android:name="com.clover.intent.action.ACTION_APP_PRE_UNINSTALL"/>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".AppAuthTestActivity"
+            android:label="App Authentication Test"
+            android:theme="@android:style/Theme.DeviceDefault.Light"/>
+        <activity
+          android:name=".MerchantDevicesV2TestActivity"
+          android:label="@string/merchant_devices_v2_activity_label" />
+
+        <activity
+            android:name=".Platform2DetailsActivity"
+            android:label="@string/platform2_details_name"
+            android:theme="@style/Theme.AppCompat.Light"
+            />
+
+        <service android:name=".AppInstallDoneService"
+          android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <receiver android:name=".AppInstallDoneReceiver" >
+            <intent-filter>
+                <action android:name="com.clover.intent.action.APP_INSTALL_DONE" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>

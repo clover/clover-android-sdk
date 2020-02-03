@@ -93,7 +93,7 @@ public class ViewPrintJob extends PrintJob implements Parcelable {
 
   protected ViewPrintJob(Builder builder) {
     super(builder);
-    ArrayList<String> files = null;
+    ArrayList<String> files = new ArrayList<>();
     try {
       files = Views.writeBitmapChucks(builder.view, new ReceiptFileOutputFactory(builder.view.getContext()));
     } catch (Exception e) {

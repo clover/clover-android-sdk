@@ -62,15 +62,21 @@ public final class Platform2 {
 
   private Platform2() { }
 
-  // Below devices that didn't implement hasSystemFeature correctly, new models will not be added
+  // Below devices that didn't implement hasSystemFeature correctly for some particular features
   private static final String CARDHU = "cardhu";
   private static final String MAPLECUTTER = "maplecutter";
   private static final String LEAFCUTTER = "leafcutter";
   private static final String BAYLEAF = "bayleaf";
   private static final String GOLDENOAK = "goldenoak";
+  private static final String KNOTTYPINE = "knottypine";
+  private static final String BAMBOOLEAF = "bambooleaf";
+  private static final String HOLLOWPINE = "hollowpine";
 
   /**
-   * List of features that may be present on Clover devices.
+   * List of features that may be present on Clover devices. The return value for
+   * {@link #isSupported(Context)} is undefined on non-Clover Android devices.
+   *
+   * @see #isClover()
    */
   public enum Feature {
     /**
@@ -210,6 +216,26 @@ public final class Platform2 {
         }
 
         return context.getPackageManager().hasSystemFeature("clover.hardware.customer_rotation");
+      }
+    },
+    /**
+     * Device has physical USB device ports that allow accessories to be attached.
+     */
+    USB_DEVICE_PORTS {
+      @Override
+      protected boolean isSupported(Context context) {
+        // Old devices didn't advertise this system feature so hardcoded here
+        String device = Build.DEVICE;
+        switch (device) {
+          case CARDHU:
+          case MAPLECUTTER:
+          case GOLDENOAK:
+          case KNOTTYPINE:
+          case HOLLOWPINE:
+            return true;
+        }
+
+        return context.getPackageManager().hasSystemFeature("clover.hardware.usb_device_ports");
       }
     },
     ;

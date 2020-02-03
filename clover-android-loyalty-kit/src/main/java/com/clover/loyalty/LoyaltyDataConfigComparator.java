@@ -24,8 +24,6 @@ import java.util.TreeSet;
 /**
  * Defines the comparison between LoyaltyDataConfig objects.
  * Useful in TreeMap implementations, and other Collections.
- *
- * Created by michaelhampton on 7/6/18.
  */
 public class LoyaltyDataConfigComparator implements Comparator<LoyaltyDataConfig> {
   @Override

@@ -31,9 +31,6 @@ import android.os.RemoteException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by michaelhampton on 6/6/18.
- */
 public class LoyaltyV3Connector extends ServiceConnector<ILoyaltyServiceV3> {
 
   // This needs to be the value of the package from the AndroidManifest of the
@@ -132,6 +129,21 @@ public class LoyaltyV3Connector extends ServiceConnector<ILoyaltyServiceV3> {
       }
     });
   }
+
+  @SuppressWarnings({"Autoboxing", "AutoUnboxing"})
+  boolean stop(final String dynamicService, Map<String, String> dataExtras) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<ILoyaltyServiceV3, Boolean>() {
+      @Override
+      public Boolean call(ILoyaltyServiceV3 service, ResultStatus status) throws RemoteException {
+        Boolean serviceResult = service.stopWithConfiguration(dynamicService, dataExtras, status);
+        // see com.clover.sdk.v1.ServiceConnector.throwOnFailure.
+        // status.isSuccess() and status.getStatusCode() == ResultStatus.NOT_FOUND just prevent an
+        //  exception from being thrown.
+        return serviceResult != null && serviceResult;
+      }
+    });
+  }
+
 
   @SuppressWarnings({"Autoboxing", "AutoUnboxing"})
   public void updateServiceState(final String dynamicService, final String state) throws RemoteException, ClientException, ServiceException, BindingException {
