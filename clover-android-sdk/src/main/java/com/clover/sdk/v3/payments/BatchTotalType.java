@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -100,11 +99,7 @@ public class BatchTotalType extends GenericParcelable implements com.clover.sdk.
    */
   public BatchTotalType(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -235,6 +230,10 @@ public class BatchTotalType extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BatchTotalType> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BatchTotalType>() {
+    public Class<BatchTotalType> getCreatedClass() {
+      return BatchTotalType.class;
+    }
+
     @Override
     public BatchTotalType create(org.json.JSONObject jsonObject) {
       return new BatchTotalType(jsonObject);
@@ -242,10 +241,8 @@ public class BatchTotalType extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean COUNT_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
-
   }
 
 }

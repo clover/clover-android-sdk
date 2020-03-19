@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class PaymentProcessedPayload extends GenericParcelable implements com.cl
    */
   public PaymentProcessedPayload(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -130,6 +125,7 @@ public class PaymentProcessedPayload extends GenericParcelable implements com.cl
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'merchant' field is set and is not null */
@@ -233,6 +229,10 @@ public class PaymentProcessedPayload extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentProcessedPayload> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentProcessedPayload>() {
+    public Class<PaymentProcessedPayload> getCreatedClass() {
+      return PaymentProcessedPayload.class;
+    }
+
     @Override
     public PaymentProcessedPayload create(org.json.JSONObject jsonObject) {
       return new PaymentProcessedPayload(jsonObject);
@@ -240,10 +240,8 @@ public class PaymentProcessedPayload extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean ORDER_IS_REQUIRED = false;
-
   }
 
 }

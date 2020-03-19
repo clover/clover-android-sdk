@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -180,11 +179,7 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public WebHook(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -216,11 +211,11 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getUrl(), 1023);
+    genClient.validateLength(CacheKey.url, getUrl(), 1023);
 
-    genClient.validateLength(getSecret(), 36);
+    genClient.validateLength(CacheKey.secret, getSecret(), 36);
 
-    genClient.validateLength(getVerification(), 36);
+    genClient.validateLength(CacheKey.verification, getVerification(), 36);
   }
 
   /** Checks whether the 'url' field is set and is not null */
@@ -551,6 +546,10 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<WebHook> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<WebHook>() {
+    public Class<WebHook> getCreatedClass() {
+      return WebHook.class;
+    }
+
     @Override
     public WebHook create(org.json.JSONObject jsonObject) {
       return new WebHook(jsonObject);
@@ -558,7 +557,6 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean URL_IS_REQUIRED = false;
     public static final long URL_MAX_LEN = 1023;
     public static final boolean SECRET_IS_REQUIRED = false;
@@ -575,7 +573,6 @@ public class WebHook extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean EMPLOYEES_IS_REQUIRED = false;
     public static final boolean CASHADJUSTMENT_IS_REQUIRED = false;
     public static final boolean EXPORTS_IS_REQUIRED = false;
-
   }
 
 }

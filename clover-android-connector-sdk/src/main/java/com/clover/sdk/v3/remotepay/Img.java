@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class Img extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public Img(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -266,6 +261,10 @@ public class Img extends GenericParcelable implements com.clover.sdk.v3.Validato
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Img> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Img>() {
+    public Class<Img> getCreatedClass() {
+      return Img.class;
+    }
+
     @Override
     public Img create(org.json.JSONObject jsonObject) {
       return new Img(jsonObject);
@@ -273,11 +272,9 @@ public class Img extends GenericParcelable implements com.clover.sdk.v3.Validato
   };
 
   public interface Constraints {
-
     public static final boolean SRC_IS_REQUIRED = false;
     public static final boolean WIDTH_IS_REQUIRED = false;
     public static final boolean HEIGHT_IS_REQUIRED = false;
-
   }
 
 }

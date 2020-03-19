@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class KeyPressEnum extends GenericParcelable implements com.clover.sdk.v3
    */
   public KeyPressEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class KeyPressEnum extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<KeyPressEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<KeyPressEnum>() {
+    public Class<KeyPressEnum> getCreatedClass() {
+      return KeyPressEnum.class;
+    }
+
     @Override
     public KeyPressEnum create(org.json.JSONObject jsonObject) {
       return new KeyPressEnum(jsonObject);
@@ -208,9 +207,7 @@ public class KeyPressEnum extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean STATUS_IS_REQUIRED = false;
-
   }
 
 }

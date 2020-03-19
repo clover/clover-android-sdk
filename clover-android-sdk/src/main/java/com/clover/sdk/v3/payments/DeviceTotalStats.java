@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -176,11 +175,7 @@ public class DeviceTotalStats extends GenericParcelable implements com.clover.sd
    */
   public DeviceTotalStats(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -540,6 +535,10 @@ public class DeviceTotalStats extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeviceTotalStats> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeviceTotalStats>() {
+    public Class<DeviceTotalStats> getCreatedClass() {
+      return DeviceTotalStats.class;
+    }
+
     @Override
     public DeviceTotalStats create(org.json.JSONObject jsonObject) {
       return new DeviceTotalStats(jsonObject);
@@ -547,7 +546,6 @@ public class DeviceTotalStats extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean DEVICEID_IS_REQUIRED = false;
     public static final boolean DEVICESERIAL_IS_REQUIRED = false;
     public static final boolean DEVICENAME_IS_REQUIRED = false;
@@ -560,7 +558,6 @@ public class DeviceTotalStats extends GenericParcelable implements com.clover.sd
     public static final boolean TAX_IS_REQUIRED = false;
     public static final boolean TIPS_IS_REQUIRED = false;
     public static final boolean CARDTOTALS_IS_REQUIRED = false;
-
   }
 
 }

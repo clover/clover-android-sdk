@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -254,11 +253,7 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Gateway(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -290,11 +285,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getPaymentProcessorName(), 127);
+    genClient.validateLength(CacheKey.paymentProcessorName, getPaymentProcessorName(), 127);
 
-    genClient.validateLength(getAuthorizationFrontEnd(), 10);
+    genClient.validateLength(CacheKey.authorizationFrontEnd, getAuthorizationFrontEnd(), 10);
 
-    genClient.validateLength(getAcquiringBackEnd(), 10);
+    genClient.validateLength(CacheKey.acquiringBackEnd, getAcquiringBackEnd(), 10);
   }
 
   /** Checks whether the 'paymentProcessorName' field is set and is not null */
@@ -856,6 +851,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Gateway> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Gateway>() {
+    public Class<Gateway> getCreatedClass() {
+      return Gateway.class;
+    }
+
     @Override
     public Gateway create(org.json.JSONObject jsonObject) {
       return new Gateway(jsonObject);
@@ -863,7 +862,6 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENTPROCESSORNAME_IS_REQUIRED = false;
     public static final long PAYMENTPROCESSORNAME_MAX_LEN = 127;
     public static final boolean AUTHORIZATIONFRONTEND_IS_REQUIRED = false;
@@ -891,7 +889,6 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean CLOSINGTIME_IS_REQUIRED = false;
     public static final boolean NEWBATCHCLOSEENABLED_IS_REQUIRED = false;
     public static final boolean PRODUCTION_IS_REQUIRED = false;
-
   }
 
 }

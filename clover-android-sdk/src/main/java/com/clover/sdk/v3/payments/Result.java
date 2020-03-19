@@ -32,7 +32,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum Result implements Parcelable {
-  SUCCESS, FAIL, INITIATED, VOIDED, VOIDING, VOID_FAILED, AUTH, AUTH_COMPLETED;
+  SUCCESS, FAIL, INITIATED, VOIDED, VOIDING, VOID_FAILED, AUTH, AUTH_COMPLETED, DISCOUNT;
 
   @Override
   public int describeContents() {

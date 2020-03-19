@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -169,11 +168,7 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
    */
   public PermissionSet(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -205,11 +200,14 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getLabel(), 127);
+    genClient.validateLength(CacheKey.label, getLabel(), 127);
+    genClient.validateReferences(CacheKey.app);
+    genClient.validateReferences(CacheKey.roles);
+    genClient.validateReferences(CacheKey.module);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -493,6 +491,10 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PermissionSet> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PermissionSet>() {
+    public Class<PermissionSet> getCreatedClass() {
+      return PermissionSet.class;
+    }
+
     @Override
     public PermissionSet create(org.json.JSONObject jsonObject) {
       return new PermissionSet(jsonObject);
@@ -500,7 +502,6 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -514,7 +515,6 @@ public class PermissionSet extends GenericParcelable implements com.clover.sdk.v
     public static final boolean EMPLOYEEPERMISSIONS_IS_REQUIRED = false;
     public static final boolean ROLES_IS_REQUIRED = false;
     public static final boolean MODULE_IS_REQUIRED = false;
-
   }
 
 }

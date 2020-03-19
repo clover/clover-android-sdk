@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -262,11 +261,7 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
    */
   public AppCarousel(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -298,26 +293,29 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateNull(getDisplayName(), "displayName");
-    genClient.validateLength(getDisplayName(), 127);
+    genClient.validateNotNull(CacheKey.displayName, getDisplayName());
+    genClient.validateLength(CacheKey.displayName, getDisplayName(), 127);
 
-    genClient.validateNull(getCountryCode(), "countryCode");
-    genClient.validateLength(getCountryCode(), 2);
+    genClient.validateNotNull(CacheKey.countryCode, getCountryCode());
+    genClient.validateLength(CacheKey.countryCode, getCountryCode(), 2);
 
-    genClient.validateNull(getMaxSize(), "maxSize");
+    genClient.validateNotNull(CacheKey.maxSize, getMaxSize());
 
-    genClient.validateLength(getViewAllButton(), 127);
+    genClient.validateLength(CacheKey.viewAllButton, getViewAllButton(), 127);
 
-    genClient.validateLength(getResultLabel(), 127);
+    genClient.validateLength(CacheKey.resultLabel, getResultLabel(), 127);
 
-    genClient.validateNull(getAppPopulatedBy(), "appPopulatedBy");
+    genClient.validateNotNull(CacheKey.appPopulatedBy, getAppPopulatedBy());
 
-    genClient.validateNull(getCollectionStyle(), "collectionStyle");
+    genClient.validateNotNull(CacheKey.collectionStyle, getCollectionStyle());
+    genClient.validateReferences(CacheKey.reseller);
+    genClient.validateReferences(CacheKey.merchantGroup);
+    genClient.validateReferences(CacheKey.carouselApps);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -804,6 +802,10 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppCarousel> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppCarousel>() {
+    public Class<AppCarousel> getCreatedClass() {
+      return AppCarousel.class;
+    }
+
     @Override
     public AppCarousel create(org.json.JSONObject jsonObject) {
       return new AppCarousel(jsonObject);
@@ -811,7 +813,6 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -838,7 +839,6 @@ public class AppCarousel extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean SHOWINAPPMARKET_IS_REQUIRED = false;
     public static final boolean SHOWINAPPDETAIL_IS_REQUIRED = false;
     public static final boolean SHOWINDASHBOARD_IS_REQUIRED = false;
-
   }
 
 }

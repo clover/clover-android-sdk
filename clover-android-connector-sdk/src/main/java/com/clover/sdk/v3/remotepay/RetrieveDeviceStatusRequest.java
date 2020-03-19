@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -111,11 +110,7 @@ public class RetrieveDeviceStatusRequest extends com.clover.sdk.v3.remotepay.Bas
    */
   public RetrieveDeviceStatusRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -147,7 +142,7 @@ public class RetrieveDeviceStatusRequest extends com.clover.sdk.v3.remotepay.Bas
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'sendLastMessage' field is set and is not null */
@@ -276,6 +271,10 @@ public class RetrieveDeviceStatusRequest extends com.clover.sdk.v3.remotepay.Bas
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusRequest>() {
+    public Class<RetrieveDeviceStatusRequest> getCreatedClass() {
+      return RetrieveDeviceStatusRequest.class;
+    }
+
     @Override
     public RetrieveDeviceStatusRequest create(org.json.JSONObject jsonObject) {
       return new RetrieveDeviceStatusRequest(jsonObject);
@@ -283,12 +282,10 @@ public class RetrieveDeviceStatusRequest extends com.clover.sdk.v3.remotepay.Bas
   };
 
   public interface Constraints {
-
     public static final boolean SENDLASTMESSAGE_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

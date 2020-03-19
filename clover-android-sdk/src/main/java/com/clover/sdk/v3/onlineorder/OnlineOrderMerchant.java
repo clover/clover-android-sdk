@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -36,10 +35,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getPhoneNumber phoneNumber}</li>
  * <li>{@link #getEnabled enabled}</li>
+ * <li>{@link #getBusinessInfoDone businessInfoDone}</li>
+ * <li>{@link #getServiceInfoDone serviceInfoDone}</li>
  * <li>{@link #getStatus status}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
- * <li>{@link #getLastFeedTime lastFeedTime}</li>
+ * <li>{@link #getLeadTime leadTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * </ul>
  */
@@ -79,6 +80,20 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Finished collecting business information
+   */
+  public java.lang.Boolean getBusinessInfoDone() {
+    return genClient.cacheGet(CacheKey.businessInfoDone);
+  }
+
+  /**
+   * Finished collecting service information
+   */
+  public java.lang.Boolean getServiceInfoDone() {
+    return genClient.cacheGet(CacheKey.serviceInfoDone);
+  }
+
+  /**
    * Restaurant online order onboarding status
    */
   public com.clover.sdk.v3.onlineorder.Status getStatus() {
@@ -100,10 +115,10 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
-   * Timestamp when data feed was last generated
+   * Number of seconds to tell the customer the order usually takes to prepare
    */
-  public java.lang.Long getLastFeedTime() {
-    return genClient.cacheGet(CacheKey.lastFeedTime);
+  public java.lang.Integer getLeadTime() {
+    return genClient.cacheGet(CacheKey.leadTime);
   }
 
   /**
@@ -127,14 +142,18 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     enabled
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    businessInfoDone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    serviceInfoDone
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     status
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.Status.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-    lastFeedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    leadTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
@@ -177,11 +196,7 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
    */
   public OnlineOrderMerchant(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -213,11 +228,11 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.phoneNumber, getPhoneNumber(), 21);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -245,6 +260,16 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.enabled);
   }
 
+  /** Checks whether the 'businessInfoDone' field is set and is not null */
+  public boolean isNotNullBusinessInfoDone() {
+    return genClient.cacheValueIsNotNull(CacheKey.businessInfoDone);
+  }
+
+  /** Checks whether the 'serviceInfoDone' field is set and is not null */
+  public boolean isNotNullServiceInfoDone() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceInfoDone);
+  }
+
   /** Checks whether the 'status' field is set and is not null */
   public boolean isNotNullStatus() {
     return genClient.cacheValueIsNotNull(CacheKey.status);
@@ -260,9 +285,9 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
-  /** Checks whether the 'lastFeedTime' field is set and is not null */
-  public boolean isNotNullLastFeedTime() {
-    return genClient.cacheValueIsNotNull(CacheKey.lastFeedTime);
+  /** Checks whether the 'leadTime' field is set and is not null */
+  public boolean isNotNullLeadTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.leadTime);
   }
 
   /** Checks whether the 'deletedTime' field is set and is not null */
@@ -297,6 +322,16 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.enabled);
   }
 
+  /** Checks whether the 'businessInfoDone' field has been set, however the value could be null */
+  public boolean hasBusinessInfoDone() {
+    return genClient.cacheHasKey(CacheKey.businessInfoDone);
+  }
+
+  /** Checks whether the 'serviceInfoDone' field has been set, however the value could be null */
+  public boolean hasServiceInfoDone() {
+    return genClient.cacheHasKey(CacheKey.serviceInfoDone);
+  }
+
   /** Checks whether the 'status' field has been set, however the value could be null */
   public boolean hasStatus() {
     return genClient.cacheHasKey(CacheKey.status);
@@ -312,9 +347,9 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
-  /** Checks whether the 'lastFeedTime' field has been set, however the value could be null */
-  public boolean hasLastFeedTime() {
-    return genClient.cacheHasKey(CacheKey.lastFeedTime);
+  /** Checks whether the 'leadTime' field has been set, however the value could be null */
+  public boolean hasLeadTime() {
+    return genClient.cacheHasKey(CacheKey.leadTime);
   }
 
   /** Checks whether the 'deletedTime' field has been set, however the value could be null */
@@ -361,6 +396,20 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'businessInfoDone'.
+   */
+  public OnlineOrderMerchant setBusinessInfoDone(java.lang.Boolean businessInfoDone) {
+    return genClient.setOther(businessInfoDone, CacheKey.businessInfoDone);
+  }
+
+  /**
+   * Sets the field 'serviceInfoDone'.
+   */
+  public OnlineOrderMerchant setServiceInfoDone(java.lang.Boolean serviceInfoDone) {
+    return genClient.setOther(serviceInfoDone, CacheKey.serviceInfoDone);
+  }
+
+  /**
    * Sets the field 'status'.
    */
   public OnlineOrderMerchant setStatus(com.clover.sdk.v3.onlineorder.Status status) {
@@ -382,10 +431,10 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
-   * Sets the field 'lastFeedTime'.
+   * Sets the field 'leadTime'.
    */
-  public OnlineOrderMerchant setLastFeedTime(java.lang.Long lastFeedTime) {
-    return genClient.setOther(lastFeedTime, CacheKey.lastFeedTime);
+  public OnlineOrderMerchant setLeadTime(java.lang.Integer leadTime) {
+    return genClient.setOther(leadTime, CacheKey.leadTime);
   }
 
   /**
@@ -416,6 +465,14 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   public void clearEnabled() {
     genClient.clear(CacheKey.enabled);
   }
+  /** Clears the 'businessInfoDone' field, the 'has' method for this field will now return false */
+  public void clearBusinessInfoDone() {
+    genClient.clear(CacheKey.businessInfoDone);
+  }
+  /** Clears the 'serviceInfoDone' field, the 'has' method for this field will now return false */
+  public void clearServiceInfoDone() {
+    genClient.clear(CacheKey.serviceInfoDone);
+  }
   /** Clears the 'status' field, the 'has' method for this field will now return false */
   public void clearStatus() {
     genClient.clear(CacheKey.status);
@@ -428,9 +485,9 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
   }
-  /** Clears the 'lastFeedTime' field, the 'has' method for this field will now return false */
-  public void clearLastFeedTime() {
-    genClient.clear(CacheKey.lastFeedTime);
+  /** Clears the 'leadTime' field, the 'has' method for this field will now return false */
+  public void clearLeadTime() {
+    genClient.clear(CacheKey.leadTime);
   }
   /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
   public void clearDeletedTime() {
@@ -487,6 +544,10 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OnlineOrderMerchant> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OnlineOrderMerchant>() {
+    public Class<OnlineOrderMerchant> getCreatedClass() {
+      return OnlineOrderMerchant.class;
+    }
+
     @Override
     public OnlineOrderMerchant create(org.json.JSONObject jsonObject) {
       return new OnlineOrderMerchant(jsonObject);
@@ -494,7 +555,6 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ADDRESS_IS_REQUIRED = false;
@@ -503,12 +563,13 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     public static final boolean PHONENUMBER_IS_REQUIRED = false;
     public static final long PHONENUMBER_MAX_LEN = 21;
     public static final boolean ENABLED_IS_REQUIRED = false;
+    public static final boolean BUSINESSINFODONE_IS_REQUIRED = false;
+    public static final boolean SERVICEINFODONE_IS_REQUIRED = false;
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-    public static final boolean LASTFEEDTIME_IS_REQUIRED = false;
+    public static final boolean LEADTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
-
   }
 
 }

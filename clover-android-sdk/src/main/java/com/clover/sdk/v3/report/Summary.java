@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -185,11 +184,7 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Summary(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -530,6 +525,10 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Summary> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Summary>() {
+    public Class<Summary> getCreatedClass() {
+      return Summary.class;
+    }
+
     @Override
     public Summary create(org.json.JSONObject jsonObject) {
       return new Summary(jsonObject);
@@ -537,7 +536,6 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean NUM_IS_REQUIRED = false;
     public static final boolean SEGMENTLABEL_IS_REQUIRED = false;
@@ -550,7 +548,6 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean ENDTIMESTAMP_IS_REQUIRED = false;
     public static final boolean AMOUNTWITHOUTTIPS_IS_REQUIRED = false;
     public static final boolean NETQUANTITY_IS_REQUIRED = false;
-
   }
 
 }

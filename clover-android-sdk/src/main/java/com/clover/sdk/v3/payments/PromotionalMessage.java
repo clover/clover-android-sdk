@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -108,11 +107,7 @@ public class PromotionalMessage extends GenericParcelable implements com.clover.
    */
   public PromotionalMessage(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -285,6 +280,10 @@ public class PromotionalMessage extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PromotionalMessage> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PromotionalMessage>() {
+    public Class<PromotionalMessage> getCreatedClass() {
+      return PromotionalMessage.class;
+    }
+
     @Override
     public PromotionalMessage create(org.json.JSONObject jsonObject) {
       return new PromotionalMessage(jsonObject);
@@ -292,12 +291,10 @@ public class PromotionalMessage extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean MESSAGE_IS_REQUIRED = false;
     public static final boolean SHOWONMERCHANTRECEIPT_IS_REQUIRED = false;
     public static final boolean SHOWONCUSTOMERRECEIPT_IS_REQUIRED = false;
     public static final boolean SHOWONDISPLAY_IS_REQUIRED = false;
-
   }
 
 }

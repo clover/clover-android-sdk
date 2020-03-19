@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
    */
   public SummaryMerchantCharges(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -341,6 +336,10 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<SummaryMerchantCharges> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<SummaryMerchantCharges>() {
+    public Class<SummaryMerchantCharges> getCreatedClass() {
+      return SummaryMerchantCharges.class;
+    }
+
     @Override
     public SummaryMerchantCharges create(org.json.JSONObject jsonObject) {
       return new SummaryMerchantCharges(jsonObject);
@@ -348,14 +347,12 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean CURRENCY_IS_REQUIRED = false;
     public static final boolean NUM_IS_REQUIRED = false;
     public static final boolean TOTALAMOUNT_IS_REQUIRED = false;
     public static final boolean TOTALTAX_IS_REQUIRED = false;
     public static final boolean TOTALDEVELOPERPORTION_IS_REQUIRED = false;
     public static final boolean NUMOFMERCHANTS_IS_REQUIRED = false;
-
   }
 
 }

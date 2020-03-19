@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -318,11 +317,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
    */
   public PaymentRequestCardDetails(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -1127,6 +1122,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentRequestCardDetails> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentRequestCardDetails>() {
+    public Class<PaymentRequestCardDetails> getCreatedClass() {
+      return PaymentRequestCardDetails.class;
+    }
+
     @Override
     public PaymentRequestCardDetails create(org.json.JSONObject jsonObject) {
       return new PaymentRequestCardDetails(jsonObject);
@@ -1134,7 +1133,6 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   };
 
   public interface Constraints {
-
     public static final boolean TRACK1_IS_REQUIRED = false;
     public static final boolean TRACK2_IS_REQUIRED = false;
     public static final boolean TRACK3_IS_REQUIRED = false;
@@ -1169,7 +1167,6 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     public static final boolean TRANSACTIONNO_IS_REQUIRED = false;
     public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
     public static final boolean TRANSACTIONDATA_IS_REQUIRED = false;
-
   }
 
 }

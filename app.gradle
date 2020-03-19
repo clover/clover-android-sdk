@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 apply from: file("${project.rootDir}/common.gradle")
+//apply from: file("${project.rootDir}/signing.gradle")
 apply from: file("${project.rootDir}/versions.gradle")
 
 /**

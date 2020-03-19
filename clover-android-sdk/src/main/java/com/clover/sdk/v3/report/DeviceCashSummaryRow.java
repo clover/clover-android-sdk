@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -49,7 +48,7 @@ import com.clover.sdk.GenericParcelable;
 public class DeviceCashSummaryRow extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * The device that this summary is for. For the total row, this field will be null.
+   * The device that this summary is for. For the total row, this field will be null. A 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
@@ -182,11 +181,7 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
    */
   public DeviceCashSummaryRow(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -487,6 +482,10 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeviceCashSummaryRow> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeviceCashSummaryRow>() {
+    public Class<DeviceCashSummaryRow> getCreatedClass() {
+      return DeviceCashSummaryRow.class;
+    }
+
     @Override
     public DeviceCashSummaryRow create(org.json.JSONObject jsonObject) {
       return new DeviceCashSummaryRow(jsonObject);
@@ -494,7 +493,6 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
   };
 
   public interface Constraints {
-
     public static final boolean DEVICE_IS_REQUIRED = false;
     public static final boolean CASHSALESAMOUNT_IS_REQUIRED = false;
     public static final boolean CASHPAYMENTAMOUNT_IS_REQUIRED = false;
@@ -505,7 +503,6 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     public static final boolean NET_IS_REQUIRED = false;
     public static final boolean NETTIPS_IS_REQUIRED = false;
     public static final boolean EXPECTEDDEPOSIT_IS_REQUIRED = false;
-
   }
 
 }

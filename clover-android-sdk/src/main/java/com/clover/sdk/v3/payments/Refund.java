@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -74,7 +73,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-   * Device which processed the transaction for this refund
+   * Device which processed the transaction for this refund, a 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
@@ -286,11 +285,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Refund(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -322,6 +317,12 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   @Override
   public void validate() {
+    genClient.validateCloverId(CacheKey.id, getId());
+    genClient.validateReferences(CacheKey.orderRef);
+    genClient.validateReferences(CacheKey.payment);
+    genClient.validateReferences(CacheKey.employee);
+    genClient.validateReferences(CacheKey.lineItems);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -899,6 +900,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Refund> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Refund>() {
+    public Class<Refund> getCreatedClass() {
+      return Refund.class;
+    }
+
     @Override
     public Refund create(org.json.JSONObject jsonObject) {
       return new Refund(jsonObject);
@@ -906,7 +911,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean ORDERREF_IS_REQUIRED = false;
     public static final boolean DEVICE_IS_REQUIRED = false;
@@ -930,7 +934,6 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
-
   }
 
 }

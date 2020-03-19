@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -96,11 +95,7 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
    */
   public TaxRateItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -132,9 +127,9 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateNull(getTaxRate(), "taxRate");
+    genClient.validateNotNull(CacheKey.taxRate, getTaxRate());
 
-    genClient.validateNull(getItem(), "item");
+    genClient.validateNotNull(CacheKey.item, getItem());
   }
 
   /** Checks whether the 'taxRate' field is set and is not null */
@@ -238,6 +233,10 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TaxRateItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TaxRateItem>() {
+    public Class<TaxRateItem> getCreatedClass() {
+      return TaxRateItem.class;
+    }
+
     @Override
     public TaxRateItem create(org.json.JSONObject jsonObject) {
       return new TaxRateItem(jsonObject);
@@ -245,10 +244,8 @@ public class TaxRateItem extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean TAXRATE_IS_REQUIRED = true;
     public static final boolean ITEM_IS_REQUIRED = true;
-
   }
 
 }

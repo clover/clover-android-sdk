@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -100,11 +99,7 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
    */
   public ExternalDeviceStateData(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -235,6 +230,10 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateData> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateData>() {
+    public Class<ExternalDeviceStateData> getCreatedClass() {
+      return ExternalDeviceStateData.class;
+    }
+
     @Override
     public ExternalDeviceStateData create(org.json.JSONObject jsonObject) {
       return new ExternalDeviceStateData(jsonObject);
@@ -242,10 +241,8 @@ public class ExternalDeviceStateData extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
     public static final boolean CUSTOMACTIVITYID_IS_REQUIRED = false;
-
   }
 
 }

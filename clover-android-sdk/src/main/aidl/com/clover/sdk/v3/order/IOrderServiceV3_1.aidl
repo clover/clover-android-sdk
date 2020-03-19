@@ -58,30 +58,175 @@ interface IOrderServiceV3_1 {
 
   void removeOnOrderUpdatedListener(IOnOrderUpdateListener listener);
 
+  /**
+   * Get the {@link Order} for the given ID. If the order is not synchronized on this device, the order is fetched
+   * from the server.
+   *
+   * @param orderId The ID of the {@link Order} to retrieve.
+   * @return The {@link Order}s corresponding to the provided ID, or {@link null} if the order does not exists locally
+   * and it cannot be fetched from the server. Note that this may be because the server is not reachable or because
+   * the order for the given ID does not exist.
+   */
   OrderFdParcelable getOrder(String orderId, out ResultStatus status);
 
   OrderListFdParcelable getOrders(in List<String> orderIds, out ResultStatus status);
 
+  /**
+   * Create a new {@link Order}. Only the order title is used for creation; all other fields are ignored. The following
+   * fields are set automatically:
+   * <ul>
+   *   <li>id</li>
+   *   <li>device - set the this device.</li>
+   *   <li>currency - set to the merchant's currency.</li>
+   *   <li>vat - set according to the merchant's setting.</li>
+   *   <li>groupLineItems - set according to the merchant's setting.</li>
+   *   <li>testMode - set according to the merchant's setting.</li>
+   *   <li>createdTime - set to this device's current time.</li>
+   *   <li>taxRemoved - set to false.</li>
+   *   <li>total - set to 0.</li>
+   *   <li>employee - set to the current employee logged into this device.</li>
+   * </ul>
+   *
+   * This method requires ORDERS_W permission.
+   *
+   * @param order The order to create.
+   */
   OrderFdParcelable createOrder(in OrderFdParcelable fdOrder, out ResultStatus status);
 
+  /**
+   * Update an {@link Order}. The following fields may be updated,
+   * <ul>
+   *   <li>total</li>
+   *   <li>title</li>
+   *   <li>note</li>
+   *   <li>state</li>
+   *   <li>taxRemoved</li>
+   *   <li>groupLineItems</li>
+   *   <li>manualTransactions</li>
+   *   <li>testMode</li>
+   *   <li>orderType.id</li>
+   *   <li>customerId</li>
+   *   <li>payType</li>
+   *   <li>createdTime</li>
+   *   <li>employee.id</li>
+   * </ul>
+   * All other fields are ignored.
+   *
+   * This method requires ORDERS_W permission.
+   *
+   * @param order The {@link Order} to updated.
+   */
   OrderFdParcelable updateOrder(in OrderFdParcelable fdOrder, out ResultStatus status);
 
+  /**
+   * Delete an {@link Order}.
+   *
+   * @param orderId The ID of the {@link Order} to be deleted.
+   * @return true if the {@link Order} was deleted successfully, otherwise false.
+   * @see #deleteOrderOnline
+   */
   boolean deleteOrder(String orderId, out ResultStatus status);
 
+  /**
+   * Add a {@link com.clover.sdk.v3.base.ServiceCharge} to an order.
+   *
+   * @param orderId The order ID on which to add the service charge.
+   * @param serviceChargeId The ID of the service charge to be added to the order.
+   * @return The updated order with the service charge added.
+   */
   OrderFdParcelable addServiceCharge(String orderId, String serviceChargeId, out ResultStatus status);
 
+  /**
+   * Add a {@link com.clover.sdk.v3.base.ServiceCharge} to an order.
+   *
+   * @param orderId The order ID on which to add the service charge.
+   * @param serviceChargeId The ID of the service charge to be added to the order.
+   * @return The updated order with the service charge removed.
+   */
   OrderFdParcelable deleteServiceCharge(String orderId, String serviceChargeId, out ResultStatus status);
 
+  /**
+   * Add a fixed-price line item to an order. A fixed price line item is priced per item.
+   *
+   * {@link LineItem}s are linked to {@link com.clover.sdk.v3.inventory.Item}s with an item ID. Think of the
+   * {@link com.clover.sdk.v3.inventory.Item} as a template for creating a {@link LineItem}, and a
+   * {@link LineItem} as the order's copy of an {@link com.clover.sdk.v3.inventory.Item}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @return The newly created {@link LineItem}.
+   */
   LineItemFdParcelable addFixedPriceLineItem(String orderId, String itemId, String binName, String userData, out ResultStatus status);
 
+  /**
+   * Add a per-unit line item to an order. A per unit line item is priced per unit, not per item. A good example
+   * is items that are sold by weight (e.g., per ounce).
+   *
+   * {@link LineItem}s are linked to {@link com.clover.sdk.v3.inventory.Item}s with an item ID. Think of the
+   * {@link com.clover.sdk.v3.inventory.Item} as a template for creating a {@link LineItem}, and a
+   * {@link LineItem} as the order's copy of an {@link com.clover.sdk.v3.inventory.Item}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param unitQuantity The unit quantity for the line item (e.g., "10 ounces").
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @return The newly created {@link LineItem}.
+   */
   LineItemFdParcelable addPerUnitLineItem(String orderId, String itemId, int unitQuantity, String binName, String userData, out ResultStatus status);
 
+  /**
+   * Add a variably-priced line item to the order. A variably priced line item's price is determined at the time of
+   * sale.
+   *
+   * Note that this method is not consistent with others in this interface as it returns a {@link LineItem}. All other
+   * methods return the complete, updated {@link Order}.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param itemId The item ID from which to create the line item to be added to the order.
+   * @param price The price of the line item.
+   * @param binName The BIN name for the line item. May be {@link null}.
+   * @param userData Meta-data to attach to the line item. May be {@link null}.
+   */
   LineItemFdParcelable addVariablePriceLineItem(String orderId, String itemId, long price, String binName, String userData, out ResultStatus status);
 
+  /**
+   * Add a custom line item to an order. Custom line items are not associated with an inventory item.
+   *
+   * Note that this method is not consistent with others in this interface as it returns a {@link LineItem}. All other
+   * methods return the complete, updated {@link Order}.
+
+   * @param orderId The ID of the order to which to add the line item.
+   * @param lineItem The line item to add to the order.
+   * @param isTaxable true if this line item is taxable, otherwise false.
+   */
   LineItemFdParcelable addCustomLineItem(String orderId, in LineItemFdParcelable fdLineItem, boolean isTaxable, out ResultStatus status);
 
+  /**
+   * Update {@link LineItem}s on an {@link Order}. Only the following fields may be updated,
+   * <ul>
+   *   <li>binName</li>
+   *   <li>printed</li>
+   *   <li>note</li>
+   *   <li>userData</li>
+   * </ul>
+   * All other fields are ignored.
+   *
+   * @param orderId The ID of the order on which to update the line items.
+   * @param lineItemIds The {@link LineItem}s to update on the order.
+   * @return The updated {@link LineItem}s.
+   */
   LineItemListFdParcelable updateLineItems(String orderId, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 
+  /**
+   * Delete {@link LineItem}s from an {@link Order}.
+   *
+   * @param orderId The ID of the {@link Order} from which to delete the line items.
+   * @param lineItemIds The {@link LineItem} IDs to delete.
+   * @return The updated {@link Order}.
+   */
   OrderFdParcelable deleteLineItems(String orderId, in List<String> lineItemIds, out ResultStatus status);
 
   LineItemListFdParcelable copyLineItems(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
@@ -102,22 +247,62 @@ interface IOrderServiceV3_1 {
 
   OrderFdParcelable deleteLineItemDiscounts(String orderId, String lineItemId, in List<String> discountIds, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable addTip(String orderId, String paymentId, long amount, boolean online, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   PaymentFdParcelable pay(String orderId, in PaymentRequestFdParcelable fdPaymentRequest, boolean isAllowOffline, String note, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable addPayment(String orderId, in PaymentFdParcelable fdPayment, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable voidPayment(String orderId, String paymentId, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   CreditFdParcelable addCredit(String orderId, in CreditFdParcelable fdCredit, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable deleteCredit(String orderId, String creditId, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   RefundFdParcelable addRefund(String orderId, in RefundFdParcelable refund, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable deleteRefund(String orderId, String refundId, out ResultStatus status);
 
+  /**
+   * Delete an {@link Order} synchronously on the server. Differing from {@link #deleteOrder(String)}, this method only
+   * completes successfully if this device can reach the server and retrieve confirmation that the order was deleted.
+   *
+   * @param orderId The ID of the order to be deleted.
+   * @return true if the order was deleted successfully, otherwise false.
+   * @see #deleteOrder
+   */
   boolean deleteOrderOnline(String orderId, out ResultStatus status);
 
   OrderFdParcelable addBatchLineItemModifications(String orderId, in List<String> lineItemIds, in ModifierFdParcelable fdModifier, int quantity, out ResultStatus status);
@@ -126,46 +311,139 @@ interface IOrderServiceV3_1 {
 
   LineItemMapFdParcelable createLineItemsFrom(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
 
+  /**
+   * Print line items to the kitchen or order printer quickly. Only prints inventory items that are
+   * associated with a printer. The association is done by linking an item and a printer with a tag.
+   * It will only print line items once, subsequent invocations will not cause additional prints,
+   * but the method will still return true.
+   *
+   * @return true, unless the order has no line items in it that can be fired to a printer, will
+   * return true but not print anything if all items have been already printed
+   */
   boolean fire(String sourceOrderId, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   PaymentFdParcelable updatePayment(String orderId, in PaymentFdParcelable fdPayment, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable voidPayment2(String orderId, String paymentId, String iccContainer, in VoidReason reason, String source, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable removePayment(String orderId, String paymentId, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   RefundFdParcelable addRefundOffline(String orderId, in RefundFdParcelable fdRefund, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   RefundFdParcelable refund(String orderId, in RefundFdParcelable fdRefund, out ResultStatus status);
 
   void addOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
 
   void removeOnOrderUpdatedListener2(IOnOrderUpdateListener2 listener);
 
+  /**
+   * Just like {@link #addDiscount} but returns a {@link Discount} instead of an {@link Order}.
+   */
   DiscountFdParcelable addDiscount2(String orderId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
+  /**
+   * Just like {@link #addLineItemDiscount} but returns a {@link Discount} instead of an {@link Order}.
+   */
   DiscountFdParcelable addLineItemDiscount2(String orderId, String lineItemId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   *
+   * Add a payment to an order. The payment is only added to the local DB: the change is not persisted on the server.
+   * This method differs from {@link #addPayment} in that it does not add cash events or
+   * open the cash drawer. Not available to non-Clover apps.
+   *
+   * @param orderId, the order ID.
+   * @param payment, the payment.
+   * @param lineItems, the line items that were paid by this payment.
+
+   * @return the updated order.
+   * @y.exclude
+   */
   OrderFdParcelable addPayment2(String orderId, in PaymentFdParcelable fdPayment, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 
+  /**
+   * Just like {@link #fire} but additionally when requireAllItems is set to true it will not print
+   * and return false if some items on the order haven't been printed yet and would not be printed
+   * because they are not associated with an order printer.
+   *
+   * @return just like {@link #fire}, but additionally returns false if there are unprinted items
+   *         without a printer associated.
+   */
   boolean fire2(String sourceOrderid, boolean requireAllItems, out ResultStatus status);
 
+  /**
+   * Just like {@link #createLineItemsFrom} but additionally when copyPrinted is set to true it will copy print flags on
+   * line items (normally did not), and when broadcastLineItems is set to true it will
+   * broadcastLineItems (normally did).
+   */
   LineItemMapFdParcelable createLineItemsFrom2(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, in boolean copyPrinted, in boolean broadcastLineItems, out ResultStatus status);
 
+  /**
+   * Just like {@link #deleteOrder} but additionally when allowDeleteIfLineItemPrinted is true it will delete the order
+   * when line items are printed (normally did not).
+   */
   boolean deleteOrder2(String orderId, in boolean allowDeleteIfLineItemPrinted, out ResultStatus status);
 
+  /**
+   * This pulls pending payments from the local device db
+   */
   PaymentListFdParcelable getPendingPayments(out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   CreditRefundFdParcelable addCreditRefund(String orderId, in CreditRefundFdParcelable creditRefund, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable deleteCreditRefund(String orderId, String creditRefundId, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable addPreAuth(String orderId, in PaymentFdParcelable preAuth, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable capturePreAuth(String orderId, in PaymentFdParcelable preAuth, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable voidPreAuth(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable voidPreAuthOnline(String orderId, String preAuthId, String iccContainer, in VoidReason voidReason, String source, out ResultStatus status);
 
   /**
@@ -179,6 +457,10 @@ interface IOrderServiceV3_1 {
    */
   OrderFdParcelable deleteLineItemsWithReason(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, out ResultStatus status);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable voidPaymentWithCard(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in VoidReason reason, String source, out ResultStatus status);
 
   /**
@@ -268,9 +550,7 @@ interface IOrderServiceV3_1 {
    * Not available to non-Clover apps.
    * @y.exclude
    */
-
   boolean deleteOrder3(String orderId, boolean deleteOnline, boolean allowDeleteIfLineItemPrinted, boolean allowDeleteIfNoEmployeePermission, out ResultStatus status);
-
 
   /**
    * Card present void
@@ -304,6 +584,10 @@ interface IOrderServiceV3_1 {
    */
   RefundFdParcelable refund2(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   OrderFdParcelable cleanUpPreAuthAfterTransaction(String orderId, in VoidReason voidReason, out ResultStatus status);
 
   /**
@@ -335,7 +619,7 @@ interface IOrderServiceV3_1 {
    * @return the CreditRefund object constructed using the RefundResponse the serverf returns
    * Not available to non-Clover apps.
    * @y.exclude
-  */
+   */
   CreditRefund vaultedCreditRefund(in String orderId, in String creditId, out ResultStatus status);
 
   /**
@@ -345,7 +629,7 @@ interface IOrderServiceV3_1 {
    * @Param orderState The new orderstate of the online order
    * @Param reason A reason if the order is calcelled or declined.
    *
-  */
+   */
   void updateOnlineOrderState(in String orderId, in OrderState orderState, in Reason reason, out ResultStatus resultStatus);
 
   /**
@@ -355,6 +639,6 @@ interface IOrderServiceV3_1 {
    * @param fdPrintGroup PrintGroup to be added to an Order
    * @return the updated order
    *
-  */
+   */
   OrderFdParcelable addPrintGroup(String orderId, in PrintGroupFdParcelable fdPrintGroup, out ResultStatus status);
 }

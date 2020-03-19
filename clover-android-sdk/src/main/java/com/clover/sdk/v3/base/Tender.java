@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -170,11 +169,7 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Tender(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,11 +201,11 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getLabelKey(), 127);
+    genClient.validateLength(CacheKey.labelKey, getLabelKey(), 127);
 
-    genClient.validateLength(getLabel(), 127);
+    genClient.validateLength(CacheKey.label, getLabel(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -457,6 +452,10 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Tender> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Tender>() {
+    public Class<Tender> getCreatedClass() {
+      return Tender.class;
+    }
+
     @Override
     public Tender create(org.json.JSONObject jsonObject) {
       return new Tender(jsonObject);
@@ -464,7 +463,6 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean EDITABLE_IS_REQUIRED = false;
@@ -477,7 +475,6 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean ENABLED_IS_REQUIRED = false;
     public static final boolean VISIBLE_IS_REQUIRED = false;
     public static final boolean INSTRUCTIONS_IS_REQUIRED = false;
-
   }
 
 }

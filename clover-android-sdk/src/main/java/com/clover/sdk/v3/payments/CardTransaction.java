@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -230,11 +229,7 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
    */
   public CardTransaction(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -267,19 +262,19 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   @Override
   public void validate() {
 
-    genClient.validateLength(getFirst6(), 6);
+    genClient.validateLength(CacheKey.first6, getFirst6(), 6);
 
-    genClient.validateLength(getLast4(), 4);
+    genClient.validateLength(CacheKey.last4, getLast4(), 4);
 
-    genClient.validateLength(getAuthCode(), 255);
+    genClient.validateLength(CacheKey.authCode, getAuthCode(), 255);
 
-    genClient.validateLength(getReferenceId(), 32);
+    genClient.validateLength(CacheKey.referenceId, getReferenceId(), 32);
 
-    genClient.validateLength(getTransactionNo(), 255);
+    genClient.validateLength(CacheKey.transactionNo, getTransactionNo(), 255);
 
-    genClient.validateLength(getToken(), 72);
+    genClient.validateLength(CacheKey.token, getToken(), 72);
 
-    genClient.validateLength(getCurrency(), 3);
+    genClient.validateLength(CacheKey.currency, getCurrency(), 3);
   }
 
   /** Checks whether the 'cardType' field is set and is not null */
@@ -720,6 +715,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CardTransaction> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CardTransaction>() {
+    public Class<CardTransaction> getCreatedClass() {
+      return CardTransaction.class;
+    }
+
     @Override
     public CardTransaction create(org.json.JSONObject jsonObject) {
       return new CardTransaction(jsonObject);
@@ -727,7 +726,6 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean CARDTYPE_IS_REQUIRED = false;
     public static final boolean ENTRYTYPE_IS_REQUIRED = false;
     public static final boolean FIRST6_IS_REQUIRED = false;

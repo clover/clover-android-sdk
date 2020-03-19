@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -163,11 +162,7 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public Card(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -200,19 +195,20 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   @Override
   public void validate() {
 
-    genClient.validateNull(getFirst6(), "first6");
-    genClient.validateLength(getFirst6(), 6);
+    genClient.validateNotNull(CacheKey.first6, getFirst6());
+    genClient.validateLength(CacheKey.first6, getFirst6(), 6);
 
-    genClient.validateNull(getLast4(), "last4");
-    genClient.validateLength(getLast4(), 4);
+    genClient.validateNotNull(CacheKey.last4, getLast4());
+    genClient.validateLength(CacheKey.last4, getLast4(), 4);
 
-    genClient.validateLength(getFirstName(), 64);
+    genClient.validateLength(CacheKey.firstName, getFirstName(), 64);
 
-    genClient.validateLength(getLastName(), 64);
+    genClient.validateLength(CacheKey.lastName, getLastName(), 64);
 
-    genClient.validateLength(getExpirationDate(), 4);
+    genClient.validateLength(CacheKey.expirationDate, getExpirationDate(), 4);
 
-    genClient.validateLength(getToken(), 72);
+    genClient.validateLength(CacheKey.token, getToken(), 72);
+    genClient.validateReferences(CacheKey.customer);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -503,6 +499,10 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Card> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Card>() {
+    public Class<Card> getCreatedClass() {
+      return Card.class;
+    }
+
     @Override
     public Card create(org.json.JSONObject jsonObject) {
       return new Card(jsonObject);
@@ -510,7 +510,6 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean FIRST6_IS_REQUIRED = true;
     public static final long FIRST6_MAX_LEN = 6;
@@ -528,7 +527,6 @@ public class Card extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean TOKENTYPE_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
-
   }
 
 }

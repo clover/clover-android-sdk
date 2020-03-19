@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,8 +50,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Service connector for {@link IOrderServiceV3_1}. Please see that class for documentation on the
- * RPC methods.
+ * RPC methods. Developers should use {@link OrderConnector} instead of using this class directly.
  *
+ * @see OrderConnector
  * @see IOrderServiceV3_1
  * @see ServiceConnector
  * @see Order
@@ -306,6 +307,33 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public LineItem call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.addVariablePriceLineItem(orderId, itemId, price, binName, userData, status));
+      }
+    });
+  }
+
+  public List<LineItem> addFixedPriceLineItems(final String orderId, final String itemId, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addFixedPriceLineItems(orderId, itemId, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addPerUnitLineItems(final String orderId, final String itemId, final int unitQuantity, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPerUnitLineItems(orderId, itemId, unitQuantity, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addVariablePriceLineItems(final String orderId, final String itemId, final long price, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addVariablePriceLineItems(orderId, itemId, price, binName, userData, numItems, status));
       }
     });
   }

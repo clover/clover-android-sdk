@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -161,11 +160,7 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
    */
   public VoidPaymentRefundRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -198,12 +193,12 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   @Override
   public void validate() {
 
-    genClient.validateLength(getRefundId(), 13);
+    genClient.validateCloverId(CacheKey.refundId, getRefundId());
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getEmployeeId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.employeeId, getEmployeeId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'refundId' field is set and is not null */
@@ -440,6 +435,10 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidPaymentRefundRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidPaymentRefundRequest>() {
+    public Class<VoidPaymentRefundRequest> getCreatedClass() {
+      return VoidPaymentRefundRequest.class;
+    }
+
     @Override
     public VoidPaymentRefundRequest create(org.json.JSONObject jsonObject) {
       return new VoidPaymentRefundRequest(jsonObject);
@@ -447,7 +446,6 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
   };
 
   public interface Constraints {
-
     public static final boolean REFUNDID_IS_REQUIRED = false;
     public static final long REFUNDID_MAX_LEN = 13;
     public static final boolean ORDERID_IS_REQUIRED = false;
@@ -460,7 +458,6 @@ public class VoidPaymentRefundRequest extends com.clover.sdk.v3.remotepay.BaseRe
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

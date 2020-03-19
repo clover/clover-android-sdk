@@ -80,4 +80,7 @@
   <string name="id_label">ID</string>
   <string name="this_device">This device:</string>
   <string name="this_device_s_serial">This device\'s serial:</string>
+
+  <!-- Keypad Test -->
+  <string name="start_keypad">Start Keypad</string>
 </resources>

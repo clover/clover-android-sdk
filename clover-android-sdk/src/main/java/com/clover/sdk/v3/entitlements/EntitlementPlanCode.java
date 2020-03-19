@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -52,9 +51,6 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.id);
   }
 
-  /**
-   * Unique identifier
-   */
   public java.lang.String getCode() {
     return genClient.cacheGet(CacheKey.code);
   }
@@ -149,11 +145,7 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
    */
   public EntitlementPlanCode(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -185,18 +177,18 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getCode(), "code");
-    genClient.validateLength(getCode(), 10);
+    genClient.validateNotNull(CacheKey.code, getCode());
+    genClient.validateLength(CacheKey.code, getCode(), 10);
 
-    genClient.validateLength(getDescription(), 40);
+    genClient.validateLength(CacheKey.description, getDescription(), 40);
 
-    genClient.validateLength(getServiceEntitlementNumber(), 15);
+    genClient.validateLength(CacheKey.serviceEntitlementNumber, getServiceEntitlementNumber(), 15);
 
-    genClient.validateLength(getAlphaId(), 4);
+    genClient.validateLength(CacheKey.alphaId, getAlphaId(), 4);
 
-    genClient.validateLength(getVerificationValue(), 10);
+    genClient.validateLength(CacheKey.verificationValue, getVerificationValue(), 10);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -401,6 +393,10 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<EntitlementPlanCode> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<EntitlementPlanCode>() {
+    public Class<EntitlementPlanCode> getCreatedClass() {
+      return EntitlementPlanCode.class;
+    }
+
     @Override
     public EntitlementPlanCode create(org.json.JSONObject jsonObject) {
       return new EntitlementPlanCode(jsonObject);
@@ -408,7 +404,6 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CODE_IS_REQUIRED = true;
@@ -422,7 +417,6 @@ public class EntitlementPlanCode extends GenericParcelable implements com.clover
     public static final boolean VERIFICATIONVALUE_IS_REQUIRED = false;
     public static final long VERIFICATIONVALUE_MAX_LEN = 10;
     public static final boolean MCCCODE_IS_REQUIRED = false;
-
   }
 
 }

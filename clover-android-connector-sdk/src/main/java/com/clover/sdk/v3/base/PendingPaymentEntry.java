@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -120,11 +119,7 @@ public class PendingPaymentEntry extends GenericParcelable implements com.clover
    */
   public PendingPaymentEntry(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -157,7 +152,7 @@ public class PendingPaymentEntry extends GenericParcelable implements com.clover
   @Override
   public void validate() {
 
-    genClient.validateLength(getPaymentId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
   }
 
   /** Checks whether the 'amount' field is set and is not null */
@@ -299,6 +294,10 @@ public class PendingPaymentEntry extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PendingPaymentEntry> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PendingPaymentEntry>() {
+    public Class<PendingPaymentEntry> getCreatedClass() {
+      return PendingPaymentEntry.class;
+    }
+
     @Override
     public PendingPaymentEntry create(org.json.JSONObject jsonObject) {
       return new PendingPaymentEntry(jsonObject);
@@ -306,13 +305,11 @@ public class PendingPaymentEntry extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final long PAYMENTID_MAX_LEN = 13;
     public static final boolean EXTERNALID_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
-
   }
 
 }

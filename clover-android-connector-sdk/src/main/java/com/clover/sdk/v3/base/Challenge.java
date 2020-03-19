@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class Challenge extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Challenge(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -266,6 +261,10 @@ public class Challenge extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Challenge> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Challenge>() {
+    public Class<Challenge> getCreatedClass() {
+      return Challenge.class;
+    }
+
     @Override
     public Challenge create(org.json.JSONObject jsonObject) {
       return new Challenge(jsonObject);
@@ -273,11 +272,9 @@ public class Challenge extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

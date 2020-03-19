@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk
    */
   public DevicePriceInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -231,6 +226,10 @@ public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DevicePriceInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DevicePriceInfo>() {
+    public Class<DevicePriceInfo> getCreatedClass() {
+      return DevicePriceInfo.class;
+    }
+
     @Override
     public DevicePriceInfo create(org.json.JSONObject jsonObject) {
       return new DevicePriceInfo(jsonObject);
@@ -238,10 +237,8 @@ public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean PRICE_IS_REQUIRED = false;
     public static final boolean DEVICECOUNTINFO_IS_REQUIRED = false;
-
   }
 
 }

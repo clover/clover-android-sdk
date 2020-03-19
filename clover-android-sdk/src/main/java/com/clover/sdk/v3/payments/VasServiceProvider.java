@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -137,11 +136,7 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
    */
   public VasServiceProvider(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -364,6 +359,10 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VasServiceProvider> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VasServiceProvider>() {
+    public Class<VasServiceProvider> getCreatedClass() {
+      return VasServiceProvider.class;
+    }
+
     @Override
     public VasServiceProvider create(org.json.JSONObject jsonObject) {
       return new VasServiceProvider(jsonObject);
@@ -371,14 +370,12 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean PROVIDERPACKAGE_IS_REQUIRED = false;
     public static final boolean PROTOCOLID_IS_REQUIRED = false;
     public static final boolean SUPPORTEDSERVICES_IS_REQUIRED = false;
     public static final boolean PROTOCOLCONFIG_IS_REQUIRED = false;
     public static final boolean PUSHURL_IS_REQUIRED = false;
     public static final boolean PUSHTITLE_IS_REQUIRED = false;
-
   }
 
 }

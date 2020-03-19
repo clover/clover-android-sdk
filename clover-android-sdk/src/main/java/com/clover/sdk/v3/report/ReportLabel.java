@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -104,11 +103,7 @@ public class ReportLabel extends GenericParcelable implements com.clover.sdk.v3.
    */
   public ReportLabel(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -141,7 +136,7 @@ public class ReportLabel extends GenericParcelable implements com.clover.sdk.v3.
   @Override
   public void validate() {
 
-    genClient.validateLength(getName(), 255);
+    genClient.validateLength(CacheKey.name, getName(), 255);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -262,6 +257,10 @@ public class ReportLabel extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportLabel> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportLabel>() {
+    public Class<ReportLabel> getCreatedClass() {
+      return ReportLabel.class;
+    }
+
     @Override
     public ReportLabel create(org.json.JSONObject jsonObject) {
       return new ReportLabel(jsonObject);
@@ -269,12 +268,10 @@ public class ReportLabel extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 255;
     public static final boolean SHOWINREPORTING_IS_REQUIRED = false;
-
   }
 
 }

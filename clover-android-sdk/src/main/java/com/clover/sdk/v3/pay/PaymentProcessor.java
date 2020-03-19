@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -108,11 +107,7 @@ public class PaymentProcessor extends GenericParcelable implements com.clover.sd
    */
   public PaymentProcessor(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -144,11 +139,11 @@ public class PaymentProcessor extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getPaymentGatewayApi(), 31);
+    genClient.validateLength(CacheKey.paymentGatewayApi, getPaymentGatewayApi(), 31);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -290,6 +285,10 @@ public class PaymentProcessor extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentProcessor> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentProcessor>() {
+    public Class<PaymentProcessor> getCreatedClass() {
+      return PaymentProcessor.class;
+    }
+
     @Override
     public PaymentProcessor create(org.json.JSONObject jsonObject) {
       return new PaymentProcessor(jsonObject);
@@ -297,7 +296,6 @@ public class PaymentProcessor extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -305,7 +303,6 @@ public class PaymentProcessor extends GenericParcelable implements com.clover.sd
     public static final boolean PAYMENTGATEWAYAPI_IS_REQUIRED = false;
     public static final long PAYMENTGATEWAYAPI_MAX_LEN = 31;
     public static final boolean PRODUCTION_IS_REQUIRED = false;
-
   }
 
 }

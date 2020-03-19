@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
    */
   public AdditionalChargeAmount(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -146,9 +141,9 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -269,6 +264,10 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AdditionalChargeAmount> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AdditionalChargeAmount>() {
+    public Class<AdditionalChargeAmount> getCreatedClass() {
+      return AdditionalChargeAmount.class;
+    }
+
     @Override
     public AdditionalChargeAmount create(org.json.JSONObject jsonObject) {
       return new AdditionalChargeAmount(jsonObject);
@@ -276,13 +275,11 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final long AMOUNT_MIN = 0;
     public static final boolean TYPE_IS_REQUIRED = false;
-
   }
 
 }

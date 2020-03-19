@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -102,11 +101,7 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
    */
   public AggregateRating(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -237,6 +232,10 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AggregateRating> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AggregateRating>() {
+    public Class<AggregateRating> getCreatedClass() {
+      return AggregateRating.class;
+    }
+
     @Override
     public AggregateRating create(org.json.JSONObject jsonObject) {
       return new AggregateRating(jsonObject);
@@ -244,10 +243,8 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean REVIEWCOUNT_IS_REQUIRED = false;
     public static final boolean TOTALSTARS_IS_REQUIRED = false;
-
   }
 
 }

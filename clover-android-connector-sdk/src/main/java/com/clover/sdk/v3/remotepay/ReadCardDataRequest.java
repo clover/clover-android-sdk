@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -121,11 +120,7 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
    */
   public ReadCardDataRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -157,7 +152,7 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'isForceSwipePinEntry' field is set and is not null */
@@ -307,6 +302,10 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReadCardDataRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReadCardDataRequest>() {
+    public Class<ReadCardDataRequest> getCreatedClass() {
+      return ReadCardDataRequest.class;
+    }
+
     @Override
     public ReadCardDataRequest create(org.json.JSONObject jsonObject) {
       return new ReadCardDataRequest(jsonObject);
@@ -314,13 +313,11 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
   };
 
   public interface Constraints {
-
     public static final boolean ISFORCESWIPEPINENTRY_IS_REQUIRED = false;
     public static final boolean CARDENTRYMETHODS_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -160,11 +159,7 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public DCCInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -197,7 +192,7 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
   @Override
   public void validate() {
 
-    genClient.validateLength(getForeignCurrencyCode(), 3);
+    genClient.validateLength(CacheKey.foreignCurrencyCode, getForeignCurrencyCode(), 3);
   }
 
   /** Checks whether the 'inquiryRateId' field is set and is not null */
@@ -423,6 +418,10 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DCCInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DCCInfo>() {
+    public Class<DCCInfo> getCreatedClass() {
+      return DCCInfo.class;
+    }
+
     @Override
     public DCCInfo create(org.json.JSONObject jsonObject) {
       return new DCCInfo(jsonObject);
@@ -430,7 +429,6 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean INQUIRYRATEID_IS_REQUIRED = false;
     public static final boolean DCCAPPLIED_IS_REQUIRED = false;
     public static final boolean FOREIGNCURRENCYCODE_IS_REQUIRED = false;
@@ -440,7 +438,6 @@ public class DCCInfo extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean MARGINRATEPERCENTAGE_IS_REQUIRED = false;
     public static final boolean EXCHANGERATESOURCENAME_IS_REQUIRED = false;
     public static final boolean EXCHANGERATESOURCETIMESTAMP_IS_REQUIRED = false;
-
   }
 
 }

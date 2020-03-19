@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -40,7 +39,7 @@ import com.clover.sdk.GenericParcelable;
 public class PermissionSetRole extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Unique identifier
+   * Not a normal Clover ID
    */
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
@@ -111,11 +110,7 @@ public class PermissionSetRole extends GenericParcelable implements com.clover.s
    */
   public PermissionSetRole(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -147,7 +142,9 @@ public class PermissionSetRole extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateLength(CacheKey.id, getId(), 27);
+    genClient.validateReferences(CacheKey.role);
+    genClient.validateReferences(CacheKey.permissionSet);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -272,6 +269,10 @@ public class PermissionSetRole extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PermissionSetRole> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PermissionSetRole>() {
+    public Class<PermissionSetRole> getCreatedClass() {
+      return PermissionSetRole.class;
+    }
+
     @Override
     public PermissionSetRole create(org.json.JSONObject jsonObject) {
       return new PermissionSetRole(jsonObject);
@@ -279,12 +280,10 @@ public class PermissionSetRole extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
-    public static final long ID_MAX_LEN = 13;
+    public static final long ID_MAX_LEN = 27;
     public static final boolean ROLE_IS_REQUIRED = false;
     public static final boolean PERMISSIONSET_IS_REQUIRED = false;
-
   }
 
 }

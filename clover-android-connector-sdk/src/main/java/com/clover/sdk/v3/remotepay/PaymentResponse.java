@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -159,11 +158,7 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
    */
   public PaymentResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -461,6 +456,10 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentResponse>() {
+    public Class<PaymentResponse> getCreatedClass() {
+      return PaymentResponse.class;
+    }
+
     @Override
     public PaymentResponse create(org.json.JSONObject jsonObject) {
       return new PaymentResponse(jsonObject);
@@ -468,7 +467,6 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean ISSALE_IS_REQUIRED = false;
     public static final boolean ISPREAUTH_IS_REQUIRED = false;
@@ -478,7 +476,6 @@ public class PaymentResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

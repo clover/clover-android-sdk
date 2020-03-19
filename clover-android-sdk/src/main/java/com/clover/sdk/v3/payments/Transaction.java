@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -128,11 +127,7 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
    */
   public Transaction(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -355,6 +350,10 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Transaction> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Transaction>() {
+    public Class<Transaction> getCreatedClass() {
+      return Transaction.class;
+    }
+
     @Override
     public Transaction create(org.json.JSONObject jsonObject) {
       return new Transaction(jsonObject);
@@ -362,14 +361,12 @@ public class Transaction extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean CREDIT_IS_REQUIRED = false;
     public static final boolean CREDITREFUND_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
    */
   public SummaryGroup(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -158,6 +153,7 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.summaryObject);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -351,6 +347,10 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<SummaryGroup> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<SummaryGroup>() {
+    public Class<SummaryGroup> getCreatedClass() {
+      return SummaryGroup.class;
+    }
+
     @Override
     public SummaryGroup create(org.json.JSONObject jsonObject) {
       return new SummaryGroup(jsonObject);
@@ -358,14 +358,12 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean SUMMARYOBJECT_IS_REQUIRED = false;
     public static final boolean PAYMENTSSUMMARY_IS_REQUIRED = false;
     public static final boolean REFUNDSSUMMARY_IS_REQUIRED = false;
     public static final boolean CREDITSSUMMARY_IS_REQUIRED = false;
     public static final boolean DISCOUNTSSUMMARY_IS_REQUIRED = false;
-
   }
 
 }

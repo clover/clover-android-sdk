@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -107,11 +106,7 @@ public class AppSuggestRecord extends GenericParcelable implements com.clover.sd
    */
   public AppSuggestRecord(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -143,6 +138,7 @@ public class AppSuggestRecord extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'app' field is set and is not null */
@@ -268,6 +264,10 @@ public class AppSuggestRecord extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppSuggestRecord> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppSuggestRecord>() {
+    public Class<AppSuggestRecord> getCreatedClass() {
+      return AppSuggestRecord.class;
+    }
+
     @Override
     public AppSuggestRecord create(org.json.JSONObject jsonObject) {
       return new AppSuggestRecord(jsonObject);
@@ -275,11 +275,9 @@ public class AppSuggestRecord extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean HIGHLIGHT_IS_REQUIRED = false;
     public static final boolean SCORE_IS_REQUIRED = false;
-
   }
 
 }

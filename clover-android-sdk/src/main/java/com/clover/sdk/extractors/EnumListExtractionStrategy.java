@@ -20,7 +20,10 @@ import com.clover.sdk.GenericClient;
 import java.util.HashMap;
 
 /**
- * For internal use only.
+ * For Clover internal use only.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
  */
 public final class EnumListExtractionStrategy extends ExtractionStrategy {
 

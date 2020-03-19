@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -156,11 +155,7 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
    */
   public MerchantInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -192,9 +187,9 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getMerchantID(), 13);
+    genClient.validateCloverId(CacheKey.merchantID, getMerchantID());
 
-    genClient.validateLength(getMerchantName(), 127);
+    genClient.validateLength(CacheKey.merchantName, getMerchantName(), 127);
   }
 
   /** Checks whether the 'merchantID' field is set and is not null */
@@ -464,6 +459,10 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantInfo>() {
+    public Class<MerchantInfo> getCreatedClass() {
+      return MerchantInfo.class;
+    }
+
     @Override
     public MerchantInfo create(org.json.JSONObject jsonObject) {
       return new MerchantInfo(jsonObject);
@@ -471,7 +470,6 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTID_IS_REQUIRED = false;
     public static final long MERCHANTID_MAX_LEN = 13;
     public static final boolean MERCHANTMID_IS_REQUIRED = false;
@@ -484,7 +482,6 @@ public class MerchantInfo extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean SUPPORTSMANUALREFUNDS_IS_REQUIRED = false;
     public static final boolean SUPPORTSTIPADJUST_IS_REQUIRED = false;
     public static final boolean DEVICEINFO_IS_REQUIRED = false;
-
   }
 
 }

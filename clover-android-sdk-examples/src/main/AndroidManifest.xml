@@ -185,5 +185,7 @@ xmlns:tools="http://schemas.android.com/tools"
                 <action android:name="com.clover.intent.action.APP_INSTALL_DONE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".KeypadTestActivity" android:label="Keypad Test" />
     </application>
 </manifest>

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -131,11 +130,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    */
   public VaultCardResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -347,6 +342,10 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VaultCardResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VaultCardResponse>() {
+    public Class<VaultCardResponse> getCreatedClass() {
+      return VaultCardResponse.class;
+    }
+
     @Override
     public VaultCardResponse create(org.json.JSONObject jsonObject) {
       return new VaultCardResponse(jsonObject);
@@ -354,13 +353,11 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   };
 
   public interface Constraints {
-
     public static final boolean CARD_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

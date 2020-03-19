@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -676,11 +675,7 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
    */
   public MerchantBoarding(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -713,101 +708,102 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   @Override
   public void validate() {
 
-    genClient.validateLength(getBillToName(), 50);
+    genClient.validateLength(CacheKey.billToName, getBillToName(), 50);
 
-    genClient.validateLength(getAchBankId(), 15);
+    genClient.validateLength(CacheKey.achBankId, getAchBankId(), 15);
 
-    genClient.validateLength(getAccountStatus(), 2);
+    genClient.validateLength(CacheKey.accountStatus, getAccountStatus(), 2);
 
-    genClient.validateLength(getStore(), 8);
+    genClient.validateLength(CacheKey.store, getStore(), 8);
 
-    genClient.validateLength(getTransArmorKey(), 11);
+    genClient.validateLength(CacheKey.transArmorKey, getTransArmorKey(), 11);
 
-    genClient.validateLength(getRelationshipManager(), 3);
+    genClient.validateLength(CacheKey.relationshipManager, getRelationshipManager(), 3);
 
-    genClient.validateLength(getSalesman(), 24);
+    genClient.validateLength(CacheKey.salesman, getSalesman(), 24);
 
-    genClient.validateLength(getValueLinkMid(), 11);
+    genClient.validateLength(CacheKey.valueLinkMid, getValueLinkMid(), 11);
 
-    genClient.validateLength(getAltValueLinkMid(), 11);
+    genClient.validateLength(CacheKey.altValueLinkMid, getAltValueLinkMid(), 11);
 
-    genClient.validateLength(getReceiptDba(), 22);
+    genClient.validateLength(CacheKey.receiptDba, getReceiptDba(), 22);
 
-    genClient.validateLength(getBankNumber(), 50);
+    genClient.validateLength(CacheKey.bankNumber, getBankNumber(), 50);
 
-    genClient.validateLength(getParentMerchantId(), 16);
+    genClient.validateLength(CacheKey.parentMerchantId, getParentMerchantId(), 16);
 
-    genClient.validateLength(getMultiMerchantType(), 1);
+    genClient.validateLength(CacheKey.multiMerchantType, getMultiMerchantType(), 1);
 
-    genClient.validateLength(getMerchantData(), 20);
+    genClient.validateLength(CacheKey.merchantData, getMerchantData(), 20);
 
-    genClient.validateLength(getFaxPhone(), 10);
+    genClient.validateLength(CacheKey.faxPhone, getFaxPhone(), 10);
 
-    genClient.validateLength(getMerchantType(), 25);
+    genClient.validateLength(CacheKey.merchantType, getMerchantType(), 25);
 
-    genClient.validateLength(getMultiCurrencyIndicator(), 50);
+    genClient.validateLength(CacheKey.multiCurrencyIndicator, getMultiCurrencyIndicator(), 50);
 
-    genClient.validateLength(getPreferredMerchant(), 1);
+    genClient.validateLength(CacheKey.preferredMerchant, getPreferredMerchant(), 1);
 
-    genClient.validateLength(getVisaIram(), 1);
+    genClient.validateLength(CacheKey.visaIram, getVisaIram(), 1);
 
-    genClient.validateLength(getTransArmorIndicator(), 100);
+    genClient.validateLength(CacheKey.transArmorIndicator, getTransArmorIndicator(), 100);
 
-    genClient.validateLength(getSigningKey(), 2);
+    genClient.validateLength(CacheKey.signingKey, getSigningKey(), 2);
 
-    genClient.validateLength(getVisaDebitAccept(), 1);
+    genClient.validateLength(CacheKey.visaDebitAccept, getVisaDebitAccept(), 1);
 
-    genClient.validateLength(getMastercardDebitAccept(), 1);
+    genClient.validateLength(CacheKey.mastercardDebitAccept, getMastercardDebitAccept(), 1);
 
-    genClient.validateLength(getSourceIndicator(), 1);
+    genClient.validateLength(CacheKey.sourceIndicator, getSourceIndicator(), 1);
 
-    genClient.validateLength(getForeignDomesticIndicator(), 1);
+    genClient.validateLength(CacheKey.foreignDomesticIndicator, getForeignDomesticIndicator(), 1);
 
-    genClient.validateLength(getAccountFunding(), 1);
+    genClient.validateLength(CacheKey.accountFunding, getAccountFunding(), 1);
 
-    genClient.validateLength(getDirectMarketing(), 1);
+    genClient.validateLength(CacheKey.directMarketing, getDirectMarketing(), 1);
 
-    genClient.validateLength(getParticipantRelationship(), 1);
+    genClient.validateLength(CacheKey.participantRelationship, getParticipantRelationship(), 1);
 
-    genClient.validateLength(getProcessSettlement(), 1);
+    genClient.validateLength(CacheKey.processSettlement, getProcessSettlement(), 1);
 
-    genClient.validateLength(getRecurringFlag(), 1);
+    genClient.validateLength(CacheKey.recurringFlag, getRecurringFlag(), 1);
 
-    genClient.validateLength(getLinkFrom(), 9);
+    genClient.validateLength(CacheKey.linkFrom, getLinkFrom(), 9);
 
-    genClient.validateLength(getLinkTo(), 9);
+    genClient.validateLength(CacheKey.linkTo, getLinkTo(), 9);
 
-    genClient.validateLength(getEmvAllowed(), 1);
+    genClient.validateLength(CacheKey.emvAllowed, getEmvAllowed(), 1);
 
-    genClient.validateLength(getPreviousAccountStatus(), 2);
+    genClient.validateLength(CacheKey.previousAccountStatus, getPreviousAccountStatus(), 2);
 
-    genClient.validateLength(getLeaseCompanyCode(), 2);
+    genClient.validateLength(CacheKey.leaseCompanyCode, getLeaseCompanyCode(), 2);
 
-    genClient.validateLength(getProcessMode(), 1);
+    genClient.validateLength(CacheKey.processMode, getProcessMode(), 1);
 
-    genClient.validateLength(getAgentBankIndicator(), 1);
+    genClient.validateLength(CacheKey.agentBankIndicator, getAgentBankIndicator(), 1);
 
-    genClient.validateLength(getNonMpaIndicator(), 1);
+    genClient.validateLength(CacheKey.nonMpaIndicator, getNonMpaIndicator(), 1);
 
-    genClient.validateLength(getInternetIndicator(), 1);
+    genClient.validateLength(CacheKey.internetIndicator, getInternetIndicator(), 1);
 
-    genClient.validateLength(getChargeBackRetrievalAddressFlag(), 1);
+    genClient.validateLength(CacheKey.chargeBackRetrievalAddressFlag, getChargeBackRetrievalAddressFlag(), 1);
 
-    genClient.validateLength(getViRelationshipParticipant(), 1);
+    genClient.validateLength(CacheKey.viRelationshipParticipant, getViRelationshipParticipant(), 1);
 
-    genClient.validateLength(getRetailDescription(), 22);
+    genClient.validateLength(CacheKey.retailDescription, getRetailDescription(), 22);
 
-    genClient.validateLength(getClientRepresentative(), 30);
+    genClient.validateLength(CacheKey.clientRepresentative, getClientRepresentative(), 30);
 
-    genClient.validateLength(getMerchantAuthType(), 1);
+    genClient.validateLength(CacheKey.merchantAuthType, getMerchantAuthType(), 1);
 
-    genClient.validateLength(getSysPrin(), 10);
+    genClient.validateLength(CacheKey.sysPrin, getSysPrin(), 10);
 
-    genClient.validateLength(getTaxId(), 40);
+    genClient.validateLength(CacheKey.taxId, getTaxId(), 40);
 
-    genClient.validateLength(getBusinessType(), 15);
+    genClient.validateLength(CacheKey.businessType, getBusinessType(), 15);
 
-    genClient.validateLength(getPartnerId(), 64);
+    genClient.validateLength(CacheKey.partnerId, getPartnerId(), 64);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -2127,6 +2123,10 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantBoarding> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantBoarding>() {
+    public Class<MerchantBoarding> getCreatedClass() {
+      return MerchantBoarding.class;
+    }
+
     @Override
     public MerchantBoarding create(org.json.JSONObject jsonObject) {
       return new MerchantBoarding(jsonObject);
@@ -2134,7 +2134,6 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean BILLTONAME_IS_REQUIRED = false;
     public static final long BILLTONAME_MAX_LEN = 50;
@@ -2246,7 +2245,6 @@ public class MerchantBoarding extends GenericParcelable implements com.clover.sd
     public static final long PARTNERID_MAX_LEN = 64;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

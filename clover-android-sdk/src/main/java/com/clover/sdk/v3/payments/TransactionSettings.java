@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -216,11 +215,7 @@ public class TransactionSettings extends GenericParcelable implements com.clover
    */
   public TransactionSettings(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -716,6 +711,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TransactionSettings> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TransactionSettings>() {
+    public Class<TransactionSettings> getCreatedClass() {
+      return TransactionSettings.class;
+    }
+
     @Override
     public TransactionSettings create(org.json.JSONObject jsonObject) {
       return new TransactionSettings(jsonObject);
@@ -723,7 +722,6 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean CARDENTRYMETHODS_IS_REQUIRED = false;
     public static final boolean DISABLECASHBACK_IS_REQUIRED = false;
     public static final boolean CLOVERSHOULDHANDLERECEIPTS_IS_REQUIRED = false;
@@ -743,7 +741,6 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean RETURNRESULTONTRANSACTIONCOMPLETE_IS_REQUIRED = false;
     public static final boolean TIPSUGGESTIONS_IS_REQUIRED = false;
     public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class Signature extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Signature(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -271,6 +266,10 @@ public class Signature extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Signature> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Signature>() {
+    public Class<Signature> getCreatedClass() {
+      return Signature.class;
+    }
+
     @Override
     public Signature create(org.json.JSONObject jsonObject) {
       return new Signature(jsonObject);
@@ -278,11 +277,9 @@ public class Signature extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean STROKES_IS_REQUIRED = false;
     public static final boolean WIDTH_IS_REQUIRED = false;
     public static final boolean HEIGHT_IS_REQUIRED = false;
-
   }
 
 }

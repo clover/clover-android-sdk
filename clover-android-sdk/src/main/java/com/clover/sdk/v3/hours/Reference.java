@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -100,11 +99,7 @@ public class Reference extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Reference(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -136,7 +131,7 @@ public class Reference extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -236,6 +231,10 @@ public class Reference extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Reference> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Reference>() {
+    public Class<Reference> getCreatedClass() {
+      return Reference.class;
+    }
+
     @Override
     public Reference create(org.json.JSONObject jsonObject) {
       return new Reference(jsonObject);
@@ -243,11 +242,9 @@ public class Reference extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean TYPE_IS_REQUIRED = false;
-
   }
 
 }

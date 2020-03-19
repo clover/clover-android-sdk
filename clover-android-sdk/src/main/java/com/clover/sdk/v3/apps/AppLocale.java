@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -276,11 +275,7 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public AppLocale(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -312,44 +307,45 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getLocale(), "locale");
-    genClient.validateLength(getLocale(), 5);
+    genClient.validateNotNull(CacheKey.locale, getLocale());
+    genClient.validateLength(CacheKey.locale, getLocale(), 5);
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getDescription(), 2000);
+    genClient.validateLength(CacheKey.description, getDescription(), 2000);
 
-    genClient.validateLength(getTagline(), 255);
+    genClient.validateLength(CacheKey.tagline, getTagline(), 255);
 
-    genClient.validateLength(getVideoUrl(), 255);
+    genClient.validateLength(CacheKey.videoUrl, getVideoUrl(), 255);
 
-    genClient.validateLength(getFilenameIcon(), 100);
+    genClient.validateLength(CacheKey.filenameIcon, getFilenameIcon(), 100);
 
-    genClient.validateLength(getFilenameIconSmall(), 255);
+    genClient.validateLength(CacheKey.filenameIconSmall, getFilenameIconSmall(), 255);
 
-    genClient.validateLength(getFilenameIconLarge(), 255);
+    genClient.validateLength(CacheKey.filenameIconLarge, getFilenameIconLarge(), 255);
 
-    genClient.validateLength(getFilenameCover(), 255);
+    genClient.validateLength(CacheKey.filenameCover, getFilenameCover(), 255);
 
-    genClient.validateLength(getFilenameBanner(), 255);
+    genClient.validateLength(CacheKey.filenameBanner, getFilenameBanner(), 255);
 
-    genClient.validateLength(getPrivacyPolicy(), 255);
+    genClient.validateLength(CacheKey.privacyPolicy, getPrivacyPolicy(), 255);
 
-    genClient.validateLength(getEula(), 255);
+    genClient.validateLength(CacheKey.eula, getEula(), 255);
 
-    genClient.validateLength(getSupportPhone(), 25);
+    genClient.validateLength(CacheKey.supportPhone, getSupportPhone(), 25);
 
-    genClient.validateLength(getSupportPhoneHours(), 127);
+    genClient.validateLength(CacheKey.supportPhoneHours, getSupportPhoneHours(), 127);
 
-    genClient.validateLength(getSupportEmail(), 127);
+    genClient.validateLength(CacheKey.supportEmail, getSupportEmail(), 127);
 
-    genClient.validateLength(getSupportUrl(), 255);
+    genClient.validateLength(CacheKey.supportUrl, getSupportUrl(), 255);
 
-    genClient.validateLength(getSmartReceiptText(), 100);
+    genClient.validateLength(CacheKey.smartReceiptText, getSmartReceiptText(), 100);
 
-    genClient.validateLength(getSmartReceiptUrl(), 255);
+    genClient.validateLength(CacheKey.smartReceiptUrl, getSmartReceiptUrl(), 255);
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -876,6 +872,10 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppLocale> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppLocale>() {
+    public Class<AppLocale> getCreatedClass() {
+      return AppLocale.class;
+    }
+
     @Override
     public AppLocale create(org.json.JSONObject jsonObject) {
       return new AppLocale(jsonObject);
@@ -883,7 +883,6 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean APP_IS_REQUIRED = false;
@@ -925,7 +924,6 @@ public class AppLocale extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean SMARTRECEIPTURL_IS_REQUIRED = false;
     public static final long SMARTRECEIPTURL_MAX_LEN = 255;
     public static final boolean LINKLABEL_IS_REQUIRED = false;
-
   }
 
 }

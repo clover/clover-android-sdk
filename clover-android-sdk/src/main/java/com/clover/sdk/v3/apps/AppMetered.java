@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -53,6 +52,7 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * DEPRECATED: App metered amount. Instead use per country pricing in meteredCountries
    */
+  @Deprecated
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
@@ -60,6 +60,7 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * DEPRECATED: App metered action. Instead use per country pricing in meteredCountries
    */
+  @Deprecated
   public java.lang.String getAction() {
     return genClient.cacheGet(CacheKey.action);
   }
@@ -67,6 +68,7 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * DEPRECATED: App metered active status. Instead use per country pricing in meteredCountries
    */
+  @Deprecated
   public java.lang.Boolean getActive() {
     return genClient.cacheGet(CacheKey.active);
   }
@@ -150,11 +152,7 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public AppMetered(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,11 +184,12 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getAction(), 40);
+    genClient.validateLength(CacheKey.action, getAction(), 40);
 
-    genClient.validateLength(getLabel(), 20);
+    genClient.validateLength(CacheKey.label, getLabel(), 20);
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -402,6 +401,10 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppMetered> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppMetered>() {
+    public Class<AppMetered> getCreatedClass() {
+      return AppMetered.class;
+    }
+
     @Override
     public AppMetered create(org.json.JSONObject jsonObject) {
       return new AppMetered(jsonObject);
@@ -409,7 +412,6 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean AMOUNT_IS_REQUIRED = false;
@@ -420,7 +422,6 @@ public class AppMetered extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 20;
-
   }
 
 }

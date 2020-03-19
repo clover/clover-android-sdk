@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -96,11 +95,7 @@ public class CategoryItem extends GenericParcelable implements com.clover.sdk.v3
    */
   public CategoryItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -132,9 +127,9 @@ public class CategoryItem extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateNull(getItem(), "item");
+    genClient.validateNotNull(CacheKey.item, getItem());
 
-    genClient.validateNull(getCategory(), "category");
+    genClient.validateNotNull(CacheKey.category, getCategory());
   }
 
   /** Checks whether the 'item' field is set and is not null */
@@ -238,6 +233,10 @@ public class CategoryItem extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CategoryItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CategoryItem>() {
+    public Class<CategoryItem> getCreatedClass() {
+      return CategoryItem.class;
+    }
+
     @Override
     public CategoryItem create(org.json.JSONObject jsonObject) {
       return new CategoryItem(jsonObject);
@@ -245,10 +244,8 @@ public class CategoryItem extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ITEM_IS_REQUIRED = true;
     public static final boolean CATEGORY_IS_REQUIRED = true;
-
   }
 
 }

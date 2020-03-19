@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -112,11 +111,7 @@ public class CardlessPaymentData extends GenericParcelable implements com.clover
    */
   public CardlessPaymentData(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -268,6 +263,10 @@ public class CardlessPaymentData extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CardlessPaymentData> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CardlessPaymentData>() {
+    public Class<CardlessPaymentData> getCreatedClass() {
+      return CardlessPaymentData.class;
+    }
+
     @Override
     public CardlessPaymentData create(org.json.JSONObject jsonObject) {
       return new CardlessPaymentData(jsonObject);
@@ -275,11 +274,9 @@ public class CardlessPaymentData extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENTNETWORK_IS_REQUIRED = false;
     public static final boolean PAYMENTTYPE_IS_REQUIRED = false;
     public static final boolean PAYMENTDATA_IS_REQUIRED = false;
-
   }
 
 }

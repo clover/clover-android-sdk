@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -272,11 +271,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public SalesSummary(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -764,6 +759,10 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<SalesSummary> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<SalesSummary>() {
+    public Class<SalesSummary> getCreatedClass() {
+      return SalesSummary.class;
+    }
+
     @Override
     public SalesSummary create(org.json.JSONObject jsonObject) {
       return new SalesSummary(jsonObject);
@@ -771,7 +770,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean STARTTIMESTAMP_IS_REQUIRED = false;
     public static final boolean ENDTIMESTAMP_IS_REQUIRED = false;
     public static final boolean SEGMENTLABEL_IS_REQUIRED = false;
@@ -791,7 +789,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean UNPAIDBALANCE_IS_REQUIRED = false;
     public static final boolean NUMFULLYPAIDORDERS_IS_REQUIRED = false;
     public static final boolean NUMPARTIALLYPAIDORDERS_IS_REQUIRED = false;
-
   }
 
 }

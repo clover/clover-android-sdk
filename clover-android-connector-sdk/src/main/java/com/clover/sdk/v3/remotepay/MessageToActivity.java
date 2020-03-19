@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -123,11 +122,7 @@ public class MessageToActivity extends com.clover.sdk.v3.remotepay.ActivityMessa
    */
   public MessageToActivity(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -159,7 +154,7 @@ public class MessageToActivity extends com.clover.sdk.v3.remotepay.ActivityMessa
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'action' field is set and is not null */
@@ -317,6 +312,10 @@ public class MessageToActivity extends com.clover.sdk.v3.remotepay.ActivityMessa
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MessageToActivity> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MessageToActivity>() {
+    public Class<MessageToActivity> getCreatedClass() {
+      return MessageToActivity.class;
+    }
+
     @Override
     public MessageToActivity create(org.json.JSONObject jsonObject) {
       return new MessageToActivity(jsonObject);
@@ -324,13 +323,11 @@ public class MessageToActivity extends com.clover.sdk.v3.remotepay.ActivityMessa
   };
 
   public interface Constraints {
-
     public static final boolean ACTION_IS_REQUIRED = false;
     public static final boolean PAYLOAD_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

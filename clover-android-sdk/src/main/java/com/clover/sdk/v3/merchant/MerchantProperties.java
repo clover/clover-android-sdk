@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -555,11 +554,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
    */
   public MerchantProperties(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -592,27 +587,28 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   @Override
   public void validate() {
 
-    genClient.validateLength(getDefaultCurrency(), 3);
+    genClient.validateLength(CacheKey.defaultCurrency, getDefaultCurrency(), 3);
 
-    genClient.validateLength(getHardwareProfile(), 127);
+    genClient.validateLength(CacheKey.hardwareProfile, getHardwareProfile(), 127);
 
-    genClient.validateLength(getMarketingPreferenceText(), 255);
+    genClient.validateLength(CacheKey.marketingPreferenceText, getMarketingPreferenceText(), 255);
 
-    genClient.validateLength(getSupportPhone(), 25);
+    genClient.validateLength(CacheKey.supportPhone, getSupportPhone(), 25);
 
-    genClient.validateLength(getSupportEmail(), 127);
+    genClient.validateLength(CacheKey.supportEmail, getSupportEmail(), 127);
 
-    genClient.validateLength(getTimezone(), 255);
+    genClient.validateLength(CacheKey.timezone, getTimezone(), 255);
 
-    genClient.validateLength(getVatTaxName(), 255);
+    genClient.validateLength(CacheKey.vatTaxName, getVatTaxName(), 255);
 
-    genClient.validateLength(getAppBillingSystem(), 10);
+    genClient.validateLength(CacheKey.appBillingSystem, getAppBillingSystem(), 10);
 
-    genClient.validateLength(getAbaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.abaAccountNumber, getAbaAccountNumber(), 40);
 
-    genClient.validateLength(getDdaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.ddaAccountNumber, getDdaAccountNumber(), 40);
 
-    genClient.validateLength(getHierarchy(), 255);
+    genClient.validateLength(CacheKey.hierarchy, getHierarchy(), 255);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -1932,6 +1928,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantProperties> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantProperties>() {
+    public Class<MerchantProperties> getCreatedClass() {
+      return MerchantProperties.class;
+    }
+
     @Override
     public MerchantProperties create(org.json.JSONObject jsonObject) {
       return new MerchantProperties(jsonObject);
@@ -1939,7 +1939,6 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
@@ -2011,7 +2010,6 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean PRIVACYPOLICYMODE_IS_REQUIRED = false;
     public static final boolean MERCHANTPRIVACYPOLICYURL_IS_REQUIRED = false;
     public static final boolean DISABLEPRINTTAXESPAYMENTONRECEIPTS_IS_REQUIRED = false;
-
   }
 
 }

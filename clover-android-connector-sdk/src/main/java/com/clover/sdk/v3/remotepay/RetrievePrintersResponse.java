@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -133,11 +132,7 @@ public class RetrievePrintersResponse extends com.clover.sdk.v3.remotepay.BaseRe
    */
   public RetrievePrintersResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -352,6 +347,10 @@ public class RetrievePrintersResponse extends com.clover.sdk.v3.remotepay.BaseRe
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RetrievePrintersResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrievePrintersResponse>() {
+    public Class<RetrievePrintersResponse> getCreatedClass() {
+      return RetrievePrintersResponse.class;
+    }
+
     @Override
     public RetrievePrintersResponse create(org.json.JSONObject jsonObject) {
       return new RetrievePrintersResponse(jsonObject);
@@ -359,13 +358,11 @@ public class RetrievePrintersResponse extends com.clover.sdk.v3.remotepay.BaseRe
   };
 
   public interface Constraints {
-
     public static final boolean PRINTERS_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

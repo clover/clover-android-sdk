@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -567,11 +566,7 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Developer(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -603,73 +598,75 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getFirstName(), 127);
+    genClient.validateLength(CacheKey.firstName, getFirstName(), 127);
 
-    genClient.validateLength(getLastName(), 127);
+    genClient.validateLength(CacheKey.lastName, getLastName(), 127);
 
-    genClient.validateLength(getEmail(), 127);
+    genClient.validateLength(CacheKey.email, getEmail(), 127);
 
-    genClient.validateLength(getPhone(), 25);
+    genClient.validateLength(CacheKey.phone, getPhone(), 25);
 
-    genClient.validateLength(getDob(), 10);
+    genClient.validateLength(CacheKey.dob, getDob(), 10);
 
-    genClient.validateLength(getSsn(), 9);
+    genClient.validateLength(CacheKey.ssn, getSsn(), 9);
 
-    genClient.validateLength(getAddress(), 255);
+    genClient.validateLength(CacheKey.address, getAddress(), 255);
 
-    genClient.validateLength(getCity(), 127);
+    genClient.validateLength(CacheKey.city, getCity(), 127);
 
-    genClient.validateLength(getCounty(), 127);
+    genClient.validateLength(CacheKey.county, getCounty(), 127);
 
-    genClient.validateLength(getState(), 127);
+    genClient.validateLength(CacheKey.state, getState(), 127);
 
-    genClient.validateLength(getCountry(), 2);
+    genClient.validateLength(CacheKey.country, getCountry(), 2);
 
-    genClient.validateLength(getPostalCode(), 20);
+    genClient.validateLength(CacheKey.postalCode, getPostalCode(), 20);
 
-    genClient.validateLength(getBankAccountNumber(), 34);
+    genClient.validateLength(CacheKey.bankAccountNumber, getBankAccountNumber(), 34);
 
-    genClient.validateLength(getBankRoutingNumber(), 40);
+    genClient.validateLength(CacheKey.bankRoutingNumber, getBankRoutingNumber(), 40);
 
-    genClient.validateLength(getBusinessLegalName(), 255);
+    genClient.validateLength(CacheKey.businessLegalName, getBusinessLegalName(), 255);
 
-    genClient.validateLength(getVatRegisterNumber(), 127);
+    genClient.validateLength(CacheKey.vatRegisterNumber, getVatRegisterNumber(), 127);
 
-    genClient.validateLength(getBusinessAddress(), 255);
+    genClient.validateLength(CacheKey.businessAddress, getBusinessAddress(), 255);
 
-    genClient.validateLength(getBusinessCity(), 127);
+    genClient.validateLength(CacheKey.businessCity, getBusinessCity(), 127);
 
-    genClient.validateLength(getBusinessState(), 127);
+    genClient.validateLength(CacheKey.businessState, getBusinessState(), 127);
 
-    genClient.validateLength(getBusinessCountry(), 2);
+    genClient.validateLength(CacheKey.businessCountry, getBusinessCountry(), 2);
 
-    genClient.validateLength(getBusinessPostalCode(), 20);
+    genClient.validateLength(CacheKey.businessPostalCode, getBusinessPostalCode(), 20);
 
-    genClient.validateLength(getBillingStatusMessage(), 127);
+    genClient.validateLength(CacheKey.billingStatusMessage, getBillingStatusMessage(), 127);
 
-    genClient.validateLength(getPrName(), 255);
+    genClient.validateLength(CacheKey.prName, getPrName(), 255);
 
-    genClient.validateLength(getPrEmail(), 127);
+    genClient.validateLength(CacheKey.prEmail, getPrEmail(), 127);
 
-    genClient.validateLength(getPrPhone(), 25);
+    genClient.validateLength(CacheKey.prPhone, getPrPhone(), 25);
 
-    genClient.validateLength(getWebsite(), 255);
+    genClient.validateLength(CacheKey.website, getWebsite(), 255);
 
-    genClient.validateLength(getAppBillingSystem(), 10);
+    genClient.validateLength(CacheKey.appBillingSystem, getAppBillingSystem(), 10);
 
-    genClient.validateLength(getInfoleaseVendorCode(), 30);
+    genClient.validateLength(CacheKey.infoleaseVendorCode, getInfoleaseVendorCode(), 30);
 
-    genClient.validateLength(getInfoleaseGlCode(), 10);
+    genClient.validateLength(CacheKey.infoleaseGlCode, getInfoleaseGlCode(), 10);
 
-    genClient.validateLength(getSignorName(), 127);
+    genClient.validateLength(CacheKey.signorName, getSignorName(), 127);
 
-    genClient.validateLength(getSignorTitle(), 127);
+    genClient.validateLength(CacheKey.signorTitle, getSignorTitle(), 127);
 
-    genClient.validateLength(getEmergencyEmail(), 127);
+    genClient.validateLength(CacheKey.emergencyEmail, getEmergencyEmail(), 127);
+    genClient.validateReferences(CacheKey.bankInfo);
+    genClient.validateReferences(CacheKey.owner);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1760,6 +1757,10 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Developer> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Developer>() {
+    public Class<Developer> getCreatedClass() {
+      return Developer.class;
+    }
+
     @Override
     public Developer create(org.json.JSONObject jsonObject) {
       return new Developer(jsonObject);
@@ -1767,7 +1768,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -1851,7 +1851,6 @@ public class Developer extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long EMERGENCYEMAIL_MAX_LEN = 127;
     public static final boolean COLLECTIONAPPROVALSTATUS_IS_REQUIRED = false;
     public static final boolean ISISV_IS_REQUIRED = false;
-
   }
 
 }

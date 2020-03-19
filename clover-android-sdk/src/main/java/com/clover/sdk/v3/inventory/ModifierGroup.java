@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -173,11 +172,7 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
    */
   public ModifierGroup(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -209,18 +204,19 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 255);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 255);
 
-    genClient.validateLength(getAlternateName(), 255);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 255);
 
-    if (getMinRequired() != null && ( getMinRequired() < 0)) throw new IllegalArgumentException("Invalid value for 'getMinRequired()'");
+    genClient.validateMin(CacheKey.minRequired, getMinRequired(), 0L);
 
-    if (getMaxAllowed() != null && ( getMaxAllowed() < 0 || getMaxAllowed() > 65535)) throw new IllegalArgumentException("Invalid value for 'getMaxAllowed()'");
+    genClient.validateMinMax(CacheKey.maxAllowed, getMaxAllowed(), 0L, 65535L);
 
-    if (getSortOrder() != null && ( getSortOrder() < 0)) throw new IllegalArgumentException("Invalid value for 'getSortOrder()'");
+    genClient.validateMin(CacheKey.sortOrder, getSortOrder(), 0L);
+    genClient.validateReferences(CacheKey.items);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -498,6 +494,10 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ModifierGroup> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ModifierGroup>() {
+    public Class<ModifierGroup> getCreatedClass() {
+      return ModifierGroup.class;
+    }
+
     @Override
     public ModifierGroup create(org.json.JSONObject jsonObject) {
       return new ModifierGroup(jsonObject);
@@ -505,7 +505,6 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -523,7 +522,6 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final long SORTORDER_MIN = 0;
-
   }
 
 }

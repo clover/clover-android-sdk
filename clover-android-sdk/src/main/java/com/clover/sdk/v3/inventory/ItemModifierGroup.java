@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -96,11 +95,7 @@ public class ItemModifierGroup extends GenericParcelable implements com.clover.s
    */
   public ItemModifierGroup(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -132,9 +127,9 @@ public class ItemModifierGroup extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateNull(getItem(), "item");
+    genClient.validateNotNull(CacheKey.item, getItem());
 
-    genClient.validateNull(getModifierGroup(), "modifierGroup");
+    genClient.validateNotNull(CacheKey.modifierGroup, getModifierGroup());
   }
 
   /** Checks whether the 'item' field is set and is not null */
@@ -238,6 +233,10 @@ public class ItemModifierGroup extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ItemModifierGroup> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ItemModifierGroup>() {
+    public Class<ItemModifierGroup> getCreatedClass() {
+      return ItemModifierGroup.class;
+    }
+
     @Override
     public ItemModifierGroup create(org.json.JSONObject jsonObject) {
       return new ItemModifierGroup(jsonObject);
@@ -245,10 +244,8 @@ public class ItemModifierGroup extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ITEM_IS_REQUIRED = true;
     public static final boolean MODIFIERGROUP_IS_REQUIRED = true;
-
   }
 
 }

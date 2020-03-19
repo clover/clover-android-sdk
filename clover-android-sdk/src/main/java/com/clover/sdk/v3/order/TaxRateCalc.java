@@ -16,7 +16,7 @@ public class TaxRateCalc implements Calc.TaxRate {
       throw new NullPointerException("taxRate cannot be null");
     }
     if (taxRate.getRate() == null) {
-      throw new NullPointerException("taxRate.rate cannot be null");
+      throw new NullPointerException(String.format("taxRate.rate cannot be null; id: %s", taxRate.getId()));
     }
     this.taxRate = taxRate;
   }

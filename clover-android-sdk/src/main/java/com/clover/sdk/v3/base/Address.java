@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -136,11 +135,7 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Address(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -172,21 +167,21 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getAddress1(), 255);
+    genClient.validateLength(CacheKey.address1, getAddress1(), 255);
 
-    genClient.validateLength(getAddress2(), 255);
+    genClient.validateLength(CacheKey.address2, getAddress2(), 255);
 
-    genClient.validateLength(getAddress3(), 255);
+    genClient.validateLength(CacheKey.address3, getAddress3(), 255);
 
-    genClient.validateLength(getCity(), 127);
+    genClient.validateLength(CacheKey.city, getCity(), 127);
 
-    genClient.validateLength(getCountry(), 127);
+    genClient.validateLength(CacheKey.country, getCountry(), 127);
 
-    genClient.validateLength(getPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.phoneNumber, getPhoneNumber(), 21);
 
-    genClient.validateLength(getState(), 127);
+    genClient.validateLength(CacheKey.state, getState(), 127);
 
-    genClient.validateLength(getZip(), 127);
+    genClient.validateLength(CacheKey.zip, getZip(), 127);
   }
 
   /** Checks whether the 'address1' field is set and is not null */
@@ -412,6 +407,10 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Address> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Address>() {
+    public Class<Address> getCreatedClass() {
+      return Address.class;
+    }
+
     @Override
     public Address create(org.json.JSONObject jsonObject) {
       return new Address(jsonObject);
@@ -419,7 +418,6 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ADDRESS1_IS_REQUIRED = false;
     public static final long ADDRESS1_MAX_LEN = 255;
     public static final boolean ADDRESS2_IS_REQUIRED = false;
@@ -436,7 +434,6 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final long STATE_MAX_LEN = 127;
     public static final boolean ZIP_IS_REQUIRED = false;
     public static final long ZIP_MAX_LEN = 127;
-
   }
 
 }

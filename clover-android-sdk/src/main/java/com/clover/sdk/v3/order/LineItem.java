@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -368,11 +367,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public LineItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -404,23 +399,26 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getAlternateName(), 127);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 127);
 
-    if (getUnitQty() != null && ( getUnitQty() < 0)) throw new IllegalArgumentException("Invalid value for 'getUnitQty()'");
+    genClient.validateMin(CacheKey.unitQty, getUnitQty(), 0L);
 
-    genClient.validateLength(getUnitName(), 64);
+    genClient.validateLength(CacheKey.unitName, getUnitName(), 64);
 
-    genClient.validateLength(getItemCode(), 100);
+    genClient.validateLength(CacheKey.itemCode, getItemCode(), 100);
 
-    genClient.validateLength(getNote(), 255);
+    genClient.validateLength(CacheKey.note, getNote(), 255);
 
-    genClient.validateLength(getBinName(), 127);
+    genClient.validateLength(CacheKey.binName, getBinName(), 127);
 
-    genClient.validateLength(getUserData(), 255);
+    genClient.validateLength(CacheKey.userData, getUserData(), 255);
+    genClient.validateReferences(CacheKey.item);
+    genClient.validateReferences(CacheKey.exchangedLineItem);
+    genClient.validateReferences(CacheKey.printGroup);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1162,6 +1160,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LineItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LineItem>() {
+    public Class<LineItem> getCreatedClass() {
+      return LineItem.class;
+    }
+
     @Override
     public LineItem create(org.json.JSONObject jsonObject) {
       return new LineItem(jsonObject);
@@ -1169,7 +1171,6 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ITEM_IS_REQUIRED = false;
@@ -1210,7 +1211,6 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean REVENUEAMOUNT_IS_REQUIRED = false;
     public static final boolean QUANTITYSOLD_IS_REQUIRED = false;
     public static final boolean PRINTGROUP_IS_REQUIRED = false;
-
   }
 
 }

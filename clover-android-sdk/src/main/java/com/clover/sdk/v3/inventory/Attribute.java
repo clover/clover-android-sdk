@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class Attribute extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Attribute(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -158,12 +153,13 @@ public class Attribute extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 255);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 255);
 
-    genClient.validateNull(getItemGroup(), "itemGroup");
+    genClient.validateNotNull(CacheKey.itemGroup, getItemGroup());
+    genClient.validateReferences(CacheKey.itemGroup);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -312,6 +308,10 @@ public class Attribute extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Attribute> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Attribute>() {
+    public Class<Attribute> getCreatedClass() {
+      return Attribute.class;
+    }
+
     @Override
     public Attribute create(org.json.JSONObject jsonObject) {
       return new Attribute(jsonObject);
@@ -319,14 +319,12 @@ public class Attribute extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 255;
     public static final boolean ITEMGROUP_IS_REQUIRED = true;
     public static final boolean OPTIONS_IS_REQUIRED = false;
-
   }
 
 }

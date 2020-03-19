@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -158,8 +157,9 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-   * DEPRECATED: use itemStock instead
+   * Deprecated, use itemStock instead.
    */
+  @Deprecated
   public java.lang.Long getStockCount() {
     return genClient.cacheGet(CacheKey.stockCount);
   }
@@ -311,11 +311,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public Item(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -347,23 +343,25 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getAlternateName(), 127);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 127);
 
-    genClient.validateLength(getCode(), 100);
+    genClient.validateLength(CacheKey.code, getCode(), 100);
 
-    genClient.validateLength(getSku(), 100);
+    genClient.validateLength(CacheKey.sku, getSku(), 100);
 
-    genClient.validateNull(getPrice(), "price");
-    if (getPrice() != null && ( getPrice() < 0)) throw new IllegalArgumentException("Invalid value for 'getPrice()'");
+    genClient.validateNotNull(CacheKey.price, getPrice());
+    genClient.validateMin(CacheKey.price, getPrice(), 0L);
 
-    genClient.validateLength(getUnitName(), 64);
+    genClient.validateLength(CacheKey.unitName, getUnitName(), 64);
 
-    if (getCost() != null && ( getCost() < 0)) throw new IllegalArgumentException("Invalid value for 'getCost()'");
+    genClient.validateMin(CacheKey.cost, getCost(), 0L);
+    genClient.validateReferences(CacheKey.itemGroup);
+    genClient.validateReferences(CacheKey.canonical);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -956,6 +954,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Item> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Item>() {
+    public Class<Item> getCreatedClass() {
+      return Item.class;
+    }
+
     @Override
     public Item create(org.json.JSONObject jsonObject) {
       return new Item(jsonObject);
@@ -963,7 +965,6 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean HIDDEN_IS_REQUIRED = false;
@@ -996,7 +997,6 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean PRICEWITHOUTVAT_IS_REQUIRED = false;
-
   }
 
 }

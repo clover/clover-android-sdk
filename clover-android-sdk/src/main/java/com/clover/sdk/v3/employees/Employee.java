@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -257,11 +256,7 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Employee(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -293,18 +288,24 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getNickname(), 127);
+    genClient.validateLength(CacheKey.nickname, getNickname(), 127);
 
-    genClient.validateLength(getCustomId(), 127);
+    genClient.validateLength(CacheKey.customId, getCustomId(), 127);
 
-    genClient.validateLength(getEmail(), 127);
+    genClient.validateLength(CacheKey.email, getEmail(), 127);
 
-    genClient.validateLength(getUnhashedPin(), 8);
+    genClient.validateLength(CacheKey.unhashedPin, getUnhashedPin(), 8);
+    genClient.validateReferences(CacheKey.roles);
+    genClient.validateReferences(CacheKey.shifts);
+    genClient.validateReferences(CacheKey.payments);
+    genClient.validateReferences(CacheKey.orders);
+    genClient.validateReferences(CacheKey.employeeCards);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -767,6 +768,10 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Employee> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Employee>() {
+    public Class<Employee> getCreatedClass() {
+      return Employee.class;
+    }
+
     @Override
     public Employee create(org.json.JSONObject jsonObject) {
       return new Employee(jsonObject);
@@ -774,7 +779,6 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -799,7 +803,6 @@ public class Employee extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ORDERS_IS_REQUIRED = false;
     public static final boolean EMPLOYEECARDS_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
   }
 
 }

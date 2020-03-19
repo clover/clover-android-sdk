@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class BaseResponse extends GenericParcelable implements com.clover.sdk.v3
    */
   public BaseResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -299,6 +294,10 @@ public class BaseResponse extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BaseResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BaseResponse>() {
+    public Class<BaseResponse> getCreatedClass() {
+      return BaseResponse.class;
+    }
+
     @Override
     public BaseResponse create(org.json.JSONObject jsonObject) {
       return new BaseResponse(jsonObject);
@@ -306,12 +305,10 @@ public class BaseResponse extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

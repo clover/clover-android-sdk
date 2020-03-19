@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -170,11 +169,7 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
    */
   public AdditionalCharge(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,11 +201,11 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
 
-    if (getPercentageDecimal() != null && ( getPercentageDecimal() < 0 || getPercentageDecimal() > 10000000)) throw new IllegalArgumentException("Invalid value for 'getPercentageDecimal()'");
+    genClient.validateMinMax(CacheKey.percentageDecimal, getPercentageDecimal(), 0L, 10000000L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -459,6 +454,10 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AdditionalCharge> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AdditionalCharge>() {
+    public Class<AdditionalCharge> getCreatedClass() {
+      return AdditionalCharge.class;
+    }
+
     @Override
     public AdditionalCharge create(org.json.JSONObject jsonObject) {
       return new AdditionalCharge(jsonObject);
@@ -466,7 +465,6 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MERCHANT_IS_REQUIRED = false;
@@ -480,7 +478,6 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
     public static final boolean ENABLED_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -142,11 +141,7 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
    */
   public MerchantPlanCharge(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -178,7 +173,7 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -410,6 +405,10 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantPlanCharge> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantPlanCharge>() {
+    public Class<MerchantPlanCharge> getCreatedClass() {
+      return MerchantPlanCharge.class;
+    }
+
     @Override
     public MerchantPlanCharge create(org.json.JSONObject jsonObject) {
       return new MerchantPlanCharge(jsonObject);
@@ -417,7 +416,6 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CHARGE_IS_REQUIRED = false;
@@ -427,7 +425,6 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     public static final boolean MERCHANTPLAN_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

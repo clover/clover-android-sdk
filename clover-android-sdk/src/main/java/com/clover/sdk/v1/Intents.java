@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 /**
  * This class contains most of the Clover-specific intents available to developer apps. These
  * intents allow apps to listen for events and start Clover activities. See Android documentation
@@ -1438,4 +1440,66 @@ public class Intents {
 
   /** {@link Boolean} Flag to check if invoice feature is available for merchant*/
   public static final String EXTRA_INVOICE_ID_AVAILABLE = "clover.intent.extra.INVOICE_ID_AVAILABLE";
+
+  ///// Keypad ////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * An activity action that will start an activity that accepts keypad input from the
+   * user. Start for result, and obtain the text entered by the user from the result data
+   * extra {@link #RESULT_KEYPAD_TEXT}
+   * <p/>
+   * The type of keypad is selected by setting the extra {@link #EXTRA_KEYPAD_TYPE} to either
+   * {@link #KEYPAD_TYPE_NUMERIC}, {@link #KEYPAD_TYPE_EMAIL}, or
+   * {@link #KEYPAD_TYPE_PHONESMS}. The default is {@link #KEYPAD_TYPE_NUMERIC} if not
+   * specified.
+   * <p/>
+   * To pre-populate the text set the extra {@link #EXTRA_KEYPAD_TYPE}. This is optional.
+   * <p/>
+   * To show the user a list of text completions to the user set the extra
+   * {@link #EXTRA_KEYPAD_COMPLETIONS}. This is optional.
+   */
+  public static final String ACTION_KEYPAD = "clover.intent.action.KEYPAD";
+
+  /**
+   * Keypad optimized for numeric input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_NUMERIC = 1;
+  /**
+   * Keypad optimized for email address input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_EMAIL = 2;
+  /**
+   * Keypad optimized for phone and SMS number input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_PHONESMS = 3;
+  /**
+   * An {@link ArrayList} of {@link String}, word completions to display above the keyboard.
+   * For example this can be used to
+   * provide a list of email suffixes ("@gmail.com", "@hotmail.com", etc). If absent, the
+   * completion bar is hidden. Set this into the start activity intent using
+   * {@link Bundle#putStringArrayList(String, ArrayList)}.
+   */
+  public static final String EXTRA_KEYPAD_COMPLETIONS = "completions";
+  /**
+   * An integer, the desired keypad type as an integer. Either {@link #KEYPAD_TYPE_NUMERIC}, or
+   * {@link #KEYPAD_TYPE_EMAIL}, or {@link #KEYPAD_TYPE_PHONESMS}.
+   * This is optional and defaults to {@link #KEYPAD_TYPE_NUMERIC} if not specified.
+   */
+  public static final String EXTRA_KEYPAD_TYPE = "type";
+  /**
+   * A {@link String}, the initial text to populate into the edit area.
+   * This is optional and defaults to the empty string if not specified.
+   */
+  public static final String EXTRA_KEYPAD_TEXT = "text";
+  /**
+   * A {@link String}, the text entered by the user.
+   * This is returned as an extra in the activity result data. This
+   * is only valid if the activity result code is {@link android.app.Activity#RESULT_OK}.
+   * <p/>
+   * The entire content of the edit text is returned here, as a string. This includes
+   * any initial text provided via {@link #EXTRA_KEYPAD_TEXT} (that wasn't edited away by the
+   * user).
+   */
+  public static final String RESULT_KEYPAD_TEXT = "text";
+  ///// Keypad ////////////////////////////////////////////////////////////////////////////////////
+
 }

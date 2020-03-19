@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -137,11 +136,7 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public GiftCard(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -356,6 +351,10 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<GiftCard> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<GiftCard>() {
+    public Class<GiftCard> getCreatedClass() {
+      return GiftCard.class;
+    }
+
     @Override
     public GiftCard create(org.json.JSONObject jsonObject) {
       return new GiftCard(jsonObject);
@@ -363,14 +362,12 @@ public class GiftCard extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean TRACK2_IS_REQUIRED = false;
     public static final boolean CARDNUMBER_IS_REQUIRED = false;
     public static final boolean ISMANUALLYENTERED_IS_REQUIRED = false;
     public static final boolean DEVICESERIAL_IS_REQUIRED = false;
     public static final boolean VIRTUAL_IS_REQUIRED = false;
     public static final boolean PROMOCODE_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -90,11 +89,7 @@ public class ServiceFeeRefundRequest extends GenericParcelable implements com.cl
    */
   public ServiceFeeRefundRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,6 +201,10 @@ public class ServiceFeeRefundRequest extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ServiceFeeRefundRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ServiceFeeRefundRequest>() {
+    public Class<ServiceFeeRefundRequest> getCreatedClass() {
+      return ServiceFeeRefundRequest.class;
+    }
+
     @Override
     public ServiceFeeRefundRequest create(org.json.JSONObject jsonObject) {
       return new ServiceFeeRefundRequest(jsonObject);
@@ -213,9 +212,7 @@ public class ServiceFeeRefundRequest extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean REFUND_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -163,11 +162,7 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public TaxRate(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -199,14 +194,15 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    if (getRate() != null && ( getRate() < 0 || getRate() > 100000000)) throw new IllegalArgumentException("Invalid value for 'getRate()'");
+    genClient.validateMinMax(CacheKey.rate, getRate(), 0L, 100000000L);
 
-    if (getTaxAmount() != null && ( getTaxAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getTaxAmount()'");
+    genClient.validateMin(CacheKey.taxAmount, getTaxAmount(), 0L);
+    genClient.validateReferences(CacheKey.items);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -458,6 +454,10 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TaxRate> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TaxRate>() {
+    public Class<TaxRate> getCreatedClass() {
+      return TaxRate.class;
+    }
+
     @Override
     public TaxRate create(org.json.JSONObject jsonObject) {
       return new TaxRate(jsonObject);
@@ -465,7 +465,6 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -480,7 +479,6 @@ public class TaxRate extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final long TAXAMOUNT_MIN = 0;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

@@ -15,27 +15,49 @@
  */
 package com.clover.sdk;
 
+import com.clover.sdk.extractors.ExtractionStrategy;
+import com.clover.sdk.extractors.RecordExtractionStrategy;
+import com.clover.sdk.extractors.RecordListExtractionStrategy;
+import com.clover.sdk.v3.Validator;
+
+import android.os.Bundle;
+import android.os.Parcel;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
 /**
- * For internal use only.
+ * For Clover internal use only.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
  */
 public final class GenericClient<D> {
 
-  private org.json.JSONObject jsonObject = null;
-  private android.os.Bundle bundle = null;
-  private android.os.Bundle changeLog = null;
-  private volatile Object[] cache = null;
-  private byte[] cacheState = null;
-  private static final String errorLengthMessage = "Maximum string length exceeded for ";
-  private static final String errorNullMessage = " is required to be non-null";
-  private D callingClass = null;
-  private final Object LOCK = new Object();
   private static final String TAG = "GenericClient";
 
-  public static final byte STATE_NOT_CACHED = 0;
-  public static final byte STATE_CACHED_NO_VALUE = 1;
-  public static final byte STATE_CACHED_VALUE = 2;
+  private JSONObject jsonObject = null;
+  private Bundle bundle = null;
+  private Bundle changeLog = null;
+  private volatile Object[] cache = null;
+  private byte[] cacheState = null;
+  private D callingClass = null;
+  private final Object LOCK = new Object();
+
+  private static StrictValidationFailedCallback strictValidationFailedCallback;
+
+  private static final byte STATE_NOT_CACHED = 0;
+  private static final byte STATE_CACHED_NO_VALUE = 1;
+  private static final byte STATE_CACHED_VALUE = 2;
 
   /**
    * Constructs a new GenericClient with the instance of the declaring class saved.
@@ -117,37 +139,261 @@ public final class GenericClient<D> {
     }
   }
 
+  private static String throwExceptionMaxLen(String name, long len, long max) {
+    throw new IllegalArgumentException(String.format(Locale.ROOT, "'%s' with length '%s' exceeds maximum length '%s'", name, len, max));
+  }
+
+  private static String throwExceptionMaxVal(String name, Object value, Object max) {
+    throw new IllegalArgumentException(String.format(Locale.ROOT, "'%s' with value '%s' exceeds maximum value '%s'", name, value, max));
+  }
+
+  private static String throwExceptionMinVal(String name, Object value, Object min) {
+    throw new IllegalArgumentException(String.format(Locale.ROOT, "'%s' with value '%s' is below minimum value '%s'", name, value, min));
+  }
+
+  private static String throwExceptionNull(String name) {
+    throw new IllegalArgumentException(String.format(Locale.ROOT, "'%s' is required to be non-null", name));
+  }
+
+  /**
+   * Deprecated but kept since we do not always regenerate all objects. This
+   * method is a misnomer, it should have been validateNotNull since it
+   * validates that the field is not null and fails if it is.
+   *
+   * @deprecated Use {@link #validateNotNull(ExtractableEnum, Object)} instead
+   */
+  @Deprecated
   public <T> void validateNull(T field, String name) {
-    if (field == null) throw new IllegalArgumentException("" + name + errorNullMessage);
+    if (field == null) {
+      throwExceptionNull(name);
+    }
   }
 
-  public void validateLength(String field, int maxLength) {
-    if (field != null && field.length() > maxLength) throw new IllegalArgumentException(errorLengthMessage + field);
+  public <T> void validateNotNull(ExtractableEnum cacheKey, T value) {
+    if (value == null) {
+      throwExceptionNull(cacheKey.name());
+    }
   }
 
-  public String throwNull(String name) {
-    return "" + name + errorNullMessage;
+  /**
+   * Deprecated but kept since we do not always regenerate all objects.
+   *
+   * @deprecated Use {@link #validateLength(ExtractableEnum, String, long)} instead.
+   */
+  @Deprecated
+  public void validateLength(String value, long maxLength) {
+    if (value != null && value.length() > maxLength) {
+      throwExceptionMaxLen(null, value.length(), maxLength);
+    }
   }
 
-  public String throwStringLengthExceeded(String name) {
-    return errorLengthMessage + name;
+  public void validateLength(ExtractableEnum cacheKey, String value, long maxLength) {
+    if (value != null && value.length() > maxLength) {
+      throwExceptionMaxLen(cacheKey.name(), value.length(), maxLength);
+    }
   }
 
-  public org.json.JSONObject getJsonObject() {
+  public void validateMin(ExtractableEnum cacheKey, Integer value, long min) {
+    if (value != null && value < min) {
+      throwExceptionMinVal(cacheKey.name(), value, min);
+    }
+  }
+
+  public void validateMax(ExtractableEnum cacheKey, Integer value, long max) {
+    if (value != null && value > max) {
+      throwExceptionMaxVal(cacheKey.name(), value, max);
+    }
+  }
+
+  public void validateMinMax(ExtractableEnum cacheKey, Integer value, long min, long max) {
+    validateMin(cacheKey, value, min);
+    validateMax(cacheKey, value, max);
+  }
+
+  public void validateMin(ExtractableEnum cacheKey, Long value, long min) {
+    if (value != null && value < min) {
+      throwExceptionMinVal(cacheKey.name(), value, min);
+    }
+  }
+
+  public void validateMax(ExtractableEnum cacheKey, Long value, long max) {
+    if (value != null && value > max) {
+      throwExceptionMaxVal(cacheKey.name(), value, max);
+    }
+  }
+
+  public void validateMinMax(ExtractableEnum cacheKey, Long value, long min, long max) {
+    validateMin(cacheKey, value, min);
+    validateMax(cacheKey, value, max);
+  }
+
+  public void validateMin(ExtractableEnum cacheKey, Float value, double min) {
+    if (value != null && value < min) {
+      throwExceptionMinVal(cacheKey.name(), value, min);
+    }
+  }
+
+  public void validateMax(ExtractableEnum cacheKey, Float value, double max) {
+    if (value != null && value > max) {
+      throwExceptionMaxVal(cacheKey.name(), value, max);
+    }
+  }
+
+  public void validateMinMax(ExtractableEnum cacheKey, Float value, double min, double max) {
+    validateMin(cacheKey, value, min);
+    validateMax(cacheKey, value, max);
+  }
+
+  public void validateMin(ExtractableEnum cacheKey, Double value, double min) {
+    if (value != null && value < min) {
+      throwExceptionMinVal(cacheKey.name(), value, min);
+    }
+  }
+
+  public void validateMax(ExtractableEnum cacheKey, Double value, double max) {
+    if (value != null && value > max) {
+      throwExceptionMaxVal(cacheKey.name(), value, max);
+    }
+  }
+
+  public void validateMinMax(ExtractableEnum cacheKey, Double value, double min, double max) {
+    validateMin(cacheKey, value, min);
+    validateMax(cacheKey, value, max);
+  }
+
+  /**
+   * IDs Clover has used but wouldn't normally be valid but are already in use.
+   */
+  private final static Set<String> EXCEPTIONAL_IDS;
+  private final static Set<Character> BASE_32_DIGITS_SET;
+  private final static int ID_LENGTH = 13;
+
+  static {
+    // http://www.crockford.com/wrmg/base32.html
+    Character[] BASE_32_DIGITS = {
+        '0', '1', '2', '3', '4', '5',
+        '6', '7', '8', '9', 'A', 'B',
+        'C', 'D', 'E', 'F', 'G', 'H',
+        'J', 'K', 'M', 'N', 'P', 'Q',
+        'R', 'S', 'T', 'V', 'W', 'X',
+        'Y', 'Z'
+    };
+
+    BASE_32_DIGITS_SET = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(BASE_32_DIGITS)));
+    EXCEPTIONAL_IDS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+        "DFLTEMPLOYEE",
+        "CLOVERDEV"
+    )));
+  }
+
+  private static final String ERR_CLOVER_ID = "'%s' does not have a valid Clover ID: '%s'";
+
+  private static void handleInvalidCloverId(String name, String value) {
+    // Check here because these are very rare, using HashSet is cheap but not free
+    if (EXCEPTIONAL_IDS.contains(value)) {
+      return;
+    }
+    throw new IllegalArgumentException(String.format(Locale.ROOT, ERR_CLOVER_ID, name, value));
+  }
+
+  public void validateCloverId(ExtractableEnum cacheKey, String id) {
+    if (id == null) {
+      return;
+    }
+
+    if (id.length() != ID_LENGTH) {
+      handleInvalidCloverId(cacheKey.name(), id);
+      return;
+    }
+
+    try {
+      for (int i = 0; i < id.length(); i++) {
+        if (!BASE_32_DIGITS_SET.contains(id.charAt(i))) {
+          handleInvalidCloverId(cacheKey.name(), id);
+          return;
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      // The server and client sometimes use bad Clover IDs, log loudly but do not throw exception
+      strictValidationFailed(e, ERR_CLOVER_ID, cacheKey.name(), id);
+    }
+  }
+
+  private static final String ERR_REFERENCE = "'%s' is an invalid reference";
+
+  public void validateReferences(ExtractionStrategyEnum cacheKey) {
+    try {
+      ExtractionStrategy strategy = cacheKey.getExtractionStrategy();
+      if (strategy instanceof RecordExtractionStrategy) {
+        RecordExtractionStrategy recordStrategy = (RecordExtractionStrategy) strategy;
+        Class clazz = recordStrategy.getRecordClass();
+        if (Validator.class.isAssignableFrom(clazz)) {
+          Validator ref = cacheGet(cacheKey);
+          if (ref != null) {
+            ref.validate();
+          }
+        }
+      } else if (strategy instanceof RecordListExtractionStrategy) {
+        RecordListExtractionStrategy recordListStrategy = (RecordListExtractionStrategy) strategy;
+        Class clazz = recordListStrategy.getRecordClass();
+        if (Validator.class.isAssignableFrom(clazz)) {
+          List<Validator> refList = cacheGet(cacheKey);
+          if (refList != null) {
+            for (Validator ref : refList) {
+              ref.validate();
+            }
+          }
+        }
+      }
+    } catch (JSONException|IllegalArgumentException e) {
+      // The server and client sometimes use bad Clover IDs, log loudly but do not throw exception
+      strictValidationFailed(e, ERR_REFERENCE, cacheKey.name());
+    }
+  }
+
+  public interface StrictValidationFailedCallback {
+    void onFailed(Exception e, String format, Object... args);
+  }
+
+  private void strictValidationFailed(Exception e, String format, Object... args) {
+    StrictValidationFailedCallback callback = strictValidationFailedCallback;
+    if (callback != null) {
+      callback.onFailed(e, format, args);
+    } else {
+      Log.w(callingClass.getClass().getSimpleName(), String.format(Locale.ROOT, format, args));
+    }
+  }
+
+  /**
+   * For internal use only.
+   */
+  public static void setStrictValidationFailedCallback(StrictValidationFailedCallback callback) {
+    strictValidationFailedCallback = callback;
+  }
+
+  public JSONObject getJsonObject() {
     return jsonObject;
   }
 
-  public void setJsonObject(org.json.JSONObject newJSONObject) {
+  public void setJsonObject(JSONObject newJSONObject) {
     jsonObject = newJSONObject;
+  }
+
+  public void initJsonObject(String json) {
+    try {
+      setJsonObject(new JSONObject(json));
+    } catch (JSONException e) {
+      throw new IllegalArgumentException("Invalid JSON", e);
+    }
   }
 
   /**
    * Returns the internal JSONObject backing this instance, the return value is not a copy so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public org.json.JSONObject getJSONObject() {
+  public JSONObject getJSONObject() {
     if (jsonObject == null) {
-      jsonObject = new org.json.JSONObject();
+      jsonObject = new JSONObject();
     }
     return jsonObject;
   }
@@ -157,7 +403,7 @@ public final class GenericClient<D> {
    */
   public void logChange(String field) {
     if (changeLog == null) {
-      changeLog = new android.os.Bundle();
+      changeLog = new Bundle();
     }
     changeLog.putString(field, null);
   }
@@ -188,7 +434,7 @@ public final class GenericClient<D> {
   /**
    * Change log to a new log sent in.
    */
-  public void setChangeLog(android.os.Bundle newChangeLog) {
+  public void setChangeLog(Bundle newChangeLog) {
     changeLog = newChangeLog;
   }
 
@@ -205,9 +451,9 @@ public final class GenericClient<D> {
    * Gets a Bundle which can be used to get and set data attached to this instance. The attached Bundle will be
    * parcelled but not jsonified.
    */
-  public android.os.Bundle getBundle() {
+  public Bundle getBundle() {
     if (bundle == null) {
-      bundle = new android.os.Bundle();
+      bundle = new Bundle();
     }
     return bundle;
   }
@@ -215,14 +461,14 @@ public final class GenericClient<D> {
   /**
    * Change bundle to a new bundle sent in.
    */
-  public void setBundle(android.os.Bundle newBundle) {
+  public void setBundle(Bundle newBundle) {
     bundle = newBundle;
   }
 
   /**
    * Get access to changeLog
    */
-  public android.os.Bundle getChangeLog() {
+  public Bundle getChangeLog() {
     return changeLog;
   }
 
@@ -251,11 +497,11 @@ public final class GenericClient<D> {
     if (getJSONObject().isNull(name)) { return null; }
 
     try {
-      org.json.JSONObject elementsContainer = getJSONObject().optJSONObject(name);
-      org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-      java.util.List<T> itemList = new java.util.ArrayList<T>(itemArray.length());
+      JSONObject elementsContainer = getJSONObject().optJSONObject(name);
+      JSONArray itemArray = elementsContainer.optJSONArray("elements");
+      java.util.List<T> itemList = new java.util.ArrayList<>(itemArray.length());
       for (int i = 0; i < itemArray.length(); i++) {
-        org.json.JSONObject obj = itemArray.optJSONObject(i);
+        JSONObject obj = itemArray.optJSONObject(i);
         if (obj == null) {
           continue;
         }
@@ -279,9 +525,9 @@ public final class GenericClient<D> {
   public <T extends Enum<T>> java.util.List<T> extractListEnum(String name, Class<T> clazz) {
     if (getJSONObject().isNull(name)) { return null; }
 
-    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject(name);
-    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-    java.util.List<T> itemList = new java.util.ArrayList<T>(itemArray.length());
+    JSONObject elementsContainer = getJSONObject().optJSONObject(name);
+    JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<T> itemList = new java.util.ArrayList<>(itemArray.length());
     for (int i = 0; i < itemArray.length(); i++) {
       String enumString = itemArray.optString(i, null);
       if (enumString == null) { continue; }
@@ -305,9 +551,9 @@ public final class GenericClient<D> {
   public <T> java.util.List<T> extractListOther(String name, Class<T> clazz) {
     if (getJSONObject().isNull(name)) { return null; }
 
-    org.json.JSONObject elementsContainer = getJSONObject().optJSONObject(name);
-    org.json.JSONArray itemArray = elementsContainer.optJSONArray("elements");
-    java.util.List<T> itemList = new java.util.ArrayList<T>(itemArray.length());
+    JSONObject elementsContainer = getJSONObject().optJSONObject(name);
+    JSONArray itemArray = elementsContainer.optJSONArray("elements");
+    java.util.List<T> itemList = new java.util.ArrayList<>(itemArray.length());
     for (int i = 0; i < itemArray.length(); i++) {
       T item = (T) returnType(clazz, itemArray, i);
       if (item == null) { continue; }
@@ -320,7 +566,7 @@ public final class GenericClient<D> {
    * Generic method that replaces the "extract" methods which dealt with a Record.
    */
   public <T> T extractRecord(String name, com.clover.sdk.JSONifiable.Creator<T> JSON_CREATOR) {
-    org.json.JSONObject jsonObj = getJSONObject().optJSONObject(name);
+    JSONObject jsonObj = getJSONObject().optJSONObject(name);
     return jsonObj != null ? JSON_CREATOR.create(jsonObj) : null;
   }
 
@@ -344,7 +590,7 @@ public final class GenericClient<D> {
    */
   public java.util.Map extractMap(String name) {
     if (getJSONObject().isNull(name)) return null;
-    org.json.JSONObject object = getJSONObject().optJSONObject(name);
+    JSONObject object = getJSONObject().optJSONObject(name);
     return com.clover.sdk.v3.JsonHelper.toMap(object);
   }
 
@@ -360,23 +606,23 @@ public final class GenericClient<D> {
    * Helper method that determines which "opt" method to use, based on the type of the item. Retrieves the information from
    * a given JSONArray
    */
-  private <T> Object returnType(Class<T> item, org.json.JSONArray itemArray, int i) {
-    if (item.equals(java.lang.String.class)) {
+  private <T> Object returnType(Class<T> item, JSONArray itemArray, int i) {
+    if (item.equals(String.class)) {
       return itemArray.optString(i);
     }
-    else if (item.equals(java.lang.Boolean.class)) {
+    else if (item.equals(Boolean.class)) {
       return itemArray.optBoolean(i);
     }
-    else if (item.equals(java.lang.Integer.class)) {
+    else if (item.equals(Integer.class)) {
       return itemArray.optInt(i);
     }
-    else if (item.equals(java.lang.Long.class)) {
+    else if (item.equals(Long.class)) {
       return itemArray.optLong(i);
     }
-    else if (item.equals(java.lang.Double.class)) {
+    else if (item.equals(Double.class)) {
       return itemArray.optDouble(i);
     }
-    else if (item.equals(org.json.JSONArray.class)) {
+    else if (item.equals(JSONArray.class)) {
       return itemArray.optJSONArray(i);
     }
     else {
@@ -389,22 +635,22 @@ public final class GenericClient<D> {
    * the genClient's JSONObject.
    */
   private <T> Object returnType(String name, Class<T> item) {
-    if (item.equals(java.lang.String.class)) {
+    if (item.equals(String.class)) {
       return getJSONObject().optString(name);
     }
-    else if (item.equals(java.lang.Boolean.class)) {
+    else if (item.equals(Boolean.class)) {
       return getJSONObject().optBoolean(name);
     }
-    else if (item.equals(java.lang.Long.class)) {
+    else if (item.equals(Long.class)) {
       return getJSONObject().optLong(name);
     }
-    else if (item.equals(java.lang.Integer.class)) {
+    else if (item.equals(Integer.class)) {
       return getJSONObject().optInt(name);
     }
-    else if (item.equals(java.lang.Double.class)) {
+    else if (item.equals(Double.class)) {
       return getJSONObject().optDouble(name);
     }
-    else if (item.equals(org.json.JSONArray.class)) {
+    else if (item.equals(JSONArray.class)) {
       return getJSONObject().optJSONArray(name);
     }
     else {
@@ -420,20 +666,20 @@ public final class GenericClient<D> {
 
     try {
       if (list == null) {
-        getJSONObject().put(key.name(), org.json.JSONObject.NULL);
+        getJSONObject().put(key.name(), JSONObject.NULL);
       }
       else {
-        org.json.JSONArray array = new org.json.JSONArray();
+        JSONArray array = new JSONArray();
         for (T obj : list) {
           if (obj == null) { continue; }
           array.put(obj.getJSONObject());
         }
 
-        org.json.JSONObject elementsContainer = new org.json.JSONObject();
+        JSONObject elementsContainer = new JSONObject();
         elementsContainer.put("elements", array);
         getJSONObject().put(key.name(), elementsContainer);
       }
-    } catch (org.json.JSONException e) {
+    } catch (JSONException e) {
       throw new IllegalArgumentException(e);
     }
     cacheMarkDirty(key);
@@ -448,20 +694,20 @@ public final class GenericClient<D> {
 
     try {
       if (list == null) {
-        getJSONObject().put(key.name(), org.json.JSONObject.NULL);
+        getJSONObject().put(key.name(), JSONObject.NULL);
       }
       else {
-        org.json.JSONArray array = new org.json.JSONArray();
+        JSONArray array = new JSONArray();
         for (T obj : list) {
           if (obj == null) { continue; }
           array.put(obj);
         }
 
-        org.json.JSONObject elementsContainer = new org.json.JSONObject();
+        JSONObject elementsContainer = new JSONObject();
         elementsContainer.put("elements", array);
         getJSONObject().put(key.name(), elementsContainer);
       }
-    } catch (org.json.JSONException e) {
+    } catch (JSONException e) {
       throw new IllegalArgumentException(e);
     }
     cacheMarkDirty(key);
@@ -475,8 +721,8 @@ public final class GenericClient<D> {
     logChange(key.name());
 
     try {
-      getJSONObject().put(key.name(), item == null ? org.json.JSONObject.NULL : item.getJSONObject());
-    } catch (org.json.JSONException e) {
+      getJSONObject().put(key.name(), item == null ? JSONObject.NULL : item.getJSONObject());
+    } catch (JSONException e) {
       throw new IllegalArgumentException(e);
     }
     cacheMarkDirty(key);
@@ -490,8 +736,8 @@ public final class GenericClient<D> {
     logChange(key.name());
 
     try {
-      getJSONObject().put(key.name(), item == null ? org.json.JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(item));
-    } catch (org.json.JSONException e) {
+      getJSONObject().put(key.name(), item == null ? JSONObject.NULL : com.clover.sdk.v3.JsonHelper.toJSON(item));
+    } catch (JSONException e) {
       throw new IllegalArgumentException(e);
     }
     cacheMarkDirty(key);
@@ -501,15 +747,15 @@ public final class GenericClient<D> {
   /**
    * Generic method that replaces the "mergeChanges" method in all the classes.
    */
-  public void mergeChanges(org.json.JSONObject srcObj, GenericClient srcGC) {
+  public void mergeChanges(JSONObject srcObj, GenericClient srcGC) {
     try {
       // Make a copy of the source so the destination fields are copies
-      org.json.JSONObject dstObj = getJSONObject();
+      JSONObject dstObj = getJSONObject();
       for (String field : srcGC.getChangeLog().keySet()) {
         dstObj.put(field, srcObj.get(field));
         logChange(field);
       }
-    } catch (org.json.JSONException e) {
+    } catch (JSONException e) {
       throw new IllegalArgumentException(e);
     }
   }
@@ -517,7 +763,7 @@ public final class GenericClient<D> {
   /**
    * Method that replaces the "writeToParcel" methods. "flags" seems to be unused, but was also passed in the original classes.
    */
-  public void writeToParcel(android.os.Parcel dest, int flags) {
+  public void writeToParcel(Parcel dest, int flags) {
     com.clover.sdk.v3.JsonParcelHelper.wrap(getJSONObject()).writeToParcel(dest, 0);
     dest.writeBundle(bundle);
     dest.writeBundle(changeLog);

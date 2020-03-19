@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -107,11 +106,7 @@ public class ECommTransactionInfo extends GenericParcelable implements com.clove
    */
   public ECommTransactionInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -263,6 +258,10 @@ public class ECommTransactionInfo extends GenericParcelable implements com.clove
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ECommTransactionInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ECommTransactionInfo>() {
+    public Class<ECommTransactionInfo> getCreatedClass() {
+      return ECommTransactionInfo.class;
+    }
+
     @Override
     public ECommTransactionInfo create(org.json.JSONObject jsonObject) {
       return new ECommTransactionInfo(jsonObject);
@@ -270,11 +269,9 @@ public class ECommTransactionInfo extends GenericParcelable implements com.clove
   };
 
   public interface Constraints {
-
     public static final boolean ECOMMTRANSACTION_IS_REQUIRED = false;
     public static final boolean CREDENTIALONFILE_IS_REQUIRED = false;
     public static final boolean TOKENTYPE_IS_REQUIRED = false;
-
   }
 
 }

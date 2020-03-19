@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -123,11 +122,7 @@ public class CloseoutRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
    */
   public CloseoutRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -160,8 +155,8 @@ public class CloseoutRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   @Override
   public void validate() {
 
-    genClient.validateLength(getBatchId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.batchId, getBatchId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'allowOpenTabs' field is set and is not null */
@@ -311,6 +306,10 @@ public class CloseoutRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CloseoutRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CloseoutRequest>() {
+    public Class<CloseoutRequest> getCreatedClass() {
+      return CloseoutRequest.class;
+    }
+
     @Override
     public CloseoutRequest create(org.json.JSONObject jsonObject) {
       return new CloseoutRequest(jsonObject);
@@ -318,14 +317,12 @@ public class CloseoutRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   };
 
   public interface Constraints {
-
     public static final boolean ALLOWOPENTABS_IS_REQUIRED = false;
     public static final boolean BATCHID_IS_REQUIRED = false;
     public static final long BATCHID_MAX_LEN = 13;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

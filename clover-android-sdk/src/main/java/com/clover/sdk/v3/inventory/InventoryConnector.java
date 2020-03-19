@@ -67,6 +67,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     return IInventoryService.Stub.asInterface(iBinder);
   }
 
+  /**
+   * See {@link IInventoryService#getItems(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public List<Item> getItems() throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<IInventoryService, List<Item>>() {
       public List<Item> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -75,6 +80,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     });
   }
 
+  /**
+   * See {@link IInventoryService#getItems(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public void getItems(ServiceConnector.Callback<List<Item>> callback) {
     execute(new ServiceCallable<IInventoryService, List<Item>>() {
       public List<Item> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -83,6 +93,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  /**
+   * See {@link IInventoryService#getItemsWithCategories(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public List<Item> getItemsWithCategories() throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<IInventoryService, List<Item>>() {
       public List<Item> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -91,6 +106,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     });
   }
 
+  /**
+   * See {@link IInventoryService#getItemsWithCategories(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public void getItemsWithCategories(Callback<List<Item>> callback) {
     execute(new ServiceCallable<IInventoryService, List<Item>>() {
       public List<Item> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -99,6 +119,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  /**
+   * See {@link IInventoryService#getItemIds(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public List<String> getItemIds() throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<IInventoryService, List<String>>() {
       public List<String> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -107,6 +132,11 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     });
   }
 
+  /**
+   * See {@link IInventoryService#getItemIds(ResultStatus)}
+   * @deprecated
+   */
+  @Deprecated
   public void getItemIds(Callback<List<String>> callback) {
     execute(new ServiceCallable<IInventoryService, List<String>>() {
       public List<String> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -1264,6 +1294,5 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       }
     }, callback);
   }
-
 
 }

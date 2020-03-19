@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -111,11 +110,7 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
    */
   public VaultCardRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -147,7 +142,7 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'cardEntryMethods' field is set and is not null */
@@ -276,6 +271,10 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VaultCardRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VaultCardRequest>() {
+    public Class<VaultCardRequest> getCreatedClass() {
+      return VaultCardRequest.class;
+    }
+
     @Override
     public VaultCardRequest create(org.json.JSONObject jsonObject) {
       return new VaultCardRequest(jsonObject);
@@ -283,12 +282,10 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   };
 
   public interface Constraints {
-
     public static final boolean CARDENTRYMETHODS_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class CashAdvanceExtra extends GenericParcelable implements com.clover.sd
    */
   public CashAdvanceExtra(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -130,7 +125,7 @@ public class CashAdvanceExtra extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getCashAdvanceSerialNum(), 10);
+    genClient.validateLength(CacheKey.cashAdvanceSerialNum, getCashAdvanceSerialNum(), 10);
   }
 
   /** Checks whether the 'cashAdvanceSerialNum' field is set and is not null */
@@ -232,6 +227,10 @@ public class CashAdvanceExtra extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CashAdvanceExtra> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CashAdvanceExtra>() {
+    public Class<CashAdvanceExtra> getCreatedClass() {
+      return CashAdvanceExtra.class;
+    }
+
     @Override
     public CashAdvanceExtra create(org.json.JSONObject jsonObject) {
       return new CashAdvanceExtra(jsonObject);
@@ -239,11 +238,9 @@ public class CashAdvanceExtra extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean CASHADVANCESERIALNUM_IS_REQUIRED = false;
     public static final long CASHADVANCESERIALNUM_MAX_LEN = 10;
     public static final boolean CASHADVANCECUSTOMERIDENTIFICATION_IS_REQUIRED = false;
-
   }
 
 }

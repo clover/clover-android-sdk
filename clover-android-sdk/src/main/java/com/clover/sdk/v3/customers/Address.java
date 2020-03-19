@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -146,11 +145,7 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Address(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -183,24 +178,25 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
   @Override
   public void validate() {
 
-    genClient.validateNull(getAddress1(), "address1");
-    genClient.validateLength(getAddress1(), 127);
+    genClient.validateNotNull(CacheKey.address1, getAddress1());
+    genClient.validateLength(CacheKey.address1, getAddress1(), 127);
 
-    genClient.validateLength(getAddress2(), 127);
+    genClient.validateLength(CacheKey.address2, getAddress2(), 127);
 
-    genClient.validateLength(getAddress3(), 127);
+    genClient.validateLength(CacheKey.address3, getAddress3(), 127);
 
-    genClient.validateNull(getCity(), "city");
-    genClient.validateLength(getCity(), 127);
+    genClient.validateNotNull(CacheKey.city, getCity());
+    genClient.validateLength(CacheKey.city, getCity(), 127);
 
-    genClient.validateNull(getCountry(), "country");
-    genClient.validateLength(getCountry(), 2);
+    genClient.validateNotNull(CacheKey.country, getCountry());
+    genClient.validateLength(CacheKey.country, getCountry(), 2);
 
-    genClient.validateNull(getState(), "state");
-    genClient.validateLength(getState(), 127);
+    genClient.validateNotNull(CacheKey.state, getState());
+    genClient.validateLength(CacheKey.state, getState(), 127);
 
-    genClient.validateNull(getZip(), "zip");
-    genClient.validateLength(getZip(), 10);
+    genClient.validateNotNull(CacheKey.zip, getZip());
+    genClient.validateLength(CacheKey.zip, getZip(), 10);
+    genClient.validateReferences(CacheKey.customer);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -449,6 +445,10 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Address> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Address>() {
+    public Class<Address> getCreatedClass() {
+      return Address.class;
+    }
+
     @Override
     public Address create(org.json.JSONObject jsonObject) {
       return new Address(jsonObject);
@@ -456,7 +456,6 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean ADDRESS1_IS_REQUIRED = true;
     public static final long ADDRESS1_MAX_LEN = 127;
@@ -473,7 +472,6 @@ public class Address extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean ZIP_IS_REQUIRED = true;
     public static final long ZIP_MAX_LEN = 10;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
-
   }
 
 }

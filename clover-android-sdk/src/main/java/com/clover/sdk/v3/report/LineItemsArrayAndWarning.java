@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -107,11 +106,7 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
    */
   public LineItemsArrayAndWarning(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -270,6 +265,10 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LineItemsArrayAndWarning> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LineItemsArrayAndWarning>() {
+    public Class<LineItemsArrayAndWarning> getCreatedClass() {
+      return LineItemsArrayAndWarning.class;
+    }
+
     @Override
     public LineItemsArrayAndWarning create(org.json.JSONObject jsonObject) {
       return new LineItemsArrayAndWarning(jsonObject);
@@ -277,11 +276,9 @@ public class LineItemsArrayAndWarning extends GenericParcelable implements com.c
   };
 
   public interface Constraints {
-
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean ITEMSHAVEMULTIPLECATEGORIES_IS_REQUIRED = false;
-
   }
 
 }

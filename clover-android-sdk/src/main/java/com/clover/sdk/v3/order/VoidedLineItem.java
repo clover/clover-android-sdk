@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -161,11 +160,7 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
    */
   public VoidedLineItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -197,6 +192,9 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.removedBy);
+    genClient.validateReferences(CacheKey.createdBy);
   }
 
   /** Checks whether the 'lineItem' field is set and is not null */
@@ -430,6 +428,10 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidedLineItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidedLineItem>() {
+    public Class<VoidedLineItem> getCreatedClass() {
+      return VoidedLineItem.class;
+    }
+
     @Override
     public VoidedLineItem create(org.json.JSONObject jsonObject) {
       return new VoidedLineItem(jsonObject);
@@ -437,7 +439,6 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean LINEITEM_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
@@ -446,7 +447,6 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean ENVIRONMENT_IS_REQUIRED = false;
     public static final boolean CLIENTEVENTTYPE_IS_REQUIRED = false;
-
   }
 
 }

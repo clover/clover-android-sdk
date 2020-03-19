@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -342,11 +341,7 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
    */
   public MerchantHierarchy(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -378,57 +373,57 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getMid(), 31);
+    genClient.validateLength(CacheKey.mid, getMid(), 31);
 
-    genClient.validateLength(getChain(), 12);
+    genClient.validateLength(CacheKey.chain, getChain(), 12);
 
-    genClient.validateLength(getCorporate(), 12);
+    genClient.validateLength(CacheKey.corporate, getCorporate(), 12);
 
-    genClient.validateLength(getAgent(), 12);
+    genClient.validateLength(CacheKey.agent, getAgent(), 12);
 
-    genClient.validateLength(getBank(), 12);
+    genClient.validateLength(CacheKey.bank, getBank(), 12);
 
-    genClient.validateLength(getBusiness(), 12);
+    genClient.validateLength(CacheKey.business, getBusiness(), 12);
 
-    genClient.validateLength(getMaps(), 12);
+    genClient.validateLength(CacheKey.maps, getMaps(), 12);
 
-    genClient.validateLength(getAssociation(), 12);
+    genClient.validateLength(CacheKey.association, getAssociation(), 12);
 
-    genClient.validateLength(getCustomer(), 12);
+    genClient.validateLength(CacheKey.customer, getCustomer(), 12);
 
-    genClient.validateLength(getBillName(), 50);
+    genClient.validateLength(CacheKey.billName, getBillName(), 50);
 
-    genClient.validateLength(getDbaName(), 50);
+    genClient.validateLength(CacheKey.dbaName, getDbaName(), 50);
 
-    genClient.validateLength(getDbaAttention(), 50);
+    genClient.validateLength(CacheKey.dbaAttention, getDbaAttention(), 50);
 
-    genClient.validateLength(getLegalName(), 50);
+    genClient.validateLength(CacheKey.legalName, getLegalName(), 50);
 
-    genClient.validateLength(getBillToAttention(), 50);
+    genClient.validateLength(CacheKey.billToAttention, getBillToAttention(), 50);
 
-    genClient.validateLength(getEmail(), 127);
+    genClient.validateLength(CacheKey.email, getEmail(), 127);
 
-    genClient.validateLength(getAbaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.abaAccountNumber, getAbaAccountNumber(), 40);
 
-    genClient.validateLength(getDdaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.ddaAccountNumber, getDdaAccountNumber(), 40);
 
-    genClient.validateLength(getDbaAddress(), 255);
+    genClient.validateLength(CacheKey.dbaAddress, getDbaAddress(), 255);
 
-    genClient.validateLength(getDbaCity(), 127);
+    genClient.validateLength(CacheKey.dbaCity, getDbaCity(), 127);
 
-    genClient.validateLength(getDbaState(), 127);
+    genClient.validateLength(CacheKey.dbaState, getDbaState(), 127);
 
-    genClient.validateLength(getDbaZip(), 127);
+    genClient.validateLength(CacheKey.dbaZip, getDbaZip(), 127);
 
-    genClient.validateLength(getDbaPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.dbaPhoneNumber, getDbaPhoneNumber(), 21);
 
-    genClient.validateLength(getBillCity(), 127);
+    genClient.validateLength(CacheKey.billCity, getBillCity(), 127);
 
-    genClient.validateLength(getBillState(), 127);
+    genClient.validateLength(CacheKey.billState, getBillState(), 127);
 
-    genClient.validateLength(getBillZip(), 127);
+    genClient.validateLength(CacheKey.billZip, getBillZip(), 127);
 
-    genClient.validateLength(getBillPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.billPhoneNumber, getBillPhoneNumber(), 21);
   }
 
   /** Checks whether the 'mid' field is set and is not null */
@@ -1032,6 +1027,10 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantHierarchy> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantHierarchy>() {
+    public Class<MerchantHierarchy> getCreatedClass() {
+      return MerchantHierarchy.class;
+    }
+
     @Override
     public MerchantHierarchy create(org.json.JSONObject jsonObject) {
       return new MerchantHierarchy(jsonObject);
@@ -1039,7 +1038,6 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean MID_IS_REQUIRED = false;
     public static final long MID_MAX_LEN = 31;
     public static final boolean CHAIN_IS_REQUIRED = false;
@@ -1092,7 +1090,6 @@ public class MerchantHierarchy extends GenericParcelable implements com.clover.s
     public static final long BILLZIP_MAX_LEN = 127;
     public static final boolean BILLPHONENUMBER_IS_REQUIRED = false;
     public static final long BILLPHONENUMBER_MAX_LEN = 21;
-
   }
 
 }

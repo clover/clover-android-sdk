@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -150,11 +149,7 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
    */
   public TaxableAmountRate(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,9 +181,10 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateReferences(CacheKey.transactionRef);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -395,6 +391,10 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TaxableAmountRate> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TaxableAmountRate>() {
+    public Class<TaxableAmountRate> getCreatedClass() {
+      return TaxableAmountRate.class;
+    }
+
     @Override
     public TaxableAmountRate create(org.json.JSONObject jsonObject) {
       return new TaxableAmountRate(jsonObject);
@@ -402,7 +402,6 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -412,7 +411,6 @@ public class TaxableAmountRate extends GenericParcelable implements com.clover.s
     public static final boolean ISVAT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean TRANSACTIONREF_IS_REQUIRED = false;
-
   }
 
 }

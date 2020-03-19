@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -42,28 +41,28 @@ import com.clover.sdk.GenericParcelable;
 public class DisplayReceiptOptionsRequest extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Unique identifier
+   * Unique identifier of a Clover order
    */
   public java.lang.String getOrderId() {
     return genClient.cacheGet(CacheKey.orderId);
   }
 
   /**
-   * Unique identifier
+   * Unique identifier of the payment associated with an order
    */
   public java.lang.String getPaymentId() {
     return genClient.cacheGet(CacheKey.paymentId);
   }
 
   /**
-   * Unique identifier
+   * Unique identifier of the refund associated with an order
    */
   public java.lang.String getRefundId() {
     return genClient.cacheGet(CacheKey.refundId);
   }
 
   /**
-   * Unique identifier
+   * Unique identifier of a credit (manual refund) given to a customer
    */
   public java.lang.String getCreditId() {
     return genClient.cacheGet(CacheKey.creditId);
@@ -127,11 +126,7 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
    */
   public DisplayReceiptOptionsRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -163,13 +158,13 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
 
   @Override
   public void validate() {
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getPaymentId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
 
-    genClient.validateLength(getRefundId(), 13);
+    genClient.validateCloverId(CacheKey.refundId, getRefundId());
 
-    genClient.validateLength(getCreditId(), 13);
+    genClient.validateCloverId(CacheKey.creditId, getCreditId());
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -332,6 +327,10 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DisplayReceiptOptionsRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DisplayReceiptOptionsRequest>() {
+    public Class<DisplayReceiptOptionsRequest> getCreatedClass() {
+      return DisplayReceiptOptionsRequest.class;
+    }
+
     @Override
     public DisplayReceiptOptionsRequest create(org.json.JSONObject jsonObject) {
       return new DisplayReceiptOptionsRequest(jsonObject);
@@ -339,7 +338,6 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
@@ -349,7 +347,6 @@ public class DisplayReceiptOptionsRequest extends GenericParcelable implements c
     public static final boolean CREDITID_IS_REQUIRED = false;
     public static final long CREDITID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
-
   }
 
 }

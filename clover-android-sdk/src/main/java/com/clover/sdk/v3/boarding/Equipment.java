@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -201,11 +200,7 @@ public class Equipment extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Equipment(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -237,19 +232,19 @@ public class Equipment extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getMerchantId(), 13);
+    genClient.validateCloverId(CacheKey.merchantId, getMerchantId());
 
-    genClient.validateLength(getEquipmentNumber(), 14);
+    genClient.validateLength(CacheKey.equipmentNumber, getEquipmentNumber(), 14);
 
-    genClient.validateLength(getSerialNumber(), 50);
+    genClient.validateLength(CacheKey.serialNumber, getSerialNumber(), 50);
 
-    genClient.validateLength(getBoardedBundleIndicator(), 32);
+    genClient.validateLength(CacheKey.boardedBundleIndicator, getBoardedBundleIndicator(), 32);
 
-    genClient.validateLength(getBoardedBundleId(), 13);
+    genClient.validateCloverId(CacheKey.boardedBundleId, getBoardedBundleId());
 
-    genClient.validateLength(getProvisionedBundleIndicator(), 32);
+    genClient.validateLength(CacheKey.provisionedBundleIndicator, getProvisionedBundleIndicator(), 32);
 
-    genClient.validateLength(getProvisionedBundleId(), 13);
+    genClient.validateCloverId(CacheKey.provisionedBundleId, getProvisionedBundleId());
   }
 
   /** Checks whether the 'merchantId' field is set and is not null */
@@ -580,6 +575,10 @@ public class Equipment extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Equipment> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Equipment>() {
+    public Class<Equipment> getCreatedClass() {
+      return Equipment.class;
+    }
+
     @Override
     public Equipment create(org.json.JSONObject jsonObject) {
       return new Equipment(jsonObject);
@@ -587,7 +586,6 @@ public class Equipment extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTID_IS_REQUIRED = false;
     public static final long MERCHANTID_MAX_LEN = 13;
     public static final boolean BOARDED_IS_REQUIRED = false;
@@ -608,7 +606,6 @@ public class Equipment extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean PROVISIONEDBUNDLEID_IS_REQUIRED = false;
     public static final long PROVISIONEDBUNDLEID_MAX_LEN = 13;
     public static final boolean PROVISIONBUNDLEEFFECTIVETIME_IS_REQUIRED = false;
-
   }
 
 }

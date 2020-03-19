@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
    */
   public AppCategory(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -146,11 +141,11 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
+    genClient.validateNotNull(CacheKey.name, getName());
 
-    genClient.validateNull(getType(), "type");
+    genClient.validateNotNull(CacheKey.type, getType());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -271,6 +266,10 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppCategory> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppCategory>() {
+    public Class<AppCategory> getCreatedClass() {
+      return AppCategory.class;
+    }
+
     @Override
     public AppCategory create(org.json.JSONObject jsonObject) {
       return new AppCategory(jsonObject);
@@ -278,12 +277,10 @@ public class AppCategory extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final boolean TYPE_IS_REQUIRED = true;
-
   }
 
 }

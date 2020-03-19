@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -134,11 +133,7 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Printer(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -170,15 +165,15 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getMac(), 30);
+    genClient.validateLength(CacheKey.mac, getMac(), 30);
 
-    genClient.validateLength(getModel(), 20);
+    genClient.validateLength(CacheKey.model, getModel(), 20);
 
-    genClient.validateLength(getName(), 30);
+    genClient.validateLength(CacheKey.name, getName(), 30);
 
-    genClient.validateLength(getIpAddress(), 30);
+    genClient.validateLength(CacheKey.ipAddress, getIpAddress(), 30);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -362,6 +357,10 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Printer> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Printer>() {
+    public Class<Printer> getCreatedClass() {
+      return Printer.class;
+    }
+
     @Override
     public Printer create(org.json.JSONObject jsonObject) {
       return new Printer(jsonObject);
@@ -369,7 +368,6 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MAC_IS_REQUIRED = false;
@@ -381,7 +379,6 @@ public class Printer extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean IPADDRESS_IS_REQUIRED = false;
     public static final long IPADDRESS_MAX_LEN = 30;
     public static final boolean TYPE_IS_REQUIRED = false;
-
   }
 
 }

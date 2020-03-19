@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class Logo extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public Logo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -146,12 +141,12 @@ public class Logo extends GenericParcelable implements com.clover.sdk.v3.Validat
 
   @Override
   public void validate() {
-    genClient.validateNull(getLogoType(), "logoType");
+    genClient.validateNotNull(CacheKey.logoType, getLogoType());
 
-    genClient.validateNull(getLogoFilename(), "logoFilename");
-    genClient.validateLength(getLogoFilename(), 100);
+    genClient.validateNotNull(CacheKey.logoFilename, getLogoFilename());
+    genClient.validateLength(CacheKey.logoFilename, getLogoFilename(), 100);
 
-    genClient.validateLength(getUrl(), 255);
+    genClient.validateLength(CacheKey.url, getUrl(), 255);
   }
 
   /** Checks whether the 'logoType' field is set and is not null */
@@ -272,6 +267,10 @@ public class Logo extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Logo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Logo>() {
+    public Class<Logo> getCreatedClass() {
+      return Logo.class;
+    }
+
     @Override
     public Logo create(org.json.JSONObject jsonObject) {
       return new Logo(jsonObject);
@@ -279,13 +278,11 @@ public class Logo extends GenericParcelable implements com.clover.sdk.v3.Validat
   };
 
   public interface Constraints {
-
     public static final boolean LOGOTYPE_IS_REQUIRED = true;
     public static final boolean LOGOFILENAME_IS_REQUIRED = true;
     public static final long LOGOFILENAME_MAX_LEN = 100;
     public static final boolean URL_IS_REQUIRED = false;
     public static final long URL_MAX_LEN = 255;
-
   }
 
 }

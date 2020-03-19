@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -117,11 +116,7 @@ public class SummaryLineItems extends GenericParcelable implements com.clover.sd
    */
   public SummaryLineItems(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -294,6 +289,10 @@ public class SummaryLineItems extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<SummaryLineItems> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<SummaryLineItems>() {
+    public Class<SummaryLineItems> getCreatedClass() {
+      return SummaryLineItems.class;
+    }
+
     @Override
     public SummaryLineItems create(org.json.JSONObject jsonObject) {
       return new SummaryLineItems(jsonObject);
@@ -301,12 +300,10 @@ public class SummaryLineItems extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean REFUNDSTOTAL_IS_REQUIRED = false;
     public static final boolean DISCOUNTSTOTAL_IS_REQUIRED = false;
     public static final boolean VOIDEDLINEITEMSTOTAL_IS_REQUIRED = false;
     public static final boolean NETITEMSALES_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -130,11 +129,7 @@ public class DisplayDiscount extends GenericParcelable implements com.clover.sdk
    */
   public DisplayDiscount(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -166,10 +161,10 @@ public class DisplayDiscount extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 64);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 64);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -332,6 +327,10 @@ public class DisplayDiscount extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DisplayDiscount> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DisplayDiscount>() {
+    public Class<DisplayDiscount> getCreatedClass() {
+      return DisplayDiscount.class;
+    }
+
     @Override
     public DisplayDiscount create(org.json.JSONObject jsonObject) {
       return new DisplayDiscount(jsonObject);
@@ -339,7 +338,6 @@ public class DisplayDiscount extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean LINEITEMID_IS_REQUIRED = false;
@@ -347,7 +345,6 @@ public class DisplayDiscount extends GenericParcelable implements com.clover.sdk
     public static final long NAME_MAX_LEN = 64;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
-
   }
 
 }

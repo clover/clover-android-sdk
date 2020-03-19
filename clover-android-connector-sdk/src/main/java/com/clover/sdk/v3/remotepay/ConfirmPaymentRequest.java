@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -121,11 +120,7 @@ public class ConfirmPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReque
    */
   public ConfirmPaymentRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -157,7 +152,7 @@ public class ConfirmPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'payment' field is set and is not null */
@@ -314,6 +309,10 @@ public class ConfirmPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ConfirmPaymentRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ConfirmPaymentRequest>() {
+    public Class<ConfirmPaymentRequest> getCreatedClass() {
+      return ConfirmPaymentRequest.class;
+    }
+
     @Override
     public ConfirmPaymentRequest create(org.json.JSONObject jsonObject) {
       return new ConfirmPaymentRequest(jsonObject);
@@ -321,13 +320,11 @@ public class ConfirmPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean CHALLENGES_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

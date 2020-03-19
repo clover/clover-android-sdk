@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Point(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -229,6 +224,10 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Point> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Point>() {
+    public Class<Point> getCreatedClass() {
+      return Point.class;
+    }
+
     @Override
     public Point create(org.json.JSONObject jsonObject) {
       return new Point(jsonObject);
@@ -236,10 +235,8 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public interface Constraints {
-
     public static final boolean X_IS_REQUIRED = false;
     public static final boolean Y_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class OrderDeletedOperation extends GenericParcelable implements com.clov
    */
   public OrderDeletedOperation(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class OrderDeletedOperation extends GenericParcelable implements com.clov
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OrderDeletedOperation> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OrderDeletedOperation>() {
+    public Class<OrderDeletedOperation> getCreatedClass() {
+      return OrderDeletedOperation.class;
+    }
+
     @Override
     public OrderDeletedOperation create(org.json.JSONObject jsonObject) {
       return new OrderDeletedOperation(jsonObject);
@@ -208,9 +207,7 @@ public class OrderDeletedOperation extends GenericParcelable implements com.clov
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
-
   }
 
 }

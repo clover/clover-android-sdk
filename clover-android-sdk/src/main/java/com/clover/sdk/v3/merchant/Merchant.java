@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -237,12 +236,13 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /**
    * Deprecated (use billingInfo instead): Returns true when the merchant is billable.
    */
+  @Deprecated
   public java.lang.Boolean getIsBillable() {
     return genClient.cacheGet(CacheKey.isBillable);
   }
 
   /**
-   * A list of devices a merchant owns
+   * A list of devices a merchant owns, 128-bit UUIDs, not a normal base-13 Clover IDs.
    */
   public java.util.List<com.clover.sdk.v3.base.Reference> getDevices() {
     return genClient.cacheGet(CacheKey.devices);
@@ -451,11 +451,7 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Merchant(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -487,22 +483,26 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateNull(getOwner(), "owner");
+    genClient.validateNotNull(CacheKey.owner, getOwner());
 
-    genClient.validateLength(getDefaultCurrency(), 3);
+    genClient.validateLength(CacheKey.defaultCurrency, getDefaultCurrency(), 3);
 
-    genClient.validateLength(getPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.phoneNumber, getPhoneNumber(), 21);
 
-    genClient.validateLength(getWebsite(), 255);
+    genClient.validateLength(CacheKey.website, getWebsite(), 255);
 
-    genClient.validateLength(getCustomerContactEmail(), 127);
+    genClient.validateLength(CacheKey.customerContactEmail, getCustomerContactEmail(), 127);
 
-    genClient.validateLength(getAccountType(), 32);
+    genClient.validateLength(CacheKey.accountType, getAccountType(), 32);
+    genClient.validateReferences(CacheKey.reseller);
+    genClient.validateReferences(CacheKey.merchantGroups);
+    genClient.validateReferences(CacheKey.partnerApp);
+    genClient.validateReferences(CacheKey.selfBoardingApplication);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1545,6 +1545,10 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Merchant> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Merchant>() {
+    public Class<Merchant> getCreatedClass() {
+      return Merchant.class;
+    }
+
     @Override
     public Merchant create(org.json.JSONObject jsonObject) {
       return new Merchant(jsonObject);
@@ -1552,7 +1556,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -1601,7 +1604,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean DEVICEBOARDINGS_IS_REQUIRED = false;
     public static final boolean SELFBOARDINGAPPLICATION_IS_REQUIRED = false;
     public static final boolean EQUIPMENT_IS_REQUIRED = false;
-
   }
 
 }
