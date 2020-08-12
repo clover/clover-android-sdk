@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -31,22 +30,29 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getPoints points}</li>
+ * <li>{@link #getX x}</li>
+ * <li>{@link #getY y}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class Points extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class Point extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public java.util.List<com.clover.sdk.v3.base.Point> getPoints() {
-    return genClient.cacheGet(CacheKey.points);
+  public java.lang.Long getX() {
+    return genClient.cacheGet(CacheKey.x);
+  }
+
+  public java.lang.Long getY() {
+    return genClient.cacheGet(CacheKey.y);
   }
 
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    points
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Point.JSON_CREATOR)),
+    x
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    y
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -61,13 +67,13 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
     }
   }
 
-  private final GenericClient<Points> genClient;
+  private final GenericClient<Point> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public Points() {
-    genClient = new GenericClient<Points>(this);
+  public Point() {
+    genClient = new GenericClient<Point>(this);
   }
 
   @Override
@@ -78,27 +84,23 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Constructs a new empty instance.
    */
-  protected Points(boolean noInit) {
+  protected Point(boolean noInit) {
     genClient = null;
   }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public Points(String json) throws IllegalArgumentException {
+  public Point(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public Points(org.json.JSONObject jsonObject) {
+  public Point(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -106,7 +108,7 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public Points(Points src) {
+  public Point(Point src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -125,35 +127,51 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void validate() {
   }
 
-  /** Checks whether the 'points' field is set and is not null */
-  public boolean isNotNullPoints() {
-    return genClient.cacheValueIsNotNull(CacheKey.points);
+  /** Checks whether the 'x' field is set and is not null */
+  public boolean isNotNullX() {
+    return genClient.cacheValueIsNotNull(CacheKey.x);
   }
 
-  /** Checks whether the 'points' field is set and is not null and is not empty */
-  public boolean isNotEmptyPoints() { return isNotNullPoints() && !getPoints().isEmpty(); }
+  /** Checks whether the 'y' field is set and is not null */
+  public boolean isNotNullY() {
+    return genClient.cacheValueIsNotNull(CacheKey.y);
+  }
 
 
 
-  /** Checks whether the 'points' field has been set, however the value could be null */
-  public boolean hasPoints() {
-    return genClient.cacheHasKey(CacheKey.points);
+  /** Checks whether the 'x' field has been set, however the value could be null */
+  public boolean hasX() {
+    return genClient.cacheHasKey(CacheKey.x);
+  }
+
+  /** Checks whether the 'y' field has been set, however the value could be null */
+  public boolean hasY() {
+    return genClient.cacheHasKey(CacheKey.y);
   }
 
 
   /**
-   * Sets the field 'points'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   * Sets the field 'x'.
    */
-  public Points setPoints(java.util.List<com.clover.sdk.v3.base.Point> points) {
-    return genClient.setArrayRecord(points, CacheKey.points);
+  public Point setX(java.lang.Long x) {
+    return genClient.setOther(x, CacheKey.x);
+  }
+
+  /**
+   * Sets the field 'y'.
+   */
+  public Point setY(java.lang.Long y) {
+    return genClient.setOther(y, CacheKey.y);
   }
 
 
-  /** Clears the 'points' field, the 'has' method for this field will now return false */
-  public void clearPoints() {
-    genClient.clear(CacheKey.points);
+  /** Clears the 'x' field, the 'has' method for this field will now return false */
+  public void clearX() {
+    genClient.clear(CacheKey.x);
+  }
+  /** Clears the 'y' field, the 'has' method for this field will now return false */
+  public void clearY() {
+    genClient.clear(CacheKey.y);
   }
 
 
@@ -174,8 +192,8 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public Points copyChanges() {
-    Points copy = new Points();
+  public Point copyChanges() {
+    Point copy = new Point();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -184,38 +202,41 @@ public class Points extends GenericParcelable implements com.clover.sdk.v3.Valid
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(Points src) {
+  public void mergeChanges(Point src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new Points(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new Point(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<Points> CREATOR = new android.os.Parcelable.Creator<Points>() {
+  public static final android.os.Parcelable.Creator<Point> CREATOR = new android.os.Parcelable.Creator<Point>() {
     @Override
-    public Points createFromParcel(android.os.Parcel in) {
-      Points instance = new Points(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public Point createFromParcel(android.os.Parcel in) {
+      Point instance = new Point(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public Points[] newArray(int size) {
-      return new Points[size];
+    public Point[] newArray(int size) {
+      return new Point[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<Points> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Points>() {
+  public static final com.clover.sdk.JSONifiable.Creator<Point> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Point>() {
+    public Class<Point> getCreatedClass() {
+      return Point.class;
+    }
+
     @Override
-    public Points create(org.json.JSONObject jsonObject) {
-      return new Points(jsonObject);
+    public Point create(org.json.JSONObject jsonObject) {
+      return new Point(jsonObject);
     }
   };
 
   public interface Constraints {
-
-    public static final boolean POINTS_IS_REQUIRED = false;
-
+    public static final boolean X_IS_REQUIRED = false;
+    public static final boolean Y_IS_REQUIRED = false;
   }
 
 }

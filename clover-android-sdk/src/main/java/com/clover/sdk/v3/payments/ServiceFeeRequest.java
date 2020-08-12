@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -120,11 +119,7 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
    */
   public ServiceFeeRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -157,9 +152,9 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getSourcePaymentId(), 13);
+    genClient.validateCloverId(CacheKey.sourcePaymentId, getSourcePaymentId());
   }
 
   /** Checks whether the 'amount' field is set and is not null */
@@ -303,6 +298,10 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ServiceFeeRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ServiceFeeRequest>() {
+    public Class<ServiceFeeRequest> getCreatedClass() {
+      return ServiceFeeRequest.class;
+    }
+
     @Override
     public ServiceFeeRequest create(org.json.JSONObject jsonObject) {
       return new ServiceFeeRequest(jsonObject);
@@ -310,14 +309,12 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean SOURCEPAYMENTID_IS_REQUIRED = false;
     public static final long SOURCEPAYMENTID_MAX_LEN = 13;
     public static final boolean VAULTEDCARD_IS_REQUIRED = false;
-
   }
 
 }

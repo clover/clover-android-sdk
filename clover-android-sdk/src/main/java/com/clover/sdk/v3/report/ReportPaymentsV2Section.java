@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -102,11 +101,7 @@ public class ReportPaymentsV2Section extends GenericParcelable implements com.cl
    */
   public ReportPaymentsV2Section(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -244,6 +239,10 @@ public class ReportPaymentsV2Section extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportPaymentsV2Section> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportPaymentsV2Section>() {
+    public Class<ReportPaymentsV2Section> getCreatedClass() {
+      return ReportPaymentsV2Section.class;
+    }
+
     @Override
     public ReportPaymentsV2Section create(org.json.JSONObject jsonObject) {
       return new ReportPaymentsV2Section(jsonObject);
@@ -251,10 +250,8 @@ public class ReportPaymentsV2Section extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean ROWS_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
-
   }
 
 }

@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,51 +31,114 @@ import java.util.Locale;
 /**
  * Instances of this class may be obtained from the {@link PrinterConnector}.
  */
-
-
 public class Printer implements Parcelable, JSONifiable {
 
-  public static final Parcelable.Creator<Printer> CREATOR = new Parcelable.Creator<Printer>() {
-    public Printer createFromParcel(Parcel in) {
-      return new Printer(in);
+  private static final String TAG = Printer.class.getSimpleName();
+
+  public static class Builder {
+    private String uuid = null;
+    private Type type = null;
+    private String name = null;
+    private String ip = null;
+    private String mac = null;
+    private Category category = null;
+
+    public Builder printer(Printer printer) {
+      this.uuid = printer.uuid;
+      this.type = printer.type;
+      this.name = printer.name;
+      this.ip = printer.ip;
+      this.mac = printer.mac;
+      this.category = printer.category;
+
+      return this;
     }
 
-    public Printer[] newArray(int size) {
-      return new Printer[size];
-    }
-  };
-  private static final String TAG = Printer.class.getSimpleName();
-  private static final String KEY_UUID = "uuid";
-  private static final String KEY_TYPE = "type";
-  private static final String KEY_NAME = "name";
-  private static final String KEY_IP = "ip";
-  private static final String KEY_MAC = "mac";
-  private static final String KEY_CATEGORY = "category";
-  public static final JSONifiable.Creator<Printer> JSON_CREATOR = new JSONifiable.Creator<Printer>() {
-    @Override
-    public Printer create(JSONObject obj) {
-      try {
-        String uuid = obj.getString(KEY_UUID);
-        Type type = new Type(obj.getString(KEY_TYPE));
-        String name = obj.getString(KEY_NAME);
-        String ip = obj.has(KEY_IP) ? obj.getString(KEY_IP) : null;
-        String mac = obj.has(KEY_MAC) ? obj.getString(KEY_MAC) : null;
-        String catStr = obj.optString(KEY_CATEGORY);
-        Category cat = null;
+    public Builder cursor(Cursor cursor) {
+      int index;
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.UUID);
+      if (index != -1) {
+        uuid(cursor.getString(index));
+      }
+      if (uuid == null) {
+        index = cursor.getColumnIndex(PrinterContract.DeviceCategories.DEVICE_UUID);
+        if (index != -1) {
+          uuid(cursor.getString(index));
+        }
+      }
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.TYPE);
+      if (index != -1) {
+        String t = cursor.getString(index);
+        if (t != null) {
+          type(new Type(t));
+        }
+      }
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.NAME);
+      if (index != -1) {
+        name(cursor.getString(index));
+      }
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.MAC);
+      if (index != -1) {
+        mac(cursor.getString(index));
+      }
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.IP);
+      if (index != -1) {
+        ip(cursor.getString(index));
+      }
+
+      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.CATEGORY);
+      if (index != -1) {
+        String catStr = cursor.getString(index);
         try {
-          cat = Category.valueOf(catStr);
+          category(Category.valueOf(catStr));
         } catch (IllegalArgumentException e) {
           Log.w(TAG, "Skipping unsupported category " + catStr + ", using null");
         }
-
-        return new Printer(uuid, type, name, mac, ip, cat);
-      } catch (JSONException e) {
-        Log.w(TAG, e);
       }
 
-      return null;
+      return this;
     }
-  };
+
+    public Builder uuid(String uuid) {
+      this.uuid = uuid;
+      return this;
+    }
+
+    public Builder type(Type type) {
+      this.type = type;
+      return this;
+    }
+
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder ip(String ip) {
+      this.ip = ip;
+      return this;
+    }
+
+    public Builder mac(String mac) {
+      this.mac = mac;
+      return this;
+    }
+
+    public Builder category(Category category) {
+      this.category = category;
+      return this;
+    }
+
+    public Printer build() {
+      return new Printer(uuid, type, name, mac, ip, category);
+    }
+  }
+
   public final String uuid;
   public final Type type;
   public final String name;
@@ -199,7 +262,7 @@ public class Printer implements Parcelable, JSONifiable {
 
   @Override
   public String toString() {
-    return String.format(Locale.US, "%s{uuid=%s, type=%s, name=%s, mac=%s, ip=%s, category=%s}",
+    return String.format(Locale.ROOT, "%s{uuid=%s, type=%s, name=%s, mac=%s, ip=%s, category=%s}",
         getClass().getSimpleName(), uuid, type, name, mac, ip, category);
   }
 
@@ -222,6 +285,49 @@ public class Printer implements Parcelable, JSONifiable {
     out.writeParcelable(category, 0);
   }
 
+  public static final Parcelable.Creator<Printer> CREATOR = new Parcelable.Creator<Printer>() {
+    public Printer createFromParcel(Parcel in) {
+      return new Printer(in);
+    }
+
+    public Printer[] newArray(int size) {
+      return new Printer[size];
+    }
+  };
+
+  private static final String KEY_UUID = "uuid";
+  private static final String KEY_TYPE = "type";
+  private static final String KEY_NAME = "name";
+  private static final String KEY_IP = "ip";
+  private static final String KEY_MAC = "mac";
+  private static final String KEY_CATEGORY = "category";
+
+  public static final JSONifiable.Creator<Printer> JSON_CREATOR = new JSONifiable.Creator<Printer>() {
+    @Override
+    public Printer create(JSONObject obj) {
+      try {
+        String uuid = obj.getString(KEY_UUID);
+        Type type = new Type(obj.getString(KEY_TYPE));
+        String name = obj.getString(KEY_NAME);
+        String ip = obj.has(KEY_IP) ? obj.getString(KEY_IP) : null;
+        String mac = obj.has(KEY_MAC) ? obj.getString(KEY_MAC) : null;
+        String catStr = obj.optString(KEY_CATEGORY);
+        Category cat = null;
+        try {
+          cat = Category.valueOf(catStr);
+        } catch (IllegalArgumentException e) {
+          Log.w(TAG, "Skipping unsupported category " + catStr + ", using null");
+        }
+
+        return new Printer(uuid, type, name, mac, ip, cat);
+      } catch (JSONException e) {
+        Log.w(TAG, e);
+      }
+
+      return null;
+    }
+  };
+
   @Override
   public JSONObject getJSONObject() {
     try {
@@ -237,110 +343,6 @@ public class Printer implements Parcelable, JSONifiable {
       return obj;
     } catch (JSONException e) {
       throw new RuntimeException(e);
-    }
-  }
-
-  public static class Builder {
-    private String uuid = null;
-    private Type type = null;
-    private String name = null;
-    private String ip = null;
-    private String mac = null;
-    private Category category = null;
-
-    public Builder printer(Printer printer) {
-      this.uuid = printer.uuid;
-      this.type = printer.type;
-      this.name = printer.name;
-      this.ip = printer.ip;
-      this.mac = printer.mac;
-      this.category = printer.category;
-
-      return this;
-    }
-
-    public Builder cursor(Cursor cursor) {
-      int index;
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.UUID);
-      if (index != -1) {
-        uuid(cursor.getString(index));
-      }
-      if (uuid == null) {
-        index = cursor.getColumnIndex(PrinterContract.DeviceCategories.DEVICE_UUID);
-        if (index != -1) {
-          uuid(cursor.getString(index));
-        }
-      }
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.TYPE);
-      if (index != -1) {
-        String t = cursor.getString(index);
-        if (t != null) {
-          type(new Type(t));
-        }
-      }
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.NAME);
-      if (index != -1) {
-        name(cursor.getString(index));
-      }
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.MAC);
-      if (index != -1) {
-        mac(cursor.getString(index));
-      }
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.IP);
-      if (index != -1) {
-        ip(cursor.getString(index));
-      }
-
-      index = cursor.getColumnIndex(PrinterContract.DeviceCategories.CATEGORY);
-      if (index != -1) {
-        String catStr = cursor.getString(index);
-        try {
-          category(Category.valueOf(catStr));
-        } catch (IllegalArgumentException e) {
-          Log.w(TAG, "Skipping unsupported category " + catStr + ", using null");
-        }
-      }
-
-      return this;
-    }
-
-    public Builder uuid(String uuid) {
-      this.uuid = uuid;
-      return this;
-    }
-
-    public Builder type(Type type) {
-      this.type = type;
-      return this;
-    }
-
-    public Builder name(String name) {
-      this.name = name;
-      return this;
-    }
-
-    public Builder ip(String ip) {
-      this.ip = ip;
-      return this;
-    }
-
-    public Builder mac(String mac) {
-      this.mac = mac;
-      return this;
-    }
-
-    public Builder category(Category category) {
-      this.category = category;
-      return this;
-    }
-
-    public Printer build() {
-      return new Printer(uuid, type, name, mac, ip, category);
     }
   }
 

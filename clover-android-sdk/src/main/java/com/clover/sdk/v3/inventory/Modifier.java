@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -129,11 +128,7 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Modifier(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -165,15 +160,16 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 255);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 255);
 
-    genClient.validateLength(getAlternateName(), 255);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 255);
 
-    genClient.validateNull(getPrice(), "price");
-    if (getPrice() != null && ( getPrice() < 0)) throw new IllegalArgumentException("Invalid value for 'getPrice()'");
+    genClient.validateNotNull(CacheKey.price, getPrice());
+    genClient.validateMin(CacheKey.price, getPrice(), 0L);
+    genClient.validateReferences(CacheKey.modifierGroup);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -338,6 +334,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Modifier> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Modifier>() {
+    public Class<Modifier> getCreatedClass() {
+      return Modifier.class;
+    }
+
     @Override
     public Modifier create(org.json.JSONObject jsonObject) {
       return new Modifier(jsonObject);
@@ -345,7 +345,6 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -355,7 +354,6 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PRICE_IS_REQUIRED = true;
     public static final long PRICE_MIN = 0;
     public static final boolean MODIFIERGROUP_IS_REQUIRED = false;
-
   }
 
 }

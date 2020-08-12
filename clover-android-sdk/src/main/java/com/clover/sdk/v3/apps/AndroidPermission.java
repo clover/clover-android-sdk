@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -97,11 +96,7 @@ public class AndroidPermission extends GenericParcelable implements com.clover.s
    */
   public AndroidPermission(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -133,9 +128,9 @@ public class AndroidPermission extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getPermission(), 50);
+    genClient.validateLength(CacheKey.permission, getPermission(), 50);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -235,6 +230,10 @@ public class AndroidPermission extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AndroidPermission> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AndroidPermission>() {
+    public Class<AndroidPermission> getCreatedClass() {
+      return AndroidPermission.class;
+    }
+
     @Override
     public AndroidPermission create(org.json.JSONObject jsonObject) {
       return new AndroidPermission(jsonObject);
@@ -242,12 +241,10 @@ public class AndroidPermission extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean PERMISSION_IS_REQUIRED = false;
     public static final long PERMISSION_MAX_LEN = 50;
-
   }
 
 }

@@ -1,11 +1,11 @@
-/**
- * Copyright (C) 2016 Clover Network, Inc.
+/*
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class JsonHelper {
+/**
+ * For Clover internal use only.
+ *
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
+ */
+public final class JsonHelper {
+
+  private JsonHelper() { }
+
   public static Object toJSON(Object object) {
     if (object instanceof Map) {
       JSONObject json = new JSONObject();
@@ -53,6 +63,7 @@ public class JsonHelper {
     return object.names() == null;
   }
 
+  @SuppressWarnings("unchecked")
   public static Map<String, Object> getMap(JSONObject object, String key) {
     return toMap(object.optJSONObject(key));
   }
@@ -67,6 +78,7 @@ public class JsonHelper {
     return map;
   }
 
+  @SuppressWarnings("unchecked")
   public static List toList(JSONArray array) {
     List list = new ArrayList();
     for (int i = 0; i < array.length(); i++) {
@@ -88,7 +100,7 @@ public class JsonHelper {
   }
 
   public static JSONObject deepCopy(JSONObject jsonObject) {
-    return (JSONObject)deepCopy((Object)jsonObject);
+    return (JSONObject) deepCopy((Object) jsonObject);
   }
 
   private static Object deepCopy(Object object) {
@@ -138,7 +150,7 @@ public class JsonHelper {
           throw new RuntimeException("Unsupported object type: " + c.getSimpleName());
         }
       }
-
     }
   }
+
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -108,11 +107,7 @@ public class AppHistory extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public AppHistory(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -144,6 +139,8 @@ public class AppHistory extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.account);
+    genClient.validateReferences(CacheKey.internal_account);
   }
 
   /** Checks whether the 'app' field is set and is not null */
@@ -291,6 +288,10 @@ public class AppHistory extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppHistory> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppHistory>() {
+    public Class<AppHistory> getCreatedClass() {
+      return AppHistory.class;
+    }
+
     @Override
     public AppHistory create(org.json.JSONObject jsonObject) {
       return new AppHistory(jsonObject);
@@ -298,7 +299,6 @@ public class AppHistory extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean APPROVAL_ANDROID_VERSION_ID_IS_REQUIRED = false;
     public static final boolean ACCOUNT_IS_REQUIRED = false;

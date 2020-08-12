@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -158,11 +157,7 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
    */
   public MerchantGatewayEntitlement(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -194,16 +189,16 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 128);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 128);
 
-    genClient.validateLength(getServiceEntitlementNumber(), 128);
+    genClient.validateLength(CacheKey.serviceEntitlementNumber, getServiceEntitlementNumber(), 128);
 
-    genClient.validateLength(getServiceType(), 128);
+    genClient.validateLength(CacheKey.serviceType, getServiceType(), 128);
 
-    genClient.validateLength(getAlphaId(), 4);
+    genClient.validateLength(CacheKey.alphaId, getAlphaId(), 4);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -460,6 +455,10 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantGatewayEntitlement> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantGatewayEntitlement>() {
+    public Class<MerchantGatewayEntitlement> getCreatedClass() {
+      return MerchantGatewayEntitlement.class;
+    }
+
     @Override
     public MerchantGatewayEntitlement create(org.json.JSONObject jsonObject) {
       return new MerchantGatewayEntitlement(jsonObject);
@@ -467,7 +466,6 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -482,7 +480,6 @@ public class MerchantGatewayEntitlement extends GenericParcelable implements com
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean PLANCODES_IS_REQUIRED = false;
     public static final boolean ENTITLEMENTCONFIGURATIONS_IS_REQUIRED = false;
-
   }
 
 }

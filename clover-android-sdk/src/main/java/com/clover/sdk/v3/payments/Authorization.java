@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -204,11 +203,7 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
    */
   public Authorization(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -240,17 +235,17 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getTabName(), 127);
+    genClient.validateLength(CacheKey.tabName, getTabName(), 127);
 
-    genClient.validateLength(getLast4(), 4);
+    genClient.validateLength(CacheKey.last4, getLast4(), 4);
 
-    genClient.validateLength(getAuthcode(), 255);
+    genClient.validateLength(CacheKey.authcode, getAuthcode(), 255);
 
-    genClient.validateLength(getToken(), 72);
+    genClient.validateLength(CacheKey.token, getToken(), 72);
 
-    genClient.validateLength(getNote(), 255);
+    genClient.validateLength(CacheKey.note, getNote(), 255);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -585,6 +580,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Authorization> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Authorization>() {
+    public Class<Authorization> getCreatedClass() {
+      return Authorization.class;
+    }
+
     @Override
     public Authorization create(org.json.JSONObject jsonObject) {
       return new Authorization(jsonObject);
@@ -592,7 +591,6 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean PAYMENT_IS_REQUIRED = false;
@@ -612,7 +610,6 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
     public static final boolean CLOSINGPAYMENT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
-
   }
 
 }

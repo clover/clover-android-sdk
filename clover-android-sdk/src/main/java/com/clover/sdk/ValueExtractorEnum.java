@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2016 Clover Network, Inc.
+ * Copyright (C) 2019 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,14 @@
 package com.clover.sdk;
 
 /**
- * Deprecated. Replaced by {@link com.clover.sdk.extractors.ExtractionStrategy}.
+ * For Clover internal use only.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
+ * <p>
+ * Deprecated but kept since we do not always regenerate all objects.
+ *
+ * @deprecated Replaced by {@link com.clover.sdk.extractors.ExtractionStrategy}.
  */
 @Deprecated
 public interface ValueExtractorEnum<T> extends ExtractableEnum {

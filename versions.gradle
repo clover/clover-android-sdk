@@ -32,6 +32,8 @@ ext {
   ANDROIDX_MULTIDEX_VERSION = "2.0.1" // androidx.multidex:multidex
   ANDROIDX_LEGACY_SUPPORT_V4_VERSION = "1.0.0" // androidx.legacy:legacy-support-v4
   ANDROIDX_LEGACY_SUPPORT_V13_VERSION = "1.0.0"  // androidx.legacy:legacy-support-v13
+  ANDROIDX_WORK_VERSION = "2.3.1" // androidx.work:work-*
+  ANDROIDX_PREFERENCE = "1.1.0" // androidx.preference:preference
 
   // Android X testing versions
 
@@ -80,6 +82,7 @@ ext {
   J_MOCK_VERSION = "2.6.0"
   EQUALSVERIFIER_VERSION = "2.5.2"
   MOCKK_VERSION = "1.9" // Like Mockito, but specially for Kotlin.  See: https://mockk.io/
+  KOTLIN_MOCKITO_VERSION = "2.1.0"
 
   // Android Tool versions
   SONARQUBE_VERSION = "2.6.1"

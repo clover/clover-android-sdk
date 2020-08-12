@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -115,11 +114,7 @@ public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3
    */
   public AppUsbDevice(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -151,11 +146,12 @@ public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getPackageName(), 255);
+    genClient.validateLength(CacheKey.packageName, getPackageName(), 255);
 
-    if (getVendorId() != null && ( getVendorId() < 0)) throw new IllegalArgumentException("Invalid value for 'getVendorId()'");
+    genClient.validateMin(CacheKey.vendorId, getVendorId(), 0L);
 
-    if (getProductId() != null && ( getProductId() < 0)) throw new IllegalArgumentException("Invalid value for 'getProductId()'");
+    genClient.validateMin(CacheKey.productId, getProductId(), 0L);
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'packageName' field is set and is not null */
@@ -320,6 +316,10 @@ public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppUsbDevice> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppUsbDevice>() {
+    public Class<AppUsbDevice> getCreatedClass() {
+      return AppUsbDevice.class;
+    }
+
     @Override
     public AppUsbDevice create(org.json.JSONObject jsonObject) {
       return new AppUsbDevice(jsonObject);
@@ -327,7 +327,6 @@ public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean PACKAGENAME_IS_REQUIRED = false;
     public static final long PACKAGENAME_MAX_LEN = 255;
     public static final boolean VENDORID_IS_REQUIRED = false;
@@ -336,7 +335,6 @@ public class AppUsbDevice extends GenericParcelable implements com.clover.sdk.v3
     public static final long PRODUCTID_MIN = 0;
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean OPENAPPMARKETIFNOTINSTALLED_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -118,11 +117,7 @@ public class PaymentResponse extends GenericParcelable implements com.clover.sdk
    */
   public PaymentResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -321,6 +316,10 @@ public class PaymentResponse extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentResponse>() {
+    public Class<PaymentResponse> getCreatedClass() {
+      return PaymentResponse.class;
+    }
+
     @Override
     public PaymentResponse create(org.json.JSONObject jsonObject) {
       return new PaymentResponse(jsonObject);
@@ -328,13 +327,11 @@ public class PaymentResponse extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean REQUESTSUCCESSFUL_IS_REQUIRED = false;
     public static final boolean RESPONSEERRORMESSAGE_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean CLIENTDATA_IS_REQUIRED = false;
     public static final boolean SYNCPAYMENTOBJECT_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class AnalyticalEvent extends GenericParcelable implements com.clover.sdk
    */
   public AnalyticalEvent(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -130,6 +125,7 @@ public class AnalyticalEvent extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.payload);
   }
 
   /** Checks whether the 'event' field is set and is not null */
@@ -231,6 +227,10 @@ public class AnalyticalEvent extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AnalyticalEvent> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AnalyticalEvent>() {
+    public Class<AnalyticalEvent> getCreatedClass() {
+      return AnalyticalEvent.class;
+    }
+
     @Override
     public AnalyticalEvent create(org.json.JSONObject jsonObject) {
       return new AnalyticalEvent(jsonObject);
@@ -238,10 +238,8 @@ public class AnalyticalEvent extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean EVENT_IS_REQUIRED = false;
     public static final boolean PAYLOAD_IS_REQUIRED = false;
-
   }
 
 }

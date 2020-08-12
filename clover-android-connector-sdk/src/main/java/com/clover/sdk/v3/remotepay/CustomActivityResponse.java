@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -141,11 +140,7 @@ public class CustomActivityResponse extends com.clover.sdk.v3.remotepay.BaseResp
    */
   public CustomActivityResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -376,6 +371,10 @@ public class CustomActivityResponse extends com.clover.sdk.v3.remotepay.BaseResp
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CustomActivityResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CustomActivityResponse>() {
+    public Class<CustomActivityResponse> getCreatedClass() {
+      return CustomActivityResponse.class;
+    }
+
     @Override
     public CustomActivityResponse create(org.json.JSONObject jsonObject) {
       return new CustomActivityResponse(jsonObject);
@@ -383,14 +382,12 @@ public class CustomActivityResponse extends com.clover.sdk.v3.remotepay.BaseResp
   };
 
   public interface Constraints {
-
     public static final boolean PAYLOAD_IS_REQUIRED = false;
     public static final boolean ACTION_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -143,11 +142,7 @@ public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResp
    */
   public PrintJobStatusResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -378,6 +373,10 @@ public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResp
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PrintJobStatusResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PrintJobStatusResponse>() {
+    public Class<PrintJobStatusResponse> getCreatedClass() {
+      return PrintJobStatusResponse.class;
+    }
+
     @Override
     public PrintJobStatusResponse create(org.json.JSONObject jsonObject) {
       return new PrintJobStatusResponse(jsonObject);
@@ -385,14 +384,12 @@ public class PrintJobStatusResponse extends com.clover.sdk.v3.remotepay.BaseResp
   };
 
   public interface Constraints {
-
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean PRINTREQUESTID_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

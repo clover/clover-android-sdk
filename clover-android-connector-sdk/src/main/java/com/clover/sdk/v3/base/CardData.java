@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -220,11 +219,7 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public CardData(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -607,6 +602,10 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CardData> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CardData>() {
+    public Class<CardData> getCreatedClass() {
+      return CardData.class;
+    }
+
     @Override
     public CardData create(org.json.JSONObject jsonObject) {
       return new CardData(jsonObject);
@@ -614,7 +613,6 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean TRACK1_IS_REQUIRED = false;
     public static final boolean TRACK2_IS_REQUIRED = false;
     public static final boolean TRACK3_IS_REQUIRED = false;
@@ -629,7 +627,6 @@ public class CardData extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean EXP_IS_REQUIRED = false;
     public static final boolean LAST4_IS_REQUIRED = false;
     public static final boolean FIRST6_IS_REQUIRED = false;
-
   }
 
 }

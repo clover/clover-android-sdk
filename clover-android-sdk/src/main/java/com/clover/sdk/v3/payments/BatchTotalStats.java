@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -129,11 +128,7 @@ public class BatchTotalStats extends GenericParcelable implements com.clover.sdk
    */
   public BatchTotalStats(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -383,6 +378,10 @@ public class BatchTotalStats extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BatchTotalStats> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BatchTotalStats>() {
+    public Class<BatchTotalStats> getCreatedClass() {
+      return BatchTotalStats.class;
+    }
+
     @Override
     public BatchTotalStats create(org.json.JSONObject jsonObject) {
       return new BatchTotalStats(jsonObject);
@@ -390,7 +389,6 @@ public class BatchTotalStats extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean SALES_IS_REQUIRED = false;
     public static final boolean REFUNDS_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
@@ -398,7 +396,6 @@ public class BatchTotalStats extends GenericParcelable implements com.clover.sdk
     public static final boolean GIFTCARDCASHOUTS_IS_REQUIRED = false;
     public static final boolean TAX_IS_REQUIRED = false;
     public static final boolean TIPS_IS_REQUIRED = false;
-
   }
 
 }

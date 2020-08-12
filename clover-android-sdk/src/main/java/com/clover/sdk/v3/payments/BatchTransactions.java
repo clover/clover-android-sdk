@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
    */
   public BatchTransactions(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -281,6 +276,10 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BatchTransactions> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BatchTransactions>() {
+    public Class<BatchTransactions> getCreatedClass() {
+      return BatchTransactions.class;
+    }
+
     @Override
     public BatchTransactions create(org.json.JSONObject jsonObject) {
       return new BatchTransactions(jsonObject);
@@ -288,11 +287,9 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENTIDS_IS_REQUIRED = false;
     public static final boolean REFUNDIDS_IS_REQUIRED = false;
     public static final boolean CREDITIDS_IS_REQUIRED = false;
-
   }
 
 }

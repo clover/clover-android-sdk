@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,23 +27,22 @@ import com.clover.sdk.v1.Intents;
 /**
  * Class for interacting with connected cash drawers.
  *
- * This class interacts with cash drawers that are connected via configured Clover printers.
- * For a more generalized API for working with cash drawers,
- * consider using {@link com.clover.sdk.cashdrawer}.
+ * @deprecated This class interacts with cash drawers that are connected via configured Clover
+ *     printers. For a more generalized API for working with cash drawers, please use
+ *     {@link com.clover.sdk.cashdrawer.CashDrawers}.
  */
+@Deprecated
 public class CashDrawer {
   public static final String POP_CASH_DRAWER_METHOD = "POP_CASH_DRAWER_METHOD";
   public static final String CASH_DRAWER_AUTHORITY = "com.clover.engine.printer.cashdrawerprovider";
   public static final Uri CASH_DRAWER_AUTHORITY_URI = Uri.parse("content://" + CASH_DRAWER_AUTHORITY);
   public static final String USB_DEVICE = "USB_DEVICE";
 
-  private static final String SERVICE_HOST = "com.clover.engine";
-
   private CashDrawer() {
   }
 
   /**
-   * @deprecated See {@link #open2(Context, Account)}
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    */
   @Deprecated
   public static void open(Context context, Account account) {
@@ -51,7 +50,7 @@ public class CashDrawer {
   }
 
   /**
-   * @deprecated See {@link #open2(Context, Account, int)}
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    */
   @Deprecated
   public static void open(Context context, Account account, int cashDrawerNumber) {
@@ -59,7 +58,7 @@ public class CashDrawer {
   }
 
   /**
-   * @deprecated See {@link #open2(Context, Account, boolean)}
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    */
   @Deprecated
   public static void open(Context context, Account account, boolean openAny) {
@@ -67,7 +66,7 @@ public class CashDrawer {
   }
 
   /**
-   * @deprecated See {@link #open2(Context, Account, Printer)}
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    */
   @Deprecated
   public static void open(Context context, Account account, Printer printer) {
@@ -75,19 +74,21 @@ public class CashDrawer {
   }
 
   /**
-   * @deprecated See {@link #open2(Context, Account, Printer, int)}
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    */
   @Deprecated
   public static void open(Context context, Account account, Printer printer, int cashDrawerNumber) {
     open(context, account, printer, null, cashDrawerNumber, null);
   }
 
+  /**
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
+   */
   @Deprecated
   public static void open(Context context, Account account, UsbDevice usbDevice) {
     open(context, account, null, null, null, usbDevice);
   }
 
-  @Deprecated
   private static void open(Context context, Account account, Printer printer, Boolean openAny, Integer cashDrawerNumber, UsbDevice usbDevice) {
     Bundle extras = new Bundle();
     extras.putParcelable(Intents.EXTRA_ACCOUNT, account);
@@ -118,12 +119,15 @@ public class CashDrawer {
    * at call time or is otherwise not available on the device. In this case it is appropriate
    * to inform the user of the error and allow them to re-attempt the operation.
    */
+  @Deprecated
   public static boolean open2(Context context, Account account) {
     return open2(context, account, null, null, null, null);
   }
 
   /**
    * Open specified cash drawer
+   *
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    *
    * @param context A context.
    * @param account A Clover account.
@@ -139,12 +143,15 @@ public class CashDrawer {
    * at call time or is otherwise not available on the device. In this case it is appropriate
    * to inform the user of the error and allow them to re-attempt the operation.
    */
+  @Deprecated
   public static boolean open2(Context context, Account account, int cashDrawerNumber) {
     return open2(context, account, null, null, cashDrawerNumber, null);
   }
 
   /**
    * Open a cash drawer connected to a printer.
+   *
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    *
    * @param context A context.
    * @param account A Clover account.
@@ -161,14 +168,16 @@ public class CashDrawer {
    * This is not typical but can occur if the service used by this class is being re-installed
    * at call time or is otherwise not available on the device. In this case it is appropriate
    * to inform the user of the error and allow them to re-attempt the operation.
-   *
    */
+  @Deprecated
   public static boolean open2(Context context, Account account, boolean openAny) {
     return open2(context, account, null, openAny, null, null);
   }
 
   /**
    * Open a cash drawer connected to the designated printer.
+   *
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    *
    * @param context A context.
    * @param account A Clover account.
@@ -183,14 +192,16 @@ public class CashDrawer {
    * at call time or is otherwise not available on the device. In this case it is appropriate
    * to inform the user of the error and allow them to re-attempt the operation.
    */
+  @Deprecated
   public static boolean open2(Context context, Account account, Printer printer) {
     return open2(context, account, printer, false, null, null);
   }
 
-
   /**
    * Opens specified cash drawer. In case device does not support multiple cash drawers, supplied cash drawer number
    * is ignored and opens the only supported cash drawer connected to the printer
+   *
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
    *
    * @param context A context.
    * @param account A Clover account.
@@ -207,10 +218,15 @@ public class CashDrawer {
    * at call time or is otherwise not available on the device. In this case it is appropriate
    * to inform the user of the error and allow them to re-attempt the operation.
    */
+  @Deprecated
   public static boolean open2(Context context, Account account, Printer printer, int cashDrawerNumber) {
     return open2(context, account, printer, null, cashDrawerNumber, null);
   }
 
+  /**
+   * @deprecated Prefer interacting with cash drawers via {@link com.clover.sdk.cashdrawer.CashDrawers}
+   */
+  @Deprecated
   public static boolean open2(Context context, Account account, UsbDevice usbDevice) {
     return open2(context, account, null, null, null, usbDevice);
   }

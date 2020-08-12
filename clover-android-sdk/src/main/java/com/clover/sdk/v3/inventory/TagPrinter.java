@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -96,11 +95,7 @@ public class TagPrinter extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public TagPrinter(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -132,9 +127,9 @@ public class TagPrinter extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
-    genClient.validateNull(getTag(), "tag");
+    genClient.validateNotNull(CacheKey.tag, getTag());
 
-    genClient.validateNull(getPrinter(), "printer");
+    genClient.validateNotNull(CacheKey.printer, getPrinter());
   }
 
   /** Checks whether the 'tag' field is set and is not null */
@@ -238,6 +233,10 @@ public class TagPrinter extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TagPrinter> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TagPrinter>() {
+    public Class<TagPrinter> getCreatedClass() {
+      return TagPrinter.class;
+    }
+
     @Override
     public TagPrinter create(org.json.JSONObject jsonObject) {
       return new TagPrinter(jsonObject);
@@ -245,10 +244,8 @@ public class TagPrinter extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean TAG_IS_REQUIRED = true;
     public static final boolean PRINTER_IS_REQUIRED = true;
-
   }
 
 }

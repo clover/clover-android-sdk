@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -249,11 +248,7 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
    */
   public AndroidVersion(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -285,13 +280,16 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getVersionName(), 255);
+    genClient.validateLength(CacheKey.versionName, getVersionName(), 255);
 
-    genClient.validateLength(getHash(), 64);
+    genClient.validateLength(CacheKey.hash, getHash(), 64);
 
-    genClient.validateLength(getHashOriginal(), 64);
+    genClient.validateLength(CacheKey.hashOriginal, getHashOriginal(), 64);
+    genClient.validateReferences(CacheKey.app);
+    genClient.validateReferences(CacheKey.releaseNote);
+    genClient.validateReferences(CacheKey.merchantGroups);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -762,6 +760,10 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AndroidVersion> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AndroidVersion>() {
+    public Class<AndroidVersion> getCreatedClass() {
+      return AndroidVersion.class;
+    }
+
     @Override
     public AndroidVersion create(org.json.JSONObject jsonObject) {
       return new AndroidVersion(jsonObject);
@@ -769,7 +771,6 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CREATEDAT_IS_REQUIRED = false;
@@ -793,7 +794,6 @@ public class AndroidVersion extends GenericParcelable implements com.clover.sdk.
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean RELEASENOTE_IS_REQUIRED = false;
     public static final boolean MERCHANTGROUPS_IS_REQUIRED = false;
-
   }
 
 }

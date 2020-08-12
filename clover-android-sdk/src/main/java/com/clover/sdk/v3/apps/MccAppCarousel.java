@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -99,11 +98,7 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
    */
   public MccAppCarousel(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -135,9 +130,10 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateNull(getMccCode(), "mccCode");
+    genClient.validateNotNull(CacheKey.mccCode, getMccCode());
 
-    genClient.validateNull(getAppCarousel(), "appCarousel");
+    genClient.validateNotNull(CacheKey.appCarousel, getAppCarousel());
+    genClient.validateReferences(CacheKey.appCarousel);
   }
 
   /** Checks whether the 'mccCode' field is set and is not null */
@@ -239,6 +235,10 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MccAppCarousel> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MccAppCarousel>() {
+    public Class<MccAppCarousel> getCreatedClass() {
+      return MccAppCarousel.class;
+    }
+
     @Override
     public MccAppCarousel create(org.json.JSONObject jsonObject) {
       return new MccAppCarousel(jsonObject);
@@ -246,10 +246,8 @@ public class MccAppCarousel extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean MCCCODE_IS_REQUIRED = true;
     public static final boolean APPCAROUSEL_IS_REQUIRED = true;
-
   }
 
 }

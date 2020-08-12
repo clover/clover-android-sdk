@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -192,11 +191,7 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
    */
   public HappyHourDiscount(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -228,22 +223,22 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 64);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 64);
 
-    if (getAmount() != null && ( getAmount() > 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateMax(CacheKey.amount, getAmount(), 0L);
 
-    if (getPercentage() != null && ( getPercentage() < 0 || getPercentage() > 100)) throw new IllegalArgumentException("Invalid value for 'getPercentage()'");
+    genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 100L);
 
-    if (getBeginTimeHours() != null && ( getBeginTimeHours() < 0 || getBeginTimeHours() > 23)) throw new IllegalArgumentException("Invalid value for 'getBeginTimeHours()'");
+    genClient.validateMinMax(CacheKey.beginTimeHours, getBeginTimeHours(), 0L, 23L);
 
-    if (getEndTimeHours() != null && ( getEndTimeHours() < 0 || getEndTimeHours() > 23)) throw new IllegalArgumentException("Invalid value for 'getEndTimeHours()'");
+    genClient.validateMinMax(CacheKey.endTimeHours, getEndTimeHours(), 0L, 23L);
 
-    if (getBeginTimeMinutes() != null && ( getBeginTimeMinutes() < 0 || getBeginTimeMinutes() > 59)) throw new IllegalArgumentException("Invalid value for 'getBeginTimeMinutes()'");
+    genClient.validateMinMax(CacheKey.beginTimeMinutes, getBeginTimeMinutes(), 0L, 59L);
 
-    if (getEndTimeMinutes() != null && ( getEndTimeMinutes() < 0 || getEndTimeMinutes() > 59)) throw new IllegalArgumentException("Invalid value for 'getEndTimeMinutes()'");
+    genClient.validateMinMax(CacheKey.endTimeMinutes, getEndTimeMinutes(), 0L, 59L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -547,6 +542,10 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<HappyHourDiscount> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<HappyHourDiscount>() {
+    public Class<HappyHourDiscount> getCreatedClass() {
+      return HappyHourDiscount.class;
+    }
+
     @Override
     public HappyHourDiscount create(org.json.JSONObject jsonObject) {
       return new HappyHourDiscount(jsonObject);
@@ -554,7 +553,6 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -579,7 +577,6 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     public static final boolean CATEGORYIDS_IS_REQUIRED = false;
     public static final boolean ITEMIDS_IS_REQUIRED = false;
     public static final boolean DAYSOFWEEK_IS_REQUIRED = false;
-
   }
 
 }

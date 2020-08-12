@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -113,11 +112,7 @@ public class PrintJobStatusRequest extends com.clover.sdk.v3.remotepay.BaseReque
    */
   public PrintJobStatusRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -149,7 +144,7 @@ public class PrintJobStatusRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'printRequestId' field is set and is not null */
@@ -278,6 +273,10 @@ public class PrintJobStatusRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PrintJobStatusRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PrintJobStatusRequest>() {
+    public Class<PrintJobStatusRequest> getCreatedClass() {
+      return PrintJobStatusRequest.class;
+    }
+
     @Override
     public PrintJobStatusRequest create(org.json.JSONObject jsonObject) {
       return new PrintJobStatusRequest(jsonObject);
@@ -285,12 +284,10 @@ public class PrintJobStatusRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public interface Constraints {
-
     public static final boolean PRINTREQUESTID_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

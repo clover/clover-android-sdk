@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -160,11 +159,7 @@ public class AppSubscriptionCountry extends GenericParcelable implements com.clo
    */
   public AppSubscriptionCountry(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -196,19 +191,20 @@ public class AppSubscriptionCountry extends GenericParcelable implements com.clo
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 20);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 20);
 
-    genClient.validateNull(getAmount(), "amount");
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateNotNull(CacheKey.amount, getAmount());
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
 
-    genClient.validateNull(getCountry(), "country");
-    genClient.validateLength(getCountry(), 2);
+    genClient.validateNotNull(CacheKey.country, getCountry());
+    genClient.validateLength(CacheKey.country, getCountry(), 2);
 
-    genClient.validateNull(getDescription(), "description");
-    genClient.validateLength(getDescription(), 1024);
+    genClient.validateNotNull(CacheKey.description, getDescription());
+    genClient.validateLength(CacheKey.description, getDescription(), 1024);
+    genClient.validateReferences(CacheKey.appSubscription);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -436,6 +432,10 @@ public class AppSubscriptionCountry extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppSubscriptionCountry> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppSubscriptionCountry>() {
+    public Class<AppSubscriptionCountry> getCreatedClass() {
+      return AppSubscriptionCountry.class;
+    }
+
     @Override
     public AppSubscriptionCountry create(org.json.JSONObject jsonObject) {
       return new AppSubscriptionCountry(jsonObject);
@@ -443,7 +443,6 @@ public class AppSubscriptionCountry extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -457,7 +456,6 @@ public class AppSubscriptionCountry extends GenericParcelable implements com.clo
     public static final boolean ACTIVE_IS_REQUIRED = false;
     public static final boolean APPSUBSCRIPTION_IS_REQUIRED = false;
     public static final boolean INSTALLCOUNT_IS_REQUIRED = false;
-
   }
 
 }

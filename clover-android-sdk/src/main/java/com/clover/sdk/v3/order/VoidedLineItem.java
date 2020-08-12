@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -37,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getReason reason}</li>
  * <li>{@link #getRemovedBy removedBy}</li>
+ * <li>{@link #getApprovedBy approvedBy}</li>
  * <li>{@link #getCreatedBy createdBy}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getEnvironment environment}</li>
@@ -71,6 +71,13 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
    */
   public com.clover.sdk.v3.base.Reference getRemovedBy() {
     return genClient.cacheGet(CacheKey.removedBy);
+  }
+
+  /**
+   * Optional info about employee who approved deletion of line item in case current employee does not have the permission
+   */
+  public com.clover.sdk.v3.base.Reference getApprovedBy() {
+    return genClient.cacheGet(CacheKey.approvedBy);
   }
 
   /**
@@ -112,6 +119,8 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
     reason
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     removedBy
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    approvedBy
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     createdBy
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
@@ -161,11 +170,7 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
    */
   public VoidedLineItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -197,6 +202,10 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.removedBy);
+    genClient.validateReferences(CacheKey.approvedBy);
+    genClient.validateReferences(CacheKey.createdBy);
   }
 
   /** Checks whether the 'lineItem' field is set and is not null */
@@ -217,6 +226,11 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'removedBy' field is set and is not null */
   public boolean isNotNullRemovedBy() {
     return genClient.cacheValueIsNotNull(CacheKey.removedBy);
+  }
+
+  /** Checks whether the 'approvedBy' field is set and is not null */
+  public boolean isNotNullApprovedBy() {
+    return genClient.cacheValueIsNotNull(CacheKey.approvedBy);
   }
 
   /** Checks whether the 'createdBy' field is set and is not null */
@@ -259,6 +273,11 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'removedBy' field has been set, however the value could be null */
   public boolean hasRemovedBy() {
     return genClient.cacheHasKey(CacheKey.removedBy);
+  }
+
+  /** Checks whether the 'approvedBy' field has been set, however the value could be null */
+  public boolean hasApprovedBy() {
+    return genClient.cacheHasKey(CacheKey.approvedBy);
   }
 
   /** Checks whether the 'createdBy' field has been set, however the value could be null */
@@ -317,6 +336,15 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * Sets the field 'approvedBy'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public VoidedLineItem setApprovedBy(com.clover.sdk.v3.base.Reference approvedBy) {
+    return genClient.setRecord(approvedBy, CacheKey.approvedBy);
+  }
+
+  /**
    * Sets the field 'createdBy'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -362,6 +390,10 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'removedBy' field, the 'has' method for this field will now return false */
   public void clearRemovedBy() {
     genClient.clear(CacheKey.removedBy);
+  }
+  /** Clears the 'approvedBy' field, the 'has' method for this field will now return false */
+  public void clearApprovedBy() {
+    genClient.clear(CacheKey.approvedBy);
   }
   /** Clears the 'createdBy' field, the 'has' method for this field will now return false */
   public void clearCreatedBy() {
@@ -430,6 +462,10 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidedLineItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidedLineItem>() {
+    public Class<VoidedLineItem> getCreatedClass() {
+      return VoidedLineItem.class;
+    }
+
     @Override
     public VoidedLineItem create(org.json.JSONObject jsonObject) {
       return new VoidedLineItem(jsonObject);
@@ -437,16 +473,15 @@ public class VoidedLineItem extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean LINEITEM_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean REMOVEDBY_IS_REQUIRED = false;
+    public static final boolean APPROVEDBY_IS_REQUIRED = false;
     public static final boolean CREATEDBY_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean ENVIRONMENT_IS_REQUIRED = false;
     public static final boolean CLIENTEVENTTYPE_IS_REQUIRED = false;
-
   }
 
 }

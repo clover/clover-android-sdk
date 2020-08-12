@@ -15,31 +15,38 @@
   ~ limitations under the License.
 -->
 <resources>
+
   <string name="app_name">Clover Android SDK Examples</string>
-  <string name="action_settings">Settings</string>
+  <string name="title_activity_barcode_scanner_test">Barcode Scanner Test</string>
   <string name="inventory_test">Inventory Test</string>
   <string name="customer_test">Customer Test</string>
   <string name="order_test">Order Test</string>
-  <string name="v3order_test">Order_V3 Test</string>
   <string name="app_notification_test">App Notification Test</string>
-  <string name="app_event_name">App event name</string>
-  <string name="payload">Payload</string>
-  <string name="send_app_notification">Send app notification</string>
   <string name="inventory_list">Inventory List</string>
-  <string name="title_activity_web_service">"Web Service Activity "</string>
-  <string name="create_custom_tender_test">CreateCustomTenderTestActivity</string>
-  <string name="custom_tender_handler_test">CustomTenderHandlerTestActivity</string>
-  <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
-  <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
+  <string name="title_activity_web_service">Web Service Test</string>
+  <string name="create_custom_tender_test">Create Custom Tender Test</string>
+  <string name="custom_tender_handler_test">Custom Tender Handler Test</string>
   <string name="cashevent_test">Cash Event Test</string>
+  <string name="cash_drawers_test">Cash Drawers Test</string>
   <string name="printer_test">Printer Test</string>
   <string name="printjob_test">Print Job Test</string>
   <string name="print_test">Print Test</string>
   <string name="receipt_registration_test">Receipt Registration Test</string>
   <string name="authenticate_employee">Authenticate Employee</string>
-  <string name="print_task_test">PrintTaskTestActivity</string>
-  <string name="print_image_footer">Print Footer-Image Activity</string>
-  <string name="platform2_details_name">Platform2 Details Activity</string>
+  <string name="print_task_test">Print View And Image Test</string>
+  <string name="print_image_footer">Print Footer-Image</string>
+  <string name="platform2_details_name">Platform2 Details</string>
+  <string name="lockscreen_test_activity">Lockscreen Test</string>
+  <string name="merchant_devices_v2_activity_label">Merchant Devices V2 Test</string>
+  <string name="keypad_test">Keypad Test</string>
+  <string name="salerefund_test">Sale/Refund Test</string>
+
+  <string name="action_settings">Settings</string>
+  <string name="payload">Payload</string>
+  <string name="send_app_notification">Send app notification</string>
+  <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
+  <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
+  <string name="app_event_name">App event name</string>
 
   <array name="connection_type">
     <item>Use app service</item>
@@ -51,13 +58,11 @@
     <item>Admin</item>
   </array>
 
-  <string name="title_activity_barcode_scanner_test">BarcodeScannerTestActivity</string>
   <string name="hello_world">Hello world!</string>
   <string name="view_print">View Print</string>
   <string name="image_print">Image Print</string>
-  <string name="view_print_2">View Print 2</string>
-  <string name="select_a_printer_below">Select a printer below :</string>
-  <string name="lockscreen_test_activity">Lockscreen Test</string>
+  <string name="select_a_printer_below">Select a printer below:</string>
+
   <string name="unlock">Unlock</string>
   <string name="lock">Lock</string>
   <string name="select_string">Please select an employee below :\n(Deselect to disable)</string>
@@ -74,10 +79,12 @@
   <string name="uninstall_this_app">Uninstall this app (com.clover.android.sdk.examples) from the merchant Web Dashboard or from the More Tools app on this device or another device. You will see an indication here and in the logs when the pre-uninstall intent is received.\n\nThis screen is shown for explanatory purposes only. Pre-uninstall work should be done in the background and should not have any user interaction.</string>
 
   <!-- Merchant Devices V2 -->
-  <string name="merchant_devices_v2_activity_label">Merchant Devices V2 Test</string>
   <string name="name_label">Name</string>
   <string name="model_label">Model</string>
   <string name="id_label">ID</string>
   <string name="this_device">This device:</string>
   <string name="this_device_s_serial">This device\'s serial:</string>
+
+  <!-- Keypad Test -->
+  <string name="start_keypad">Start Keypad</string>
 </resources>

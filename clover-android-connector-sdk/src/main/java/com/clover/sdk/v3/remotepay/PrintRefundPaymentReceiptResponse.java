@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -142,11 +141,7 @@ public class PrintRefundPaymentReceiptResponse extends com.clover.sdk.v3.remotep
    */
   public PrintRefundPaymentReceiptResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -404,6 +399,10 @@ public class PrintRefundPaymentReceiptResponse extends com.clover.sdk.v3.remotep
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PrintRefundPaymentReceiptResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PrintRefundPaymentReceiptResponse>() {
+    public Class<PrintRefundPaymentReceiptResponse> getCreatedClass() {
+      return PrintRefundPaymentReceiptResponse.class;
+    }
+
     @Override
     public PrintRefundPaymentReceiptResponse create(org.json.JSONObject jsonObject) {
       return new PrintRefundPaymentReceiptResponse(jsonObject);
@@ -411,7 +410,6 @@ public class PrintRefundPaymentReceiptResponse extends com.clover.sdk.v3.remotep
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean ORDER_IS_REQUIRED = false;
@@ -419,7 +417,6 @@ public class PrintRefundPaymentReceiptResponse extends com.clover.sdk.v3.remotep
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

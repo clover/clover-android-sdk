@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -120,11 +119,7 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
    */
   public DeveloperMerchantLimits(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -297,6 +292,10 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeveloperMerchantLimits> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeveloperMerchantLimits>() {
+    public Class<DeveloperMerchantLimits> getCreatedClass() {
+      return DeveloperMerchantLimits.class;
+    }
+
     @Override
     public DeveloperMerchantLimits create(org.json.JSONObject jsonObject) {
       return new DeveloperMerchantLimits(jsonObject);
@@ -304,12 +303,10 @@ public class DeveloperMerchantLimits extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean REQUESTLIMIT_IS_REQUIRED = false;
     public static final boolean MERCHANTREQUESTLIMIT_IS_REQUIRED = false;
     public static final boolean CONCURRENTREQUESTLIMIT_IS_REQUIRED = false;
     public static final boolean CONCURRENTMERCHANTREQUESTLIMIT_IS_REQUIRED = false;
-
   }
 
 }

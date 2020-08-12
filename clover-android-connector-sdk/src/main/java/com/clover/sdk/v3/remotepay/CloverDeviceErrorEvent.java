@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -111,11 +110,7 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
    */
   public CloverDeviceErrorEvent(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -290,6 +285,10 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CloverDeviceErrorEvent> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CloverDeviceErrorEvent>() {
+    public Class<CloverDeviceErrorEvent> getCreatedClass() {
+      return CloverDeviceErrorEvent.class;
+    }
+
     @Override
     public CloverDeviceErrorEvent create(org.json.JSONObject jsonObject) {
       return new CloverDeviceErrorEvent(jsonObject);
@@ -297,12 +296,10 @@ public class CloverDeviceErrorEvent extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean MESSAGE_IS_REQUIRED = false;
     public static final boolean CODE_IS_REQUIRED = false;
     public static final boolean CAUSE_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
-
   }
 
 }

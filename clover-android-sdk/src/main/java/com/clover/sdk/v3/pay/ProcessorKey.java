@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class ProcessorKey extends GenericParcelable implements com.clover.sdk.v3
    */
   public ProcessorKey(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -123,7 +118,7 @@ public class ProcessorKey extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -202,6 +197,10 @@ public class ProcessorKey extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ProcessorKey> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ProcessorKey>() {
+    public Class<ProcessorKey> getCreatedClass() {
+      return ProcessorKey.class;
+    }
+
     @Override
     public ProcessorKey create(org.json.JSONObject jsonObject) {
       return new ProcessorKey(jsonObject);
@@ -209,10 +208,8 @@ public class ProcessorKey extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-
   }
 
 }

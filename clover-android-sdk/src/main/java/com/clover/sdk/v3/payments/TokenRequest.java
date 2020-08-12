@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -73,7 +72,7 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * The device that processed the token request
+   * The device that processed the token request, a 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
@@ -230,11 +229,7 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
    */
   public TokenRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -266,11 +261,13 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getExternalReferenceId(), 32);
+    genClient.validateLength(CacheKey.externalReferenceId, getExternalReferenceId(), 32);
 
-    genClient.validateLength(getNote(), 255);
+    genClient.validateLength(CacheKey.note, getNote(), 255);
+    genClient.validateReferences(CacheKey.employee);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -657,6 +654,10 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TokenRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TokenRequest>() {
+    public Class<TokenRequest> getCreatedClass() {
+      return TokenRequest.class;
+    }
+
     @Override
     public TokenRequest create(org.json.JSONObject jsonObject) {
       return new TokenRequest(jsonObject);
@@ -664,7 +665,6 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean TYPE_IS_REQUIRED = false;
@@ -683,7 +683,6 @@ public class TokenRequest extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -61,7 +60,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Device which processed the transaction for this refund
+   * Device which processed the transaction for this refund, a 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
@@ -177,11 +176,7 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
    */
   public CreditRefund(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -213,6 +208,10 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
+    genClient.validateCloverId(CacheKey.id, getId());
+    genClient.validateReferences(CacheKey.orderRef);
+    genClient.validateReferences(CacheKey.credit);
+    genClient.validateReferences(CacheKey.employee);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -494,6 +493,10 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CreditRefund> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CreditRefund>() {
+    public Class<CreditRefund> getCreatedClass() {
+      return CreditRefund.class;
+    }
+
     @Override
     public CreditRefund create(org.json.JSONObject jsonObject) {
       return new CreditRefund(jsonObject);
@@ -501,7 +504,6 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean ORDERREF_IS_REQUIRED = false;
     public static final boolean DEVICE_IS_REQUIRED = false;
@@ -512,7 +514,6 @@ public class CreditRefund extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean GERMANINFO_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
-
   }
 
 }

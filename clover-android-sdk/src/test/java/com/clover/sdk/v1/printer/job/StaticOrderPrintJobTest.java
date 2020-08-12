@@ -95,4 +95,12 @@ public class StaticOrderPrintJobTest {
   public void getPrinterCategory() {
     assertThat(printJob.getPrinterCategory(), is(Category.ORDER));
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void setBothExpoAndUnlabelledFlags() {
+    PrintJob pj = new StaticOrderPrintJob.Builder()
+        .flag(PrintJob.FLAG_UNLABELED_ITEMS)
+        .flag(PrintJob.FLAG_EXPEDITOR)
+        .build();
+  }
 }

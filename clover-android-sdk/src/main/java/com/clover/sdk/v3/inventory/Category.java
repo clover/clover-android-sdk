@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -152,11 +151,7 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Category(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -188,10 +183,12 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateReferences(CacheKey.items);
+    genClient.validateReferences(CacheKey.canonical);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -403,6 +400,10 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Category> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Category>() {
+    public Class<Category> getCreatedClass() {
+      return Category.class;
+    }
+
     @Override
     public Category create(org.json.JSONObject jsonObject) {
       return new Category(jsonObject);
@@ -410,7 +411,6 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -420,7 +420,6 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean DELETED_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CANONICAL_IS_REQUIRED = false;
-
   }
 
 }

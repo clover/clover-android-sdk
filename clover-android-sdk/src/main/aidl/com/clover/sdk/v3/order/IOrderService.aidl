@@ -42,6 +42,11 @@ import com.clover.sdk.v3.order.VoidReason;
  * by calling methods here will be reflected on all of a merchant's devices and on the web.
  * <p>
  * Most methods require ORDERS_R and/or ORDERS_W permission.
+ *
+ * @deprecated Please use the {@link IOrderServiceV3_1} via {@link OrderConnector}
+ * instead, it offers all the same functionality but is designed to handle
+ * large orders (over 1MB) that cause this API to fail. New methods may not be
+ * added to this class going forward.
  */
 interface IOrderService {
 
@@ -251,8 +256,8 @@ interface IOrderService {
   Payment pay(String orderId, in PaymentRequest paymentRequest, boolean isAllowOffline, String note, out ResultStatus status);
 
   /**
-   * @deprecated Use {@link #addPayment2}.
    * If necessary, use other methods to open the cash drawer and log cash events.
+   * @deprecated Use {@link #addPayment2}.
    * @y.exclude
    */
   Order addPayment(String orderId, in Payment payment, in List<LineItem> lineItems, out ResultStatus status);

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:gravity="center"
+    android:layout_weight="1">
+
+    <com.clover.android.sdk.examples.KeypadEditText
+      android:id="@+id/text_keypad"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clickable="false"
+      android:gravity="top|left"
+      android:longClickable="false"
+      android:inputType="textNoSuggestions"
+      android:cursorVisible="true"
+      android:focusable="false"
+      android:focusableInTouchMode="false"/>
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:gravity="center"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+    <RadioGroup
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:id="@+id/type_numeric"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRadioButtonClicked"
+        android:text="Numeric"/>
+
+      <RadioButton
+        android:id="@+id/type_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRadioButtonClicked"
+        android:text="Email"/>
+
+      <RadioButton
+        android:id="@+id/type_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRadioButtonClicked"
+        android:text="Phone"/>
+    </RadioGroup>
+
+    <Button
+      android:id="@+id/button_keypad_start"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="10dp"
+      android:text="@string/start_keypad" />
+  </LinearLayout>
+</LinearLayout>

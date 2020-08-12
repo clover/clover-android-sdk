@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,7 @@
  */
 package com.clover.sdk.v1.printer.job;
 
+import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import android.util.Log;
 
 import com.clover.sdk.internal.util.OutputUriFactory;
 import com.clover.sdk.v1.printer.Category;
+import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.ReceiptFileContract;
 
 import java.io.BufferedOutputStream;
@@ -37,13 +39,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Create a PrintJob to print one or more bitmaps. This may take time, must not be built
- * on the main thread.
+ * Create a PrintJob to print one or more bitmaps. If multiple bitmaps are provided they printed
+ * one after another vertically on the receipt. Bitmaps will be scaled down proportionally to
+ * the paper width as needed.
+ * <p/>
+ * The {@link Builder#build()} performs blocking IO so it must be invoked on a background thread.
  */
 public class ImagePrintJob2 extends PrintJob implements Parcelable {
+
   public static final int MAX_HEIGHT = 2048;
 
-  private static final String TAG = "ViewPrintJob2";
+  private static final String TAG = ImagePrintJob2.class.getSimpleName();
 
   public static class Builder extends PrintJob.Builder {
     protected final List<Bitmap> bitmaps = new ArrayList<>();
@@ -70,13 +76,21 @@ public class ImagePrintJob2 extends PrintJob implements Parcelable {
       return this;
     }
 
+    /**
+     * Builds an instance. This method performs some blocking IO so it must be invoked on a
+     * background thread.
+     */
     @Override
     public ImagePrintJob2 build() {
       return new ImagePrintJob2(this);
     }
   }
 
+  /**
+   * For internal use only.
+   */
   public final ArrayList<String> imageFiles;
+
   private static final String BUNDLE_KEY_IMAGE_FILES = "i";
 
   protected ImagePrintJob2(Builder builder) {
@@ -95,8 +109,17 @@ public class ImagePrintJob2 extends PrintJob implements Parcelable {
     return Category.RECEIPT;
   }
 
-  public static final Creator<ImagePrintJob2> CREATOR
-      = new Creator<ImagePrintJob2>() {
+  @Override
+  public void print(Context context, Account account, Printer printer) {
+    if (imageFiles.size() == 0) {
+      Log.w(TAG, "Cannot print, no image files are available, check usage and/or logs");
+      return;
+    }
+
+    super.print(context, account, printer);
+  }
+
+  public static final Creator<ImagePrintJob2> CREATOR = new Creator<ImagePrintJob2>() {
     public ImagePrintJob2 createFromParcel(Parcel in) {
       return new ImagePrintJob2(in);
     }

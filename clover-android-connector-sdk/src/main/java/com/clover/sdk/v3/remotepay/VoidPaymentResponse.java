@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -169,11 +168,7 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.PaymentResp
    */
   public VoidPaymentResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -512,6 +507,10 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.PaymentResp
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidPaymentResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidPaymentResponse>() {
+    public Class<VoidPaymentResponse> getCreatedClass() {
+      return VoidPaymentResponse.class;
+    }
+
     @Override
     public VoidPaymentResponse create(org.json.JSONObject jsonObject) {
       return new VoidPaymentResponse(jsonObject);
@@ -519,7 +518,6 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.PaymentResp
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENTID_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean ISSALE_IS_REQUIRED = false;
@@ -530,7 +528,6 @@ public class VoidPaymentResponse extends com.clover.sdk.v3.remotepay.PaymentResp
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

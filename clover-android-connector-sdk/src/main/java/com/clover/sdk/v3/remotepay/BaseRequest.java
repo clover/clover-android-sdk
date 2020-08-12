@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -102,11 +101,7 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
    */
   public BaseRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -138,7 +133,7 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'requestId' field is set and is not null */
@@ -238,6 +233,10 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BaseRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BaseRequest>() {
+    public Class<BaseRequest> getCreatedClass() {
+      return BaseRequest.class;
+    }
+
     @Override
     public BaseRequest create(org.json.JSONObject jsonObject) {
       return new BaseRequest(jsonObject);
@@ -245,11 +244,9 @@ public class BaseRequest extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

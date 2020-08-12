@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -146,11 +145,7 @@ public class ServerTotalStats extends GenericParcelable implements com.clover.sd
    */
   public ServerTotalStats(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -182,7 +177,7 @@ public class ServerTotalStats extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getEmployeeId(), 13);
+    genClient.validateCloverId(CacheKey.employeeId, getEmployeeId());
   }
 
   /** Checks whether the 'employeeId' field is set and is not null */
@@ -443,6 +438,10 @@ public class ServerTotalStats extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ServerTotalStats> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ServerTotalStats>() {
+    public Class<ServerTotalStats> getCreatedClass() {
+      return ServerTotalStats.class;
+    }
+
     @Override
     public ServerTotalStats create(org.json.JSONObject jsonObject) {
       return new ServerTotalStats(jsonObject);
@@ -450,7 +449,6 @@ public class ServerTotalStats extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean EMPLOYEEID_IS_REQUIRED = false;
     public static final long EMPLOYEEID_MAX_LEN = 13;
     public static final boolean EMPLOYEENAME_IS_REQUIRED = false;
@@ -461,7 +459,6 @@ public class ServerTotalStats extends GenericParcelable implements com.clover.sd
     public static final boolean GIFTCARDCASHOUTS_IS_REQUIRED = false;
     public static final boolean TAX_IS_REQUIRED = false;
     public static final boolean TIPS_IS_REQUIRED = false;
-
   }
 
 }

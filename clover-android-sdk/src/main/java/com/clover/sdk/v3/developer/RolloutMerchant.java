@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -112,11 +111,7 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
    */
   public RolloutMerchant(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -148,6 +143,8 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.rollout);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -272,6 +269,10 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RolloutMerchant> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RolloutMerchant>() {
+    public Class<RolloutMerchant> getCreatedClass() {
+      return RolloutMerchant.class;
+    }
+
     @Override
     public RolloutMerchant create(org.json.JSONObject jsonObject) {
       return new RolloutMerchant(jsonObject);
@@ -279,11 +280,9 @@ public class RolloutMerchant extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean ROLLOUT_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
   }
 
 }

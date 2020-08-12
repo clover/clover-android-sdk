@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum ProviderId implements Parcelable {
-  GOOGLE;
+  OTHER;
 
   @Override
   public int describeContents() {

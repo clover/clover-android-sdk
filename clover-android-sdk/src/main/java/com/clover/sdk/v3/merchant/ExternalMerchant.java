@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -169,11 +168,7 @@ public class ExternalMerchant extends GenericParcelable implements com.clover.sd
    */
   public ExternalMerchant(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,15 +201,16 @@ public class ExternalMerchant extends GenericParcelable implements com.clover.sd
   @Override
   public void validate() {
 
-    genClient.validateLength(getExternalMerchantNumber(), 20);
+    genClient.validateLength(CacheKey.externalMerchantNumber, getExternalMerchantNumber(), 20);
 
-    genClient.validateLength(getClientFlag(), 1);
+    genClient.validateLength(CacheKey.clientFlag, getClientFlag(), 1);
 
-    genClient.validateLength(getUsageFlag(), 1);
+    genClient.validateLength(CacheKey.usageFlag, getUsageFlag(), 1);
 
-    genClient.validateLength(getXrefType(), 20);
+    genClient.validateLength(CacheKey.xrefType, getXrefType(), 20);
 
-    genClient.validateLength(getAuditUserId(), 8);
+    genClient.validateLength(CacheKey.auditUserId, getAuditUserId(), 8);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -463,6 +459,10 @@ public class ExternalMerchant extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ExternalMerchant> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ExternalMerchant>() {
+    public Class<ExternalMerchant> getCreatedClass() {
+      return ExternalMerchant.class;
+    }
+
     @Override
     public ExternalMerchant create(org.json.JSONObject jsonObject) {
       return new ExternalMerchant(jsonObject);
@@ -470,7 +470,6 @@ public class ExternalMerchant extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean EXTERNALMERCHANTNUMBER_IS_REQUIRED = false;
     public static final long EXTERNALMERCHANTNUMBER_MAX_LEN = 20;
@@ -485,7 +484,6 @@ public class ExternalMerchant extends GenericParcelable implements com.clover.sd
     public static final boolean AUDITDATE_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -238,11 +237,7 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
    */
   public PaymentRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -274,15 +269,15 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getEmployeeId(), 13);
+    genClient.validateCloverId(CacheKey.employeeId, getEmployeeId());
 
-    genClient.validateLength(getEmployeeName(), 127);
+    genClient.validateLength(CacheKey.employeeName, getEmployeeName(), 127);
 
-    genClient.validateLength(getExternalPaymentId(), 32);
+    genClient.validateLength(CacheKey.externalPaymentId, getExternalPaymentId(), 32);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -713,6 +708,10 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentRequest>() {
+    public Class<PaymentRequest> getCreatedClass() {
+      return PaymentRequest.class;
+    }
+
     @Override
     public PaymentRequest create(org.json.JSONObject jsonObject) {
       return new PaymentRequest(jsonObject);
@@ -720,7 +719,6 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ORDERID_IS_REQUIRED = false;
@@ -743,7 +741,6 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     public static final boolean TAXABLEAMOUNTRATES_IS_REQUIRED = false;
     public static final boolean LINEITEMS_IS_REQUIRED = false;
     public static final boolean CARD_IS_REQUIRED = false;
-
   }
 
 }

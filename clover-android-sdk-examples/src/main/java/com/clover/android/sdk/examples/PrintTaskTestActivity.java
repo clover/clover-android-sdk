@@ -1,13 +1,24 @@
+/*
+ * Copyright (C) 2020 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.clover.android.sdk.examples;
 
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.PrinterConnector;
-import com.clover.sdk.v1.printer.job.ImagePrintJob;
-import com.clover.sdk.v1.printer.job.PrintJob;
+import com.clover.sdk.v1.printer.job.ImagePrintJob2;
 import com.clover.sdk.v1.printer.job.ViewPrintJob;
 
 import android.accounts.Account;
@@ -17,12 +28,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.RemoteException;
+import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,6 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrintTaskTestActivity extends Activity {
+
   private static final String TAG = PrintTaskTestActivity.class.getSimpleName();
   private static final String ITEM = "Item";
   private static final String COST = "$ Cost";
@@ -41,7 +52,6 @@ public class PrintTaskTestActivity extends Activity {
 
   private Button imagePrintButton;
   private Button viewPrintButton;
-  private Button viewPrintButton2;
   private Account account;
   private LinearLayout testView;
   private Bitmap icon;
@@ -49,7 +59,8 @@ public class PrintTaskTestActivity extends Activity {
   private RecyclerView recyclerView;
   private List<Printer> resultList;
   private PrinterListAdapter adapter;
-  private int selectedPosition;
+
+  private Printer selectedPrinter;
   private int viewWidth;
 
 
@@ -57,48 +68,46 @@ public class PrintTaskTestActivity extends Activity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_print_task_test);
-    imagePrintButton = findViewById(R.id.button2);
-    /**
-     * Button which uses the original view method from ViewPrintJob
-     * to print.
-     * */
     viewPrintButton = findViewById(R.id.button1);
-    /**
-     * Button which uses the new view method from ViewPrintJob
-     * to print.
-     * */
-    viewPrintButton2 = findViewById(R.id.button3);
+    imagePrintButton = findViewById(R.id.button2);
     account = CloverAccount.getAccount(this);
-    resultList = new ArrayList<Printer>();
+    resultList = new ArrayList<>();
     recyclerView = findViewById(R.id.recyclerView);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    PrinterListAdapter.ClickListener clickListener = new PrinterListAdapter.ClickListener() {
+    PrinterListAdapter.CheckListener checkListener = new PrinterListAdapter.CheckListener() {
       @Override
-      public void onItemClick(int position, View v) {
-        selectedPosition = position;
-        new AsyncTask<Void, Void, Void>() {
+      public void onItemChecked(int position, View v) {
+        selectedPrinter = resultList.get(position);
+
+        new AsyncTask<Void, Void, Integer>() {
           @Override
-          protected Void doInBackground(Void... voids) {
+          protected Integer doInBackground(Void... voids) {
             try {
-              viewWidth = connector.getPrinterTypeDetails(resultList.get(selectedPosition)).getNumDotsWidth();
-              Log.v(TAG, String.valueOf(viewWidth));
-            } catch (RemoteException e) {
-              e.printStackTrace();
-            } catch (ClientException e) {
-              e.printStackTrace();
-            } catch (ServiceException e) {
-              e.printStackTrace();
-            } catch (BindingException e) {
+              int width = connector.getPrinterTypeDetails(selectedPrinter).getNumDotsWidth();
+              Log.v(TAG, "Printer head width: " + width);
+              return width;
+            } catch (Exception e) {
               e.printStackTrace();
             }
-            return null;
+            return 0;
+          }
+
+          @Override
+          protected void onPostExecute(Integer width) {
+            viewWidth = width;
           }
         }.execute();
       }
+
+      @Override
+      public void onItemUnchecked() {
+        viewWidth = 0;
+        selectedPrinter = null;
+      }
     };
 
-    adapter = new PrinterListAdapter(this, resultList, clickListener);
+    adapter = new PrinterListAdapter(this, resultList, checkListener);
     recyclerView.setAdapter(adapter);
     connector = new PrinterConnector(this, account, null);
     getConnectedPrinters();
@@ -107,59 +116,42 @@ public class PrintTaskTestActivity extends Activity {
     generateHeadLayout(testView);
     generateBodyLayout(testView);
 
-    /**
-     * Prints receipt by using the older {@link ViewPrintJob.Builder#view(View)}
-     * Must call {@link #layoutAndMeasureView(View, int)} before.
-     * */
-    viewPrintButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        new AsyncTask<Void, Void, Void>() {
-          @Override
-          protected Void doInBackground(Void... voids) {
-            layoutAndMeasureView(testView, viewWidth);
-            ViewPrintJob.Builder builder = new ViewPrintJob.Builder().view(testView);
-            ViewPrintJob printJob = builder.build();
-            printJob.print(getApplicationContext(), account);
-            return null;
-          }
-        }.execute();
+    viewPrintButton.setOnClickListener((v) -> {
+      if (selectedPrinter == null) {
+        return;
       }
-    });
-    
-    /**
-     * Prints receipt by using the older {@link ViewPrintJob.Builder#view(View, int)}
-     * */
-    viewPrintButton2.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        new AsyncTask<Void, Void, Void>() {
-          @Override
-          protected Void doInBackground(Void... voids) {
-            ViewPrintJob.Builder builder = new ViewPrintJob.Builder().view(testView, viewWidth);
-            ViewPrintJob printJob = builder.build();
-            printJob.print(getApplicationContext(), account);
-            return null;
-          }
-        }.execute();
-      }
+
+      Printer printer = selectedPrinter;
+      int width = viewWidth;
+
+      new AsyncTask<Void, Void, Void>() {
+        @Override
+        protected Void doInBackground(Void... voids) {
+          ViewPrintJob printJob = new ViewPrintJob.Builder(). view(testView, width).build();
+          printJob.print(getApplicationContext(), account, printer);
+          return null;
+        }
+      }.execute();
     });
 
-    imagePrintButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        new AsyncTask<Void, Void, Void>() {
-          @Override
-          protected Void doInBackground(Void... voids) {
-            ImagePrintJob.Builder builder = new ImagePrintJob.Builder().bitmap(icon);
-            PrintJob imagePrintJob = builder.build();
-            imagePrintJob.print(getApplicationContext(), account);
-            return null;
-          }
-        }.execute();
+    imagePrintButton.setOnClickListener((v) -> {
+      if (selectedPrinter == null) {
+        return;
       }
+
+      Printer printer = selectedPrinter;
+
+      new AsyncTask<Void, Void, Void>() {
+        @Override
+        protected Void doInBackground(Void... voids) {
+          ImagePrintJob2 imagePrintJob = new ImagePrintJob2.Builder(getApplicationContext()).bitmap(icon).build();
+          imagePrintJob.print(getApplicationContext(), account, printer);
+          return null;
+        }
+      }.execute();
     });
   }
+
 /**
  * Fetch the list of all the connected printers.
  * @see PrinterConnector#getPrinter(String)
@@ -215,18 +207,10 @@ public class PrintTaskTestActivity extends Activity {
     return mainLayout;
   }
 
-  public void layoutAndMeasureView(View view, int viewWidth) {
-    int measuredWidth = View.MeasureSpec.makeMeasureSpec(viewWidth, View.MeasureSpec.EXACTLY);
-    int measuredHeight = View.MeasureSpec.makeMeasureSpec(ViewGroup.LayoutParams.WRAP_CONTENT, View.MeasureSpec.UNSPECIFIED);
-    view.measure(measuredWidth, measuredHeight);
-    view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-    view.requestLayout();
-  }
-
   @Override
-  protected void onPause() {
-    super.onPause();
+  protected void onDestroy() {
     disconnect();
+    super.onDestroy();
   }
 
   private void disconnect() {
@@ -247,6 +231,5 @@ public class PrintTaskTestActivity extends Activity {
     merchantTv.setTextSize(30);
     mainLayout.addView(merchantTv);
   }
-
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -52,14 +51,15 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * DEPRECATED: use quantity instead
+   * Deprecated, use quantity instead.
    */
+  @Deprecated
   public java.lang.Long getStockCount() {
     return genClient.cacheGet(CacheKey.stockCount);
   }
 
   /**
-   * Current count of this item in stock
+   * Current count of this item in stock.
    */
   public java.lang.Double getQuantity() {
     return genClient.cacheGet(CacheKey.quantity);
@@ -121,11 +121,7 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public ItemStock(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -158,7 +154,8 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   @Override
   public void validate() {
 
-    if (getStockCount() != null && ( getStockCount() < 0)) throw new IllegalArgumentException("Invalid value for 'getStockCount()'");
+    genClient.validateMin(CacheKey.stockCount, getStockCount(), 0L);
+    genClient.validateReferences(CacheKey.item);
   }
 
   /** Checks whether the 'item' field is set and is not null */
@@ -302,6 +299,10 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ItemStock> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ItemStock>() {
+    public Class<ItemStock> getCreatedClass() {
+      return ItemStock.class;
+    }
+
     @Override
     public ItemStock create(org.json.JSONObject jsonObject) {
       return new ItemStock(jsonObject);
@@ -309,13 +310,11 @@ public class ItemStock extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ITEM_IS_REQUIRED = false;
     public static final boolean STOCKCOUNT_IS_REQUIRED = false;
     public static final long STOCKCOUNT_MIN = 0;
     public static final boolean QUANTITY_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

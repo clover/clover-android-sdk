@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -133,11 +132,7 @@ public class CloseoutResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
    */
   public CloseoutResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -349,6 +344,10 @@ public class CloseoutResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CloseoutResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CloseoutResponse>() {
+    public Class<CloseoutResponse> getCreatedClass() {
+      return CloseoutResponse.class;
+    }
+
     @Override
     public CloseoutResponse create(org.json.JSONObject jsonObject) {
       return new CloseoutResponse(jsonObject);
@@ -356,13 +355,11 @@ public class CloseoutResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public interface Constraints {
-
     public static final boolean BATCH_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

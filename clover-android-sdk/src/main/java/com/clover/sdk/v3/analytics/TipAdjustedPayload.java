@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -111,11 +110,7 @@ public class TipAdjustedPayload extends GenericParcelable implements com.clover.
    */
   public TipAdjustedPayload(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -147,6 +142,7 @@ public class TipAdjustedPayload extends GenericParcelable implements com.clover.
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'adjustAmount' field is set and is not null */
@@ -292,6 +288,10 @@ public class TipAdjustedPayload extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TipAdjustedPayload> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TipAdjustedPayload>() {
+    public Class<TipAdjustedPayload> getCreatedClass() {
+      return TipAdjustedPayload.class;
+    }
+
     @Override
     public TipAdjustedPayload create(org.json.JSONObject jsonObject) {
       return new TipAdjustedPayload(jsonObject);
@@ -299,12 +299,10 @@ public class TipAdjustedPayload extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean ADJUSTAMOUNT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean CARDTRANSACTION_IS_REQUIRED = false;
-
   }
 
 }

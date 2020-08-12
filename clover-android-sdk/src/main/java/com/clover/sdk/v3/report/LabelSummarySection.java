@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class LabelSummarySection extends GenericParcelable implements com.clover
    */
   public LabelSummarySection(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -311,6 +306,10 @@ public class LabelSummarySection extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LabelSummarySection> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LabelSummarySection>() {
+    public Class<LabelSummarySection> getCreatedClass() {
+      return LabelSummarySection.class;
+    }
+
     @Override
     public LabelSummarySection create(org.json.JSONObject jsonObject) {
       return new LabelSummarySection(jsonObject);
@@ -318,12 +317,10 @@ public class LabelSummarySection extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean ROWS_IS_REQUIRED = false;
     public static final boolean WARNINGS_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean MAJORLABELSEXIST_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -131,11 +130,7 @@ public class TipAdded extends com.clover.sdk.v3.remotepay.BaseResponse {
    */
   public TipAdded(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -345,6 +340,10 @@ public class TipAdded extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TipAdded> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TipAdded>() {
+    public Class<TipAdded> getCreatedClass() {
+      return TipAdded.class;
+    }
+
     @Override
     public TipAdded create(org.json.JSONObject jsonObject) {
       return new TipAdded(jsonObject);
@@ -352,13 +351,11 @@ public class TipAdded extends com.clover.sdk.v3.remotepay.BaseResponse {
   };
 
   public interface Constraints {
-
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

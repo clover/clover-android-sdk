@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -192,11 +191,7 @@ public class LabelSummaryRow extends GenericParcelable implements com.clover.sdk
    */
   public LabelSummaryRow(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -516,6 +511,10 @@ public class LabelSummaryRow extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LabelSummaryRow> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LabelSummaryRow>() {
+    public Class<LabelSummaryRow> getCreatedClass() {
+      return LabelSummaryRow.class;
+    }
+
     @Override
     public LabelSummaryRow create(org.json.JSONObject jsonObject) {
       return new LabelSummaryRow(jsonObject);
@@ -523,7 +522,6 @@ public class LabelSummaryRow extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean NUMLINEITEMS_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
@@ -535,7 +533,6 @@ public class LabelSummaryRow extends GenericParcelable implements com.clover.sdk
     public static final boolean REFUNDAMOUNT_IS_REQUIRED = false;
     public static final boolean PERCENTNETSALE_IS_REQUIRED = false;
     public static final boolean NETQUANTITY_IS_REQUIRED = false;
-
   }
 
 }

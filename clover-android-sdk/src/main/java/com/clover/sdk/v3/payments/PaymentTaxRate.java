@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -150,11 +149,7 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
    */
   public PaymentTaxRate(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,15 +181,15 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateNull(getRate(), "rate");
-    if (getRate() != null && ( getRate() < 0)) throw new IllegalArgumentException("Invalid value for 'getRate()'");
+    genClient.validateNotNull(CacheKey.rate, getRate());
+    genClient.validateMin(CacheKey.rate, getRate(), 0L);
 
-    genClient.validateNull(getTaxableAmount(), "taxableAmount");
+    genClient.validateNotNull(CacheKey.taxableAmount, getTaxableAmount());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -399,6 +394,10 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentTaxRate> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentTaxRate>() {
+    public Class<PaymentTaxRate> getCreatedClass() {
+      return PaymentTaxRate.class;
+    }
+
     @Override
     public PaymentTaxRate create(org.json.JSONObject jsonObject) {
       return new PaymentTaxRate(jsonObject);
@@ -406,7 +405,6 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -417,7 +415,6 @@ public class PaymentTaxRate extends GenericParcelable implements com.clover.sdk.
     public static final boolean TAXABLEAMOUNT_IS_REQUIRED = true;
     public static final boolean ISVAT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
-
   }
 
 }

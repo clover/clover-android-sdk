@@ -34,6 +34,10 @@ import com.clover.sdk.v1.ResultStatus;
  * {@link InventoryConnector} class, which handles binding and
  * asynchronous invocation of service methods.
  * <p>
+ * Prefer the {@link InventoryContract} over the getter methods in this class, the contract offers
+ * better performance and is not subject to large inventory limitations that can cause the getter
+ * methods here to fail.
+ * <p>
  * This service is backed by a local database which is synced to cloud. Thus changes made
  * by calling methods here will be reflected on all of a merchant's devices and on the web.
  * <p>
@@ -150,8 +154,9 @@ interface IInventoryService {
   Item createItem(in Item item, out ResultStatus resultStatus);
 
   /**
-   * Updates an existing item.
-   * TODO: Describe what parts of the item are updated through this method
+   * Updates an existing item. You may update the following fields: name (unless this item is in an
+   * item group), alternateName, price, priceWithoutVat, code, priceType, unitName, defaultTaxRates,
+   * cost, sku, hidden, isRevenue.
    */
   void updateItem(in Item item, out ResultStatus resultStatus);
 
@@ -162,6 +167,9 @@ interface IInventoryService {
 
   /**
    * Retrieve the list of categories.
+   * <p>
+   * Prefer to use the {@link InventoryContract} over this method since this method will fail for
+   * large result sets that exceed binder limitations.
    */
   List<Category> getCategories(out ResultStatus resultStatus);
 
@@ -196,7 +204,14 @@ interface IInventoryService {
   void moveItemInCategoryLayout(in String itemId, in String categoryId, in int direction, out ResultStatus resultStatus);
 
   /**
-   * Retrieve the list of modifier groups.
+   * Retrieve the list of all modifier groups.
+   * <p>
+   * Prefer to use the {@link InventoryContract} over this method since this method will fail for
+   * very large result sets that exceed binder limitations.
+   * <p>
+   * Note that the returned ModifierGroup instances will not contain all the individual modifiers,
+   * invoke {@link #getModifiers(String)} to retrieve the  individual modifiers for each particular
+   * ModifierGroup.
    */
   List<ModifierGroup> getModifierGroups(out ResultStatus resultStatus);
 
@@ -400,8 +415,21 @@ interface IInventoryService {
 
   /**
    * Gets all defined attributes for the merchant.
-   * <p/>
+   * <p>
+   * Prefer to use the {@link InventoryContract} over this method.
+   * <p>
    * This method will return a maximum of 500 values before returning a fault.
+   * <p>
+   * Note that the returned Attribute instances will not contain all the individual options.
+   * To obtain the options for a particular attribute use the contract, for example:
+   * <pre>{@code
+   * try (Cursor c = getContentResolver()
+   *       .query(InventoryContract.Option.contentForItemsUriWithAccount(acct),
+   *              null, InventoryContract.Option.ATTRIBUTE_UUID + " = ?",
+   *              new String[] { attribute.getId() }, null)) {
+   *     // each row in the cursor is an option for the given attribute
+   * }
+   * }</pre>
    */
   List<com.clover.sdk.v3.inventory.Attribute> getAttributes(out ResultStatus resultStatus);
 
@@ -427,7 +455,9 @@ interface IInventoryService {
 
   /**
    * Gets all defined options for the merchant.
-   * <p/>
+   * <p>
+   * Prefer to use the {@link InventoryContract} over this method.
+   * <p>
    * This method will return a maximum of 500 values before returning a fault.
    */
   List<com.clover.sdk.v3.inventory.Option> getOptions(out ResultStatus resultStatus);

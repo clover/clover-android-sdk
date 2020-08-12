@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -64,6 +63,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEntryType entryType}</li>
  * <li>{@link #getTransactionNo transactionNo}</li>
  * <li>{@link #getCardholderName cardholderName}</li>
+ * <li>{@link #getPlainCardData plainCardData}</li>
  * <li>{@link #getTransactionData transactionData}</li>
  * </ul>
  */
@@ -202,6 +202,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheGet(CacheKey.cardholderName);
   }
 
+  public java.lang.String getPlainCardData() {
+    return genClient.cacheGet(CacheKey.plainCardData);
+  }
+
   public com.clover.sdk.v3.pay.TransactionData getTransactionData() {
     return genClient.cacheGet(CacheKey.transactionData);
   }
@@ -276,6 +280,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     cardholderName
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    plainCardData
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     transactionData
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.TransactionData.JSON_CREATOR)),
       ;
@@ -318,11 +324,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
    */
   public PaymentRequestCardDetails(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -521,6 +523,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheValueIsNotNull(CacheKey.cardholderName);
   }
 
+  /** Checks whether the 'plainCardData' field is set and is not null */
+  public boolean isNotNullPlainCardData() {
+    return genClient.cacheValueIsNotNull(CacheKey.plainCardData);
+  }
+
   /** Checks whether the 'transactionData' field is set and is not null */
   public boolean isNotNullTransactionData() {
     return genClient.cacheValueIsNotNull(CacheKey.transactionData);
@@ -691,6 +698,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   /** Checks whether the 'cardholderName' field has been set, however the value could be null */
   public boolean hasCardholderName() {
     return genClient.cacheHasKey(CacheKey.cardholderName);
+  }
+
+  /** Checks whether the 'plainCardData' field has been set, however the value could be null */
+  public boolean hasPlainCardData() {
+    return genClient.cacheHasKey(CacheKey.plainCardData);
   }
 
   /** Checks whether the 'transactionData' field has been set, however the value could be null */
@@ -931,6 +943,13 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   }
 
   /**
+   * Sets the field 'plainCardData'.
+   */
+  public PaymentRequestCardDetails setPlainCardData(java.lang.String plainCardData) {
+    return genClient.setOther(plainCardData, CacheKey.plainCardData);
+  }
+
+  /**
    * Sets the field 'transactionData'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1072,6 +1091,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public void clearCardholderName() {
     genClient.clear(CacheKey.cardholderName);
   }
+  /** Clears the 'plainCardData' field, the 'has' method for this field will now return false */
+  public void clearPlainCardData() {
+    genClient.clear(CacheKey.plainCardData);
+  }
   /** Clears the 'transactionData' field, the 'has' method for this field will now return false */
   public void clearTransactionData() {
     genClient.clear(CacheKey.transactionData);
@@ -1127,6 +1150,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentRequestCardDetails> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentRequestCardDetails>() {
+    public Class<PaymentRequestCardDetails> getCreatedClass() {
+      return PaymentRequestCardDetails.class;
+    }
+
     @Override
     public PaymentRequestCardDetails create(org.json.JSONObject jsonObject) {
       return new PaymentRequestCardDetails(jsonObject);
@@ -1134,7 +1161,6 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   };
 
   public interface Constraints {
-
     public static final boolean TRACK1_IS_REQUIRED = false;
     public static final boolean TRACK2_IS_REQUIRED = false;
     public static final boolean TRACK3_IS_REQUIRED = false;
@@ -1168,8 +1194,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     public static final boolean ENTRYTYPE_IS_REQUIRED = false;
     public static final boolean TRANSACTIONNO_IS_REQUIRED = false;
     public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
+    public static final boolean PLAINCARDDATA_IS_REQUIRED = false;
     public static final boolean TRANSACTIONDATA_IS_REQUIRED = false;
-
   }
 
 }

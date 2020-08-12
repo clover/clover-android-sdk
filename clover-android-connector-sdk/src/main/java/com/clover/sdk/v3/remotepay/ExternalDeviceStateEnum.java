@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class ExternalDeviceStateEnum extends GenericParcelable implements com.cl
    */
   public ExternalDeviceStateEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class ExternalDeviceStateEnum extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ExternalDeviceStateEnum>() {
+    public Class<ExternalDeviceStateEnum> getCreatedClass() {
+      return ExternalDeviceStateEnum.class;
+    }
+
     @Override
     public ExternalDeviceStateEnum create(org.json.JSONObject jsonObject) {
       return new ExternalDeviceStateEnum(jsonObject);
@@ -208,9 +207,7 @@ public class ExternalDeviceStateEnum extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean STATE_IS_REQUIRED = false;
-
   }
 
 }

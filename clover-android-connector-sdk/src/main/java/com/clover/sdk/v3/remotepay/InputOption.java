@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -100,11 +99,7 @@ public class InputOption extends GenericParcelable implements com.clover.sdk.v3.
    */
   public InputOption(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -235,6 +230,10 @@ public class InputOption extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<InputOption> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<InputOption>() {
+    public Class<InputOption> getCreatedClass() {
+      return InputOption.class;
+    }
+
     @Override
     public InputOption create(org.json.JSONObject jsonObject) {
       return new InputOption(jsonObject);
@@ -242,10 +241,8 @@ public class InputOption extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean KEYPRESS_IS_REQUIRED = false;
     public static final boolean DESCRIPTION_IS_REQUIRED = false;
-
   }
 
 }

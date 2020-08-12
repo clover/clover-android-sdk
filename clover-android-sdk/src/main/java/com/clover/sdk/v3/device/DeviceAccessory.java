@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -68,7 +67,7 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-   * The device that this accessory is currently connected to.
+   * The device that this accessory is currently connected to, a 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getAssociatedDevice() {
     return genClient.cacheGet(CacheKey.associatedDevice);
@@ -180,11 +179,7 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
    */
   public DeviceAccessory(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -216,15 +211,18 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 36);
+    genClient.validateLength(CacheKey.id, getId(), 36);
 
-    genClient.validateLength(getModel(), 64);
+    genClient.validateLength(CacheKey.model, getModel(), 64);
 
-    genClient.validateLength(getSerial(), 32);
+    genClient.validateLength(CacheKey.serial, getSerial(), 32);
 
-    genClient.validateLength(getCpuId(), 32);
+    genClient.validateLength(CacheKey.cpuId, getCpuId(), 32);
 
-    genClient.validateLength(getPedCertificate(), 2048);
+    genClient.validateLength(CacheKey.pedCertificate, getPedCertificate(), 2048);
+    genClient.validateReferences(CacheKey.deviceType);
+    genClient.validateReferences(CacheKey.currentRom);
+    genClient.validateReferences(CacheKey.secureReports);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -566,6 +564,10 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeviceAccessory> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeviceAccessory>() {
+    public Class<DeviceAccessory> getCreatedClass() {
+      return DeviceAccessory.class;
+    }
+
     @Override
     public DeviceAccessory create(org.json.JSONObject jsonObject) {
       return new DeviceAccessory(jsonObject);
@@ -573,7 +575,6 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 36;
     public static final boolean MODEL_IS_REQUIRED = false;
@@ -592,7 +593,6 @@ public class DeviceAccessory extends GenericParcelable implements com.clover.sdk
     public static final boolean SECUREREPORTS_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

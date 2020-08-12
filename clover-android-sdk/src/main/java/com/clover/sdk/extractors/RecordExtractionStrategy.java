@@ -21,7 +21,10 @@ import com.clover.sdk.JSONifiable;
 import java.util.HashMap;
 
 /**
- * For internal use only.
+ * For Clover internal use only.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
  */
 public final class RecordExtractionStrategy extends ExtractionStrategy {
 
@@ -34,6 +37,10 @@ public final class RecordExtractionStrategy extends ExtractionStrategy {
   @Override
   public Object extractValue(GenericClient g, String name) {
     return g.extractRecord(name, creator);
+  }
+
+  public Class getRecordClass() {
+    return creator.getCreatedClass();
   }
 
   private static final HashMap<JSONifiable.Creator, RecordExtractionStrategy> cache = new HashMap<>();

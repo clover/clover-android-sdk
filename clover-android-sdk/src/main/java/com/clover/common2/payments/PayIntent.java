@@ -116,6 +116,7 @@ public class PayIntent implements Parcelable {
     // Can be set to the properly formatted uuid for a payment (
     private String externalPaymentId;
     private String externalReferenceId;
+    private String originatingPaymentPackage;
     private VaultedCard vaultedCard;
     @Deprecated // Please use TransactionSettings
     private Boolean allowOfflinePayment;
@@ -141,6 +142,7 @@ public class PayIntent implements Parcelable {
     private Map<String, String> passThroughValues;
     //Optional map of application specific values
     private Map<String,String> applicationSpecificValues;
+    private boolean isDisableCreditSurcharge;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -249,6 +251,12 @@ public class PayIntent implements Parcelable {
       if (intent.hasExtra(Intents.EXTRA_CUSTOMER_TENDER)) {
         customerTender = intent.getParcelableExtra(Intents.EXTRA_CUSTOMER_TENDER);
       }
+      if (intent.hasExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE)) {
+        originatingPaymentPackage = intent.getStringExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE);
+      }
+      if (intent.hasExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE)) {
+        isDisableCreditSurcharge = intent.getBooleanExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false);
+      }
       return this;
     }
 
@@ -267,6 +275,7 @@ public class PayIntent implements Parcelable {
       transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
       transactionSettings.setTipMode(null); // will default to clover setting
       transactionSettings.setTippableAmount(tippableAmount);
+      transactionSettings.setDisableCreditSurcharge(isDisableCreditSurcharge);
 
       return transactionSettings;
     }
@@ -294,6 +303,9 @@ public class PayIntent implements Parcelable {
       transactionSettings.setDisableReceiptSelection(false);
       transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
       transactionSettings.setTipMode(null); // will default to clover setting
+      if (intent.hasExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE)) {
+        transactionSettings.setDisableCreditSurcharge(intent.getBooleanExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false));
+      }
 
       return transactionSettings;
     }
@@ -313,6 +325,7 @@ public class PayIntent implements Parcelable {
       transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
       transactionSettings.setTipMode(null); // will default to clover setting
       transactionSettings.setTippableAmount(payIntent.tippableAmount);
+      transactionSettings.setDisableCreditSurcharge(payIntent.isDisableCreditSurcharge);
 
       return transactionSettings;
     }
@@ -353,6 +366,7 @@ public class PayIntent implements Parcelable {
       this.disableRestartTransactionWhenFailed = payIntent.disableRestartTransactionWhenFailed;
       this.externalPaymentId = payIntent.externalPaymentId;
       this.externalReferenceId = payIntent.externalReferenceId;
+      this.originatingPaymentPackage = payIntent.originatingPaymentPackage;
       this.vaultedCard = payIntent.vaultedCard;
       this.allowOfflinePayment = payIntent.allowOfflinePayment;
       this.approveOfflinePaymentWithoutPrompt = payIntent.approveOfflinePaymentWithoutPrompt;
@@ -383,6 +397,7 @@ public class PayIntent implements Parcelable {
       }
       this.refund = payIntent.refund;
       this.customerTender = payIntent.customerTender;
+      this.isDisableCreditSurcharge = payIntent.isDisableCreditSurcharge;
       return this;
     }
 
@@ -508,6 +523,11 @@ public class PayIntent implements Parcelable {
 
     public Builder externalReferenceId(String externalReferenceId) {
       this.externalReferenceId = externalReferenceId;
+      return this;
+    }
+
+    public Builder originatingPaymentPackage(String originatingPaymentPackage) {
+      this.originatingPaymentPackage = originatingPaymentPackage;
       return this;
     }
 
@@ -639,6 +659,14 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder disableCreditSurcharge(boolean disableCreditSurcharge) {
+      this.isDisableCreditSurcharge = disableCreditSurcharge;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setDisableCreditSurcharge(disableCreditSurcharge);
+      }
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -649,11 +677,11 @@ public class PayIntent implements Parcelable {
       return new PayIntent(action, amount, tippableAmount, tipAmount, taxAmount, orderId, paymentId, employeeId,
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
           voiceAuthCode, postalCode, streetAddress, isCardNotPresent, cardDataMessage, remotePrint, transactionNo,
-          isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, externalReferenceId, vaultedCard, allowOfflinePayment,
+          isForceSwipePinEntry, disableRestartTransactionWhenFailed, externalPaymentId, externalReferenceId, originatingPaymentPackage, vaultedCard, allowOfflinePayment,
           approveOfflinePaymentWithoutPrompt, requiresRemoteConfirmation, applicationTracking, allowPartialAuth, useLastSwipe, germanInfo,
           germanELVTransaction, cashAdvanceCustomerIdentification, transactionSettings, vasSettings,
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
-          themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund, customerTender);
+          themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund, customerTender, isDisableCreditSurcharge);
     }
   }
 
@@ -692,6 +720,7 @@ public class PayIntent implements Parcelable {
   public final boolean disableRestartTransactionWhenFailed;
   public final String externalPaymentId;
   public final String externalReferenceId;
+  public final String originatingPaymentPackage;
   public final VaultedCard vaultedCard;
   @Deprecated // Please use TransactionSettings
   public final Boolean allowOfflinePayment;
@@ -714,6 +743,7 @@ public class PayIntent implements Parcelable {
   public final Tender customerTender;
   public final Map<String, String> passThroughValues;
   public final Map<String, String> applicationSpecificValues;
+  public boolean isDisableCreditSurcharge;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -722,13 +752,13 @@ public class PayIntent implements Parcelable {
                     ServiceChargeAmount serviceChargeAmount, boolean isDisableCashBack, boolean isTesting,
                     int cardEntryMethods, String voiceAuthCode, String postalCode, String streetAddress,
                     boolean isCardNotPresent, String cardDataMessage, boolean remotePrint, String transactionNo,
-                    boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId,String externalReferenceId,
+                    boolean isForceSwipePinEntry, boolean disableRestartTransactionWhenFailed, String externalPaymentId, String externalReferenceId, String originatingPaymentPackage,
                     VaultedCard vaultedCard, Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt,
                     Boolean requiresRemoteConfirmation, AppTracking applicationTracking, boolean allowPartialAuth, boolean useLastSwipe,
                     GermanInfo germanInfo, String germanELVTransaction, CashAdvanceCustomerIdentification cashAdvanceCustomerIdentification,
                     TransactionSettings transactionSettings, VasSettings vasSettings, CardTransaction originatingTransaction,
                     Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues,
-                    Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender) {
+                    Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender, boolean isDisableCreditSurcharge) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -754,6 +784,7 @@ public class PayIntent implements Parcelable {
     this.disableRestartTransactionWhenFailed = disableRestartTransactionWhenFailed;
     this.externalPaymentId = externalPaymentId;
     this.externalReferenceId = externalReferenceId;
+    this.originatingPaymentPackage = originatingPaymentPackage;
     this.vaultedCard = vaultedCard;
     this.allowOfflinePayment = allowOfflinePayment;
     this.approveOfflinePaymentWithoutPrompt = approveOfflinePaymentWithoutPrompt;
@@ -770,6 +801,7 @@ public class PayIntent implements Parcelable {
     this.originatingCredit = originatingCredit;
     this.refund = refund;
     this.customerTender = customerTender;
+    this.isDisableCreditSurcharge = isDisableCreditSurcharge;
 
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
@@ -802,6 +834,7 @@ public class PayIntent implements Parcelable {
     transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
     transactionSettings.setTipMode(null); // will default to clover setting
     transactionSettings.setTippableAmount(tippableAmountIn);
+    transactionSettings.setDisableCreditSurcharge(isDisableCreditSurcharge);
 
     return transactionSettings;
   }
@@ -940,6 +973,7 @@ public class PayIntent implements Parcelable {
     if (customerTender != null) {
       intent.putExtra(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
     }
+    intent.putExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, isDisableCreditSurcharge);
   }
 
   @Override
@@ -970,6 +1004,7 @@ public class PayIntent implements Parcelable {
            ", disableRestartTransactionWhenFailed=" + disableRestartTransactionWhenFailed +
            ", externalPaymentId='" + externalPaymentId + '\'' +
            ", externalReferenceId='" + externalReferenceId + '\'' +
+           ", originatingPaymentPackage='" + originatingPaymentPackage + '\'' +
            ", vaultedCard=" + vaultedCard + '\'' +
            ", allowOfflinePayment=" + allowOfflinePayment + '\'' +
            ", approveOfflinePaymentWithoutPrompt=" + approveOfflinePaymentWithoutPrompt +
@@ -986,6 +1021,7 @@ public class PayIntent implements Parcelable {
            ", applicationSpecificValues=" + applicationSpecificValues +
            ", refund=" + refund +
            ", customerTender=" + customerTender +
+           ", isDisableCreditSurcharge=" + isDisableCreditSurcharge +
            '}';
   }
 
@@ -1069,6 +1105,10 @@ public class PayIntent implements Parcelable {
       bundle.putString(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
     }
 
+    if (originatingPaymentPackage != null) {
+      bundle.putString(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE, originatingPaymentPackage);
+    }
+
     if (allowOfflinePayment != null) {
       bundle.putBoolean(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE, allowOfflinePayment);
     }
@@ -1138,6 +1178,8 @@ public class PayIntent implements Parcelable {
     if (customerTender != null) {
       bundle.putParcelable(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
     }
+
+    bundle.putBoolean(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, isDisableCreditSurcharge);
 
     // write out
     out.writeBundle(bundle);
@@ -1215,6 +1257,10 @@ public class PayIntent implements Parcelable {
       }
       if (bundle.containsKey(Intents.EXTRA_EXTERNAL_REFERENCE_ID)) {
         builder.externalReferenceId(bundle.getString(Intents.EXTRA_EXTERNAL_REFERENCE_ID));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE)) {
+        builder.originatingPaymentPackage(bundle.getString(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE));
       }
 
       if (bundle.containsKey(Intents.EXTRA_VAULTED_CARD)) {
@@ -1329,6 +1375,7 @@ public class PayIntent implements Parcelable {
         }
       }
 
+      builder.disableCreditSurcharge(bundle.getBoolean(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false));
       // build
       return builder.build();
     }

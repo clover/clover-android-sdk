@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -34,12 +33,16 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getOnlineOrderId onlineOrderId}</li>
  * <li>{@link #getReceiptId receiptId}</li>
+ * <li>{@link #getService service}</li>
+ * <li>{@link #getProvider provider}</li>
  * <li>{@link #getProviderId providerId}</li>
  * <li>{@link #getOrderState orderState}</li>
  * <li>{@link #getOnlineOrderCustomer onlineOrderCustomer}</li>
  * <li>{@link #getDeliverTime deliverTime}</li>
  * <li>{@link #getScheduledPickupTime scheduledPickupTime}</li>
  * <li>{@link #getReason reason}</li>
+ * <li>{@link #getNote note}</li>
+ * <li>{@link #getScheduled scheduled}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
@@ -70,7 +73,21 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * online order service
+   */
+  public com.clover.sdk.v3.base.Reference getService() {
+    return genClient.cacheGet(CacheKey.service);
+  }
+
+  /**
    * online order provider
+   */
+  public com.clover.sdk.v3.base.Reference getProvider() {
+    return genClient.cacheGet(CacheKey.provider);
+  }
+
+  /**
+   * Deprecated, please ignore.
    */
   public com.clover.sdk.v3.onlineorder.ProviderId getProviderId() {
     return genClient.cacheGet(CacheKey.providerId);
@@ -112,6 +129,20 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * An arbitrary string with information about this online order from customer to merchant, may be printed on the order receipt and displayed in apps
+   */
+  public java.lang.String getNote() {
+    return genClient.cacheGet(CacheKey.note);
+  }
+
+  /**
+   * If the online order is a scheduled order or ASAP order
+   */
+  public java.lang.Boolean getScheduled() {
+    return genClient.cacheGet(CacheKey.scheduled);
+  }
+
+  /**
    * Timestamp when the online ordering item was created
    */
   public java.lang.Long getCreatedTime() {
@@ -142,6 +173,10 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     receiptId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    service
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    provider
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     providerId
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.ProviderId.class)),
     orderState
@@ -154,6 +189,10 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     reason
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.Reason.class)),
+    note
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    scheduled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
@@ -200,11 +239,7 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
    */
   public OnlineOrder(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -236,7 +271,9 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
+    genClient.validateReferences(CacheKey.service);
+    genClient.validateReferences(CacheKey.provider);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -252,6 +289,16 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'receiptId' field is set and is not null */
   public boolean isNotNullReceiptId() {
     return genClient.cacheValueIsNotNull(CacheKey.receiptId);
+  }
+
+  /** Checks whether the 'service' field is set and is not null */
+  public boolean isNotNullService() {
+    return genClient.cacheValueIsNotNull(CacheKey.service);
+  }
+
+  /** Checks whether the 'provider' field is set and is not null */
+  public boolean isNotNullProvider() {
+    return genClient.cacheValueIsNotNull(CacheKey.provider);
   }
 
   /** Checks whether the 'providerId' field is set and is not null */
@@ -282,6 +329,16 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'reason' field is set and is not null */
   public boolean isNotNullReason() {
     return genClient.cacheValueIsNotNull(CacheKey.reason);
+  }
+
+  /** Checks whether the 'note' field is set and is not null */
+  public boolean isNotNullNote() {
+    return genClient.cacheValueIsNotNull(CacheKey.note);
+  }
+
+  /** Checks whether the 'scheduled' field is set and is not null */
+  public boolean isNotNullScheduled() {
+    return genClient.cacheValueIsNotNull(CacheKey.scheduled);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -316,6 +373,16 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheHasKey(CacheKey.receiptId);
   }
 
+  /** Checks whether the 'service' field has been set, however the value could be null */
+  public boolean hasService() {
+    return genClient.cacheHasKey(CacheKey.service);
+  }
+
+  /** Checks whether the 'provider' field has been set, however the value could be null */
+  public boolean hasProvider() {
+    return genClient.cacheHasKey(CacheKey.provider);
+  }
+
   /** Checks whether the 'providerId' field has been set, however the value could be null */
   public boolean hasProviderId() {
     return genClient.cacheHasKey(CacheKey.providerId);
@@ -344,6 +411,16 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'reason' field has been set, however the value could be null */
   public boolean hasReason() {
     return genClient.cacheHasKey(CacheKey.reason);
+  }
+
+  /** Checks whether the 'note' field has been set, however the value could be null */
+  public boolean hasNote() {
+    return genClient.cacheHasKey(CacheKey.note);
+  }
+
+  /** Checks whether the 'scheduled' field has been set, however the value could be null */
+  public boolean hasScheduled() {
+    return genClient.cacheHasKey(CacheKey.scheduled);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -381,6 +458,24 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
    */
   public OnlineOrder setReceiptId(java.lang.String receiptId) {
     return genClient.setOther(receiptId, CacheKey.receiptId);
+  }
+
+  /**
+   * Sets the field 'service'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public OnlineOrder setService(com.clover.sdk.v3.base.Reference service) {
+    return genClient.setRecord(service, CacheKey.service);
+  }
+
+  /**
+   * Sets the field 'provider'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public OnlineOrder setProvider(com.clover.sdk.v3.base.Reference provider) {
+    return genClient.setRecord(provider, CacheKey.provider);
   }
 
   /**
@@ -428,6 +523,20 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'note'.
+   */
+  public OnlineOrder setNote(java.lang.String note) {
+    return genClient.setOther(note, CacheKey.note);
+  }
+
+  /**
+   * Sets the field 'scheduled'.
+   */
+  public OnlineOrder setScheduled(java.lang.Boolean scheduled) {
+    return genClient.setOther(scheduled, CacheKey.scheduled);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public OnlineOrder setCreatedTime(java.lang.Long createdTime) {
@@ -461,6 +570,14 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   public void clearReceiptId() {
     genClient.clear(CacheKey.receiptId);
   }
+  /** Clears the 'service' field, the 'has' method for this field will now return false */
+  public void clearService() {
+    genClient.clear(CacheKey.service);
+  }
+  /** Clears the 'provider' field, the 'has' method for this field will now return false */
+  public void clearProvider() {
+    genClient.clear(CacheKey.provider);
+  }
   /** Clears the 'providerId' field, the 'has' method for this field will now return false */
   public void clearProviderId() {
     genClient.clear(CacheKey.providerId);
@@ -484,6 +601,14 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'reason' field, the 'has' method for this field will now return false */
   public void clearReason() {
     genClient.clear(CacheKey.reason);
+  }
+  /** Clears the 'note' field, the 'has' method for this field will now return false */
+  public void clearNote() {
+    genClient.clear(CacheKey.note);
+  }
+  /** Clears the 'scheduled' field, the 'has' method for this field will now return false */
+  public void clearScheduled() {
+    genClient.clear(CacheKey.scheduled);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -548,6 +673,10 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OnlineOrder> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OnlineOrder>() {
+    public Class<OnlineOrder> getCreatedClass() {
+      return OnlineOrder.class;
+    }
+
     @Override
     public OnlineOrder create(org.json.JSONObject jsonObject) {
       return new OnlineOrder(jsonObject);
@@ -555,21 +684,23 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ONLINEORDERID_IS_REQUIRED = false;
     public static final boolean RECEIPTID_IS_REQUIRED = false;
+    public static final boolean SERVICE_IS_REQUIRED = false;
+    public static final boolean PROVIDER_IS_REQUIRED = false;
     public static final boolean PROVIDERID_IS_REQUIRED = false;
     public static final boolean ORDERSTATE_IS_REQUIRED = false;
     public static final boolean ONLINEORDERCUSTOMER_IS_REQUIRED = false;
     public static final boolean DELIVERTIME_IS_REQUIRED = false;
     public static final boolean SCHEDULEDPICKUPTIME_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
+    public static final boolean NOTE_IS_REQUIRED = false;
+    public static final boolean SCHEDULED_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
-
   }
 
 }

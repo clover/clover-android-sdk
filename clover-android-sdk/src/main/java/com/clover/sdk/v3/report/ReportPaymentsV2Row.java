@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -212,11 +211,7 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
    */
   public ReportPaymentsV2Row(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -580,6 +575,10 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportPaymentsV2Row> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportPaymentsV2Row>() {
+    public Class<ReportPaymentsV2Row> getCreatedClass() {
+      return ReportPaymentsV2Row.class;
+    }
+
     @Override
     public ReportPaymentsV2Row create(org.json.JSONObject jsonObject) {
       return new ReportPaymentsV2Row(jsonObject);
@@ -587,7 +586,6 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean NUMTRANSACTIONS_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
@@ -601,7 +599,6 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     public static final boolean CREDITAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDANDCREDITAMOUNT_IS_REQUIRED = false;
     public static final boolean TENDER_IS_REQUIRED = false;
-
   }
 
 }

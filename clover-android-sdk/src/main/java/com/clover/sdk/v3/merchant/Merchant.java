@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -71,7 +70,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getProgramExpresses programExpresses}</li>
  * <li>{@link #getDeviceBoardings deviceBoardings}</li>
  * <li>{@link #getSelfBoardingApplication selfBoardingApplication}</li>
- * <li>{@link #getEquipment equipment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -113,6 +111,10 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.defaultCurrency);
   }
 
+  /**
+   * DEPRECATED: Use phoneNumber field in address instead. This field may contain an incorrect value and should neither be read nor written.
+   */
+  @Deprecated
   public java.lang.String getPhoneNumber() {
     return genClient.cacheGet(CacheKey.phoneNumber);
   }
@@ -237,12 +239,13 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /**
    * Deprecated (use billingInfo instead): Returns true when the merchant is billable.
    */
+  @Deprecated
   public java.lang.Boolean getIsBillable() {
     return genClient.cacheGet(CacheKey.isBillable);
   }
 
   /**
-   * A list of devices a merchant owns
+   * A list of devices a merchant owns, 128-bit UUIDs, not a normal base-13 Clover IDs.
    */
   public java.util.List<com.clover.sdk.v3.base.Reference> getDevices() {
     return genClient.cacheGet(CacheKey.devices);
@@ -316,13 +319,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public com.clover.sdk.v3.base.Reference getSelfBoardingApplication() {
     return genClient.cacheGet(CacheKey.selfBoardingApplication);
-  }
-
-  /**
-   * The equipment associated with the merchant. This is a combination of boarded equipment and provisioned devices.
-   */
-  public java.util.List<com.clover.sdk.v3.boarding.Equipment> getEquipment() {
-    return genClient.cacheGet(CacheKey.equipment);
   }
 
 
@@ -409,8 +405,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantDeviceBoarding.JSON_CREATOR)),
     selfBoardingApplication
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
-    equipment
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.boarding.Equipment.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -451,11 +445,7 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Merchant(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -487,22 +477,26 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateNull(getOwner(), "owner");
+    genClient.validateNotNull(CacheKey.owner, getOwner());
 
-    genClient.validateLength(getDefaultCurrency(), 3);
+    genClient.validateLength(CacheKey.defaultCurrency, getDefaultCurrency(), 3);
 
-    genClient.validateLength(getPhoneNumber(), 21);
+    genClient.validateLength(CacheKey.phoneNumber, getPhoneNumber(), 21);
 
-    genClient.validateLength(getWebsite(), 255);
+    genClient.validateLength(CacheKey.website, getWebsite(), 255);
 
-    genClient.validateLength(getCustomerContactEmail(), 127);
+    genClient.validateLength(CacheKey.customerContactEmail, getCustomerContactEmail(), 127);
 
-    genClient.validateLength(getAccountType(), 32);
+    genClient.validateLength(CacheKey.accountType, getAccountType(), 32);
+    genClient.validateReferences(CacheKey.reseller);
+    genClient.validateReferences(CacheKey.merchantGroups);
+    genClient.validateReferences(CacheKey.partnerApp);
+    genClient.validateReferences(CacheKey.selfBoardingApplication);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -762,14 +756,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.selfBoardingApplication);
   }
 
-  /** Checks whether the 'equipment' field is set and is not null */
-  public boolean isNotNullEquipment() {
-    return genClient.cacheValueIsNotNull(CacheKey.equipment);
-  }
-
-  /** Checks whether the 'equipment' field is set and is not null and is not empty */
-  public boolean isNotEmptyEquipment() { return isNotNullEquipment() && !getEquipment().isEmpty(); }
-
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -970,11 +956,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'selfBoardingApplication' field has been set, however the value could be null */
   public boolean hasSelfBoardingApplication() {
     return genClient.cacheHasKey(CacheKey.selfBoardingApplication);
-  }
-
-  /** Checks whether the 'equipment' field has been set, however the value could be null */
-  public boolean hasEquipment() {
-    return genClient.cacheHasKey(CacheKey.equipment);
   }
 
 
@@ -1320,15 +1301,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(selfBoardingApplication, CacheKey.selfBoardingApplication);
   }
 
-  /**
-   * Sets the field 'equipment'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
-   */
-  public Merchant setEquipment(java.util.List<com.clover.sdk.v3.boarding.Equipment> equipment) {
-    return genClient.setArrayRecord(equipment, CacheKey.equipment);
-  }
-
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1490,10 +1462,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearSelfBoardingApplication() {
     genClient.clear(CacheKey.selfBoardingApplication);
   }
-  /** Clears the 'equipment' field, the 'has' method for this field will now return false */
-  public void clearEquipment() {
-    genClient.clear(CacheKey.equipment);
-  }
 
 
   /**
@@ -1545,6 +1513,10 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Merchant> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Merchant>() {
+    public Class<Merchant> getCreatedClass() {
+      return Merchant.class;
+    }
+
     @Override
     public Merchant create(org.json.JSONObject jsonObject) {
       return new Merchant(jsonObject);
@@ -1552,7 +1524,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -1600,8 +1571,6 @@ public class Merchant extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PROGRAMEXPRESSES_IS_REQUIRED = false;
     public static final boolean DEVICEBOARDINGS_IS_REQUIRED = false;
     public static final boolean SELFBOARDINGAPPLICATION_IS_REQUIRED = false;
-    public static final boolean EQUIPMENT_IS_REQUIRED = false;
-
   }
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +35,7 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderCalc;
 import com.clover.sdk.v3.order.OrderConnector;
@@ -42,6 +43,7 @@ import com.clover.sdk.v3.order.OrderContract;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.Refund;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,13 +93,13 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
       orderIdText.setText(order.getId());
 
       TextView orderTotalText = (TextView) view.findViewById(R.id.text_order_total);
-      orderTotalText.setText(longToAmountString(Currency.getInstance("USD"), new OrderCalc(order).getTotal(order.getLineItems())));
+      orderTotalText.setText(currencyUtils.longToAmountString(new OrderCalc(order).getTotal(order.getLineItems())));
 
       TextView orderDateText = (TextView) view.findViewById(R.id.text_order_date);
       orderDateText.setText(SimpleDateFormat.getDateTimeInstance(SimpleDateFormat.SHORT, SimpleDateFormat.SHORT).format(order.getClientCreatedTime()));
 
       TextView orderPaidText = (TextView) view.findViewById(R.id.text_order_paid);
-      orderPaidText.setText("Paid? " + isPaid(order));
+      orderPaidText.setText("Paid? " + OrderUtils.isFullyPaid(order));
 
       return view;
     }
@@ -105,6 +107,7 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
 
   private OrderConnector orderConnector;
   private ListView ordersList;
+  private CurrencyUtils currencyUtils;
 
   private Account account;
 
@@ -114,6 +117,8 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
     setContentView(R.layout.activity_order_paid);
 
     account = CloverAccount.getAccount(this);
+    orderConnector = new OrderConnector(this, account, null);
+
     ordersList = (ListView) findViewById(R.id.list_orders);
   }
 
@@ -121,17 +126,17 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
   protected void onResume() {
     super.onResume();
 
-    orderConnector = new OrderConnector(this, account, null);
     getLoaderManager().restartLoader(ORDERS_LOADER_ID, null, this);
   }
 
   @Override
-  protected void onPause() {
+  protected void onDestroy() {
     if (orderConnector != null) {
       orderConnector.disconnect();
       orderConnector = null;
     }
-    super.onPause();
+
+    super.onDestroy();
   }
 
   @Override
@@ -149,11 +154,21 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
       }
     }
 
-    new AsyncTask<Void,Void,List<Order>>() {
+    new AsyncTask<Void, Void, List<Order>>() {
       @Override
       protected List<Order> doInBackground(Void... params) {
+        List<Order> orders = new ArrayList<>();
 
-        List<Order> orders = new ArrayList<Order>();
+        if (currencyUtils == null) {
+          try {
+            Merchant merchant = Utils.fetchMerchantBlocking(getApplicationContext());
+            currencyUtils = new CurrencyUtils(getApplicationContext(), merchant);
+          } catch (IOException e) {
+            e.printStackTrace();
+            return orders;
+          }
+        }
+
         for (String orderId: orderIds) {
           try {
             Order o = orderConnector.getOrder(orderId);
@@ -166,9 +181,7 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
           }
         }
 
-        Collections.sort(orders, new Comparator<Order>() {
-          @Override
-          public int compare(Order lhs, Order rhs) {
+        Collections.sort(orders, (lhs, rhs) -> {
             if (lhs.getClientCreatedTime() < rhs.getClientCreatedTime()) {
               return 1;
             }
@@ -176,14 +189,16 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
               return -1;
             }
             return 0;
-          }
-        });
+          });
 
         return orders;
       }
 
       @Override
       protected void onPostExecute(List<Order> orders) {
+        if (OrderPaidActivity.this.isFinishing() || OrderPaidActivity.this.isDestroyed()) {
+          return;
+        }
         ordersList.setAdapter(new OrdersAdapter(orders));
       }
     }.execute();
@@ -191,77 +206,6 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
 
   @Override
   public void onLoaderReset(Loader<Cursor> loader) {
-  }
-
-  private static boolean isPaid(Order order) {
-    return (order.isNotNullLineItems() && order.getLineItems().size() > 0 && (order.isNotEmptyPayments() || order.isNotEmptyCredits()) && getAmountLeftToPay(order) <= 0);
-  }
-
-  public static long getAmountLeftToPay(Order order) {
-    long paymentTotal = 0;
-    if (order.isNotNullPayments()) {
-      for (Payment p : order.getPayments()) {
-        paymentTotal += p.getAmount();
-      }
-    }
-    return new OrderCalc(order).getTotal(order.getLineItems()) - paymentTotal + amountRefundedWithoutTip(order);
-  }
-
-  public static long amountRefundedWithoutTip(Order order) {
-    long amountRefundedWithoutTip = 0l;
-    if (order.isNotNullRefunds()) {
-      for (Refund r : order.getRefunds()) {
-        if (r.getAmount() != null) {
-          amountRefundedWithoutTip += r.getAmount();
-
-          for (Payment p : order.getPayments()) {
-            if (p.getId().equals(r.getPayment().getId())) {
-              amountRefundedWithoutTip -= calcTipAmount(p);
-            }
-          }
-        }
-      }
-    }
-    return amountRefundedWithoutTip;
-  }
-
-  public static long calcTipAmount(Payment p) {
-    if (p.isNotNullTipAmount()) {
-      return p.getTipAmount();
-    } else {
-      return 0;
-    }
-  }
-
-  public static double longToDecimal(double num, Currency currency) {
-    return num / Math.pow(10, currency.getDefaultFractionDigits());
-  }
-
-
-  // Take a long and convert it to an amount string (i.e 150 -> $1.50)
-  public static String longToAmountString(Currency currency, long amt) {
-    DecimalFormat decimalFormat = getCurrencyFormatInstance(currency);
-    return longToAmountString(currency, amt, decimalFormat);
-  }
-
-  // Take a long and convert it to an amount string (i.e 150 -> $1.50)
-  public static String longToAmountString(Currency currency, long amt, DecimalFormat decimalFormat) {
-    return decimalFormat.format(longToDecimal(amt, currency));
-  }
-
-  private static ThreadLocal<DecimalFormat> DECIMAL_FORMAT = new ThreadLocal<DecimalFormat>() {
-    @Override
-    protected DecimalFormat initialValue() {
-      return (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
-    }
-  };
-
-  private static DecimalFormat getCurrencyFormatInstance(Currency currency) {
-    DecimalFormat format = DECIMAL_FORMAT.get();
-    if (format.getCurrency() != currency) {
-      format.setCurrency(currency);
-    }
-    return format;
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -101,11 +100,7 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
    */
   public PaymentAnalytic(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -257,6 +252,10 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentAnalytic> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentAnalytic>() {
+    public Class<PaymentAnalytic> getCreatedClass() {
+      return PaymentAnalytic.class;
+    }
+
     @Override
     public PaymentAnalytic create(org.json.JSONObject jsonObject) {
       return new PaymentAnalytic(jsonObject);
@@ -264,11 +263,9 @@ public class PaymentAnalytic extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final boolean MERCHANTID_IS_REQUIRED = false;
     public static final boolean MERCHANTGATEWAYID_IS_REQUIRED = false;
-
   }
 
 }

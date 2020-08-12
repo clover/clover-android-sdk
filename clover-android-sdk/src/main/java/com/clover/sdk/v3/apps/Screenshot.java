@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -130,11 +129,7 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public Screenshot(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -166,15 +161,15 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
-    genClient.validateLength(getName(), 255);
+    genClient.validateLength(CacheKey.name, getName(), 255);
 
-    genClient.validateLength(getLocale(), 5);
+    genClient.validateLength(CacheKey.locale, getLocale(), 5);
 
-    genClient.validateLength(getSmall(), 255);
+    genClient.validateLength(CacheKey.small, getSmall(), 255);
 
-    genClient.validateLength(getMedium(), 255);
+    genClient.validateLength(CacheKey.medium, getMedium(), 255);
 
-    genClient.validateLength(getLarge(), 255);
+    genClient.validateLength(CacheKey.large, getLarge(), 255);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -337,6 +332,10 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Screenshot> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Screenshot>() {
+    public Class<Screenshot> getCreatedClass() {
+      return Screenshot.class;
+    }
+
     @Override
     public Screenshot create(org.json.JSONObject jsonObject) {
       return new Screenshot(jsonObject);
@@ -344,7 +343,6 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 255;
     public static final boolean LOCALE_IS_REQUIRED = false;
@@ -355,7 +353,6 @@ public class Screenshot extends GenericParcelable implements com.clover.sdk.v3.V
     public static final long MEDIUM_MAX_LEN = 255;
     public static final boolean LARGE_IS_REQUIRED = false;
     public static final long LARGE_MAX_LEN = 255;
-
   }
 
 }

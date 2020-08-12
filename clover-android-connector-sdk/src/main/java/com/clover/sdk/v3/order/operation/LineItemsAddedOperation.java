@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class LineItemsAddedOperation extends GenericParcelable implements com.cl
    */
   public LineItemsAddedOperation(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -234,6 +229,10 @@ public class LineItemsAddedOperation extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LineItemsAddedOperation> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LineItemsAddedOperation>() {
+    public Class<LineItemsAddedOperation> getCreatedClass() {
+      return LineItemsAddedOperation.class;
+    }
+
     @Override
     public LineItemsAddedOperation create(org.json.JSONObject jsonObject) {
       return new LineItemsAddedOperation(jsonObject);
@@ -241,10 +240,8 @@ public class LineItemsAddedOperation extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean IDS_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
-
   }
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '248.4'
+version = '262.2'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-  api files('lib/calc-297.4.jar')
+  api files('lib/calc-311.2.jar')
 
   // Android tests
   androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
@@ -49,6 +49,7 @@ buildscript {
     classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.10.0'
   }
 }
+
 apply plugin: 'io.codearte.nexus-staging'
 
 uploadArchives {

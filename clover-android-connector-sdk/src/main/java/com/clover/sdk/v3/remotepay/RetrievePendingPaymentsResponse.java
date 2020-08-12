@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -131,11 +130,7 @@ public class RetrievePendingPaymentsResponse extends com.clover.sdk.v3.remotepay
    */
   public RetrievePendingPaymentsResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -350,6 +345,10 @@ public class RetrievePendingPaymentsResponse extends com.clover.sdk.v3.remotepay
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RetrievePendingPaymentsResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrievePendingPaymentsResponse>() {
+    public Class<RetrievePendingPaymentsResponse> getCreatedClass() {
+      return RetrievePendingPaymentsResponse.class;
+    }
+
     @Override
     public RetrievePendingPaymentsResponse create(org.json.JSONObject jsonObject) {
       return new RetrievePendingPaymentsResponse(jsonObject);
@@ -357,13 +356,11 @@ public class RetrievePendingPaymentsResponse extends com.clover.sdk.v3.remotepay
   };
 
   public interface Constraints {
-
     public static final boolean PENDINGPAYMENTENTRIES_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

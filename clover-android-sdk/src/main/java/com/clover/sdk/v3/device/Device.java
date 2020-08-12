@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -352,11 +351,7 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Device(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -388,33 +383,35 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 36);
+    genClient.validateLength(CacheKey.id, getId(), 36);
 
-    genClient.validateLength(getName(), 255);
+    genClient.validateLength(CacheKey.name, getName(), 255);
 
-    genClient.validateLength(getModel(), 64);
+    genClient.validateLength(CacheKey.model, getModel(), 64);
 
-    genClient.validateLength(getOrderPrefix(), 1);
+    genClient.validateLength(CacheKey.orderPrefix, getOrderPrefix(), 1);
 
-    genClient.validateLength(getTerminalId(), 8);
+    genClient.validateLength(CacheKey.terminalId, getTerminalId(), 8);
 
-    genClient.validateLength(getSerial(), 32);
+    genClient.validateLength(CacheKey.serial, getSerial(), 32);
 
-    genClient.validateLength(getSecureId(), 32);
+    genClient.validateLength(CacheKey.secureId, getSecureId(), 32);
 
-    genClient.validateLength(getCpuId(), 32);
+    genClient.validateLength(CacheKey.cpuId, getCpuId(), 32);
 
-    genClient.validateLength(getImei(), 15);
+    genClient.validateLength(CacheKey.imei, getImei(), 15);
 
-    genClient.validateLength(getImsi(), 22);
+    genClient.validateLength(CacheKey.imsi, getImsi(), 22);
 
-    genClient.validateLength(getSimIccid(), 22);
+    genClient.validateLength(CacheKey.simIccid, getSimIccid(), 22);
 
-    genClient.validateLength(getDeviceCertificate(), 1600);
+    genClient.validateLength(CacheKey.deviceCertificate, getDeviceCertificate(), 1600);
 
-    genClient.validateLength(getPedCertificate(), 2048);
+    genClient.validateLength(CacheKey.pedCertificate, getPedCertificate(), 2048);
 
-    genClient.validateLength(getBundleIndicator(), 32);
+    genClient.validateLength(CacheKey.bundleIndicator, getBundleIndicator(), 32);
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.secureReports);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1214,6 +1211,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Device> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Device>() {
+    public Class<Device> getCreatedClass() {
+      return Device.class;
+    }
+
     @Override
     public Device create(org.json.JSONObject jsonObject) {
       return new Device(jsonObject);
@@ -1221,7 +1222,6 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 36;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -1271,7 +1271,6 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean SECUREREPORTS_IS_REQUIRED = false;
     public static final boolean BUNDLEINDICATOR_IS_REQUIRED = false;
     public static final long BUNDLEINDICATOR_MAX_LEN = 32;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -137,6 +136,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPartnerId partnerId}</li>
  * <li>{@link #getLocales locales}</li>
  * <li>{@link #getAggregateRating aggregateRating}</li>
+ * <li>{@link #getIsHipaaCompliant isHipaaCompliant}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -489,6 +489,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /**
    * DEPRECATED: This is now derived directly from billingStartTime (if future -> in trial; if past -> not in trial).  So it is now unnecessary.  Please update client code to not use it.
    */
+  @Deprecated
   public java.lang.Boolean getIsMerchantInTrial() {
     return genClient.cacheGet(CacheKey.isMerchantInTrial);
   }
@@ -725,6 +726,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheGet(CacheKey.aggregateRating);
   }
 
+  /**
+   * This attribute shows if app is restricted due to compliance.
+   */
+  public java.lang.Boolean getIsHipaaCompliant() {
+    return genClient.cacheGet(CacheKey.isHipaaCompliant);
+  }
+
 
 
 
@@ -941,6 +949,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     aggregateRating
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AggregateRating.JSON_CREATOR)),
+    isHipaaCompliant
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -981,11 +991,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -1017,52 +1023,56 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getDescription(), 2000);
+    genClient.validateLength(CacheKey.description, getDescription(), 2000);
 
-    genClient.validateLength(getTagline(), 255);
+    genClient.validateLength(CacheKey.tagline, getTagline(), 255);
 
-    genClient.validateLength(getVideoUrl(), 255);
+    genClient.validateLength(CacheKey.videoUrl, getVideoUrl(), 255);
 
-    genClient.validateLength(getActivationUrl(), 255);
+    genClient.validateLength(CacheKey.activationUrl, getActivationUrl(), 255);
 
-    genClient.validateLength(getSiteUrl(), 255);
+    genClient.validateLength(CacheKey.siteUrl, getSiteUrl(), 255);
 
-    genClient.validateLength(getAppDomain(), 255);
+    genClient.validateLength(CacheKey.appDomain, getAppDomain(), 255);
 
-    genClient.validateLength(getPackageName(), 255);
+    genClient.validateLength(CacheKey.packageName, getPackageName(), 255);
 
-    genClient.validateLength(getFilenameIcon(), 255);
+    genClient.validateLength(CacheKey.filenameIcon, getFilenameIcon(), 255);
 
-    genClient.validateLength(getFilenameIconSmall(), 255);
+    genClient.validateLength(CacheKey.filenameIconSmall, getFilenameIconSmall(), 255);
 
-    genClient.validateLength(getFilenameIconLarge(), 255);
+    genClient.validateLength(CacheKey.filenameIconLarge, getFilenameIconLarge(), 255);
 
-    genClient.validateLength(getFilenameCover(), 255);
+    genClient.validateLength(CacheKey.filenameCover, getFilenameCover(), 255);
 
-    genClient.validateLength(getFilenameBanner(), 255);
+    genClient.validateLength(CacheKey.filenameBanner, getFilenameBanner(), 255);
 
-    genClient.validateLength(getPrivacyPolicy(), 255);
+    genClient.validateLength(CacheKey.privacyPolicy, getPrivacyPolicy(), 255);
 
-    genClient.validateLength(getEula(), 255);
+    genClient.validateLength(CacheKey.eula, getEula(), 255);
 
-    genClient.validateLength(getSupportPhone(), 25);
+    genClient.validateLength(CacheKey.supportPhone, getSupportPhone(), 25);
 
-    genClient.validateLength(getSupportPhoneHours(), 127);
+    genClient.validateLength(CacheKey.supportPhoneHours, getSupportPhoneHours(), 127);
 
-    genClient.validateLength(getSupportEmail(), 127);
+    genClient.validateLength(CacheKey.supportEmail, getSupportEmail(), 127);
 
-    genClient.validateLength(getSupportUrl(), 255);
+    genClient.validateLength(CacheKey.supportUrl, getSupportUrl(), 255);
 
-    genClient.validateLength(getSmartReceiptText(), 100);
+    genClient.validateLength(CacheKey.smartReceiptText, getSmartReceiptText(), 100);
 
-    genClient.validateLength(getSmartReceiptUrl(), 255);
+    genClient.validateLength(CacheKey.smartReceiptUrl, getSmartReceiptUrl(), 255);
 
-    genClient.validateLength(getAppSecret(), 255);
+    genClient.validateLength(CacheKey.appSecret, getAppSecret(), 255);
+
+    genClient.validateReferences(CacheKey.appBundle);
+    genClient.validateReferences(CacheKey.categories);
+    genClient.validateReferences(CacheKey.locales);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1637,6 +1647,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.aggregateRating);
   }
 
+  /** Checks whether the 'isHipaaCompliant' field is set and is not null */
+  public boolean isNotNullIsHipaaCompliant() {
+    return genClient.cacheValueIsNotNull(CacheKey.isHipaaCompliant);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -2167,6 +2182,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'aggregateRating' field has been set, however the value could be null */
   public boolean hasAggregateRating() {
     return genClient.cacheHasKey(CacheKey.aggregateRating);
+  }
+
+  /** Checks whether the 'isHipaaCompliant' field has been set, however the value could be null */
+  public boolean hasIsHipaaCompliant() {
+    return genClient.cacheHasKey(CacheKey.isHipaaCompliant);
   }
 
 
@@ -2956,6 +2976,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setRecord(aggregateRating, CacheKey.aggregateRating);
   }
 
+  /**
+   * Sets the field 'isHipaaCompliant'.
+   */
+  public App setIsHipaaCompliant(java.lang.Boolean isHipaaCompliant) {
+    return genClient.setOther(isHipaaCompliant, CacheKey.isHipaaCompliant);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -3381,6 +3408,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearAggregateRating() {
     genClient.clear(CacheKey.aggregateRating);
   }
+  /** Clears the 'isHipaaCompliant' field, the 'has' method for this field will now return false */
+  public void clearIsHipaaCompliant() {
+    genClient.clear(CacheKey.isHipaaCompliant);
+  }
 
 
   /**
@@ -3432,6 +3463,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<App> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<App>() {
+    public Class<App> getCreatedClass() {
+      return App.class;
+    }
+
     @Override
     public App create(org.json.JSONObject jsonObject) {
       return new App(jsonObject);
@@ -3439,7 +3474,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -3569,7 +3603,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean PARTNERID_IS_REQUIRED = false;
     public static final boolean LOCALES_IS_REQUIRED = false;
     public static final boolean AGGREGATERATING_IS_REQUIRED = false;
-
+    public static final boolean ISHIPAACOMPLIANT_IS_REQUIRED = false;
   }
 
 }

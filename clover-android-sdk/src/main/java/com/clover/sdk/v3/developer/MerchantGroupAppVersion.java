@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -142,11 +141,7 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
    */
   public MerchantGroupAppVersion(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -178,11 +173,15 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getApp(), "app");
+    genClient.validateNotNull(CacheKey.app, getApp());
 
-    genClient.validateNull(getVersion(), "version");
+    genClient.validateNotNull(CacheKey.version, getVersion());
+    genClient.validateReferences(CacheKey.merchantGroup);
+    genClient.validateReferences(CacheKey.app);
+    genClient.validateReferences(CacheKey.version);
+    genClient.validateReferences(CacheKey.deviceType);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -374,6 +373,10 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantGroupAppVersion> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantGroupAppVersion>() {
+    public Class<MerchantGroupAppVersion> getCreatedClass() {
+      return MerchantGroupAppVersion.class;
+    }
+
     @Override
     public MerchantGroupAppVersion create(org.json.JSONObject jsonObject) {
       return new MerchantGroupAppVersion(jsonObject);
@@ -381,7 +384,6 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MERCHANTGROUP_IS_REQUIRED = false;
@@ -389,7 +391,6 @@ public class MerchantGroupAppVersion extends GenericParcelable implements com.cl
     public static final boolean VERSION_IS_REQUIRED = true;
     public static final boolean DEVICETYPE_IS_REQUIRED = false;
     public static final boolean ASSOCIATIONTIME_IS_REQUIRED = false;
-
   }
 
 }

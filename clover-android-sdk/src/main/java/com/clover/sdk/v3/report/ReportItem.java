@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -139,6 +138,7 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * DEPRECATED. Use 'category'. In practice this is the oldest active category that the item belongs to. If there are no categories for this item, then this is empty. If item belongs to categories that are all deleted, then this is not populated.
    */
+  @Deprecated
   public java.util.List<com.clover.sdk.v3.report.ItemSalesBucket> getCategories() {
     return genClient.cacheGet(CacheKey.categories);
   }
@@ -146,6 +146,7 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * DEPRECATED. Use 'category'. In practice if the item belongs to only categories that are deleted, then this is most recently deleted category. If the item is in an active category then this is not populated.
    */
+  @Deprecated
   public java.util.List<com.clover.sdk.v3.report.ItemSalesBucket> getDeletedCategories() {
     return genClient.cacheGet(CacheKey.deletedCategories);
   }
@@ -378,11 +379,7 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public ReportItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -415,7 +412,7 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   @Override
   public void validate() {
 
-    genClient.validateLength(getName(), 255);
+    genClient.validateLength(CacheKey.name, getName(), 255);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -1221,6 +1218,10 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportItem>() {
+    public Class<ReportItem> getCreatedClass() {
+      return ReportItem.class;
+    }
+
     @Override
     public ReportItem create(org.json.JSONObject jsonObject) {
       return new ReportItem(jsonObject);
@@ -1228,7 +1229,6 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 255;
@@ -1264,7 +1264,6 @@ public class ReportItem extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean PARTIALREFUNDAMOUNT_IS_REQUIRED = false;
     public static final boolean PARTIALREFUNDREPAYMENTAMOUNT_IS_REQUIRED = false;
     public static final boolean CATEGORY_IS_REQUIRED = false;
-
   }
 
 }

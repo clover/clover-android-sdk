@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -142,11 +141,7 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public KeyedSummary(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -361,6 +356,10 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<KeyedSummary> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<KeyedSummary>() {
+    public Class<KeyedSummary> getCreatedClass() {
+      return KeyedSummary.class;
+    }
+
     @Override
     public KeyedSummary create(org.json.JSONObject jsonObject) {
       return new KeyedSummary(jsonObject);
@@ -368,14 +367,12 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean GROUPBYFIELD_IS_REQUIRED = false;
     public static final boolean NUM_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
-
   }
 
 }

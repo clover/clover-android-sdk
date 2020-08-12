@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,24 @@
  * limitations under the License.
  */
 package com.clover.android.sdk.examples;
+
+import android.accounts.Account;
+import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
+import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.util.CloverAuth;
@@ -41,23 +59,6 @@ import com.clover.sdk.v3.inventory.PriceType;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
 
-import android.accounts.Account;
-import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Intent;
-import android.content.Loader;
-import android.content.ServiceConnection;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.TextView;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;

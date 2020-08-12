@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -252,11 +251,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
    */
   public PreAuthRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -289,12 +284,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateNull(getAmount(), "amount");
+    genClient.validateNotNull(CacheKey.amount, getAmount());
 
-    genClient.validateNull(getExternalId(), "externalId");
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateNotNull(CacheKey.externalId, getExternalId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -785,6 +780,10 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PreAuthRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PreAuthRequest>() {
+    public Class<PreAuthRequest> getCreatedClass() {
+      return PreAuthRequest.class;
+    }
+
     @Override
     public PreAuthRequest create(org.json.JSONObject jsonObject) {
       return new PreAuthRequest(jsonObject);
@@ -792,7 +791,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean DISABLEPRINTING_IS_REQUIRED = false;
@@ -812,7 +810,6 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

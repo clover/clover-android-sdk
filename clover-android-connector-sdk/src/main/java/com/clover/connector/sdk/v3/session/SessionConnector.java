@@ -7,7 +7,6 @@ import com.clover.sdk.v3.order.DisplayOrder;
 import com.clover.sdk.v3.payments.Transaction;
 
 import android.content.ContentProviderClient;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
@@ -62,11 +61,6 @@ public class SessionConnector implements Serializable, SessionListener {
 
     private ContentProviderClient sessionContentProviderClient;
     private WeakReference<Context> contextWeakReference;
-    CustomerInfo customerInfo;
-    DisplayOrder displayOrder;
-    Map<String, String> properties = new HashMap<>();
-    Transaction transaction;
-
     Set<SessionListener> sessionListeners = new LinkedHashSet<>();
     private SessionContentObserver sessionContentObserver = null;
     private ContentObserver propertyContentObserver;
@@ -115,10 +109,6 @@ public class SessionConnector implements Serializable, SessionListener {
     }
 
     public boolean clear() {
-        customerInfo = null;
-        displayOrder = null;
-        properties.clear();
-        transaction = null;
         try {
             if (connect()) {
                 sessionContentProviderClient.call(SessionContract.CALL_METHOD_CLEAR_SESSION, null, null);
@@ -131,7 +121,7 @@ public class SessionConnector implements Serializable, SessionListener {
     }
 
     public CustomerInfo getCustomerInfo() {
-        customerInfo = null;
+        CustomerInfo customerInfo = null;
         try {
             if (connect()) {
                 try (Cursor cursor = sessionContentProviderClient.query(SessionContract.SESSION_CUSTOMER_URI, null, null, null, null)) {
@@ -163,7 +153,7 @@ public class SessionConnector implements Serializable, SessionListener {
     }
 
     public DisplayOrder getDisplayOrder() {
-        displayOrder = null;
+        DisplayOrder displayOrder = null;
         try {
             if (connect()) {
                 try (Cursor cursor = sessionContentProviderClient.query(SessionContract.SESSION_DISPLAY_ORDER_URI, null, null, null, null)) {
@@ -195,7 +185,7 @@ public class SessionConnector implements Serializable, SessionListener {
     }
 
     public Map<String, String> getProperties() {
-        properties = new HashMap<>();
+        Map<String, String> properties = new HashMap<>();
         try {
             if (connect()) {
                 try (Cursor cursor = sessionContentProviderClient.query(SessionContract.PROPERTIES_URI, null, null, null, null)) {
@@ -252,11 +242,9 @@ public class SessionConnector implements Serializable, SessionListener {
     public String getProperty(String key) {
         try {
             if (!connect()) return null;
-
-            ContentValues values = new ContentValues();
-            values.put(SessionContract.COLUMN_KEY, key);
-            Uri propUri = SessionContract.PROPERTIES_KEY_URI.buildUpon().appendPath(key).build();
-            try (Cursor cursor = sessionContentProviderClient.query(propUri, null, null, null, null)) {
+            String selectionClause = SessionContract.COLUMN_KEY + " = ?";
+            String[] selectionArgs = {key};
+            try (Cursor cursor = sessionContentProviderClient.query(SessionContract.PROPERTIES_URI, null, selectionClause, selectionArgs, null)) {
                 if (null != cursor && cursor.moveToFirst()) {
                     return cursor.getString(1); // 0=Key, 1=Value
                 }
@@ -270,15 +258,16 @@ public class SessionConnector implements Serializable, SessionListener {
     public void removeProperty(String key) {
         try {
             if (!connect()) return;
-
-            Uri propUri = SessionContract.PROPERTIES_KEY_URI.buildUpon().appendPath(key).build();
-            sessionContentProviderClient.delete(propUri, null, null);
+            String selectionClause = SessionContract.COLUMN_KEY + " = ?";
+            String[] selectionArgs = {key};
+            sessionContentProviderClient.delete(SessionContract.PROPERTIES_URI, selectionClause, selectionArgs);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
     }
 
     public Transaction getTransaction() {
+        Transaction transaction = null;
         try {
             if (connect()) {
                 try (Cursor cursor = sessionContentProviderClient.query(SessionContract.SESSION_TRANSACTION_URI, null, null, null, null)) {
@@ -324,6 +313,7 @@ public class SessionConnector implements Serializable, SessionListener {
 
     @Override
     public void onSessionDataChanged(String type, Object data) {
+        Log.d(this.getClass().getSimpleName(), "onSessionDataChanged called with type = " + type);
         for (SessionListener listener : sessionListeners) {
             listener.onSessionDataChanged(type, data);
         }
@@ -331,25 +321,10 @@ public class SessionConnector implements Serializable, SessionListener {
 
     @Override
     public void onSessionEvent(String type, String data) {
+        Log.d(this.getClass().getSimpleName(), "onSessionEvent called with type = " + type);
         for (SessionListener listener : sessionListeners) {
             listener.onSessionEvent(type, data);
         }
-    }
-
-    public void announceCustomerProvidedData(String type, String data) {
-        Bundle bundle = new Bundle();
-        bundle.putString(BUNDLE_KEY_TYPE, type);
-        bundle.putString(BUNDLE_KEY_DATA, data);
-
-        try {
-            sessionContentProviderClient.call(SessionContract.CALL_METHOD_ANNOUNCE_CUSTOMER_PROVIDED_DATA, null, bundle);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-    }
-
-    public void start(String type) {
-
     }
 
     private static void registerContentObserver(Context context, SessionContentObserver sessionContentObserver) {

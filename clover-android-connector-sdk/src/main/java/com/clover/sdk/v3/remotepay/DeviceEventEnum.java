@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class DeviceEventEnum extends GenericParcelable implements com.clover.sdk
    */
   public DeviceEventEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -229,6 +224,10 @@ public class DeviceEventEnum extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeviceEventEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeviceEventEnum>() {
+    public Class<DeviceEventEnum> getCreatedClass() {
+      return DeviceEventEnum.class;
+    }
+
     @Override
     public DeviceEventEnum create(org.json.JSONObject jsonObject) {
       return new DeviceEventEnum(jsonObject);
@@ -236,10 +235,8 @@ public class DeviceEventEnum extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean DEVICEERROREVENTCODE_IS_REQUIRED = false;
     public static final boolean DEVICEEVENTSTATE_IS_REQUIRED = false;
-
   }
 
 }

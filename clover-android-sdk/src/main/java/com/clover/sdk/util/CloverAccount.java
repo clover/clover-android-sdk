@@ -1,11 +1,11 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,16 +15,20 @@
  */
 package com.clover.sdk.util;
 
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.RemoteException;
 import android.util.Log;
 
 /**
  * This class provides access to the Clover {@link android.accounts.Account} object on the device.
  *
  * @see android.accounts.Account
- * @see android.accounts.AccountManager
  */
 public class CloverAccount {
 
@@ -63,14 +67,13 @@ public class CloverAccount {
   }
 
   /**
-   * Get the Clover Account on the device. If there are multiple Clover accounts, only the
-   * first is returned. Requires your Android Manifest include
-   * <code>android.permission.GET_ACCOUNTS</code>. The Clover Account is needed by most Clover
-   * service connectors.
+   * Get the Clover Account on the device. The Clover Account is needed by most Clover service
+   * connectors.
    *
    * @param context the context from your Android application or component
    * @return the Clover account on the device, should never return null
    */
+  @SuppressWarnings("deprecation")
   public static Account getAccount(Context context) {
     Account[] accounts = getAccounts(context);
     if (accounts == null || accounts.length == 0) {
@@ -78,6 +81,10 @@ public class CloverAccount {
     }
     return accounts[0];
   }
+
+  private static final Uri MERCHANTS_URI = Uri.parse("content://" + "com.clover.merchants");
+
+  private static final Uri MERCHANTS_ACCOUNTS_CONTENT_URI = Uri.withAppendedPath(MERCHANTS_URI, "accounts");
 
   /**
    * @deprecated Use {@link #getAccount(Context)} instead.
@@ -88,12 +95,25 @@ public class CloverAccount {
   @Deprecated
   public static Account[] getAccounts(Context context) {
     try {
-      AccountManager mgr = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
-      Account[] accounts = mgr.getAccountsByType(CLOVER_ACCOUNT_TYPE);
+      UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(),
+          MERCHANTS_ACCOUNTS_CONTENT_URI);
 
-      return accounts;
-    } catch (RuntimeException e) {
-      Log.e(TAG, "failed to get accounts", e);
+      try (Cursor c = client.query(null, null, null, null)) {
+        if (c == null || c.getCount() == 0) {
+          throw new RemoteException("No Clover accounts found");
+        }
+
+        Account[] accounts = new Account[c.getCount()];
+        int accountNameColIndex = c.getColumnIndex("account_name");
+        int i = 0;
+        while (c.moveToNext()) {
+          String accountName = c.getString(accountNameColIndex);
+          accounts[i++] = new Account(accountName, CLOVER_ACCOUNT_TYPE);
+        }
+        return accounts;
+      }
+    } catch (Exception e) {
+      Log.e(TAG, "failed to get clover accounts", e);
     }
 
     return null;

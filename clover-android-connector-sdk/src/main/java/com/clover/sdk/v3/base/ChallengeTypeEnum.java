@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class ChallengeTypeEnum extends GenericParcelable implements com.clover.s
    */
   public ChallengeTypeEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class ChallengeTypeEnum extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ChallengeTypeEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ChallengeTypeEnum>() {
+    public Class<ChallengeTypeEnum> getCreatedClass() {
+      return ChallengeTypeEnum.class;
+    }
+
     @Override
     public ChallengeTypeEnum create(org.json.JSONObject jsonObject) {
       return new ChallengeTypeEnum(jsonObject);
@@ -208,9 +207,7 @@ public class ChallengeTypeEnum extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean CHALLENGETYPE_IS_REQUIRED = false;
-
   }
 
 }

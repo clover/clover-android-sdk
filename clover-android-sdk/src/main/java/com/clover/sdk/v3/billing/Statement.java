@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -108,11 +107,7 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public Statement(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -285,6 +280,10 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Statement> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Statement>() {
+    public Class<Statement> getCreatedClass() {
+      return Statement.class;
+    }
+
     @Override
     public Statement create(org.json.JSONObject jsonObject) {
       return new Statement(jsonObject);
@@ -292,12 +291,10 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean YEAR_IS_REQUIRED = false;
     public static final boolean MONTH_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TAX_IS_REQUIRED = false;
-
   }
 
 }

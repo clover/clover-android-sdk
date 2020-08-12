@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -193,11 +192,7 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
    */
   public MerchantDeviceBoarding(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -230,21 +225,22 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
   @Override
   public void validate() {
 
-    genClient.validateLength(getProductType(), 1);
+    genClient.validateLength(CacheKey.productType, getProductType(), 1);
 
-    genClient.validateLength(getEquipmentNumber(), 14);
+    genClient.validateLength(CacheKey.equipmentNumber, getEquipmentNumber(), 14);
 
-    genClient.validateLength(getBusinessType(), 15);
+    genClient.validateLength(CacheKey.businessType, getBusinessType(), 15);
 
-    genClient.validateLength(getStatus(), 20);
+    genClient.validateLength(CacheKey.status, getStatus(), 20);
 
-    genClient.validateLength(getTransArmorIndicator(), 100);
+    genClient.validateLength(CacheKey.transArmorIndicator, getTransArmorIndicator(), 100);
 
-    genClient.validateLength(getForceCloseTime(), 3);
+    genClient.validateLength(CacheKey.forceCloseTime, getForceCloseTime(), 3);
 
-    genClient.validateLength(getSerialNumber(), 50);
+    genClient.validateLength(CacheKey.serialNumber, getSerialNumber(), 50);
 
-    genClient.validateLength(getBundleIndicator(), 32);
+    genClient.validateLength(CacheKey.bundleIndicator, getBundleIndicator(), 32);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -556,6 +552,10 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantDeviceBoarding> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantDeviceBoarding>() {
+    public Class<MerchantDeviceBoarding> getCreatedClass() {
+      return MerchantDeviceBoarding.class;
+    }
+
     @Override
     public MerchantDeviceBoarding create(org.json.JSONObject jsonObject) {
       return new MerchantDeviceBoarding(jsonObject);
@@ -563,7 +563,6 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean PRODUCTTYPE_IS_REQUIRED = false;
     public static final long PRODUCTTYPE_MAX_LEN = 1;
@@ -584,7 +583,6 @@ public class MerchantDeviceBoarding extends GenericParcelable implements com.clo
     public static final boolean BUNDLEINDICATOR_IS_REQUIRED = false;
     public static final long BUNDLEINDICATOR_MAX_LEN = 32;
     public static final boolean REMOVALTIME_IS_REQUIRED = false;
-
   }
 
 }

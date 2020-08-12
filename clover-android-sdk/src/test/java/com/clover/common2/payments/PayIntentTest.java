@@ -218,4 +218,17 @@ public class PayIntentTest {
     assertEquals("Alipay", fromParcel.customerTender.getLabel());
     assertEquals("tender4", fromParcel.customerTender.getId());
   }
+
+  @Test
+  public void testSurcharge_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertTrue(!payIntent.isDisableCreditSurcharge);
+
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, true);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertTrue(payIntent.isDisableCreditSurcharge);
+  }
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -118,11 +117,7 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
    */
   public RefundResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -323,6 +318,10 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RefundResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RefundResponse>() {
+    public Class<RefundResponse> getCreatedClass() {
+      return RefundResponse.class;
+    }
+
     @Override
     public RefundResponse create(org.json.JSONObject jsonObject) {
       return new RefundResponse(jsonObject);
@@ -330,13 +329,11 @@ public class RefundResponse extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean REQUESTSUCCESSFUL_IS_REQUIRED = false;
     public static final boolean RESPONSEERRORMESSAGE_IS_REQUIRED = false;
     public static final boolean REFUND_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean EXTRA_IS_REQUIRED = false;
-
   }
 
 }

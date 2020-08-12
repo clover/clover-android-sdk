@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -74,7 +73,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-   * Device which processed this credit
+   * Device which processed this credit, a 128-bit UUID, not a normal base-13 Clover ID.
    */
   public com.clover.sdk.v3.base.Reference getDevice() {
     return genClient.cacheGet(CacheKey.device);
@@ -289,11 +288,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Credit(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -325,7 +320,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
+    genClient.validateReferences(CacheKey.orderRef);
+    genClient.validateReferences(CacheKey.employee);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -900,6 +898,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Credit> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Credit>() {
+    public Class<Credit> getCreatedClass() {
+      return Credit.class;
+    }
+
     @Override
     public Credit create(org.json.JSONObject jsonObject) {
       return new Credit(jsonObject);
@@ -907,7 +909,6 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ORDERREF_IS_REQUIRED = false;
@@ -932,7 +933,6 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean TRANSACTIONINFO_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
-
   }
 
 }

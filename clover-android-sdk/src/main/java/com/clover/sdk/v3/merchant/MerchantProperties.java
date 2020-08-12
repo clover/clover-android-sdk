@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -91,6 +90,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPrivacyPolicyMode privacyPolicyMode}</li>
  * <li>{@link #getMerchantPrivacyPolicyUrl merchantPrivacyPolicyUrl}</li>
  * <li>{@link #getDisablePrintTaxesPaymentOnReceipts disablePrintTaxesPaymentOnReceipts}</li>
+ * <li>{@link #getLimpModeAllowed2 limpModeAllowed2}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -390,6 +390,13 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheGet(CacheKey.disablePrintTaxesPaymentOnReceipts);
   }
 
+  /**
+   * Per the new V2 TAMPER_EXPERIENCE (see feature flag) if this is true then setting the SRED_DISABLED merchant setting to true will result in the terminal parameter DENY_COMPROMISED_TX becoming false which enables a not provisioned (tampered) device with TransArmor SRED keys to take card payments without PIN. If this is false then setting SRED_DISABLED merchant to true setting will have no effect.
+   */
+  public java.lang.Boolean getLimpModeAllowed2() {
+    return genClient.cacheGet(CacheKey.limpModeAllowed2);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.merchants";
@@ -515,6 +522,8 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     disablePrintTaxesPaymentOnReceipts
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    limpModeAllowed2
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -555,11 +564,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
    */
   public MerchantProperties(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -592,27 +597,28 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   @Override
   public void validate() {
 
-    genClient.validateLength(getDefaultCurrency(), 3);
+    genClient.validateLength(CacheKey.defaultCurrency, getDefaultCurrency(), 3);
 
-    genClient.validateLength(getHardwareProfile(), 127);
+    genClient.validateLength(CacheKey.hardwareProfile, getHardwareProfile(), 127);
 
-    genClient.validateLength(getMarketingPreferenceText(), 255);
+    genClient.validateLength(CacheKey.marketingPreferenceText, getMarketingPreferenceText(), 255);
 
-    genClient.validateLength(getSupportPhone(), 25);
+    genClient.validateLength(CacheKey.supportPhone, getSupportPhone(), 25);
 
-    genClient.validateLength(getSupportEmail(), 127);
+    genClient.validateLength(CacheKey.supportEmail, getSupportEmail(), 127);
 
-    genClient.validateLength(getTimezone(), 255);
+    genClient.validateLength(CacheKey.timezone, getTimezone(), 255);
 
-    genClient.validateLength(getVatTaxName(), 255);
+    genClient.validateLength(CacheKey.vatTaxName, getVatTaxName(), 255);
 
-    genClient.validateLength(getAppBillingSystem(), 10);
+    genClient.validateLength(CacheKey.appBillingSystem, getAppBillingSystem(), 10);
 
-    genClient.validateLength(getAbaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.abaAccountNumber, getAbaAccountNumber(), 40);
 
-    genClient.validateLength(getDdaAccountNumber(), 40);
+    genClient.validateLength(CacheKey.ddaAccountNumber, getDdaAccountNumber(), 40);
 
-    genClient.validateLength(getHierarchy(), 255);
+    genClient.validateLength(CacheKey.hierarchy, getHierarchy(), 255);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -915,6 +921,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.disablePrintTaxesPaymentOnReceipts);
   }
 
+  /** Checks whether the 'limpModeAllowed2' field is set and is not null */
+  public boolean isNotNullLimpModeAllowed2() {
+    return genClient.cacheValueIsNotNull(CacheKey.limpModeAllowed2);
+  }
+
 
 
   /** Checks whether the 'merchantRef' field has been set, however the value could be null */
@@ -1215,6 +1226,11 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   /** Checks whether the 'disablePrintTaxesPaymentOnReceipts' field has been set, however the value could be null */
   public boolean hasDisablePrintTaxesPaymentOnReceipts() {
     return genClient.cacheHasKey(CacheKey.disablePrintTaxesPaymentOnReceipts);
+  }
+
+  /** Checks whether the 'limpModeAllowed2' field has been set, however the value could be null */
+  public boolean hasLimpModeAllowed2() {
+    return genClient.cacheHasKey(CacheKey.limpModeAllowed2);
   }
 
 
@@ -1640,6 +1656,13 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     return genClient.setOther(disablePrintTaxesPaymentOnReceipts, CacheKey.disablePrintTaxesPaymentOnReceipts);
   }
 
+  /**
+   * Sets the field 'limpModeAllowed2'.
+   */
+  public MerchantProperties setLimpModeAllowed2(java.lang.Boolean limpModeAllowed2) {
+    return genClient.setOther(limpModeAllowed2, CacheKey.limpModeAllowed2);
+  }
+
 
   /** Clears the 'merchantRef' field, the 'has' method for this field will now return false */
   public void clearMerchantRef() {
@@ -1881,6 +1904,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   public void clearDisablePrintTaxesPaymentOnReceipts() {
     genClient.clear(CacheKey.disablePrintTaxesPaymentOnReceipts);
   }
+  /** Clears the 'limpModeAllowed2' field, the 'has' method for this field will now return false */
+  public void clearLimpModeAllowed2() {
+    genClient.clear(CacheKey.limpModeAllowed2);
+  }
 
 
   /**
@@ -1932,6 +1959,10 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantProperties> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantProperties>() {
+    public Class<MerchantProperties> getCreatedClass() {
+      return MerchantProperties.class;
+    }
+
     @Override
     public MerchantProperties create(org.json.JSONObject jsonObject) {
       return new MerchantProperties(jsonObject);
@@ -1939,7 +1970,6 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean DEFAULTCURRENCY_IS_REQUIRED = false;
     public static final long DEFAULTCURRENCY_MAX_LEN = 3;
@@ -2011,7 +2041,7 @@ public class MerchantProperties extends GenericParcelable implements com.clover.
     public static final boolean PRIVACYPOLICYMODE_IS_REQUIRED = false;
     public static final boolean MERCHANTPRIVACYPOLICYURL_IS_REQUIRED = false;
     public static final boolean DISABLEPRINTTAXESPAYMENTONRECEIPTS_IS_REQUIRED = false;
-
+    public static final boolean LIMPMODEALLOWED2_IS_REQUIRED = false;
   }
 
 }

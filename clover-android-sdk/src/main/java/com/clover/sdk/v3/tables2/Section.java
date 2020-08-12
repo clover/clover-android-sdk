@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -170,11 +169,7 @@ public class Section extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Section(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,10 +201,11 @@ public class Section extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -463,6 +459,10 @@ public class Section extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Section> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Section>() {
+    public Class<Section> getCreatedClass() {
+      return Section.class;
+    }
+
     @Override
     public Section create(org.json.JSONObject jsonObject) {
       return new Section(jsonObject);
@@ -470,7 +470,6 @@ public class Section extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -482,7 +481,6 @@ public class Section extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean DELETABLE_IS_REQUIRED = false;
     public static final boolean TABLES_IS_REQUIRED = false;
-
   }
 
 }

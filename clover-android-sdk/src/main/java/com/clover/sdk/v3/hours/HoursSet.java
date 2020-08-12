@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -156,11 +155,7 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public HoursSet(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -192,9 +187,9 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 20);
+    genClient.validateLength(CacheKey.name, getName(), 20);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -499,6 +494,10 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<HoursSet> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<HoursSet>() {
+    public Class<HoursSet> getCreatedClass() {
+      return HoursSet.class;
+    }
+
     @Override
     public HoursSet create(org.json.JSONObject jsonObject) {
       return new HoursSet(jsonObject);
@@ -506,7 +505,6 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -519,7 +517,6 @@ public class HoursSet extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean THURSDAY_IS_REQUIRED = false;
     public static final boolean FRIDAY_IS_REQUIRED = false;
     public static final boolean SATURDAY_IS_REQUIRED = false;
-
   }
 
 }

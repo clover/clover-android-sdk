@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -171,11 +170,7 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
    */
   public VoidPaymentRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -208,12 +203,12 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getPaymentId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
 
-    genClient.validateLength(getEmployeeId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.employeeId, getEmployeeId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -471,6 +466,10 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidPaymentRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidPaymentRequest>() {
+    public Class<VoidPaymentRequest> getCreatedClass() {
+      return VoidPaymentRequest.class;
+    }
+
     @Override
     public VoidPaymentRequest create(org.json.JSONObject jsonObject) {
       return new VoidPaymentRequest(jsonObject);
@@ -478,7 +477,6 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
@@ -492,7 +490,6 @@ public class VoidPaymentRequest extends com.clover.sdk.v3.remotepay.BaseRequest 
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

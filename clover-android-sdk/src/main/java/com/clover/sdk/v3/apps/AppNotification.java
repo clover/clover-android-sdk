@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -120,11 +119,7 @@ public class AppNotification extends GenericParcelable implements com.clover.sdk
    */
   public AppNotification(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -157,9 +152,10 @@ public class AppNotification extends GenericParcelable implements com.clover.sdk
   @Override
   public void validate() {
 
-    genClient.validateLength(getEvent(), 255);
+    genClient.validateLength(CacheKey.event, getEvent(), 255);
 
-    genClient.validateLength(getData(), 4000);
+    genClient.validateLength(CacheKey.data, getData(), 4000);
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'app' field is set and is not null */
@@ -303,6 +299,10 @@ public class AppNotification extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppNotification> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppNotification>() {
+    public Class<AppNotification> getCreatedClass() {
+      return AppNotification.class;
+    }
+
     @Override
     public AppNotification create(org.json.JSONObject jsonObject) {
       return new AppNotification(jsonObject);
@@ -310,14 +310,12 @@ public class AppNotification extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean EVENT_IS_REQUIRED = false;
     public static final long EVENT_MAX_LEN = 255;
     public static final boolean TIMETOLIVE_IS_REQUIRED = false;
     public static final boolean DATA_IS_REQUIRED = false;
     public static final long DATA_MAX_LEN = 4000;
-
   }
 
 }
