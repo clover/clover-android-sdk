@@ -18,7 +18,6 @@ com.clover.sdk.v3.analytics
 com.clover.sdk.v3.apps
 com.clover.sdk.v3.base
 com.clover.sdk.v3.billing
-com.clover.sdk.v3.boarding
 com.clover.sdk.v3.cacheindex
 com.clover.sdk.v3.cash
 com.clover.sdk.v3.custom
