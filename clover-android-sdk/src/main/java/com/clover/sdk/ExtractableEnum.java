@@ -17,6 +17,9 @@ package com.clover.sdk;
 
 /**
  * For internal use only. Marker interface.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
  */
 public interface ExtractableEnum {
 

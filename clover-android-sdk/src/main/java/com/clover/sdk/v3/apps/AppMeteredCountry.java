@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -140,11 +139,7 @@ public class AppMeteredCountry extends GenericParcelable implements com.clover.s
    */
   public AppMeteredCountry(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -176,16 +171,17 @@ public class AppMeteredCountry extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getAction(), "action");
-    genClient.validateLength(getAction(), 40);
+    genClient.validateNotNull(CacheKey.action, getAction());
+    genClient.validateLength(CacheKey.action, getAction(), 40);
 
-    genClient.validateNull(getAmount(), "amount");
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateNotNull(CacheKey.amount, getAmount());
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
 
-    genClient.validateNull(getCountry(), "country");
-    genClient.validateLength(getCountry(), 2);
+    genClient.validateNotNull(CacheKey.country, getCountry());
+    genClient.validateLength(CacheKey.country, getCountry(), 2);
+    genClient.validateReferences(CacheKey.appMetered);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -371,6 +367,10 @@ public class AppMeteredCountry extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppMeteredCountry> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppMeteredCountry>() {
+    public Class<AppMeteredCountry> getCreatedClass() {
+      return AppMeteredCountry.class;
+    }
+
     @Override
     public AppMeteredCountry create(org.json.JSONObject jsonObject) {
       return new AppMeteredCountry(jsonObject);
@@ -378,7 +378,6 @@ public class AppMeteredCountry extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ACTION_IS_REQUIRED = true;
@@ -389,7 +388,6 @@ public class AppMeteredCountry extends GenericParcelable implements com.clover.s
     public static final long COUNTRY_MAX_LEN = 2;
     public static final boolean ACTIVE_IS_REQUIRED = false;
     public static final boolean APPMETERED_IS_REQUIRED = false;
-
   }
 
 }

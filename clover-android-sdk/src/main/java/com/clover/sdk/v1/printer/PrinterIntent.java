@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,10 @@ public class PrinterIntent {
   public static final String ACTION_PRINT_NOTIFY_SERVICE = "com.clover.sdk.printer.intent.action.PRINT_NOTIFY_SERVICE";
   /**
    * Service action: start the cash drawer service.
+   *
+   * @deprecated Use {@link com.clover.sdk.cashdrawer.CashDrawers} instead.
    */
+  @Deprecated
   public static final String ACTION_OPEN_CASH_DRAWER_SERVICE = "com.clover.sdk.printer.intent.action.OPEN_CASH_DRAWER_SERVICE";
   /**
    * Service action: bind to the receipt registration service.

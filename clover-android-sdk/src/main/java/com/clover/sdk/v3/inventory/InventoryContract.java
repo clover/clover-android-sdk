@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -73,6 +73,16 @@ public final class InventoryContract {
    * Call method to get the inventory item count.
    */
   public static final String GET_ITEM_MOD_OR_VAR_COUNT_METHOD = "getItemModifiedOrVariantCount";
+
+  /**
+   * Call method to get the inventory item count with variants.
+   */
+  public static final String GET_ITEMS_WITH_VARIANTS_METHOD = "getItemsWithVariants";
+
+  /**
+   * Call method to get the inventory item count with modifiers.
+   */
+  public static final String GET_ITEMS_WITH_MODIFIERS_METHOD = "getItemsWithModifiers";
 
   /**
    * Integer result returned by call count methods.

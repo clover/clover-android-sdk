@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -62,7 +61,7 @@ public class MerchantBillingInfo extends GenericParcelable implements com.clover
   }
 
   /**
-   * Returns true if all apps are exportabl3 for the merchant in context.
+   * Returns true if all apps are exportable for the merchant in context.
    */
   public java.lang.Boolean getAppExportable() {
     return genClient.cacheGet(CacheKey.appExportable);
@@ -120,11 +119,7 @@ public class MerchantBillingInfo extends GenericParcelable implements com.clover
    */
   public MerchantBillingInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -297,6 +292,10 @@ public class MerchantBillingInfo extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantBillingInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantBillingInfo>() {
+    public Class<MerchantBillingInfo> getCreatedClass() {
+      return MerchantBillingInfo.class;
+    }
+
     @Override
     public MerchantBillingInfo create(org.json.JSONObject jsonObject) {
       return new MerchantBillingInfo(jsonObject);
@@ -304,12 +303,10 @@ public class MerchantBillingInfo extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean PLANBILLABLE_IS_REQUIRED = false;
     public static final boolean APPBILLABLE_IS_REQUIRED = false;
     public static final boolean PLANEXPORTABLE_IS_REQUIRED = false;
     public static final boolean APPEXPORTABLE_IS_REQUIRED = false;
-
   }
 
 }

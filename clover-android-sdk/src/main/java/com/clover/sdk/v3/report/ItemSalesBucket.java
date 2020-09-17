@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -108,11 +107,7 @@ public class ItemSalesBucket extends GenericParcelable implements com.clover.sdk
    */
   public ItemSalesBucket(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -144,6 +139,7 @@ public class ItemSalesBucket extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.items);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -290,6 +286,10 @@ public class ItemSalesBucket extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ItemSalesBucket> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ItemSalesBucket>() {
+    public Class<ItemSalesBucket> getCreatedClass() {
+      return ItemSalesBucket.class;
+    }
+
     @Override
     public ItemSalesBucket create(org.json.JSONObject jsonObject) {
       return new ItemSalesBucket(jsonObject);
@@ -297,12 +297,10 @@ public class ItemSalesBucket extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean DELETED_IS_REQUIRED = false;
-
   }
 
 }

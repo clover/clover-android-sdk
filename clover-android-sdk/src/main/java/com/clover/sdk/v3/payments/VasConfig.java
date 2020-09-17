@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -90,11 +89,7 @@ public class VasConfig extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public VasConfig(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -209,6 +204,10 @@ public class VasConfig extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VasConfig> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VasConfig>() {
+    public Class<VasConfig> getCreatedClass() {
+      return VasConfig.class;
+    }
+
     @Override
     public VasConfig create(org.json.JSONObject jsonObject) {
       return new VasConfig(jsonObject);
@@ -216,9 +215,7 @@ public class VasConfig extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean VASPROVIDERS_IS_REQUIRED = false;
-
   }
 
 }

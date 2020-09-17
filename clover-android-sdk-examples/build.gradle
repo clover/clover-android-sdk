@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '248.4'
+version = '262.2'
 
 apply from: file("${project.rootDir}/app.gradle")
 
@@ -26,9 +26,6 @@ repositories {
 }
 
 android {
-  lintOptions {
-    abortOnError false
-  }
   buildTypes {
     all {
       minifyEnabled true
@@ -36,6 +33,10 @@ android {
           'proguard-android-optimize.txt'),
           'proguard-rules.pro'
     }
+  }
+
+  lintOptions {
+      abortOnError false
   }
 
   compileSdkVersion COMPILE_SDK_VERSION
@@ -50,6 +51,7 @@ dependencies {
   implementation project(':clover-android-sdk')
   implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
   implementation "androidx.lifecycle:lifecycle-extensions:$ANDROIDX_LIFECYCLE_VERSION"
+  implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINTLAYOUT_VERSION"
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
   implementation "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
   implementation "androidx.cardview:cardview:$ANDROIDX_CARDVIEW_VERSION"

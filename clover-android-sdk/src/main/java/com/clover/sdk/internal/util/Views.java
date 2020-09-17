@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ScrollView;
@@ -30,9 +30,14 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
+import java.util.concurrent.FutureTask;
 
+/**
+ * For internal use only.
+ */
 public final class Views {
+
+  private static final String TAG = Views.class.getSimpleName();
 
   private Views() { }
 
@@ -45,18 +50,15 @@ public final class Views {
       throw new RuntimeException("Long running operation should not be executed on the main thread");
     }
 
-    Point viewWH = runSynchronouslyOnMainThread(new Callable<Point>() {
-      @Override
-      public Point call() throws Exception {
-        Point wh = new Point();
-        wh.x = view.getMeasuredWidth();
-        wh.y = getContentHeight(view);
-        return wh;
-      }
+    Point viewWH = runSynchronouslyOnMainThread(() -> {
+      Point wh = new Point();
+      wh.x = view.getMeasuredWidth();
+      wh.y = getContentHeight(view);
+      return wh;
     });
 
-    final int measuredWidth = viewWH.x;
-    final int contentHeight = viewWH.y;
+    final int measuredWidth = viewWH == null ? 0 : viewWH.x;
+    final int contentHeight = viewWH == null ? 0 : viewWH.y;
 
     if (measuredWidth <= 0 || contentHeight <= 0) {
       throw new IllegalArgumentException("Measured view width or height is 0");
@@ -81,12 +83,9 @@ public final class Views {
       final Canvas canvas = new Canvas(bitmap);
       canvas.translate(0, -top);
 
-      runSynchronouslyOnMainThread(new Callable<Void>() {
-        @Override
-        public Void call() throws Exception {
-          view.draw(canvas);
-          return null;
-        }
+      runSynchronouslyOnMainThread(() -> {
+        view.draw(canvas);
+        return null;
       });
 
       Uri outUri = outputUriFactory.createNewOutputUri();
@@ -103,45 +102,35 @@ public final class Views {
 
   private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
 
-  private static final Executor sMainThreadExecutor = new Executor() {
-    @Override
-    public void execute(Runnable runnable) {
-      sMainHandler.post(runnable);
-    }
-  };
-
-  private static <T> T runSynchronouslyOnMainThread(final Callable<T> callable) {
-    AsyncTask<Void, Void, T> task = new AsyncTask<Void, Void, T>() {
-      @Override
-      protected T doInBackground(Void... voids) {
-        T result;
-        try {
-          result = callable.call();
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-        return result;
-      }
-    };
-
-    task.executeOnExecutor(sMainThreadExecutor);
-
-    T result;
+  /**
+   * Runs the given callable on the main thread synchronously. This method should be invoked on a
+   * background thread, the callable must complete very quickly to prevent an ANR, generally used
+   * when manipulating Views which Android requires to be on the main thread. This method eats
+   * exceptions and returns null.
+   */
+  private static <T> T runSynchronouslyOnMainThread(Callable<T> callable) {
     try {
-      result = task.get();
+      FutureTask<T> futureTask = new FutureTask<>(callable);
+      sMainHandler.post(futureTask);
+      return futureTask.get();
     } catch (Exception e) {
-      throw new RuntimeException("Error, try creating print job on same thread as view was created", e);
+      Log.w(TAG, e);
+      return null;
     }
-    return result;
   }
 
+  @SuppressWarnings("deprecation")
   private static int getContentHeight(View view) {
     if (view instanceof WebView) {
-      WebView wv = (WebView)view;
-      float scale = wv.getScale();
+      WebView wv = (WebView) view;
+      float scale = wv.getScale(); // Deprecated but works
+      // Just in case future Android platform breaks getScale, use default scale of 100%
+      if (scale <= 0.0f) {
+        scale = 1.0f;
+      }
       return (int) (wv.getContentHeight() * scale);
     } else if (view instanceof ScrollView) {
-      return ((ScrollView)view).getChildAt(0).getMeasuredHeight();
+      return ((ScrollView) view).getChildAt(0).getMeasuredHeight();
     } else {
       return view.getMeasuredHeight();
     }

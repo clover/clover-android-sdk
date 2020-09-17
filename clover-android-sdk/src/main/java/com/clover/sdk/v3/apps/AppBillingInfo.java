@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -190,11 +189,7 @@ public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.
    */
   public AppBillingInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -226,7 +221,7 @@ public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -517,6 +512,10 @@ public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppBillingInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppBillingInfo>() {
+    public Class<AppBillingInfo> getCreatedClass() {
+      return AppBillingInfo.class;
+    }
+
     @Override
     public AppBillingInfo create(org.json.JSONObject jsonObject) {
       return new AppBillingInfo(jsonObject);
@@ -524,7 +523,6 @@ public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean APPSUBSCRIPTION_IS_REQUIRED = false;
@@ -537,7 +535,6 @@ public class AppBillingInfo extends GenericParcelable implements com.clover.sdk.
     public static final boolean BILLINGSTARTTIME_IS_REQUIRED = false;
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean DAYSLAPSED_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -52,6 +51,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSupportsTipAdjust supportsTipAdjust}</li>
  * <li>{@link #getSupportsNakedCredit supportsNakedCredit}</li>
  * <li>{@link #getSupportsMultiPayToken supportsMultiPayToken}</li>
+ * <li>{@link #getSupportsPreauthOverage supportsPreauthOverage}</li>
  * <li>{@link #getClosingTime closingTime}</li>
  * <li>{@link #getNewBatchCloseEnabled newBatchCloseEnabled}</li>
  * <li>{@link #getProduction production}</li>
@@ -147,6 +147,13 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.supportsMultiPayToken);
   }
 
+  /**
+   * If true the gateway will allow an amount greater than the preauth amount to be captured.
+   */
+  public java.lang.Boolean getSupportsPreauthOverage() {
+    return genClient.cacheGet(CacheKey.supportsPreauthOverage);
+  }
+
   public java.lang.String getClosingTime() {
     return genClient.cacheGet(CacheKey.closingTime);
   }
@@ -208,6 +215,8 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     supportsMultiPayToken
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    supportsPreauthOverage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     closingTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     newBatchCloseEnabled
@@ -254,11 +263,7 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Gateway(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -290,11 +295,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getPaymentProcessorName(), 127);
+    genClient.validateLength(CacheKey.paymentProcessorName, getPaymentProcessorName(), 127);
 
-    genClient.validateLength(getAuthorizationFrontEnd(), 10);
+    genClient.validateLength(CacheKey.authorizationFrontEnd, getAuthorizationFrontEnd(), 10);
 
-    genClient.validateLength(getAcquiringBackEnd(), 10);
+    genClient.validateLength(CacheKey.acquiringBackEnd, getAcquiringBackEnd(), 10);
   }
 
   /** Checks whether the 'paymentProcessorName' field is set and is not null */
@@ -400,6 +405,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'supportsMultiPayToken' field is set and is not null */
   public boolean isNotNullSupportsMultiPayToken() {
     return genClient.cacheValueIsNotNull(CacheKey.supportsMultiPayToken);
+  }
+
+  /** Checks whether the 'supportsPreauthOverage' field is set and is not null */
+  public boolean isNotNullSupportsPreauthOverage() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportsPreauthOverage);
   }
 
   /** Checks whether the 'closingTime' field is set and is not null */
@@ -522,6 +532,11 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'supportsMultiPayToken' field has been set, however the value could be null */
   public boolean hasSupportsMultiPayToken() {
     return genClient.cacheHasKey(CacheKey.supportsMultiPayToken);
+  }
+
+  /** Checks whether the 'supportsPreauthOverage' field has been set, however the value could be null */
+  public boolean hasSupportsPreauthOverage() {
+    return genClient.cacheHasKey(CacheKey.supportsPreauthOverage);
   }
 
   /** Checks whether the 'closingTime' field has been set, however the value could be null */
@@ -688,6 +703,13 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'supportsPreauthOverage'.
+   */
+  public Gateway setSupportsPreauthOverage(java.lang.Boolean supportsPreauthOverage) {
+    return genClient.setOther(supportsPreauthOverage, CacheKey.supportsPreauthOverage);
+  }
+
+  /**
    * Sets the field 'closingTime'.
    */
   public Gateway setClosingTime(java.lang.String closingTime) {
@@ -793,6 +815,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearSupportsMultiPayToken() {
     genClient.clear(CacheKey.supportsMultiPayToken);
   }
+  /** Clears the 'supportsPreauthOverage' field, the 'has' method for this field will now return false */
+  public void clearSupportsPreauthOverage() {
+    genClient.clear(CacheKey.supportsPreauthOverage);
+  }
   /** Clears the 'closingTime' field, the 'has' method for this field will now return false */
   public void clearClosingTime() {
     genClient.clear(CacheKey.closingTime);
@@ -856,6 +882,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Gateway> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Gateway>() {
+    public Class<Gateway> getCreatedClass() {
+      return Gateway.class;
+    }
+
     @Override
     public Gateway create(org.json.JSONObject jsonObject) {
       return new Gateway(jsonObject);
@@ -863,7 +893,6 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean PAYMENTPROCESSORNAME_IS_REQUIRED = false;
     public static final long PAYMENTPROCESSORNAME_MAX_LEN = 127;
     public static final boolean AUTHORIZATIONFRONTEND_IS_REQUIRED = false;
@@ -888,10 +917,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean SUPPORTSTIPADJUST_IS_REQUIRED = false;
     public static final boolean SUPPORTSNAKEDCREDIT_IS_REQUIRED = false;
     public static final boolean SUPPORTSMULTIPAYTOKEN_IS_REQUIRED = false;
+    public static final boolean SUPPORTSPREAUTHOVERAGE_IS_REQUIRED = false;
     public static final boolean CLOSINGTIME_IS_REQUIRED = false;
     public static final boolean NEWBATCHCLOSEENABLED_IS_REQUIRED = false;
     public static final boolean PRODUCTION_IS_REQUIRED = false;
-
   }
 
 }

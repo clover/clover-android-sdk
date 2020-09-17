@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -269,11 +268,7 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public GermanInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -929,6 +924,10 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<GermanInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<GermanInfo>() {
+    public Class<GermanInfo> getCreatedClass() {
+      return GermanInfo.class;
+    }
+
     @Override
     public GermanInfo create(org.json.JSONObject jsonObject) {
       return new GermanInfo(jsonObject);
@@ -936,7 +935,6 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean CARDTRACK2_IS_REQUIRED = false;
     public static final boolean CARDSEQUENCENUMBER_IS_REQUIRED = false;
     public static final boolean TRANSACTIONCASEGERMANY_IS_REQUIRED = false;
@@ -964,7 +962,6 @@ public class GermanInfo extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean SEPAELVCREDITORID_IS_REQUIRED = false;
     public static final boolean SEPAELVMANDATEID_IS_REQUIRED = false;
     public static final boolean SEPAELVIBAN_IS_REQUIRED = false;
-
   }
 
 }

@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,11 +43,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Service connector for {@link IOrderService}. Please see that class for documentation on the
  * RPC methods.
  *
- * @see IOrderService
- * @see ServiceConnector
- * @see Order
- * @see LineItem
+ * @deprecated Please use the {@link OrderConnector} instead, it offers all
+ * the same functionality but is designed to handle large orders (over 1MB)
+ * that cause this API to fail. New methods may not be added to this class
+ * going forward.
+ *
+ * @see OrderConnector
  */
+@Deprecated
 public class OrderV3Connector extends ServiceConnector<IOrderService> {
   private static final String SERVICE_HOST = "com.clover.engine";
 

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -114,11 +113,7 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public DeviceInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -150,11 +145,11 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getModel(), 64);
+    genClient.validateLength(CacheKey.model, getModel(), 64);
 
-    genClient.validateLength(getSerial(), 32);
+    genClient.validateLength(CacheKey.serial, getSerial(), 32);
   }
 
   /** Checks whether the 'name' field is set and is not null */
@@ -296,6 +291,10 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DeviceInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DeviceInfo>() {
+    public Class<DeviceInfo> getCreatedClass() {
+      return DeviceInfo.class;
+    }
+
     @Override
     public DeviceInfo create(org.json.JSONObject jsonObject) {
       return new DeviceInfo(jsonObject);
@@ -303,7 +302,6 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 127;
     public static final boolean MODEL_IS_REQUIRED = false;
@@ -311,7 +309,6 @@ public class DeviceInfo extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean SERIAL_IS_REQUIRED = false;
     public static final long SERIAL_MAX_LEN = 32;
     public static final boolean SUPPORTSACKS_IS_REQUIRED = false;
-
   }
 
 }

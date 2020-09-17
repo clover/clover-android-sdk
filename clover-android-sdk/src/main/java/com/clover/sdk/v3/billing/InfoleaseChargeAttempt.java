@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -150,11 +149,7 @@ public class InfoleaseChargeAttempt extends GenericParcelable implements com.clo
    */
   public InfoleaseChargeAttempt(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,7 +181,7 @@ public class InfoleaseChargeAttempt extends GenericParcelable implements com.clo
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -454,6 +449,10 @@ public class InfoleaseChargeAttempt extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<InfoleaseChargeAttempt> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<InfoleaseChargeAttempt>() {
+    public Class<InfoleaseChargeAttempt> getCreatedClass() {
+      return InfoleaseChargeAttempt.class;
+    }
+
     @Override
     public InfoleaseChargeAttempt create(org.json.JSONObject jsonObject) {
       return new InfoleaseChargeAttempt(jsonObject);
@@ -461,7 +460,6 @@ public class InfoleaseChargeAttempt extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean STATUS_IS_REQUIRED = false;
@@ -473,7 +471,6 @@ public class InfoleaseChargeAttempt extends GenericParcelable implements com.clo
     public static final boolean POSTDATE_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

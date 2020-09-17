@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -29,7 +28,7 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * @deprecated  *Use CustomerInfo instead*  Represents a customer that is linked to an external system.  This customer may be persisted in Clover, or it may not.
+ * Deprecated, use CustomerInfo instead. Represents a customer that is linked to an external system. This customer may be persisted in Clover, or it may not.
  * <p>
  * <h3>Fields</h3>
  * <ul>
@@ -132,11 +131,7 @@ public class RemoteCustomer extends GenericParcelable implements com.clover.sdk.
    */
   public RemoteCustomer(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -335,6 +330,10 @@ public class RemoteCustomer extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RemoteCustomer> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RemoteCustomer>() {
+    public Class<RemoteCustomer> getCreatedClass() {
+      return RemoteCustomer.class;
+    }
+
     @Override
     public RemoteCustomer create(org.json.JSONObject jsonObject) {
       return new RemoteCustomer(jsonObject);
@@ -342,13 +341,11 @@ public class RemoteCustomer extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean CUSTOMER_IS_REQUIRED = false;
     public static final boolean DISPLAYSTRING_IS_REQUIRED = false;
     public static final boolean EXTERNALID_IS_REQUIRED = false;
     public static final boolean EXTERNALSYSTEMNAME_IS_REQUIRED = false;
     public static final boolean EXTRAS_IS_REQUIRED = false;
-
   }
 
 }

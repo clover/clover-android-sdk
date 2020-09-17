@@ -287,6 +287,8 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
 
   /**
    * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
+   *
+   * @deprecated Use {@link #updateEmployee(Employee, ResultStatus)} instead.
    */
   @Deprecated
   public void setEmployeePin(final String id, final String pin, EmployeeCallback<Employee> callback) {
@@ -300,6 +302,8 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
 
   /**
    * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
+   *
+   * @deprecated Use {@link #updateEmployee(Employee, ResultStatus)} instead.
    */
   @Deprecated
   public Employee setEmployeePin(final String id, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
@@ -584,6 +588,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   /**
    * @deprecated Please use {@link Lockscreen#lock()}.
    */
+  @Deprecated
   public void logout() throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new EmployeeRunnable() {
       @Override

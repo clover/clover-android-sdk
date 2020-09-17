@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -220,11 +219,7 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Table(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -256,10 +251,12 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.section);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -615,6 +612,10 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Table> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Table>() {
+    public Class<Table> getCreatedClass() {
+      return Table.class;
+    }
+
     @Override
     public Table create(org.json.JSONObject jsonObject) {
       return new Table(jsonObject);
@@ -622,7 +623,6 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -639,7 +639,6 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean GUESTCAPACITY_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean ROTATION_IS_REQUIRED = false;
-
   }
 
 }

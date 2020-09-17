@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -149,11 +148,7 @@ public class MerchantProgramExpress extends GenericParcelable implements com.clo
    */
   public MerchantProgramExpress(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,13 +181,14 @@ public class MerchantProgramExpress extends GenericParcelable implements com.clo
   @Override
   public void validate() {
 
-    genClient.validateLength(getProgramCodeDescription(), 40);
+    genClient.validateLength(CacheKey.programCodeDescription, getProgramCodeDescription(), 40);
 
-    genClient.validateLength(getKeyDescription(), 40);
+    genClient.validateLength(CacheKey.keyDescription, getKeyDescription(), 40);
 
-    genClient.validateLength(getValue(), 80);
+    genClient.validateLength(CacheKey.value, getValue(), 80);
 
-    genClient.validateLength(getValueDescription(), 24);
+    genClient.validateLength(CacheKey.valueDescription, getValueDescription(), 24);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -399,6 +395,10 @@ public class MerchantProgramExpress extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantProgramExpress> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantProgramExpress>() {
+    public Class<MerchantProgramExpress> getCreatedClass() {
+      return MerchantProgramExpress.class;
+    }
+
     @Override
     public MerchantProgramExpress create(org.json.JSONObject jsonObject) {
       return new MerchantProgramExpress(jsonObject);
@@ -406,7 +406,6 @@ public class MerchantProgramExpress extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean PROGRAMCODE_IS_REQUIRED = false;
     public static final boolean PROGRAMCODEDESCRIPTION_IS_REQUIRED = false;
@@ -418,7 +417,6 @@ public class MerchantProgramExpress extends GenericParcelable implements com.clo
     public static final long VALUE_MAX_LEN = 80;
     public static final boolean VALUEDESCRIPTION_IS_REQUIRED = false;
     public static final long VALUEDESCRIPTION_MAX_LEN = 24;
-
   }
 
 }

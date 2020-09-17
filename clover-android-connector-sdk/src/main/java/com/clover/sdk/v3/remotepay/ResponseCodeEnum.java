@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class ResponseCodeEnum extends GenericParcelable implements com.clover.sd
    */
   public ResponseCodeEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class ResponseCodeEnum extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ResponseCodeEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ResponseCodeEnum>() {
+    public Class<ResponseCodeEnum> getCreatedClass() {
+      return ResponseCodeEnum.class;
+    }
+
     @Override
     public ResponseCodeEnum create(org.json.JSONObject jsonObject) {
       return new ResponseCodeEnum(jsonObject);
@@ -208,9 +207,7 @@ public class ResponseCodeEnum extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean STATUS_IS_REQUIRED = false;
-
   }
 
 }

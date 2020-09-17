@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -124,11 +123,7 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
    */
   public TipSuggestion(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -160,14 +155,14 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 24);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 24);
 
-    if (getPercentage() != null && ( getPercentage() < 0 || getPercentage() > 1000)) throw new IllegalArgumentException("Invalid value for 'getPercentage()'");
+    genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000L);
 
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -330,6 +325,10 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TipSuggestion> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TipSuggestion>() {
+    public Class<TipSuggestion> getCreatedClass() {
+      return TipSuggestion.class;
+    }
+
     @Override
     public TipSuggestion create(org.json.JSONObject jsonObject) {
       return new TipSuggestion(jsonObject);
@@ -337,7 +336,6 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -348,7 +346,6 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final long AMOUNT_MIN = 0;
     public static final boolean ISENABLED_IS_REQUIRED = false;
-
   }
 
 }

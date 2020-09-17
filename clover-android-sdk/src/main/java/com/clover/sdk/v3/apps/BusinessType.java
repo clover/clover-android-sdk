@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -114,11 +113,7 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
    */
   public BusinessType(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -150,6 +145,9 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
+    genClient.validateNotNull(CacheKey.businessTypeGroupCode, getBusinessTypeGroupCode());
+
+    genClient.validateNotNull(CacheKey.code, getCode());
   }
 
   /** Checks whether the 'businessTypeGroupCode' field is set and is not null */
@@ -291,6 +289,10 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BusinessType> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BusinessType>() {
+    public Class<BusinessType> getCreatedClass() {
+      return BusinessType.class;
+    }
+
     @Override
     public BusinessType create(org.json.JSONObject jsonObject) {
       return new BusinessType(jsonObject);
@@ -298,12 +300,10 @@ public class BusinessType extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
-    public static final boolean BUSINESSTYPEGROUPCODE_IS_REQUIRED = false;
+    public static final boolean BUSINESSTYPEGROUPCODE_IS_REQUIRED = true;
     public static final boolean BUSINESSTYPEGROUPNAME_IS_REQUIRED = false;
-    public static final boolean CODE_IS_REQUIRED = false;
+    public static final boolean CODE_IS_REQUIRED = true;
     public static final boolean NAME_IS_REQUIRED = false;
-
   }
 
 }

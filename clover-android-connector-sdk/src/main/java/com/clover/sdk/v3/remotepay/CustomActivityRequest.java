@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -133,11 +132,7 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
    */
   public CustomActivityRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -169,7 +164,7 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'action' field is set and is not null */
@@ -340,6 +335,10 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CustomActivityRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CustomActivityRequest>() {
+    public Class<CustomActivityRequest> getCreatedClass() {
+      return CustomActivityRequest.class;
+    }
+
     @Override
     public CustomActivityRequest create(org.json.JSONObject jsonObject) {
       return new CustomActivityRequest(jsonObject);
@@ -347,14 +346,12 @@ public class CustomActivityRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public interface Constraints {
-
     public static final boolean ACTION_IS_REQUIRED = false;
     public static final boolean PAYLOAD_IS_REQUIRED = false;
     public static final boolean NONBLOCKING_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

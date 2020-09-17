@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -107,11 +106,7 @@ public class VoidCreditResponse extends GenericParcelable implements com.clover.
    */
   public VoidCreditResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -143,7 +138,7 @@ public class VoidCreditResponse extends GenericParcelable implements com.clover.
 
   @Override
   public void validate() {
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'requestId' field is set and is not null */
@@ -266,6 +261,10 @@ public class VoidCreditResponse extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VoidCreditResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VoidCreditResponse>() {
+    public Class<VoidCreditResponse> getCreatedClass() {
+      return VoidCreditResponse.class;
+    }
+
     @Override
     public VoidCreditResponse create(org.json.JSONObject jsonObject) {
       return new VoidCreditResponse(jsonObject);
@@ -273,12 +272,10 @@ public class VoidCreditResponse extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean CREDIT_IS_REQUIRED = false;
-
   }
 
 }

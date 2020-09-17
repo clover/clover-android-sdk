@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class RefundAnalytic extends GenericParcelable implements com.clover.sdk.
    */
   public RefundAnalytic(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -130,7 +125,7 @@ public class RefundAnalytic extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateLength(getUuid(), 13);
+    genClient.validateCloverId(CacheKey.uuid, getUuid());
   }
 
   /** Checks whether the 'uuid' field is set and is not null */
@@ -230,6 +225,10 @@ public class RefundAnalytic extends GenericParcelable implements com.clover.sdk.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RefundAnalytic> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RefundAnalytic>() {
+    public Class<RefundAnalytic> getCreatedClass() {
+      return RefundAnalytic.class;
+    }
+
     @Override
     public RefundAnalytic create(org.json.JSONObject jsonObject) {
       return new RefundAnalytic(jsonObject);
@@ -237,11 +236,9 @@ public class RefundAnalytic extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-
     public static final boolean UUID_IS_REQUIRED = false;
     public static final long UUID_MAX_LEN = 13;
     public static final boolean MERCHANTID_IS_REQUIRED = false;
-
   }
 
 }

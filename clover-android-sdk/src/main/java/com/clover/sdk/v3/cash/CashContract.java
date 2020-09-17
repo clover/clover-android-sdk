@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,15 @@ import android.provider.BaseColumns;
 /**
  * The contract between the cash management provider and applications. Contains
  * definitions for the supported URIs and columns.
+ * <p/>
+ * Cash events are recorded locally on device only and not synced between devices or sent to the
+ * cloud.
+ * <p/>
+ * This is a read-only contract. Cash events are created when cash payments or refunds occur. To
+ * manually record cash events use {@link com.clover.sdk.v3.cash.CashEvents}.
  */
 public final class CashContract {
+
   /** The authority for the modifier provider */
   public static final String AUTHORITY = "com.clover.cash";
 
@@ -40,7 +47,6 @@ public final class CashContract {
      * <p>
      * Type: TEXT
      */
-
     public static final String TYPE = "type";
 
     /**
@@ -71,7 +77,6 @@ public final class CashContract {
      */
     public static final String NOTE = "note";
 
-
     /**
      * Employee id
      * <p>
@@ -81,6 +86,7 @@ public final class CashContract {
   }
 
   public static final class CashEvent implements BaseColumns, CashEventColumns {
+
     /**
      * This utility class cannot be instantiated
      */

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -160,11 +159,7 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
    */
   public ReportDiscountRow(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -196,6 +191,8 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.order);
+    genClient.validateReferences(CacheKey.approvers);
   }
 
   /** Checks whether the 'order' field is set and is not null */
@@ -428,6 +425,10 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportDiscountRow> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportDiscountRow>() {
+    public Class<ReportDiscountRow> getCreatedClass() {
+      return ReportDiscountRow.class;
+    }
+
     @Override
     public ReportDiscountRow create(org.json.JSONObject jsonObject) {
       return new ReportDiscountRow(jsonObject);
@@ -435,7 +436,6 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean APPROVERS_IS_REQUIRED = false;
     public static final boolean ORDERDISCOUNTTOTAL_IS_REQUIRED = false;
@@ -444,7 +444,6 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
     public static final boolean LINEITEMDISCOUNTCOUNT_IS_REQUIRED = false;
     public static final boolean TOTALDISCOUNT_IS_REQUIRED = false;
     public static final boolean TOTALDISCOUNTCOUNT_IS_REQUIRED = false;
-
   }
 
 }

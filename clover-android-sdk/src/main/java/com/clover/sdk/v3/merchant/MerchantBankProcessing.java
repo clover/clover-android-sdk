@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -169,11 +168,7 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
    */
   public MerchantBankProcessing(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,17 +201,18 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
   @Override
   public void validate() {
 
-    genClient.validateLength(getBin(), 9);
+    genClient.validateLength(CacheKey.bin, getBin(), 9);
 
-    genClient.validateLength(getPayCode(), 2);
+    genClient.validateLength(CacheKey.payCode, getPayCode(), 2);
 
-    genClient.validateLength(getClearingCode(), 3);
+    genClient.validateLength(CacheKey.clearingCode, getClearingCode(), 3);
 
-    genClient.validateLength(getIca(), 6);
+    genClient.validateLength(CacheKey.ica, getIca(), 6);
 
-    genClient.validateLength(getPayCycle(), 2);
+    genClient.validateLength(CacheKey.payCycle, getPayCycle(), 2);
 
-    genClient.validateLength(getAchRollup(), 1);
+    genClient.validateLength(CacheKey.achRollup, getAchRollup(), 1);
+    genClient.validateReferences(CacheKey.merchantRef);
   }
 
   /** Checks whether the 'merchantRef' field is set and is not null */
@@ -465,6 +461,10 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantBankProcessing> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantBankProcessing>() {
+    public Class<MerchantBankProcessing> getCreatedClass() {
+      return MerchantBankProcessing.class;
+    }
+
     @Override
     public MerchantBankProcessing create(org.json.JSONObject jsonObject) {
       return new MerchantBankProcessing(jsonObject);
@@ -472,7 +472,6 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTREF_IS_REQUIRED = false;
     public static final boolean BIN_IS_REQUIRED = false;
     public static final long BIN_MAX_LEN = 9;
@@ -488,7 +487,6 @@ public class MerchantBankProcessing extends GenericParcelable implements com.clo
     public static final long ACHROLLUP_MAX_LEN = 1;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

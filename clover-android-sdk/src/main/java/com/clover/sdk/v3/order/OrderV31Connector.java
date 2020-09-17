@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
  */
 package com.clover.sdk.v3.order;
 
+import com.clover.common.payments.VoidExtraData;
 import com.clover.sdk.FdParcelable;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -50,8 +51,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Service connector for {@link IOrderServiceV3_1}. Please see that class for documentation on the
- * RPC methods.
+ * RPC methods. Developers should use {@link OrderConnector} instead of using this class directly.
  *
+ * @see OrderConnector
  * @see IOrderServiceV3_1
  * @see ServiceConnector
  * @see Order
@@ -310,6 +312,33 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public List<LineItem> addFixedPriceLineItems(final String orderId, final String itemId, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addFixedPriceLineItems(orderId, itemId, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addPerUnitLineItems(final String orderId, final String itemId, final int unitQuantity, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPerUnitLineItems(orderId, itemId, unitQuantity, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addVariablePriceLineItems(final String orderId, final String itemId, final long price, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addVariablePriceLineItems(orderId, itemId, price, binName, userData, numItems, status));
+      }
+    });
+  }
+
   public LineItem addCustomLineItem(final String orderId, final LineItem lineItem, final boolean isTaxable) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, LineItem>() {
       @Override
@@ -346,6 +375,18 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order deleteLineItems2(final String orderId, final List<String> lineItemIds, final ClientEventType clientEventType, final String approvedByEmployeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.deleteLineItems2(orderId, lineItemIds, clientEventType, approvedByEmployeeId, status));
+    });
+  }
+
+  /**
+   * This method is being deprecated as there was no real usage of the "reason" parameter.
+   * Note that there is no direct replacement method.
+   * @deprecated you can use {@link OrderV31Connector#deleteLineItems2}
+   */
+  @Deprecated
   public Order deleteLineItemsWithReason(final String orderId, final List<String> lineItemIds, final String reason, final ClientEventType clientEventType) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -520,8 +561,10 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
 
   /**
    * Not available to non-Clover apps.
+   * @deprecated Use {@link #addPayment2}.
    * @y.exclude
    */
+  @Deprecated
   public Order addPayment(final String orderId, final Payment payment, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -636,6 +679,20 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.voidPaymentCardPresent2(orderId, paymentId, iccContainer, card, transactionInfo, passThroughExtras, reason, source, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Order voidPaymentCardPresent3(final String orderId, final String paymentId, final String iccContainer,
+                                       final PaymentRequestCardDetails card, final TransactionInfo transactionInfo, final Map<String, String> passThroughExtras, final VoidReason reason, VoidExtraData voidExtraData, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.voidPaymentCardPresent3(orderId, paymentId, iccContainer, card, transactionInfo, passThroughExtras, reason, voidExtraData, source, status));
       }
     });
   }

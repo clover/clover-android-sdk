@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -160,11 +159,7 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
    */
   public OnlineOrderCustomer(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -196,7 +191,7 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -422,6 +417,10 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OnlineOrderCustomer> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OnlineOrderCustomer>() {
+    public Class<OnlineOrderCustomer> getCreatedClass() {
+      return OnlineOrderCustomer.class;
+    }
+
     @Override
     public OnlineOrderCustomer create(org.json.JSONObject jsonObject) {
       return new OnlineOrderCustomer(jsonObject);
@@ -429,7 +428,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CUSTOMEREMAILADDRESS_IS_REQUIRED = false;
@@ -439,7 +437,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     public static final boolean CUSTOMERPHONENUMBER_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

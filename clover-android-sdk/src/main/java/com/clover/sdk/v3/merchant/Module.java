@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -97,11 +96,7 @@ public class Module extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Module(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -133,7 +128,7 @@ public class Module extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -233,6 +228,10 @@ public class Module extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Module> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Module>() {
+    public Class<Module> getCreatedClass() {
+      return Module.class;
+    }
+
     @Override
     public Module create(org.json.JSONObject jsonObject) {
       return new Module(jsonObject);
@@ -240,11 +239,9 @@ public class Module extends GenericParcelable implements com.clover.sdk.v3.Valid
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
-
   }
 
 }

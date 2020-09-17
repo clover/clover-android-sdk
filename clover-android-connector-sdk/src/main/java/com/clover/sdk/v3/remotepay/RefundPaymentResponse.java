@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -151,11 +150,7 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
    */
   public RefundPaymentResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -188,9 +183,9 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getPaymentId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -413,6 +408,10 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RefundPaymentResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RefundPaymentResponse>() {
+    public Class<RefundPaymentResponse> getCreatedClass() {
+      return RefundPaymentResponse.class;
+    }
+
     @Override
     public RefundPaymentResponse create(org.json.JSONObject jsonObject) {
       return new RefundPaymentResponse(jsonObject);
@@ -420,7 +419,6 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
@@ -430,7 +428,6 @@ public class RefundPaymentResponse extends com.clover.sdk.v3.remotepay.BaseRespo
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

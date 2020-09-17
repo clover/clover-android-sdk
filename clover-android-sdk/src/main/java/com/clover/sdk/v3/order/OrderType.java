@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -257,11 +256,7 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public OrderType(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -293,23 +288,24 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getLabelKey(), 127);
+    genClient.validateLength(CacheKey.labelKey, getLabelKey(), 127);
 
-    genClient.validateLength(getLabel(), 127);
+    genClient.validateLength(CacheKey.label, getLabel(), 127);
 
-    if (getFee() != null && ( getFee() < 0)) throw new IllegalArgumentException("Invalid value for 'getFee()'");
+    genClient.validateMin(CacheKey.fee, getFee(), 0L);
 
-    if (getMinOrderAmount() != null && ( getMinOrderAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getMinOrderAmount()'");
+    genClient.validateMin(CacheKey.minOrderAmount, getMinOrderAmount(), 0L);
 
-    if (getMaxOrderAmount() != null && ( getMaxOrderAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getMaxOrderAmount()'");
+    genClient.validateMin(CacheKey.maxOrderAmount, getMaxOrderAmount(), 0L);
 
-    if (getMaxRadius() != null && ( getMaxRadius() < 0)) throw new IllegalArgumentException("Invalid value for 'getMaxRadius()'");
+    genClient.validateMin(CacheKey.maxRadius, getMaxRadius(), 0L);
 
-    if (getAvgOrderTime() != null && ( getAvgOrderTime() < 0)) throw new IllegalArgumentException("Invalid value for 'getAvgOrderTime()'");
+    genClient.validateMin(CacheKey.avgOrderTime, getAvgOrderTime(), 0L);
 
-    genClient.validateLength(getSystemOrderTypeId(), 13);
+    genClient.validateCloverId(CacheKey.systemOrderTypeId, getSystemOrderTypeId());
+    genClient.validateReferences(CacheKey.categories);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -752,6 +748,10 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OrderType> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OrderType>() {
+    public Class<OrderType> getCreatedClass() {
+      return OrderType.class;
+    }
+
     @Override
     public OrderType create(org.json.JSONObject jsonObject) {
       return new OrderType(jsonObject);
@@ -759,7 +759,6 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean LABELKEY_IS_REQUIRED = false;
@@ -787,7 +786,6 @@ public class OrderType extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final long SYSTEMORDERTYPEID_MAX_LEN = 13;
     public static final boolean HOURS_IS_REQUIRED = false;
     public static final boolean CATEGORIES_IS_REQUIRED = false;
-
   }
 
 }

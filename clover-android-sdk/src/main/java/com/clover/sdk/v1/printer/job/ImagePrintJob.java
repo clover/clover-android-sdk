@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,14 +39,15 @@ import java.io.OutputStream;
  * </code>
  *
  * @deprecated Use {@link ImagePrintJob2}. This class writes files into external storage that
- * are not cleaned up and can eventually exhaust the device's storage.
+ *     are not cleaned up and can eventually exhaust the device's storage.
  */
-
+@Deprecated
 public class ImagePrintJob extends PrintJob implements Parcelable {
+
+  private static final String TAG = "ImagePrintJob";
 
   private static final int WIDTH_MAX = 600;
 
-  private static final String TAG = "ImagePrintJob";
   public static final int MAX_RECEIPT_WIDTH = 576;
 
   private static BitmapUtils mBitmapUtils = new BitmapUtils();
@@ -65,6 +66,12 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
       return this;
     }
 
+    /**
+     * Forces the provided bitmap to be scaled down to the maximum allowed width.
+     * <p/>
+     * If used, this method must be invoked after the {@link #bitmap(Bitmap)} method. This method
+     * performs possibly time-consuming calulations so it must be invoked on a background thread.
+     */
     public Builder maxWidth() {
       if (bitmap == null) {
         return this;
@@ -81,20 +88,22 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
       return this;
     }
 
+    /**
+     * Builds an instance. Performs some blocking IO so it must be invoked on a background thread.
+     */
     @Override
     public PrintJob build() {
       return new ImagePrintJob(this);
     }
   }
 
-  // FIXME: This is not a safe way to transfer file data, we should be using ContentProvider file methods instead
   public final File imageFile;
   protected String urlString;
   private static final String BUNDLE_KEY_IMAGE_FILE = "i";
 
   @Deprecated
   protected ImagePrintJob(Bitmap bitmap, int flags) {
-    this((ImagePrintJob.Builder)new Builder().bitmap(bitmap).flags(flags));
+    this((ImagePrintJob.Builder) new Builder().bitmap(bitmap).flags(flags));
   }
 
   protected ImagePrintJob(Builder builder) {
@@ -102,7 +111,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
     this.urlString = builder.urlString;
 
     File f = null;
-    if(builder.bitmap != null) {
+    if (builder.bitmap != null) {
       try {
         f = writeImageFile(builder.bitmap);
         builder.bitmap.recycle();
@@ -125,8 +134,10 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
   }
 
   public void print(Context context, Account account) {
+    Log.w(TAG, "Using deprecated ImagePrintJob class, please switch to ImagePrintJob2");
+
     Pair<Context, Account> params = new Pair<>(context,account);
-    if(this.urlString != null){
+    if (this.urlString != null) {
       new AsyncTask<Pair<Context, Account>, Void, Pair<Context, Account>>() {
         @Override
         protected Pair<Context, Account> doInBackground(Pair<Context, Account>... params) {
@@ -187,7 +198,7 @@ public class ImagePrintJob extends PrintJob implements Parcelable {
     if (!dir.exists()) {
         if (!dir.mkdirs()) {
             Log.e(TAG, "Unable to create dir for ImagePrintJob. Did you forget to declare WRITE_EXTERNAL_STORAGE permission in your AndroidManifest.xml?");
-        };
+        }
     }
     File imageFile = File.createTempFile("image-", ".png", dir);
     return imageFile;

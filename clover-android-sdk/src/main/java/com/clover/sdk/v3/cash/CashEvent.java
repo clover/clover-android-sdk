@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -58,7 +57,7 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
-   * Time at which the event was exectued
+   * Time at which the event was executed
    */
   public java.lang.Long getTimestamp() {
     return genClient.cacheGet(CacheKey.timestamp);
@@ -150,11 +149,7 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public CashEvent(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,6 +181,7 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchant);
   }
 
   /** Checks whether the 'type' field is set and is not null */
@@ -396,6 +392,10 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CashEvent> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CashEvent>() {
+    public Class<CashEvent> getCreatedClass() {
+      return CashEvent.class;
+    }
+
     @Override
     public CashEvent create(org.json.JSONObject jsonObject) {
       return new CashEvent(jsonObject);
@@ -403,7 +403,6 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean AMOUNTCHANGE_IS_REQUIRED = false;
     public static final boolean TIMESTAMP_IS_REQUIRED = false;
@@ -411,7 +410,6 @@ public class CashEvent extends GenericParcelable implements com.clover.sdk.v3.Va
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
     public static final boolean DEVICE_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
-
   }
 
 }

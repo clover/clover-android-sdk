@@ -28,12 +28,6 @@ public class SessionContract {
   public static final String COLUMN_TRANSACTION = "TX";
   public static final String COLUMN_TRANSACTION_CLASS = "TX_CLASS";
 
-  // Session property key definitions
-  public static final String PROPERTY_LOYALTY_RECEIPT_PRINTED = "LOYALTY_RECEIPT_PRINTED";
-  public static final String PROPERTY_LOYALTY_POINTS_EARNED = "LOYALTY_POINTS_EARNED";
-  public static final String PROPERTY_LOYALTY_POINTS_CALCULATED = "LOYALTY_POINTS_CALCULATED";
-  public static final String PROPERTY_LOYALTY_UUID = "LOYALTY_UUID";
-  public static final String PROPERTY_LOYALTY_ORDER_ID = "LOYALTY_ORDER_ID";
   // Session property table/column definition
   public static final String PROPERTIES_TABLE_NAME = "SESSION_PROPERTY";
   public static final String COLUMN_KEY = "KEY";

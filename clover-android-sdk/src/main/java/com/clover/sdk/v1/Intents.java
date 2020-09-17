@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 /**
  * This class contains most of the Clover-specific intents available to developer apps. These
  * intents allow apps to listen for events and start Clover activities. See Android documentation
@@ -92,14 +94,18 @@ public class Intents {
   public static final String ACTION_START_CUSTOMER_PROFILE = "com.clover.intent.action.START_CUSTOMER_PROFILE";
 
   /**
-   * Launch Pay activity with active order (Register Payments)
+   * Launch Pay activity with the provided order. This may be used to take a payment or perform a
+   * refund. When performing a refund the line items must have negative amounts.
+   * <p>
+   * See the SaleRefundTestActivity in the clover-android-sdk-example project for a full example.
    * <p>
    * Extras passed:
    * <ul>
    * <li>{@link #EXTRA_CLOVER_ORDER_ID} - The UUID of the order being paid for (REQUIRED)</li>
+   * <li>{@link #EXTRA_TRANSACTION_TYPE} - may be {@link #TRANSACTION_TYPE_CREDIT} for refund, the default is {@link #TRANSACTION_TYPE_PAYMENT}</li>
    * <li>{@link #EXTRA_OBEY_AUTO_LOGOUT} - If true and merchant uses auto-logout, device logs out after payment, default is false</li>
    * <li>{@link #EXTRA_ASK_FOR_TIP} - If true, customer will be prompted for tip after payment, default is true</li>
-   * <li>{@link #EXTRA_ALLOW_FIRE} - If true and merchant fires orders after payment, order is fired after payment, default is true </li>
+   * <li>{@link #EXTRA_ALLOW_FIRE} - If true and merchant fires orders after payment, order is fired after payment, default is true</li>
    * </ul>
    * <p>
    * Result data for this activity will include the same extras passed to it
@@ -146,39 +152,15 @@ public class Intents {
   public static final String ACTION_MODIFY_AMOUNT = "clover.intent.action.MODIFY_AMOUNT";
 
   /**
-   * Launch Sale activity
-   * <p>
-   * Extras passed:
-   * <ul>
-   * <li>{@link #EXTRA_AMOUNT} - Amount displayed on activity keypad (can be modified during activity)</li>
-   * </ul>
-   * <p>
-   * Result data includes:
-   * <ul>
-   * <li>{@link #EXTRA_PAYMENT} - The resulting payment</li>
-   * </ul>
-   * <p>
-   * Result codes:
-   * <ul>
-   *     <li>{@link android.app.Activity#RESULT_OK} - payment completed successfully</li>
-   *     <li>{@link android.app.Activity#RESULT_CANCELED} - payment not completed successfully</li>
-   * </ul>
+   * @deprecated Please use {@link #ACTION_CLOVER_PAY} instead
    */
+  @Deprecated
   public static final String ACTION_MANUAL_PAY = "clover.intent.action.MANUAL_PAY";
 
   /**
-   * Launch Refund activity
-   * <p>
-   * Extras passed:
-   * <ul>
-   * <li>NONE</li>
-   * </ul>
-   * <p>
-   * Result data includes:
-   * <ul>
-   * <li>{@link #EXTRA_CREDIT}</li>
-   * </ul>
+   * @deprecated Please use {@link #ACTION_CLOVER_PAY} instead
    */
+  @Deprecated
   public static final String ACTION_MANUAL_REFUND = "clover.intent.action.MANUAL_REFUND";
 
   /**
@@ -353,8 +335,11 @@ public class Intents {
   public static final String ACTION_UPDATE_PAYMENT_REMOTE_VIEWS = "clover.intent.action.ACTION_UPDATE_PAYMENT_REMOTE_VIEWS";
 
   /**
-   * Launch a dialog-style activity to authenticate an employee. Pick one of the following
-   * ways to authenticate an employee:
+   * Launch a dialog-style activity to authenticate an employee. All supported modes of
+   * authentication that are possible on this device will be enabled, such as: passcode, card swipe,
+   * fingerprint.
+   * <p/>
+   * Pick one of the following ways to authentication an employee:
    * <ol>
    *   <li>Authenticate an explicit employee by passing {@link #EXTRA_EMPLOYEE_ID} with the employee id</li>
    *   <li>Allow any manager or admin to authenticate by passing {@link #EXTRA_VALIDATE_ROLE} with boolean value true</li>
@@ -365,8 +350,8 @@ public class Intents {
    * <p/>
    * Optionally you may add the following extras:
    * <ul>
-   *   <li>{@link #EXTRA_REASON} - written explanation for authentication</li>
-   *   <li>{@link #EXTRA_SHOW_CANCEL_BUTTON} - If true, show cancel button on the dialog, default false</li>
+   *   <li>{@link #EXTRA_REASON} - written explanation for why authentication is needed (please localize to current locale)</li>
+   *   <li>{@link #EXTRA_SHOW_CANCEL_BUTTON} - if true, show cancel button on the dialog, default false</li>
    *   <li>{@link #EXTRA_PACKAGE} - package name associated with permission identified by {@link #EXTRA_PERMISSIONS} if validating some other package</li>
    * </ul>
    * <p>
@@ -1242,9 +1227,15 @@ public class Intents {
   /** {@link String}, elv transaction type for Germany */
   public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
+  public static final String GERMAN_ELV = "germanElv";
+  /** A value for {@link #EXTRA_GERMAN_ELV} */
   public static final String GERMAN_ELV_ONLINE  = "germanElvOnline";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
   public static final String GERMAN_ELV_OFFLINE  = "germanElvOffline";
+  /** A value for {@link #EXTRA_GERMAN_ELV} */
+  public static final String GERMAN_GIROCARD = "germanGirocard";
+  /** A value for {@link #EXTRA_ELV_APPLICATION_LABEL} */
+  public static final String EXTRA_ELV_APPLICATION_LABEL = "elvApplicationLabel";
 
   /* Transaction Settings Section End */
 
@@ -1438,4 +1429,76 @@ public class Intents {
 
   /** {@link Boolean} Flag to check if invoice feature is available for merchant*/
   public static final String EXTRA_INVOICE_ID_AVAILABLE = "clover.intent.extra.INVOICE_ID_AVAILABLE";
+
+  ///// Keypad ////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * An activity action that will start an activity that accepts keypad input from the
+   * user. Start for result, and obtain the text entered by the user from the result data
+   * extra {@link #RESULT_KEYPAD_TEXT}
+   * <p/>
+   * The type of keypad is selected by setting the extra {@link #EXTRA_KEYPAD_TYPE} to either
+   * {@link #KEYPAD_TYPE_NUMERIC}, {@link #KEYPAD_TYPE_EMAIL}, or
+   * {@link #KEYPAD_TYPE_PHONESMS}. The default is {@link #KEYPAD_TYPE_NUMERIC} if not
+   * specified.
+   * <p/>
+   * To pre-populate the text set the extra {@link #EXTRA_KEYPAD_TYPE}. This is optional.
+   * <p/>
+   * To show the user a list of text completions to the user set the extra
+   * {@link #EXTRA_KEYPAD_COMPLETIONS}. This is optional.
+   */
+  public static final String ACTION_KEYPAD = "clover.intent.action.KEYPAD";
+
+  /**
+   * Keypad optimized for numeric input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_NUMERIC = 1;
+  /**
+   * Keypad optimized for email address input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_EMAIL = 2;
+  /**
+   * Keypad optimized for phone and SMS number input. Set in the extra {@link #EXTRA_KEYPAD_TYPE}.
+   */
+  public static final int KEYPAD_TYPE_PHONESMS = 3;
+  /**
+   * An {@link ArrayList} of {@link String}, word completions to display above the keyboard.
+   * For example this can be used to
+   * provide a list of email suffixes ("@gmail.com", "@hotmail.com", etc). If absent, the
+   * completion bar is hidden. Set this into the start activity intent using
+   * {@link Bundle#putStringArrayList(String, ArrayList)}.
+   */
+  public static final String EXTRA_KEYPAD_COMPLETIONS = "completions";
+  /**
+   * An integer, the desired keypad type as an integer. Either {@link #KEYPAD_TYPE_NUMERIC}, or
+   * {@link #KEYPAD_TYPE_EMAIL}, or {@link #KEYPAD_TYPE_PHONESMS}.
+   * This is optional and defaults to {@link #KEYPAD_TYPE_NUMERIC} if not specified.
+   */
+  public static final String EXTRA_KEYPAD_TYPE = "type";
+  /**
+   * A {@link String}, the initial text to populate into the edit area.
+   * This is optional and defaults to the empty string if not specified.
+   */
+  public static final String EXTRA_KEYPAD_TEXT = "text";
+  /**
+   * A {@link String}, the text entered by the user.
+   * This is returned as an extra in the activity result data. This
+   * is only valid if the activity result code is {@link android.app.Activity#RESULT_OK}.
+   * <p/>
+   * The entire content of the edit text is returned here, as a string. This includes
+   * any initial text provided via {@link #EXTRA_KEYPAD_TEXT} (that wasn't edited away by the
+   * user).
+   */
+  public static final String RESULT_KEYPAD_TEXT = "text";
+  ///// Keypad ////////////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Intent to track package of the Payment.
+   */
+  public static final String EXTRA_ORIGINATING_PAYMENT_PACKAGE = "originating_payment_package";
+
+  /**
+   * Intent Extra to toggle credit surcharge.
+   */
+  public static final String EXTRA_DISABLE_CREDIT_SURCHARGE = "clover.intent.extra.DISABLE_SURCHARGE";
+
 }

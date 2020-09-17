@@ -15,9 +15,10 @@ dry_run = False
 keep_files = False
 downgrade = False
 
-version = "0.1"
+version = "1.0.1"
 # Version information:
 #       0.1: Initial release
+#       1.0.1: Update to fix downgrade with no current app
 #
 
 def which(program):
@@ -154,48 +155,47 @@ def main(argv):
         sys.exit(-2)
 
     try:
-        conn = sqlite3.connect(appinfo_db_file)
-        for row in conn.execute('select * from apps'):
-            pkg = row[3]
-            current_version = row[5]
-            apk_url = row[7]
-            installed_version = installed_versions.get(pkg, "?")
+        with sqlite3.connect(appinfo_db_file) as conn:
+            for row in conn.execute('select * from apps'):
+                pkg = row[3]
+                current_version = row[5]
+                apk_url = row[7]
+                installed_version = installed_versions.get(pkg, "?")
 
-            if debug:
-                print 'Package: {}, version: {} ({})'.format(pkg, installed_version, current_version)
+                if debug:
+                    print 'Package: {}, version: {} ({})'.format(pkg, installed_version, current_version)
 
-            if (not downgrade and installed_version == '?') \
-                    or (not downgrade and int(current_version) > int(installed_version)) \
-                    or (downgrade and int(current_version) < int(installed_version)):
-                if installed_version == '?' or int(current_version) > int(installed_version):
-                    print 'Updating package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version)
-                else:
-                    print 'Downgrading package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version)
-                sys.stdout.flush()
-
-                if apk_url == None:
-                    print_err('URL not found for package: {}, skipping'.format(pkg))
-                    continue
-
-                apk_file = "{}/{}-{}.apk".format(tempfile.gettempdir(), pkg, current_version)
-                if debug: print 'Downloading from URL: {}, to file: {}...'.format(apk_url, apk_file)
-
-                try:
-                    if not dry_run or keep_files: download(apk_url, apk_file)
-
-                    adb_install_command = '{} install {} -r -d {}'.format(adb, no_streaming, apk_file)
-                    return_code = 0
-                    if dry_run: print adb_install_command
+                if (not downgrade and installed_version == '?') \
+                        or (not downgrade and int(current_version) > int(installed_version)) \
+                        or (downgrade and installed_version != '?' and int(current_version) < int(installed_version)):
+                    if installed_version == '?' or int(current_version) > int(installed_version):
+                        print 'Updating package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version)
                     else:
-                        return_code, lines = run_command(adb_install_command)
-                finally:
-                    # If we are explicitly keeping or the command was not successful, keep the APK
-                    if keep_files or return_code != 0: print "APK file kept at: {}".format(apk_file)
-                    else: os.remove(apk_file)
+                        print 'Downgrading package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version)
+                    sys.stdout.flush()
+
+                    if apk_url == None:
+                        print_err('URL not found for package: {}, skipping'.format(pkg))
+                        continue
+
+                    apk_file = "{}/{}-{}.apk".format(tempfile.gettempdir(), pkg, current_version)
+                    if debug: print 'Downloading from URL: {}, to file: {}...'.format(apk_url, apk_file)
+
+                    try:
+                        if not dry_run or keep_files: download(apk_url, apk_file)
+
+                        adb_install_command = '{} install {} -r -d {}'.format(adb, no_streaming, apk_file)
+                        return_code = 0
+                        if dry_run: print adb_install_command
+                        else:
+                            return_code, lines = run_command(adb_install_command)
+                    finally:
+                        # If we are explicitly keeping or the command was not successful, keep the APK
+                        if keep_files or return_code != 0: print "APK file kept at: {}".format(apk_file)
+                        else: os.remove(apk_file)
     finally:
         if keep_files: print "App info DB file kept at: {}".format(appinfo_db_file)
         else :os.remove(appinfo_db_file)
-        sys.exit(0)
     
 if __name__ == "__main__":
     main(sys.argv[1:])

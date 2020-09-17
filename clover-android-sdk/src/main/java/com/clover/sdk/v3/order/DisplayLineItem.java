@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -250,11 +249,7 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
    */
   public DisplayLineItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -286,19 +281,19 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(getAlternateName(), 127);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 127);
 
-    genClient.validateLength(getNote(), 255);
+    genClient.validateLength(CacheKey.note, getNote(), 255);
 
-    genClient.validateLength(getBinName(), 127);
+    genClient.validateLength(CacheKey.binName, getBinName(), 127);
 
-    genClient.validateLength(getUserData(), 255);
+    genClient.validateLength(CacheKey.userData, getUserData(), 255);
 
-    genClient.validateLength(getPercent(), 255);
+    genClient.validateLength(CacheKey.percent, getPercent(), 255);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -786,6 +781,10 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DisplayLineItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DisplayLineItem>() {
+    public Class<DisplayLineItem> getCreatedClass() {
+      return DisplayLineItem.class;
+    }
+
     @Override
     public DisplayLineItem create(org.json.JSONObject jsonObject) {
       return new DisplayLineItem(jsonObject);
@@ -793,7 +792,6 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean ORDERID_IS_REQUIRED = false;
@@ -821,7 +819,6 @@ public class DisplayLineItem extends GenericParcelable implements com.clover.sdk
     public static final boolean REFUNDEDAMOUNT_IS_REQUIRED = false;
     public static final boolean PERCENT_IS_REQUIRED = false;
     public static final long PERCENT_MAX_LEN = 255;
-
   }
 
 }

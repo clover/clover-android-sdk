@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class QueryStatusEnum extends GenericParcelable implements com.clover.sdk
    */
   public QueryStatusEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class QueryStatusEnum extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<QueryStatusEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<QueryStatusEnum>() {
+    public Class<QueryStatusEnum> getCreatedClass() {
+      return QueryStatusEnum.class;
+    }
+
     @Override
     public QueryStatusEnum create(org.json.JSONObject jsonObject) {
       return new QueryStatusEnum(jsonObject);
@@ -208,9 +207,7 @@ public class QueryStatusEnum extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean QUERYSTATUS_IS_REQUIRED = false;
-
   }
 
 }

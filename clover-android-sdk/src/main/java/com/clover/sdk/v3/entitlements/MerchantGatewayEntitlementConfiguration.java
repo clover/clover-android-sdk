@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -187,11 +186,7 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
    */
   public MerchantGatewayEntitlementConfiguration(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -223,9 +218,10 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getMid(), 32);
+    genClient.validateLength(CacheKey.mid, getMid(), 32);
+    genClient.validateReferences(CacheKey.merchantGatewayEntitlement);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -516,6 +512,10 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantGatewayEntitlementConfiguration> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantGatewayEntitlementConfiguration>() {
+    public Class<MerchantGatewayEntitlementConfiguration> getCreatedClass() {
+      return MerchantGatewayEntitlementConfiguration.class;
+    }
+
     @Override
     public MerchantGatewayEntitlementConfiguration create(org.json.JSONObject jsonObject) {
       return new MerchantGatewayEntitlementConfiguration(jsonObject);
@@ -523,7 +523,6 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MID_IS_REQUIRED = false;
@@ -537,7 +536,6 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean MERCHANTGATEWAYENTITLEMENT_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class TransactionTypeEnum extends GenericParcelable implements com.clover
    */
   public TransactionTypeEnum(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,6 +196,10 @@ public class TransactionTypeEnum extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TransactionTypeEnum> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TransactionTypeEnum>() {
+    public Class<TransactionTypeEnum> getCreatedClass() {
+      return TransactionTypeEnum.class;
+    }
+
     @Override
     public TransactionTypeEnum create(org.json.JSONObject jsonObject) {
       return new TransactionTypeEnum(jsonObject);
@@ -208,9 +207,7 @@ public class TransactionTypeEnum extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean STATUS_IS_REQUIRED = false;
-
   }
 
 }

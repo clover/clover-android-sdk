@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -31,29 +30,25 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getX x}</li>
- * <li>{@link #getY y}</li>
+ * <li>{@link #getIds ids}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class Point extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+public class IdArray extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
-  public java.lang.Long getX() {
-    return genClient.cacheGet(CacheKey.x);
-  }
-
-  public java.lang.Long getY() {
-    return genClient.cacheGet(CacheKey.y);
+  /**
+   * List of ids
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getIds() {
+    return genClient.cacheGet(CacheKey.ids);
   }
 
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    x
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-    y
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    ids
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -68,13 +63,13 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
     }
   }
 
-  private final GenericClient<Point> genClient;
+  private final GenericClient<IdArray> genClient;
 
   /**
    * Constructs a new empty instance.
    */
-  public Point() {
-    genClient = new GenericClient<Point>(this);
+  public IdArray() {
+    genClient = new GenericClient<IdArray>(this);
   }
 
   @Override
@@ -85,27 +80,23 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Constructs a new empty instance.
    */
-  protected Point(boolean noInit) {
+  protected IdArray(boolean noInit) {
     genClient = null;
   }
 
   /**
    * Constructs a new instance from the given JSON String.
    */
-  public Point(String json) throws IllegalArgumentException {
+  public IdArray(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
    * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
    * reflected in this instance and vice-versa.
    */
-  public Point(org.json.JSONObject jsonObject) {
+  public IdArray(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
@@ -113,7 +104,7 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
    */
-  public Point(Point src) {
+  public IdArray(IdArray src) {
     this();
     if (src.genClient.getJsonObject() != null) {
       genClient.setJsonObject(com.clover.sdk.v3.JsonHelper.deepCopy(src.genClient.getJSONObject()));
@@ -130,53 +121,38 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.ids);
   }
 
-  /** Checks whether the 'x' field is set and is not null */
-  public boolean isNotNullX() {
-    return genClient.cacheValueIsNotNull(CacheKey.x);
+  /** Checks whether the 'ids' field is set and is not null */
+  public boolean isNotNullIds() {
+    return genClient.cacheValueIsNotNull(CacheKey.ids);
   }
 
-  /** Checks whether the 'y' field is set and is not null */
-  public boolean isNotNullY() {
-    return genClient.cacheValueIsNotNull(CacheKey.y);
-  }
+  /** Checks whether the 'ids' field is set and is not null and is not empty */
+  public boolean isNotEmptyIds() { return isNotNullIds() && !getIds().isEmpty(); }
 
 
 
-  /** Checks whether the 'x' field has been set, however the value could be null */
-  public boolean hasX() {
-    return genClient.cacheHasKey(CacheKey.x);
-  }
-
-  /** Checks whether the 'y' field has been set, however the value could be null */
-  public boolean hasY() {
-    return genClient.cacheHasKey(CacheKey.y);
+  /** Checks whether the 'ids' field has been set, however the value could be null */
+  public boolean hasIds() {
+    return genClient.cacheHasKey(CacheKey.ids);
   }
 
 
   /**
-   * Sets the field 'x'.
+   * Sets the field 'ids'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Point setX(java.lang.Long x) {
-    return genClient.setOther(x, CacheKey.x);
-  }
-
-  /**
-   * Sets the field 'y'.
-   */
-  public Point setY(java.lang.Long y) {
-    return genClient.setOther(y, CacheKey.y);
+  public IdArray setIds(java.util.List<com.clover.sdk.v3.base.Reference> ids) {
+    return genClient.setArrayRecord(ids, CacheKey.ids);
   }
 
 
-  /** Clears the 'x' field, the 'has' method for this field will now return false */
-  public void clearX() {
-    genClient.clear(CacheKey.x);
-  }
-  /** Clears the 'y' field, the 'has' method for this field will now return false */
-  public void clearY() {
-    genClient.clear(CacheKey.y);
+  /** Clears the 'ids' field, the 'has' method for this field will now return false */
+  public void clearIds() {
+    genClient.clear(CacheKey.ids);
   }
 
 
@@ -197,8 +173,8 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Create a copy of this instance that contains only fields that were set after the constructor was called.
    */
-  public Point copyChanges() {
-    Point copy = new Point();
+  public IdArray copyChanges() {
+    IdArray copy = new IdArray();
     copy.mergeChanges(this);
     copy.resetChangeLog();
     return copy;
@@ -207,39 +183,40 @@ public class Point extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Copy all the changed fields from the given source to this instance.
    */
-  public void mergeChanges(Point src) {
+  public void mergeChanges(IdArray src) {
     if (src.genClient.getChangeLog() != null) {
-      genClient.mergeChanges(new Point(src).getJSONObject(), src.genClient);
+      genClient.mergeChanges(new IdArray(src).getJSONObject(), src.genClient);
     }
   }
 
-  public static final android.os.Parcelable.Creator<Point> CREATOR = new android.os.Parcelable.Creator<Point>() {
+  public static final android.os.Parcelable.Creator<IdArray> CREATOR = new android.os.Parcelable.Creator<IdArray>() {
     @Override
-    public Point createFromParcel(android.os.Parcel in) {
-      Point instance = new Point(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
+    public IdArray createFromParcel(android.os.Parcel in) {
+      IdArray instance = new IdArray(com.clover.sdk.v3.JsonParcelHelper.ObjectWrapper.CREATOR.createFromParcel(in).unwrap());
       instance.genClient.setBundle(in.readBundle(getClass().getClassLoader()));
       instance.genClient.setChangeLog(in.readBundle());
       return instance;
     }
 
     @Override
-    public Point[] newArray(int size) {
-      return new Point[size];
+    public IdArray[] newArray(int size) {
+      return new IdArray[size];
     }
   };
 
-  public static final com.clover.sdk.JSONifiable.Creator<Point> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Point>() {
+  public static final com.clover.sdk.JSONifiable.Creator<IdArray> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<IdArray>() {
+    public Class<IdArray> getCreatedClass() {
+      return IdArray.class;
+    }
+
     @Override
-    public Point create(org.json.JSONObject jsonObject) {
-      return new Point(jsonObject);
+    public IdArray create(org.json.JSONObject jsonObject) {
+      return new IdArray(jsonObject);
     }
   };
 
   public interface Constraints {
-
-    public static final boolean X_IS_REQUIRED = false;
-    public static final boolean Y_IS_REQUIRED = false;
-
+    public static final boolean IDS_IS_REQUIRED = false;
   }
 
 }

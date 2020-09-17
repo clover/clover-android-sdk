@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -118,11 +117,7 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
    */
   public EmailAddress(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -155,7 +150,8 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   @Override
   public void validate() {
 
-    genClient.validateNull(getEmailAddress(), "emailAddress");
+    genClient.validateNotNull(CacheKey.emailAddress, getEmailAddress());
+    genClient.validateReferences(CacheKey.customer);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -320,6 +316,10 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<EmailAddress> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<EmailAddress>() {
+    public Class<EmailAddress> getCreatedClass() {
+      return EmailAddress.class;
+    }
+
     @Override
     public EmailAddress create(org.json.JSONObject jsonObject) {
       return new EmailAddress(jsonObject);
@@ -327,13 +327,11 @@ public class EmailAddress extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean EMAILADDRESS_IS_REQUIRED = true;
     public static final boolean VERIFIEDTIME_IS_REQUIRED = false;
     public static final boolean PRIMARYEMAIL_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
-
   }
 
 }

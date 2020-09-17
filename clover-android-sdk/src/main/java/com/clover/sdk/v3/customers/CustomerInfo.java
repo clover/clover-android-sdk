@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -132,11 +131,7 @@ public class CustomerInfo extends GenericParcelable implements com.clover.sdk.v3
    */
   public CustomerInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -335,6 +330,10 @@ public class CustomerInfo extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CustomerInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CustomerInfo>() {
+    public Class<CustomerInfo> getCreatedClass() {
+      return CustomerInfo.class;
+    }
+
     @Override
     public CustomerInfo create(org.json.JSONObject jsonObject) {
       return new CustomerInfo(jsonObject);
@@ -342,13 +341,11 @@ public class CustomerInfo extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean CUSTOMER_IS_REQUIRED = false;
     public static final boolean DISPLAYSTRING_IS_REQUIRED = false;
     public static final boolean EXTERNALID_IS_REQUIRED = false;
     public static final boolean EXTERNALSYSTEMNAME_IS_REQUIRED = false;
     public static final boolean EXTRAS_IS_REQUIRED = false;
-
   }
 
 }

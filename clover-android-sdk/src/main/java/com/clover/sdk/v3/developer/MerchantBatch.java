@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -92,11 +91,7 @@ public class MerchantBatch extends GenericParcelable implements com.clover.sdk.v
    */
   public MerchantBatch(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -128,6 +123,7 @@ public class MerchantBatch extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.merchants);
   }
 
   /** Checks whether the 'merchants' field is set and is not null */
@@ -211,6 +207,10 @@ public class MerchantBatch extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantBatch> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantBatch>() {
+    public Class<MerchantBatch> getCreatedClass() {
+      return MerchantBatch.class;
+    }
+
     @Override
     public MerchantBatch create(org.json.JSONObject jsonObject) {
       return new MerchantBatch(jsonObject);
@@ -218,9 +218,7 @@ public class MerchantBatch extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean MERCHANTS_IS_REQUIRED = false;
-
   }
 
 }

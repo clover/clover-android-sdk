@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -104,11 +103,7 @@ public class PhoneNumber extends GenericParcelable implements com.clover.sdk.v3.
    */
   public PhoneNumber(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -141,7 +136,8 @@ public class PhoneNumber extends GenericParcelable implements com.clover.sdk.v3.
   @Override
   public void validate() {
 
-    genClient.validateNull(getPhoneNumber(), "phoneNumber");
+    genClient.validateNotNull(CacheKey.phoneNumber, getPhoneNumber());
+    genClient.validateReferences(CacheKey.customer);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -264,6 +260,10 @@ public class PhoneNumber extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PhoneNumber> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PhoneNumber>() {
+    public Class<PhoneNumber> getCreatedClass() {
+      return PhoneNumber.class;
+    }
+
     @Override
     public PhoneNumber create(org.json.JSONObject jsonObject) {
       return new PhoneNumber(jsonObject);
@@ -271,11 +271,9 @@ public class PhoneNumber extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean PHONENUMBER_IS_REQUIRED = true;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
-
   }
 
 }

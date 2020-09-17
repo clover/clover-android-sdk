@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -115,11 +114,7 @@ public class BaseSale extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public BaseSale(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -313,6 +308,10 @@ public class BaseSale extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<BaseSale> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<BaseSale>() {
+    public Class<BaseSale> getCreatedClass() {
+      return BaseSale.class;
+    }
+
     @Override
     public BaseSale create(org.json.JSONObject jsonObject) {
       return new BaseSale(jsonObject);
@@ -320,13 +319,11 @@ public class BaseSale extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean NUMBERSOLD_IS_REQUIRED = false;
     public static final boolean REVENUESOLD_IS_REQUIRED = false;
     public static final boolean NUMNONREVENUESOLD_IS_REQUIRED = false;
     public static final boolean PRICESOLD_IS_REQUIRED = false;
-
   }
 
 }

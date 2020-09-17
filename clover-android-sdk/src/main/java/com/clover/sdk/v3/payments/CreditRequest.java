@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -104,11 +103,7 @@ public class CreditRequest extends GenericParcelable implements com.clover.sdk.v
    */
   public CreditRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -140,7 +135,7 @@ public class CreditRequest extends GenericParcelable implements com.clover.sdk.v
 
   @Override
   public void validate() {
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
   }
 
   /** Checks whether the 'orderId' field is set and is not null */
@@ -265,6 +260,10 @@ public class CreditRequest extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CreditRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CreditRequest>() {
+    public Class<CreditRequest> getCreatedClass() {
+      return CreditRequest.class;
+    }
+
     @Override
     public CreditRequest create(org.json.JSONObject jsonObject) {
       return new CreditRequest(jsonObject);
@@ -272,12 +271,10 @@ public class CreditRequest extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
     public static final boolean CREDIT_IS_REQUIRED = false;
     public static final boolean PAYMENTCARD_IS_REQUIRED = false;
-
   }
 
 }

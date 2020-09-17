@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -130,11 +129,7 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
    */
   public VasPayloadElement(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -330,6 +325,10 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VasPayloadElement> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VasPayloadElement>() {
+    public Class<VasPayloadElement> getCreatedClass() {
+      return VasPayloadElement.class;
+    }
+
     @Override
     public VasPayloadElement create(org.json.JSONObject jsonObject) {
       return new VasPayloadElement(jsonObject);
@@ -337,13 +336,11 @@ public class VasPayloadElement extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean DATATYPE_IS_REQUIRED = false;
     public static final boolean RESPONSEFORMAT_IS_REQUIRED = false;
     public static final boolean VASDATA_IS_REQUIRED = false;
     public static final boolean PROTOCOLID_IS_REQUIRED = false;
     public static final boolean MERCHANTID_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -90,11 +89,7 @@ public class PlatformError extends GenericParcelable implements com.clover.sdk.v
    */
   public PlatformError(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -204,6 +199,10 @@ public class PlatformError extends GenericParcelable implements com.clover.sdk.v
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PlatformError> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PlatformError>() {
+    public Class<PlatformError> getCreatedClass() {
+      return PlatformError.class;
+    }
+
     @Override
     public PlatformError create(org.json.JSONObject jsonObject) {
       return new PlatformError(jsonObject);
@@ -211,9 +210,7 @@ public class PlatformError extends GenericParcelable implements com.clover.sdk.v
   };
 
   public interface Constraints {
-
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

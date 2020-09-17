@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -29,7 +28,7 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * Holds summaries of payments, credits, refunds and non-revenue item sales grouped by a configurable time period, like by hour
+ * Holds summaries of payments, credits, refunds and non-revenue item sales grouped by a configurable time period, like by hour.
  * <p>
  * <h3>Fields</h3>
  * <ul>
@@ -63,28 +62,28 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
-   * Summaries grouped over time of payments. Does not include items marked non-revenue
+   * Summaries grouped over time of payments. Does not include items marked non-revenue.
    */
   public com.clover.sdk.v3.report.SummarySection getPayments() {
     return genClient.cacheGet(CacheKey.payments);
   }
 
   /**
-   * Summaries grouped over time of sales of items marked non-revenue including modifiers and discounts
+   * Summaries grouped over time of sales of items marked non-revenue including modifiers and discounts.
    */
   public com.clover.sdk.v3.report.SummarySection getNonRevenue() {
     return genClient.cacheGet(CacheKey.nonRevenue);
   }
 
   /**
-   * Summaries grouped over time of credits, also known as manual or naked refunds
+   * Summaries grouped over time of credits, also known as manual or naked refunds.
    */
   public com.clover.sdk.v3.report.SummarySection getCredits() {
     return genClient.cacheGet(CacheKey.credits);
   }
 
   /**
-   * Summaries grouped over time of refunds
+   * Summaries grouped over time of refunds.
    */
   public com.clover.sdk.v3.report.SummarySection getRefunds() {
     return genClient.cacheGet(CacheKey.refunds);
@@ -98,7 +97,7 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
-   * Summaries grouped over time of discounts
+   * Summaries grouped over time of discounts.
    */
   public com.clover.sdk.v3.report.SummarySection getDiscounts() {
     return genClient.cacheGet(CacheKey.discounts);
@@ -112,49 +111,49 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
-   * Summaries grouped over time showing top 5 line items in terms of revenue
+   * Summaries grouped over time showing top 5 line items in terms of revenue.
    */
   public com.clover.sdk.v3.report.SummarySection getTop5Items() {
     return genClient.cacheGet(CacheKey.top5Items);
   }
 
   /**
-   * Summaries grouped by category, showing top 5 category of line items sold in terms of revenue
+   * Summaries grouped by category, showing top 5 category of line items sold in terms of revenue.
    */
   public com.clover.sdk.v3.report.SummarySection getTop5Category() {
     return genClient.cacheGet(CacheKey.top5Category);
   }
 
   /**
-   * Summaries grouped by revenue class, AKA labels, showing top 5 revenue class of items sold in terms of revenue
+   * Summaries grouped by revenue class, AKA labels, showing top 5 revenue class of items sold in terms of revenue.
    */
   public com.clover.sdk.v3.report.SummarySection getTop5RevenueClasses() {
     return genClient.cacheGet(CacheKey.top5RevenueClasses);
   }
 
   /**
-   * The time period that defines the size of the groups: hour, day, week, month, ungrouped
+   * The time period that defines the size of the groups: hour, day, week, month, ungrouped.
    */
   public com.clover.sdk.v3.report.TimePeriod getPeriod() {
     return genClient.cacheGet(CacheKey.period);
   }
 
   /**
-   * Summary of payments and refunds by tender
+   * Summary of payments and refunds by tender.
    */
   public com.clover.sdk.v3.report.ReportPaymentsV2Section getTendersSection() {
     return genClient.cacheGet(CacheKey.tendersSection);
   }
 
   /**
-   * Full report of revenue items sold based on revenue classes AKA labels summary
+   * Full report of revenue items sold based on revenue classes AKA labels summary.
    */
   public com.clover.sdk.v3.report.LabelSummarySection getRevenueClasses() {
     return genClient.cacheGet(CacheKey.revenueClasses);
   }
 
   /**
-   * Summary of payments and refunds by card type
+   * Summary of payments and refunds by card type.
    */
   public com.clover.sdk.v3.report.ReportPaymentsV2Section getCardTypesSection() {
     return genClient.cacheGet(CacheKey.cardTypesSection);
@@ -252,11 +251,7 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
    */
   public PaymentsAndNonRevenueGroupedOverTime(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -734,6 +729,10 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<PaymentsAndNonRevenueGroupedOverTime> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<PaymentsAndNonRevenueGroupedOverTime>() {
+    public Class<PaymentsAndNonRevenueGroupedOverTime> getCreatedClass() {
+      return PaymentsAndNonRevenueGroupedOverTime.class;
+    }
+
     @Override
     public PaymentsAndNonRevenueGroupedOverTime create(org.json.JSONObject jsonObject) {
       return new PaymentsAndNonRevenueGroupedOverTime(jsonObject);
@@ -741,7 +740,6 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   };
 
   public interface Constraints {
-
     public static final boolean SALESSUMMARIES_IS_REQUIRED = false;
     public static final boolean PAYMENTS_IS_REQUIRED = false;
     public static final boolean NONREVENUE_IS_REQUIRED = false;
@@ -759,7 +757,6 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     public static final boolean CARDTYPESSECTION_IS_REQUIRED = false;
     public static final boolean CASHDEPOSITSECTION_IS_REQUIRED = false;
     public static final boolean DECLINEDOFFLINEPAYMENTSSECTION_IS_REQUIRED = false;
-
   }
 
 }

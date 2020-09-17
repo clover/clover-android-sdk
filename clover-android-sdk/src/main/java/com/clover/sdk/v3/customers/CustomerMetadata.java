@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -150,11 +149,7 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
    */
   public CustomerMetadata(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -186,9 +181,10 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getBusinessName(), 127);
+    genClient.validateLength(CacheKey.businessName, getBusinessName(), 127);
 
-    genClient.validateLength(getNote(), 2000);
+    genClient.validateLength(CacheKey.note, getNote(), 2000);
+    genClient.validateReferences(CacheKey.customer);
   }
 
   /** Checks whether the 'businessName' field is set and is not null */
@@ -395,6 +391,10 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CustomerMetadata> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CustomerMetadata>() {
+    public Class<CustomerMetadata> getCreatedClass() {
+      return CustomerMetadata.class;
+    }
+
     @Override
     public CustomerMetadata create(org.json.JSONObject jsonObject) {
       return new CustomerMetadata(jsonObject);
@@ -402,7 +402,6 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean BUSINESSNAME_IS_REQUIRED = false;
     public static final long BUSINESSNAME_MAX_LEN = 127;
     public static final boolean NOTE_IS_REQUIRED = false;
@@ -412,7 +411,6 @@ public class CustomerMetadata extends GenericParcelable implements com.clover.sd
     public static final boolean DOBDAY_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CUSTOMER_IS_REQUIRED = false;
-
   }
 
 }

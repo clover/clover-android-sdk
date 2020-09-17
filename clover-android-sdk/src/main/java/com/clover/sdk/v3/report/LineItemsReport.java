@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -104,11 +103,7 @@ public class LineItemsReport extends GenericParcelable implements com.clover.sdk
    */
   public LineItemsReport(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -264,6 +259,10 @@ public class LineItemsReport extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LineItemsReport> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LineItemsReport>() {
+    public Class<LineItemsReport> getCreatedClass() {
+      return LineItemsReport.class;
+    }
+
     @Override
     public LineItemsReport create(org.json.JSONObject jsonObject) {
       return new LineItemsReport(jsonObject);
@@ -271,11 +270,9 @@ public class LineItemsReport extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean REVENUEITEMS_IS_REQUIRED = false;
     public static final boolean NONREVENUEITEMS_IS_REQUIRED = false;
     public static final boolean MAJORLABELSEXIST_IS_REQUIRED = false;
-
   }
 
 }

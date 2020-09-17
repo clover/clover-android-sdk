@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -147,11 +146,7 @@ public class IdentityDocument extends GenericParcelable implements com.clover.sd
    */
   public IdentityDocument(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -183,11 +178,12 @@ public class IdentityDocument extends GenericParcelable implements com.clover.sd
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getType(), 30);
+    genClient.validateLength(CacheKey.type, getType(), 30);
 
-    genClient.validateLength(getNumber(), 2000);
+    genClient.validateLength(CacheKey.number, getNumber(), 2000);
+    genClient.validateReferences(CacheKey.payment);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -394,6 +390,10 @@ public class IdentityDocument extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<IdentityDocument> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<IdentityDocument>() {
+    public Class<IdentityDocument> getCreatedClass() {
+      return IdentityDocument.class;
+    }
+
     @Override
     public IdentityDocument create(org.json.JSONObject jsonObject) {
       return new IdentityDocument(jsonObject);
@@ -401,7 +401,6 @@ public class IdentityDocument extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean TYPE_IS_REQUIRED = false;
@@ -412,7 +411,6 @@ public class IdentityDocument extends GenericParcelable implements com.clover.sd
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
-
   }
 
 }

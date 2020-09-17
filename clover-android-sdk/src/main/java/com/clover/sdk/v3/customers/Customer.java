@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -179,11 +178,7 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Customer(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -215,11 +210,13 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getFirstName(), 64);
+    genClient.validateLength(CacheKey.firstName, getFirstName(), 64);
 
-    genClient.validateLength(getLastName(), 64);
+    genClient.validateLength(CacheKey.lastName, getLastName(), 64);
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.orders);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -558,6 +555,10 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Customer> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Customer>() {
+    public Class<Customer> getCreatedClass() {
+      return Customer.class;
+    }
+
     @Override
     public Customer create(org.json.JSONObject jsonObject) {
       return new Customer(jsonObject);
@@ -565,7 +566,6 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MERCHANT_IS_REQUIRED = false;
@@ -581,7 +581,6 @@ public class Customer extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PHONENUMBERS_IS_REQUIRED = false;
     public static final boolean CARDS_IS_REQUIRED = false;
     public static final boolean METADATA_IS_REQUIRED = false;
-
   }
 
 }

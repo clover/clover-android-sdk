@@ -186,7 +186,11 @@ public final class Platform2 {
       }
     },
     /**
-     * Device supports customer facing external display. It may or may not be currently connected.
+     * Device supports <b>non-touch</b> customer facing external display. It may or may not be
+     * currently connected.
+     * <p/>
+     * Dual touchscreen devices such as Clover Station Pro do not have this feature. Use
+     * {@link android.hardware.display.DisplayManager} to detect dual touch screen devices.
      */
     CUSTOMER_FACING_EXTERNAL_DISPLAY {
       @Override

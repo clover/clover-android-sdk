@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -32,6 +31,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getRapidDepositUrl rapidDepositUrl}</li>
  * <li>{@link #getTxCount txCount}</li>
  * <li>{@link #getTotalBatchAmount totalBatchAmount}</li>
  * <li>{@link #getDevices devices}</li>
@@ -39,6 +39,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getBatchType batchType}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getCloseoutTimeDifference closeoutTimeDifference}</li>
  * <li>{@link #getBatchDetails batchDetails}</li>
  * <li>{@link #getBatchTransactions batchTransactions}</li>
  * </ul>
@@ -48,6 +49,13 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  /**
+   * URL pointing to rapid deposit i.e. clover.com/dashboard.
+   */
+  public java.lang.String getRapidDepositUrl() {
+    return genClient.cacheGet(CacheKey.rapidDepositUrl);
   }
 
   /**
@@ -94,6 +102,13 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
+   * Time difference in minutes between expected and actual closeout
+   */
+  public java.lang.Long getCloseoutTimeDifference() {
+    return genClient.cacheGet(CacheKey.closeoutTimeDifference);
+  }
+
+  /**
    * Details split based on card / employees
    */
   public com.clover.sdk.v3.payments.BatchDetail getBatchDetails() {
@@ -113,6 +128,8 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    rapidDepositUrl
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     txCount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     totalBatchAmount
@@ -126,6 +143,8 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    closeoutTimeDifference
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     batchDetails
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchDetail.JSON_CREATOR)),
@@ -171,11 +190,7 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Batch(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -207,12 +222,17 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
   }
 
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return genClient.cacheValueIsNotNull(CacheKey.id);
+  }
+
+  /** Checks whether the 'rapidDepositUrl' field is set and is not null */
+  public boolean isNotNullRapidDepositUrl() {
+    return genClient.cacheValueIsNotNull(CacheKey.rapidDepositUrl);
   }
 
   /** Checks whether the 'txCount' field is set and is not null */
@@ -250,6 +270,11 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'closeoutTimeDifference' field is set and is not null */
+  public boolean isNotNullCloseoutTimeDifference() {
+    return genClient.cacheValueIsNotNull(CacheKey.closeoutTimeDifference);
+  }
+
   /** Checks whether the 'batchDetails' field is set and is not null */
   public boolean isNotNullBatchDetails() {
     return genClient.cacheValueIsNotNull(CacheKey.batchDetails);
@@ -265,6 +290,11 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'rapidDepositUrl' field has been set, however the value could be null */
+  public boolean hasRapidDepositUrl() {
+    return genClient.cacheHasKey(CacheKey.rapidDepositUrl);
   }
 
   /** Checks whether the 'txCount' field has been set, however the value could be null */
@@ -302,6 +332,11 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'closeoutTimeDifference' field has been set, however the value could be null */
+  public boolean hasCloseoutTimeDifference() {
+    return genClient.cacheHasKey(CacheKey.closeoutTimeDifference);
+  }
+
   /** Checks whether the 'batchDetails' field has been set, however the value could be null */
   public boolean hasBatchDetails() {
     return genClient.cacheHasKey(CacheKey.batchDetails);
@@ -318,6 +353,13 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Batch setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'rapidDepositUrl'.
+   */
+  public Batch setRapidDepositUrl(java.lang.String rapidDepositUrl) {
+    return genClient.setOther(rapidDepositUrl, CacheKey.rapidDepositUrl);
   }
 
   /**
@@ -370,6 +412,13 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
+   * Sets the field 'closeoutTimeDifference'.
+   */
+  public Batch setCloseoutTimeDifference(java.lang.Long closeoutTimeDifference) {
+    return genClient.setOther(closeoutTimeDifference, CacheKey.closeoutTimeDifference);
+  }
+
+  /**
    * Sets the field 'batchDetails'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -391,6 +440,10 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
+  }
+  /** Clears the 'rapidDepositUrl' field, the 'has' method for this field will now return false */
+  public void clearRapidDepositUrl() {
+    genClient.clear(CacheKey.rapidDepositUrl);
   }
   /** Clears the 'txCount' field, the 'has' method for this field will now return false */
   public void clearTxCount() {
@@ -419,6 +472,10 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
+  }
+  /** Clears the 'closeoutTimeDifference' field, the 'has' method for this field will now return false */
+  public void clearCloseoutTimeDifference() {
+    genClient.clear(CacheKey.closeoutTimeDifference);
   }
   /** Clears the 'batchDetails' field, the 'has' method for this field will now return false */
   public void clearBatchDetails() {
@@ -479,6 +536,10 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Batch> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Batch>() {
+    public Class<Batch> getCreatedClass() {
+      return Batch.class;
+    }
+
     @Override
     public Batch create(org.json.JSONObject jsonObject) {
       return new Batch(jsonObject);
@@ -486,9 +547,9 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean RAPIDDEPOSITURL_IS_REQUIRED = false;
     public static final boolean TXCOUNT_IS_REQUIRED = false;
     public static final boolean TOTALBATCHAMOUNT_IS_REQUIRED = false;
     public static final boolean DEVICES_IS_REQUIRED = false;
@@ -496,9 +557,9 @@ public class Batch extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean BATCHTYPE_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean CLOSEOUTTIMEDIFFERENCE_IS_REQUIRED = false;
     public static final boolean BATCHDETAILS_IS_REQUIRED = false;
     public static final boolean BATCHTRANSACTIONS_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -89,11 +88,7 @@ public class VasDataType extends GenericParcelable implements com.clover.sdk.v3.
    */
   public VasDataType(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -203,6 +198,10 @@ public class VasDataType extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<VasDataType> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<VasDataType>() {
+    public Class<VasDataType> getCreatedClass() {
+      return VasDataType.class;
+    }
+
     @Override
     public VasDataType create(org.json.JSONObject jsonObject) {
       return new VasDataType(jsonObject);
@@ -210,9 +209,7 @@ public class VasDataType extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean DATATYPE_IS_REQUIRED = false;
-
   }
 
 }

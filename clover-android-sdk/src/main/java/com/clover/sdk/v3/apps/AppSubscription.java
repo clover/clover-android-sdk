@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -55,6 +54,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /**
    * DEPRECATED: App subscription name.  Per country pricing in subscriptionCountries.
    */
+  @Deprecated
   public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
@@ -62,6 +62,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /**
    * DEPRECATED: The cost of the subscription.  Per country pricing in subscriptionCountries.
    */
+  @Deprecated
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
@@ -69,6 +70,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /**
    * DEPRECATED: App subscription name.  Per country pricing in subscriptionCountries.
    */
+  @Deprecated
   public java.lang.String getDescription() {
     return genClient.cacheGet(CacheKey.description);
   }
@@ -76,6 +78,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   /**
    * DEPRECATED: App subscription active status.  Per country pricing in subscriptionCountries.
    */
+  @Deprecated
   public java.lang.Boolean getActive() {
     return genClient.cacheGet(CacheKey.active);
   }
@@ -170,11 +173,7 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
    */
   public AppSubscription(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,15 +205,16 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 20);
+    genClient.validateLength(CacheKey.name, getName(), 20);
 
-    if (getAmount() != null && ( getAmount() < 0)) throw new IllegalArgumentException("Invalid value for 'getAmount()'");
+    genClient.validateMin(CacheKey.amount, getAmount(), 0L);
 
-    genClient.validateLength(getDescription(), 1024);
+    genClient.validateLength(CacheKey.description, getDescription(), 1024);
 
-    genClient.validateLength(getLabel(), 20);
+    genClient.validateLength(CacheKey.label, getLabel(), 20);
+    genClient.validateReferences(CacheKey.app);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -468,6 +468,10 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<AppSubscription> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<AppSubscription>() {
+    public Class<AppSubscription> getCreatedClass() {
+      return AppSubscription.class;
+    }
+
     @Override
     public AppSubscription create(org.json.JSONObject jsonObject) {
       return new AppSubscription(jsonObject);
@@ -475,7 +479,6 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = false;
@@ -490,7 +493,6 @@ public class AppSubscription extends GenericParcelable implements com.clover.sdk
     public static final boolean APP_IS_REQUIRED = false;
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 20;
-
   }
 
 }

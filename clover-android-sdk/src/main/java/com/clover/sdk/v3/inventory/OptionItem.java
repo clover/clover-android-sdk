@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -104,11 +103,7 @@ public class OptionItem extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public OptionItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -140,6 +135,8 @@ public class OptionItem extends GenericParcelable implements com.clover.sdk.v3.V
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.option);
+    genClient.validateReferences(CacheKey.item);
   }
 
   /** Checks whether the 'option' field is set and is not null */
@@ -243,6 +240,10 @@ public class OptionItem extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<OptionItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<OptionItem>() {
+    public Class<OptionItem> getCreatedClass() {
+      return OptionItem.class;
+    }
+
     @Override
     public OptionItem create(org.json.JSONObject jsonObject) {
       return new OptionItem(jsonObject);
@@ -250,10 +251,8 @@ public class OptionItem extends GenericParcelable implements com.clover.sdk.v3.V
   };
 
   public interface Constraints {
-
     public static final boolean OPTION_IS_REQUIRED = false;
     public static final boolean ITEM_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -87,11 +86,7 @@ public class ModifierGroupArray extends GenericParcelable implements com.clover.
    */
   public ModifierGroupArray(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -206,6 +201,10 @@ public class ModifierGroupArray extends GenericParcelable implements com.clover.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ModifierGroupArray> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ModifierGroupArray>() {
+    public Class<ModifierGroupArray> getCreatedClass() {
+      return ModifierGroupArray.class;
+    }
+
     @Override
     public ModifierGroupArray create(org.json.JSONObject jsonObject) {
       return new ModifierGroupArray(jsonObject);
@@ -213,9 +212,7 @@ public class ModifierGroupArray extends GenericParcelable implements com.clover.
   };
 
   public interface Constraints {
-
     public static final boolean MODIFIERGROUPS_IS_REQUIRED = false;
-
   }
 
 }

@@ -1,12 +1,12 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *    https://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -119,6 +119,12 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     return null;
   }
 
+  /**
+   * Connectors that are versioned include a version number in the action returned by
+   * {@link ServiceConnector#getServiceIntentAction()} instead of using this mechanism.
+   *
+   * @deprecated Include a version in the service connector action instead
+   */
   @Deprecated
   protected int getServiceIntentVersion() {
     return 1;

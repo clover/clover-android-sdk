@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -171,11 +170,7 @@ public class RefundPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReques
    */
   public RefundPaymentRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -208,10 +203,10 @@ public class RefundPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReques
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getPaymentId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'fullRefund' field is set and is not null */
@@ -469,6 +464,10 @@ public class RefundPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReques
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RefundPaymentRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RefundPaymentRequest>() {
+    public Class<RefundPaymentRequest> getCreatedClass() {
+      return RefundPaymentRequest.class;
+    }
+
     @Override
     public RefundPaymentRequest create(org.json.JSONObject jsonObject) {
       return new RefundPaymentRequest(jsonObject);
@@ -476,7 +475,6 @@ public class RefundPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReques
   };
 
   public interface Constraints {
-
     public static final boolean FULLREFUND_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
@@ -489,7 +487,6 @@ public class RefundPaymentRequest extends com.clover.sdk.v3.remotepay.BaseReques
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -96,11 +95,7 @@ public class TagItem extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public TagItem(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -132,9 +127,9 @@ public class TagItem extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateNull(getTag(), "tag");
+    genClient.validateNotNull(CacheKey.tag, getTag());
 
-    genClient.validateNull(getItem(), "item");
+    genClient.validateNotNull(CacheKey.item, getItem());
   }
 
   /** Checks whether the 'tag' field is set and is not null */
@@ -238,6 +233,10 @@ public class TagItem extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TagItem> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TagItem>() {
+    public Class<TagItem> getCreatedClass() {
+      return TagItem.class;
+    }
+
     @Override
     public TagItem create(org.json.JSONObject jsonObject) {
       return new TagItem(jsonObject);
@@ -245,10 +244,8 @@ public class TagItem extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean TAG_IS_REQUIRED = true;
     public static final boolean ITEM_IS_REQUIRED = true;
-
   }
 
 }

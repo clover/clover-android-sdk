@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -199,11 +198,7 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
    */
   public CashAdvanceCustomerIdentification(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -236,29 +231,29 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   @Override
   public void validate() {
 
-    genClient.validateLength(getSerialNumber(), 64);
+    genClient.validateLength(CacheKey.serialNumber, getSerialNumber(), 64);
 
-    genClient.validateLength(getMaskedSerialNumber(), 64);
+    genClient.validateLength(CacheKey.maskedSerialNumber, getMaskedSerialNumber(), 64);
 
-    genClient.validateLength(getExpirationDate(), 8);
+    genClient.validateLength(CacheKey.expirationDate, getExpirationDate(), 8);
 
-    genClient.validateLength(getIssuingState(), 64);
+    genClient.validateLength(CacheKey.issuingState, getIssuingState(), 64);
 
-    genClient.validateLength(getIssuingCountry(), 64);
+    genClient.validateLength(CacheKey.issuingCountry, getIssuingCountry(), 64);
 
-    genClient.validateLength(getCustomerName(), 128);
+    genClient.validateLength(CacheKey.customerName, getCustomerName(), 128);
 
-    genClient.validateLength(getAddressStreet1(), 128);
+    genClient.validateLength(CacheKey.addressStreet1, getAddressStreet1(), 128);
 
-    genClient.validateLength(getAddressStreet2(), 128);
+    genClient.validateLength(CacheKey.addressStreet2, getAddressStreet2(), 128);
 
-    genClient.validateLength(getAddressCity(), 128);
+    genClient.validateLength(CacheKey.addressCity, getAddressCity(), 128);
 
-    genClient.validateLength(getAddressState(), 64);
+    genClient.validateLength(CacheKey.addressState, getAddressState(), 64);
 
-    genClient.validateLength(getAddressZipCode(), 64);
+    genClient.validateLength(CacheKey.addressZipCode, getAddressZipCode(), 64);
 
-    genClient.validateLength(getAddressCountry(), 64);
+    genClient.validateLength(CacheKey.addressCountry, getAddressCountry(), 64);
   }
 
   /** Checks whether the 'idType' field is set and is not null */
@@ -610,6 +605,10 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CashAdvanceCustomerIdentification> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CashAdvanceCustomerIdentification>() {
+    public Class<CashAdvanceCustomerIdentification> getCreatedClass() {
+      return CashAdvanceCustomerIdentification.class;
+    }
+
     @Override
     public CashAdvanceCustomerIdentification create(org.json.JSONObject jsonObject) {
       return new CashAdvanceCustomerIdentification(jsonObject);
@@ -617,7 +616,6 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   };
 
   public interface Constraints {
-
     public static final boolean IDTYPE_IS_REQUIRED = false;
     public static final boolean SERIALNUMBER_IS_REQUIRED = false;
     public static final long SERIALNUMBER_MAX_LEN = 64;
@@ -644,7 +642,6 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     public static final long ADDRESSZIPCODE_MAX_LEN = 64;
     public static final boolean ADDRESSCOUNTRY_IS_REQUIRED = false;
     public static final long ADDRESSCOUNTRY_MAX_LEN = 64;
-
   }
 
 }

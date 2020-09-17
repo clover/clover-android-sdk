@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -189,11 +188,7 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
    */
   public GiftCardTransaction(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -574,6 +569,10 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<GiftCardTransaction> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<GiftCardTransaction>() {
+    public Class<GiftCardTransaction> getCreatedClass() {
+      return GiftCardTransaction.class;
+    }
+
     @Override
     public GiftCardTransaction create(org.json.JSONObject jsonObject) {
       return new GiftCardTransaction(jsonObject);
@@ -581,7 +580,6 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
@@ -595,7 +593,6 @@ public class GiftCardTransaction extends GenericParcelable implements com.clover
     public static final boolean LINEITEMS_IS_REQUIRED = false;
     public static final boolean EMPLOYEEID_IS_REQUIRED = false;
     public static final boolean SUPPRESSPAYMENT_IS_REQUIRED = false;
-
   }
 
 }

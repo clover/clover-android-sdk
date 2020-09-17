@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -131,11 +130,7 @@ public class TipAdjustAuthRequest extends com.clover.sdk.v3.remotepay.BaseReques
    */
   public TipAdjustAuthRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -168,10 +163,10 @@ public class TipAdjustAuthRequest extends com.clover.sdk.v3.remotepay.BaseReques
   @Override
   public void validate() {
 
-    genClient.validateLength(getOrderId(), 13);
+    genClient.validateCloverId(CacheKey.orderId, getOrderId());
 
-    genClient.validateLength(getPaymentId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'tipAmount' field is set and is not null */
@@ -342,6 +337,10 @@ public class TipAdjustAuthRequest extends com.clover.sdk.v3.remotepay.BaseReques
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TipAdjustAuthRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TipAdjustAuthRequest>() {
+    public Class<TipAdjustAuthRequest> getCreatedClass() {
+      return TipAdjustAuthRequest.class;
+    }
+
     @Override
     public TipAdjustAuthRequest create(org.json.JSONObject jsonObject) {
       return new TipAdjustAuthRequest(jsonObject);
@@ -349,7 +348,6 @@ public class TipAdjustAuthRequest extends com.clover.sdk.v3.remotepay.BaseReques
   };
 
   public interface Constraints {
-
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean ORDERID_IS_REQUIRED = false;
     public static final long ORDERID_MAX_LEN = 13;
@@ -358,7 +356,6 @@ public class TipAdjustAuthRequest extends com.clover.sdk.v3.remotepay.BaseReques
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

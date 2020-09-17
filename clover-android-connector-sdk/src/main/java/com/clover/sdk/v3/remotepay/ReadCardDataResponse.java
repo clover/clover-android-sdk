@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -131,11 +130,7 @@ public class ReadCardDataResponse extends com.clover.sdk.v3.remotepay.BaseRespon
    */
   public ReadCardDataResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -347,6 +342,10 @@ public class ReadCardDataResponse extends com.clover.sdk.v3.remotepay.BaseRespon
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReadCardDataResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReadCardDataResponse>() {
+    public Class<ReadCardDataResponse> getCreatedClass() {
+      return ReadCardDataResponse.class;
+    }
+
     @Override
     public ReadCardDataResponse create(org.json.JSONObject jsonObject) {
       return new ReadCardDataResponse(jsonObject);
@@ -354,13 +353,11 @@ public class ReadCardDataResponse extends com.clover.sdk.v3.remotepay.BaseRespon
   };
 
   public interface Constraints {
-
     public static final boolean CARDDATA_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -745,11 +744,7 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
    */
   public TransactionData(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -2833,6 +2828,10 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<TransactionData> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<TransactionData>() {
+    public Class<TransactionData> getCreatedClass() {
+      return TransactionData.class;
+    }
+
     @Override
     public TransactionData create(org.json.JSONObject jsonObject) {
       return new TransactionData(jsonObject);
@@ -2840,7 +2839,6 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean TXRESULT_IS_REQUIRED = false;
     public static final boolean TXERROR_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
@@ -2936,7 +2934,6 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     public static final boolean SERVICECODE3_IS_REQUIRED = false;
     public static final boolean OFFLINEAPPROVALAUTHCODE_IS_REQUIRED = false;
     public static final boolean AVAILABLEOFFLINESPENDINGAMOUNT_IS_REQUIRED = false;
-
   }
 
 }

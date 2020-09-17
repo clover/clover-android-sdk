@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -195,11 +194,7 @@ public class GiftCardResponse extends GenericParcelable implements com.clover.sd
    */
   public GiftCardResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -626,6 +621,10 @@ public class GiftCardResponse extends GenericParcelable implements com.clover.sd
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<GiftCardResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<GiftCardResponse>() {
+    public Class<GiftCardResponse> getCreatedClass() {
+      return GiftCardResponse.class;
+    }
+
     @Override
     public GiftCardResponse create(org.json.JSONObject jsonObject) {
       return new GiftCardResponse(jsonObject);
@@ -633,7 +632,6 @@ public class GiftCardResponse extends GenericParcelable implements com.clover.sd
   };
 
   public interface Constraints {
-
     public static final boolean TXTYPE_IS_REQUIRED = false;
     public static final boolean STATE_IS_REQUIRED = false;
     public static final boolean REQUESTAMOUNT_IS_REQUIRED = false;
@@ -650,7 +648,6 @@ public class GiftCardResponse extends GenericParcelable implements com.clover.sd
     public static final boolean ENDBAL_IS_REQUIRED = false;
     public static final boolean HOLDBAL_IS_REQUIRED = false;
     public static final boolean SYNCPAYMENTOBJECT_IS_REQUIRED = false;
-
   }
 
 }

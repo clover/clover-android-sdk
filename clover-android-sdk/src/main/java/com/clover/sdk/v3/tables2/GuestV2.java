@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -180,11 +179,7 @@ public class GuestV2 extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public GuestV2(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -216,9 +211,10 @@ public class GuestV2 extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateReferences(CacheKey.tableOrder);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -494,6 +490,10 @@ public class GuestV2 extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<GuestV2> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<GuestV2>() {
+    public Class<GuestV2> getCreatedClass() {
+      return GuestV2.class;
+    }
+
     @Override
     public GuestV2 create(org.json.JSONObject jsonObject) {
       return new GuestV2(jsonObject);
@@ -501,7 +501,6 @@ public class GuestV2 extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NUMBER_IS_REQUIRED = false;
@@ -514,7 +513,6 @@ public class GuestV2 extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
-
   }
 
 }

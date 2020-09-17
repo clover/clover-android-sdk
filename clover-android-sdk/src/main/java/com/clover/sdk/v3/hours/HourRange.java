@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -94,11 +93,7 @@ public class HourRange extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public HourRange(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -130,11 +125,11 @@ public class HourRange extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateNull(getStart(), "start");
-    if (getStart() != null && ( getStart() < 0 || getStart() > 2400)) throw new IllegalArgumentException("Invalid value for 'getStart()'");
+    genClient.validateNotNull(CacheKey.start, getStart());
+    genClient.validateMinMax(CacheKey.start, getStart(), 0L, 2400L);
 
-    genClient.validateNull(getEnd(), "end");
-    if (getEnd() != null && ( getEnd() < 0 || getEnd() > 2400)) throw new IllegalArgumentException("Invalid value for 'getEnd()'");
+    genClient.validateNotNull(CacheKey.end, getEnd());
+    genClient.validateMinMax(CacheKey.end, getEnd(), 0L, 2400L);
   }
 
   /** Checks whether the 'start' field is set and is not null */
@@ -234,6 +229,10 @@ public class HourRange extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<HourRange> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<HourRange>() {
+    public Class<HourRange> getCreatedClass() {
+      return HourRange.class;
+    }
+
     @Override
     public HourRange create(org.json.JSONObject jsonObject) {
       return new HourRange(jsonObject);
@@ -241,14 +240,12 @@ public class HourRange extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean START_IS_REQUIRED = true;
     public static final long START_MIN = 0;
     public static final long START_MAX = 2400;
     public static final boolean END_IS_REQUIRED = true;
     public static final long END_MIN = 0;
     public static final long END_MAX = 2400;
-
   }
 
 }

@@ -27,6 +27,8 @@ import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.PrinterIntent;
 
+import java.util.ArrayList;
+
 /**
  * Base class for print jobs. Flags may be added to a PrintJob to alter the results. Subclasses may
  * automatically add some flags. Some flags are incompatible.
@@ -55,6 +57,27 @@ public abstract class PrintJob implements Parcelable {
    * @see Builder#includePrintGroups(boolean)
    */
   public static final int FLAG_USE_PRINT_GROUP = 1 << 8;
+  /**
+   * When this flag is set on a print job for an order receipt it will print subtitle
+   * "Expo Receipt" or localized version of it. Also, please make sure you are printing whole order
+   * when you are setting this flag. The title "Expo Receipt" will help expeditor at restaurant to
+   * quickly identify this is a whole order receipt and he/she can assemble the order without missing
+   * a single item
+   * <p>
+   * Note : you can either set this flag {@link PrintJob#FLAG_EXPEDITOR} or
+   * {@link PrintJob#FLAG_UNLABELED_ITEMS} but not both on a same print job
+   */
+  public static final int FLAG_EXPEDITOR = 1 << 9;
+  /**
+   * When this flag is set on a print job for an order receipt it will print subtitle
+   * "Unlabeled Items" or localized version of it. Please, make sure when you are setting this flag
+   * on a print job for an order receipt, print only unlabeled items, you can use
+   * {@link StaticOrderPrintJob.Builder#itemIds(ArrayList)} to pass list of unlabeled line item ids.
+   * <p>
+   * you can either set this flag  or {@link PrintJob#FLAG_UNLABELED_ITEMS}
+   * {@link PrintJob#FLAG_EXPEDITOR} but not both on a same print job
+   */
+  public static final int FLAG_UNLABELED_ITEMS = 1 << 10;
 
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
@@ -78,9 +101,16 @@ public abstract class PrintJob implements Parcelable {
 
     /**
      * Appends a flag to this PrintJob.
+     * Also, {@link PrintJob#FLAG_EXPEDITOR} and {@link PrintJob#FLAG_UNLABELED_ITEMS}
+     * both cannot be set, otherwise it will throw {@link IllegalArgumentException}
      */
     public Builder flag(int flag) {
       this.flags |= flag;
+      if (((flags & FLAG_EXPEDITOR) == FLAG_EXPEDITOR) &&
+          (flags & FLAG_UNLABELED_ITEMS) == FLAG_UNLABELED_ITEMS) {
+        throw new IllegalArgumentException("Can not set both PrintJob.FLAG_EXPO_TITLE and "
+                                           + "PrintJob.FLAG_UNLABELLED_TITLE on a single print job");
+      }
       return this;
     }
 

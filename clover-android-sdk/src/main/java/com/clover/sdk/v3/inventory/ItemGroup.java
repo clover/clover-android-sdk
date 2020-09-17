@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -122,11 +121,7 @@ public class ItemGroup extends GenericParcelable implements com.clover.sdk.v3.Va
    */
   public ItemGroup(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -158,10 +153,12 @@ public class ItemGroup extends GenericParcelable implements com.clover.sdk.v3.Va
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 255);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 255);
+    genClient.validateReferences(CacheKey.items);
+    genClient.validateReferences(CacheKey.attributes);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -313,6 +310,10 @@ public class ItemGroup extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ItemGroup> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ItemGroup>() {
+    public Class<ItemGroup> getCreatedClass() {
+      return ItemGroup.class;
+    }
+
     @Override
     public ItemGroup create(org.json.JSONObject jsonObject) {
       return new ItemGroup(jsonObject);
@@ -320,14 +321,12 @@ public class ItemGroup extends GenericParcelable implements com.clover.sdk.v3.Va
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 255;
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean ATTRIBUTES_IS_REQUIRED = false;
-
   }
 
 }

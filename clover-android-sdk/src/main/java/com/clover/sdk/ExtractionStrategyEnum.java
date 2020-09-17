@@ -18,7 +18,10 @@ package com.clover.sdk;
 import com.clover.sdk.extractors.ExtractionStrategy;
 
 /**
- * For internal use only.
+ * For Clover internal use only.
+ * <p>
+ * There are two copies of this file, one in clover-android-sdk and one in
+ * schema-tool, please keep them in sync.
  */
 public interface ExtractionStrategyEnum extends ExtractableEnum {
 

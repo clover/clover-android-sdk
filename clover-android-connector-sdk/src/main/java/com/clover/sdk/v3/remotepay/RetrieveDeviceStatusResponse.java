@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -141,11 +140,7 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
    */
   public RetrieveDeviceStatusResponse(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -378,6 +373,10 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<RetrieveDeviceStatusResponse>() {
+    public Class<RetrieveDeviceStatusResponse> getCreatedClass() {
+      return RetrieveDeviceStatusResponse.class;
+    }
+
     @Override
     public RetrieveDeviceStatusResponse create(org.json.JSONObject jsonObject) {
       return new RetrieveDeviceStatusResponse(jsonObject);
@@ -385,14 +384,12 @@ public class RetrieveDeviceStatusResponse extends com.clover.sdk.v3.remotepay.Ba
   };
 
   public interface Constraints {
-
     public static final boolean STATE_IS_REQUIRED = false;
     public static final boolean DATA_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final boolean MESSAGE_IS_REQUIRED = false;
-
   }
 
 }

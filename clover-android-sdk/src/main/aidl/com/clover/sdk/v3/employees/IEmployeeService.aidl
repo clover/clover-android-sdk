@@ -74,7 +74,7 @@ interface IEmployeeService {
   Employee updateEmployee(in Employee employee, out ResultStatus resultStatus);
 
   /**
-   * Deprecated. Use {@link #updateEmployee(Employee, ResultStatus)} instead.
+   * @deprecated Use {@link #updateEmployee(Employee, ResultStatus)} instead.
    */
   Employee setEmployeePin(String id, String pin, out ResultStatus resultStatus);
 

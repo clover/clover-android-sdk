@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -180,11 +179,7 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Guest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -216,9 +211,9 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -494,6 +489,10 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Guest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Guest>() {
+    public Class<Guest> getCreatedClass() {
+      return Guest.class;
+    }
+
     @Override
     public Guest create(org.json.JSONObject jsonObject) {
       return new Guest(jsonObject);
@@ -501,7 +500,6 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NUMBER_IS_REQUIRED = false;
@@ -514,7 +512,6 @@ public class Guest extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -133,11 +132,7 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
    */
   public CapturePreAuthRequest(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -170,8 +165,8 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
   @Override
   public void validate() {
 
-    genClient.validateLength(getPaymentId(), 13);
-    genClient.validateLength(getRequestId(), 13);
+    genClient.validateCloverId(CacheKey.paymentId, getPaymentId());
+    genClient.validateCloverId(CacheKey.requestId, getRequestId());
   }
 
   /** Checks whether the 'amount' field is set and is not null */
@@ -342,6 +337,10 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CapturePreAuthRequest> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CapturePreAuthRequest>() {
+    public Class<CapturePreAuthRequest> getCreatedClass() {
+      return CapturePreAuthRequest.class;
+    }
+
     @Override
     public CapturePreAuthRequest create(org.json.JSONObject jsonObject) {
       return new CapturePreAuthRequest(jsonObject);
@@ -349,7 +348,6 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
   };
 
   public interface Constraints {
-
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean PAYMENTID_IS_REQUIRED = false;
@@ -357,7 +355,6 @@ public class CapturePreAuthRequest extends com.clover.sdk.v3.remotepay.BaseReque
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
-
   }
 
 }

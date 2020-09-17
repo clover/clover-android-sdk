@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -110,11 +109,7 @@ public class ReportDiscountGroup extends GenericParcelable implements com.clover
    */
   public ReportDiscountGroup(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -273,6 +268,10 @@ public class ReportDiscountGroup extends GenericParcelable implements com.clover
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<ReportDiscountGroup> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<ReportDiscountGroup>() {
+    public Class<ReportDiscountGroup> getCreatedClass() {
+      return ReportDiscountGroup.class;
+    }
+
     @Override
     public ReportDiscountGroup create(org.json.JSONObject jsonObject) {
       return new ReportDiscountGroup(jsonObject);
@@ -280,11 +279,9 @@ public class ReportDiscountGroup extends GenericParcelable implements com.clover
   };
 
   public interface Constraints {
-
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean DISCOUNTROWS_IS_REQUIRED = false;
-
   }
 
 }

@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -165,11 +164,7 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
    */
   public CountryInfo(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -201,13 +196,13 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
 
   @Override
   public void validate() {
-    genClient.validateLength(getCountryCode(), 2);
+    genClient.validateLength(CacheKey.countryCode, getCountryCode(), 2);
 
-    genClient.validateLength(getDefaultCurrency(), 3);
+    genClient.validateLength(CacheKey.defaultCurrency, getDefaultCurrency(), 3);
 
-    genClient.validateLength(getDefaultTimezone(), 255);
+    genClient.validateLength(CacheKey.defaultTimezone, getDefaultTimezone(), 255);
 
-    genClient.validateLength(getDefaultLocale(), 5);
+    genClient.validateLength(CacheKey.defaultLocale, getDefaultLocale(), 5);
   }
 
   /** Checks whether the 'countryCode' field is set and is not null */
@@ -475,6 +470,10 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<CountryInfo> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<CountryInfo>() {
+    public Class<CountryInfo> getCreatedClass() {
+      return CountryInfo.class;
+    }
+
     @Override
     public CountryInfo create(org.json.JSONObject jsonObject) {
       return new CountryInfo(jsonObject);
@@ -482,7 +481,6 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
   };
 
   public interface Constraints {
-
     public static final boolean COUNTRYCODE_IS_REQUIRED = false;
     public static final long COUNTRYCODE_MAX_LEN = 2;
     public static final boolean DISPLAYNAME_IS_REQUIRED = false;
@@ -497,7 +495,6 @@ public class CountryInfo extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean DEFAULTLOCALE_IS_REQUIRED = false;
     public static final long DEFAULTLOCALE_MAX_LEN = 5;
     public static final boolean APPMARKETBILLINGENABLED_IS_REQUIRED = false;
-
   }
 
 }

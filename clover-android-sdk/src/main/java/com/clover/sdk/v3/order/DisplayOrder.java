@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -39,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTotal total}</li>
  * <li>{@link #getTitle title}</li>
  * <li>{@link #getNote note}</li>
+ * <li>{@link #getIsVat isVat}</li>
  * <li>{@link #getServiceChargeName serviceChargeName}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
  * <li>{@link #getDiscounts discounts}</li>
@@ -101,6 +101,13 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * This order was created by merchant with VAT enabled.
+   */
+  public java.lang.Boolean getIsVat() {
+    return genClient.cacheGet(CacheKey.isVat);
+  }
+
+  /**
    * Optional service charge name (gratuity) applied to this order
    */
   public java.lang.String getServiceChargeName() {
@@ -156,6 +163,8 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     note
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isVat
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     serviceChargeName
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     serviceChargeAmount
@@ -208,11 +217,7 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
    */
   public DisplayOrder(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -244,21 +249,21 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getCurrency(), 3);
+    genClient.validateLength(CacheKey.currency, getCurrency(), 3);
 
-    genClient.validateLength(getSubtotal(), 127);
+    genClient.validateLength(CacheKey.subtotal, getSubtotal(), 127);
 
-    genClient.validateLength(getTax(), 127);
+    genClient.validateLength(CacheKey.tax, getTax(), 127);
 
-    genClient.validateLength(getTotal(), 127);
+    genClient.validateLength(CacheKey.total, getTotal(), 127);
 
-    genClient.validateLength(getTitle(), 127);
+    genClient.validateLength(CacheKey.title, getTitle(), 127);
 
-    genClient.validateLength(getNote(), 2047);
+    genClient.validateLength(CacheKey.note, getNote(), 2047);
 
-    genClient.validateLength(getAmountRemaining(), 127);
+    genClient.validateLength(CacheKey.amountRemaining, getAmountRemaining(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -299,6 +304,11 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'note' field is set and is not null */
   public boolean isNotNullNote() {
     return genClient.cacheValueIsNotNull(CacheKey.note);
+  }
+
+  /** Checks whether the 'isVat' field is set and is not null */
+  public boolean isNotNullIsVat() {
+    return genClient.cacheValueIsNotNull(CacheKey.isVat);
   }
 
   /** Checks whether the 'serviceChargeName' field is set and is not null */
@@ -380,6 +390,11 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'note' field has been set, however the value could be null */
   public boolean hasNote() {
     return genClient.cacheHasKey(CacheKey.note);
+  }
+
+  /** Checks whether the 'isVat' field has been set, however the value could be null */
+  public boolean hasIsVat() {
+    return genClient.cacheHasKey(CacheKey.isVat);
   }
 
   /** Checks whether the 'serviceChargeName' field has been set, however the value could be null */
@@ -470,6 +485,13 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'isVat'.
+   */
+  public DisplayOrder setIsVat(java.lang.Boolean isVat) {
+    return genClient.setOther(isVat, CacheKey.isVat);
+  }
+
+  /**
    * Sets the field 'serviceChargeName'.
    */
   public DisplayOrder setServiceChargeName(java.lang.String serviceChargeName) {
@@ -550,6 +572,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   public void clearNote() {
     genClient.clear(CacheKey.note);
   }
+  /** Clears the 'isVat' field, the 'has' method for this field will now return false */
+  public void clearIsVat() {
+    genClient.clear(CacheKey.isVat);
+  }
   /** Clears the 'serviceChargeName' field, the 'has' method for this field will now return false */
   public void clearServiceChargeName() {
     genClient.clear(CacheKey.serviceChargeName);
@@ -625,6 +651,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<DisplayOrder> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<DisplayOrder>() {
+    public Class<DisplayOrder> getCreatedClass() {
+      return DisplayOrder.class;
+    }
+
     @Override
     public DisplayOrder create(org.json.JSONObject jsonObject) {
       return new DisplayOrder(jsonObject);
@@ -632,7 +662,6 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CURRENCY_IS_REQUIRED = false;
@@ -648,6 +677,7 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     public static final long TITLE_MAX_LEN = 127;
     public static final boolean NOTE_IS_REQUIRED = false;
     public static final long NOTE_MAX_LEN = 2047;
+    public static final boolean ISVAT_IS_REQUIRED = false;
     public static final boolean SERVICECHARGENAME_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
     public static final boolean DISCOUNTS_IS_REQUIRED = false;
@@ -655,7 +685,6 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean AMOUNTREMAINING_IS_REQUIRED = false;
     public static final long AMOUNTREMAINING_MAX_LEN = 127;
     public static final boolean PAYMENTS_IS_REQUIRED = false;
-
   }
 
 }

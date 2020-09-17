@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -162,11 +161,7 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
    */
   public MerchantAppCharge(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -198,11 +193,13 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getApp(), "app");
+    genClient.validateNotNull(CacheKey.app, getApp());
 
-    genClient.validateNull(getMerchant(), "merchant");
+    genClient.validateNotNull(CacheKey.merchant, getMerchant());
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.appSubscription);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -483,6 +480,10 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<MerchantAppCharge> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<MerchantAppCharge>() {
+    public Class<MerchantAppCharge> getCreatedClass() {
+      return MerchantAppCharge.class;
+    }
+
     @Override
     public MerchantAppCharge create(org.json.JSONObject jsonObject) {
       return new MerchantAppCharge(jsonObject);
@@ -490,7 +491,6 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean CHARGE_IS_REQUIRED = false;
@@ -502,7 +502,6 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
     public static final boolean APPINSTALLTIME_IS_REQUIRED = false;
     public static final boolean APPUNINSTALLTIME_IS_REQUIRED = false;
     public static final boolean APPMETEREDEVENTS_IS_REQUIRED = false;
-
   }
 
 }

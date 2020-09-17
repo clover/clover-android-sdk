@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -225,11 +224,7 @@ public class Account extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Account(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -261,15 +256,24 @@ public class Account extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNull(getName(), "name");
-    genClient.validateLength(getName(), 127);
+    genClient.validateNotNull(CacheKey.name, getName());
+    genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateNull(getEmail(), "email");
-    genClient.validateLength(getEmail(), 127);
+    genClient.validateNotNull(CacheKey.email, getEmail());
+    genClient.validateLength(CacheKey.email, getEmail(), 127);
 
-    genClient.validateLength(getCsrfToken(), 127);
+    genClient.validateLength(CacheKey.csrfToken, getCsrfToken(), 127);
+    genClient.validateReferences(CacheKey.primaryMerchant);
+    genClient.validateReferences(CacheKey.primaryDeveloper);
+    genClient.validateReferences(CacheKey.primaryReseller);
+    genClient.validateReferences(CacheKey.primaryEnterprise);
+    genClient.validateReferences(CacheKey.role);
+    genClient.validateReferences(CacheKey.merchants);
+    genClient.validateReferences(CacheKey.developers);
+    genClient.validateReferences(CacheKey.resellers);
+    genClient.validateReferences(CacheKey.authFactors);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -756,6 +760,10 @@ public class Account extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<Account> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<Account>() {
+    public Class<Account> getCreatedClass() {
+      return Account.class;
+    }
+
     @Override
     public Account create(org.json.JSONObject jsonObject) {
       return new Account(jsonObject);
@@ -763,7 +771,6 @@ public class Account extends GenericParcelable implements com.clover.sdk.v3.Vali
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -787,7 +794,6 @@ public class Account extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean CSRFTOKEN_IS_REQUIRED = false;
     public static final long CSRFTOKEN_MAX_LEN = 127;
     public static final boolean AUTHFACTORS_IS_REQUIRED = false;
-
   }
 
 }

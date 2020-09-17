@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -160,11 +159,7 @@ public class EmployeeCard extends GenericParcelable implements com.clover.sdk.v3
    */
   public EmployeeCard(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -196,9 +191,12 @@ public class EmployeeCard extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getNumber(), 16);
+    genClient.validateLength(CacheKey.number, getNumber(), 16);
+    genClient.validateReferences(CacheKey.merchant);
+    genClient.validateReferences(CacheKey.employee);
+    genClient.validateReferences(CacheKey.updater);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -430,6 +428,10 @@ public class EmployeeCard extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<EmployeeCard> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<EmployeeCard>() {
+    public Class<EmployeeCard> getCreatedClass() {
+      return EmployeeCard.class;
+    }
+
     @Override
     public EmployeeCard create(org.json.JSONObject jsonObject) {
       return new EmployeeCard(jsonObject);
@@ -437,7 +439,6 @@ public class EmployeeCard extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean MERCHANT_IS_REQUIRED = false;
@@ -448,7 +449,6 @@ public class EmployeeCard extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
-
   }
 
 }

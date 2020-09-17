@@ -4,7 +4,6 @@
  * DO NOT EDIT DIRECTLY
  */
 
-
 /*
  * Copyright (C) 2019 Clover Network, Inc.
  *
@@ -120,11 +119,7 @@ public class LineItemPayment extends GenericParcelable implements com.clover.sdk
    */
   public LineItemPayment(String json) throws IllegalArgumentException {
     this();
-    try {
-      genClient.setJsonObject(new org.json.JSONObject(json));
-    } catch (org.json.JSONException e) {
-      throw new IllegalArgumentException("invalid json", e);
-    }
+    genClient.initJsonObject(json);
   }
 
   /**
@@ -156,9 +151,9 @@ public class LineItemPayment extends GenericParcelable implements com.clover.sdk
 
   @Override
   public void validate() {
-    genClient.validateLength(getId(), 13);
+    genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateLength(getBinName(), 127);
+    genClient.validateLength(CacheKey.binName, getBinName(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -300,6 +295,10 @@ public class LineItemPayment extends GenericParcelable implements com.clover.sdk
   };
 
   public static final com.clover.sdk.JSONifiable.Creator<LineItemPayment> JSON_CREATOR = new com.clover.sdk.JSONifiable.Creator<LineItemPayment>() {
+    public Class<LineItemPayment> getCreatedClass() {
+      return LineItemPayment.class;
+    }
+
     @Override
     public LineItemPayment create(org.json.JSONObject jsonObject) {
       return new LineItemPayment(jsonObject);
@@ -307,14 +306,12 @@ public class LineItemPayment extends GenericParcelable implements com.clover.sdk
   };
 
   public interface Constraints {
-
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final boolean BINNAME_IS_REQUIRED = false;
     public static final long BINNAME_MAX_LEN = 127;
     public static final boolean REFUNDED_IS_REQUIRED = false;
-
   }
 
 }
