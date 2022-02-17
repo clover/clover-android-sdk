@@ -18,6 +18,8 @@ package com.clover.sdk.v3.order;
 
 import android.os.Bundle;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.clover.core.internal.Lists;
 import com.clover.core.internal.calc.Calc;
@@ -27,6 +29,7 @@ import com.clover.sdk.v3.base.ServiceCharge;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v3.payments.Payment;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -120,6 +123,66 @@ public class OrderCalc {
         return Decimal.ZERO;
       }
       return percentageDecimal;
+    }
+
+    @Nullable
+    @Override
+    public List<Calc.AdditionalCharge> getAdditionalCharges() {
+      if (!order.isNotNullAdditionalCharges()) {
+        return null;
+      }
+
+      final List<Calc.AdditionalCharge> calcAdditionalCharges
+          = new ArrayList<>(order.getAdditionalCharges().size());
+      for (AdditionalCharge additionalCharge : order.getAdditionalCharges()) {
+        calcAdditionalCharges.add(new CalcAdditionalCharge(additionalCharge));
+      }
+      return calcAdditionalCharges;
+    }
+  }
+
+  private class CalcAdditionalCharge implements Calc.AdditionalCharge {
+    private final AdditionalCharge additionalCharge;
+    private final Price amountPrice;
+    private final Decimal percentDecimal;
+
+    private CalcAdditionalCharge(@NonNull AdditionalCharge additionalCharge) {
+      this.additionalCharge = additionalCharge;
+      if (additionalCharge.isNotNullAmount()) {
+        amountPrice = new Price(additionalCharge.getAmount());
+      } else {
+        amountPrice = null;
+      }
+      if (additionalCharge.isNotNullPercentageDecimal()) {
+        percentDecimal = new Decimal(additionalCharge.getPercentageDecimal(), 0)
+            .divide(SERVICE_CHARGE_DIVISOR);
+      } else {
+        percentDecimal = null;
+      }
+    }
+
+    @Nullable
+    @Override
+    public Price getAmount() {
+      return amountPrice;
+    }
+
+    @Nullable
+    @Override
+    public String getId() {
+      return additionalCharge.getId();
+    }
+
+    @Nullable
+    @Override
+    public Decimal getPercentDecimal() {
+      return percentDecimal;
+    }
+
+    @NonNull
+    @Override
+    public String getType() {
+      return additionalCharge.getType().name();
     }
   }
 
@@ -401,5 +464,16 @@ public class OrderCalc {
   public long getPriceWithVAT(LineItem lineItem) {
     CalcLineItem calcLineItem = new CalcLineItem(lineItem);
     return getCalc().getPriceWithVat(calcLineItem).getCents();
+  }
+
+  /**
+   * Get the Additional charges calculated for passed in line items
+   *
+   * @param lines line items to be considered while calculating charges
+   * @return summary of additional charges with final charge value or empty list
+   * if additional charges were not present
+   */
+  public List<Calc.AdditionalChargeSummary> getAdditionalChargeSummaries(final Collection<LineItem> lines) {
+    return getCalc().getAdditionalChargeSummaries(toCalcLines(lines));
   }
 }

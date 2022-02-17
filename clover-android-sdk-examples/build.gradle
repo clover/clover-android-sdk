@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '262.2'
+version = '284'
 
 apply from: file("${project.rootDir}/app.gradle")
 
 repositories {
   mavenLocal()
   mavenCentral()
-  jcenter()
-  google()
 }
 
 android {

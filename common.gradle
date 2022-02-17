@@ -1,10 +1,10 @@
 apply from: file("${project.rootDir}/versions.gradle")
+apply plugin: 'maven-publish'
 
 repositories {
   mavenLocal()
+  maven {url "https://artifactory.corp.clover.com/artifactory/repo"}
   google()
-  mavenCentral()
-  jcenter()
 }
 
 dependencies {
@@ -44,3 +44,4 @@ gradle.taskGraph.useFilter { Task task ->
 
   return true
 }
+

@@ -32,6 +32,7 @@ public class SessionContract {
   public static final String PROPERTIES_TABLE_NAME = "SESSION_PROPERTY";
   public static final String COLUMN_KEY = "KEY";
   public static final String COLUMN_VALUE = "VALUE";
+  public static final String COLUMN_SRC = "SRC";
   // Session event
   public static final String SESSION_EVENT = "SESSION_EVENT";
 

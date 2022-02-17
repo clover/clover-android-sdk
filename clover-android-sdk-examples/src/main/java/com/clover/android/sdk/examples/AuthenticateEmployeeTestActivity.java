@@ -20,9 +20,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IInterface;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.clover.sdk.util.CloverAccount;
@@ -33,7 +30,9 @@ import com.clover.sdk.v3.employees.AccountRole;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class AuthenticateEmployeeTestActivity extends Activity {
@@ -59,6 +58,9 @@ public class AuthenticateEmployeeTestActivity extends Activity {
     findViewById(R.id.btn_any).setOnClickListener(v -> {
       Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
       i.putExtra(Intents.EXTRA_REASON, "Enter passcode");
+      i.putParcelableArrayListExtra(Intents.EXTRA_ACCOUNT_ROLES, new ArrayList<>(Arrays.asList(
+          AccountRole.ADMIN, AccountRole.MANAGER, AccountRole.EMPLOYEE)));
+
       startActivityForResult(i, REQUEST_ANY_EMPLOYEE);
     });
 
@@ -72,9 +74,9 @@ public class AuthenticateEmployeeTestActivity extends Activity {
 
     findViewById(R.id.btn_request_admin_role).setOnClickListener(v -> {
       if (employee == null) return;
-      Intent i = new Intent(Intents.ACTION_REQUEST_ROLE);
-      i.putExtra(Intents.EXTRA_ROLE, (Serializable) AccountRole.ADMIN);
-      i.putExtra(Intents.EXTRA_TITLE, "Enter admin passcode:");
+      Intent i = new Intent(Intents.ACTION_AUTHENTICATE_EMPLOYEE);
+      i.putParcelableArrayListExtra(Intents.EXTRA_ACCOUNT_ROLES, new ArrayList<>(Collections.singletonList(AccountRole.ADMIN)));
+      i.putExtra(Intents.EXTRA_REASON, "Enter admin passcode:");
       startActivityForResult(i, REQUEST_ROLE);
     });
 

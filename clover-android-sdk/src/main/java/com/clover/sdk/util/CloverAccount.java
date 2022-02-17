@@ -27,6 +27,7 @@ import android.util.Log;
 
 /**
  * This class provides access to the Clover {@link android.accounts.Account} object on the device.
+ * The Clover account is genrally needed when interacting with ServiceConnectors and Contracts.
  *
  * @see android.accounts.Account
  */

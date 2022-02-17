@@ -16,6 +16,7 @@
 package com.clover.sdk.util;
 
 import com.clover.sdk.internal.util.UnstableCallClient;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -122,10 +123,6 @@ public class CloverAuth {
       Log.d(TAG, "Getting result (no timeout)");
       result = future.getResult();
     }
-    Log.v(TAG, "Bundle result returned from account manager: ");
-    for (String key : result.keySet()) {
-      Log.v(TAG, key + " => " + result.get(key));
-    }
     return new AuthResult(result);
   }
 
@@ -163,10 +160,6 @@ public class CloverAuth {
     } else {
       Log.d(TAG, "Getting result (no timeout)");
       result = future.getResult();
-    }
-    Log.v(TAG, "Bundle result returned from account manager: ");
-    for (String key : result.keySet()) {
-      Log.v(TAG, key + " => " + result.get(key));
     }
     return new AuthResult(result);
   }
@@ -245,7 +238,7 @@ public class CloverAuth {
 
     Log.d(TAG, "Getting result from provider with timeout " + timeout + " (" + unit + ")");
 
-    UnstableCallClient client  = new UnstableCallClient(context.getContentResolver(), AUTH_URI);
+    UnstableContentResolverClient client  = new UnstableContentResolverClient(context.getContentResolver(), AUTH_URI);
 
     Future<AuthResult> future = exec.submit(() -> {
       final Bundle result = client.call(METHOD_AUTH, null, options, null);
@@ -253,11 +246,6 @@ public class CloverAuth {
         Log.w(TAG, "Bundle result null from provider");
         return null;
       }
-      Log.v(TAG, "Bundle result returned from provider:");
-      for (String key : result.keySet()) {
-        Log.v(TAG, key + " => " + result.get(key));
-      }
-
       return new AuthResult(result);
     });
 

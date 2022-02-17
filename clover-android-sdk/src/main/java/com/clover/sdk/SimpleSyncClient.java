@@ -15,6 +15,8 @@
  */
 package com.clover.sdk;
 
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
+
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
@@ -22,7 +24,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+/**
+ * For Clover internal use only.
+ */
 public abstract class SimpleSyncClient extends ContentObserver {
+
   public static final String METHOD_GET = "get";
   public static final String METHOD_PUT = "put";
   public static final String METHOD_UPDATE = "update";
@@ -41,8 +47,12 @@ public abstract class SimpleSyncClient extends ContentObserver {
     this.context = context;
   }
 
+  protected UnstableContentResolverClient getUnstableClient() {
+    return new UnstableContentResolverClient(context.getContentResolver(), getAuthorityUri());
+  }
+
   public byte[] getData() {
-    Bundle result = context.getContentResolver().call(getAuthorityUri(), METHOD_GET, null, null);
+    Bundle result = getUnstableClient().call(METHOD_GET, null, null, null);
     if (result == null) {
       return null;
     }
@@ -52,20 +62,20 @@ public abstract class SimpleSyncClient extends ContentObserver {
   protected void putData(byte[] data) {
     Bundle extras = new Bundle();
     extras.putByteArray(EXTRA_DATA, data);
-    context.getContentResolver().call(getAuthorityUri(), METHOD_PUT, null, null);
+    getUnstableClient().call(METHOD_PUT, null, null, null);
   }
 
   public void updateData(byte[] data) {
     Bundle extras = new Bundle();
     extras.putByteArray(EXTRA_DATA, data);
-    context.getContentResolver().call(getAuthorityUri(), METHOD_UPDATE, null, extras);
+    getUnstableClient().call(METHOD_UPDATE, null, extras, null);
   }
 
   public void updateData(String itemId, byte[] data) {
     Bundle extras = new Bundle();
     extras.putByteArray(EXTRA_DATA, data);
     extras.putString(EXTRA_ITEM_ID, itemId);
-    context.getContentResolver().call(getAuthorityUri(), METHOD_UPDATE, null, extras);
+    getUnstableClient().call(METHOD_UPDATE, null, extras, null);
   }
 
   protected abstract String getAuthority();

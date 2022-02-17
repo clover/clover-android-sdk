@@ -17,7 +17,7 @@ import com.clover.sdk.v3.apps.AppBillingInfo;
  * </pre>
  * For more information about bound services, refer to
  * the Android documentation:
- * <a href="http://developer.android.com/guide/components/bound-services.html#Binding">
+ * <a href="https://developer.android.com/guide/components/bound-services.html#Binding">
  * Bound Services
  * </a>.
  * <p>
@@ -25,7 +25,6 @@ import com.clover.sdk.v3.apps.AppBillingInfo;
  * {@link AppsConnector} class, which handles binding and
  * asynchronous invocation of service methods.
  * <p>
- * @see com.clover.sdk.v1.app.IAppService
  * @see com.clover.sdk.v3.apps.AppsConnector
  */
 interface IAppsService {

@@ -32,7 +32,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum IdType implements Parcelable {
-  DRIVERS_LICENSE, PASSPORT;
+  DRIVERS_LICENSE, PASSPORT, US_MILITARY_ID, US_RESIDENT, CONSULAR_ID, CANADIAN_CITIZEN, US_STATE_GOVT_ID, OTHER_ID;
 
   @Override
   public int describeContents() {

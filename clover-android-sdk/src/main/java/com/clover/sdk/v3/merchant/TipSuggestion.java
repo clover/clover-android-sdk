@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPercentage percentage}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getIsEnabled isEnabled}</li>
+ * <li>{@link #getFlatTip flatTip}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -69,6 +70,13 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.isEnabled);
   }
 
+  /**
+   * Suggested flat tip amount
+   */
+  public java.lang.Long getFlatTip() {
+    return genClient.cacheGet(CacheKey.flatTip);
+  }
+
 
 
 
@@ -83,7 +91,9 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     isEnabled
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-      ;
+    flatTip
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -157,12 +167,13 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   public void validate() {
     genClient.validateCloverId(CacheKey.id, getId());
 
-    genClient.validateNotNull(CacheKey.name, getName());
     genClient.validateLength(CacheKey.name, getName(), 24);
 
     genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000L);
 
     genClient.validateMin(CacheKey.amount, getAmount(), 0L);
+
+    genClient.validateMin(CacheKey.flatTip, getFlatTip(), 0L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -190,6 +201,11 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.isEnabled);
   }
 
+  /** Checks whether the 'flatTip' field is set and is not null */
+  public boolean isNotNullFlatTip() {
+    return genClient.cacheValueIsNotNull(CacheKey.flatTip);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -215,6 +231,11 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'isEnabled' field has been set, however the value could be null */
   public boolean hasIsEnabled() {
     return genClient.cacheHasKey(CacheKey.isEnabled);
+  }
+
+  /** Checks whether the 'flatTip' field has been set, however the value could be null */
+  public boolean hasFlatTip() {
+    return genClient.cacheHasKey(CacheKey.flatTip);
   }
 
 
@@ -253,6 +274,13 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(isEnabled, CacheKey.isEnabled);
   }
 
+  /**
+   * Sets the field 'flatTip'.
+   */
+  public TipSuggestion setFlatTip(java.lang.Long flatTip) {
+    return genClient.setOther(flatTip, CacheKey.flatTip);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -273,6 +301,10 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'isEnabled' field, the 'has' method for this field will now return false */
   public void clearIsEnabled() {
     genClient.clear(CacheKey.isEnabled);
+  }
+  /** Clears the 'flatTip' field, the 'has' method for this field will now return false */
+  public void clearFlatTip() {
+    genClient.clear(CacheKey.flatTip);
   }
 
 
@@ -338,7 +370,7 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
-    public static final boolean NAME_IS_REQUIRED = true;
+    public static final boolean NAME_IS_REQUIRED = false;
     public static final long NAME_MAX_LEN = 24;
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final long PERCENTAGE_MIN = 0;
@@ -346,6 +378,8 @@ public class TipSuggestion extends GenericParcelable implements com.clover.sdk.v
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final long AMOUNT_MIN = 0;
     public static final boolean ISENABLED_IS_REQUIRED = false;
+    public static final boolean FLATTIP_IS_REQUIRED = false;
+    public static final long FLATTIP_MIN = 0;
   }
 
 }

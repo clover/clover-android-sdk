@@ -30,14 +30,26 @@ import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.inventory.ModifierFdParcelable;
 import com.clover.common.payments.TerminalManagementComponent;
 import com.clover.common.payments.VoidExtraData;
+import com.clover.sdk.v3.payments.AdditionalChargeAmount;
 
 /**
+ * An interface for interacting with the Clover order service.
+ * <p>
+ * You may also interact with this service through the
+ * {@link OrderConnector} class, which handles binding and
+ * asynchronous invocation of service methods.
+ * <p>
+ * This service is backed by a local database which is synced to cloud.
+ * <p>
+ * Searching and listing orders may done via the {@link OrderContract}.
+ * <h3>Implementation Details</h3>
+ * <p>
  * This service mirrors the functionality of {@link IOrderService} but uses a different
  * mechanism for trasferring Clover SDK objects. Specifically, as can be seen from
  * the interface definition below, CloverSDK objects are transferred wrapped by a
  * {@link FdParcelable}. This includes SDK objects passed to the service and objects
  * returned from the server.
- * <p/>
+ * <p>
  * For example, to create an FD parcelablable input for an {@link Order} argument,
  * <pre>
  *   {@code
@@ -45,7 +57,6 @@ import com.clover.common.payments.VoidExtraData;
  *   service.updateOrder(fdo, ...);
  *   }
  * </pre>
- * <p/>
  * To obtain an Order object return value from an FD parcelable,
  * <pre>
  *   {@code
@@ -68,14 +79,32 @@ interface IOrderServiceV3_1 {
    * @return The {@link Order}s corresponding to the provided ID, or {@link null} if the order does not exists locally
    * and it cannot be fetched from the server. Note that this may be because the server is not reachable or because
    * the order for the given ID does not exist.
+   *
+   * @clover.perm ORDERS_R
    */
   OrderFdParcelable getOrder(String orderId, out ResultStatus status);
 
+  /**
+  * Get the {@link Order}s for the given IDs. If the orders are not synchronized on this device, they are fetched
+  * from the server.
+  *
+  * @param orderIds The list of orders to retrieve
+  * @return The list of {@link Order}s corresponding to the provided IDs
+  *
+  * @clover.perm ORDERS_R
+  */
   OrderListFdParcelable getOrders(in List<String> orderIds, out ResultStatus status);
 
   /**
-   * Create a new {@link Order}. Only the order title is used for creation; all other fields are ignored. The following
-   * fields are set automatically:
+   * Create a new {@link Order}. Only the following fields are allowed during creation:
+   * <ul>
+   *   <li>title</li>
+   *   <li>List<customer.id></li>
+   *   <li>orderType.id</li>
+   *   <li>note</li>
+   * </ul>
+   * <p>
+   * The following fields are set automatically by this call:
    * <ul>
    *   <li>id</li>
    *   <li>device - set the this device.</li>
@@ -88,35 +117,34 @@ interface IOrderServiceV3_1 {
    *   <li>total - set to 0.</li>
    *   <li>employee - set to the current employee logged into this device.</li>
    * </ul>
-   *
-   * This method requires ORDERS_W permission.
+   * <p>
+   * Any other fields included in this call will result in failure to create the order. Adding
+   * line items and making other changes should be done after order creation using other methods
+   * in this class.
    *
    * @param order The order to create.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable createOrder(in OrderFdParcelable fdOrder, out ResultStatus status);
 
   /**
    * Update an {@link Order}. The following fields may be updated,
    * <ul>
-   *   <li>total</li>
    *   <li>title</li>
    *   <li>note</li>
-   *   <li>state</li>
    *   <li>taxRemoved</li>
    *   <li>groupLineItems</li>
    *   <li>manualTransactions</li>
    *   <li>testMode</li>
    *   <li>orderType.id</li>
-   *   <li>customerId</li>
+   *   <li>List<customer.id></li>
    *   <li>payType</li>
-   *   <li>createdTime</li>
    *   <li>employee.id</li>
    * </ul>
    * All other fields are ignored.
    *
-   * This method requires ORDERS_W permission.
-   *
    * @param order The {@link Order} to updated.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable updateOrder(in OrderFdParcelable fdOrder, out ResultStatus status);
 
@@ -126,6 +154,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the {@link Order} to be deleted.
    * @return true if the {@link Order} was deleted successfully, otherwise false.
    * @see #deleteOrderOnline
+   * @clover.perm ORDERS_W
    */
   boolean deleteOrder(String orderId, out ResultStatus status);
 
@@ -135,6 +164,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The order ID on which to add the service charge.
    * @param serviceChargeId The ID of the service charge to be added to the order.
    * @return The updated order with the service charge added.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable addServiceCharge(String orderId, String serviceChargeId, out ResultStatus status);
 
@@ -144,6 +174,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The order ID on which to add the service charge.
    * @param serviceChargeId The ID of the service charge to be added to the order.
    * @return The updated order with the service charge removed.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable deleteServiceCharge(String orderId, String serviceChargeId, out ResultStatus status);
 
@@ -159,6 +190,7 @@ interface IOrderServiceV3_1 {
    * @param binName The BIN name for the line item. May be {@link null}.
    * @param userData Meta-data to attach to the line item. May be {@link null}.
    * @return The newly created {@link LineItem}.
+   * @clover.perm ORDERS_W
    */
   LineItemFdParcelable addFixedPriceLineItem(String orderId, String itemId, String binName, String userData, out ResultStatus status);
 
@@ -176,6 +208,7 @@ interface IOrderServiceV3_1 {
    * @param binName The BIN name for the line item. May be {@link null}.
    * @param userData Meta-data to attach to the line item. May be {@link null}.
    * @return The newly created {@link LineItem}.
+   * @clover.perm ORDERS_W
    */
   LineItemFdParcelable addPerUnitLineItem(String orderId, String itemId, int unitQuantity, String binName, String userData, out ResultStatus status);
 
@@ -191,6 +224,7 @@ interface IOrderServiceV3_1 {
    * @param price The price of the line item.
    * @param binName The BIN name for the line item. May be {@link null}.
    * @param userData Meta-data to attach to the line item. May be {@link null}.
+   * @clover.perm ORDERS_W
    */
   LineItemFdParcelable addVariablePriceLineItem(String orderId, String itemId, long price, String binName, String userData, out ResultStatus status);
 
@@ -203,6 +237,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the order to which to add the line item.
    * @param lineItem The line item to add to the order.
    * @param isTaxable true if this line item is taxable, otherwise false.
+   * @clover.perm ORDERS_W
    */
   LineItemFdParcelable addCustomLineItem(String orderId, in LineItemFdParcelable fdLineItem, boolean isTaxable, out ResultStatus status);
 
@@ -219,6 +254,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the order on which to update the line items.
    * @param lineItemIds The {@link LineItem}s to update on the order.
    * @return The updated {@link LineItem}s.
+   * @clover.perm ORDERS_W
    */
   LineItemListFdParcelable updateLineItems(String orderId, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 
@@ -228,25 +264,50 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the {@link Order} from which to delete the line items.
    * @param lineItemIds The {@link LineItem} IDs to delete.
    * @return The updated {@link Order}.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable deleteLineItems(String orderId, in List<String> lineItemIds, out ResultStatus status);
 
   LineItemListFdParcelable copyLineItems(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable setLineItemNote(String orderId, String lineItemId, String note, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable addLineItemModification(String orderId, String lineItemId, in ModifierFdParcelable fdModifier, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable deleteLineItemModifications(String orderId, String lineItemId, in List<String> modificationIds, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   LineItemFdParcelable exchangeItem(String orderId, String oldLineItemId, String itemId, String binName, String userData, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable addDiscount(String orderId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable deleteDiscounts(String orderId, in List<String> discountIds, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable addLineItemDiscount(String orderId, String lineItemId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable deleteLineItemDiscounts(String orderId, String lineItemId, in List<String> discountIds, out ResultStatus status);
 
   /**
@@ -306,13 +367,23 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the order to be deleted.
    * @return true if the order was deleted successfully, otherwise false.
    * @see #deleteOrder
+   * @clover.perm ORDERS_W
    */
   boolean deleteOrderOnline(String orderId, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable addBatchLineItemModifications(String orderId, in List<String> lineItemIds, in ModifierFdParcelable fdModifier, int quantity, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   OrderFdParcelable addBatchLineItemDiscounts(String orderId, in List<String> lineItemIds, in DiscountListFdParcelable discounts, out ResultStatus status);
 
+  /**
+  * @clover.perm ORDERS_W
+  */
   LineItemMapFdParcelable createLineItemsFrom(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, out ResultStatus status);
 
   /**
@@ -323,6 +394,9 @@ interface IOrderServiceV3_1 {
    *
    * @return true, unless the order has no line items in it that can be fired to a printer, will
    * return true but not print anything if all items have been already printed
+   * @clover.perm ORDERS_W
+   *
+   * @see com.clover.sdk.v3.inventory.IInventoryService.assignTagsToItem
    */
   boolean fire(String sourceOrderId, out ResultStatus status);
 
@@ -362,11 +436,13 @@ interface IOrderServiceV3_1 {
 
   /**
    * Just like {@link #addDiscount} but returns a {@link Discount} instead of an {@link Order}.
+   * @clover.perm ORDERS_W
    */
   DiscountFdParcelable addDiscount2(String orderId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
   /**
    * Just like {@link #addLineItemDiscount} but returns a {@link Discount} instead of an {@link Order}.
+   * @clover.perm ORDERS_W
    */
   DiscountFdParcelable addLineItemDiscount2(String orderId, String lineItemId, in DiscountFdParcelable fdDiscount, out ResultStatus status);
 
@@ -393,6 +469,7 @@ interface IOrderServiceV3_1 {
    *
    * @return just like {@link #fire}, but additionally returns false if there are unprinted items
    *         without a printer associated.
+   * @clover.perm ORDERS_W
    */
   boolean fire2(String sourceOrderid, boolean requireAllItems, out ResultStatus status);
 
@@ -400,17 +477,20 @@ interface IOrderServiceV3_1 {
    * Just like {@link #createLineItemsFrom} but additionally when copyPrinted is set to true it will copy print flags on
    * line items (normally did not), and when broadcastLineItems is set to true it will
    * broadcastLineItems (normally did).
+   * @clover.perm ORDERS_W
    */
   LineItemMapFdParcelable createLineItemsFrom2(String sourceOrderId, String destinationOrderId, in List<String> lineItemIds, in boolean copyPrinted, in boolean broadcastLineItems, out ResultStatus status);
 
   /**
    * Just like {@link #deleteOrder} but additionally when allowDeleteIfLineItemPrinted is true it will delete the order
    * when line items are printed (normally did not).
+   * @clover.perm ORDERS_W
    */
   boolean deleteOrder2(String orderId, in boolean allowDeleteIfLineItemPrinted, out ResultStatus status);
 
   /**
    * This pulls pending payments from the local device db
+   * @clover.perm ORDERS_W
    */
   PaymentListFdParcelable getPendingPayments(out ResultStatus status);
 
@@ -458,6 +538,7 @@ interface IOrderServiceV3_1 {
    * @param reason optional. Why was the line item removed?
    * @param clientEventType optional. What app did the delete come from?
    * @return The updated {@link Order}.
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable deleteLineItemsWithReason(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, out ResultStatus status);
 
@@ -472,6 +553,7 @@ interface IOrderServiceV3_1 {
    * The items that are already printed are not part of the list
    *
    * @param orderId The ID of the {@link Order} from which to delete the line items.
+   * @clover.perm ORDERS_W
    */
   List<String> getLineItemsToFire(String orderId, out ResultStatus status);
 
@@ -495,6 +577,7 @@ interface IOrderServiceV3_1 {
    * @param userData Meta-data to attach to the line item. May be {@link null}.
    * @param numItems number of {@link LineItem}s to create
    * @return The newly created {@link LineItem}.
+   * @clover.perm ORDERS_W
    */
   LineItemListFdParcelable addFixedPriceLineItems(String orderId, String itemId, String binName, String userData, int numItems, out ResultStatus status);
 
@@ -513,6 +596,7 @@ interface IOrderServiceV3_1 {
    * @param userData Meta-data to attach to the line item. May be {@link null}.
    * @param numItems number of {@link LineItem}s to create
    * @return The newly created {@link LineItem}.
+   * @clover.perm ORDERS_W
    */
   LineItemListFdParcelable addPerUnitLineItems(String orderId, String itemId, int unitQuantity, String binName, String userData, int numItems, out ResultStatus status);
 
@@ -530,6 +614,7 @@ interface IOrderServiceV3_1 {
    * @param userData Meta-data to attach to the line item. May be {@link null}.
    * @param numItems number of {@link LineItem}s to create
    * @return The newly created {@link LineItem}.
+   * @clover.perm ORDERS_W
    */
   LineItemListFdParcelable addVariablePriceLineItems(String orderId, String itemId, long price, String binName, String userData, int numItems, out ResultStatus status);
 
@@ -614,6 +699,7 @@ interface IOrderServiceV3_1 {
    * @param binNames the bin names to split {@code lineItemIds} across.
    *
    * @return the newly created {@link LineItem}s.
+   * @clover.perm ORDERS_W
    */
   LineItemListFdParcelable splitLineItems(String orderId, in List<String> lineItemIds, in List<String> binNames, out ResultStatus resultStatus);
 
@@ -642,7 +728,7 @@ interface IOrderServiceV3_1 {
    * @param orderId The ID of the order to be updated
    * @param fdPrintGroup PrintGroup to be added to an Order
    * @return the updated order
-   *
+   * @clover.perm ORDERS_W
    */
   OrderFdParcelable addPrintGroup(String orderId, in PrintGroupFdParcelable fdPrintGroup, out ResultStatus status);
 
@@ -654,6 +740,7 @@ interface IOrderServiceV3_1 {
      * @param clientEventType What app did the delete come from? If null, no clientEventType will be added.
      * @param approvedByEmployeeId Approval id of the employee who approved the deletion of the line item, if null no approver is added.
      * @return The updated {@link Order}.
+     * @clover.perm ORDERS_W
      */
   OrderFdParcelable deleteLineItems2(String orderId, in List<String> lineItemIds, in ClientEventType clientEventType, in String approvedByEmployeeId, out ResultStatus status);
 
@@ -664,4 +751,42 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   OrderFdParcelable voidPaymentCardPresent3(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in Map passThroughExtras, in VoidReason reason, in VoidExtraData voidExtraData, String source, out ResultStatus resultStatus);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable addTipWithAdditionalCharges(String orderId, String paymentId, long amount, in List<AdditionalChargeAmount> addtionalChargeAmounts, boolean online, out ResultStatus status);
+
+  /**
+   * Send all line items in the given print groups to the kitchen or order printer. Only prints
+   * items that have tags (also called labels) associating them with a printer.
+   *
+   * Line items will only be printed once. Subsequent invocations will not cause additional prints,
+   * but the method will still return true.
+   *
+   * @param orderId the ID of the order to fire.
+   * @param printGroupIds fire items from all given PrintGroups. If null, fire all PrintGroups.
+   * @param requireAllItems when true, it will not print and return false if some items in the
+   *        PrintGroups haven't been printed and will not be printed because they are not associated
+   *        with an order printer.
+   * @return behaves like {@link #fire(String, ResultStatus)} when {@code requireAllItems} is false.
+   *         When {@code requireAllItems} is true, returns false if there are unprinted items
+   *         without a printer associated.
+   * @clover.perm ORDERS_W
+   *
+   * @see com.clover.sdk.v3.inventory.IInventoryService.assignTagsToItem
+   * @see com.clover.sdk.v3.order.IOrderServiceV3_1.addPrintGroup
+   */
+  boolean firePrintGroups(String orderId, in List<String> printGroupsIds, boolean requireAllItems, out ResultStatus status);
+
+  /**
+   * Add a {@link com.clover.sdk.v3.base.ServiceCharge} to an order with a flag if it was added automatically or not.
+   * @param orderId The order ID on which to add the service charge.
+   * @param serviceChargeId The ID of the service charge to be added to the order.
+   * @param isAutoApplied The flag indicating if service charge is applied automatically or not.
+   * @return The updated order with the service charge added.
+   * @clover.perm ORDERS_W
+   */
+    OrderFdParcelable addServiceCharge2(String orderId, String serviceChargeId, boolean isAutoApplied, out ResultStatus status);
 }

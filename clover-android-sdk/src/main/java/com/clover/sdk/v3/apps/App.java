@@ -98,6 +98,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getScreenshots screenshots}</li>
  * <li>{@link #getAvailableSubscriptions availableSubscriptions}</li>
  * <li>{@link #getSubscriptions subscriptions}</li>
+ * <li>{@link #getRevisions revisions}</li>
  * <li>{@link #getAvailableMetereds availableMetereds}</li>
  * <li>{@link #getMetereds metereds}</li>
  * <li>{@link #getUsbDevices usbDevices}</li>
@@ -135,7 +136,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCategories categories}</li>
  * <li>{@link #getPartnerId partnerId}</li>
  * <li>{@link #getLocales locales}</li>
+ * <li>{@link #getRejectionReason rejectionReason}</li>
  * <li>{@link #getAggregateRating aggregateRating}</li>
+ * <li>{@link #getTrialDays trialDays}</li>
+ * <li>{@link #getTrialDaysLeft trialDaysLeft}</li>
  * <li>{@link #getIsHipaaCompliant isHipaaCompliant}</li>
  * </ul>
  */
@@ -162,8 +166,9 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
-   * Only available when app is installed to a merchant
+   * DEPRECATED: merchant information should not be accessed through this object
    */
+  @Deprecated
   public com.clover.sdk.v3.merchant.Merchant getMerchant() {
     return genClient.cacheGet(CacheKey.merchant);
   }
@@ -466,6 +471,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Revisions for this app
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getRevisions() {
+    return genClient.cacheGet(CacheKey.revisions);
+  }
+
+  /**
    * Available metered options for this app
    */
   public java.util.List<com.clover.sdk.v3.apps.AppMetered> getAvailableMetereds() {
@@ -720,10 +732,31 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Rejection reason by the dev rel team while rejecting an app
+   */
+  public java.lang.String getRejectionReason() {
+    return genClient.cacheGet(CacheKey.rejectionReason);
+  }
+
+  /**
    * Aggregate ratings & reviews data for this app.
    */
   public com.clover.sdk.v3.apps.AggregateRating getAggregateRating() {
     return genClient.cacheGet(CacheKey.aggregateRating);
+  }
+
+  /**
+   * Returns the trial period in days for this app.
+   */
+  public java.lang.Integer getTrialDays() {
+    return genClient.cacheGet(CacheKey.trialDays);
+  }
+
+  /**
+   * Returns the trial period in days left for this app.
+   */
+  public java.lang.Integer getTrialDaysLeft() {
+    return genClient.cacheGet(CacheKey.trialDaysLeft);
   }
 
   /**
@@ -873,6 +906,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.apps.AppSubscription.JSON_CREATOR)),
     subscriptions
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.apps.AppSubscription.JSON_CREATOR)),
+    revisions
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     availableMetereds
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.apps.AppMetered.JSON_CREATOR)),
     metereds
@@ -947,10 +982,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     locales
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    rejectionReason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     aggregateRating
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AggregateRating.JSON_CREATOR)),
+    trialDays
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    trialDaysLeft
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     isHipaaCompliant
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -1070,6 +1111,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
     genClient.validateLength(CacheKey.appSecret, getAppSecret(), 255);
 
+    genClient.validateLength(CacheKey.rejectionReason, getRejectionReason(), 2000);
+    genClient.validateReferences(CacheKey.revisions);
     genClient.validateReferences(CacheKey.appBundle);
     genClient.validateReferences(CacheKey.categories);
     genClient.validateReferences(CacheKey.locales);
@@ -1430,6 +1473,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'subscriptions' field is set and is not null and is not empty */
   public boolean isNotEmptySubscriptions() { return isNotNullSubscriptions() && !getSubscriptions().isEmpty(); }
 
+  /** Checks whether the 'revisions' field is set and is not null */
+  public boolean isNotNullRevisions() {
+    return genClient.cacheValueIsNotNull(CacheKey.revisions);
+  }
+
+  /** Checks whether the 'revisions' field is set and is not null and is not empty */
+  public boolean isNotEmptyRevisions() { return isNotNullRevisions() && !getRevisions().isEmpty(); }
+
   /** Checks whether the 'availableMetereds' field is set and is not null */
   public boolean isNotNullAvailableMetereds() {
     return genClient.cacheValueIsNotNull(CacheKey.availableMetereds);
@@ -1642,9 +1693,24 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'locales' field is set and is not null and is not empty */
   public boolean isNotEmptyLocales() { return isNotNullLocales() && !getLocales().isEmpty(); }
 
+  /** Checks whether the 'rejectionReason' field is set and is not null */
+  public boolean isNotNullRejectionReason() {
+    return genClient.cacheValueIsNotNull(CacheKey.rejectionReason);
+  }
+
   /** Checks whether the 'aggregateRating' field is set and is not null */
   public boolean isNotNullAggregateRating() {
     return genClient.cacheValueIsNotNull(CacheKey.aggregateRating);
+  }
+
+  /** Checks whether the 'trialDays' field is set and is not null */
+  public boolean isNotNullTrialDays() {
+    return genClient.cacheValueIsNotNull(CacheKey.trialDays);
+  }
+
+  /** Checks whether the 'trialDaysLeft' field is set and is not null */
+  public boolean isNotNullTrialDaysLeft() {
+    return genClient.cacheValueIsNotNull(CacheKey.trialDaysLeft);
   }
 
   /** Checks whether the 'isHipaaCompliant' field is set and is not null */
@@ -1994,6 +2060,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.subscriptions);
   }
 
+  /** Checks whether the 'revisions' field has been set, however the value could be null */
+  public boolean hasRevisions() {
+    return genClient.cacheHasKey(CacheKey.revisions);
+  }
+
   /** Checks whether the 'availableMetereds' field has been set, however the value could be null */
   public boolean hasAvailableMetereds() {
     return genClient.cacheHasKey(CacheKey.availableMetereds);
@@ -2179,9 +2250,24 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.locales);
   }
 
+  /** Checks whether the 'rejectionReason' field has been set, however the value could be null */
+  public boolean hasRejectionReason() {
+    return genClient.cacheHasKey(CacheKey.rejectionReason);
+  }
+
   /** Checks whether the 'aggregateRating' field has been set, however the value could be null */
   public boolean hasAggregateRating() {
     return genClient.cacheHasKey(CacheKey.aggregateRating);
+  }
+
+  /** Checks whether the 'trialDays' field has been set, however the value could be null */
+  public boolean hasTrialDays() {
+    return genClient.cacheHasKey(CacheKey.trialDays);
+  }
+
+  /** Checks whether the 'trialDaysLeft' field has been set, however the value could be null */
+  public boolean hasTrialDaysLeft() {
+    return genClient.cacheHasKey(CacheKey.trialDaysLeft);
   }
 
   /** Checks whether the 'isHipaaCompliant' field has been set, however the value could be null */
@@ -2683,6 +2769,15 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Sets the field 'revisions'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setRevisions(java.util.List<com.clover.sdk.v3.base.Reference> revisions) {
+    return genClient.setArrayRecord(revisions, CacheKey.revisions);
+  }
+
+  /**
    * Sets the field 'availableMetereds'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -2968,12 +3063,33 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Sets the field 'rejectionReason'.
+   */
+  public App setRejectionReason(java.lang.String rejectionReason) {
+    return genClient.setOther(rejectionReason, CacheKey.rejectionReason);
+  }
+
+  /**
    * Sets the field 'aggregateRating'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
   public App setAggregateRating(com.clover.sdk.v3.apps.AggregateRating aggregateRating) {
     return genClient.setRecord(aggregateRating, CacheKey.aggregateRating);
+  }
+
+  /**
+   * Sets the field 'trialDays'.
+   */
+  public App setTrialDays(java.lang.Integer trialDays) {
+    return genClient.setOther(trialDays, CacheKey.trialDays);
+  }
+
+  /**
+   * Sets the field 'trialDaysLeft'.
+   */
+  public App setTrialDaysLeft(java.lang.Integer trialDaysLeft) {
+    return genClient.setOther(trialDaysLeft, CacheKey.trialDaysLeft);
   }
 
   /**
@@ -3256,6 +3372,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearSubscriptions() {
     genClient.clear(CacheKey.subscriptions);
   }
+  /** Clears the 'revisions' field, the 'has' method for this field will now return false */
+  public void clearRevisions() {
+    genClient.clear(CacheKey.revisions);
+  }
   /** Clears the 'availableMetereds' field, the 'has' method for this field will now return false */
   public void clearAvailableMetereds() {
     genClient.clear(CacheKey.availableMetereds);
@@ -3404,9 +3524,21 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearLocales() {
     genClient.clear(CacheKey.locales);
   }
+  /** Clears the 'rejectionReason' field, the 'has' method for this field will now return false */
+  public void clearRejectionReason() {
+    genClient.clear(CacheKey.rejectionReason);
+  }
   /** Clears the 'aggregateRating' field, the 'has' method for this field will now return false */
   public void clearAggregateRating() {
     genClient.clear(CacheKey.aggregateRating);
+  }
+  /** Clears the 'trialDays' field, the 'has' method for this field will now return false */
+  public void clearTrialDays() {
+    genClient.clear(CacheKey.trialDays);
+  }
+  /** Clears the 'trialDaysLeft' field, the 'has' method for this field will now return false */
+  public void clearTrialDaysLeft() {
+    genClient.clear(CacheKey.trialDaysLeft);
   }
   /** Clears the 'isHipaaCompliant' field, the 'has' method for this field will now return false */
   public void clearIsHipaaCompliant() {
@@ -3562,6 +3694,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean SCREENSHOTS_IS_REQUIRED = false;
     public static final boolean AVAILABLESUBSCRIPTIONS_IS_REQUIRED = false;
     public static final boolean SUBSCRIPTIONS_IS_REQUIRED = false;
+    public static final boolean REVISIONS_IS_REQUIRED = false;
     public static final boolean AVAILABLEMETEREDS_IS_REQUIRED = false;
     public static final boolean METEREDS_IS_REQUIRED = false;
     public static final boolean USBDEVICES_IS_REQUIRED = false;
@@ -3602,7 +3735,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean CATEGORIES_IS_REQUIRED = false;
     public static final boolean PARTNERID_IS_REQUIRED = false;
     public static final boolean LOCALES_IS_REQUIRED = false;
+    public static final boolean REJECTIONREASON_IS_REQUIRED = false;
+    public static final long REJECTIONREASON_MAX_LEN = 2000;
     public static final boolean AGGREGATERATING_IS_REQUIRED = false;
+    public static final boolean TRIALDAYS_IS_REQUIRED = false;
+    public static final boolean TRIALDAYSLEFT_IS_REQUIRED = false;
     public static final boolean ISHIPAACOMPLIANT_IS_REQUIRED = false;
   }
 

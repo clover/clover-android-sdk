@@ -15,7 +15,10 @@
  */
 package com.clover.sdk.util;
 
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
+
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -138,7 +141,8 @@ public class CustomerMode {
       }
 
       try {
-        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null);
+        UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(), AUTHORITY_URI);
+        client.call(SET_CUSTOMER_MODE_METHOD, State.ENABLED.name(), null, null);
       } catch (IllegalArgumentException e) {
       }
     }
@@ -197,7 +201,8 @@ public class CustomerMode {
       try {
         Bundle bundle = new Bundle();
         bundle.putBoolean(EXTRA_REQUIRE_PIN, requireEmployeePasscode);
-        context.getContentResolver().call(AUTHORITY_URI, SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), bundle);
+        UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(), AUTHORITY_URI);
+        client.call(SET_CUSTOMER_MODE_METHOD, State.DISABLED.name(), bundle, null);
       } catch (IllegalArgumentException e) {
       }
     }
@@ -292,6 +297,35 @@ public class CustomerMode {
       }
     }
     return State.DISABLED;
+  }
+
+  /**
+   * Convenience method to register broadcast receiver of customer mode change.
+   * This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
+   */
+  public static void registerReceiver(Activity activity, BroadcastReceiver customerModeReceiver) {
+    if (Platform2.supportsFeature(activity, Platform2.Feature.CUSTOMER_MODE)) {
+      if (!isShownOnPrimaryDisplay(activity)) {
+        return;
+      }
+      IntentFilter intentFilter = new IntentFilter(ACTION_CUSTOMER_MODE);
+      activity.registerReceiver(customerModeReceiver, intentFilter);
+    }
+  }
+
+  /**
+   * Convenience method to unregister broadcast receiver of customer mode change.
+   * This method has no effect if the passed context is an activity which
+   * is running on a non-primary display.
+   */
+  public static void unregisterReceiver(Activity activity, BroadcastReceiver customerModeReceiver) {
+    if (Platform2.supportsFeature(activity, Platform2.Feature.CUSTOMER_MODE)) {
+      if (!isShownOnPrimaryDisplay(activity)) {
+        return;
+      }
+      activity.unregisterReceiver(customerModeReceiver);
+    }
   }
 
 }

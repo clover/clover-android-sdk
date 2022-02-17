@@ -49,6 +49,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getReversalMac reversalMac}</li>
  * <li>{@link #getReversalMacKsn reversalMacKsn}</li>
  * <li>{@link #getTerminalIdentification terminalIdentification}</li>
+ * <li>{@link #getExternalTerminalId externalTerminalId}</li>
  * <li>{@link #getMerchantIdentifier merchantIdentifier}</li>
  * <li>{@link #getMerchantNameLocation merchantNameLocation}</li>
  * <li>{@link #getMaskedTrack2 maskedTrack2}</li>
@@ -70,6 +71,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getECommTransactionInfo eCommTransactionInfo}</li>
  * <li>{@link #getSepaElvTransactionInfo sepaElvTransactionInfo}</li>
  * <li>{@link #getClientCardType clientCardType}</li>
+ * <li>{@link #getExplicitlySelectedApp explicitlySelectedApp}</li>
  * <li>{@link #getIsSepaElv isSepaElv}</li>
  * <li>{@link #getPrintMessages printMessages}</li>
  * </ul>
@@ -206,6 +208,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
    */
   public java.lang.String getTerminalIdentification() {
     return genClient.cacheGet(CacheKey.terminalIdentification);
+  }
+
+  /**
+   * Main internal identifier of terminal which should be the same across all Fiserv’s components
+   */
+  public java.lang.String getExternalTerminalId() {
+    return genClient.cacheGet(CacheKey.externalTerminalId);
   }
 
   /**
@@ -351,6 +360,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * The app explicitly selected by the customer via the choice button.
+   */
+  public java.lang.String getExplicitlySelectedApp() {
+    return genClient.cacheGet(CacheKey.explicitlySelectedApp);
+  }
+
+  /**
    * Defines if the corresponding TX was performed as SEPA ELV TX.
    */
   public java.lang.Boolean getIsSepaElv() {
@@ -366,89 +382,93 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     languageIndicator
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     transactionLocale
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     accountSelection
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AccountType.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AccountType.class)),
     fiscalInvoiceNumber
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     installmentsQuantity
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     installmentsPlanCode
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     installmentsPlanId
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     installmentsPlanDesc
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     cardTypeLabel
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     cardSymbol
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     stan
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     identityDocument
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.customers.IdentityDocument.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.customers.IdentityDocument.JSON_CREATOR)),
     batchNumber
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     receiptNumber
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     reversalStanRefNum
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     reversalStan
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     reversalMac
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     reversalMacKsn
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     terminalIdentification
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    externalTerminalId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     merchantIdentifier
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     merchantNameLocation
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     maskedTrack2
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     receiptExtraData
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     selectedService
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.SelectedService.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.SelectedService.class)),
     transactionResult
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionResult.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionResult.class)),
     transactionTags
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     txFormat
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TxFormat.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TxFormat.class)),
     panMask
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     transactionSequenceCounter
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     applicationPanSequenceNumber
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     reversalReason
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.ReversalReason.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.ReversalReason.class)),
     isTokenBasedTx
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     origTransactionSequenceCounter
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     transactionSequenceCounterUpdate
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     emergencyFlag
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     cardEntryType
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardEntryType.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardEntryType.class)),
     promotionalMessage
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PromotionalMessage.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PromotionalMessage.JSON_CREATOR)),
     eCommTransactionInfo
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ECommTransactionInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ECommTransactionInfo.JSON_CREATOR)),
     sepaElvTransactionInfo
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.SepaElvTransactionInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.SepaElvTransactionInfo.JSON_CREATOR)),
     clientCardType
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardType.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.CardType.class)),
+    explicitlySelectedApp
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     isSepaElv
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     printMessages
-            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.DisplayAndPrintMessage.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.DisplayAndPrintMessage.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -627,6 +647,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.terminalIdentification);
   }
 
+  /** Checks whether the 'externalTerminalId' field is set and is not null */
+  public boolean isNotNullExternalTerminalId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalTerminalId);
+  }
+
   /** Checks whether the 'merchantIdentifier' field is set and is not null */
   public boolean isNotNullMerchantIdentifier() {
     return genClient.cacheValueIsNotNull(CacheKey.merchantIdentifier);
@@ -730,6 +755,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'clientCardType' field is set and is not null */
   public boolean isNotNullClientCardType() {
     return genClient.cacheValueIsNotNull(CacheKey.clientCardType);
+  }
+
+  /** Checks whether the 'explicitlySelectedApp' field is set and is not null */
+  public boolean isNotNullExplicitlySelectedApp() {
+    return genClient.cacheValueIsNotNull(CacheKey.explicitlySelectedApp);
   }
 
   /** Checks whether the 'isSepaElv' field is set and is not null */
@@ -842,6 +872,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.terminalIdentification);
   }
 
+  /** Checks whether the 'externalTerminalId' field has been set, however the value could be null */
+  public boolean hasExternalTerminalId() {
+    return genClient.cacheHasKey(CacheKey.externalTerminalId);
+  }
+
   /** Checks whether the 'merchantIdentifier' field has been set, however the value could be null */
   public boolean hasMerchantIdentifier() {
     return genClient.cacheHasKey(CacheKey.merchantIdentifier);
@@ -945,6 +980,11 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'clientCardType' field has been set, however the value could be null */
   public boolean hasClientCardType() {
     return genClient.cacheHasKey(CacheKey.clientCardType);
+  }
+
+  /** Checks whether the 'explicitlySelectedApp' field has been set, however the value could be null */
+  public boolean hasExplicitlySelectedApp() {
+    return genClient.cacheHasKey(CacheKey.explicitlySelectedApp);
   }
 
   /** Checks whether the 'isSepaElv' field has been set, however the value could be null */
@@ -1091,6 +1131,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
    */
   public TransactionInfo setTerminalIdentification(java.lang.String terminalIdentification) {
     return genClient.setOther(terminalIdentification, CacheKey.terminalIdentification);
+  }
+
+  /**
+   * Sets the field 'externalTerminalId'.
+   */
+  public TransactionInfo setExternalTerminalId(java.lang.String externalTerminalId) {
+    return genClient.setOther(externalTerminalId, CacheKey.externalTerminalId);
   }
 
   /**
@@ -1247,6 +1294,13 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * Sets the field 'explicitlySelectedApp'.
+   */
+  public TransactionInfo setExplicitlySelectedApp(java.lang.String explicitlySelectedApp) {
+    return genClient.setOther(explicitlySelectedApp, CacheKey.explicitlySelectedApp);
+  }
+
+  /**
    * Sets the field 'isSepaElv'.
    */
   public TransactionInfo setIsSepaElv(java.lang.Boolean isSepaElv) {
@@ -1339,6 +1393,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearTerminalIdentification() {
     genClient.clear(CacheKey.terminalIdentification);
   }
+  /** Clears the 'externalTerminalId' field, the 'has' method for this field will now return false */
+  public void clearExternalTerminalId() {
+    genClient.clear(CacheKey.externalTerminalId);
+  }
   /** Clears the 'merchantIdentifier' field, the 'has' method for this field will now return false */
   public void clearMerchantIdentifier() {
     genClient.clear(CacheKey.merchantIdentifier);
@@ -1422,6 +1480,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Clears the 'clientCardType' field, the 'has' method for this field will now return false */
   public void clearClientCardType() {
     genClient.clear(CacheKey.clientCardType);
+  }
+  /** Clears the 'explicitlySelectedApp' field, the 'has' method for this field will now return false */
+  public void clearExplicitlySelectedApp() {
+    genClient.clear(CacheKey.explicitlySelectedApp);
   }
   /** Clears the 'isSepaElv' field, the 'has' method for this field will now return false */
   public void clearIsSepaElv() {
@@ -1516,6 +1578,7 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean REVERSALMAC_IS_REQUIRED = false;
     public static final boolean REVERSALMACKSN_IS_REQUIRED = false;
     public static final boolean TERMINALIDENTIFICATION_IS_REQUIRED = false;
+    public static final boolean EXTERNALTERMINALID_IS_REQUIRED = false;
     public static final boolean MERCHANTIDENTIFIER_IS_REQUIRED = false;
     public static final boolean MERCHANTNAMELOCATION_IS_REQUIRED = false;
     public static final boolean MASKEDTRACK2_IS_REQUIRED = false;
@@ -1538,6 +1601,7 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean ECOMMTRANSACTIONINFO_IS_REQUIRED = false;
     public static final boolean SEPAELVTRANSACTIONINFO_IS_REQUIRED = false;
     public static final boolean CLIENTCARDTYPE_IS_REQUIRED = false;
+    public static final boolean EXPLICITLYSELECTEDAPP_IS_REQUIRED = false;
     public static final boolean ISSEPAELV_IS_REQUIRED = false;
     public static final boolean PRINTMESSAGES_IS_REQUIRED = false;
   }

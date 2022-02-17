@@ -18,6 +18,17 @@ package com.clover.sdk.v3.order;
 import android.accounts.Account;
 import android.content.Context;
 
+import com.clover.sdk.v1.ServiceConnector;
+
+/**
+ * Service connector for {@link IOrderServiceV3_1}. Please see that class for documentation on the
+ * RPC methods.
+ *
+ * @see IOrderServiceV3_1
+ * @see ServiceConnector
+ * @see Order
+ * @see LineItem
+ */
 public class OrderConnector extends OrderV31Connector {
 
   /**
@@ -28,9 +39,6 @@ public class OrderConnector extends OrderV31Connector {
    *                the service.
    * @param account the Account to use with the service.
    * @param client  an optional object implementing the OnServiceConnectedListener
-   *
-   * @see IOrderServiceV3_1
-   * @see OrderV31Connector
    */
   public OrderConnector(Context context, Account account, OnServiceConnectedListener client) {
     super(context, account, client);

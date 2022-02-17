@@ -1,0 +1,4 @@
+<resources>
+  <string name="default_manual_line_item_name">Manuelle Transaktion</string>
+  <string name="authorization_line_item_name">Autorisierung</string>
+</resources>

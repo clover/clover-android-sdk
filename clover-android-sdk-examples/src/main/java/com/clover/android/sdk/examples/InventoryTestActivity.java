@@ -201,8 +201,8 @@ public class InventoryTestActivity extends Activity {
           if (authResult.authToken != null && baseUrl != null) {
             CustomHttpClient httpClient = CustomHttpClient.getHttpClient();
             String getNameUri = "/v2/merchant/name";
-            String url = baseUrl + getNameUri + "?access_token=" + authResult.authToken;
-            String result = httpClient.get(url);
+            String url = baseUrl + getNameUri;
+            String result = httpClient.get(url, authResult.authToken);
             JSONTokener jsonTokener = new JSONTokener(result);
             JSONObject root = (JSONObject) jsonTokener.nextValue();
             String merchantId = root.getString("merchantId");
@@ -819,6 +819,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<Item> getItemsForModifierGroup(final String modifierGroupId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getItemsForModifierGroup()");
+    }
+
+    @Override
     public Item createItem(Item item, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement createItem()");
     }
@@ -834,6 +839,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public void deleteItems(List<String> itemIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteItems()");
+    }
+
+    @Override
     public List<TaxRate> getTaxRatesForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("getTaxRatesForItem() not supported through web service API");
     }
@@ -841,6 +851,11 @@ public class InventoryTestActivity extends Activity {
     @Override
     public List<TaxRate> getTaxRatesExcludedForItem(String orderTypeId, String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("getTaxRatesForItem() not supported through web service API");
+    }
+
+    @Override
+    public void bulkAssignColorToItems(List<String> itemIds, String colorHexCode, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement bulkAssignColorToItems");
     }
 
     @Override
@@ -875,8 +890,8 @@ public class InventoryTestActivity extends Activity {
       CustomHttpClient httpClient = CustomHttpClient.getHttpClient();
 
       try {
-        String url = baseUrl + uri + "?access_token=" + accessToken;
-        String result = httpClient.get(url);
+        String url = baseUrl + uri;
+        String result = httpClient.get(url, accessToken);
         if (!TextUtils.isEmpty(result)) {
           JSONTokener jsonTokener = new JSONTokener(result);
           JSONObject root = (JSONObject) jsonTokener.nextValue();
@@ -901,8 +916,8 @@ public class InventoryTestActivity extends Activity {
 
       try {
         List<T> results = new ArrayList<T>();
-        String url = baseUrl + uri + "?access_token=" + accessToken;
-        String result = httpClient.get(url);
+        String url = baseUrl + uri;
+        String result = httpClient.get(url, accessToken);
         if (!TextUtils.isEmpty(result)) {
           JSONTokener jsonTokener = new JSONTokener(result);
           JSONObject root = (JSONObject) jsonTokener.nextValue();
@@ -934,8 +949,23 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public void updateCategorySortOrders(List<Category> categories, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateCategorySortOrders()");
+    }
+
+    @Override
+    public void updateCategoryItems(String categoryId, List<String> itemIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateCategoryItems()");
+    }
+
+    @Override
     public void deleteCategory(String categoryId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement deleteCategory()");
+    }
+
+    @Override
+    public void deleteCategories(List<String> categoryIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteCategories()");
     }
 
     @Override
@@ -961,6 +991,11 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void deleteModifierGroup(String groupId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement deleteModifierGroup()");
+    }
+
+    @Override
+    public void deleteModifierGroups(List<String> groupIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteModifierGroups()");
     }
 
     @Override
@@ -1011,6 +1046,11 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void deleteTag(String tagId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement deleteTag()");
+    }
+
+    @Override
+    public void deleteTags(List<String> tagIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteTags()");
     }
 
     @Override
@@ -1194,9 +1234,10 @@ public class InventoryTestActivity extends Activity {
       return httpClient;
     }
 
-    public String get(String url) throws IOException, HttpException {
+    public String get(String url, String accessToken) throws IOException, HttpException {
       String result;
       HttpGet request = new HttpGet(url);
+      request.setHeader("Authorization", "Bearer " + accessToken);
       HttpResponse response = execute(request);
       int statusCode = response.getStatusLine().getStatusCode();
       if (statusCode == HttpStatus.SC_OK) {
@@ -1213,11 +1254,12 @@ public class InventoryTestActivity extends Activity {
     }
 
     @SuppressWarnings("unused")
-    public String post(String url, String body) throws IOException, HttpException {
+    public String post(String url, String body, String accessToken) throws IOException, HttpException {
       String result;
       HttpPost request = new HttpPost(url);
       HttpEntity bodyEntity = new StringEntity(body);
       request.setEntity(bodyEntity);
+      request.setHeader("Authorization", "Bearer " + accessToken);
       HttpResponse response = execute(request);
       int statusCode = response.getStatusLine().getStatusCode();
       if (statusCode == HttpStatus.SC_OK) {

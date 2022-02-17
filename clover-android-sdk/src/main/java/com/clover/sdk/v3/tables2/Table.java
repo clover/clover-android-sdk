@@ -254,7 +254,7 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
     genClient.validateCloverId(CacheKey.id, getId());
 
     genClient.validateNotNull(CacheKey.name, getName());
-    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 64);
     genClient.validateReferences(CacheKey.merchant);
     genClient.validateReferences(CacheKey.section);
   }
@@ -626,7 +626,7 @@ public class Table extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
-    public static final long NAME_MAX_LEN = 127;
+    public static final long NAME_MAX_LEN = 64;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;

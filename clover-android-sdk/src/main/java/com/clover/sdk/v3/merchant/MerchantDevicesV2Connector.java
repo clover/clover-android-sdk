@@ -19,6 +19,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 import com.clover.sdk.v1.CallConnector;
 import com.clover.sdk.v3.device.Device;
 
@@ -32,6 +33,7 @@ import com.clover.sdk.v3.device.Device;
  * merchant's devices.
  */
 public class MerchantDevicesV2Connector extends CallConnector {
+
   public MerchantDevicesV2Connector(Context context) {
     super(context, MerchantDevicesV2Contract.Device.CONTENT_URI);
   }
@@ -40,7 +42,9 @@ public class MerchantDevicesV2Connector extends CallConnector {
    * Get the serial of this device.
    */
   public String getSerial() {
-    Bundle result = context.getContentResolver().call(MerchantDevicesV2Contract.AUTHORITY_URI, MerchantDevicesV2Contract.METHOD_GET_SERIAL, null, null);
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(),
+        MerchantDevicesV2Contract.AUTHORITY_URI);
+    Bundle result = client.call(MerchantDevicesV2Contract.METHOD_GET_SERIAL, null, null, null);
     if (result == null) {
       return null;
     }
@@ -77,7 +81,8 @@ public class MerchantDevicesV2Connector extends CallConnector {
   private Device getDevice(String where, String[] whereArgs) {
     Cursor c = null;
     try {
-      c = context.getContentResolver().query(MerchantDevicesV2Contract.Device.CONTENT_URI, null, where, whereArgs, null);
+      UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(), MerchantDevicesV2Contract.Device.CONTENT_URI);
+      c = client.query(null, where, whereArgs, null);
       if (c != null && c.moveToFirst()) {
         return MerchantDevicesV2Contract.Device.fromCursor(c);
       }

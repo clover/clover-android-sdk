@@ -76,6 +76,13 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.percentageDecimal);
   }
 
+  /**
+   * Returns if service charge is auto applied (auto-gratuity).
+   */
+  public java.lang.Boolean getIsAutoApplied() {
+    return genClient.cacheGet(CacheKey.isAutoApplied);
+  }
+
 
 
 
@@ -90,6 +97,8 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     percentageDecimal
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    isAutoApplied
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -196,6 +205,10 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.percentageDecimal);
   }
 
+  /** Checks whether the 'isAutoGratuityApplied' field is set and is not null */
+  public boolean isNotNullisAutoApplied() {
+    return genClient.cacheValueIsNotNull(CacheKey.isAutoApplied);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -222,7 +235,10 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
   public boolean hasPercentageDecimal() {
     return genClient.cacheHasKey(CacheKey.percentageDecimal);
   }
-
+  /** Checks whether the 'isAutoGratuityApplied' field has been set, however the value could be null */
+  public boolean hasIsAutoApplied() {
+    return genClient.cacheHasKey(CacheKey.isAutoApplied);
+  }
 
   /**
    * Sets the field 'id'.
@@ -259,6 +275,12 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(percentageDecimal, CacheKey.percentageDecimal);
   }
 
+  /**
+   * Sets the field 'isAutoApplied'.
+   */
+  public ServiceCharge setIsAutoApplied(java.lang.Boolean isAutoApplied) {
+    return genClient.setOther(isAutoApplied, CacheKey.isAutoApplied);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -280,7 +302,8 @@ public class ServiceCharge extends GenericParcelable implements com.clover.sdk.v
   public void clearPercentageDecimal() {
     genClient.clear(CacheKey.percentageDecimal);
   }
-
+  /** Clears the 'isAutoGratuityApplied' field, the 'has' method for this field will now return false */
+  public void clearIsAutoApplied() { genClient.clear(CacheKey.isAutoApplied); }
 
   /**
    * Returns true if this instance has any changes.

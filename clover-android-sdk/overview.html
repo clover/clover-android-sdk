@@ -24,15 +24,15 @@
 <p>
   Interfaces to use with bound Clover services that allow management of a merchant's data: orders,
   inventory, customers, employees, printers, properties, etc. Service classes starting with 'I' are
-  the native AIDL interfaces. Clover also provides ServiceConnector classes for simpler usage.
+  the underlying AIDL interfaces. Clover provides corresponding ServiceConnector classes for simpler
+  usage.
 <ul>
-  <li>{@link com.clover.sdk.v1.app.IAppService}</li>
   <li>{@link com.clover.sdk.v3.apps.IAppsService}</li>
   <li>{@link com.clover.sdk.v1.customer.ICustomerService}</li>
   <li>{@link com.clover.sdk.v3.employees.IEmployeeService}</li>
   <li>{@link com.clover.sdk.v3.inventory.IInventoryService}</li>
   <li>{@link com.clover.sdk.v1.merchant.IMerchantService}</li>
-  <li>{@link com.clover.sdk.v3.order.IOrderService}</li>
+  <li>{@link com.clover.sdk.v3.order.IOrderServiceV3_1}</li>
   <li>{@link com.clover.sdk.v1.printer.IPrinterService}</li>
   <li>{@link com.clover.sdk.v1.printer.IReceiptRegistrationService}</li>
   <li>{@link com.clover.sdk.v1.tender.ITenderService}</li>
@@ -71,7 +71,6 @@
   <li>{@link com.clover.sdk.v1.printer.ReceiptFileContract}</li>
   <li>{@link com.clover.sdk.v1.printer.ReceiptRegistrationContract}</li>
   <li>{@link com.clover.sdk.v3.cash.CashContract}</li>
-  <li>{@link com.clover.sdk.v3.employees.RolesContract}</li>
   <li>{@link com.clover.sdk.v3.inventory.InventoryContract}</li>
   <li>{@link com.clover.sdk.v3.order.OrderContract}</li>
 </ul>

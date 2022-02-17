@@ -1,5 +1,6 @@
 package com.clover.sdk.v3.common;
 
+import com.clover.android.connector.sdk.R;
 import com.clover.common2.payments.PayIntent;
 import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class CreateOrUpdateOrderTask extends ConnectorSafeAsyncTask<String, Void, Order> {
-  public static final String LINE_ITEM_DEFAULT_NAME = "Manual Transaction";
   private static final String TAG = CreateOrUpdateOrderTask.class.getSimpleName();
   private final OrderConnector orderConnector;
   private final PayIntent payIntent;
@@ -37,7 +37,10 @@ public abstract class CreateOrUpdateOrderTask extends ConnectorSafeAsyncTask<Str
    */
   @Override
   protected Order doInBackground(String... params) {
-    String lineItemName = LINE_ITEM_DEFAULT_NAME;
+    String lineItemName = getContext().getString(R.string.default_manual_line_item_name);
+    if (payIntent != null && payIntent.transactionType != null && payIntent.transactionType.equals(PayIntent.TransactionType.AUTH)) { //critical for proper web receipt generation
+      lineItemName = getContext().getString(R.string.authorization_line_item_name);
+    }
     if (params != null && params.length > 0 && !params[0].equals("")) {
       lineItemName = params[0];
     }
@@ -82,7 +85,6 @@ public abstract class CreateOrUpdateOrderTask extends ConnectorSafeAsyncTask<Str
   }
 
   private Order createOrder(long amount, String lineItemName) {
-    // String lineItemName = getContext().getString(R.string.default_manual_line_item_name);
     try {
       Order order = orderConnector.createOrder(new Order().setManualTransaction(true));
 

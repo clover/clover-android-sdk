@@ -176,6 +176,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       }
     }, callback);
   }
+  
+  public List<Item> getItemsForModifierGroup(final String modifierGroupId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Item>>() {
+      public List<Item> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getItemsForModifierGroup(modifierGroupId, status);
+      }
+    });
+  }
 
   public Item createItem(final Item item) throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<IInventoryService, Item>() {
@@ -227,6 +235,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public void deleteItems(final List<String> itemIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteItems(itemIds, status);
+      }
+    });
+  }
+
   public List<Category> getCategories() throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<IInventoryService, List<Category>>() {
       public List<Category> call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -259,6 +275,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public void updateCategorySortOrders(final List<Category> categories) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateCategorySortOrders(categories, status);
+      }
+    });
+  }
+
   public void updateCategory(final Category category) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<IInventoryService>() {
       public void run(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -276,6 +300,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public void updateCategoryItems(final String categoryId, final List<String> itemIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.updateCategoryItems(categoryId, itemIds, status);
+      }
+    });
+  }
+
   public void deleteCategory(final String categoryId) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<IInventoryService>() {
       public void run(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -291,6 +323,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
         return null;
       }
     }, callback);
+  }
+
+  public void deleteCategories(final List<String> categoryIds) throws RemoteException, ServiceException, BindingException, ClientException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteCategories(categoryIds, status);
+      }
+    });
   }
 
   public void addItemToCategory(final String itemId, final String categoryId) throws ClientException, ServiceException, BindingException, RemoteException {
@@ -420,6 +460,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
         service.deleteModifierGroup(groupId, status);
       }
     }, callback);
+  }
+
+  public void deleteModifierGroups(final List<String> groupIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteModifierGroups(groupIds, status);
+      }
+    });
   }
 
   public List<Modifier> getModifiers(final String modifierGroupId) throws ClientException, ServiceException, BindingException, RemoteException {
@@ -762,6 +810,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
         service.deleteTag(tagId, status);
       }
     }, callback);
+  }
+
+  public void deleteTags(final List<String> tagIds) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.deleteTags(tagIds, status);
+      }
+    });
   }
 
   public List<Tag> getTagsForItem(final String itemId) throws ClientException, ServiceException, BindingException, RemoteException {
@@ -1293,6 +1349,16 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
         return null;
       }
     }, callback);
+  }
+
+  public void bulkAssignColorToItems(final List<String> itemIds, final String colorHexCode) throws
+      ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      @Override
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.bulkAssignColorToItems(itemIds, colorHexCode, status);
+      }
+    });
   }
 
 }

@@ -24,6 +24,8 @@ public class TenderConstants {
   public static final String EXTERNAL_PAYMENT = "com.clover.tender.external_payment";
   public static final String EXTERNAL_PIN_DEBIT = "com.clover.tender.external_pin_debit";
   public static final String DEBIT_CARD = "com.clover.tender.debit_card";
+  public static final String PAYPAL = "com.clover.paypal";
+  public static final String VENMO = "com.clover.venmo";
 
   private TenderConstants() {
   }
@@ -38,6 +40,18 @@ public class TenderConstants {
 
   public static boolean isSystemDebitCard(final String labelKey) {
     return isLabelKey(labelKey, DEBIT_CARD);
+  }
+
+  public static boolean isPayPalVenmo(final String labelKey) {
+    return isSystemPayPal(labelKey) || isSystemVenmo(labelKey);
+  }
+
+  public static boolean isSystemPayPal(final String labelKey) {
+    return isLabelKey(labelKey, PAYPAL);
+  }
+
+  public static boolean isSystemVenmo(final String labelKey) {
+    return isLabelKey(labelKey, VENMO);
   }
 
   public static boolean isSystemExternalPayment(final String labelKey) {

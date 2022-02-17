@@ -29,6 +29,7 @@ import com.clover.sdk.v3.onlineorder.Reason;
 import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.pay.PaymentRequestFdParcelable;
+import com.clover.sdk.v3.payments.AdditionalChargeAmount;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
 import com.clover.sdk.v3.payments.CreditRefund;
@@ -43,6 +44,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.os.IBinder;
 import android.os.RemoteException;
+import androidx.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -696,7 +698,6 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       }
     });
   }
-
   /**
    * Not available to non-Clover apps.
    * @y.exclude
@@ -768,6 +769,25 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return service.fire(orderId, status);
+      }
+    });
+  }
+
+  public boolean fire2(final String orderId, final boolean requireAllItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
+      @Override
+      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.fire2(orderId, requireAllItems, status);
+      }
+    });
+  }
+
+  public boolean firePrintGroups(final String orderId, @Nullable final List<String> printGroupIds, final boolean requireAllItems)
+      throws RemoteException, ServiceException, BindingException, ClientException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
+      @Override
+      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.firePrintGroups(orderId, printGroupIds, requireAllItems, status);
       }
     });
   }
@@ -1123,15 +1143,6 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     }
   }
 
-  public boolean fire2(final String orderId, final boolean requireAllItems) throws RemoteException, ClientException, ServiceException, BindingException {
-    return execute(new ServiceCallable<IOrderServiceV3_1, Boolean>() {
-      @Override
-      public Boolean call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
-        return service.fire2(orderId, requireAllItems, status);
-      }
-    });
-  }
-
   public Map<String, List<LineItem>> createLineItemsFrom2(final String sourceOrderId, final String destinationOrderId, final List<String> srclineItemIds, final boolean copyPrinted, final boolean broadcastLineItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Map<String, List<LineItem>>>() {
       @Override
@@ -1216,9 +1227,6 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
   }
 
   /**
-   * @param orderId The ID of the order to be updated.
-   * @param creditId The ID of the credit to be refunded.
-   * @return the CreditRefund object constructed using the RefundResponse the serverf returns
    * Not available to non-Clover apps.
    * @y.exclude
    */
@@ -1233,5 +1241,33 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
 
   public void updateOnlineOrderState(String orderId, OrderState orderState, Reason reason) throws RemoteException, ClientException, ServiceException, BindingException {
     execute((ServiceRunnable<IOrderServiceV3_1>) (service, status) -> service.updateOnlineOrderState(orderId, orderState, reason, status));
+  }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Order addTipWithAdditionalCharges(final String orderId, final String paymentId, final long amount, final List<AdditionalChargeAmount> additionalChargeAmounts, final boolean online) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addTipWithAdditionalCharges(orderId, paymentId, amount, additionalChargeAmounts, online, status));
+      }
+    });
+  }
+
+  /**
+   * Adds service charge to the order
+   * @param orderId ID of the order to which service charge is added
+   * @param isAutoApplied a flag to indicate if service charge is auto applied
+   * @param serviceChargeId the ID of service charge which is to be added to order
+   */
+  public Order addServiceCharge2(final String orderId, final String serviceChargeId, final boolean isAutoApplied) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addServiceCharge2(orderId, serviceChargeId, isAutoApplied, status));
+      }
+    });
   }
 }

@@ -35,9 +35,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getPhoneNumber phoneNumber}</li>
  * <li>{@link #getEnabled enabled}</li>
+ * <li>{@link #getMenuWalkthroughComplete menuWalkthroughComplete}</li>
  * <li>{@link #getBusinessInfoDone businessInfoDone}</li>
  * <li>{@link #getServiceInfoDone serviceInfoDone}</li>
  * <li>{@link #getStatus status}</li>
+ * <li>{@link #getScheduleOrder scheduleOrder}</li>
+ * <li>{@link #getScheduleDayRange scheduleDayRange}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getLeadTime leadTime}</li>
@@ -80,6 +83,13 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Auto-curation menu walkthrough complete
+   */
+  public java.lang.Boolean getMenuWalkthroughComplete() {
+    return genClient.cacheGet(CacheKey.menuWalkthroughComplete);
+  }
+
+  /**
    * Finished collecting business information
    */
   public java.lang.Boolean getBusinessInfoDone() {
@@ -98,6 +108,20 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
    */
   public com.clover.sdk.v3.onlineorder.Status getStatus() {
     return genClient.cacheGet(CacheKey.status);
+  }
+
+  /**
+   * If the merchant accepts scheduled order
+   */
+  public java.lang.Boolean getScheduleOrder() {
+    return genClient.cacheGet(CacheKey.scheduleOrder);
+  }
+
+  /**
+   * Order ahead day range
+   */
+  public java.lang.Integer getScheduleDayRange() {
+    return genClient.cacheGet(CacheKey.scheduleDayRange);
   }
 
   /**
@@ -142,12 +166,18 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     enabled
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    menuWalkthroughComplete
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     businessInfoDone
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     serviceInfoDone
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     status
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.Status.class)),
+    scheduleOrder
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    scheduleDayRange
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
@@ -260,6 +290,11 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.enabled);
   }
 
+  /** Checks whether the 'menuWalkthroughComplete' field is set and is not null */
+  public boolean isNotNullMenuWalkthroughComplete() {
+    return genClient.cacheValueIsNotNull(CacheKey.menuWalkthroughComplete);
+  }
+
   /** Checks whether the 'businessInfoDone' field is set and is not null */
   public boolean isNotNullBusinessInfoDone() {
     return genClient.cacheValueIsNotNull(CacheKey.businessInfoDone);
@@ -273,6 +308,16 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   /** Checks whether the 'status' field is set and is not null */
   public boolean isNotNullStatus() {
     return genClient.cacheValueIsNotNull(CacheKey.status);
+  }
+
+  /** Checks whether the 'scheduleOrder' field is set and is not null */
+  public boolean isNotNullScheduleOrder() {
+    return genClient.cacheValueIsNotNull(CacheKey.scheduleOrder);
+  }
+
+  /** Checks whether the 'scheduleDayRange' field is set and is not null */
+  public boolean isNotNullScheduleDayRange() {
+    return genClient.cacheValueIsNotNull(CacheKey.scheduleDayRange);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -322,6 +367,11 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.enabled);
   }
 
+  /** Checks whether the 'menuWalkthroughComplete' field has been set, however the value could be null */
+  public boolean hasMenuWalkthroughComplete() {
+    return genClient.cacheHasKey(CacheKey.menuWalkthroughComplete);
+  }
+
   /** Checks whether the 'businessInfoDone' field has been set, however the value could be null */
   public boolean hasBusinessInfoDone() {
     return genClient.cacheHasKey(CacheKey.businessInfoDone);
@@ -335,6 +385,16 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   /** Checks whether the 'status' field has been set, however the value could be null */
   public boolean hasStatus() {
     return genClient.cacheHasKey(CacheKey.status);
+  }
+
+  /** Checks whether the 'scheduleOrder' field has been set, however the value could be null */
+  public boolean hasScheduleOrder() {
+    return genClient.cacheHasKey(CacheKey.scheduleOrder);
+  }
+
+  /** Checks whether the 'scheduleDayRange' field has been set, however the value could be null */
+  public boolean hasScheduleDayRange() {
+    return genClient.cacheHasKey(CacheKey.scheduleDayRange);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -396,6 +456,13 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'menuWalkthroughComplete'.
+   */
+  public OnlineOrderMerchant setMenuWalkthroughComplete(java.lang.Boolean menuWalkthroughComplete) {
+    return genClient.setOther(menuWalkthroughComplete, CacheKey.menuWalkthroughComplete);
+  }
+
+  /**
    * Sets the field 'businessInfoDone'.
    */
   public OnlineOrderMerchant setBusinessInfoDone(java.lang.Boolean businessInfoDone) {
@@ -414,6 +481,20 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
    */
   public OnlineOrderMerchant setStatus(com.clover.sdk.v3.onlineorder.Status status) {
     return genClient.setOther(status, CacheKey.status);
+  }
+
+  /**
+   * Sets the field 'scheduleOrder'.
+   */
+  public OnlineOrderMerchant setScheduleOrder(java.lang.Boolean scheduleOrder) {
+    return genClient.setOther(scheduleOrder, CacheKey.scheduleOrder);
+  }
+
+  /**
+   * Sets the field 'scheduleDayRange'.
+   */
+  public OnlineOrderMerchant setScheduleDayRange(java.lang.Integer scheduleDayRange) {
+    return genClient.setOther(scheduleDayRange, CacheKey.scheduleDayRange);
   }
 
   /**
@@ -465,6 +546,10 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   public void clearEnabled() {
     genClient.clear(CacheKey.enabled);
   }
+  /** Clears the 'menuWalkthroughComplete' field, the 'has' method for this field will now return false */
+  public void clearMenuWalkthroughComplete() {
+    genClient.clear(CacheKey.menuWalkthroughComplete);
+  }
   /** Clears the 'businessInfoDone' field, the 'has' method for this field will now return false */
   public void clearBusinessInfoDone() {
     genClient.clear(CacheKey.businessInfoDone);
@@ -476,6 +561,14 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   /** Clears the 'status' field, the 'has' method for this field will now return false */
   public void clearStatus() {
     genClient.clear(CacheKey.status);
+  }
+  /** Clears the 'scheduleOrder' field, the 'has' method for this field will now return false */
+  public void clearScheduleOrder() {
+    genClient.clear(CacheKey.scheduleOrder);
+  }
+  /** Clears the 'scheduleDayRange' field, the 'has' method for this field will now return false */
+  public void clearScheduleDayRange() {
+    genClient.clear(CacheKey.scheduleDayRange);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -563,9 +656,12 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     public static final boolean PHONENUMBER_IS_REQUIRED = false;
     public static final long PHONENUMBER_MAX_LEN = 21;
     public static final boolean ENABLED_IS_REQUIRED = false;
+    public static final boolean MENUWALKTHROUGHCOMPLETE_IS_REQUIRED = false;
     public static final boolean BUSINESSINFODONE_IS_REQUIRED = false;
     public static final boolean SERVICEINFODONE_IS_REQUIRED = false;
     public static final boolean STATUS_IS_REQUIRED = false;
+    public static final boolean SCHEDULEORDER_IS_REQUIRED = false;
+    public static final boolean SCHEDULEDAYRANGE_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean LEADTIME_IS_REQUIRED = false;

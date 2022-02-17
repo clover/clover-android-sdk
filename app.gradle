@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply from: file("${project.rootDir}/common.gradle")
-apply from: file("${project.rootDir}/versions.gradle")
+apply from: file("${project.rootDir}/signing.gradle")
 
 /**
  * Gets the full path of the proguard file specified by `name`.
@@ -62,10 +61,31 @@ android.applicationVariants.all { variant ->
 }
 
 android {
+  signingConfigs {
+    releaseSigning {
+      storeFile project.ext.signing.devKeyFile
+      storePassword project.ext.signing.cloverStorePassword
+      keyAlias project.ext.signing.cloverKeyAlias
+      keyPassword project.ext.signing.cloverKeyPassword
+      v1SigningEnabled true
+      v2SigningEnabled false
+    }
+
+    debug {
+      storeFile project.ext.signing.devKeyFile
+      storePassword project.ext.signing.cloverStorePassword
+      keyAlias project.ext.signing.cloverKeyAlias
+      keyPassword project.ext.signing.cloverKeyPassword
+      v1SigningEnabled true
+      v2SigningEnabled false
+    }
+  }
 
   buildTypes {
     debug {
       zipAlignEnabled true
+      signingConfig signingConfigs.debug
+
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'),
           getCommonProguardFile('proguard-clover-apps.txt'),
@@ -81,6 +101,13 @@ android {
           // Force apps to have a proguard file if ProGuard is enabled
           'proguard-rules.pro'
       testProguardFiles getCommonProguardFile('proguard-test-rules.txt')
+    }
+
+    releaseSigned {
+      initWith release
+      signingConfig signingConfigs.releaseSigning
+
+      matchingFallbacks = ['release']
     }
   }
 

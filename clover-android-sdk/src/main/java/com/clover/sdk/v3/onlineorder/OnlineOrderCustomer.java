@@ -36,6 +36,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCustomerFirstName customerFirstName}</li>
  * <li>{@link #getCustomerLastName customerLastName}</li>
  * <li>{@link #getCustomerPhoneNumber customerPhoneNumber}</li>
+ * <li>{@link #getCustomerAddress customerAddress}</li>
+ * <li>{@link #getIsSnapshot isSnapshot}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
@@ -86,6 +88,20 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   }
 
   /**
+   * Online Order customer address
+   */
+  public com.clover.sdk.v3.base.Address getCustomerAddress() {
+    return genClient.cacheGet(CacheKey.customerAddress);
+  }
+
+  /**
+   * If the online order customer info is from snapshot
+   */
+  public java.lang.Boolean getIsSnapshot() {
+    return genClient.cacheGet(CacheKey.isSnapshot);
+  }
+
+  /**
    * Timestamp when the online ordering item was created
    */
   public java.lang.Long getCreatedTime() {
@@ -115,6 +131,10 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     customerPhoneNumber
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    customerAddress
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Address.JSON_CREATOR)),
+    isSnapshot
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
@@ -224,6 +244,16 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.customerPhoneNumber);
   }
 
+  /** Checks whether the 'customerAddress' field is set and is not null */
+  public boolean isNotNullCustomerAddress() {
+    return genClient.cacheValueIsNotNull(CacheKey.customerAddress);
+  }
+
+  /** Checks whether the 'isSnapshot' field is set and is not null */
+  public boolean isNotNullIsSnapshot() {
+    return genClient.cacheValueIsNotNull(CacheKey.isSnapshot);
+  }
+
   /** Checks whether the 'createdTime' field is set and is not null */
   public boolean isNotNullCreatedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
@@ -264,6 +294,16 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   /** Checks whether the 'customerPhoneNumber' field has been set, however the value could be null */
   public boolean hasCustomerPhoneNumber() {
     return genClient.cacheHasKey(CacheKey.customerPhoneNumber);
+  }
+
+  /** Checks whether the 'customerAddress' field has been set, however the value could be null */
+  public boolean hasCustomerAddress() {
+    return genClient.cacheHasKey(CacheKey.customerAddress);
+  }
+
+  /** Checks whether the 'isSnapshot' field has been set, however the value could be null */
+  public boolean hasIsSnapshot() {
+    return genClient.cacheHasKey(CacheKey.isSnapshot);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -320,6 +360,22 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'customerAddress'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public OnlineOrderCustomer setCustomerAddress(com.clover.sdk.v3.base.Address customerAddress) {
+    return genClient.setRecord(customerAddress, CacheKey.customerAddress);
+  }
+
+  /**
+   * Sets the field 'isSnapshot'.
+   */
+  public OnlineOrderCustomer setIsSnapshot(java.lang.Boolean isSnapshot) {
+    return genClient.setOther(isSnapshot, CacheKey.isSnapshot);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public OnlineOrderCustomer setCreatedTime(java.lang.Long createdTime) {
@@ -357,6 +413,14 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   /** Clears the 'customerPhoneNumber' field, the 'has' method for this field will now return false */
   public void clearCustomerPhoneNumber() {
     genClient.clear(CacheKey.customerPhoneNumber);
+  }
+  /** Clears the 'customerAddress' field, the 'has' method for this field will now return false */
+  public void clearCustomerAddress() {
+    genClient.clear(CacheKey.customerAddress);
+  }
+  /** Clears the 'isSnapshot' field, the 'has' method for this field will now return false */
+  public void clearIsSnapshot() {
+    genClient.clear(CacheKey.isSnapshot);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -435,6 +499,8 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     public static final boolean CUSTOMERFIRSTNAME_IS_REQUIRED = false;
     public static final boolean CUSTOMERLASTNAME_IS_REQUIRED = false;
     public static final boolean CUSTOMERPHONENUMBER_IS_REQUIRED = false;
+    public static final boolean CUSTOMERADDRESS_IS_REQUIRED = false;
+    public static final boolean ISSNAPSHOT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
   }

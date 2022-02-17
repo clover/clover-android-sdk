@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 buildscript {
   apply from: "${project.rootDir}/deps.gradle"
   repositories {
     mavenLocal()
-    mavenCentral()
-    jcenter()
+    if (project.properties.containsKey("localArtifactoryUrl")) {
+      maven { url localArtifactoryUrl }
+    }
     google()
+    mavenCentral()
   }
 
   dependencies {
     classpath androidPlugin
-    classpath mavenPlugin
   }
 }
 
 defaultTasks 'clean', 'install'
+ 

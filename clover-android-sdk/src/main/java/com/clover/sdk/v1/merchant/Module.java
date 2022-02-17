@@ -69,6 +69,7 @@ public enum Module implements Parcelable {
   FAST_PAY,
   TABLE_SERVICE,
   COST_OF_GOODS,
+  ADVANCED_REPORTING,
   ;
 
   @Override

@@ -18,7 +18,7 @@ import com.clover.sdk.v1.ResultStatus;
  * </pre>
  * For more information about bound services, refer to
  * the Android documentation:
- * <a href="http://developer.android.com/guide/components/bound-services.html#Binding">
+ * <a href="https://developer.android.com/guide/components/bound-services.html#Binding">
  * Bound Services
  * </a>.
  * <br/><br/>
@@ -33,12 +33,25 @@ import com.clover.sdk.v1.ResultStatus;
  interface IMerchantService {
 
   /**
-   * Get the Merchant object for this device's merchant.
+   * Get the {@link Merchant} object for this device's merchant.
+   * @clover.perm MERCHANT_R
    */
   Merchant getMerchant(out ResultStatus resultStatus);
 
+  /**
+   * Set the merchant's address.
+   *
+   * @param address The address of the merchant
+   * @clover.perm MERCHANT_W
+   */
   void setAddress(in MerchantAddress address, out ResultStatus resultStatus);
 
+  /**
+   * Set the merchant's phone number.
+   *
+   * @param phoneNumber The phone number of the merchant
+   * @clover.perm MERCHANT_W
+   */
   void setPhoneNumber(in String phoneNumber, out ResultStatus resultStatus);
 
   void addListener(IMerchantListener listener, out ResultStatus resultStatus);
@@ -47,18 +60,20 @@ import com.clover.sdk.v1.ResultStatus;
 
   /**
    * Set to true if this merchant wants Clover to decrement the stock count when an item is sold.
-   * This requires {@link setTrackStock} be enabled. This should be false if a merchant is using a
+   * This requires {@link #setTrackStock(boolean)} be enabled. This should be false if a merchant is using a
    * third party app to update their stock counts.
    *
+   * @clover.perm MERCHANT_W
    * @see #setTrackStock
    */
   void setUpdateStock(in boolean updateStock, out ResultStatus resultStatus);
 
   /**
-   * Set to true if this merchant desires to keep track of stock. This will show stock counts and
-   * allow the counts to be updated and modified in arious apps such as Clover Inventory app and on
-   * the web.
+   * Set to true if this merchant wants to keep track of stock. This will show stock counts and
+   * allow the counts to be updated and modified in various apps (such as Clover Inventory Android
+   * and web apps.
    *
+   * @clover.perm MERCHANT_W
    * @see #setUpdateStock
    */
   void setTrackStock(in boolean trackStock, out ResultStatus resultStatus);

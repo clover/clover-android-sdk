@@ -1,0 +1,77 @@
+def getSigning = { ->
+  def signing = new LinkedHashMap()
+
+  signing.androidBuildExists = new File(project.androidBuild).exists()
+
+  if (signing.androidBuildExists) {
+      signing.devKeyFile = new File(project.androidBuild + '/test-release.jks')
+      signing.cloverStorePassword = "clover"
+      signing.cloverKeyAlias = "clover_app"
+      signing.cloverKeyPassword = "clover"
+  } else {
+      println "android-build not found - using default/override signing configuration"
+      signing.devKeyFile = new File(System.getProperty('user.home'), ".android/debug.keystore")
+      signing.cloverStorePassword = "android"
+      signing.cloverKeyAlias = "androiddebugkey"
+      signing.cloverKeyPassword = "android"
+  }
+
+  return signing
+}
+
+project.ext.signing = getSigning()
+
+afterEvaluate {
+
+  def make_signing_task = {task_name, keystore, sig_alias, apk_filename ->
+    return tasks.create(name: task_name, type:Exec) {
+      outputs.upToDateWhen { false }
+      workingDir project.androidBuild
+      // jarsigner overwrites the intput with the output
+      commandLine 'jarsigner', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-keystore', keystore, '-storepass', 'clover', apk_filename, sig_alias
+    }
+  }
+
+  if (signing.androidBuildExists && Boolean.TRUE.equals(Boolean.valueOf(System.getProperty("doubleSign", "true")))) {
+    android.applicationVariants.all { variant ->
+      if (variant.name.equals("debug") || variant.name.endsWith("Debug")) {
+        def apk_filename = variant.outputs[0].outputFile
+
+        def clearSignTask = tasks.create(name: "double${variant.name.capitalize()}SignClear", type:Exec) {
+          outputs.upToDateWhen { false }
+          workingDir project.androidBuild
+          commandLine 'zip', '-qd', apk_filename, 'META-INF/MANIFEST.MF', 'META-INF/*.SF', 'META-INF/*.RSA'
+        }
+
+        def signingTask1 = make_signing_task("double${variant.name.capitalize()}Sign1", 'test-apk-signing.jks', 'clover', apk_filename)
+        def signingTask2 = make_signing_task("double${variant.name.capitalize()}Sign2", 'test-release.jks', 'clover_app', apk_filename)
+
+        signingTask1.dependsOn clearSignTask
+        signingTask2.dependsOn signingTask1
+        variant.packageApplicationProvider.get().finalizedBy signingTask2
+      }
+    }
+
+    def buildInstrumentationApkTask = tasks.create(name: 'cloverBuildInstrumentationApks')
+
+    android.testVariants.all { variant ->
+      def apk_filename = variant.outputs[0].outputFile
+
+      def clearSignTask = tasks.create(name: "double${variant.name.capitalize()}SignClear", type:Exec) {
+        outputs.upToDateWhen { false }
+        workingDir project.androidBuild
+        commandLine 'zip', '-qd', apk_filename, 'META-INF/MANIFEST.MF', 'META-INF/*.SF', 'META-INF/*.RSA'
+      }
+
+      def signingTask1 = make_signing_task("double${variant.name.capitalize()}Sign1", 'test-apk-signing.jks', 'clover', apk_filename)
+      def signingTask2 = make_signing_task("double${variant.name.capitalize()}Sign2", 'test-release.jks', 'clover_app', apk_filename)
+
+      signingTask1.dependsOn clearSignTask
+      signingTask2.dependsOn signingTask1
+      variant.packageApplicationProvider.get().finalizedBy signingTask2
+
+      // a pseudo-task to make sure all apks are built
+      buildInstrumentationApkTask.dependsOn signingTask2
+    }
+  }
+}

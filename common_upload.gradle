@@ -1,0 +1,71 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+project.afterEvaluate {
+  publishing {
+    repositories {
+      maven {
+        def uploadReleaseUrl = "${upload_release_url}"
+        def uploadSnapShotUrl = "${upload_snapshot_url}"
+        url = version.endsWith('SNAPSHOT') ? uploadSnapShotUrl : uploadReleaseUrl
+        credentials {
+          username "${upload_user}"
+          password "${upload_password}"
+        }
+      }
+    }
+    publications {
+      release(MavenPublication) {
+        println "available software component properties: ${components.getProperties().names}"
+        from components.release
+        artifact sourcesJar
+        pom {
+          withXml {
+            def parentNode = asNode().appendNode('parent')
+            parentNode.appendNode('groupId', 'org.sonatype.oss')
+            parentNode.appendNode('artifactId', 'oss-parent')
+            parentNode.appendNode('version', '7')
+          }
+          name = "${project_name}"
+          description = "${project_description}"
+          url = 'https://www.clover.com/'
+
+          licenses {
+            license {
+              name = 'The Apache Software License, Version 2.0'
+              url = 'http://www.apache.org/licenses/LICENSE-2.0'
+              distribution = 'repo'
+            }
+          }
+
+          scm {
+            url = "https://github.com/clover/clover-android-sdk"
+            connection = "https://github.com/clover/clover-android-sdk.git"
+            developerConnection = "git@github.com:clover/clover-android-sdk.git"
+          }
+
+          developers {
+            developer {
+              name = 'Clover Engineering Team'
+              url = 'https://www.clover.com'
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+task sourcesJar(type: Jar) {
+  archiveClassifier.set('sources')
+  from android.sourceSets.main.java.srcDirs
+}
+
+signing {
+  required = { gradle.taskGraph.hasTask("uploadArchives") }
+  sign publishing.publications
+}
+
+task install dependsOn 'publishToMavenLocal'
+
+task uploadArchives dependsOn 'publishReleasePublicationToMavenRepository'

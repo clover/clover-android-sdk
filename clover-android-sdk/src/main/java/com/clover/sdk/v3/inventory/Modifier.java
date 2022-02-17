@@ -33,8 +33,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
  * <li>{@link #getAlternateName alternateName}</li>
+ * <li>{@link #getAvailable available}</li>
  * <li>{@link #getPrice price}</li>
  * <li>{@link #getModifierGroup modifierGroup}</li>
+ * <li>{@link #getMenuModifier menuModifier}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -64,6 +66,13 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
+   * True if this modifier is available across all channels
+   */
+  public java.lang.Boolean getAvailable() {
+    return genClient.cacheGet(CacheKey.available);
+  }
+
+  /**
    * Additional cost when used
    */
   public java.lang.Long getPrice() {
@@ -72,6 +81,13 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
 
   public com.clover.sdk.v3.base.Reference getModifierGroup() {
     return genClient.cacheGet(CacheKey.modifierGroup);
+  }
+
+  /**
+   * Menu Modifier attribute that can be expanded to menu specific attributes
+   */
+  public com.clover.sdk.v3.inventory.MenuModifier getMenuModifier() {
+    return genClient.cacheGet(CacheKey.menuModifier);
   }
 
 
@@ -84,10 +100,14 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     alternateName
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    available
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     price
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifierGroup
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    menuModifier
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.MenuModifier.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -187,6 +207,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.alternateName);
   }
 
+  /** Checks whether the 'available' field is set and is not null */
+  public boolean isNotNullAvailable() {
+    return genClient.cacheValueIsNotNull(CacheKey.available);
+  }
+
   /** Checks whether the 'price' field is set and is not null */
   public boolean isNotNullPrice() {
     return genClient.cacheValueIsNotNull(CacheKey.price);
@@ -195,6 +220,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'modifierGroup' field is set and is not null */
   public boolean isNotNullModifierGroup() {
     return genClient.cacheValueIsNotNull(CacheKey.modifierGroup);
+  }
+
+  /** Checks whether the 'menuModifier' field is set and is not null */
+  public boolean isNotNullMenuModifier() {
+    return genClient.cacheValueIsNotNull(CacheKey.menuModifier);
   }
 
 
@@ -214,6 +244,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.alternateName);
   }
 
+  /** Checks whether the 'available' field has been set, however the value could be null */
+  public boolean hasAvailable() {
+    return genClient.cacheHasKey(CacheKey.available);
+  }
+
   /** Checks whether the 'price' field has been set, however the value could be null */
   public boolean hasPrice() {
     return genClient.cacheHasKey(CacheKey.price);
@@ -222,6 +257,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'modifierGroup' field has been set, however the value could be null */
   public boolean hasModifierGroup() {
     return genClient.cacheHasKey(CacheKey.modifierGroup);
+  }
+
+  /** Checks whether the 'menuModifier' field has been set, however the value could be null */
+  public boolean hasMenuModifier() {
+    return genClient.cacheHasKey(CacheKey.menuModifier);
   }
 
 
@@ -247,6 +287,13 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
+   * Sets the field 'available'.
+   */
+  public Modifier setAvailable(java.lang.Boolean available) {
+    return genClient.setOther(available, CacheKey.available);
+  }
+
+  /**
    * Sets the field 'price'.
    */
   public Modifier setPrice(java.lang.Long price) {
@@ -262,6 +309,15 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(modifierGroup, CacheKey.modifierGroup);
   }
 
+  /**
+   * Sets the field 'menuModifier'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Modifier setMenuModifier(com.clover.sdk.v3.inventory.MenuModifier menuModifier) {
+    return genClient.setRecord(menuModifier, CacheKey.menuModifier);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -275,6 +331,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearAlternateName() {
     genClient.clear(CacheKey.alternateName);
   }
+  /** Clears the 'available' field, the 'has' method for this field will now return false */
+  public void clearAvailable() {
+    genClient.clear(CacheKey.available);
+  }
   /** Clears the 'price' field, the 'has' method for this field will now return false */
   public void clearPrice() {
     genClient.clear(CacheKey.price);
@@ -282,6 +342,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'modifierGroup' field, the 'has' method for this field will now return false */
   public void clearModifierGroup() {
     genClient.clear(CacheKey.modifierGroup);
+  }
+  /** Clears the 'menuModifier' field, the 'has' method for this field will now return false */
+  public void clearMenuModifier() {
+    genClient.clear(CacheKey.menuModifier);
   }
 
 
@@ -351,9 +415,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long NAME_MAX_LEN = 255;
     public static final boolean ALTERNATENAME_IS_REQUIRED = false;
     public static final long ALTERNATENAME_MAX_LEN = 255;
+    public static final boolean AVAILABLE_IS_REQUIRED = false;
     public static final boolean PRICE_IS_REQUIRED = true;
     public static final long PRICE_MIN = 0;
     public static final boolean MODIFIERGROUP_IS_REQUIRED = false;
+    public static final boolean MENUMODIFIER_IS_REQUIRED = false;
   }
 
 }

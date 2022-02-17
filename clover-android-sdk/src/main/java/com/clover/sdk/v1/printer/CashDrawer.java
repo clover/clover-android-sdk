@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.clover.sdk.internal.util.UnstableCallClient;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 import com.clover.sdk.v1.Intents;
 
 /**
@@ -240,7 +241,7 @@ public class CashDrawer {
         (cashDrawerNumber == null) ? null : cashDrawerNumber.toString());
     extras.putParcelable(USB_DEVICE, usbDevice);
 
-    UnstableCallClient client = new UnstableCallClient(context.getContentResolver(), CASH_DRAWER_AUTHORITY_URI);
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(), CASH_DRAWER_AUTHORITY_URI);
     // Engine call method returns an empty bundle on successful IPC
     return client.call(POP_CASH_DRAWER_METHOD,null, extras, null) != null;
   }

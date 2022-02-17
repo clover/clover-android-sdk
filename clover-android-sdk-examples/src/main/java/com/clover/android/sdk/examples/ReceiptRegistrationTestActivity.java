@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2020 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -213,13 +213,13 @@ public class ReceiptRegistrationTestActivity extends Activity {
   }
 
   private String getLastPaidOrderId() {
-    try (Cursor c = getContentResolver().query(OrderContract.Summaries.contentUriWithAccount(account),
-        null, OrderContract.Summaries.AMOUNT_PAID + " IS NOT NULL",
+    try (Cursor c = getContentResolver().query(OrderContract.OrderSummary.contentUriWithAccount(account),
+        null, OrderContract.OrderSummary.AMOUNT_PAID + " IS NOT NULL",
         null, null)) {
       if (c == null || !c.moveToLast())  {
         return null;
       }
-      return c.getString(c.getColumnIndex(OrderContract.Summaries.ID));
+      return c.getString(c.getColumnIndex(OrderContract.OrderSummary.ID));
     }
   }
 }
