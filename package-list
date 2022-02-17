@@ -20,6 +20,7 @@ com.clover.sdk.v3.base
 com.clover.sdk.v3.billing
 com.clover.sdk.v3.cacheindex
 com.clover.sdk.v3.cash
+com.clover.sdk.v3.connectpay
 com.clover.sdk.v3.custom
 com.clover.sdk.v3.customers
 com.clover.sdk.v3.developer
