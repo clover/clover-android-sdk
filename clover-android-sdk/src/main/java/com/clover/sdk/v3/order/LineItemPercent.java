@@ -19,6 +19,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import com.clover.core.internal.calc.Decimal;
+import com.clover.core.internal.calc.DecimalJvmKt;
+import com.clover.core.internal.calc.RoundingMode;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,7 +29,6 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.math.RoundingMode;
 
 public class LineItemPercent implements Parcelable {
   private static final int SCALE = 7;
@@ -85,7 +86,7 @@ public class LineItemPercent implements Parcelable {
     try {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ObjectOutput oo = new ObjectOutputStream(baos);
-      percent.writeExternal(oo);
+      DecimalJvmKt.writeExternal(percent, oo);
       oo.close();
       byte[] bytes = baos.toByteArray();
       out.writeInt(bytes.length);
@@ -111,7 +112,7 @@ public class LineItemPercent implements Parcelable {
       byte[] bytes = new byte[in.readInt()];
       in.readByteArray(bytes);
       ObjectInput oi = new ObjectInputStream(new ByteArrayInputStream(bytes));
-      percent = new Decimal(oi);
+      percent = DecimalJvmKt.readExternal(oi);
       oi.close();
     } catch (IOException ioe) {
       throw new RuntimeException(ioe);

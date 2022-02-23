@@ -19,6 +19,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import com.clover.sdk.SimpleSyncClient;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -60,7 +62,8 @@ public class Entitlements extends SimpleSyncClient {
     if (planCode != null) {
       extras.putString(EXTRA_PLAN_CODE, planCode);
     }
-    Bundle result = context.getContentResolver().call(getAuthorityUri(), METHOD_IS_ALLOWED, null, extras);
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(), getAuthorityUri());
+    Bundle result = client.call(METHOD_IS_ALLOWED, null, extras, null);
     if (result == null) {
       return false;
     }

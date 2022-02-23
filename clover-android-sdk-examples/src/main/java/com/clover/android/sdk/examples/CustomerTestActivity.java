@@ -170,6 +170,14 @@ public class CustomerTestActivity extends Activity {
           newCustomer = customerConnector.getCustomer(newCustomer.getId());
           output.add(customerToOutput(newCustomer));
 
+          output.add("\nGet All Customers ->");
+          List<Customer> customerList = customerConnector.getCustomers();
+          output.add("  Got " + customerList.size() + " customers");
+
+          output.add("\nGet Customer with query ->");
+          List<Customer> customerList2 = customerConnector.getCustomers(newCustomer.getFirstName());
+          output.add("  Got " + customerList2.size() + " customers with query");
+
           return output;
         } catch (ForbiddenException e) {
           Log.e(TAG, "Auth exception", e);

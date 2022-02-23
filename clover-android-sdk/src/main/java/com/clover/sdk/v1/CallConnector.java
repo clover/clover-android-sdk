@@ -3,7 +3,8 @@ package com.clover.sdk.v1;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import com.clover.sdk.internal.util.UnstableCallClient;
+
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 
 /**
  * Base class for implementing call-based connectors. A connector is a class that encapsulates
@@ -28,6 +29,6 @@ public abstract class CallConnector {
    * @return a {@link android.os.Bundle}, the response from the call method, or {@link null} if the call failed.
    */
   protected Bundle call(String method, Bundle extras) {
-    return new UnstableCallClient(context.getContentResolver(), uri).call(method, null, extras, null);
+    return new UnstableContentResolverClient(context.getContentResolver(), uri).call(method, null, extras, null);
   }
 }

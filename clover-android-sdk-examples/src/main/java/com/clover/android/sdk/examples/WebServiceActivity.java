@@ -114,9 +114,9 @@ public class WebServiceActivity extends Activity {
           if (authResult.authToken != null && authResult.baseUrl != null) {
             CustomHttpClient httpClient = CustomHttpClient.getHttpClient();
             String getNameUri = "/v2/merchant/name";
-            String url = authResult.baseUrl + getNameUri + "?access_token=" + authResult.authToken;
+            String url = authResult.baseUrl + getNameUri;
             publishProgress("requesting merchant id using: " + url);
-            String result = httpClient.get(url);
+            String result = httpClient.get(url, authResult.authToken);
             JSONTokener jsonTokener = new JSONTokener(result);
             JSONObject root = (JSONObject) jsonTokener.nextValue();
             String merchantId = root.getString("merchantId");
@@ -124,10 +124,10 @@ public class WebServiceActivity extends Activity {
 
             // now do another get using the merchant id
             String inventoryUri = "/v2/merchant/" + merchantId + "/inventory/items";
-            url = authResult.baseUrl + inventoryUri + "?access_token=" + authResult.authToken;
+            url = authResult.baseUrl + inventoryUri;
 
             publishProgress("requesting inventory items using: " + url);
-            result = httpClient.get(url);
+            result = httpClient.get(url, authResult.authToken);
             publishProgress("received inventory items response: " + result);
           }
         } catch (Exception e) {
@@ -173,9 +173,10 @@ public class WebServiceActivity extends Activity {
       return httpClient;
     }
 
-    public String get(String url) throws IOException, HttpException {
+    public String get(String url, String accessToken) throws IOException, HttpException {
       String result;
       HttpGet request = new HttpGet(url);
+      request.setHeader("Authorization", "Bearer " + accessToken);
       HttpResponse response = execute(request);
       int statusCode = response.getStatusLine().getStatusCode();
       if (statusCode == HttpStatus.SC_OK) {
@@ -192,11 +193,12 @@ public class WebServiceActivity extends Activity {
     }
 
     @SuppressWarnings("unused")
-    public String post(String url, String body) throws IOException, HttpException {
+    public String post(String url, String body, String accessToken) throws IOException, HttpException {
       String result;
       HttpPost request = new HttpPost(url);
       HttpEntity bodyEntity = new StringEntity(body);
       request.setEntity(bodyEntity);
+      request.setHeader("Authorization", "Bearer " + accessToken);
       HttpResponse response = execute(request);
       int statusCode = response.getStatusLine().getStatusCode();
       if (statusCode == HttpStatus.SC_OK) {

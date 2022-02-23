@@ -1,4 +1,4 @@
-apply from: file("${project.rootDir}/versions.gradle")
+apply from: "${project.rootDir}/versions.gradle"
 
 def printVersions = false
 
@@ -10,10 +10,12 @@ if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
 
 
 ext {
-  mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:$MAVEN_PLUGIN_VERSION"
   androidPlugin = "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
   kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
   sonarqubePlugin = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$SONARQUBE_VERSION"
+  firebasePlugin = "com.google.firebase:firebase-crashlytics-gradle:$FIREBASE_PLUGIN_VERSION"
+  hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$HILT_VERSION"
+  heapPlugin = "com.heapanalytics.android:heap-android-gradle:$HEAP_VERSION"
 }
 
 if (printVersions) {
@@ -29,7 +31,7 @@ if (printVersions) {
   println "gradleMinorVersion = " + gradleMinorVersion
   println "gradleMaintenanceVersion = " + gradleMaintenanceVersion
   println "androidPlugin = " + androidPlugin
-  println "mavenPlugin = " + mavenPlugin
   println "kotlinPlugin = " + kotlinPlugin
   println "sonarqubePlugin = " + sonarqubePlugin
+  println "firebasePlugin = " + firebasePlugin
 }

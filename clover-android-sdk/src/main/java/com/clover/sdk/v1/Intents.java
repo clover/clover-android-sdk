@@ -381,25 +381,26 @@ public class Intents {
    * <ul>
    * <li>{@link #EXTRA_AMOUNT} - amount to be paid (Required)</li>
    * <li>{@link #EXTRA_ORDER_ID} - order associated with payment, if excluded, a new order record will be created</li>
-   * <li>{@link #EXTRA_CARD_ENTRY_METHODS} - allowed payment types, default all allowed</li>
+   * <li>{@link #EXTRA_CARD_ENTRY_METHODS} - (deprecated - replaced by {@link #EXTRA_TRANSACTION_SETTINGS}) allowed payment types, default all allowed</li>
    * <li>{@link #EXTRA_EMPLOYEE_ID} - employee conducting transaction</li>
    * <li>{@link #EXTRA_TIP_AMOUNT} - tip amount</li>
    * <li>{@link #EXTRA_TAX_AMOUNT} - tax amount</li>
    * <li>{@link #EXTRA_TAXABLE_AMOUNTS} - tax rates, with eligible amounts</li>
    * <li>{@link #EXTRA_SERVICE_CHARGE_AMOUNT} - service charge amount</li>
-   * <li>{@link #EXTRA_DISABLE_CASHBACK} - disable option for cashback during payment, default false</li>
+   * <li>{@link #EXTRA_DISABLE_CASHBACK} - (deprecated - replaced by {@link #EXTRA_TRANSACTION_SETTINGS}) disable option for cashback during payment, default false</li>
    * <li>{@link #EXTRA_IS_TESTING} - whether payment is testing mode</li>
    * <li>{@link #EXTRA_VOICE_AUTH_CODE} - voice auth code</li>
    * <li>{@link #EXTRA_AVS_POSTAL_CODE} - postal code associated with payment</li>
    * <li>{@link #EXTRA_CARD_NOT_PRESENT} - whether payment card is not present, default false</li>
    * <li>{@link #EXTRA_REMOTE_PRINT} - if printing will be delegated to remote device</li>
    * <li>{@link #EXTRA_TRANSACTION_NO} - transaction number for payment</li>
-   * <li>{@link #EXTRA_FORCE_SWIPE_PIN_ENTRY} - if only payment option will be swipe debit, default false</li>
-   * <li>{@link #EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED} - if activity will end after failed transaction, default false</li>
+   * <li>{@link #EXTRA_FORCE_SWIPE_PIN_ENTRY} - (deprecated - replaced by {@link #EXTRA_TRANSACTION_SETTINGS}) if only payment option will be swipe debit, default false</li>
+   * <li>{@link #EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED} - (deprecated - replaced by {@link #EXTRA_TRANSACTION_SETTINGS}) if activity will end after failed transaction, default false</li>
    * <li>{@link #EXTRA_EXTERNAL_PAYMENT_ID} - external payment id, used for integration with other POS platforms</li>
    * <li>{@link #EXTRA_CUSTOMER_TENDER} - Pre-selected customer tender. If present, pay with this tender.
    * The customer will not have the option to select a different tender or pay with a card. If the tender is not valid for this merchant this extra is ignored.
    * See {@link #ACTION_CUSTOMER_TENDER}.</li>
+   * <li>{@link #EXTRA_TRANSACTION_SETTINGS} - pass transaction settings as a single object</li>
    * </ul>
    * <p>
    * Result data includes:
@@ -596,7 +597,7 @@ public class Intents {
    * <li>{@link #EXTRA_SHOW_PREVIEW} - whether scanner preview video will be shown, default is true</li>
    * <li>{@link #EXTRA_SHOW_MERCHANT_PREVIEW} - whether scanner preview will be shown in merchant facing mode, default is true</li>
    * <li>{@link #EXTRA_SHOW_CUSTOMER_PREVIEW} - whether scanner preview will be shown in customer facing mode, default is true</li>
-   * <li>{@link #EXTRA_LED_ON} - whether LED will be on (Station only), default is false</li>
+   * <li>{@link #EXTRA_LED_ON} - whether LED will be on (selected devices only), default is false</li>
    * <li>{@link #EXTRA_SCAN_QR_CODE} - whether QR codes will be scanned, default is true</li>
    * <li>{@link #EXTRA_SCAN_1D_CODE} - whether 1D codes will be scanned, default is true</li>
    * <li>{@link #EXTRA_SHOW_CLOSE_BUTTON} - whether scanner preview will have a 'close' button, default is true</li>
@@ -613,9 +614,17 @@ public class Intents {
    * When an Android app is first installed it is placed in a stopped state. While in
    * the stopped state an app may not receive implicit broadcasts. An app exits the
    * stopped state when it has had an activity, service, or explicit broadcast started by
-   * the user or another app. If you implement a receiver for this broadcast and register
-   * it in your app manifest then your app will immediately move out of the stopped
-   * state upon installation.
+   * the user or another app. On typical Android devices this usually means the app won't
+   * ever have any components invoked until the user taps the launcher icon once.
+   * <p/>
+   * By implementing a receiver for this broadcast and registering it in your app manifest
+   * your app will immediately move out of the stopped state upon installation on a Clover
+   * device. Even if you don't actually need to do anything specifically related to
+   * installation you may want to implement an empty receiver just to ensure that your app
+   * is moved out of the stopped state so it can immediately begin receiving other
+   * broadcasts.
+   * <p/>
+   * Ensure that any operation performed in this receiver is idempotent.
    * <p/>
    * <b>
    * The service version of this intent is deprecated. Versions of Android 26 and greater
@@ -630,7 +639,7 @@ public class Intents {
    *   <intent-filter>
    *     <action android:name="com.clover.intent.action.APP_INSTALL_DONE"/>
    *   </intent-filter>
-   * </service>
+   * </receiver>
    * }
    * </pre>
    * Apps are restricted from performing blocking or otherwise long running operations in
@@ -751,6 +760,9 @@ public class Intents {
   /** {@link String}, the UUID of a Payment object */
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
 
+  /** {@link String}, the UUID of the quick pay transaction if collected **/
+  public static final String EXTRA_QUICK_PAYMENT_TRANSACTION_ID = "clover.intent.extra.QUICK_PAY_ID";
+
   /** {@link String}, the UUID of a Credit object */
   public static final String EXTRA_CREDIT_ID = "clover.intent.extra.CREDIT_ID";
 
@@ -824,6 +836,12 @@ public class Intents {
   public static final String EXTRA_REQUIRES_REMOTE_CONFIRMATION = "clover.intent.extra.REQUIRES_REMOTE_CONFIRMATION";
 
   /** {@link int}, does this intent need remote payment confirmation i.e. RemotePay */
+  public static final String EXTRA_REQUIRES_FINAL_REMOTE_APPROVAL = "clover.intent.extra.REQUIRES_FINAL_REMOTE_APPROVAL";
+
+  /** {@link Boolean}, does this intent skip the ELV override screen i.e. RemotePay */
+  public static final String EXTRA_SKIP_ELV_LIMIT_OVERRIDE = "clover.intent.extra.SKIP_ELV_LIMIT_OVERRIDE";
+
+  /** {@link int}, does this intent need remote payment confirmation i.e. RemotePay */
   public static final String EXTRA_APP_TRACKING_ID = "clover.intent.extra.APP_TRACKING_ID";
 
   /** {@link int}, is partial authorization allowed (if it occurs)? */
@@ -894,7 +912,8 @@ public class Intents {
   /** {@link Boolean}, whether to show scanner preview video (customer facing mode only) */
   public static final String EXTRA_SHOW_CUSTOMER_PREVIEW = "clover.intent.extra.SHOW_CUSTOMER_PREVIEW";
 
-  /** {@link Boolean}, whether LED will be on */
+  /** {@link Boolean}, whether LED will be on during barcode scanning if this device has a barcode LED,
+   * generally this option is best left out and the preferred device default with be used. */
   public static final String EXTRA_LED_ON = "clover.intent.extra.LED_ON";
 
   /** {@link Boolean}, whether QR codes will be scanned */
@@ -903,10 +922,14 @@ public class Intents {
   /** {@link Boolean}, whether 1D codes will be scanned */
   public static final String EXTRA_SCAN_1D_CODE = "clover.intent.extra.SCAN_1D_CODE";
 
-  /** {@link Boolean}, whether scanner preview video will have a 'close' button */
+  /** {@link Boolean}, whether scanner preview video will have a 'close' button. If the scan is
+   * occurring in merchant-facing mode the merchant will always have a mechanism to close the
+   * scanner app. */
   public static final String EXTRA_SHOW_CLOSE_BUTTON = "clover.intent.extra.SHOW_CLOSE_BUTTON";
 
-  /** {@link Boolean}, whether scanner preview video will have a LED light toggle */
+  /** {@link Boolean}, whether scanner preview video will have a LED light toggle if this device
+   * has a barcode LED, many Clover devices do not have an LED, some devices may not honor this
+   * option. */
   public static final String EXTRA_SHOW_LED_BUTTON = "clover.intent.extra.SHOW_LED_BUTTON";
 
   public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";
@@ -1151,6 +1174,9 @@ public class Intents {
   /** {@link java.util.ArrayList} of {@link com.clover.sdk.v3.payments.Payment} objects */
   public static final String EXTRA_VOIDED_PAYMENTS = "clover.intent.extra.VOIDED_PAYMENTS";
 
+  /** {@link com.clover.sdk.v3.order.VoidReason}, v3 VoidReason object */
+  public static final String EXTRA_VOID_REASON = "clover.intent.extra.VOID_REASON";
+
   /** {@link com.clover.sdk.v3.payments.Credit}, v3 Credit object (Manual Refund) */
   public static final String EXTRA_CREDIT = "clover.intent.extra.CREDIT";
 
@@ -1162,6 +1188,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.payments.Authorization}, v3 Authorization object */
   public static final String EXTRA_AUTHORIZATION = "clover.intent.extra.AUTHORIZATION";
+
+  /** {@link Boolean}, whether an authorization is being incremented or decremented */
+  public static final String EXTRA_AUTHORIZATION_INCREMENT = "clover.intent.extra.AUTHORIZATION_INCREMENT";
 
   /** {@link Boolean}, whether to show amount remaining after payment */
   public static final String EXTRA_SHOW_REMAINING = "clover.intent.extra.SHOW_REMAINING";
@@ -1183,6 +1212,9 @@ public class Intents {
 
   /** Vas Settings */
   public static final String EXTRA_VAS_SETTINGS = "clover.intent.extra.VAS_SETTINGS";
+
+  /** VAS URL customization tokens */
+  public static final String EXTRA_VAS_URL_TOKENS = "clover.intent.extra.VAS_URL_TOKENS";
 
   /* Transaction Settings Section Start */
 
@@ -1501,4 +1533,61 @@ public class Intents {
    */
   public static final String EXTRA_DISABLE_CREDIT_SURCHARGE = "clover.intent.extra.DISABLE_SURCHARGE";
 
+  /**
+   * {@link Boolean}, a private extra indicating the user selected Scan QR Code for this Payment.
+   * The intent consumer will then display the QR code as the only payment method.
+   */
+  public static final String EXTRA_PRESENT_QRC_ONLY = "clover.intent.extra.PRESENT_QRC_ONLY";
+
+  /**
+   * Intent Extra to Bypass Manual Card Entry Data.
+   */
+  public static final String EXTRA_MANUAL_CARD_ENTRY_BYPASS_MODE = "clover.intent.extra.EXTRA_MANUAL_CARD_ENTRY_BYPASS_MODE";
+
+  /**
+   * Intent Extra to Allow Manual Card Entry on MFD.
+   */
+  public static final String EXTRA_ALLOW_MANUAL_CARD_ENTRY_ON_MFD = "clover.intent.extra.EXTRA_ALLOW_MANUAL_CARD_ENTRY_ON_MFD";
+
+  /**
+   * Intent Extra to Manual Card PAN Data.
+   */
+  public static final String EXTRA_MANUAL_CARD_PAN = "clover.intent.extra.EXTRA_MANUAL_CARD_PAN";
+
+  /**
+   * Intent Extra to Manual Card CVV Data.
+   */
+  public static final String EXTRA_MANUAL_CARD_CVV = "clover.intent.extra.EXTRA_MANUAL_CARD_CVV";
+
+  /**
+   * Intent Extra to Manual Card Expiry Data.
+   */
+  public static final String EXTRA_MANUAL_CARD_EXPIRY = "clover.intent.extra.EXTRA_MANUAL_CARD_EXPIRY";
+
+
+  //  The following extras are used by the PaymentRequestHandler
+  /** {@link Boolean} automatically accept payment confirmations */
+  public static final String EXTRA_AUTO_ACCEPT_PAYMENT_CONFIRMATIONS = "clover.intent.extra.AUTO_ACCEPT_PAYMENT_CONFIRMATIONS";
+  /** {@link Boolean} automatically accept payment confirmations */
+  public static final String EXTRA_AUTO_ACCEPT_SIGNATURE = "clover.intent.extra.AUTO_ACCEPT_SIGNATURE";
+  /** {@link Boolean} skip the display of the receipt screen */
+  public static final String EXTRA_SKIP_RECEIPT_SCREEN = "clover.intent.extra.SKIP_RECEIPT_SCREEN";
+  /** {@link Boolean} force the payment to be taken offline even if the device is online */
+  public static final String EXTRA_FORCE_OFFLINE_PAYMENT = "clover.intent.extra.FORCE_OFFLINE_PAYMENT";
+  /** {@link Boolean} don't prompt for confirmation of an offline payment */
+  public static final String EXTRA_APPROVE_OFFLINE_PAYMENT_WITHOUT_PROMPT = "clover.intent.extra.APPROVE_OFFLINE_PAYMENT_WITHOUT_PROMPT";
+  /** {@link Boolean} allow offline payments even if the merchant isn't configured to accept them */
+  public static final String EXTRA_ALLOW_OFFLINE_PAYMENT = "clover.intent.extra.ALLOW_OFFLINE_PAYMENT";
+  /** the location for the customer signature */
+  public static final String EXTRA_SIGNATURE_LOCATION = "clover.intent.extra.SIGNATURE_LOCATION";
+
+  /** Result of C-Token requested part of Transaction Type link #TRANSACTION_TYPE_PAYMENT} or {@link #TRANSACTION_TYPE_AUTH}
+   * {@link #TRANSACTION_TYPE_TOKENIZE_CARD} see {@link com.clover.sdk.v3.payments.TokenizeCardResponse} */
+  public static final String EXTRA_C_TOKEN_RESULT = "clover.intent.extra.C_TOKEN_RESULT";
+  /** Request an C-Token part of Transaction Type link #TRANSACTION_TYPE_PAYMENT} or {@link #TRANSACTION_TYPE_AUTH}
+   * or {@link #TRANSACTION_TYPE_TOKENIZE_CARD}. A Valid Api access token must be set on {@link com.clover.sdk.v3.payments.TokenizeCardRequest} which can be
+   * obtained from the merchant dashboard */
+  public static final String EXTRA_C_TOKEN_REQUEST = "clover.intent.extra.C_TOKEN_REQUEST";
+
+  public static final String EXTRA_NO_TIP = "clover.intent.extra.EXTRA_NO_TIP";
 }

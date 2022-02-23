@@ -97,9 +97,9 @@ public class AppNotificationTestActivity extends Activity {
         request.put("notification", notification.toJson());
 
         String uri = authResult.baseUrl + "/v2/merchant/" + authResult.merchantId + "/apps/" +
-            authResult.appId + "/notifications?access_token=" + authResult.authToken;
+            authResult.appId + "/notifications";
         Log.i(TAG, "Posting app notification to " + uri);
-        client.post(uri, request.toString());
+        client.post(uri, request.toString(), authResult.authToken);
       } catch (Exception e) {
         String msg = getResources().getString(R.string.error_while_sending, e.getMessage());
         Log.w(TAG, msg);

@@ -19,10 +19,7 @@ import com.google.gson.JsonObject;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /*
   This connector exposes session data used by Remote Pay during the processing
@@ -49,6 +46,7 @@ public class SessionConnector implements Serializable, SessionListener {
 
     public static final String QUERY_PARAMETER_VALUE = "value";
     public static final String QUERY_PARAMETER_NAME = "name";
+    public static final String QUERY_PARAMETER_SRC = "src";
     public static final String BUNDLE_KEY_MERCHANT = "Merchant";
     public static final String BUNDLE_KEY_EMPLOYEE = "Employee";
     public static final String BUNDLE_KEY_TYPE = "TYPE";
@@ -56,6 +54,9 @@ public class SessionConnector implements Serializable, SessionListener {
     public static final String BUNDLE_KEY_MESSAGE = "MESSAGE";
     public static final String BUNDLE_KEY_DURATION = "DURATION";
     public static final String BUNDLE_KEY_TRANSACTION = "TRANSACTION";
+    private static final String EXTERNAL = "EXTERNAL";
+    private static final String INTERNAL = "INTERNAL";
+    protected String messageUuid;
 
     private static final String TAG = "SessionConnector";
 
@@ -118,6 +119,10 @@ public class SessionConnector implements Serializable, SessionListener {
         }
 
         return true;
+    }
+
+    protected ContentProviderClient getSessionContentProviderClient() {
+        return sessionContentProviderClient;
     }
 
     public CustomerInfo getCustomerInfo() {
@@ -232,6 +237,9 @@ public class SessionConnector implements Serializable, SessionListener {
                 Bundle bundle = new Bundle();
                 bundle.putString(SessionContract.COLUMN_KEY, key);
                 bundle.putString(SessionContract.COLUMN_VALUE, value);
+                bundle.putString(SessionContract.COLUMN_SRC, EXTERNAL);
+                messageUuid = UUID.randomUUID().toString();
+                bundle.putString("messageUuid", messageUuid);
                 sessionContentProviderClient.call(SessionContract.CALL_METHOD_SET_PROPERTY, null, bundle);
             }
         } catch (Exception e) {
@@ -247,6 +255,25 @@ public class SessionConnector implements Serializable, SessionListener {
             try (Cursor cursor = sessionContentProviderClient.query(SessionContract.PROPERTIES_URI, null, selectionClause, selectionArgs, null)) {
                 if (null != cursor && cursor.moveToFirst()) {
                     return cursor.getString(1); // 0=Key, 1=Value
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return null;
+    }
+
+    private JsonObject getPropertyWithSrc(String key) {
+        try {
+            if (!connect()) return null;
+            String selectionClause = SessionContract.COLUMN_KEY + " = ?";
+            String[] selectionArgs = {key};
+            try (Cursor cursor = sessionContentProviderClient.query(SessionContract.PROPERTIES_URI, null, selectionClause, selectionArgs, null)) {
+                if (null != cursor && cursor.moveToFirst()) {
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("value", cursor.getString(1));
+                    jsonObject.addProperty("src", cursor.getString(2));
+                    return jsonObject;
                 }
             }
         } catch (Exception e) {
@@ -330,9 +357,8 @@ public class SessionConnector implements Serializable, SessionListener {
     private static void registerContentObserver(Context context, SessionContentObserver sessionContentObserver) {
         if (null == context || null == sessionContentObserver) return;
 
-        // Intentionally, not registering for SessionContract.SESSION_URI because it triggers two event notifications
+        // Intentionally, not registering for SessionContract.PROPERTIES_URI and SessionContract.SESSION_URI because it triggers two event notifications
         // for every change.
-        context.getContentResolver().registerContentObserver(SessionContract.PROPERTIES_URI, true, sessionContentObserver);
         context.getContentResolver().registerContentObserver(SessionContract.PROPERTIES_KEY_URI, true, sessionContentObserver);
         context.getContentResolver().registerContentObserver(SessionContract.EVENT_URI, true, sessionContentObserver);
         context.getContentResolver().registerContentObserver(SessionContract.SESSION_TRANSACTION_URI, true, sessionContentObserver);
@@ -355,6 +381,7 @@ public class SessionConnector implements Serializable, SessionListener {
      */
     static class SessionContentObserver extends ContentObserver {
         private SessionConnector connector;
+        private static String lastUuid="";
 
         SessionContentObserver(SessionConnector connector) {
             super(new Handler());
@@ -383,45 +410,64 @@ public class SessionConnector implements Serializable, SessionListener {
         public void onChange(boolean selfChange, Uri uri) {
             if (null == getConnector()) return;
 
-            switch (SessionContract.matcher.match(uri)) {
-                case SessionContract.SESSION:
-                    Log.d(TAG, "Session Changed: --> " + uri.toString());
-                    getConnector().onSessionDataChanged(SESSION, null);
-                    break;
-                case SessionContract.SESSION_CUSTOMER_INFO:
-                    Log.d(TAG, "CustomerInfo Changed: --> " + uri.toString());
-                    getConnector().onSessionDataChanged(CUSTOMER_INFO, getConnector().getCustomerInfo());
-                    break;
-                case SessionContract.SESSION_DISPLAY_ORDER:
-                    Log.d(TAG, "DisplayOrder Changed: --> " + uri.toString());
-                    getConnector().onSessionDataChanged(DISPLAY_ORDER, getConnector().getDisplayOrder());
-                    break;
-                case SessionContract.PROPERTIES:
-                    Log.d(TAG, "Properties Changed: --> " + uri.toString());
-                    getConnector().onSessionDataChanged(PROPERTIES, null);
-                    break;
-                case SessionContract.PROPERTIES_KEY:
-                    String key = uri.getLastPathSegment();
-                    String value = getConnector().getProperty(key);
-                    Log.d(TAG, "Property key: " + key + " with value: " + value + " Changed: --> " + uri.toString());
+            String messageUuid = uri.getQueryParameter("messageUuid"); //this ID is to determine if this instance was the one to set the property
+            //If the message has the same id, then we don't want duplicate notifications
+            if ((messageUuid == null || !messageUuid.equals(lastUuid))) {
+                lastUuid = messageUuid;
+                switch (SessionContract.matcher.match(uri)) {
+                    case SessionContract.SESSION:
+                        Log.d(TAG, "Session Changed: --> " + uri.toString());
+                        getConnector().onSessionDataChanged(SESSION, null);
+                        break;
+                    case SessionContract.SESSION_CUSTOMER_INFO:
+                        Log.d(TAG, "CustomerInfo Changed: --> " + uri.toString());
+                        getConnector().onSessionDataChanged(CUSTOMER_INFO, getConnector().getCustomerInfo());
+                        break;
+                    case SessionContract.SESSION_DISPLAY_ORDER:
+                        Log.d(TAG, "DisplayOrder Changed: --> " + uri.toString());
+                        getConnector().onSessionDataChanged(DISPLAY_ORDER, getConnector().getDisplayOrder());
+                        break;
+                    case SessionContract.PROPERTIES:
+                        Log.d(TAG, "Properties Changed: --> " + uri.toString());
+                        getConnector().onSessionDataChanged(PROPERTIES, null);
+                        break;
+                    case SessionContract.PROPERTIES_KEY:
+                        //We don't want to send a notification to the instance that set the property
+                        if (messageUuid == null || !messageUuid.equals(getConnector().messageUuid)) {
+                            String key = uri.getLastPathSegment();
+                            JsonObject property = getConnector().getPropertyWithSrc(key);
+                            String value = null;
+                            if (property != null && property.has("value")) {
+                                value = property.get("value").toString();
+                            }
+                            String src = null;
+                            if (property != null && property.has("src")) {
+                                src = property.get("src").getAsString();
+                            }
+                            //We don't want to send internally sourced notifications
+                            if (src == null || !src.equals(INTERNAL)) {
+                                Log.d(TAG, "Property key: " + key + " with value: " + value + " Changed: --> " + uri.toString());
 
-                    JsonObject obj = new JsonObject();
-                    obj.addProperty(QUERY_PARAMETER_NAME, key);
-                    obj.addProperty(QUERY_PARAMETER_VALUE, value);
-                    getConnector().onSessionDataChanged(PROPERTIES, obj);
-                    break;
-                case SessionContract.SESSION_TRANSACTION:
-                    Log.d(TAG, "Transaction Changed: --> " + uri.toString());
-                    getConnector().onSessionDataChanged(TRANSACTION, getConnector().getTransaction());
-                    break;
-                case SessionContract.EVENT:
-                    String type = uri.getLastPathSegment();
-                    String payload = uri.getQueryParameter(QUERY_PARAMETER_VALUE);
-                    getConnector().onSessionEvent(type, payload);
-                    break;
-                default:
-                    Log.d(TAG, "Unknown URI - Changed: --> " + uri.toString());
-                    return;
+                                JsonObject obj = new JsonObject();
+                                obj.addProperty(QUERY_PARAMETER_NAME, key);
+                                obj.addProperty(QUERY_PARAMETER_VALUE, value);
+                                getConnector().onSessionDataChanged(PROPERTIES, obj);
+                            }
+                        }
+                        break;
+                    case SessionContract.SESSION_TRANSACTION:
+                        Log.d(TAG, "Transaction Changed: --> " + uri.toString());
+                        getConnector().onSessionDataChanged(TRANSACTION, getConnector().getTransaction());
+                        break;
+                    case SessionContract.EVENT:
+                        String type = uri.getLastPathSegment();
+                        String payload = uri.getQueryParameter(QUERY_PARAMETER_VALUE);
+                        getConnector().onSessionEvent(type, payload);
+                        break;
+                    default:
+                        Log.d(TAG, "Unknown URI - Changed: --> " + uri.toString());
+                        return;
+                }
             }
             super.onChange(selfChange, uri);
         }

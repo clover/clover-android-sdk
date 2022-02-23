@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getBatchTotals batchTotals}</li>
  * <li>{@link #getServerTotals serverTotals}</li>
  * <li>{@link #getCardTotals cardTotals}</li>
+ * <li>{@link #getCardlessTotals cardlessTotals}</li>
  * <li>{@link #getDeviceTotals deviceTotals}</li>
  * <li>{@link #getEndpointTotals endpointTotals}</li>
  * <li>{@link #getOpenTips openTips}</li>
@@ -60,6 +61,10 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
 
   public java.util.List<com.clover.sdk.v3.payments.BatchCardTotal> getCardTotals() {
     return genClient.cacheGet(CacheKey.cardTotals);
+  }
+
+  public java.util.List<com.clover.sdk.v3.payments.BatchCardlessTotal> getCardlessTotals() {
+    return genClient.cacheGet(CacheKey.cardlessTotals);
   }
 
   public java.util.List<com.clover.sdk.v3.payments.DeviceTotalStats> getDeviceTotals() {
@@ -96,6 +101,8 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.ServerTotalStats.JSON_CREATOR)),
     cardTotals
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchCardTotal.JSON_CREATOR)),
+    cardlessTotals
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.BatchCardlessTotal.JSON_CREATOR)),
     deviceTotals
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.DeviceTotalStats.JSON_CREATOR)),
     endpointTotals
@@ -204,6 +211,14 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'cardTotals' field is set and is not null and is not empty */
   public boolean isNotEmptyCardTotals() { return isNotNullCardTotals() && !getCardTotals().isEmpty(); }
 
+  /** Checks whether the 'cardlessTotals' field is set and is not null */
+  public boolean isNotNullCardlessTotals() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardlessTotals);
+  }
+
+  /** Checks whether the 'cardlessTotals' field is set and is not null and is not empty */
+  public boolean isNotEmptyCardlessTotals() { return isNotNullCardlessTotals() && !getCardlessTotals().isEmpty(); }
+
   /** Checks whether the 'deviceTotals' field is set and is not null */
   public boolean isNotNullDeviceTotals() {
     return genClient.cacheValueIsNotNull(CacheKey.deviceTotals);
@@ -250,6 +265,11 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'cardTotals' field has been set, however the value could be null */
   public boolean hasCardTotals() {
     return genClient.cacheHasKey(CacheKey.cardTotals);
+  }
+
+  /** Checks whether the 'cardlessTotals' field has been set, however the value could be null */
+  public boolean hasCardlessTotals() {
+    return genClient.cacheHasKey(CacheKey.cardlessTotals);
   }
 
   /** Checks whether the 'deviceTotals' field has been set, however the value could be null */
@@ -308,6 +328,15 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'cardlessTotals'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchDetail setCardlessTotals(java.util.List<com.clover.sdk.v3.payments.BatchCardlessTotal> cardlessTotals) {
+    return genClient.setArrayRecord(cardlessTotals, CacheKey.cardlessTotals);
+  }
+
+  /**
    * Sets the field 'deviceTotals'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -355,6 +384,10 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'cardTotals' field, the 'has' method for this field will now return false */
   public void clearCardTotals() {
     genClient.clear(CacheKey.cardTotals);
+  }
+  /** Clears the 'cardlessTotals' field, the 'has' method for this field will now return false */
+  public void clearCardlessTotals() {
+    genClient.clear(CacheKey.cardlessTotals);
   }
   /** Clears the 'deviceTotals' field, the 'has' method for this field will now return false */
   public void clearDeviceTotals() {
@@ -438,6 +471,7 @@ public class BatchDetail extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean BATCHTOTALS_IS_REQUIRED = false;
     public static final boolean SERVERTOTALS_IS_REQUIRED = false;
     public static final boolean CARDTOTALS_IS_REQUIRED = false;
+    public static final boolean CARDLESSTOTALS_IS_REQUIRED = false;
     public static final boolean DEVICETOTALS_IS_REQUIRED = false;
     public static final boolean ENDPOINTTOTALS_IS_REQUIRED = false;
     public static final boolean OPENTIPS_IS_REQUIRED = false;

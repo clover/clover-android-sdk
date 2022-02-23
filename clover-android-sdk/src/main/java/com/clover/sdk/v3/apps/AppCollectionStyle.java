@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum AppCollectionStyle implements Parcelable {
-  SCROLL_HERO_BANNER, SCROLL_GRID_TILE, SCROLL_TILE, VERTICAL_GRID;
+  SCROLL_HERO_BANNER, SCROLL_GRID_TILE, SCROLL_TILE, VERTICAL_GRID, CIRCLE, FEATURED_TILE, ALL_PURPOSE, SNACK_GROUPED;
 
   @Override
   public int describeContents() {

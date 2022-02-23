@@ -18,4 +18,5 @@
 <resources>
   <string name="sdkName">com.clover.connector.sdk.v3.PaymentConnector</string>
   <string name="sdkVersion">3.0.0</string>
-</resources>
+  <string name="default_manual_line_item_name">Manual Transaction</string>
+  <string name="authorization_line_item_name">Authorization</string></resources>

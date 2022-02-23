@@ -14,90 +14,19 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '262.2'
+version = '284'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
+apply from: file("${projectDir}/../common_upload.gradle")
 
 dependencies {
   implementation project(':clover-android-sdk')
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
 }
 
-apply plugin: 'signing'
+ext{
+  project_name = 'Clover Android Loyalty Kit'
+  project_description = 'Android services and objects used for interacting with Clover Loyalty Kit'
 
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3'
-  }
-}
-apply plugin: 'io.codearte.nexus-staging'
-
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: "${upload_release_url}") {
-        authentication(userName: "${upload_user}", password: "${upload_password}")
-      }
-      snapshotRepository(url: "${upload_snapshot_url}") {
-        authentication(userName: "${upload_user}", password: "${upload_password}")
-      }
-
-      pom.project {
-        parent {
-          groupId 'org.sonatype.oss'
-          artifactId 'oss-parent'
-          version '7'
-        }
-
-        name 'Clover Android Loyalty Kit'
-        description 'Android services and objects used for interacting with Clover Loyalty Kit'
-        url 'http://www.clover.com/'
-
-        licenses {
-          license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0'
-            distribution 'repo'
-          }
-        }
-
-        scm {
-          url "https://github.com/clover/clover-android-sdk"
-          connection "https://github.com/clover/clover-android-sdk.git"
-          developerConnection "git@github.com:clover/clover-android-sdk.git"
-        }
-
-        developers {
-          developer {
-            name 'Clover Engineering Team'
-            url 'https://www.clover.com/team'
-          }
-        }
-      }
-    }
-  }
-}
-
-task sourcesJar(type: Jar) {
-  classifier = 'sources'
-  from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-  archives sourcesJar
-}
-
-signing {
-  required = { gradle.taskGraph.hasTask("uploadArchives") }
-  sign configurations.archives
-}
-
-nexusStaging {
-  packageGroup = "com.clover" //optional if packageGroup == project.getGroup() ------>  NOTE: project.getGroup() returns com.clover.sdk
 }

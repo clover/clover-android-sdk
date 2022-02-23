@@ -44,6 +44,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAddressState addressState}</li>
  * <li>{@link #getAddressZipCode addressZipCode}</li>
  * <li>{@link #getAddressCountry addressCountry}</li>
+ * <li>{@link #getTellerID tellerID}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -126,6 +127,13 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     return genClient.cacheGet(CacheKey.addressCountry);
   }
 
+  /**
+   * Employee id
+   */
+  public java.lang.Integer getTellerID() {
+    return genClient.cacheGet(CacheKey.tellerID);
+  }
+
 
 
 
@@ -158,6 +166,8 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     addressCountry
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tellerID
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -254,6 +264,8 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     genClient.validateLength(CacheKey.addressZipCode, getAddressZipCode(), 64);
 
     genClient.validateLength(CacheKey.addressCountry, getAddressCountry(), 64);
+
+    genClient.validateMinMax(CacheKey.tellerID, getTellerID(), 0L, 999L);
   }
 
   /** Checks whether the 'idType' field is set and is not null */
@@ -326,6 +338,11 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     return genClient.cacheValueIsNotNull(CacheKey.addressCountry);
   }
 
+  /** Checks whether the 'tellerID' field is set and is not null */
+  public boolean isNotNullTellerID() {
+    return genClient.cacheValueIsNotNull(CacheKey.tellerID);
+  }
+
 
 
   /** Checks whether the 'idType' field has been set, however the value could be null */
@@ -396,6 +413,11 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   /** Checks whether the 'addressCountry' field has been set, however the value could be null */
   public boolean hasAddressCountry() {
     return genClient.cacheHasKey(CacheKey.addressCountry);
+  }
+
+  /** Checks whether the 'tellerID' field has been set, however the value could be null */
+  public boolean hasTellerID() {
+    return genClient.cacheHasKey(CacheKey.tellerID);
   }
 
 
@@ -497,6 +519,13 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     return genClient.setOther(addressCountry, CacheKey.addressCountry);
   }
 
+  /**
+   * Sets the field 'tellerID'.
+   */
+  public CashAdvanceCustomerIdentification setTellerID(java.lang.Integer tellerID) {
+    return genClient.setOther(tellerID, CacheKey.tellerID);
+  }
+
 
   /** Clears the 'idType' field, the 'has' method for this field will now return false */
   public void clearIdType() {
@@ -553,6 +582,10 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
   /** Clears the 'addressCountry' field, the 'has' method for this field will now return false */
   public void clearAddressCountry() {
     genClient.clear(CacheKey.addressCountry);
+  }
+  /** Clears the 'tellerID' field, the 'has' method for this field will now return false */
+  public void clearTellerID() {
+    genClient.clear(CacheKey.tellerID);
   }
 
 
@@ -642,6 +675,9 @@ public class CashAdvanceCustomerIdentification extends GenericParcelable impleme
     public static final long ADDRESSZIPCODE_MAX_LEN = 64;
     public static final boolean ADDRESSCOUNTRY_IS_REQUIRED = false;
     public static final long ADDRESSCOUNTRY_MAX_LEN = 64;
+    public static final boolean TELLERID_IS_REQUIRED = false;
+    public static final long TELLERID_MIN = 0;
+    public static final long TELLERID_MAX = 999;
   }
 
 }

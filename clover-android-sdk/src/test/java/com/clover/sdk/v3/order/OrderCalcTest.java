@@ -1,5 +1,7 @@
 package com.clover.sdk.v3.order;
 
+import com.clover.core.internal.calc.Calc;
+import com.clover.core.internal.calc.Price;
 import com.clover.sdk.v3.inventory.TaxRate;
 
 import org.junit.Before;
@@ -173,5 +175,60 @@ public class OrderCalcTest {
     final LineItem lineItem = new LineItem();
     lineItem.setPrice(-1L);
     orderCalc.getPriceWithVAT(lineItem);
+  }
+
+  @Test
+  public void testGetAdditionalChargeSummaries() {
+    final LineItem lineItem1 = new LineItem();
+    lineItem1.setPrice(new Price(333).getCents());
+
+    final LineItem lineItem2 = new LineItem();
+    lineItem2.setPrice(new Price(666).getCents());
+
+    final List<LineItem> lineItems = new ArrayList<>();
+    lineItems.add(lineItem1);
+    lineItems.add(lineItem2);
+
+    final Order order = new Order();
+    order.setLineItems(lineItems);
+
+    final AdditionalCharge additionalChargePercent = new AdditionalCharge();
+    additionalChargePercent.setType(AdditionalChargeType.DELIVERY_FEE);
+    additionalChargePercent.setPercentageDecimal(10000L);
+
+    final AdditionalCharge additionalChargeFixed = new AdditionalCharge();
+    additionalChargeFixed.setAmount(34L);
+    additionalChargeFixed.setType(AdditionalChargeType.DELIVERY_FEE);
+
+    final List<AdditionalCharge> additionalCharges = new ArrayList<>();
+    additionalCharges.add(additionalChargePercent);
+    additionalCharges.add(additionalChargeFixed);
+    order.setAdditionalCharges(additionalCharges);
+
+    final OrderCalc orderCalc = new OrderCalc(order);
+    final List<Calc.AdditionalChargeSummary> additionalChargeSummaries =
+        orderCalc.getAdditionalChargeSummaries(lineItems);
+
+    assertEquals(additionalChargePercent.getType().name(),
+        additionalChargeSummaries.get(0).additionalCharge.getType());
+    assertEquals(new Price(10), additionalChargeSummaries.get(0).charge);
+
+    assertEquals(additionalChargePercent.getType().name(),
+        additionalChargeSummaries.get(1).additionalCharge.getType());
+    assertEquals(new Price(34), additionalChargeSummaries.get(1).charge);
+  }
+
+  @Test
+  public void testGetAdditionalChargeSummaries_noChargesAvailable() {
+    final List<LineItem> lineItems = new ArrayList<>();
+
+    final Order order = new Order();
+    order.setLineItems(lineItems);
+
+    final OrderCalc orderCalc = new OrderCalc(order);
+    final List<Calc.AdditionalChargeSummary> additionalChargeSummaries =
+        orderCalc.getAdditionalChargeSummaries(lineItems);
+
+    assertEquals(0, additionalChargeSummaries.size());
   }
 }

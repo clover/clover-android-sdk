@@ -26,13 +26,8 @@ import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
 /**
- * This is an auto-generated Clover data object.
- * <p>
- * <h3>Fields</h3>
- * <ul>
- * <li>{@link #getPrice price}</li>
- * <li>{@link #getDeviceCountInfo deviceCountInfo}</li>
- * </ul>
+ * @deprecated This is a Clover private internal use class and should not be used. There are no connectors
+ * available to get this data from Clover services.
  */
 @SuppressWarnings("all")
 public class DevicePriceInfo extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {

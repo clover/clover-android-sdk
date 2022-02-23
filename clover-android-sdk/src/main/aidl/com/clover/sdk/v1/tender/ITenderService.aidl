@@ -16,7 +16,7 @@ import com.clover.sdk.v1.ResultStatus;
  * </pre>
  * For more information about bound services, refer to
  * the Android documentation:
- * <a href="http://developer.android.com/guide/components/bound-services.html#Binding">
+ * <a href="https://developer.android.com/guide/components/bound-services.html#Binding">
  * Bound Services
  * </a>.
  * <br/><br/>

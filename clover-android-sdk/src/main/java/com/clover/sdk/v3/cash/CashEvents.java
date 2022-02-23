@@ -23,6 +23,7 @@ import android.util.Log;
 import com.clover.sdk.cashdrawer.CashDrawer;
 import com.clover.sdk.cashdrawer.CashDrawers;
 import com.clover.sdk.internal.util.UnstableCallClient;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 
 import java.util.Set;
 
@@ -199,7 +200,8 @@ public class CashEvents {
     extras.putInt(EXTRA_CASH_DRAWER_NUMBER, cashDrawer.getDrawerNumber());
 
     // Record the event
-    UnstableCallClient client = new UnstableCallClient(context.getContentResolver(), CashContract.CashEvent.CONTENT_URI);
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(),
+        CashContract.CashEvent.CONTENT_URI);
     Bundle response = client.call(METHOD_ADD_ENTRY, null, extras, null);
     if (response == null || !response.getBoolean(ARG_SUCCESS, false)) {
       Log.w(TAG, "Cash event recording error, cash event not recorded");

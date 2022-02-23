@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply from: file("${project.rootDir}/common.gradle")
-apply from: file("${project.rootDir}/versions.gradle")
-apply plugin: 'android-maven'
 
 android {
   lintOptions {
@@ -33,4 +31,9 @@ android {
 
 task listLibraries {
     println project.group + ':' + project.name
+}
+
+// Task to generate JAR for the Android platform
+task makeJar(type: Jar, dependsOn: 'assembleRelease') {
+    from fileTree(dir: 'build/intermediates/javac/release/classes')
 }

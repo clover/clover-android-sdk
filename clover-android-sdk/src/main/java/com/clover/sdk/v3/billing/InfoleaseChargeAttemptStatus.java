@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum InfoleaseChargeAttemptStatus implements Parcelable {
-  BILLED, ACH_REJECT, REFUNDED;
+  BILLED, ACH_REJECT, REFUNDED, WAIVED;
 
   @Override
   public int describeContents() {

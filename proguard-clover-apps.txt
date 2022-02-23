@@ -52,6 +52,11 @@
   java.lang.Object readResolve();
 }
 
+# Rules for Core when used with Jackson
+-keep class com.clover.core.CoreBaseRequest { *; }
+-keepnames class * extends com.clover.core.CoreBaseRequest
+-keepclassmembers class * extends com.clover.core.CoreBaseRequest { *; }
+
 # Keep custom views.
 -keep public class * extends android.view.View {
   public <init>(android.content.Context);

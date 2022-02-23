@@ -32,6 +32,8 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getHidden hidden}</li>
+ * <li>{@link #getAvailable available}</li>
+ * <li>{@link #getAutoManage autoManage}</li>
  * <li>{@link #getItemGroup itemGroup}</li>
  * <li>{@link #getOptions options}</li>
  * <li>{@link #getName name}</li>
@@ -51,9 +53,11 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTags tags}</li>
  * <li>{@link #getCanonical canonical}</li>
  * <li>{@link #getItemStock itemStock}</li>
+ * <li>{@link #getMenuItem menuItem}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getPriceWithoutVat priceWithoutVat}</li>
+ * <li>{@link #getColorCode colorCode}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -73,6 +77,20 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public java.lang.Boolean getHidden() {
     return genClient.cacheGet(CacheKey.hidden);
+  }
+
+  /**
+   * True if this item is available for sale across all channels
+   */
+  public java.lang.Boolean getAvailable() {
+    return genClient.cacheGet(CacheKey.available);
+  }
+
+  /**
+   * False manually manage item availability, True item availability depends on stock count
+   */
+  public java.lang.Boolean getAutoManage() {
+    return genClient.cacheGet(CacheKey.autoManage);
   }
 
   /**
@@ -150,7 +168,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
-   * True if this item should be counted as revenue, for example gift cards and donations would not
+   * True if this item should be counted as revenue. For example, gift cards and donations would not be counted as revenue.
    */
   public java.lang.Boolean getIsRevenue() {
     return genClient.cacheGet(CacheKey.isRevenue);
@@ -200,6 +218,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.itemStock);
   }
 
+  /**
+   * Menu Item attribute that can be expanded to menu specific attributes
+   */
+  public com.clover.sdk.v3.inventory.MenuItem getMenuItem() {
+    return genClient.cacheGet(CacheKey.menuItem);
+  }
+
   public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
@@ -218,6 +243,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.priceWithoutVat);
   }
 
+  /**
+   * Hex code representation of the color assigned to item in the form of #fff, #ffffff, or #ffffffff
+   */
+  public java.lang.String getColorCode() {
+    return genClient.cacheGet(CacheKey.colorCode);
+  }
+
 
 
   public static final String AUTHORITY = "com.clover.inventory";
@@ -226,6 +258,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     hidden
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    available
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    autoManage
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     itemGroup
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
@@ -265,12 +301,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     itemStock
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.ItemStock.JSON_CREATOR)),
+    menuItem
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.MenuItem.JSON_CREATOR)),
     modifiedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     priceWithoutVat
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    colorCode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -360,6 +400,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     genClient.validateLength(CacheKey.unitName, getUnitName(), 64);
 
     genClient.validateMin(CacheKey.cost, getCost(), 0L);
+
+    genClient.validateLength(CacheKey.colorCode, getColorCode(), 9);
     genClient.validateReferences(CacheKey.itemGroup);
     genClient.validateReferences(CacheKey.canonical);
   }
@@ -372,6 +414,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'hidden' field is set and is not null */
   public boolean isNotNullHidden() {
     return genClient.cacheValueIsNotNull(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'available' field is set and is not null */
+  public boolean isNotNullAvailable() {
+    return genClient.cacheValueIsNotNull(CacheKey.available);
+  }
+
+  /** Checks whether the 'autoManage' field is set and is not null */
+  public boolean isNotNullAutoManage() {
+    return genClient.cacheValueIsNotNull(CacheKey.autoManage);
   }
 
   /** Checks whether the 'itemGroup' field is set and is not null */
@@ -484,6 +536,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.itemStock);
   }
 
+  /** Checks whether the 'menuItem' field is set and is not null */
+  public boolean isNotNullMenuItem() {
+    return genClient.cacheValueIsNotNull(CacheKey.menuItem);
+  }
+
   /** Checks whether the 'modifiedTime' field is set and is not null */
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
@@ -499,6 +556,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.priceWithoutVat);
   }
 
+  /** Checks whether the 'colorCode' field is set and is not null */
+  public boolean isNotNullColorCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.colorCode);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -509,6 +571,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'hidden' field has been set, however the value could be null */
   public boolean hasHidden() {
     return genClient.cacheHasKey(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'available' field has been set, however the value could be null */
+  public boolean hasAvailable() {
+    return genClient.cacheHasKey(CacheKey.available);
+  }
+
+  /** Checks whether the 'autoManage' field has been set, however the value could be null */
+  public boolean hasAutoManage() {
+    return genClient.cacheHasKey(CacheKey.autoManage);
   }
 
   /** Checks whether the 'itemGroup' field has been set, however the value could be null */
@@ -606,6 +678,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheHasKey(CacheKey.itemStock);
   }
 
+  /** Checks whether the 'menuItem' field has been set, however the value could be null */
+  public boolean hasMenuItem() {
+    return genClient.cacheHasKey(CacheKey.menuItem);
+  }
+
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
@@ -621,6 +698,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheHasKey(CacheKey.priceWithoutVat);
   }
 
+  /** Checks whether the 'colorCode' field has been set, however the value could be null */
+  public boolean hasColorCode() {
+    return genClient.cacheHasKey(CacheKey.colorCode);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -634,6 +716,20 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public Item setHidden(java.lang.Boolean hidden) {
     return genClient.setOther(hidden, CacheKey.hidden);
+  }
+
+  /**
+   * Sets the field 'available'.
+   */
+  public Item setAvailable(java.lang.Boolean available) {
+    return genClient.setOther(available, CacheKey.available);
+  }
+
+  /**
+   * Sets the field 'autoManage'.
+   */
+  public Item setAutoManage(java.lang.Boolean autoManage) {
+    return genClient.setOther(autoManage, CacheKey.autoManage);
   }
 
   /**
@@ -786,6 +882,15 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Sets the field 'menuItem'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Item setMenuItem(com.clover.sdk.v3.inventory.MenuItem menuItem) {
+    return genClient.setRecord(menuItem, CacheKey.menuItem);
+  }
+
+  /**
    * Sets the field 'modifiedTime'.
    */
   public Item setModifiedTime(java.lang.Long modifiedTime) {
@@ -806,6 +911,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setOther(priceWithoutVat, CacheKey.priceWithoutVat);
   }
 
+  /**
+   * Sets the field 'colorCode'.
+   */
+  public Item setColorCode(java.lang.String colorCode) {
+    return genClient.setOther(colorCode, CacheKey.colorCode);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -814,6 +926,14 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'hidden' field, the 'has' method for this field will now return false */
   public void clearHidden() {
     genClient.clear(CacheKey.hidden);
+  }
+  /** Clears the 'available' field, the 'has' method for this field will now return false */
+  public void clearAvailable() {
+    genClient.clear(CacheKey.available);
+  }
+  /** Clears the 'autoManage' field, the 'has' method for this field will now return false */
+  public void clearAutoManage() {
+    genClient.clear(CacheKey.autoManage);
   }
   /** Clears the 'itemGroup' field, the 'has' method for this field will now return false */
   public void clearItemGroup() {
@@ -891,6 +1011,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   public void clearItemStock() {
     genClient.clear(CacheKey.itemStock);
   }
+  /** Clears the 'menuItem' field, the 'has' method for this field will now return false */
+  public void clearMenuItem() {
+    genClient.clear(CacheKey.menuItem);
+  }
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
@@ -902,6 +1026,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'priceWithoutVat' field, the 'has' method for this field will now return false */
   public void clearPriceWithoutVat() {
     genClient.clear(CacheKey.priceWithoutVat);
+  }
+  /** Clears the 'colorCode' field, the 'has' method for this field will now return false */
+  public void clearColorCode() {
+    genClient.clear(CacheKey.colorCode);
   }
 
 
@@ -968,6 +1096,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean HIDDEN_IS_REQUIRED = false;
+    public static final boolean AVAILABLE_IS_REQUIRED = false;
+    public static final boolean AUTOMANAGE_IS_REQUIRED = false;
     public static final boolean ITEMGROUP_IS_REQUIRED = false;
     public static final boolean OPTIONS_IS_REQUIRED = false;
     public static final boolean NAME_IS_REQUIRED = true;
@@ -994,9 +1124,12 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean TAGS_IS_REQUIRED = false;
     public static final boolean CANONICAL_IS_REQUIRED = false;
     public static final boolean ITEMSTOCK_IS_REQUIRED = false;
+    public static final boolean MENUITEM_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean PRICEWITHOUTVAT_IS_REQUIRED = false;
+    public static final boolean COLORCODE_IS_REQUIRED = false;
+    public static final long COLORCODE_MAX_LEN = 9;
   }
 
 }

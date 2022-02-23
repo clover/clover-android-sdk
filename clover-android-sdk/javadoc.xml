@@ -17,12 +17,11 @@
 <project name="clover-android-sdk" default="doc" basedir=".">
   <property environment="env"/>
   <property name="src.dir" location="src/main/java"/>
-  <property name="src.aidl.dir" location="build/generated/source/aidl/release"/>
-  <property name="src.r.dir" location="build/generated/source/r/release"/>
+  <property name="src.aidl.dir" location="build/generated/aidl_source_output_dir/release/out"/>
   <property name="lib.dir" location="lib"/>
   <property name="build.dir" location="build"/>
   <property name="doc.dir" location="${build.dir}/doc/"/>
-  <property name="android.home" location="${env.ANDROID_HOME}"/>
+  <property name="android.sdk.root" location="${env.ANDROID_SDK_ROOT}"/>
   <property name="ydoc.dir" location="yworks-uml-doclet-3.0_02-jdk1.5"/>
 
   <target name="init">
@@ -33,7 +32,7 @@
   <target name="doc" depends="init">
     <javadoc
         destdir="${doc.dir}"
-        classpath="${android.home}/platforms/android-17/android.jar"
+        classpath="${android.sdk.root}/platforms/android-29/android.jar"
         overview="overview.html">
       <!-- stylesheetfile="javadoc-style.css"> -->
       <packageset dir="${src.dir}" defaultexcludes="yes">
@@ -45,18 +44,24 @@
         <include name="com/clover/sdk/**"/>
       </packageset>
       <classpath>
-        <pathelement location="${android.home}/platforms/android-17/android.jar"/>
+        <pathelement location="${android.sdk.root}/platforms/android-29/android.jar"/>
         <pathelement path="${build.dir}/intermediates/classes/debug"/>
         <!-- In case lib directory does not exist -->
         <fileset dir="${lib.dir}/.." includes="${lib.dir}/*.jar"/>
       </classpath>
+      <tag name="clover.perm" description="Required Clover permission:" enabled="true" scope="methods"/>
       <doctitle><![CDATA[<h1>Clover SDK for Android</h1>]]></doctitle>
       <bottom><![CDATA[<i>Copyright &#169; 2016 Clover Network, Inc. All Rights Reserved.</i>]]></bottom>
-      <link offline="true" href="http://d.android.com/reference" packagelistLoc="${android.home}/docs/reference"/>
+      <link offline="true" href="http://d.android.com/reference" packagelistURL="http://d.android.com/reference"/>
     </javadoc>
   </target>
 
   <target name="doc-clean">
     <delete dir="${doc.dir}"/>
+    <!-- javadoc task will not process generated interfaces when contained by the default out directory -->
+    <move todir="${src.aidl.dir}">
+      <fileset dir="${src.aidl.dir}/out"/>
+    </move>
+    <delete dir="${src.aidl.dir}/out"/>
   </target>
 </project>

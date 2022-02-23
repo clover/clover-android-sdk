@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum CarouselSortBy implements Parcelable {
-  POPULARITY, FIRST_PUBLISHED_TIME;
+  POPULARITY, FIRST_PUBLISHED_TIME, MOST_POPULAR, RECENTLY_PUBLISHED, RECENTLY_CREATED, TOP_RATED;
 
   @Override
   public int describeContents() {

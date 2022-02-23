@@ -16,6 +16,7 @@
 package com.clover.sdk.cashdrawer;
 
 import com.clover.sdk.internal.util.UnstableCallClient;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 
 import android.content.ContentProviderClient;
 import android.content.Context;
@@ -186,9 +187,9 @@ public class CashDrawers {
   }
 
   Bundle call(String method, String arg, Bundle extras) {
-    UnstableCallClient callClient = new UnstableCallClient(context.getContentResolver(),
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(),
         Contract.CASH_DRAWER_AUTHORITY_URI);
-    return callClient.call(method, arg, extras, new Bundle());
+    return client.call(method, arg, extras, new Bundle());
   }
 
 }

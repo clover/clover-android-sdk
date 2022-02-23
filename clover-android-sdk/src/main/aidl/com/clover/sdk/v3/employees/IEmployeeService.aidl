@@ -19,7 +19,7 @@ import com.clover.sdk.v1.ResultStatus;
  * </pre>
  * For more information about bound services, refer to
  * the Android documentation:
- * <a href="http://developer.android.com/guide/components/bound-services.html#Binding">
+ * <a href="https://developer.android.com/guide/components/bound-services.html#Binding">
  * Bound Services
  * </a>.
  * <br/><br/>
@@ -38,21 +38,21 @@ interface IEmployeeService {
    * Return the employee currently logged in to this device. If the device is
    * locked this returns null.
    * <p/>
-   * Requires EMPLOYEES_R permission.
+   * @clover.perm EMPLOYEES_R
    */
   Employee getActiveEmployee(out ResultStatus resultStatus);
 
   /**
    * Return the employee for the particular UUID.
    * <p/>
-   * Requires EMPLOYEES_R permission.
+   * @clover.perm EMPLOYEES_R
    */
   Employee getEmployee(String id, out ResultStatus resultStatus);
 
   /**
    * Return a list of all employees.
    * <p/>
-   * Requires EMPLOYEES_R permission.
+   * @clover.perm EMPLOYEES_R
    */
   List<Employee> getEmployees(out ResultStatus resultStatus);
 
@@ -61,7 +61,7 @@ interface IEmployeeService {
    * set the id, one will be generated and available in the return value.
    * Device must have network connectivity to succeed.
    * <p/>
-   * Requires EMPLOYEES_W permission.
+   * @clover.perm EMPLOYEES_W
    */
   Employee createEmployee(in Employee employee, out ResultStatus resultStatus);
 
@@ -69,7 +69,7 @@ interface IEmployeeService {
    * Update an existing employee. Device must have network connectivity to
    * succeed. Check result status to ensure the call succeeded.
    * <p/>
-   * Requires EMPLOYEES_W permission.
+   * @clover.perm EMPLOYEES_W
    */
   Employee updateEmployee(in Employee employee, out ResultStatus resultStatus);
 
@@ -82,7 +82,7 @@ interface IEmployeeService {
    * Delete an existing employee. Device must have network connectivity to
    * succeed. Check result status to ensure the call succeeded.
    * <p/>
-   * Requires EMPLOYEES_W permission.
+   * @clover.perm EMPLOYEES_W
    */
   void deleteEmployee(String id, out ResultStatus resultStatus);
 

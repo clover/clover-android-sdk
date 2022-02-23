@@ -119,11 +119,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     super.disconnect();
   }
 
-  /**
-   * Get the merchant object.
-   *
-   * @param callback A callback to receive invocation results.
-   */
   public void getMerchant(Callback<Merchant> callback) {
     execute(new MerchantCallable<Merchant>() {
       @Override
@@ -133,9 +128,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }, callback);
   }
 
-  /**
-   * Get the merchant object. This method must not be called on the UI thread.
-   */
   public Merchant getMerchant() throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new MerchantCallable<Merchant>() {
       @Override
@@ -145,12 +137,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     });
   }
 
-  /**
-   * Set the merchant's address.
-   *
-   * @param address  The address of the merchant.
-   * @param callback A callback to receive invocation results.
-   */
   public void setAddress(final MerchantAddress address, Callback<Void> callback) {
     execute(new MerchantCallable<Void>() {
       @Override
@@ -161,9 +147,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }, callback);
   }
 
-  /**
-   * Set the merchant address. This method must not be called on the main thread.
-   */
   public void setAddress(final MerchantAddress address) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new MerchantRunnable() {
       @Override
@@ -173,12 +156,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     });
   }
 
-  /**
-   * Set the merchant's phone number.
-   *
-   * @param phoneNumber The phone number of the merchant.
-   * @param callback    A callback to receive invocation results.
-   */
   public void setPhoneNumber(final String phoneNumber, Callback<Void> callback) {
     execute(new MerchantCallable<Void>() {
       @Override
@@ -189,9 +166,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }, callback);
   }
 
-  /**
-   * Set the merchant's phone number. This method must not be called on the main thread.
-   */
   public void setPhoneNumber(final String phoneNumber) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new MerchantRunnable() {
       @Override
@@ -201,9 +175,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     });
   }
 
-  /**
-   * Set to true to have Clover update stock, false to disable Clover stock updates.
-   */
   public void setUpdateStock(final boolean updateStock, Callback<Void> callback) {
     execute(new MerchantCallable<Void>() {
       @Override
@@ -214,9 +185,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }, callback);
   }
 
-  /**
-   * Set to true to have Clover update stock, false to disable Clover stock updates. This method must not be called on the main thread.
-   */
   public void setUpdateStock(final boolean updateStock) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new MerchantRunnable() {
       @Override
@@ -226,9 +194,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     });
   }
 
-  /**
-   * Set to true to enable stock tracking.
-   */
   public void setTrackStock(final boolean trackStock, Callback<Void> callback) {
     execute(new MerchantCallable<Void>() {
       @Override
@@ -239,9 +204,6 @@ public class MerchantConnector extends ServiceConnector<IMerchantService> {
     }, callback);
   }
 
-  /**
-   * Set to true to have Clover update stock, false to disable Clover stock updates. This method must not be called on the main thread.
-   */
   public void setTrackStock(final boolean trackStock) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new MerchantRunnable() {
       @Override

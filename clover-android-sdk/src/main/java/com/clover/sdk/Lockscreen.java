@@ -15,6 +15,8 @@
  */
 package com.clover.sdk;
 
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,7 +100,8 @@ public class Lockscreen {
    */
   public boolean lock() {
     try {
-      Bundle r = context.getContentResolver().call(Contract.CONTENT_URI, Contract.METHOD_LOCK, null, new Bundle());
+      Bundle r = new UnstableContentResolverClient(context.getContentResolver(), Contract.CONTENT_URI)
+          .call(Contract.METHOD_LOCK, null, new Bundle(), null);
       if (r == null) {
         return false;
       }
@@ -135,7 +138,8 @@ public class Lockscreen {
     Bundle extras = new Bundle();
     extras.putString(Contract.EXTRA_EMPLOYEE_ID, employeeId);
     try {
-      Bundle r = context.getContentResolver().call(Contract.CONTENT_URI, Contract.METHOD_UNLOCK, null, extras);
+      Bundle r = new UnstableContentResolverClient(context.getContentResolver(), Contract.CONTENT_URI)
+          .call(Contract.METHOD_UNLOCK, null, extras, null);
       if (r == null) {
         return false;
       }

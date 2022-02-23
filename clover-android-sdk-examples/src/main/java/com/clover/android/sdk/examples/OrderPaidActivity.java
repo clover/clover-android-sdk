@@ -40,18 +40,13 @@ import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderCalc;
 import com.clover.sdk.v3.order.OrderConnector;
 import com.clover.sdk.v3.order.OrderContract;
-import com.clover.sdk.v3.payments.Payment;
-import com.clover.sdk.v3.payments.Refund;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
+
 
 public class OrderPaidActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
   private static final String TAG = OrderPaidActivity.class.getSimpleName();
@@ -141,7 +136,7 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
 
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-    return new CursorLoader(this, OrderContract.Summaries.contentUriWithAccount(account), null, null, null, OrderContract.Summaries.CREATED + " DESC LIMIT 100");
+    return new CursorLoader(this, OrderContract.OrderSummary.contentUriWithAccount(account), null, null, null, OrderContract.OrderSummary.CREATED + " DESC LIMIT 100");
   }
 
   @Override
@@ -149,7 +144,7 @@ public class OrderPaidActivity extends Activity implements LoaderManager.LoaderC
     final List<String> orderIds = new ArrayList<String>();
     if (data != null && data.moveToFirst()) {
       while (!data.isAfterLast()) {
-        orderIds.add(data.getString(data.getColumnIndex(OrderContract.Summaries.ID)));
+        orderIds.add(data.getString(data.getColumnIndex(OrderContract.OrderSummary.ID)));
         data.moveToNext();
       }
     }

@@ -24,7 +24,6 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="clover.permission.POP_CASH_DRAWER_NEW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- For AppInstallDoneService -->

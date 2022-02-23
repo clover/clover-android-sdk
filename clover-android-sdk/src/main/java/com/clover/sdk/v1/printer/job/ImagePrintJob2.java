@@ -16,6 +16,7 @@
 package com.clover.sdk.v1.printer.job;
 
 import android.accounts.Account;
+import android.content.ContentProviderClient;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import com.clover.sdk.internal.util.OutputUriFactory;
+import com.clover.sdk.internal.util.UnstableContentResolverClient;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v1.printer.ReceiptFileContract;
@@ -155,7 +157,9 @@ public class ImagePrintJob2 extends PrintJob implements Parcelable {
     public Uri createNewOutputUri() {
       ContentValues values = new ContentValues();
       values.put(ReceiptFileContract.ReceiptFiles.FILE_EXTENSION, "png");
-      return getContext().getContentResolver().insert(ReceiptFileContract.ReceiptFileFactory.CONTENT_URI, values);
+      UnstableContentResolverClient client = new UnstableContentResolverClient(getContext().getContentResolver(),
+          ReceiptFileContract.ReceiptFileFactory.CONTENT_URI);
+      return client.insert(values);
     }
 
     @Override

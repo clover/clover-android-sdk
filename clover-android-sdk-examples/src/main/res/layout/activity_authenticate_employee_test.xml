@@ -33,13 +33,7 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textColor="@android:color/holo_red_dark"
-    android:text="THIS METHOD IS DEPRECATED. Please use ACTION_AUTHENTICATE_EMPLOYEE." />
-
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Press this button to request admin role (ACTION_REQUEST_ROLE): " />
+    android:text="Press this button to request admin role (ACTION_AUTHENTICATE_EMPLOYEE): " />
 
   <Button
     android:id="@+id/btn_request_admin_role"

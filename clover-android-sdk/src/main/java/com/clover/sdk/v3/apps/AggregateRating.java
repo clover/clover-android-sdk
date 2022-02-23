@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getReviewCount reviewCount}</li>
  * <li>{@link #getTotalStars totalStars}</li>
+ * <li>{@link #getWeightedRating weightedRating}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -53,6 +54,13 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.totalStars);
   }
 
+  /**
+   * Weighted Rating for this App
+   */
+  public java.lang.Double getWeightedRating() {
+    return genClient.cacheGet(CacheKey.weightedRating);
+  }
+
 
 
 
@@ -61,6 +69,8 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     totalStars
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    weightedRating
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -145,6 +155,11 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.totalStars);
   }
 
+  /** Checks whether the 'weightedRating' field is set and is not null */
+  public boolean isNotNullWeightedRating() {
+    return genClient.cacheValueIsNotNull(CacheKey.weightedRating);
+  }
+
 
 
   /** Checks whether the 'reviewCount' field has been set, however the value could be null */
@@ -155,6 +170,11 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'totalStars' field has been set, however the value could be null */
   public boolean hasTotalStars() {
     return genClient.cacheHasKey(CacheKey.totalStars);
+  }
+
+  /** Checks whether the 'weightedRating' field has been set, however the value could be null */
+  public boolean hasWeightedRating() {
+    return genClient.cacheHasKey(CacheKey.weightedRating);
   }
 
 
@@ -172,6 +192,13 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(totalStars, CacheKey.totalStars);
   }
 
+  /**
+   * Sets the field 'weightedRating'.
+   */
+  public AggregateRating setWeightedRating(java.lang.Double weightedRating) {
+    return genClient.setOther(weightedRating, CacheKey.weightedRating);
+  }
+
 
   /** Clears the 'reviewCount' field, the 'has' method for this field will now return false */
   public void clearReviewCount() {
@@ -180,6 +207,10 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   /** Clears the 'totalStars' field, the 'has' method for this field will now return false */
   public void clearTotalStars() {
     genClient.clear(CacheKey.totalStars);
+  }
+  /** Clears the 'weightedRating' field, the 'has' method for this field will now return false */
+  public void clearWeightedRating() {
+    genClient.clear(CacheKey.weightedRating);
   }
 
 
@@ -245,6 +276,7 @@ public class AggregateRating extends GenericParcelable implements com.clover.sdk
   public interface Constraints {
     public static final boolean REVIEWCOUNT_IS_REQUIRED = false;
     public static final boolean TOTALSTARS_IS_REQUIRED = false;
+    public static final boolean WEIGHTEDRATING_IS_REQUIRED = false;
   }
 
 }

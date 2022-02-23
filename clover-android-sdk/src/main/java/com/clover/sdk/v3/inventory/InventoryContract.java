@@ -169,6 +169,13 @@ public final class InventoryContract {
     public static final String PRICE_WITHOUT_VAT = "price_without_vat";
 
     /**
+     * Item color
+     * <p>
+     * Type: TEXT
+     */
+    public static final String COLOR_CODE = "color_code";
+
+    /**
      * Whether an item is taxable or not.
      * <p>
      * Type: INTEGER (boolean)
@@ -237,6 +244,20 @@ public final class InventoryContract {
     public static final String HIDDEN = "hidden";
 
     /**
+     *  Whether this item is available for sale across all sales channel.
+     *  <p>
+     *  Type: INTEGER (boolean)
+     */
+    public static final String AVAILABLE = "available";
+
+    /**
+     *  True item availability depends on stock count, False manually manage item availability using available
+     *  <p>
+     *  Type: INTEGER (boolean)
+     */
+    public static final String AUTO_MANAGE = "auto_manage";
+
+    /**
      * Whether this item should be counted as a revenue when sold.
      * <p>
      * Type: INTEGER (boolean)
@@ -257,6 +278,40 @@ public final class InventoryContract {
      */
     public static final String MODIFIED_TIME = "modified_time";
 
+    /**
+     * Customer facing item name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_NAME = "menu_name";
+
+    /**
+     * Menu Item description.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_DESCRIPTION = "menu_description";
+
+    /**
+     * Menu Item image file path.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_IMAGE_FILENAME = "menu_image_filename";
+
+    /**
+     * Whether an item is enabled for menu.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String MENU_ENABLED = "menu_enabled";
+
+    /**
+     * Reason for being filtered out.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_REASON_CODE = "menu_reason_code";
   }
 
   /**
@@ -341,6 +396,49 @@ public final class InventoryContract {
      * Type: TEXT
      */
     public static final String ITEMS = "items";
+
+    /**
+     * Category Color.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String COLOR_CODE = "color_code";
+
+    /**
+     * Customer facing category name. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_NAME = "menu_name";
+
+    /**
+     * Category Description. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_DESCRIPTION = "menu_description";
+
+    /**
+     * Category image file path. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_IMAGE_FILENAME = "menu_image_filename";
+
+    /**
+     * Whether a category is enabled for menu. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String MENU_ENABLED = "menu_enabled";
+
+    /**
+     * Reason for being filtered out. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_REASON_CODE = "menu_reason_code";
+
   }
 
   /**
@@ -364,6 +462,15 @@ public final class InventoryContract {
     public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
 
     /**
+     * Content directory for category and associated menu
+     */
+    public static final String CONTENT_WITH_MENU_DIRECTORY = "category_with_menu";
+    /**
+     * The content:// style URI for this table with associated menu fields.
+     */
+    public static final Uri CONTENT_WITH_MENU_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_WITH_MENU_DIRECTORY);
+
+    /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/category";
@@ -379,6 +486,13 @@ public final class InventoryContract {
 
     public static Uri contentUriWithAccount(Account account) {
       Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentWithMenuUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_WITH_MENU_URI.buildUpon();
       builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
       builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
       return builder.build();
@@ -430,6 +544,48 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String ORDER = "sort_order";
+
+    /**
+     *  Modifier is available for sale.
+     *  <p>
+     *  Type: INTEGER (boolean)
+     */
+    public static final String AVAILABLE = "available";
+
+    /**
+     * Customer facing modifier name. Only provided when using the {@link Modifier#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_NAME = "menu_name";
+
+    /**
+     * Menu Modifier description. Only provided when using the {@link Modifier#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_DESCRIPTION = "menu_description";
+
+    /**
+     * Menu Modifier image file path. Only provided when using the {@link Modifier#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_IMAGE_FILENAME = "menu_image_filename";
+
+    /**
+     * Whether a modifier is enabled for menu. Only provided when using the {@link Modifier#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String MENU_ENABLED = "menu_enabled";
+
+    /**
+     * Reason for being filtered out. Only provided when using the {@link Modifier#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_REASON_CODE = "menu_reason_code";
   }
 
   /**
@@ -453,6 +609,15 @@ public final class InventoryContract {
     public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
 
     /**
+     * Content directory for modifier and associated menu
+     */
+    public static final String CONTENT_WITH_MENU_DIRECTORY = "modifier_with_menu";
+    /**
+     * The content:// style URI for this table with associated menu fields.
+     */
+    public static final Uri CONTENT_WITH_MENU_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_WITH_MENU_DIRECTORY);
+
+    /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifier";
@@ -468,6 +633,13 @@ public final class InventoryContract {
 
     public static Uri contentUriWithAccount(Account account) {
       Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentWithMenuUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_WITH_MENU_URI.buildUpon();
       builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
       builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
       return builder.build();
@@ -527,6 +699,57 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String MODIFIER_COUNT = "modifier_count";
+
+    /**
+     * Customer facing modifier group name. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_NAME = "menu_name";
+
+    /**
+     * Menu Modifier Group description. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_DESCRIPTION = "menu_description";
+
+    /**
+     * Menu Modifier Group image file path. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_IMAGE_FILENAME = "menu_image_filename";
+
+    /**
+     * Whether a modifier group is enabled for menu. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String MENU_ENABLED = "menu_enabled";
+
+    /**
+     * Reason for being filtered out. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MENU_REASON_CODE = "menu_reason_code";
+
+    /**
+     * The minimum amount of menu modifiers from this group that must be applied to associated lineItems.
+     * Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MENU_MIN_REQUIRED = "menu_min_required";
+
+    /**
+     * The maximum amount of menu modifiers from this group that can be applied to associated lineItems.
+     * Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MENU_MAX_ALLOWED = "menu_max_allowed";
   }
 
   /**
@@ -555,6 +778,16 @@ public final class InventoryContract {
     public static final Uri CONTENT_WITH_COUNT_URI = Uri.withAppendedPath(AUTHORITY_URI, "modifier_group_with_count");
 
     /**
+     * content directory for modifier group with associated menu modifier group
+     */
+    public static final String CONTENT_WITH_MENU_DIRECTORY = "modifier_group_with_menu";
+
+    /**
+     * The content:// style URI for this table with associated menu modifier group.
+     */
+    public static final Uri CONTENT_WITH_MENU_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_WITH_MENU_DIRECTORY);
+
+    /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of groups.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifiergroup";
@@ -580,6 +813,13 @@ public final class InventoryContract {
 
     public static Uri contentUriWithAccount(Account account) {
       Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentWithMenuUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_WITH_MENU_URI.buildUpon();
       builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
       builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
       return builder.build();
@@ -1688,4 +1928,361 @@ public final class InventoryContract {
     }
   }
 
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.MenuItem}.
+   */
+  public interface MenuItemColumns {
+    /**
+     * Item uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_UUID = "item_uuid";
+
+    /**
+     * Customer facing item name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Menu Item description.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String DESCRIPTION = "description";
+
+    /**
+     * Menu Item image file path.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String IMAGE_FILENAME = "image_filename";
+
+    /**
+     * Whether an item is enabled for menu.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String ENABLED = "enabled";
+
+    /**
+     * Reason for being filtered out.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String REASON_CODE = "reason_code";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.MenuItem} instances via
+   * content provider.
+   */
+  public static final class MenuItem implements BaseColumns, MenuItemColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private MenuItem() {
+    }
+
+    /**
+     * base content directory for item_menu_item
+     */
+    public static final String CONTENT_DIRECTORY = "item_menu_item";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of menu items.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/item_menu_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single menu item.
+     */
+    public static final String CONTENT_MENU_ITEM_TYPE = "vnd.android.cursor.item/item_menu_item";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.MenuModifier}.
+   */
+  public interface MenuModifierColumns {
+    /**
+     * Modifier uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MODIFIER_UUID = "modifier_uuid";
+
+    /**
+     * Customer facing modifier name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Menu Modifier description.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String DESCRIPTION = "description";
+
+    /**
+     * Menu Modifier image file path.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String IMAGE_FILENAME = "image_filename";
+
+    /**
+     * Whether a modifier is enabled for menu.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String ENABLED = "enabled";
+
+    /**
+     * Reason for being filtered out.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String REASON_CODE = "reason_code";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.MenuModifier} instances via
+   * content provider.
+   */
+  public static final class MenuModifier implements BaseColumns, MenuModifierColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private MenuModifier() {
+    }
+
+    /**
+     * base content directory for modifier_menu
+     */
+    public static final String CONTENT_DIRECTORY = "modifier_menu";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of menu modifiers.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifier_menu";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single menu modifier.
+     */
+    public static final String CONTENT_MENU_MODIFIER_TYPE = "vnd.android.cursor.item/modifier_menu";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.MenuModifierGroup}.
+   */
+  public interface MenuModifierGroupColumns {
+    /**
+     * Modifier Group uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String MODIFIER_GROUP_UUID = "modifier_group_uuid";
+
+    /**
+     * Customer facing modifier group name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Menu Modifier Group description.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String DESCRIPTION = "description";
+
+    /**
+     * Menu Modifier Group image file path.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String IMAGE_FILENAME = "image_filename";
+
+    /**
+     * Whether a modifier group is enabled for menu.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String ENABLED = "enabled";
+
+    /**
+     * Reason for being filtered out.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String REASON_CODE = "reason_code";
+
+    /**
+     * The minimum amount of modifiers from this group that must be applied to associated lineItems.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MIN_REQUIRED = "min_required";
+
+    /**
+     * The maximum amount of modifiers from this group that can be applied to associated lineItems.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MAX_ALLOWED = "max_allowed";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.MenuModifierGroup} instances
+   * via content provider.
+   */
+  public static final class MenuModifierGroup implements BaseColumns, MenuModifierGroupColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private MenuModifierGroup() {
+    }
+
+    /**
+     * base content directory for modifier_group_menu
+     */
+    public static final String CONTENT_DIRECTORY = "modifier_group_menu";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of menu modifier groups.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/modifier_group_menu";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single menu modifier group.
+     */
+    public static final String CONTENT_MENU_MODIFIER_GROUP_TYPE = "vnd.android.cursor.item/modifier_group_menu";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.MenuSection}.
+   */
+  public interface MenuSectionColumns {
+    /**
+     * Category uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String CATEGORY_UUID = "category_uuid";
+
+    /**
+     * Customer facing category name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Category Description.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String DESCRIPTION = "description";
+
+    /**
+     * Category image file path.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String IMAGE_FILENAME = "image_filename";
+
+    /**
+     * Whether a category is enabled for menu.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String ENABLED = "enabled";
+
+    /**
+     * Reason for being filtered out.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String REASON_CODE = "reason_code";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.MenuSection} instances via
+   * content provider.
+   */
+  public static final class MenuSection implements BaseColumns, MenuSectionColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private MenuSection() {
+    }
+
+    /**
+     * base content directory for item_layout_menu_section
+     */
+    public static final String CONTENT_DIRECTORY = "item_layout_menu_section";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of menu sections.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/item_layout_menu_section";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single menu section.
+     */
+    public static final String CONTENT_MENU_SECTION_TYPE = "vnd.android.cursor.item/item_layout_menu_section";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
 }

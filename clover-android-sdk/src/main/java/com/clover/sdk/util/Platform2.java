@@ -1,11 +1,11 @@
-/**
- * Copyright (C) 2016 Clover Network, Inc.
+/*
+ * Copyright (C) 2021 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *    https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -240,6 +240,16 @@ public final class Platform2 {
         }
 
         return context.getPackageManager().hasSystemFeature("clover.hardware.usb_device_ports");
+      }
+    },
+    /**
+     * Form factor of this device is such that customers should not interact with it directly for
+     * any reason. Customers should not be prompted to tip, present payment card, etc.
+     */
+    MERCHANT_ONLY {
+      @Override
+      protected boolean isSupported(Context context) {
+        return context.getPackageManager().hasSystemFeature("clover.hardware.merchant_only");
       }
     },
     ;
