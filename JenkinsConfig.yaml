@@ -1,8 +1,8 @@
 ---
 # See https://github.corp.clover.com/clover/jenkinsfiles/blob/master/templates/Jenkinsfile.oas-v1.0 for all the specifics.
 # There are other configuration settings that can be passed if needed
-pipeline_template: templates/Jenkinsfile.clover-libraries-v1.0
+pipeline_template: templates/Jenkinsfile.clover-libraries-v2.0
 # Add app name and add file to associated app's code repo.
 LIBRARY_NAME: clover-android-sdk
-REPO_IS_MAVE: "false"
+REPO_IS_MAVEN: "false"
 REPO_IS_GRADLE: "true"

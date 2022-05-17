@@ -22,6 +22,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.clover.sdk.JSONifiable;
+import com.clover.sdk.cashdrawer.CashDrawers;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,7 +102,10 @@ public class TypeDetails implements Parcelable, JSONifiable {
 
   /**
    * Returns the number of cash drawers that this type of printer can provide.
+   *
+   * @deprecated Use {@link CashDrawers#list()} to get cash drawer information instead.
    */
+  @Deprecated
   public int getNumCashDrawersSupported() {
     return numCashDrawersSupported;
   }

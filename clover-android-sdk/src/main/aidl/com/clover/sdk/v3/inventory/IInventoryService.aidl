@@ -731,4 +731,18 @@ interface IInventoryService {
    * @clover.perm INVENTORY_W
    */
   List<Item> getItemsForModifierGroup(in String modifierGroupId, out ResultStatus resultStatus);
+
+  /**
+   * Associates categories with an item.
+   *
+   * @clover.perm INVENTORY_W
+   */
+  void assignCategoriesToItem(in String itemId, in List<String> categoryIds, out ResultStatus resultStatus);
+
+  /**
+   * Removes categories association from an item.
+   *
+   * @clover.perm INVENTORY_W
+   */
+  void removeCategoriesFromItem(in String itemId, in List<String> categoryIds, out ResultStatus resultStatus);
 }

@@ -788,5 +788,12 @@ interface IOrderServiceV3_1 {
    * @return The updated order with the service charge added.
    * @clover.perm ORDERS_W
    */
-    OrderFdParcelable addServiceCharge2(String orderId, String serviceChargeId, boolean isAutoApplied, out ResultStatus status);
+  OrderFdParcelable addServiceCharge2(String orderId, String serviceChargeId, boolean isAutoApplied, out ResultStatus status);
+
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable addLPMPayment(String orderId, in PaymentFdParcelable payment, out ResultStatus status);
 }

@@ -119,12 +119,17 @@ public class Intents {
   public static final String ACTION_CLOVER_PAY = "com.clover.intent.action.PAY";
 
   /**
-   * Received by your app's broadcast receiver to launch your modify order activity,  (See
-   * <a href="https://github.com/clover/android-examples/tree/master/modifyorderbutton">Example Usage</a>)
+   * The Clover Payments app searches for activities with this action registered in the manifest and
+   * for each such activity a button is added to the Payments app which when tapped launches the
+   * associated activity. The activity may perform some operations on the order and finish itself.
+   * Any changes to the order will appear in the Clover Payments app before the payment is taken.
+   * <p>
+   * See:
+   * <a href="https://github.com/clover/android-examples/tree/master/modifyorderbutton">Example Usage</a>
    * <p>
    * Extras passed:
    * <ul>
-   * <li>{@link #EXTRA_ORDER_ID} - the UUID of the order active in Register</li>
+   * <li>{@link #EXTRA_ORDER_ID} - the UUID of the order about to paid for</li>
    * </ul>
    * <p>
    * Result data must include:
@@ -135,8 +140,14 @@ public class Intents {
   public static final String ACTION_MODIFY_ORDER = "clover.intent.action.MODIFY_ORDER";
 
   /**
-   * Received by your app's broadcast receiver to launch your modify amount activity (See
-   * <a href="https://github.com/clover/android-examples/tree/master/modifyamountbutton">Example Usage</a>)
+   * The Clover Sale app searches for activities with this action registered in the manifest and
+   * for each such activity a button is added which when tapped launches the associated activity.
+   * The activity can inspect the current amount to be paid and transaction type and should return
+   * an adjusted amount to be paid by putting {@link #EXTRA_AMOUNT} into a Intent, calling
+   * <a href="https://developer.android.com/reference/android/app/Activity#setResult(int,%20android.content.Intent)">Activity#setResult(int, Intent)</a>
+   * and finishing itself. The Clover Sale app will then update the amount to paid.
+   * <p>
+   * See: <a href="https://github.com/clover/android-examples/tree/master/modifyamountbutton">Example Usage</a>
    * <p>
    * Extras passed:
    * <ul>
@@ -177,7 +188,6 @@ public class Intents {
    * <ul>
    * <li>{@link #EXTRA_RESULT_SUBSCRIPTION_ID} - the UUID of the subscription tier installed by user</li>
    * </ul>
-   *
    */
   public static final String ACTION_START_APP_DETAIL = "clover.intent.action.START_APP_DETAIL";
 
@@ -193,7 +203,6 @@ public class Intents {
    * <ul>
    * <li>NONE</li>
    * </ul>
-   *
    */
   public static final String ACTION_START_ORDER_MANAGE = "clover.intent.action.START_ORDER_MANAGE";
 
@@ -442,6 +451,7 @@ public class Intents {
    * <li>{@link #EXTRA_TRANSACTION_TYPE} - must be set to {@link #TRANSACTION_TYPE_CARD_DATA} (Required)</li>
    * <li>{@link #EXTRA_CARD_DATA_MESSAGE} - written explanation shown on card entry screen</li>
    * <li>{@link #EXTRA_CARD_ENTRY_METHODS} - allowed payment types, default all allowed</li>
+   * <li>{@link #EXTRA_DATA_READ_MODE - indicator for card data read mode, only applicable for specific integration use cases </li>
    * </ul>
    * <p>
    * Result data includes:
@@ -569,6 +579,8 @@ public class Intents {
    * 		<li>{@link #EXTRA_CLIENT_ID}</li>
    * 		<li>{@link #EXTRA_LINE_ITEM_IDS}</li>
    * 		<li>{@link #EXTRA_AMOUNT}</li>
+   *    <li>{@link #EXTRA_MID}</li>
+   *    <li>{@link #EXTRA_TID}</li>
    * </ul>
    * <p>
    * Result data includes:
@@ -709,6 +721,16 @@ public class Intents {
   /** @deprecated  */
   public static final String ACTION_STORE_CREDIT = "clover.intent.action.STORE_CREDIT";
 
+  /**
+   * Launches PIN Activity in secure-payments
+   */
+  public static final String ACTION_START_PIN_ACTIVITY = "clover.intent.action.START_PIN_ACTIVITY";
+
+  /**
+   * Launches SelectAccountActivity in secure-payments
+   */
+  public static final String ACTION_START_SELECT_ACCOUNT_ACTIVITY = "clover.intent.action.START_SELECT_ACCOUNT_ACTIVITY";
+
   /** {@link com.clover.sdk.v3.payments.Transaction}, a Transaction object */
   public static final String EXTRA_TRANSACTION = "clover.intent.extra.TRANSACTION";
 
@@ -756,6 +778,12 @@ public class Intents {
 
   /** {@link String}, the UUID of a merchant */
   public static final String EXTRA_MERCHANT_ID = "clover.intent.extra.MERCHANT_ID";
+
+  /** {@link String}, MID of a merchant */
+  public static final String EXTRA_MID = "clover.intent.extra.MID";
+
+  /** {@link String}, Terminal Id of the device */
+  public static final String EXTRA_TID = "clover.intent.extra.TID";
 
   /** {@link String}, the UUID of a Payment object */
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
@@ -865,6 +893,7 @@ public class Intents {
   /** See {@link #ACTION_REQUEST_PAYMENT_REMOTE_VIEWS} and {@link #ACTION_UPDATE_PAYMENT_REMOTE_VIEWS} */
   public static final String EXTRA_VIEWID = "clover.intent.extra.VIEW_ID";
 
+
   /** Values passed with {@link #EXTRA_REMOTE_VIEW_SIZE} */
   public enum RemoteViewSize {
     /** 500dp x 160dp  */
@@ -916,6 +945,9 @@ public class Intents {
    * generally this option is best left out and the preferred device default with be used. */
   public static final String EXTRA_LED_ON = "clover.intent.extra.LED_ON";
 
+  /** {@link String}, a uuid of a request */
+  public static final String EXTRA_REQUEST_ID = "clover.intent.extra.REQUEST_ID";
+
   /** {@link Boolean}, whether QR codes will be scanned */
   public static final String EXTRA_SCAN_QR_CODE = "clover.intent.extra.SCAN_QR_CODE";
 
@@ -935,6 +967,14 @@ public class Intents {
   public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";
 
   public static final String EXTRA_SCAN_Y = "clover.intent.extra.SCAN_Y";
+
+  public static final String EXTRA_TIMESTAMP = "clover.intent.extra.TIMESTAMP";
+
+  public static final String EXTRA_SDK_NAME = "clover.intent.extra.SDK_NAME";
+
+  public static final String EXTRA_SDK_VERSION = "clover.intent.extra.SDK_VERSION";
+
+  public static final String EXTRA_MD5_HASH = "clover.intent.extra.MD5_HASH";
 
   /**
    * On devices where multiple barcode scanners are available, select a barcode scanner to
@@ -1232,6 +1272,9 @@ public class Intents {
   /** {@link java.util.Map<String, String>} set of key/value pairs used for application specific implementations */
   public static final String EXTRA_APPLICATION_SPECIFIC_VALUES = "clover.intent.extra.APPLICATION_SPECIFIC_VALUES";
 
+  public static final String EXTRA_API_TIP_PREFER_ON_SCREEN = "clover.intent.extra.API_TIP_PREFER_ON_SCREEN";
+  public static final String EXTRA_API_SIGNATURE_PREFER_ON_SCREEN = "clover.intent.extra.API_SIGNATURE_PREFER_ON_SCREEN";
+
   /** {@link com.clover.sdk.v3.payments.TipMode}, where tips are entered/provided (e.g. on screen
    * after/before, on paper, provided or no tip) for this transaction */
   public static final String EXTRA_TIP_MODE = "clover.intent.extra.TIP_MODE";
@@ -1268,6 +1311,12 @@ public class Intents {
   public static final String GERMAN_GIROCARD = "germanGirocard";
   /** A value for {@link #EXTRA_ELV_APPLICATION_LABEL} */
   public static final String EXTRA_ELV_APPLICATION_LABEL = "elvApplicationLabel";
+
+  public static final String CARD_DATA_READ_MODE_ENHANCED_CVV = "enhancedCvv";
+  /** A value for {@link #EXTRA_DATA_READ_MODE} data read mode for specific integration use cases.  supported value(s):
+   * {@link #CARD_DATA_READ_MODE_ENHANCED_CVV}
+   * */
+  public static final String EXTRA_DATA_READ_MODE = "clover.intent.extra.EXTRA_DATA_READ_MODE";
 
   /* Transaction Settings Section End */
 
@@ -1572,14 +1621,18 @@ public class Intents {
   public static final String EXTRA_AUTO_ACCEPT_SIGNATURE = "clover.intent.extra.AUTO_ACCEPT_SIGNATURE";
   /** {@link Boolean} skip the display of the receipt screen */
   public static final String EXTRA_SKIP_RECEIPT_SCREEN = "clover.intent.extra.SKIP_RECEIPT_SCREEN";
-  /** {@link Boolean} force the payment to be taken offline even if the device is online */
-  public static final String EXTRA_FORCE_OFFLINE_PAYMENT = "clover.intent.extra.FORCE_OFFLINE_PAYMENT";
   /** {@link Boolean} don't prompt for confirmation of an offline payment */
   public static final String EXTRA_APPROVE_OFFLINE_PAYMENT_WITHOUT_PROMPT = "clover.intent.extra.APPROVE_OFFLINE_PAYMENT_WITHOUT_PROMPT";
   /** {@link Boolean} allow offline payments even if the merchant isn't configured to accept them */
   public static final String EXTRA_ALLOW_OFFLINE_PAYMENT = "clover.intent.extra.ALLOW_OFFLINE_PAYMENT";
   /** the location for the customer signature */
   public static final String EXTRA_SIGNATURE_LOCATION = "clover.intent.extra.SIGNATURE_LOCATION";
+  public static final String EXTRA_REFUND_ID = "clover.intent.extra.REFUND_ID";
+  public static final String EXTRA_DISABLE_CLOVER_PRINTING = "clover.intent.extra.DISABLE_CLOVER_PRINTING";
+  /** automatically accept the customer signature */
+  public static final String EXTRA_AUTO_ACCEPT_DUPLICATES = "clover.intent.extra.AUTO_ACCEPT_DUPLICATES";
+  /** {@link Boolean} If set to true (auth) the payment will be automatically/immediately captured and may be adjustable until closeout runs at which time it will be settled/closed.  If set to false (preauth) the payment will not be automatically/immediately captured and a subsequent call to capture will be required to do so.  Once captured the payment will be settled/closed the next time closeout runs. */
+  public static final String EXTRA_CAPTURE = "clover.intent.extra.CAPTURE";
 
   /** Result of C-Token requested part of Transaction Type link #TRANSACTION_TYPE_PAYMENT} or {@link #TRANSACTION_TYPE_AUTH}
    * {@link #TRANSACTION_TYPE_TOKENIZE_CARD} see {@link com.clover.sdk.v3.payments.TokenizeCardResponse} */
@@ -1589,5 +1642,30 @@ public class Intents {
    * obtained from the merchant dashboard */
   public static final String EXTRA_C_TOKEN_REQUEST = "clover.intent.extra.C_TOKEN_REQUEST";
 
-  public static final String EXTRA_NO_TIP = "clover.intent.extra.EXTRA_NO_TIP";
+  public static final String EXTRA_NO_TIP = "clover.intent.extra.NO_TIP";
+
+  public static final String EXTRA_REVERSE_PAYMENT_RESULT = "clover.intent.extra.REVERSE_PAYMENT_RESULT";
+
+  public static final String EXTRA_REGIONAL_EXTRAS = "clover.intent.extra.REGIONAL_EXTRAS";
+
+  public static final String EXTRA_SUPPRESS_CONFIRMATION = "clover.intent.extra.SUPPRESS_CONFIRMATION";
+
+  public static final String EXTRA_USE_LEGACY_VAULT_CARD = "clover.intent.extra.USE_LEGACY_VAULT_CARD";
+
+  public static final String EXTRA_TOKEN_TYPE = "clover.intent.extra.TOKEN_TYPE";
+
+  public static final String EXTRA_SHOULD_TOKENIZE_CARD = "clover.intent.extra.SHOULD_TOKENIZE_CARD";
+
+  public static final String EXTRA_TOKEN = "clover.intent.extra.TOKEN";
+
+  public static final String EXTRA_CARD = "clover.intent.extra.CARD";
+
+  public static final String EXTRA_RETURN_FULL_CARD_DATA = "clover.intent.extra.RETURN_FULL_CARD_DATA";
+
+  public static class PAYMENT_TOKEN_TYPE {
+    public static String LEGACY_CLOVER = "LEGACY_CLOVER";
+    public static String ECOMM_COMPAT = "ECOMM_COMPAT";
+  }
+
+  public static final String EXTRA_USE_CONNECTED_DEVICE = "clover.intent.extra.USE_CONNECTED_DEVICE";
 }

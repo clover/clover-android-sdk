@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Clover Network, Inc.
+ * Copyright (C) 2022 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.clover.sdk.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,16 +30,19 @@ import com.clover.sdk.v1.Intents;
 import java.util.List;
 
 /**
+ * This class provides basic information about the Clover device on which the app is currently
+ * running.
+ * <p>
  * This class is a replacement for the com.clover.sdk.util.Platform class. The previous class
  * required applications to be recompiled with the latest version for each new device release.
  * This class will function properly on future devices. In some cases this class may be a
  * near drop-in replacement for the old Platform class.
- * </p><p>
+ * <p>
  * Some features have been removed compared to the previous class. In particular the
  * Feature.BATTERY was unclear since devices such as Station 2018 which can function for a limited
  * time on battery power but lack certain abilities such as ethernet and printing when running on
  * battery.
- * </p><p>
+ * <p>
  * It is recommended you read
  * <a href="https://developer.android.com/guide/practices/compatibility">
  *   https://developer.android.com/guide/practices/compatibility
@@ -47,16 +51,14 @@ import java.util.List;
  * devices are technically not "Android Compatible" since they are not CTS qualified; though we
  * strive to make them as compatible as possible. Clover devices do not have the Google Play
  * Store, Google APIs or Google services.
- * </p><p>
+ * <p>
  * Here are some additional links that may help when developing compatible apps:
- * </p><p>
- * Screen size: {@link android.content.res.Configuration#screenLayout} or
- * {@link android.content.res.Configuration#smallestScreenWidthDp}
- * <br/>
- * API level: {@link android.os.Build.VERSION#SDK_INT}
- * <br/>
- * Battery state: {@link android.os.PowerManager}
- * </p>
+ * <ul>
+ *   <li>Screen size: {@link android.content.res.Configuration#screenLayout} or
+ *   {@link android.content.res.Configuration#smallestScreenWidthDp}</li>
+ *   <li>API level: {@link android.os.Build.VERSION#SDK_INT}</li>
+ *   <li>Battery state: {@link android.os.PowerManager}</li>
+ * </ul>
  */
 public final class Platform2 {
 
@@ -80,8 +82,8 @@ public final class Platform2 {
    */
   public enum Feature {
     /**
-     * Device supports taking card present payments using the {@link Intents#ACTION_SECURE_PAY}
-     * intent.
+     * If this feature is true then this device can be used to take card present payments, if it is
+     * false then this device has no ability to take card present payments.
      */
     SECURE_PAYMENTS {
       @Override
@@ -153,6 +155,7 @@ public final class Platform2 {
      * or may not be currently enabled, attached or connected.
      */
     ETHERNET {
+      @SuppressLint("InlinedApi")
       @Override
       public boolean isSupported(Context context) {
         // Old devices didn't advertise this system feature so hardcoded here
@@ -189,7 +192,7 @@ public final class Platform2 {
      * Device supports <b>non-touch</b> customer facing external display. It may or may not be
      * currently connected.
      * <p/>
-     * Dual touchscreen devices such as Clover Station Pro do not have this feature. Use
+     * Dual touchscreen devices such as Clover Station Duo do not have this feature. Use
      * {@link android.hardware.display.DisplayManager} to detect dual touch screen devices.
      */
     CUSTOMER_FACING_EXTERNAL_DISPLAY {

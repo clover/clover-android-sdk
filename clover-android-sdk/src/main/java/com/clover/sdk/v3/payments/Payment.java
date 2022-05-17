@@ -68,6 +68,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getIncrements increments}</li>
  * <li>{@link #getPurchaseCardL2 purchaseCardL2}</li>
+ * <li>{@link #getPurchaseCardL3 purchaseCardL3}</li>
+ * <li>{@link #getOceanGatewayInfo oceanGatewayInfo}</li>
  * <li>{@link #getTerminalManagementComponents terminalManagementComponents}</li>
  * </ul>
  */
@@ -77,7 +79,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Unique identifier
    */
-  public java.lang.String getId() {
+  public String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
@@ -105,39 +107,39 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Total amount paid
    */
-  public java.lang.Long getAmount() {
+  public Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
   /**
    * Amount paid in tips
    */
-  public java.lang.Long getTipAmount() {
+  public Long getTipAmount() {
     return genClient.cacheGet(CacheKey.tipAmount);
   }
 
   /**
    * Amount paid in tax
    */
-  public java.lang.Long getTaxAmount() {
+  public Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
   /**
    * Amount given back in a cash back transaction
    */
-  public java.lang.Long getCashbackAmount() {
+  public Long getCashbackAmount() {
     return genClient.cacheGet(CacheKey.cashbackAmount);
   }
 
   /**
    * Amount of cash given by the customer
    */
-  public java.lang.Long getCashTendered() {
+  public Long getCashTendered() {
     return genClient.cacheGet(CacheKey.cashTendered);
   }
 
-  public java.lang.String getExternalPaymentId() {
+  public String getExternalPaymentId() {
     return genClient.cacheGet(CacheKey.externalPaymentId);
   }
 
@@ -151,64 +153,64 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Time payment was recorded on server
    */
-  public java.lang.Long getCreatedTime() {
+  public Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
-  public java.lang.Long getClientCreatedTime() {
+  public Long getClientCreatedTime() {
     return genClient.cacheGet(CacheKey.clientCreatedTime);
   }
 
   /**
    * Last modified time of the payment
    */
-  public java.lang.Long getModifiedTime() {
+  public Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
-  public java.lang.Boolean getOffline() {
+  public Boolean getOffline() {
     return genClient.cacheGet(CacheKey.offline);
   }
 
-  public com.clover.sdk.v3.payments.Result getResult() {
+  public Result getResult() {
     return genClient.cacheGet(CacheKey.result);
   }
 
   /**
    * Information about the card used for credit/debit card payments
    */
-  public com.clover.sdk.v3.payments.CardTransaction getCardTransaction() {
+  public CardTransaction getCardTransaction() {
     return genClient.cacheGet(CacheKey.cardTransaction);
   }
 
   /**
    * Amount record as a service charge
    */
-  public com.clover.sdk.v3.payments.ServiceChargeAmount getServiceCharge() {
+  public ServiceChargeAmount getServiceCharge() {
     return genClient.cacheGet(CacheKey.serviceCharge);
   }
 
-  public java.util.Map<java.lang.String,java.lang.String> getAttributes() {
+  public java.util.Map<String, String> getAttributes() {
     return genClient.cacheGet(CacheKey.attributes);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
+  public java.util.List<AdditionalChargeAmount> getAdditionalCharges() {
     return genClient.cacheGet(CacheKey.additionalCharges);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.PaymentTaxRate> getTaxRates() {
+  public java.util.List<PaymentTaxRate> getTaxRates() {
     return genClient.cacheGet(CacheKey.taxRates);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.Refund> getRefunds() {
+  public java.util.List<Refund> getRefunds() {
     return genClient.cacheGet(CacheKey.refunds);
   }
 
-  public java.lang.String getNote() {
+  public String getNote() {
     return genClient.cacheGet(CacheKey.note);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.LineItemPayment> getLineItemPayments() {
+  public java.util.List<LineItemPayment> getLineItemPayments() {
     return genClient.cacheGet(CacheKey.lineItemPayments);
   }
 
@@ -236,21 +238,21 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Dynamic Currency Conversion information
    */
-  public com.clover.sdk.v3.payments.DCCInfo getDccInfo() {
+  public DCCInfo getDccInfo() {
     return genClient.cacheGet(CacheKey.dccInfo);
   }
 
   /**
    * Per transaction settings for the payment
    */
-  public com.clover.sdk.v3.payments.TransactionSettings getTransactionSettings() {
+  public TransactionSettings getTransactionSettings() {
     return genClient.cacheGet(CacheKey.transactionSettings);
   }
 
   /**
    * German region-specific information
    */
-  public com.clover.sdk.v3.payments.GermanInfo getGermanInfo() {
+  public GermanInfo getGermanInfo() {
     return genClient.cacheGet(CacheKey.germanInfo);
   }
 
@@ -264,28 +266,28 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Information specific to cash advance transactions.
    */
-  public com.clover.sdk.v3.payments.CashAdvanceExtra getCashAdvanceExtra() {
+  public CashAdvanceExtra getCashAdvanceExtra() {
     return genClient.cacheGet(CacheKey.cashAdvanceExtra);
   }
 
   /**
    * Transaction information
    */
-  public com.clover.sdk.v3.payments.TransactionInfo getTransactionInfo() {
+  public TransactionInfo getTransactionInfo() {
     return genClient.cacheGet(CacheKey.transactionInfo);
   }
 
   /**
    * Information displayed to customer for storing electronic signatures
    */
-  public com.clover.sdk.v3.payments.SignatureDisclaimer getSignatureDisclaimer() {
+  public SignatureDisclaimer getSignatureDisclaimer() {
     return genClient.cacheGet(CacheKey.signatureDisclaimer);
   }
 
   /**
    * The external reference id if associated with the payment
    */
-  public java.lang.String getExternalReferenceId() {
+  public String getExternalReferenceId() {
     return genClient.cacheGet(CacheKey.externalReferenceId);
   }
 
@@ -293,21 +295,35 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.merchant);
   }
 
-  public java.util.List<com.clover.sdk.v3.payments.IncrementalAuthorization> getIncrements() {
+  public java.util.List<IncrementalAuthorization> getIncrements() {
     return genClient.cacheGet(CacheKey.increments);
   }
 
   /**
    * Purchase card level 2 data
    */
-  public com.clover.sdk.v3.payments.PurchaseCardL2 getPurchaseCardL2() {
+  public PurchaseCardL2 getPurchaseCardL2() {
     return genClient.cacheGet(CacheKey.purchaseCardL2);
+  }
+
+  /**
+   * Purchase card level 3 data
+   */
+  public PurchaseCardL3 getPurchaseCardL3() {
+    return genClient.cacheGet(CacheKey.purchaseCardL3);
+  }
+
+  /**
+   * Ocean Gateway info
+   */
+  public OceanGatewayInfo getOceanGatewayInfo() {
+    return genClient.cacheGet(CacheKey.oceanGatewayInfo);
   }
 
   /**
    * Terminal management components as defined by Nexo. They contain general information on the terminal, the installed payment app, etc.
    */
-  public java.util.List<com.clover.sdk.v3.payments.TerminalManagementComponent> getTerminalManagementComponents() {
+  public java.util.List<TerminalManagementComponent> getTerminalManagementComponents() {
     return genClient.cacheGet(CacheKey.terminalManagementComponents);
   }
 
@@ -316,7 +332,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     order
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     device
@@ -324,45 +340,45 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     tender
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
     amount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     tipAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     taxAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     cashbackAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     cashTendered
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     externalPaymentId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     employee
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     createdTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     clientCreatedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     modifiedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     offline
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
     result
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.Result.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(Result.class)),
     cardTransaction
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(CardTransaction.JSON_CREATOR)),
     serviceCharge
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(ServiceChargeAmount.JSON_CREATOR)),
     attributes
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     additionalCharges
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(AdditionalChargeAmount.JSON_CREATOR)),
     taxRates
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentTaxRate.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(PaymentTaxRate.JSON_CREATOR)),
     refunds
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(Refund.JSON_CREATOR)),
     note
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     lineItemPayments
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(LineItemPayment.JSON_CREATOR)),
     authorization
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     voidPaymentRef
@@ -370,29 +386,33 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     voidReason
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReason.class)),
     dccInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.DCCInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(DCCInfo.JSON_CREATOR)),
     transactionSettings
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionSettings.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(TransactionSettings.JSON_CREATOR)),
     germanInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(GermanInfo.JSON_CREATOR)),
     appTracking
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
     cashAdvanceExtra
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CashAdvanceExtra.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(CashAdvanceExtra.JSON_CREATOR)),
     transactionInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(TransactionInfo.JSON_CREATOR)),
     signatureDisclaimer
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.SignatureDisclaimer.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(SignatureDisclaimer.JSON_CREATOR)),
     externalReferenceId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     merchant
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     increments
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.IncrementalAuthorization.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(IncrementalAuthorization.JSON_CREATOR)),
     purchaseCardL2
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL2.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(PurchaseCardL2.JSON_CREATOR)),
+    purchaseCardL3
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(PurchaseCardL3.JSON_CREATOR)),
+    oceanGatewayInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(OceanGatewayInfo.JSON_CREATOR)),
     terminalManagementComponents
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TerminalManagementComponent.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(TerminalManagementComponent.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -685,6 +705,16 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.purchaseCardL2);
   }
 
+  /** Checks whether the 'purchaseCardL3' field is set and is not null */
+  public boolean isNotNullPurchaseCardL3() {
+    return genClient.cacheValueIsNotNull(CacheKey.purchaseCardL3);
+  }
+
+  /** Checks whether the 'oceanGatewayInfo' field is set and is not null */
+  public boolean isNotNullOceanGatewayInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.oceanGatewayInfo);
+  }
+
   /** Checks whether the 'terminalManagementComponents' field is set and is not null */
   public boolean isNotNullTerminalManagementComponents() {
     return genClient.cacheValueIsNotNull(CacheKey.terminalManagementComponents);
@@ -885,6 +915,16 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.purchaseCardL2);
   }
 
+  /** Checks whether the 'purchaseCardL3' field has been set, however the value could be null */
+  public boolean hasPurchaseCardL3() {
+    return genClient.cacheHasKey(CacheKey.purchaseCardL3);
+  }
+
+  /** Checks whether the 'oceanGatewayInfo' field has been set, however the value could be null */
+  public boolean hasOceanGatewayInfo() {
+    return genClient.cacheHasKey(CacheKey.oceanGatewayInfo);
+  }
+
   /** Checks whether the 'terminalManagementComponents' field has been set, however the value could be null */
   public boolean hasTerminalManagementComponents() {
     return genClient.cacheHasKey(CacheKey.terminalManagementComponents);
@@ -894,7 +934,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Sets the field 'id'.
    */
-  public Payment setId(java.lang.String id) {
+  public Payment setId(String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
@@ -928,42 +968,42 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Sets the field 'amount'.
    */
-  public Payment setAmount(java.lang.Long amount) {
+  public Payment setAmount(Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
 
   /**
    * Sets the field 'tipAmount'.
    */
-  public Payment setTipAmount(java.lang.Long tipAmount) {
+  public Payment setTipAmount(Long tipAmount) {
     return genClient.setOther(tipAmount, CacheKey.tipAmount);
   }
 
   /**
    * Sets the field 'taxAmount'.
    */
-  public Payment setTaxAmount(java.lang.Long taxAmount) {
+  public Payment setTaxAmount(Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
   }
 
   /**
    * Sets the field 'cashbackAmount'.
    */
-  public Payment setCashbackAmount(java.lang.Long cashbackAmount) {
+  public Payment setCashbackAmount(Long cashbackAmount) {
     return genClient.setOther(cashbackAmount, CacheKey.cashbackAmount);
   }
 
   /**
    * Sets the field 'cashTendered'.
    */
-  public Payment setCashTendered(java.lang.Long cashTendered) {
+  public Payment setCashTendered(Long cashTendered) {
     return genClient.setOther(cashTendered, CacheKey.cashTendered);
   }
 
   /**
    * Sets the field 'externalPaymentId'.
    */
-  public Payment setExternalPaymentId(java.lang.String externalPaymentId) {
+  public Payment setExternalPaymentId(String externalPaymentId) {
     return genClient.setOther(externalPaymentId, CacheKey.externalPaymentId);
   }
 
@@ -979,35 +1019,35 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /**
    * Sets the field 'createdTime'.
    */
-  public Payment setCreatedTime(java.lang.Long createdTime) {
+  public Payment setCreatedTime(Long createdTime) {
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
    * Sets the field 'clientCreatedTime'.
    */
-  public Payment setClientCreatedTime(java.lang.Long clientCreatedTime) {
+  public Payment setClientCreatedTime(Long clientCreatedTime) {
     return genClient.setOther(clientCreatedTime, CacheKey.clientCreatedTime);
   }
 
   /**
    * Sets the field 'modifiedTime'.
    */
-  public Payment setModifiedTime(java.lang.Long modifiedTime) {
+  public Payment setModifiedTime(Long modifiedTime) {
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
   /**
    * Sets the field 'offline'.
    */
-  public Payment setOffline(java.lang.Boolean offline) {
+  public Payment setOffline(Boolean offline) {
     return genClient.setOther(offline, CacheKey.offline);
   }
 
   /**
    * Sets the field 'result'.
    */
-  public Payment setResult(com.clover.sdk.v3.payments.Result result) {
+  public Payment setResult(Result result) {
     return genClient.setOther(result, CacheKey.result);
   }
 
@@ -1016,7 +1056,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setCardTransaction(com.clover.sdk.v3.payments.CardTransaction cardTransaction) {
+  public Payment setCardTransaction(CardTransaction cardTransaction) {
     return genClient.setRecord(cardTransaction, CacheKey.cardTransaction);
   }
 
@@ -1025,14 +1065,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setServiceCharge(com.clover.sdk.v3.payments.ServiceChargeAmount serviceCharge) {
+  public Payment setServiceCharge(ServiceChargeAmount serviceCharge) {
     return genClient.setRecord(serviceCharge, CacheKey.serviceCharge);
   }
 
   /**
    * Sets the field 'attributes'.
    */
-  public Payment setAttributes(java.util.Map<java.lang.String,java.lang.String> attributes) {
+  public Payment setAttributes(java.util.Map<String, String> attributes) {
     return genClient.setOther(attributes, CacheKey.attributes);
   }
 
@@ -1041,7 +1081,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setAdditionalCharges(java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> additionalCharges) {
+  public Payment setAdditionalCharges(java.util.List<AdditionalChargeAmount> additionalCharges) {
     return genClient.setArrayRecord(additionalCharges, CacheKey.additionalCharges);
   }
 
@@ -1050,7 +1090,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setTaxRates(java.util.List<com.clover.sdk.v3.payments.PaymentTaxRate> taxRates) {
+  public Payment setTaxRates(java.util.List<PaymentTaxRate> taxRates) {
     return genClient.setArrayRecord(taxRates, CacheKey.taxRates);
   }
 
@@ -1059,14 +1099,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setRefunds(java.util.List<com.clover.sdk.v3.payments.Refund> refunds) {
+  public Payment setRefunds(java.util.List<Refund> refunds) {
     return genClient.setArrayRecord(refunds, CacheKey.refunds);
   }
 
   /**
    * Sets the field 'note'.
    */
-  public Payment setNote(java.lang.String note) {
+  public Payment setNote(String note) {
     return genClient.setOther(note, CacheKey.note);
   }
 
@@ -1075,7 +1115,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setLineItemPayments(java.util.List<com.clover.sdk.v3.payments.LineItemPayment> lineItemPayments) {
+  public Payment setLineItemPayments(java.util.List<LineItemPayment> lineItemPayments) {
     return genClient.setArrayRecord(lineItemPayments, CacheKey.lineItemPayments);
   }
 
@@ -1109,7 +1149,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setDccInfo(com.clover.sdk.v3.payments.DCCInfo dccInfo) {
+  public Payment setDccInfo(DCCInfo dccInfo) {
     return genClient.setRecord(dccInfo, CacheKey.dccInfo);
   }
 
@@ -1118,7 +1158,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setTransactionSettings(com.clover.sdk.v3.payments.TransactionSettings transactionSettings) {
+  public Payment setTransactionSettings(TransactionSettings transactionSettings) {
     return genClient.setRecord(transactionSettings, CacheKey.transactionSettings);
   }
 
@@ -1127,7 +1167,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setGermanInfo(com.clover.sdk.v3.payments.GermanInfo germanInfo) {
+  public Payment setGermanInfo(GermanInfo germanInfo) {
     return genClient.setRecord(germanInfo, CacheKey.germanInfo);
   }
 
@@ -1145,7 +1185,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setCashAdvanceExtra(com.clover.sdk.v3.payments.CashAdvanceExtra cashAdvanceExtra) {
+  public Payment setCashAdvanceExtra(CashAdvanceExtra cashAdvanceExtra) {
     return genClient.setRecord(cashAdvanceExtra, CacheKey.cashAdvanceExtra);
   }
 
@@ -1154,7 +1194,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setTransactionInfo(com.clover.sdk.v3.payments.TransactionInfo transactionInfo) {
+  public Payment setTransactionInfo(TransactionInfo transactionInfo) {
     return genClient.setRecord(transactionInfo, CacheKey.transactionInfo);
   }
 
@@ -1163,14 +1203,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setSignatureDisclaimer(com.clover.sdk.v3.payments.SignatureDisclaimer signatureDisclaimer) {
+  public Payment setSignatureDisclaimer(SignatureDisclaimer signatureDisclaimer) {
     return genClient.setRecord(signatureDisclaimer, CacheKey.signatureDisclaimer);
   }
 
   /**
    * Sets the field 'externalReferenceId'.
    */
-  public Payment setExternalReferenceId(java.lang.String externalReferenceId) {
+  public Payment setExternalReferenceId(String externalReferenceId) {
     return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
   }
 
@@ -1188,7 +1228,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setIncrements(java.util.List<com.clover.sdk.v3.payments.IncrementalAuthorization> increments) {
+  public Payment setIncrements(java.util.List<IncrementalAuthorization> increments) {
     return genClient.setArrayRecord(increments, CacheKey.increments);
   }
 
@@ -1197,8 +1237,26 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Payment setPurchaseCardL2(com.clover.sdk.v3.payments.PurchaseCardL2 purchaseCardL2) {
+  public Payment setPurchaseCardL2(PurchaseCardL2 purchaseCardL2) {
     return genClient.setRecord(purchaseCardL2, CacheKey.purchaseCardL2);
+  }
+
+  /**
+   * Sets the field 'purchaseCardL3'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setPurchaseCardL3(PurchaseCardL3 purchaseCardL3) {
+    return genClient.setRecord(purchaseCardL3, CacheKey.purchaseCardL3);
+  }
+
+  /**
+   * Sets the field 'oceanGatewayInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setOceanGatewayInfo(OceanGatewayInfo oceanGatewayInfo) {
+    return genClient.setRecord(oceanGatewayInfo, CacheKey.oceanGatewayInfo);
   }
 
   /**
@@ -1206,7 +1264,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Payment setTerminalManagementComponents(java.util.List<com.clover.sdk.v3.payments.TerminalManagementComponent> terminalManagementComponents) {
+  public Payment setTerminalManagementComponents(java.util.List<TerminalManagementComponent> terminalManagementComponents) {
     return genClient.setArrayRecord(terminalManagementComponents, CacheKey.terminalManagementComponents);
   }
 
@@ -1363,6 +1421,14 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearPurchaseCardL2() {
     genClient.clear(CacheKey.purchaseCardL2);
   }
+  /** Clears the 'purchaseCardL3' field, the 'has' method for this field will now return false */
+  public void clearPurchaseCardL3() {
+    genClient.clear(CacheKey.purchaseCardL3);
+  }
+  /** Clears the 'oceanGatewayInfo' field, the 'has' method for this field will now return false */
+  public void clearOceanGatewayInfo() {
+    genClient.clear(CacheKey.oceanGatewayInfo);
+  }
   /** Clears the 'terminalManagementComponents' field, the 'has' method for this field will now return false */
   public void clearTerminalManagementComponents() {
     genClient.clear(CacheKey.terminalManagementComponents);
@@ -1470,6 +1536,8 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean INCREMENTS_IS_REQUIRED = false;
     public static final boolean PURCHASECARDL2_IS_REQUIRED = false;
+    public static final boolean PURCHASECARDL3_IS_REQUIRED = false;
+    public static final boolean OCEANGATEWAYINFO_IS_REQUIRED = false;
     public static final boolean TERMINALMANAGEMENTCOMPONENTS_IS_REQUIRED = false;
   }
 

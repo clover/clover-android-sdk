@@ -1202,6 +1202,16 @@ public class InventoryTestActivity extends Activity {
     public IBinder asBinder() {
       throw new UnsupportedOperationException("Not a real Android service");
     }
+
+    @Override
+    public void assignCategoriesToItem(String itemId, List<String> categoryId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignCategoriesToItem()");
+    }
+
+    @Override
+    public void removeCategoriesFromItem(String itemId, List<String> categoryId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeCategoriesFromItem()");
+    }
   }
 
   static class CustomHttpClient extends DefaultHttpClient {

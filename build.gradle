@@ -15,6 +15,15 @@
  */
 
 buildscript {
+  if (!project.hasProperty('androidBuild')) {
+    def likelyAndroidBuild = file('../android-build')
+    if (likelyAndroidBuild.exists()) {
+      ext.androidBuild = likelyAndroidBuild.absolutePath
+    } else {
+      throw new GradleException("Couldn't find android-build at " + likelyAndroidBuild.absolutePath)
+    }
+  }
+
   apply from: "${project.rootDir}/deps.gradle"
   repositories {
     mavenLocal()

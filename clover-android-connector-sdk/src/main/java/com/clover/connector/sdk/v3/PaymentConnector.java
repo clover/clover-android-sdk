@@ -51,6 +51,7 @@ import com.clover.sdk.v3.remotepay.SaleResponse;
 import com.clover.sdk.v3.remotepay.TipAdded;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthResponse;
+import com.clover.sdk.v3.remotepay.VaultCardRequest;
 import com.clover.sdk.v3.remotepay.VaultCardResponse;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
@@ -783,19 +784,45 @@ public class PaymentConnector implements IPaymentConnector {
    *
    * @param cardEntryMethods - The card entry methods allowed to capture the payment token. null will provide default values
    **/
-  @Override
-  public void vaultCard(final Integer cardEntryMethods) {
+  public void vaultCard(final VaultCardRequest request) {
     try {
       if (paymentV3Connector != null) {
         if (paymentV3Connector.isConnected()) {
-          paymentV3Connector.getService().vaultCard(cardEntryMethods);
+          paymentV3Connector.getService().vaultCardWithRequest(request);
         } else {
           this.paymentV3Connector.connect();
           waitingTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
               try {
-                paymentV3Connector.getService().vaultCard(cardEntryMethods);
+                paymentV3Connector.getService().vaultCardWithRequest(request);
+              } catch (RemoteException e) {
+                Log.e(this.getClass().getSimpleName(), " vaultCardWithRequest", e);
+              }
+              return null;
+            }
+          };
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      Log.e(this.getClass().getSimpleName(), " vaultCard", e);
+    } catch (RemoteException e) {
+      Log.e(this.getClass().getSimpleName(), " vaultCard", e);
+    }
+  }
+  @Override
+  public void vaultCard(final int cem) {
+    try {
+      if (paymentV3Connector != null) {
+        if (paymentV3Connector.isConnected()) {
+          paymentV3Connector.getService().vaultCard(cem);
+        } else {
+          this.paymentV3Connector.connect();
+          waitingTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+              try {
+                paymentV3Connector.getService().vaultCard(cem);
               } catch (RemoteException e) {
                 Log.e(this.getClass().getSimpleName(), " vaultCard", e);
               }

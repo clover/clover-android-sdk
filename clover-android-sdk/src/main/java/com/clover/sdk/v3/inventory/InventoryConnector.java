@@ -1361,4 +1361,23 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     });
   }
 
+  public void assignCategoriesToItem(final String itemId, final List<String> categoryIds) throws
+      ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      @Override
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignCategoriesToItem(itemId, categoryIds, status);
+      }
+    });
+  }
+
+  public void removeCategoriesFromItem(final String itemId, final List<String> categoryIds) throws
+      ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      @Override
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeCategoriesFromItem(itemId, categoryIds, status);
+      }
+    });
+  }
 }

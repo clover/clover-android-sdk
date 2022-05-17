@@ -42,6 +42,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRecommended recommended}</li>
  * <li>{@link #getPricingModel pricingModel}</li>
  * <li>{@link #getTags tags}</li>
+ * <li>{@link #getPricingDescription pricingDescription}</li>
  * <li>{@link #getBogo bogo}</li>
  * <li>{@link #getWeight weight}</li>
  * <li>{@link #getFeatures features}</li>
@@ -133,6 +134,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public java.util.List<java.lang.String> getTags() {
     return genClient.cacheGet(CacheKey.tags);
+  }
+
+  /**
+   * Pricing description of plan.
+   */
+  public java.lang.String getPricingDescription() {
+    return genClient.cacheGet(CacheKey.pricingDescription);
   }
 
   /**
@@ -250,7 +258,9 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     pricingModel
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantPlanPricingModel.class)),
     tags
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    pricingDescription
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     bogo
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     weight
@@ -425,6 +435,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.tags);
   }
 
+  /** Checks whether the 'pricingDescription' field is set and is not null */
+  public boolean isNotNullPricingDescription() {
+    return genClient.cacheValueIsNotNull(CacheKey.pricingDescription);
+  }
+
   /** Checks whether the 'bogo' field is set and is not null */
   public boolean isNotNullBogo() {
     return genClient.cacheValueIsNotNull(CacheKey.bogo);
@@ -556,6 +571,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'tags' field has been set, however the value could be null */
   public boolean hasTags() {
     return genClient.cacheHasKey(CacheKey.tags);
+  }
+
+  /** Checks whether the 'pricingDescription' field has been set, however the value could be null */
+  public boolean hasPricingDescription() {
+    return genClient.cacheHasKey(CacheKey.pricingDescription);
   }
 
   /** Checks whether the 'bogo' field has been set, however the value could be null */
@@ -715,6 +735,15 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'pricingDescription'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public MerchantPlan setPricingDescription(java.lang.String pricingDescription) {
+    return genClient.setOther(pricingDescription, CacheKey.pricingDescription);
+  }
+
+  /**
    * Sets the field 'bogo'.
    */
   public MerchantPlan setBogo(java.lang.Boolean bogo) {
@@ -862,6 +891,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   public void clearTags() {
     genClient.clear(CacheKey.tags);
   }
+  /** Clears the 'pricingDescription' field, the 'has' method for this field will now return false */
+  public void clearPricingDescription() {
+    genClient.clear(CacheKey.pricingDescription);
+  }
   /** Clears the 'bogo' field, the 'has' method for this field will now return false */
   public void clearBogo() {
     genClient.clear(CacheKey.bogo);
@@ -991,6 +1024,7 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean RECOMMENDED_IS_REQUIRED = false;
     public static final boolean PRICINGMODEL_IS_REQUIRED = false;
     public static final boolean TAGS_IS_REQUIRED = false;
+    public static final boolean PRICING_DESCRIPTION_IS_REQUIRED = false;
     public static final boolean BOGO_IS_REQUIRED = false;
     public static final boolean WEIGHT_IS_REQUIRED = false;
     public static final boolean FEATURES_IS_REQUIRED = false;

@@ -30,10 +30,11 @@ import com.clover.sdk.GenericClient;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getCard card}</li>
+ * <li>{@link #getCardDetails cardDetails}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse {
+public class VaultCardResponse extends BaseResponse {
 
   /**
    * The card that was vaulted.
@@ -43,10 +44,17 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   }
 
   /**
+   * Payment Card Data
+   */
+  public com.clover.sdk.v3.pay.PaymentRequestCardDetails getCardDetails() {
+    return genClient.cacheGet(CacheKey.cardDetails);
+  }
+
+  /**
    * If true then the requested operation succeeded
    */
   @Override
-  public java.lang.Boolean getSuccess() {
+  public Boolean getSuccess() {
     return genClient.cacheGet(CacheKey.success);
   }
 
@@ -54,7 +62,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * The result of the requested operation.
    */
   @Override
-  public com.clover.sdk.v3.remotepay.ResponseCode getResult() {
+  public ResponseCode getResult() {
     return genClient.cacheGet(CacheKey.result);
   }
 
@@ -62,7 +70,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * Optional information about result.
    */
   @Override
-  public java.lang.String getReason() {
+  public String getReason() {
     return genClient.cacheGet(CacheKey.reason);
   }
 
@@ -70,7 +78,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * Detailed information about result.
    */
   @Override
-  public java.lang.String getMessage() {
+  public String getMessage() {
     return genClient.cacheGet(CacheKey.message);
   }
 
@@ -80,14 +88,16 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     card
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR)),
+    cardDetails
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.PaymentRequestCardDetails.JSON_CREATOR)),
     success
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
     result
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.remotepay.ResponseCode.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(ResponseCode.class)),
     reason
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     message
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -169,6 +179,11 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
     return genClient.cacheValueIsNotNull(CacheKey.card);
   }
 
+  /** Checks whether the 'cardDetails' field is set and is not null */
+  public boolean isNotNullCardDetails() {
+    return genClient.cacheValueIsNotNull(CacheKey.cardDetails);
+  }
+
   /** Checks whether the 'success' field is set and is not null */
   @Override
   public boolean isNotNullSuccess() {
@@ -198,6 +213,11 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   /** Checks whether the 'card' field has been set, however the value could be null */
   public boolean hasCard() {
     return genClient.cacheHasKey(CacheKey.card);
+  }
+
+  /** Checks whether the 'cardDetails' field has been set, however the value could be null */
+  public boolean hasCardDetails() {
+    return genClient.cacheHasKey(CacheKey.cardDetails);
   }
 
   /** Checks whether the 'success' field has been set, however the value could be null */
@@ -235,10 +255,19 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   }
 
   /**
+   * Sets the field 'cardDetails'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public VaultCardResponse setCardDetails(com.clover.sdk.v3.pay.PaymentRequestCardDetails cardDetails) {
+    return genClient.setRecord(cardDetails, CacheKey.cardDetails);
+  }
+
+  /**
    * Sets the field 'success'.
    */
   @Override
-  public BaseResponse setSuccess(java.lang.Boolean success) {
+  public BaseResponse setSuccess(Boolean success) {
     return genClient.setOther(success, CacheKey.success);
   }
 
@@ -246,7 +275,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * Sets the field 'result'.
    */
   @Override
-  public BaseResponse setResult(com.clover.sdk.v3.remotepay.ResponseCode result) {
+  public BaseResponse setResult(ResponseCode result) {
     return genClient.setOther(result, CacheKey.result);
   }
 
@@ -254,7 +283,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * Sets the field 'reason'.
    */
   @Override
-  public BaseResponse setReason(java.lang.String reason) {
+  public BaseResponse setReason(String reason) {
     return genClient.setOther(reason, CacheKey.reason);
   }
 
@@ -262,7 +291,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
    * Sets the field 'message'.
    */
   @Override
-  public BaseResponse setMessage(java.lang.String message) {
+  public BaseResponse setMessage(String message) {
     return genClient.setOther(message, CacheKey.message);
   }
 
@@ -270,6 +299,10 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
   /** Clears the 'card' field, the 'has' method for this field will now return false */
   public void clearCard() {
     genClient.clear(CacheKey.card);
+  }
+  /** Clears the 'cardDetails' field, the 'has' method for this field will now return false */
+  public void clearCardDetails() {
+    genClient.clear(CacheKey.cardDetails);
   }
   /** Clears the 'success' field, the 'has' method for this field will now return false */
   @Override
@@ -354,6 +387,7 @@ public class VaultCardResponse extends com.clover.sdk.v3.remotepay.BaseResponse 
 
   public interface Constraints {
     public static final boolean CARD_IS_REQUIRED = false;
+    public static final boolean CARDDETAILS_IS_REQUIRED = false;
     public static final boolean SUCCESS_IS_REQUIRED = false;
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
