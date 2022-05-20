@@ -32,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getStatus status}</li>
  * <li>{@link #getMultiUseToken multiUseToken}</li>
+ * <li>{@link #getConfirmationSuppressed confirmationSuppressed}</li>
  * <li>{@link #getTokenResponse tokenResponse}</li>
  * <li>{@link #getFailureReason failureReason}</li>
  * <li>{@link #getReason reason}</li>
@@ -49,6 +50,13 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
 
   public Boolean getMultiUseToken() {
     return genClient.cacheGet(CacheKey.multiUseToken);
+  }
+
+  /**
+   * Flag indicating whether or not the confirmation was presented to the user
+   */
+  public Boolean getConfirmationSuppressed() {
+    return genClient.cacheGet(CacheKey.confirmationSuppressed);
   }
 
   public com.clover.sdk.v3.tokens.CreateTokenResponse getTokenResponse() {
@@ -74,13 +82,15 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(Status.class)),
     multiUseToken
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+    confirmationSuppressed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
     tokenResponse
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.tokens.CreateTokenResponse.JSON_CREATOR)),
     failureReason
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.FailureReason.class)),
     reason
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
-      ;
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -164,6 +174,11 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
     return genClient.cacheValueIsNotNull(CacheKey.multiUseToken);
   }
 
+  /** Checks whether the 'confirmationSuppressed' field is set and is not null */
+  public boolean isNotNullConfirmationSuppressed() {
+    return genClient.cacheValueIsNotNull(CacheKey.confirmationSuppressed);
+  }
+
   /** Checks whether the 'tokenResponse' field is set and is not null */
   public boolean isNotNullTokenResponse() {
     return genClient.cacheValueIsNotNull(CacheKey.tokenResponse);
@@ -189,6 +204,11 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
   /** Checks whether the 'multiUseToken' field has been set, however the value could be null */
   public boolean hasMultiUseToken() {
     return genClient.cacheHasKey(CacheKey.multiUseToken);
+  }
+
+  /** Checks whether the 'confirmationSuppressed' field has been set, however the value could be null */
+  public boolean hasConfirmationSuppressed() {
+    return genClient.cacheHasKey(CacheKey.confirmationSuppressed);
   }
 
   /** Checks whether the 'tokenResponse' field has been set, however the value could be null */
@@ -222,6 +242,13 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
   }
 
   /**
+   * Sets the field 'confirmationSuppressed'.
+   */
+  public TokenizeCardResponse setConfirmationSuppressed(Boolean confirmationSuppressed) {
+    return genClient.setOther(confirmationSuppressed, CacheKey.confirmationSuppressed);
+  }
+
+  /**
    * Sets the field 'tokenResponse'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -252,6 +279,10 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
   /** Clears the 'multiUseToken' field, the 'has' method for this field will now return false */
   public void clearMultiUseToken() {
     genClient.clear(CacheKey.multiUseToken);
+  }
+  /** Clears the 'confirmationSuppressed' field, the 'has' method for this field will now return false */
+  public void clearConfirmationSuppressed() {
+    genClient.clear(CacheKey.confirmationSuppressed);
   }
   /** Clears the 'tokenResponse' field, the 'has' method for this field will now return false */
   public void clearTokenResponse() {
@@ -329,6 +360,7 @@ public class TokenizeCardResponse extends GenericParcelable implements com.clove
   public interface Constraints {
     public static final boolean STATUS_IS_REQUIRED = false;
     public static final boolean MULTIUSETOKEN_IS_REQUIRED = false;
+    public static final boolean CONFIRMATIONSUPPRESSED_IS_REQUIRED = false;
     public static final boolean TOKENRESPONSE_IS_REQUIRED = false;
     public static final boolean FAILUREREASON_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;

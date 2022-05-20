@@ -50,6 +50,10 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     return genClient.cacheGet(CacheKey.cardEntryMethods);
   }
 
+  public java.lang.String getReadCardMode() {
+    return genClient.cacheGet(CacheKey.readCardMode);
+  }
+
   /**
    * Identifier for the request
    */
@@ -75,6 +79,8 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     cardEntryMethods
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     requestId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    readCardMode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     version
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
@@ -177,6 +183,10 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     return genClient.cacheValueIsNotNull(CacheKey.version);
   }
 
+  public boolean isNotNullReadCardMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.readCardMode);
+  }
+
 
 
   /** Checks whether the 'isForceSwipePinEntry' field has been set, however the value could be null */
@@ -201,6 +211,9 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     return genClient.cacheHasKey(CacheKey.version);
   }
 
+  public boolean hasReadCardMode() {
+    return genClient.cacheHasKey(CacheKey.readCardMode);
+  }
 
   /**
    * Sets the field 'isForceSwipePinEntry'.
@@ -232,6 +245,10 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     return genClient.setOther(version, CacheKey.version);
   }
 
+  public ReadCardDataRequest setReadCardMode(java.lang.String readCardMode) {
+    return genClient.setOther(readCardMode, CacheKey.readCardMode);
+  }
+
 
   /** Clears the 'isForceSwipePinEntry' field, the 'has' method for this field will now return false */
   public void clearIsForceSwipePinEntry() {
@@ -250,6 +267,10 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
   @Override
   public void clearVersion() {
     genClient.clear(CacheKey.version);
+  }
+
+  public void clearReadCardMode() {
+    genClient.clear(CacheKey.readCardMode);
   }
 
 
@@ -318,6 +339,7 @@ public class ReadCardDataRequest extends com.clover.sdk.v3.remotepay.BaseRequest
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;
+    public static final boolean READ_CARD_MODE_REQUIRED = false;
   }
 
 }

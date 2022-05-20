@@ -30,23 +30,31 @@ import com.clover.sdk.GenericClient;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getCardEntryMethods cardEntryMethods}</li>
+ * <li>{@link #getDataReadMode dataReadMode}</li>
  * </ul>
  */
 @SuppressWarnings("all")
-public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
+public class VaultCardRequest extends BaseRequest {
 
   /**
    * Allowed entry methods
    */
-  public java.lang.Integer getCardEntryMethods() {
+  public Integer getCardEntryMethods() {
     return genClient.cacheGet(CacheKey.cardEntryMethods);
+  }
+
+  /**
+   * A mode for card details
+   */
+  public String getDataReadMode() {
+    return genClient.cacheGet(CacheKey.dataReadMode);
   }
 
   /**
    * Identifier for the request
    */
   @Override
-  public java.lang.String getRequestId() {
+  public String getRequestId() {
     return genClient.cacheGet(CacheKey.requestId);
   }
 
@@ -54,7 +62,7 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
    * Identifier for the version
    */
   @Override
-  public java.lang.Integer getVersion() {
+  public Integer getVersion() {
     return genClient.cacheGet(CacheKey.version);
   }
 
@@ -63,11 +71,13 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     cardEntryMethods
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
+    dataReadMode
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     requestId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     version
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -150,6 +160,11 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     return genClient.cacheValueIsNotNull(CacheKey.cardEntryMethods);
   }
 
+  /** Checks whether the 'dataReadMode' field is set and is not null */
+  public boolean isNotNullDataReadMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.dataReadMode);
+  }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -169,6 +184,11 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
     return genClient.cacheHasKey(CacheKey.cardEntryMethods);
   }
 
+  /** Checks whether the 'dataReadMode' field has been set, however the value could be null */
+  public boolean hasDataReadMode() {
+    return genClient.cacheHasKey(CacheKey.dataReadMode);
+  }
+
   /** Checks whether the 'requestId' field has been set, however the value could be null */
   @Override
   public boolean hasRequestId() {
@@ -185,15 +205,22 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   /**
    * Sets the field 'cardEntryMethods'.
    */
-  public VaultCardRequest setCardEntryMethods(java.lang.Integer cardEntryMethods) {
+  public VaultCardRequest setCardEntryMethods(Integer cardEntryMethods) {
     return genClient.setOther(cardEntryMethods, CacheKey.cardEntryMethods);
+  }
+
+  /**
+   * Sets the field 'dataReadMode'.
+   */
+  public VaultCardRequest setDataReadMode(String dataReadMode) {
+    return genClient.setOther(dataReadMode, CacheKey.dataReadMode);
   }
 
   /**
    * Sets the field 'requestId'.
    */
   @Override
-  public BaseRequest setRequestId(java.lang.String requestId) {
+  public BaseRequest setRequestId(String requestId) {
     return genClient.setOther(requestId, CacheKey.requestId);
   }
 
@@ -201,7 +228,7 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
    * Sets the field 'version'.
    */
   @Override
-  public BaseRequest setVersion(java.lang.Integer version) {
+  public BaseRequest setVersion(Integer version) {
     return genClient.setOther(version, CacheKey.version);
   }
 
@@ -209,6 +236,10 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   public void clearCardEntryMethods() {
     genClient.clear(CacheKey.cardEntryMethods);
+  }
+  /** Clears the 'dataReadMode' field, the 'has' method for this field will now return false */
+  public void clearDataReadMode() {
+    genClient.clear(CacheKey.dataReadMode);
   }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
@@ -283,6 +314,7 @@ public class VaultCardRequest extends com.clover.sdk.v3.remotepay.BaseRequest {
 
   public interface Constraints {
     public static final boolean CARDENTRYMETHODS_IS_REQUIRED = false;
+    public static final boolean DATAREADMODE_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

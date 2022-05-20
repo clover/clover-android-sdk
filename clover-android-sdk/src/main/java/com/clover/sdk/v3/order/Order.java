@@ -68,7 +68,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getOnlineOrder onlineOrder}</li>
  * <li>{@link #getPrintGroups printGroups}</li>
- * <li>{@link #getIgnoreAutoGratuity ignoreAutoGratuity}</li>
+ * <li>{@link #getOrderFulfillmentEvent orderFulfillmentEvent}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -311,10 +311,10 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-   * This flag will tell whether we want to ignore auto gratuity which was added automatically after manual addition/removal of gratuity/service charge.
+   * Latest order fulfillment event of this order.
    */
-  public java.lang.Boolean getIgnoreAutoGratuity() {
-    return genClient.cacheGet(CacheKey.ignoreAutoGratuity);
+  public com.clover.sdk.v3.order.LineItemEvent getOrderFulfillmentEvent() {
+    return genClient.cacheGet(CacheKey.orderFulfillmentEvent);
   }
 
 
@@ -394,8 +394,8 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.OnlineOrder.JSON_CREATOR)),
     printGroups
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.PrintGroup.JSON_CREATOR)),
-    ignoreAutoGratuity
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    orderFulfillmentEvent
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItemEvent.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -694,9 +694,9 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'printGroups' field is set and is not null and is not empty */
   public boolean isNotEmptyPrintGroups() { return isNotNullPrintGroups() && !getPrintGroups().isEmpty(); }
 
-  /** Checks whether the 'ignoreAutoGratuity' field is set and is not null */
-  public boolean isNotNullIgnoreAutoGratuity() {
-    return genClient.cacheValueIsNotNull(CacheKey.ignoreAutoGratuity);
+  /** Checks whether the 'orderFulfillmentEvent' field is set and is not null */
+  public boolean isNotNullOrderFulfillmentEvent() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderFulfillmentEvent);
   }
 
 
@@ -881,9 +881,9 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheHasKey(CacheKey.printGroups);
   }
 
-  /** Checks whether the 'ignoreAutoGratuity' field has been set, however the value could be null */
-  public boolean hasIgnoreAutoGratuity() {
-    return genClient.cacheHasKey(CacheKey.ignoreAutoGratuity);
+  /** Checks whether the 'orderFulfillmentEvent' field has been set, however the value could be null */
+  public boolean hasOrderFulfillmentEvent() {
+    return genClient.cacheHasKey(CacheKey.orderFulfillmentEvent);
   }
 
 
@@ -1174,10 +1174,12 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-   * Sets the field 'ignoreAutoGratuity'.
+   * Sets the field 'orderFulfillmentEvent'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Order setIgnoreAutoGratuity(java.lang.Boolean ignoreAutoGratuity) {
-    return genClient.setOther(ignoreAutoGratuity, CacheKey.ignoreAutoGratuity);
+  public Order setOrderFulfillmentEvent(com.clover.sdk.v3.order.LineItemEvent orderFulfillmentEvent) {
+    return genClient.setRecord(orderFulfillmentEvent, CacheKey.orderFulfillmentEvent);
   }
 
 
@@ -1325,9 +1327,9 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   public void clearPrintGroups() {
     genClient.clear(CacheKey.printGroups);
   }
-  /** Clears the 'ignoreAutoGratuity' field, the 'has' method for this field will now return false */
-  public void clearIgnoreAutoGratuity() {
-    genClient.clear(CacheKey.ignoreAutoGratuity);
+  /** Clears the 'orderFulfillmentEvent' field, the 'has' method for this field will now return false */
+  public void clearOrderFulfillmentEvent() {
+    genClient.clear(CacheKey.orderFulfillmentEvent);
   }
 
 
@@ -1432,7 +1434,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean ONLINEORDER_IS_REQUIRED = false;
     public static final boolean PRINTGROUPS_IS_REQUIRED = false;
-    public static final boolean IGNOREAUTOGRATUITY_IS_REQUIRED = false;
+    public static final boolean ORDERFULFILLMENTEVENT_IS_REQUIRED = false;
   }
 
 }

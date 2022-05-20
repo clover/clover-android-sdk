@@ -13,6 +13,7 @@ import com.clover.sdk.v3.remotepay.RefundPaymentRequest;
 import com.clover.sdk.v3.remotepay.RetrievePaymentRequest;
 import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
+import com.clover.sdk.v3.remotepay.VaultCardRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
@@ -110,7 +111,8 @@ public interface IPaymentConnector extends IDeviceConnector{
    *
    * @param cardEntryMethods - The card entry methods allowed to capture the payment token. null will provide default values
    **/
-  void vaultCard(Integer cardEntryMethods);
+  void vaultCard(int vaultCardRequest);
+  void vaultCard(VaultCardRequest vaultCardRequest);
 
   /**
    * Used to request a list of pending payments that have been taken offline, but

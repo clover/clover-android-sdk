@@ -19,6 +19,7 @@ import com.clover.sdk.v3.remotepay.SaleRequest;
 import com.clover.sdk.v3.remotepay.TipAdjustAuthRequest;
 import com.clover.sdk.v3.remotepay.VerifySignatureRequest;
 import com.clover.sdk.v3.remotepay.VoidPaymentRequest;
+import com.clover.sdk.v3.remotepay.VaultCardRequest;
 import com.clover.sdk.v1.configuration.UIConfiguration;
 import com.clover.sdk.v3.remotepay.VoidPaymentRefundRequest;
 
@@ -215,4 +216,6 @@ interface IPaymentServiceV3 {
    * needs to be used cautiously as a last resort
    */
   void resetDevice();
+
+  void vaultCardWithRequest(in VaultCardRequest request);
 }

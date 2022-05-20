@@ -156,6 +156,7 @@ public class PayIntent implements Parcelable {
     private Authorization authorization;
     private TokenizeCardResponse tokenizeCardResponse;
     private TokenizeCardRequest tokenizeCardRequest;
+    private String dataReadMode;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -295,8 +296,9 @@ public class PayIntent implements Parcelable {
         authorization = intent.getParcelableExtra(Intents.EXTRA_AUTHORIZATION);
       }
 
-      tokenizeCardRequest = intent.getParcelableExtra(Intents.EXTRA_C_TOKEN_RESULT);
-      tokenizeCardResponse = intent.getParcelableExtra(Intents.EXTRA_C_TOKEN_REQUEST);
+      tokenizeCardRequest = intent.getParcelableExtra(Intents.EXTRA_C_TOKEN_REQUEST);
+      tokenizeCardResponse = intent.getParcelableExtra(Intents.EXTRA_C_TOKEN_RESULT);
+      dataReadMode = intent.getStringExtra(Intents.EXTRA_DATA_READ_MODE);
 
       return this;
     }
@@ -449,6 +451,7 @@ public class PayIntent implements Parcelable {
       this.authorization = payIntent.authorization;
       this.tokenizeCardRequest = payIntent.tokenizeCardRequest;
       this.tokenizeCardResponse = payIntent.tokenizeCardResponse;
+      this.dataReadMode = payIntent.dataReadMode;
       return this;
     }
 
@@ -763,6 +766,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder dataReadMode(String dataReadMode) {
+      this.dataReadMode = dataReadMode;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -779,7 +787,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode);
     }
   }
 
@@ -852,6 +860,7 @@ public class PayIntent implements Parcelable {
   public Authorization authorization;
   public TokenizeCardRequest tokenizeCardRequest;
   public TokenizeCardResponse tokenizeCardResponse;
+  public String dataReadMode;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -869,7 +878,7 @@ public class PayIntent implements Parcelable {
                     Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues,
                     Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender, boolean isDisableCreditSurcharge,
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
-                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse) {
+                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -923,6 +932,7 @@ public class PayIntent implements Parcelable {
     this.authorization = authorization;
     this.tokenizeCardResponse = tokenizeCardResponse;
     this.tokenizeCardRequest = tokenizeCardRequest;
+    this.dataReadMode = dataReadMode;
 
     if (transactionSettings != null) {
       this.transactionSettings = transactionSettings;
@@ -1122,6 +1132,10 @@ public class PayIntent implements Parcelable {
     if (tokenizeCardResponse !=null) {
       intent.putExtra(Intents.EXTRA_C_TOKEN_RESULT, tokenizeCardResponse);
     }
+
+    if (dataReadMode != null) {
+      intent.putExtra(Intents.EXTRA_DATA_READ_MODE, dataReadMode);
+    }
   }
 
   @Override
@@ -1179,6 +1193,7 @@ public class PayIntent implements Parcelable {
            ", authorization" + authorization +
            ", tokenRequest=" + tokenizeCardRequest +
            ", tokenResponse=" + tokenizeCardResponse +
+           ", dataReadMode=" + dataReadMode +
            '}';
   }
 
@@ -1363,6 +1378,10 @@ public class PayIntent implements Parcelable {
 
     if (tokenizeCardResponse != null) {
       bundle.putParcelable(Intents.EXTRA_C_TOKEN_RESULT, tokenizeCardResponse);
+    }
+
+    if (dataReadMode != null) {
+      bundle.putString(Intents.EXTRA_DATA_READ_MODE, dataReadMode);
     }
 
     // write out
@@ -1584,6 +1603,10 @@ public class PayIntent implements Parcelable {
 
       if (bundle.containsKey(Intents.EXTRA_C_TOKEN_RESULT)) {
         builder.tokenResponse(bundle.getParcelable(Intents.EXTRA_C_TOKEN_RESULT));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_DATA_READ_MODE)) {
+        builder.dataReadMode(bundle.getString(Intents.EXTRA_DATA_READ_MODE));
       }
       // build
       return builder.build();

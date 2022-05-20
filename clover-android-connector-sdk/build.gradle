@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '284'
+version = '288'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
-apply from: file("${projectDir}/../common_upload.gradle")
 
 dependencies {
   implementation project(':clover-android-sdk')

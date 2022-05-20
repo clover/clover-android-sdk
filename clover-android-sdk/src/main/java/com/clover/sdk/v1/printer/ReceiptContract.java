@@ -23,8 +23,7 @@ import android.provider.BaseColumns;
  * To register such a content provider with the Clover platform, use the
  * {@link IReceiptRegistrationService#register(android.net.Uri, com.clover.sdk.v1.ResultStatus)}
  * method.
- * <br/>
- * <br/>
+ * <p/>
  * Such a content provider must support either the
  * {@link Text#CONTENT_TYPE} or {@link Image#CONTENT_TYPE}
  * content type. If it supports the {@link Text#CONTENT_TYPE} content type, it must implement
@@ -33,17 +32,23 @@ import android.provider.BaseColumns;
  * class. If the content provider supports the {@link Image#CONTENT_TYPE} content type,
  * it must implement the
  * {@link android.content.ContentProvider#openFile(android.net.Uri, String)}
- * method, and the returned file descriptor must point to a file that contains bitmap
- * data that is decodable using
- * {@link android.graphics.BitmapFactory#decodeStream(java.io.InputStream)}. For example,
- * it can be a PNG, GIF, or JPG encoded file.
- * <br/>
- * <br/>
+ * method, and the returned file descriptor value must either:
+ * <ul>
+ *   <li>
+ *     Point to a file that contains bitmap data that is decodable using
+ *     {@link android.graphics.BitmapFactory#decodeStream(java.io.InputStream)}.
+ *     For example, it can be a PNG, GIF, or JPG encoded file.
+ *   </li>
+ *   <li>
+ *     Be null, indicating that the content provider declined to add
+ *     data to this receipt.
+ *   </li>
+ * </ul>
+ * <p/>
  * When called, a registered content provider is passed the {@code PARAM_*} query parameters
  * listed below. This may be used as input to other Clover
  * services to obtain additional information about the order, the customer, etc.
- * <br/>
- * <br/>
+ * <p/>
  * Registered content providers have a maximum of 2 seconds to return receipt data from their
  * content provider. It is advisable to stay well below this limit. You must not perform
  * long-running tasks such as network I/O.

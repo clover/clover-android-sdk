@@ -15,7 +15,6 @@
  */
 package com.clover.sdk.cashdrawer;
 
-import com.clover.sdk.internal.util.UnstableCallClient;
 import com.clover.sdk.internal.util.UnstableContentResolverClient;
 
 import android.content.ContentProviderClient;

@@ -1270,4 +1270,17 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       }
     });
   }
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Order addLPMPayment(final String orderId, final Payment payment) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addLPMPayment(orderId, new PaymentFdParcelable(payment), status));
+      }
+    });
+  }
 }

@@ -81,6 +81,9 @@ public abstract class PrintJob implements Parcelable {
 
   public static final int FLAG_NO_TIP = 1 << 11;
 
+  /** Force customer tip line on print out even if normally not required */
+  public static final int FLAG_FORCE_TIP = 1 << 12;
+
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
     protected boolean printToAny = false;

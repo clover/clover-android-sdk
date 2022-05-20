@@ -192,6 +192,7 @@ public class CloverAuth {
   public static final Uri AUTH_URI = Uri.parse("content://" + AUTH_AUTHORITY);
 
   public static final String METHOD_AUTH = "auth";
+  public static final String METHOD_AUTH_PERMISSIONS = "authPermissions";
 
   private static final ExecutorService exec = Executors.newSingleThreadExecutor();
 

@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum FailureReason implements Parcelable {
-  CARD_DECLINED, INVALID_APPLICATION, UNKNOWN, OFFLINE, USER_DECLINED;
+public enum TaxTypeIdentifier implements Parcelable {
+  UNKNOWN, FEDERAL_SALES_TAX, STATE_SALES_TAX, CITY_SALES_TAX, LOCAL_SALES_TAX, MUNICIPAL_SALES_TAX, OTHER_TAX, VAT, GST, PROVISIONAL_SALES_TAX, ROOM_TAX, OCCUPANCY_TAX, ENERGY_TAX, NOT_SUPPORTED;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum FailureReason implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<FailureReason> CREATOR = new Creator<FailureReason>() {
+  public static final Creator<TaxTypeIdentifier> CREATOR = new Creator<TaxTypeIdentifier>() {
     @Override
-    public FailureReason createFromParcel(final Parcel source) {
-      return FailureReason.valueOf(source.readString());
+    public TaxTypeIdentifier createFromParcel(final Parcel source) {
+      return TaxTypeIdentifier.valueOf(source.readString());
     }
 
     @Override
-    public FailureReason[] newArray(final int size) {
-      return new FailureReason[size];
+    public TaxTypeIdentifier[] newArray(final int size) {
+      return new TaxTypeIdentifier[size];
     }
   };
 }
