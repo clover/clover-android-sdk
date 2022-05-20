@@ -35,6 +35,7 @@ com.clover.sdk.v3.onlineorder
 com.clover.sdk.v3.order
 com.clover.sdk.v3.pay
 com.clover.sdk.v3.payments
+com.clover.sdk.v3.payments.api
 com.clover.sdk.v3.printer
 com.clover.sdk.v3.report
 com.clover.sdk.v3.resellers
