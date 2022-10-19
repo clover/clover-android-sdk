@@ -1,7 +1,11 @@
+com.clover.common.payments
+com.clover.common2
+com.clover.common2.payments
 com.clover.sdk
 com.clover.sdk.cashdrawer
 com.clover.sdk.extractors
 com.clover.sdk.fragment
+com.clover.sdk.internal.util
 com.clover.sdk.util
 com.clover.sdk.v1
 com.clover.sdk.v1.app
@@ -18,6 +22,7 @@ com.clover.sdk.v3.analytics
 com.clover.sdk.v3.apps
 com.clover.sdk.v3.base
 com.clover.sdk.v3.billing
+com.clover.sdk.v3.binhandler
 com.clover.sdk.v3.cacheindex
 com.clover.sdk.v3.cash
 com.clover.sdk.v3.connectpay
