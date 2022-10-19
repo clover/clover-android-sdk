@@ -1,0 +1,57 @@
+/**
+ * Copyright (C) 2022 Clover Network, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+group = 'com.clover.sdk'
+version = '292'
+
+
+apply from: file("${project.rootDir}/lib.gradle")
+
+dependencies {
+  api project(':clover-android-sdk')
+  api "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
+  implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  // OkHttp is part of the API of this library
+  api ("com.squareup.okhttp3:okhttp") {
+    version {
+      // Strictly enforce this version, other dependencies may depend on a higher version that is
+      // incompatible with our devices, see OKHTTP_VERSION in android-build
+      strictly "$OKHTTP_VERSION"
+    }
+  }
+
+  testImplementation "org.mockito:mockito-inline:$MOCKITO_VERSION"
+}
+
+afterEvaluate {
+  android.libraryVariants.all { variant ->
+    def name = "${variant.name.capitalize()}"
+    task("javadoc${name}", type: Javadoc, dependsOn: "assemble${name}") {
+      source = android.sourceSets.main.java.srcDirs
+      classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
+      classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+      options.links 'https://d.android.com/reference/'
+      options.links 'https://d.android.com/reference/androidx/'
+      options.links 'https://javadoc.io/static/com.squareup.okhttp3/okhttp/3.12.3/'
+      options.links 'https://clover.github.io/clover-android-sdk/' // FIXME: Doesn't work?
+      destinationDir = file("build/docs/javadoc/${variant.name}/")
+    }
+  }
+}
+
+ext {
+  project_name = 'Clover Android SDK Retrofit'
+  project_description = 'Retrofit converters for Clover SDK objects'
+}

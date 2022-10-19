@@ -383,6 +383,13 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+
+  public Order deleteLineItemsWithReason2(final String orderId, final List<String> lineItemIds, final String reason, final ClientEventType clientEventType, final String approvedByEmployeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.deleteLineItemsWithReason2(orderId, lineItemIds, reason, clientEventType, approvedByEmployeeId, status));
+    });
+  }
+
   /**
    * This method is being deprecated as there was no real usage of the "reason" parameter.
    * Note that there is no direct replacement method.
@@ -390,11 +397,8 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
    */
   @Deprecated
   public Order deleteLineItemsWithReason(final String orderId, final List<String> lineItemIds, final String reason, final ClientEventType clientEventType) throws RemoteException, ClientException, ServiceException, BindingException {
-    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
-      @Override
-      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
-        return getValue(service.deleteLineItemsWithReason(orderId, lineItemIds, reason, clientEventType, status));
-      }
+    return execute((service, status) -> {
+      return getValue(service.deleteLineItemsWithReason(orderId, lineItemIds, reason, clientEventType, status));
     });
   }
 
@@ -929,6 +933,9 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
 
     void onLineItemModificationsAdded(String orderId, List<String> lineItemIds, List<String> modificationIds);
 
+    default void onLineItemModificationsDeleted(String orderId, List<String> lineItemIds, List<String> modificationIds) {
+    }
+
     void onLineItemDiscountsAdded(String orderId, List<String> lineItemIds, List<String> discountIds);
 
     void onLineItemExchanged(String orderId, String oldLineItemId, String newLineItemId);
@@ -1100,6 +1107,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       postChange(new ListenerRunnable() {
         public void run(OnOrderUpdateListener2 listener) {
           listener.onCreditProcessed(orderId, creditId);
+        }
+      });
+    }
+
+    @Override
+    public void onLineItemModificationsDeleted(String orderId, List<String> lineItemIds, List<String> modificationIds) throws RemoteException {
+      postChange(new ListenerRunnable() {
+        public void run(OnOrderUpdateListener2 listener) {
+          listener.onLineItemModificationsDeleted(orderId, lineItemIds, modificationIds);
         }
       });
     }
@@ -1280,6 +1296,18 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.addLPMPayment(orderId, new PaymentFdParcelable(payment), status));
+      }
+    });
+  }
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  public Payment updatePaymentStatus(final String orderId, final Payment payment) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Payment>() {
+      @Override
+      public Payment call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.updatePaymentStatus(orderId, new PaymentFdParcelable(payment), status));
       }
     });
   }

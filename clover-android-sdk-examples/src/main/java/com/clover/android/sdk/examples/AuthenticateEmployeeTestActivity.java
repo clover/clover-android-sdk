@@ -22,6 +22,8 @@ import android.os.Bundle;
 import android.os.IInterface;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
@@ -37,8 +39,6 @@ import java.util.Collections;
 
 public class AuthenticateEmployeeTestActivity extends Activity {
 
-  private static final int REQUEST_ACCOUNT = 0;
-
   private static final int REQUEST_ANY_EMPLOYEE = 1;
   private static final int REQUEST_EMPLOYEE = 2;
   private static final int REQUEST_ROLE = 3;
@@ -47,6 +47,7 @@ public class AuthenticateEmployeeTestActivity extends Activity {
   private Account account;
   private Employee employee;
   private EmployeeConnector employeeConnector;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class AuthenticateEmployeeTestActivity extends Activity {
       i.putExtra(Intents.EXTRA_REASON, "Enter passcode");
       i.putParcelableArrayListExtra(Intents.EXTRA_ACCOUNT_ROLES, new ArrayList<>(Arrays.asList(
           AccountRole.ADMIN, AccountRole.MANAGER, AccountRole.EMPLOYEE)));
-
       startActivityForResult(i, REQUEST_ANY_EMPLOYEE);
     });
 
@@ -81,7 +81,6 @@ public class AuthenticateEmployeeTestActivity extends Activity {
     });
 
   }
-
 
   @Override
   protected void onPause() {
@@ -106,8 +105,6 @@ public class AuthenticateEmployeeTestActivity extends Activity {
     // Create and Connect to the EmployeeConnector
     connect();
 
-    // Get the employee object
-//    getEmployee();
   }
 
   private void connect() {
@@ -140,7 +137,6 @@ public class AuthenticateEmployeeTestActivity extends Activity {
       public void onServiceSuccess(Employee result, ResultStatus status) {
         super.onServiceSuccess(result, status);
         employee = result;
-        initActiveEmployee(employee);
       }
 
       @Override
@@ -154,7 +150,6 @@ public class AuthenticateEmployeeTestActivity extends Activity {
       }
     });
   }
-
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     {
@@ -170,17 +165,11 @@ public class AuthenticateEmployeeTestActivity extends Activity {
     }
     super.onActivityResult(requestCode, resultCode, data);
   }
-
   private void log(String s) {
     if (logTextView.getText() != null && logTextView.getText().length() > 0) {
       logTextView.setText(logTextView.getText() + "\n" + s);
     } else {
       logTextView.setText("Log: \n" + s);
     }
-  }
-
-  private void initActiveEmployee(Employee employee) {
-    TextView view = (TextView) findViewById(R.id.tv_employee);
-    view.setText(view.getText() + "  name: " + employee.getName() + "   id:" + employee.getId());
   }
 }

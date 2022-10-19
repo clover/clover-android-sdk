@@ -17,4 +17,5 @@ interface IOnOrderUpdateListener2 {
   void onPaymentProcessed(String orderId, String paymentId);
   void onRefundProcessed(String orderId, String refundId);
   void onCreditProcessed(String orderId, String creditId);
+  void onLineItemModificationsDeleted(String orderId, in List<String> lineItemIds, in List<String> modificationIds);
 }

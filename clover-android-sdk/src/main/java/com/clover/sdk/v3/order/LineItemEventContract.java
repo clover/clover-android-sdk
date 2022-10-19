@@ -162,6 +162,10 @@ public final class LineItemEventContract {
          * to the server's clock.
          */
         String CLIENT_CREATED_TIME = "client_created_time";
+        /**
+         * A {@link String}, the 13-character reference id which holds Clover UUID.
+         */
+        String REFERENCE_ID = "reference_id";
     }
 
     /**

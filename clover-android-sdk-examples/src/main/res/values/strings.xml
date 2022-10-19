@@ -40,7 +40,8 @@
   <string name="merchant_devices_v2_activity_label">Merchant Devices V2 Test</string>
   <string name="keypad_test">Keypad Test</string>
   <string name="salerefund_test">Sale/Refund Test</string>
-
+  <string name ="about_authEmp">This example will be highlighting the ACTION_AUTHENTICATE_EMPLOYEE intent. Button for ANY EMPLOYEE, CURRENT EMPLOYEE, and ADMIN ROLE will
+        prompt the user to input the employee\'s passcode to authenticate. Each button click will respond with a log of the requestCode and the resultCode.</string>
   <string name="action_settings">Settings</string>
   <string name="payload">Payload</string>
   <string name="send_app_notification">Send app notification</string>

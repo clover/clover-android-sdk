@@ -17,6 +17,7 @@ package com.clover.sdk.v3.scanner;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -113,7 +114,10 @@ public class BarcodeScanner {
    * @param extras optional parameters, currently supports:
    * <ul>
    * <li>{@link Intents#EXTRA_SCANNER_FACING} - if there are multiple cameras which one to scan from, see {@link #getAvailable()}</li>>
-   * <li>{@link Intents#EXTRA_SHOW_PREVIEW} - whether scanner preview video will be shown, default is true</li>
+   * <li>
+   *   {@link Intents#EXTRA_SHOW_PREVIEW} - whether scanner preview video will be shown,
+   *   default is true. <b>The preview window cannot be hidden on Clover Flex 1 (C401) devices.</b>
+   * </li>
    * <li>{@link Intents#EXTRA_LED_ON} - whether LED will be on (selected devices only), default is false</li>
    * <li>{@link Intents#EXTRA_SCAN_QR_CODE} - whether QR codes will be scanned, default is true</li>
    * <li>{@link Intents#EXTRA_SCAN_1D_CODE} - whether 1D codes will be scanned, default is true</li>
@@ -123,6 +127,11 @@ public class BarcodeScanner {
    * @return true if the scanning app started (it would be very unusual for it to fail)
    */
   public boolean startScan(Bundle extras) {
+    if (extras != null &&
+        !extras.getBoolean(Intents.EXTRA_SHOW_PREVIEW, true) &&
+        "bayleaf".equals(Build.DEVICE)) {
+      Log.w("com.clover.android.sdk", "Extra: " + Intents.EXTRA_SHOW_PREVIEW + "=false is not supported on this device");
+    }
     try {
       UnstableContentResolverClient client = getUnstableClient();
       Bundle response = client.call(CALL_METHOD_START_SCAN, null, extras, null);

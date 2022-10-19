@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import com.clover.sdk.JSONifiable;
 import com.clover.sdk.cashdrawer.CashDrawers;
 
+import androidx.annotation.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,9 +48,10 @@ public class TypeDetails implements Parcelable, JSONifiable {
   private final boolean local;
   private final int numDotsWidth;
   private final int numCashDrawersSupported;
+  @Nullable private final String imageUrl;
 
   public TypeDetails(String typeName, String model, List<Category> supportedCategories,
-                     int numDotsWidth, boolean local, int numCashDrawersSupported) {
+                     int numDotsWidth, boolean local, int numCashDrawersSupported, @Nullable String imageUrl) {
     if (TextUtils.isEmpty(typeName) || TextUtils.isEmpty(model) || supportedCategories == null
         || supportedCategories.size() == 0) {
       throw new IllegalArgumentException();
@@ -61,6 +63,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
     this.numDotsWidth = numDotsWidth;
     this.local = local;
     this.numCashDrawersSupported = numCashDrawersSupported;
+    this.imageUrl = imageUrl;
   }
 
   /**
@@ -111,6 +114,16 @@ public class TypeDetails implements Parcelable, JSONifiable {
   }
 
   /**
+   * Returns an HTTP URL that points to an image of this printer type.
+   *
+   * @return A {@link String}, the URL, or null if no URL is available.
+   */
+  @Nullable
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  /**
    * Searches for a {@link PrinterContract.Devices#TYPE_DETAILS} column in the given cursor and
    * extracts a TypeDetails instance from it. Returns null if the column cannot be found.
    */
@@ -136,6 +149,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
   private static final String KEY_NUM_DOTS_WIDTH = "numDotsWidth";
   private static final String KEY_LOCAL = "local";
   private static final String KEY_NUM_CASH_DRAWERS = "numCashDrawers";
+  private static final String KEY_IMAGE_URL = "imageUrl";
 
   @Override
   public int describeContents() {
@@ -156,6 +170,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
     b.putInt(KEY_NUM_DOTS_WIDTH, numDotsWidth);
     b.putBoolean(KEY_LOCAL, local);
     b.putInt(KEY_NUM_CASH_DRAWERS, numCashDrawersSupported);
+    b.putString(KEY_IMAGE_URL, imageUrl);
     dest.writeBundle(b);
   }
 
@@ -170,6 +185,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
       int numDotsWidth = b.getInt(KEY_NUM_DOTS_WIDTH);
       boolean local = b.getBoolean(KEY_LOCAL);
       int numCashDrawersSupported = b.getInt(KEY_NUM_CASH_DRAWERS);
+      String imageUrl = b.getString(KEY_IMAGE_URL);
 
       List<Category> categories = new ArrayList<>();
       if (categoryStrings != null) {
@@ -183,7 +199,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
         }
       }
 
-      return new TypeDetails(typeName, model, categories, numDotsWidth, local, numCashDrawersSupported);
+      return new TypeDetails(typeName, model, categories, numDotsWidth, local, numCashDrawersSupported, imageUrl);
     }
 
     @Override
@@ -192,34 +208,31 @@ public class TypeDetails implements Parcelable, JSONifiable {
     }
   };
 
-  public static final JSONifiable.Creator<TypeDetails> JSON_CREATOR = new JSONifiable.Creator<TypeDetails>() {
+  public static final JSONifiable.Creator<TypeDetails> JSON_CREATOR = source -> {
 
-    @Override
-    public TypeDetails create(JSONObject source) {
+    try {
+      String typeName = source.getString(KEY_TYPE_NAME);
+      String model = source.getString(KEY_MODEL);
 
-      try {
-        String typeName = source.getString(KEY_TYPE_NAME);
-        String model = source.getString(KEY_MODEL);
-
-        List<Category> supportedCategories = new ArrayList<>();
-        JSONArray categoryArray = source.getJSONArray(KEY_SUPPORTED_CATS);
-        for (int i = 0; i < categoryArray.length(); i++) {
-          try {
-            supportedCategories.add(Category.valueOf(categoryArray.getString(i)));
-          } catch (IllegalArgumentException e) {
-            // Unknown category, skip it
-          }
+      List<Category> supportedCategories = new ArrayList<>();
+      JSONArray categoryArray = source.getJSONArray(KEY_SUPPORTED_CATS);
+      for (int i = 0; i < categoryArray.length(); i++) {
+        try {
+          supportedCategories.add(Category.valueOf(categoryArray.getString(i)));
+        } catch (IllegalArgumentException e) {
+          // Unknown category, skip it
         }
-
-        int numDotsWidth = source.getInt(KEY_NUM_DOTS_WIDTH);
-        boolean local = source.getBoolean(KEY_LOCAL);
-        int numCashDrawersSupported = source.getInt(KEY_NUM_CASH_DRAWERS);
-
-        return new TypeDetails(typeName, model, supportedCategories, numDotsWidth, local, numCashDrawersSupported);
-      } catch (JSONException e) {
-        e.printStackTrace();
-        return null;
       }
+
+      int numDotsWidth = source.getInt(KEY_NUM_DOTS_WIDTH);
+      boolean local = source.getBoolean(KEY_LOCAL);
+      int numCashDrawersSupported = source.getInt(KEY_NUM_CASH_DRAWERS);
+      String imageUrl = source.optString(KEY_IMAGE_URL, null);
+
+      return new TypeDetails(typeName, model, supportedCategories, numDotsWidth, local, numCashDrawersSupported, imageUrl);
+    } catch (JSONException e) {
+      e.printStackTrace();
+      return null;
     }
   };
 
@@ -238,6 +251,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
       obj.put(KEY_NUM_DOTS_WIDTH, numDotsWidth);
       obj.put(KEY_LOCAL, local);
       obj.put(KEY_NUM_CASH_DRAWERS, numCashDrawersSupported);
+      obj.put(KEY_IMAGE_URL, imageUrl);
     } catch (JSONException e) {
       e.printStackTrace();
       return null;
@@ -258,7 +272,10 @@ public class TypeDetails implements Parcelable, JSONifiable {
     if (numCashDrawersSupported != that.numCashDrawersSupported) return false;
     if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
     if (model != null ? !model.equals(that.model) : that.model != null) return false;
-    return supportedCategories != null ? supportedCategories.equals(that.supportedCategories) : that.supportedCategories == null;
+    if (supportedCategories != null ? supportedCategories.equals(that.supportedCategories) : that.supportedCategories == null) return false;
+    if (imageUrl != null ? !imageUrl.equals(that.imageUrl) : that.imageUrl != null) return false;
+
+    return true;
   }
 
   @Override
@@ -269,6 +286,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
     result = 31 * result + (local ? 1 : 0);
     result = 31 * result + numDotsWidth;
     result = 31 * result + numCashDrawersSupported;
+    result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
     return result;
   }
 
@@ -281,6 +299,7 @@ public class TypeDetails implements Parcelable, JSONifiable {
         ", local=" + local +
         ", numDotsWidth=" + numDotsWidth +
         ", numCashDrawersSupported=" + numCashDrawersSupported +
+        ", imageUrl=" + imageUrl +
         '}';
   }
 

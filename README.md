@@ -35,8 +35,9 @@ To generate your own local copy of the javadoc,
 ```
 $ pwd
 .../clover-android-sdk/clover-android-sdk
-$ gradle clean assemble doc-clean doc
+$ gradle clean javadocRelease
 ```
+Docs can be found in `build/docs/javadoc/release`.
 
 Latest Apps for Testing
 =======================

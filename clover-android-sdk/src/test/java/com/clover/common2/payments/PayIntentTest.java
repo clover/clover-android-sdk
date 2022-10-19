@@ -231,4 +231,58 @@ public class PayIntentTest {
     payIntent = new PayIntent.Builder().intent(sourceIntent).build();
     assertTrue(payIntent.isDisableCreditSurcharge);
   }
+
+  @Test
+  public void testRefundReason() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.refundReason);
+
+    String refundReason = "Unhappy customer";
+
+    payIntent = new PayIntent.Builder().refundReason(refundReason).build();
+    assertNotNull(payIntent.refundReason);
+    assertEquals("Unhappy customer", payIntent.refundReason);
+  }
+
+  @Test
+  public void testRefundReason_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.refundReason);
+
+    String refundReason = "Angry customer";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_REFUND_REASON, refundReason);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.refundReason);
+    assertEquals("Angry customer", payIntent.refundReason);
+  }
+
+  @Test
+  public void testRefundReason_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.refundReason);
+
+    String refundReason = "Confused customer";
+
+    sourcePayIntent = new PayIntent.Builder().refundReason(refundReason).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals("Confused customer", payIntent.refundReason);
+  }
+
+  @Test
+  public void testRefundReason_serialization() {
+    String refundReason = "Deceased customer";
+    PayIntent payIntent = new PayIntent.Builder().refundReason(refundReason).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.refundReason);
+    assertEquals("Deceased customer", fromParcel.refundReason);
+  }
 }

@@ -70,6 +70,7 @@ public enum Module implements Parcelable {
   TABLE_SERVICE,
   COST_OF_GOODS,
   ADVANCED_REPORTING,
+  RETAIL_HUB,
   ;
 
   @Override

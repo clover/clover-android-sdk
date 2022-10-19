@@ -37,6 +37,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getFired fired}</li>
+ * <li>{@link #getPrintTime printTime}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -47,7 +48,7 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * Unique identifier.
    */
-  public java.lang.String getId() {
+  public String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
@@ -61,22 +62,29 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * The print group heading that will be displayed on receipts.
    */
-  public java.lang.String getName() {
+  public String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
   /**
    * The order in which this print group is displayed relative to other print groups on the same receipt. Print groups with identical sort orders will be ordered by name.
    */
-  public java.lang.Integer getSortOrder() {
+  public Integer getSortOrder() {
     return genClient.cacheGet(CacheKey.sortOrder);
   }
 
   /**
    * True if this print group has been sent to an order printer.
    */
-  public java.lang.Boolean getFired() {
+  public Boolean getFired() {
     return genClient.cacheGet(CacheKey.fired);
+  }
+
+  /**
+   * Timestamp of when this print group should print or had printed relative to the merchant's Clover device system time.
+   */
+  public Long getPrintTime() {
+    return genClient.cacheGet(CacheKey.printTime);
   }
 
 
@@ -84,15 +92,17 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     orderRef
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     name
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     sortOrder
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     fired
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+    printTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -198,6 +208,11 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.fired);
   }
 
+  /** Checks whether the 'printTime' field is set and is not null */
+  public boolean isNotNullPrintTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.printTime);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -225,11 +240,16 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheHasKey(CacheKey.fired);
   }
 
+  /** Checks whether the 'printTime' field has been set, however the value could be null */
+  public boolean hasPrintTime() {
+    return genClient.cacheHasKey(CacheKey.printTime);
+  }
+
 
   /**
    * Sets the field 'id'.
    */
-  public PrintGroup setId(java.lang.String id) {
+  public PrintGroup setId(String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
@@ -245,22 +265,29 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
   /**
    * Sets the field 'name'.
    */
-  public PrintGroup setName(java.lang.String name) {
+  public PrintGroup setName(String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'sortOrder'.
    */
-  public PrintGroup setSortOrder(java.lang.Integer sortOrder) {
+  public PrintGroup setSortOrder(Integer sortOrder) {
     return genClient.setOther(sortOrder, CacheKey.sortOrder);
   }
 
   /**
    * Sets the field 'fired'.
    */
-  public PrintGroup setFired(java.lang.Boolean fired) {
+  public PrintGroup setFired(Boolean fired) {
     return genClient.setOther(fired, CacheKey.fired);
+  }
+
+  /**
+   * Sets the field 'printTime'.
+   */
+  public PrintGroup setPrintTime(Long printTime) {
+    return genClient.setOther(printTime, CacheKey.printTime);
   }
 
 
@@ -283,6 +310,10 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'fired' field, the 'has' method for this field will now return false */
   public void clearFired() {
     genClient.clear(CacheKey.fired);
+  }
+  /** Clears the 'printTime' field, the 'has' method for this field will now return false */
+  public void clearPrintTime() {
+    genClient.clear(CacheKey.printTime);
   }
 
 
@@ -354,6 +385,7 @@ public class PrintGroup extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final long SORTORDER_MIN = 0;
     public static final boolean FIRED_IS_REQUIRED = false;
+    public static final boolean PRINTTIME_IS_REQUIRED = false;
   }
 
 }
