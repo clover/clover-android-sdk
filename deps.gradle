@@ -4,10 +4,8 @@ def printVersions = false
 
 def requiredGradleVersion = new File("${project.rootDir}/gradleVersion").text.split('-')[1].trim()
 if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
-  print "ERROR: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
-  throw new GradleException("Unsupported Gradle version.")
+  print "WARNING: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
 }
-
 
 ext {
   androidPlugin = "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"

@@ -48,8 +48,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAutoAcceptSignature autoAcceptSignature}</li>
  * <li>{@link #getReturnResultOnTransactionComplete returnResultOnTransactionComplete}</li>
  * <li>{@link #getTipSuggestions tipSuggestions}</li>
+ * <li>{@link #getCashbackSuggestions cashbackSuggestions}</li>
  * <li>{@link #getRegionalExtras regionalExtras}</li>
  * <li>{@link #getDisableCreditSurcharge disableCreditSurcharge}</li>
+ * <li>{@link #getReceiptOptions receiptOptions}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -130,6 +132,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.tipSuggestions);
   }
 
+  public java.util.List<com.clover.sdk.v3.merchant.CashbackSuggestion> getCashbackSuggestions() {
+    return genClient.cacheGet(CacheKey.cashbackSuggestions);
+  }
+
   public java.util.Map<java.lang.String,java.lang.String> getRegionalExtras() {
     return genClient.cacheGet(CacheKey.regionalExtras);
   }
@@ -138,50 +144,58 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.disableCreditSurcharge);
   }
 
+  public java.util.Map<java.lang.String,java.lang.String> getReceiptOptions() {
+    return genClient.cacheGet(CacheKey.receiptOptions);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     cardEntryMethods
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     disableCashBack
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     cloverShouldHandleReceipts
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     forcePinEntryOnSwipe
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     disableRestartTransactionOnFailure
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     allowOfflinePayment
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     approveOfflinePaymentWithoutPrompt
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     forceOfflinePayment
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     signatureThreshold
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     signatureEntryLocation
-      (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.DataEntryLocation.class)),
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.DataEntryLocation.class)),
     tipMode
-      (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TipMode.class)),
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.TipMode.class)),
     tippableAmount
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     disableReceiptSelection
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     disableDuplicateCheck
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     autoAcceptPaymentConfirmations
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     autoAcceptSignature
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     returnResultOnTransactionComplete
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     tipSuggestions
-      (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.TipSuggestion.JSON_CREATOR)),
+    cashbackSuggestions
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.CashbackSuggestion.JSON_CREATOR)),
     regionalExtras
-      (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+            (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     disableCreditSurcharge
-      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    receiptOptions
+            (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -349,6 +363,14 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'tipSuggestions' field is set and is not null and is not empty */
   public boolean isNotEmptyTipSuggestions() { return isNotNullTipSuggestions() && !getTipSuggestions().isEmpty(); }
 
+  /** Checks whether the 'cashbackSuggestions' field is set and is not null */
+  public boolean isNotNullCashbackSuggestions() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashbackSuggestions);
+  }
+
+  /** Checks whether the 'cashbackSuggestions' field is set and is not null and is not empty */
+  public boolean isNotEmptyCashbackSuggestions() { return isNotNullCashbackSuggestions() && !getCashbackSuggestions().isEmpty(); }
+
   /** Checks whether the 'regionalExtras' field is set and is not null */
   public boolean isNotNullRegionalExtras() {
     return genClient.cacheValueIsNotNull(CacheKey.regionalExtras);
@@ -361,6 +383,14 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   public boolean isNotNullDisableCreditSurcharge() {
     return genClient.cacheValueIsNotNull(CacheKey.disableCreditSurcharge);
   }
+
+  /** Checks whether the 'receiptOptions' field is set and is not null */
+  public boolean isNotNullReceiptOptions() {
+    return genClient.cacheValueIsNotNull(CacheKey.receiptOptions);
+  }
+
+  /** Checks whether the 'receiptOptions' field is set and is not null and is not empty */
+  public boolean isNotEmptyReceiptOptions() { return isNotNullReceiptOptions() && !getReceiptOptions().isEmpty(); }
 
 
 
@@ -454,6 +484,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.tipSuggestions);
   }
 
+  /** Checks whether the 'cashbackSuggestions' field has been set, however the value could be null */
+  public boolean hasCashbackSuggestions() {
+    return genClient.cacheHasKey(CacheKey.cashbackSuggestions);
+  }
+
   /** Checks whether the 'regionalExtras' field has been set, however the value could be null */
   public boolean hasRegionalExtras() {
     return genClient.cacheHasKey(CacheKey.regionalExtras);
@@ -462,6 +497,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'disableCreditSurcharge' field has been set, however the value could be null */
   public boolean hasDisableCreditSurcharge() {
     return genClient.cacheHasKey(CacheKey.disableCreditSurcharge);
+  }
+
+  /** Checks whether the 'receiptOptions' field has been set, however the value could be null */
+  public boolean hasReceiptOptions() {
+    return genClient.cacheHasKey(CacheKey.receiptOptions);
   }
 
 
@@ -594,6 +634,15 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'cashbackSuggestions'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public TransactionSettings setCashbackSuggestions(java.util.List<com.clover.sdk.v3.merchant.CashbackSuggestion> cashbackSuggestions) {
+    return genClient.setArrayRecord(cashbackSuggestions, CacheKey.cashbackSuggestions);
+  }
+
+  /**
    * Sets the field 'regionalExtras'.
    */
   public TransactionSettings setRegionalExtras(java.util.Map<java.lang.String,java.lang.String> regionalExtras) {
@@ -605,6 +654,13 @@ public class TransactionSettings extends GenericParcelable implements com.clover
    */
   public TransactionSettings setDisableCreditSurcharge(java.lang.Boolean disableCreditSurcharge) {
     return genClient.setOther(disableCreditSurcharge, CacheKey.disableCreditSurcharge);
+  }
+
+  /**
+   * Sets the field 'receiptOptions'.
+   */
+  public TransactionSettings setReceiptOptions(java.util.Map<java.lang.String,java.lang.String> receiptOptions) {
+    return genClient.setOther(receiptOptions, CacheKey.receiptOptions);
   }
 
 
@@ -680,6 +736,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   public void clearTipSuggestions() {
     genClient.clear(CacheKey.tipSuggestions);
   }
+  /** Clears the 'cashbackSuggestions' field, the 'has' method for this field will now return false */
+  public void clearCashbackSuggestions() {
+    genClient.clear(CacheKey.cashbackSuggestions);
+  }
   /** Clears the 'regionalExtras' field, the 'has' method for this field will now return false */
   public void clearRegionalExtras() {
     genClient.clear(CacheKey.regionalExtras);
@@ -687,6 +747,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Clears the 'disableCreditSurcharge' field, the 'has' method for this field will now return false */
   public void clearDisableCreditSurcharge() {
     genClient.clear(CacheKey.disableCreditSurcharge);
+  }
+  /** Clears the 'receiptOptions' field, the 'has' method for this field will now return false */
+  public void clearReceiptOptions() {
+    genClient.clear(CacheKey.receiptOptions);
   }
 
 
@@ -768,8 +832,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean AUTOACCEPTSIGNATURE_IS_REQUIRED = false;
     public static final boolean RETURNRESULTONTRANSACTIONCOMPLETE_IS_REQUIRED = false;
     public static final boolean TIPSUGGESTIONS_IS_REQUIRED = false;
+    public static final boolean CASHBACKSUGGESTIONS_IS_REQUIRED = false;
     public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
     public static final boolean DISABLECREDITSURCHARGE_IS_REQUIRED = false;
+    public static final boolean RECEIPTOPTIONS_IS_REQUIRED = false;
   }
 
 }

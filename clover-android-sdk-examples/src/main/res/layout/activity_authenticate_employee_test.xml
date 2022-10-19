@@ -8,9 +8,19 @@
   android:paddingBottom="@dimen/activity_vertical_margin">
 
   <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Press this button to Authenticate any employee (ACTION_AUTHENTICATE_EMPLOYEE):" />
+      android:id="@+id/textView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:text="@string/about_authEmp"
+      android:textColor="#000000" />
+
+  <TextView
+  android:id="@+id/any_txt"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:text="Press this button to authenticate any employee in the system."
+  android:textColor="#000000" />
 
   <Button
     android:id="@+id/btn_any"
@@ -22,7 +32,8 @@
     android:id="@+id/tv_employee"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Press this button to Authenticate employee (ACTION_AUTHENTICATE_EMPLOYEE): " />
+    android:text="Press this button to authenticate the current logged in employee."
+    android:textColor="#000000"/>
 
   <Button
     android:id="@+id/btn_active"
@@ -33,7 +44,8 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Press this button to request admin role (ACTION_AUTHENTICATE_EMPLOYEE): " />
+    android:text="Press this button to request admin role. "
+    android:textColor="#000000"  />
 
   <Button
     android:id="@+id/btn_request_admin_role"
@@ -46,6 +58,8 @@
     android:id="@+id/log_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_vertical_margin" />
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:textColor="#000000"
+    android:textSize="18sp" />
 
 </LinearLayout>

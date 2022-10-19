@@ -48,6 +48,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getVaultedCard vaultedCard}</li>
  * <li>{@link #getGatewayTxState gatewayTxState}</li>
  * <li>{@link #getCurrency currency}</li>
+ * <li>{@link #getCaptured captured}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -149,7 +150,9 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.currency);
   }
 
-
+  public java.lang.Boolean getCaptured() {
+    return genClient.cacheGet(CacheKey.captured);
+  }
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -189,6 +192,8 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.GatewayTxState.class)),
     currency
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    captured
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -370,7 +375,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.currency);
   }
 
-
+  /** Checks whether the 'captured' field is set and is not null */
+  public boolean isNotNullCaptured() {
+    return genClient.cacheValueIsNotNull(CacheKey.captured);
+  }
 
   /** Checks whether the 'cardType' field has been set, however the value could be null */
   public boolean hasCardType() {
@@ -462,6 +470,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.currency);
   }
 
+  /** Checks whether the 'captured' field has been set, however the value could be null */
+  public boolean hasCaptured() {
+    return genClient.cacheHasKey(CacheKey.captured);
+  }
 
   /**
    * Sets the field 'cardType'.
@@ -591,6 +603,12 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(currency, CacheKey.currency);
   }
 
+  /**
+   * Sets the field 'captured'.
+   */
+  public CardTransaction setCaptured(java.lang.Boolean captured) {
+    return genClient.setOther(captured, CacheKey.captured);
+  }
 
   /** Clears the 'cardType' field, the 'has' method for this field will now return false */
   public void clearCardType() {
@@ -664,7 +682,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   public void clearCurrency() {
     genClient.clear(CacheKey.currency);
   }
-
+  /** Clears the 'captured' field, the 'has' method for this field will now return false */
+  public void clearCaptured() {
+    genClient.clear(CacheKey.captured);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -751,7 +772,7 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     public static final boolean GATEWAYTXSTATE_IS_REQUIRED = false;
     public static final boolean CURRENCY_IS_REQUIRED = false;
     public static final long CURRENCY_MAX_LEN = 3;
-
+    public static final boolean CAPTURED_IS_REQUIRED = false;
   }
 
 }

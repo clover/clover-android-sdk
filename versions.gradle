@@ -117,4 +117,9 @@ ext {
 
   // Heap Analytics version
   HEAP_VERSION = "1.9.3"
+
+  // Java 8+ API desugaring support
+  // https://developer.android.com/studio/write/java8-support
+  // Version 1.2.0 causes compilation to fail on CI!
+  CORE_LIBRARY_DESUGARING_VERSION = "1.1.6"
 }

@@ -4,10 +4,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import com.clover.sdk.v1.Intents;
+import com.clover.sdk.v3.payments.ReceiptOptionType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Use the CapturePreAuthRequestIntentBuilder class to capture a pre-authorized payment on an Android device.
@@ -81,7 +84,31 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
     i.putExtra(Intents.EXTRA_PAYMENT_ID, paymentId);
 
     if (receiptOptions != null) {
-      i.putExtra(Intents.EXTRA_SKIP_RECEIPT_SCREEN, receiptOptions.skipReceiptSelection);
+      //if providedReceiptOptions is null, we will proceed with default receipt options.
+      //if providedReceiptOptions is not null, we will check for enabled receipt options.
+      //if providedReceiptOptions are all disabled, we will skip receipt screen.
+      if (receiptOptions.providedReceiptOptions != null) {
+        Map<String, String> enabledReceiptOptions = new HashMap<>();
+        for (ReceiptOptions.ReceiptOption providedReceiptOption : receiptOptions.providedReceiptOptions) {
+          if (providedReceiptOption.enabled) {
+            String value;
+            if (providedReceiptOption.value != null) {
+              value = providedReceiptOption.value;
+            } else {
+              //We need a string value of null because GenericClient in TransactionSettings will filter out null values
+              value = "null";
+            }
+            enabledReceiptOptions.put(providedReceiptOption.type, value);
+          }
+        }
+        i.putExtra(Intents.EXTRA_ENABLED_RECEIPT_OPTIONS, (Serializable) enabledReceiptOptions);
+        //All Receipt Options were disabled, so skip the receipt screen
+        i.putExtra(Intents.EXTRA_SKIP_RECEIPT_SCREEN, !(enabledReceiptOptions.size() > 0));
+      }
+
+      if (receiptOptions.cloverShouldHandleReceipts != null) {
+        i.putExtra(Intents.EXTRA_CLOVER_SHOULD_HANDLE_RECEIPTS, receiptOptions.cloverShouldHandleReceipts);
+      }
     }
 
     if (signatureOptions != null) {
@@ -184,17 +211,101 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
    * Receipt options that allow the Integrator to control the receipt selection on a per-transaction level.
    */
   public static class ReceiptOptions {
-    public final Boolean skipReceiptSelection;
+    private List<ReceiptOptions.ReceiptOption> providedReceiptOptions;
+    private Boolean cloverShouldHandleReceipts;
 
-    private ReceiptOptions(Boolean skipReceiptSelection) {
-      this.skipReceiptSelection = skipReceiptSelection;
+    private ReceiptOptions() {}
+    public static ReceiptOptions Default(boolean cloverShouldHandleReceipts) {
+      return new ReceiptOptions(cloverShouldHandleReceipts, null, null, null, null);
     }
 
-    /**
-     * Receipt selection screen will be skipped.
-     */
-    public static ReceiptOptions Disable() {
-      return new ReceiptOptions(true);
+    public static ReceiptOptions SkipReceiptSelection() {
+      return new ReceiptOptions(true, SmsReceiptOption.Disable(), EmailReceiptOption.Disable(), PrintReceiptOption.Disable(), NoReceiptOption.Disable());
+    }
+
+    public static ReceiptOptions Instance(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
+      return new ReceiptOptions(cloverShouldHandleReceipts, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
+    }
+    private ReceiptOptions(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
+      this.cloverShouldHandleReceipts = cloverShouldHandleReceipts;
+      //if all receipt options are null, then providedReceiptOptions will be null (default behavior)
+      if (smsReceiptOption != null || emailReceiptOption != null || printReceiptOption != null || noReceiptOption != null) {
+        this.providedReceiptOptions = new ArrayList<>();
+        if (smsReceiptOption != null) {
+          this.providedReceiptOptions.add(smsReceiptOption);
+        }
+        if (emailReceiptOption != null) {
+          this.providedReceiptOptions.add(emailReceiptOption);
+        }
+        if (printReceiptOption != null) {
+          this.providedReceiptOptions.add(printReceiptOption);
+        }
+        if (noReceiptOption != null) {
+          this.providedReceiptOptions.add(noReceiptOption);
+        }
+      }
+    }
+
+    private static class ReceiptOption {
+      protected boolean enabled;
+      protected String type;
+      protected String value;
+    }
+
+    public static class SmsReceiptOption extends ReceiptOptions.ReceiptOption {
+      private SmsReceiptOption(String sms, boolean enabled) {
+        this.type = ReceiptOptionType.SMS;
+        this.value = sms;
+        this.enabled = enabled;
+      }
+      public static SmsReceiptOption Enable(String sms) {
+        return new SmsReceiptOption(sms, true);
+      }
+      public static SmsReceiptOption Disable() {
+        return new SmsReceiptOption(null, false);
+      }
+
+    }
+
+    public static class EmailReceiptOption extends ReceiptOptions.ReceiptOption {
+      private EmailReceiptOption(String email, boolean enable) {
+        this.type = ReceiptOptionType.EMAIL;
+        this.value = email;
+        this.enabled = enable;
+      }
+      public static EmailReceiptOption Enable(String email) {
+        return new EmailReceiptOption(email, true);
+      }
+      public static EmailReceiptOption Disable() {
+        return new EmailReceiptOption(null, false);
+      }
+    }
+
+    public static class PrintReceiptOption extends ReceiptOptions.ReceiptOption {
+
+      private PrintReceiptOption(boolean enable){
+        this.type=ReceiptOptionType.PRINT;
+        this.enabled = enable;
+      }
+      public static PrintReceiptOption Enable() {
+        return new PrintReceiptOption(true);
+      }
+      public static PrintReceiptOption Disable() {
+        return new PrintReceiptOption(false);
+      }
+    }
+
+    public static class NoReceiptOption extends ReceiptOptions.ReceiptOption {
+      private NoReceiptOption(boolean enable) {
+        this.type = ReceiptOptionType.NO_RECEIPT;
+        this.enabled = enable;
+      }
+      public static NoReceiptOption Enable() {
+        return new NoReceiptOption(true);
+      }
+      public static NoReceiptOption Disable() {
+        return new NoReceiptOption(false);
+      }
     }
   }
 

@@ -169,9 +169,9 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
-   * and show the lockscreen. This method has no effect if the passed context is an activity which
-   * is running on a non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display.
+   * This method has no effect if the passed context is an activity which is running on a
+   * non-primary display.
    * <p/>
    * Deprecated in favor of {@link #disable(Activity)}.
    */
@@ -181,8 +181,8 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
-   * and show the lockscreen. This method has no effect if the passed context is an activity which
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display.
+   * This method has no effect if the passed context is an activity which
    * is running on a non-primary display.
    */
   public static void disable(Activity activity) {
@@ -190,9 +190,9 @@ public class CustomerMode {
   }
 
   /**
-   * Disable customer mode. Bring back the navigation bar and status bar on the primary display
-   * and show the lockscreen. This method has no effect if the passed context is an activity which
-   * is running on a non-primary display.
+   * Disable customer mode. Bring back the navigation bar and status bar on the primary display.
+   * Show the lockscreen and hide quick access button if requireEmployeePasscode is set to true.
+   * This method has no effect if the passed context is an activity which is running on a non-primary display.
    * <p/>
    * Deprecated in favor of {@link #disable(Activity, boolean)}.
    *

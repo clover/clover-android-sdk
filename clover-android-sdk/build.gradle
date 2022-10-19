@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '288'
+version = '292'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
@@ -41,7 +41,23 @@ dependencies {
   androidTestImplementation "androidx.multidex:multidex:$ANDROIDX_MULTIDEX_VERSION"
 }
 
-ant.importBuild 'javadoc.xml'
+afterEvaluate {
+  android.libraryVariants.all { variant ->
+    def name = "${variant.name.capitalize()}"
+    task("javadoc${name}", type: Javadoc, dependsOn: "compile${name}Aidl") {
+      source = android.sourceSets.main.java.srcDirs
+      source += "build/generated/aidl_source_output_dir/${variant.name}/out"
+      classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+      options.docletpath = [file("yworks-uml-doclet-3.1-jdk1.8/lib/ydoc.jar"), file("yworks-uml-doclet-3.1-jdk1.8/resources")]
+      options.doclet = "ydoc.doclets.YStandard"
+      options.addStringOption "filterpath", "yworks-uml-doclet-3.1-jdk1.8/lib/ydoc.jar"
+      options.addStringOption "filter", "ydoc.filters.ExcludeFilter"
+      options.links 'https://developer.android.com/reference/'
+      options.overview 'overview.html'
+      destinationDir = file("build/docs/javadoc/${variant.name}/")
+    }
+  }
+}
 
 ext{
   project_name = 'Clover Android SDK'

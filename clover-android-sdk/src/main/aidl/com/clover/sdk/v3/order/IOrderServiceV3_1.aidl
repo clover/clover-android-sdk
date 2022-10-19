@@ -796,4 +796,24 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   OrderFdParcelable addLPMPayment(String orderId, in PaymentFdParcelable payment, out ResultStatus status);
+
+  /**
+     * Not available to non-Clover apps.
+     * @y.exclude
+     */
+  PaymentFdParcelable updatePaymentStatus(String orderId, in PaymentFdParcelable payment, out ResultStatus status);
+
+  /**
+     * Delete {@link LineItem}s from an {@link Order}.
+     *
+     * @param orderId The ID of the {@link Order} from which to delete the line items.
+     * @param lineItemIds The {@link LineItem} IDs to delete.
+     * @param reason. Why was the line item removed?
+     * @param clientEventType optional. What app did the delete come from?
+     * @param approvedByEmployeeId. Who approved the delete request?
+     * @return The updated {@link Order}.
+     * @clover.perm ORDERS_W
+     */
+    OrderFdParcelable deleteLineItemsWithReason2(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, in String approvedByEmployeeId, out ResultStatus status);
+
 }

@@ -15,8 +15,6 @@
  */
 package com.clover.sdk.v1;
 
-import com.clover.sdk.v3.scanner.BarcodeScanner;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -579,8 +577,9 @@ public class Intents {
    * 		<li>{@link #EXTRA_CLIENT_ID}</li>
    * 		<li>{@link #EXTRA_LINE_ITEM_IDS}</li>
    * 		<li>{@link #EXTRA_AMOUNT}</li>
-   *    <li>{@link #EXTRA_MID}</li>
-   *    <li>{@link #EXTRA_TID}</li>
+   *        <li>{@link #EXTRA_MID}</li>
+   *        <li>{@link #EXTRA_TID}</li>
+   *        <li>{@link #EXTRA_INVOICE_LABEL}</li>
    * </ul>
    * <p>
    * Result data includes:
@@ -606,7 +605,10 @@ public class Intents {
    * Extras passed:
    * <ul>
    * <li>{@link #EXTRA_START_SCAN} - true will start scanner, false will close scanner (Required)</li>
-   * <li>{@link #EXTRA_SHOW_PREVIEW} - whether scanner preview video will be shown, default is true</li>
+   * <li>
+   *   {@link #EXTRA_SHOW_PREVIEW} - whether scanner preview video will be shown, default is true.
+   *   <b>The preview window cannot be hidden on Clover Flex 1 (C401) devices.</b>
+   * </li>
    * <li>{@link #EXTRA_SHOW_MERCHANT_PREVIEW} - whether scanner preview will be shown in merchant facing mode, default is true</li>
    * <li>{@link #EXTRA_SHOW_CUSTOMER_PREVIEW} - whether scanner preview will be shown in customer facing mode, default is true</li>
    * <li>{@link #EXTRA_LED_ON} - whether LED will be on (selected devices only), default is false</li>
@@ -734,7 +736,10 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.Transaction}, a Transaction object */
   public static final String EXTRA_TRANSACTION = "clover.intent.extra.TRANSACTION";
 
-  /** {@link String}, the UUID of an Order object */
+  @Deprecated
+  /** {@link String}, the UUID of an Order object
+   *  Use the EXTRA_CLOVER_ORDER_ID for setting the Order ID
+   */
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
 
   /** {@link com.clover.sdk.v3.order.Order}, an Order object */
@@ -785,6 +790,9 @@ public class Intents {
   /** {@link String}, Terminal Id of the device */
   public static final String EXTRA_TID = "clover.intent.extra.TID";
 
+  /** {@link String}, Invoice Label of the device */
+  public static final String EXTRA_INVOICE_LABEL = "clover.intent.extra.INVOICE_LABEL";
+
   /** {@link String}, the UUID of a Payment object */
   public static final String EXTRA_PAYMENT_ID = "clover.intent.extra.PAYMENT_ID";
 
@@ -832,6 +840,9 @@ public class Intents {
 
   /** {@link Long}, tip amount */
   public static final String EXTRA_TIP_AMOUNT = "clover.intent.extra.TIP_AMOUNT";
+
+  /** {@link java.util.HashMap}, tip amounts */
+  public static final String EXTRA_TIP_AMOUNTS = "clover.intent.extra.TIP_AMOUNTS";
 
   /** {@link Boolean}, whether to display confirmation of tip and total amount */
   public static final String EXTRA_TIP_CONFIRM_MODE = "clover.intent.extra.TIP_CONFIRM_MODE";
@@ -932,7 +943,10 @@ public class Intents {
   /** {@link Boolean}, whether to start or stop barcode scanner */
   public static final String EXTRA_START_SCAN = "clover.intent.extra.SCAN_START";
 
-  /** {@link Boolean}, whether to show scanner preview video (merchant and customer facing modes) */
+  /**
+   * {@link Boolean}, whether to show scanner preview video (merchant and customer facing modes)
+   * <b>The preview window cannot be hidden on Clover Flex 1 (C401) devices.</b>
+   */
   public static final String EXTRA_SHOW_PREVIEW = "clover.intent.extra.SHOW_PREVIEW";
 
   /** {@link Boolean}, whether to show scanner preview video (merchant facing mode only) */
@@ -1216,6 +1230,9 @@ public class Intents {
 
   /** {@link com.clover.sdk.v3.order.VoidReason}, v3 VoidReason object */
   public static final String EXTRA_VOID_REASON = "clover.intent.extra.VOID_REASON";
+
+  /** {@link java.lang.String}, merchant provided reason for refund or credit */
+  public static final String EXTRA_REFUND_REASON = "clover.intent.extra.REFUND_REASON";
 
   /** {@link com.clover.sdk.v3.payments.Credit}, v3 Credit object (Manual Refund) */
   public static final String EXTRA_CREDIT = "clover.intent.extra.CREDIT";
@@ -1668,4 +1685,22 @@ public class Intents {
   }
 
   public static final String EXTRA_USE_CONNECTED_DEVICE = "clover.intent.extra.USE_CONNECTED_DEVICE";
+
+  public static final String EXTRA_RECEIPT_DELIVERY_STATUS = "clover.intent.extra.RECEIPT_DELIVERY_STATUS";
+
+  public static final String EXTRA_RECEIPT_DELIVERY_TYPE = "clover.intent.extra.RECEIPT_DELIVERY_TYPE";
+
+  public static final String EXTRA_CLOVER_SHOULD_HANDLE_RECEIPTS = "clover.intent.extra.CLOVER_SHOULD_HANDLE_RECEIPTS";
+
+  public static final String EXTRA_SELECTED_RECEIPT_OPTION = "clover.intent.extra.SELECTED_RECEIPT_OPTIONS";
+
+  public static final String EXTRA_ENABLED_RECEIPT_OPTIONS = "clover.intent.extra.ENABLED_RECEIPT_OPTIONS";
+
+  public static final String EXTRA_ENTERED_RECEIPT_VALUE = "clover.intent.extra.ENTERED_RECEIPT_VALUE";
+
+  public static final String EXTRA_SEND_DEBUG_LOG_MESSAGE = "clover.intent.extra.SEND_DEBUG_LOG_MESSAGE";
+
+  public static final String EXTRA_CASHBACK_SUGGESTIONS = "clover.intent.extra.CASHBACK_SUGGESTIONS";
+
+
 }

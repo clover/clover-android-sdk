@@ -733,6 +733,9 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
 
     void onLineItemModificationsAdded(String orderId, List<String> lineItemIds, List<String> modificationIds);
 
+    default void onLineItemModificationsDeleted(String orderId, List<String> lineItemIds, List<String> modificationIds) {
+    }
+
     void onLineItemDiscountsAdded(String orderId, List<String> lineItemIds, List<String> discountIds);
 
     void onLineItemExchanged(String orderId, String oldLineItemId, String newLineItemId);
@@ -904,6 +907,15 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
       postChange(new ListenerRunnable() {
         public void run(OnOrderUpdateListener2 listener) {
           listener.onCreditProcessed(orderId, creditId);
+        }
+      });
+    }
+
+    @Override
+    public void onLineItemModificationsDeleted(String orderId, List<String> lineItemIds, List<String> modificationIds) throws RemoteException {
+      postChange(new ListenerRunnable() {
+        public void run(OnOrderUpdateListener2 listener) {
+          listener.onLineItemModificationsDeleted(orderId, lineItemIds, modificationIds);
         }
       });
     }

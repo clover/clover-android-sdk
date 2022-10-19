@@ -46,6 +46,7 @@ public class ResultStatus implements Parcelable {
   public static final int RESPONSE_TOO_LARGE = 421;
   public static final int SERVICE_ERROR = 500;
   public static final int NOT_IMPLEMENTED = 501;
+  public static final int NETWORK_ERROR = 502;
   public static final int OTHER = 999;
 
   private int statusCode = UNKNOWN;
@@ -115,6 +116,8 @@ public class ResultStatus implements Parcelable {
         return "SERVICE_ERROR";
       case NOT_IMPLEMENTED:
         return "NOT_IMPLEMENTED";
+      case NETWORK_ERROR:
+        return "NETWORK_ERROR";
       case OTHER:
         return "CLOVER_ERROR";
       default:
