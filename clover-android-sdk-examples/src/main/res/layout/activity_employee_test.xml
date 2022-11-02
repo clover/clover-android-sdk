@@ -76,11 +76,6 @@
             android:layout_width="0dp"
             android:layout_height="16dp"/>
 
-        <TextView
-            android:id="@+id/status_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="&lt;login idle&gt;"/>
 
 
         <LinearLayout
@@ -95,12 +90,6 @@
                 android:id="@+id/button_login"
                 android:layout_gravity="left|center_vertical"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logout"
-                android:id="@+id/button_logout"
-                android:layout_gravity="center"/>
         </LinearLayout>
 
         <Button

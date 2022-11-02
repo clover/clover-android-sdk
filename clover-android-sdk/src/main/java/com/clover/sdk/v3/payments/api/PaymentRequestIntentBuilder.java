@@ -203,7 +203,7 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       }
 
       if (receiptOptions.cloverShouldHandleReceipts != null) {
-        i.putExtra(Intents.EXTRA_CLOVER_SHOULD_HANDLE_RECEIPTS, receiptOptions.cloverShouldHandleReceipts);
+        i.putExtra(Intents.EXTRA_REMOTE_RECEIPTS, !receiptOptions.cloverShouldHandleReceipts);
       }
     }
     if (offlineOptions != null) {

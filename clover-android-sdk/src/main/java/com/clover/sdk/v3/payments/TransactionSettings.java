@@ -52,6 +52,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRegionalExtras regionalExtras}</li>
  * <li>{@link #getDisableCreditSurcharge disableCreditSurcharge}</li>
  * <li>{@link #getReceiptOptions receiptOptions}</li>
+ * <li>{@link #getRemoteReceipts remoteReceipts}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -148,6 +149,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.receiptOptions);
   }
 
+  public java.lang.Boolean getRemoteReceipts() {
+    return genClient.cacheGet(CacheKey.remoteReceipts);
+  }
+
 
 
 
@@ -196,6 +201,8 @@ public class TransactionSettings extends GenericParcelable implements com.clover
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     receiptOptions
             (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+    remoteReceipts
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -392,6 +399,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'receiptOptions' field is set and is not null and is not empty */
   public boolean isNotEmptyReceiptOptions() { return isNotNullReceiptOptions() && !getReceiptOptions().isEmpty(); }
 
+  /** Checks whether the 'remoteReceipts' field is set and is not null */
+  public boolean isNotNullRemoteReceipts() {
+    return genClient.cacheValueIsNotNull(CacheKey.remoteReceipts);
+  }
+
 
 
   /** Checks whether the 'cardEntryMethods' field has been set, however the value could be null */
@@ -502,6 +514,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'receiptOptions' field has been set, however the value could be null */
   public boolean hasReceiptOptions() {
     return genClient.cacheHasKey(CacheKey.receiptOptions);
+  }
+
+  /** Checks whether the 'remoteReceipts' field has been set, however the value could be null */
+  public boolean hasRemoteReceipts() {
+    return genClient.cacheHasKey(CacheKey.remoteReceipts);
   }
 
 
@@ -663,6 +680,13 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.setOther(receiptOptions, CacheKey.receiptOptions);
   }
 
+  /**
+   * Sets the field 'remoteReceipts'.
+   */
+  public TransactionSettings setRemoteReceipts(java.lang.Boolean remoteReceipts) {
+    return genClient.setOther(remoteReceipts, CacheKey.remoteReceipts);
+  }
+
 
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   public void clearCardEntryMethods() {
@@ -752,6 +776,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   public void clearReceiptOptions() {
     genClient.clear(CacheKey.receiptOptions);
   }
+  /** Clears the 'remoteReceipts' field, the 'has' method for this field will now return false */
+  public void clearRemoteReceipts() {
+    genClient.clear(CacheKey.remoteReceipts);
+  }
 
 
   /**
@@ -836,6 +864,7 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
     public static final boolean DISABLECREDITSURCHARGE_IS_REQUIRED = false;
     public static final boolean RECEIPTOPTIONS_IS_REQUIRED = false;
+    public static final boolean REMOTERECEIPTS_IS_REQUIRED = false;
   }
 
 }

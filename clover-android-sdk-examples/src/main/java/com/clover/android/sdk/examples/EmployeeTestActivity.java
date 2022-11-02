@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clover.sdk.Lockscreen;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.ResultStatus;
@@ -54,7 +55,6 @@ public class EmployeeTestActivity extends Activity
     ServiceConnector.OnServiceConnectedListener {
   public static final String EXTRA_ACCOUNT = "account";
 
-  private static final int REQUEST_ACCOUNT = 0;
   private static final String TAG = EmployeeTestActivity.class.getSimpleName();
   private static final String TEST_EMPLOYEE_NAME = EmployeeTestActivity.class.getSimpleName();
 
@@ -68,10 +68,8 @@ public class EmployeeTestActivity extends Activity
   private Button buttonEmployees;
   private Button buttonActiveEmployee;
   private Button loginButton;
-  private Button logoutButton;
   private Button createButton;
   private Button deleteButton;
-  private TextView statusLogin;
   private EditText nicknameEditText;
   private Button setNicknameButton;
   private EditText customIdEditText;
@@ -80,6 +78,8 @@ public class EmployeeTestActivity extends Activity
   private Button setPinButton;
   private Spinner roleSpinner;
   private Button setRoleButton;
+  private Lockscreen lockscreen;
+
 
   private MerchantConnector.OnMerchantChangedListener merchantListener = new MerchantConnector.OnMerchantChangedListener() {
     @Override
@@ -109,7 +109,7 @@ public class EmployeeTestActivity extends Activity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_employee_test);
-
+    Lockscreen lockscreen = new Lockscreen(getBaseContext().getApplicationContext());
     statusEmployeesText = (TextView) findViewById(R.id.status_employees);
     statusActiveEmployeeText = (TextView) findViewById(R.id.status_active_employee);
     resultEmployeesText = (TextView) findViewById(R.id.result_employees);
@@ -132,17 +132,10 @@ public class EmployeeTestActivity extends Activity
     loginButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        login();
+        lockscreen.lock();
       }
     });
-    logoutButton = (Button) findViewById(R.id.button_logout);
-    logoutButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        logout();
-      }
-    });
-    statusLogin = (TextView) findViewById(R.id.status_login);
+
     createButton = (Button) findViewById(R.id.button_create);
     createButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -189,8 +182,7 @@ public class EmployeeTestActivity extends Activity
         setRole();
       }
     });
-
-    account = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
+    account = CloverAccount.getAccount(this);
     registerReceiver(activeEmployeeChangedReceiver, new IntentFilter(EmployeeIntent.ACTION_ACTIVE_EMPLOYEE_CHANGED));
   }
 
@@ -352,49 +344,6 @@ public class EmployeeTestActivity extends Activity
     });
   }
 
-  private void login() {
-    employeeConnector.login(new EmployeeConnector.EmployeeCallback<Void>() {
-      @Override
-      public void onServiceSuccess(Void result, ResultStatus status) {
-        super.onServiceSuccess(result, status);
-        updateLogin("login success", status);
-      }
-
-      @Override
-      public void onServiceFailure(ResultStatus status) {
-        super.onServiceFailure(status);
-        updateLogin("login failed", status);
-      }
-
-      @Override
-      public void onServiceConnectionFailure() {
-        super.onServiceConnectionFailure();
-        updateLogin("login failed", null);
-      }
-    });
-  }
-
-  private void logout() {
-    employeeConnector.logout(new EmployeeConnector.EmployeeCallback<Void>() {
-      @Override
-      public void onServiceSuccess(Void result, ResultStatus status) {
-        super.onServiceSuccess(result, status);
-        updateLogout("logout success", status);
-      }
-
-      @Override
-      public void onServiceFailure(ResultStatus status) {
-        super.onServiceFailure(status);
-        updateLogout("logout failed", status);
-      }
-
-      @Override
-      public void onServiceConnectionFailure() {
-        super.onServiceConnectionFailure();
-        updateLogout("logout failed", null);
-      }
-    });
-  }
 
   private void connect() {
     disconnect();
@@ -421,13 +370,8 @@ public class EmployeeTestActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
-
     if (account != null) {
       connect();
-      getActiveEmployee();
-      getEmployees();
-    } else {
-      startAccountChooser();
     }
   }
 
@@ -510,13 +454,6 @@ public class EmployeeTestActivity extends Activity
     }
   }
 
-  private void updateLogin(String status, ResultStatus resultStatus) {
-    statusLogin.setText("<" + status + " " + (resultStatus != null ? resultStatus : "") + ": " + DateFormat.getDateTimeInstance().format(new Date()) + ">");
-  }
-
-  private void updateLogout(String status, ResultStatus resultStatus) {
-    statusLogin.setText("<" + status + " " + (resultStatus != null ? resultStatus : "") + ": " + DateFormat.getDateTimeInstance().format(new Date()) + ">");
-  }
 
   private void notifyActiveEmployeeChanged(Employee employee) {
     String msg;
@@ -534,27 +471,6 @@ public class EmployeeTestActivity extends Activity
         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     n.flags |= Notification.FLAG_AUTO_CANCEL;
     notificationManager.notify(0, n);
-  }
-
-  private void startAccountChooser() {
-    Intent intent = AccountManager.newChooseAccountIntent(null, null, new String[]{CloverAccount.CLOVER_ACCOUNT_TYPE}, false, null, null, null, null);
-    startActivityForResult(intent, REQUEST_ACCOUNT);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_ACCOUNT) {
-      if (resultCode == RESULT_OK) {
-        String name = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-        String type = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
-
-        account = new Account(name, type);
-      } else {
-        if (account == null) {
-          finish();
-        }
-      }
-    }
   }
 
   @Override

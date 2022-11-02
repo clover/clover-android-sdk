@@ -45,8 +45,6 @@ import java.util.Date;
 public class MerchantTestActivity extends Activity implements MerchantConnector.OnMerchantChangedListener, ServiceConnector.OnServiceConnectedListener {
   private static final String TAG = "MerchantTestActivity";
 
-  private static final int REQUEST_ACCOUNT = 0;
-
   private MerchantConnector merchantConnector;
 
   private TextView resultGetMerchantText;
@@ -92,7 +90,7 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
     buttonGetMerchant.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        startAccountChooser();
+        getMerchant();
       }
     });
     statusSetAddressText = (TextView) findViewById(R.id.status_set_address);
@@ -130,24 +128,14 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
       }
     });
     statusSetPhoneText = (TextView) findViewById(R.id.status_set_phone);
-
+    account = CloverAccount.getAccount(this);
     registerReceiver(merchantChangedReceiver, new IntentFilter(MerchantIntent.ACTION_MERCHANT_CHANGED));
   }
-
-  private void startAccountChooser() {
-    Intent intent = AccountManager.newChooseAccountIntent(null, null, new String[]{CloverAccount.CLOVER_ACCOUNT_TYPE}, false, null, null, null, null);
-    startActivityForResult(intent, REQUEST_ACCOUNT);
-  }
-
   @Override
   protected void onResume() {
     super.onResume();
-
     if (account != null) {
       connect();
-      getMerchant();
-    } else {
-      startAccountChooser();
     }
   }
 
@@ -305,22 +293,6 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_ACCOUNT) {
-      if (resultCode == RESULT_OK) {
-        String name = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-        String type = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
-
-        account = new Account(name, type);
-      } else {
-        if (account == null) {
-          finish();
-        }
-      }
-    }
-  }
-
-  @Override
   public void onServiceConnected(ServiceConnector connector) {
     Log.i(TAG, "service connected: " + connector);
   }
@@ -329,4 +301,5 @@ public class MerchantTestActivity extends Activity implements MerchantConnector.
   public void onServiceDisconnected(ServiceConnector connector) {
     Log.i(TAG, "service disconnected: " + connector);
   }
+
 }

@@ -340,15 +340,16 @@ public class SessionConnector implements Serializable, SessionListener {
 
     @Override
     public void onSessionDataChanged(String type, Object data) {
-        Log.d(this.getClass().getSimpleName(), "onSessionDataChanged called with type = " + type);
+        String listenerSource = contextWeakReference.get().getPackageName();
         for (SessionListener listener : sessionListeners) {
+            Log.d(this.getClass().getSimpleName(), "onSessionDataChanged called with type = " + type + " for " + listenerSource + " with listener " + listener.getClass().getSimpleName());
+
             listener.onSessionDataChanged(type, data);
         }
     }
 
     @Override
     public void onSessionEvent(String type, String data) {
-        Log.d(this.getClass().getSimpleName(), "onSessionEvent called with type = " + type);
         for (SessionListener listener : sessionListeners) {
             listener.onSessionEvent(type, data);
         }
@@ -379,9 +380,9 @@ public class SessionConnector implements Serializable, SessionListener {
     /**
      * Maps method calls on the ContentObserver to the SessionConnector.
      */
-    static class SessionContentObserver extends ContentObserver {
+    class SessionContentObserver extends ContentObserver {
         private SessionConnector connector;
-        private static String lastUuid="";
+        private String lastUuid="";
 
         SessionContentObserver(SessionConnector connector) {
             super(new Handler());
@@ -416,19 +417,15 @@ public class SessionConnector implements Serializable, SessionListener {
                 lastUuid = messageUuid;
                 switch (SessionContract.matcher.match(uri)) {
                     case SessionContract.SESSION:
-                        Log.d(TAG, "Session Changed: --> " + uri.toString());
                         getConnector().onSessionDataChanged(SESSION, null);
                         break;
                     case SessionContract.SESSION_CUSTOMER_INFO:
-                        Log.d(TAG, "CustomerInfo Changed: --> " + uri.toString());
                         getConnector().onSessionDataChanged(CUSTOMER_INFO, getConnector().getCustomerInfo());
                         break;
                     case SessionContract.SESSION_DISPLAY_ORDER:
-                        Log.d(TAG, "DisplayOrder Changed: --> " + uri.toString());
                         getConnector().onSessionDataChanged(DISPLAY_ORDER, getConnector().getDisplayOrder());
                         break;
                     case SessionContract.PROPERTIES:
-                        Log.d(TAG, "Properties Changed: --> " + uri.toString());
                         getConnector().onSessionDataChanged(PROPERTIES, null);
                         break;
                     case SessionContract.PROPERTIES_KEY:
@@ -446,8 +443,6 @@ public class SessionConnector implements Serializable, SessionListener {
                             }
                             //We don't want to send internally sourced notifications
                             if (src == null || !src.equals(INTERNAL)) {
-                                Log.d(TAG, "Property key: " + key + " with value: " + value + " Changed: --> " + uri.toString());
-
                                 JsonObject obj = new JsonObject();
                                 obj.addProperty(QUERY_PARAMETER_NAME, key);
                                 obj.addProperty(QUERY_PARAMETER_VALUE, value);
@@ -456,7 +451,6 @@ public class SessionConnector implements Serializable, SessionListener {
                         }
                         break;
                     case SessionContract.SESSION_TRANSACTION:
-                        Log.d(TAG, "Transaction Changed: --> " + uri.toString());
                         getConnector().onSessionDataChanged(TRANSACTION, getConnector().getTransaction());
                         break;
                     case SessionContract.EVENT:
@@ -468,6 +462,8 @@ public class SessionConnector implements Serializable, SessionListener {
                         Log.d(TAG, "Unknown URI - Changed: --> " + uri.toString());
                         return;
                 }
+            } else {
+                Log.d(TAG, "onChange not processed for uri " + uri);
             }
             super.onChange(selfChange, uri);
         }

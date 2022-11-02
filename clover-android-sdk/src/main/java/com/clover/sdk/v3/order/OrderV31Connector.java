@@ -475,6 +475,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order updatePrintGroup(final String orderId, final PrintGroup printGroup) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.updatePrintGroup(orderId, new PrintGroupFdParcelable(printGroup), status));
+      }
+    });
+  }
+
   public Order addDiscount(final String orderId, final Discount discount) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -891,6 +900,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.voidPreAuth(orderId, preAuthId, iccContainer, voidReason, source, status));
+      }
+    });
+  }
+
+  public Order deletePreAuth(final String orderId, final String paymentId, final VoidReason voidReason, final VoidExtraData voidExtraData) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.deletePreAuth(orderId, paymentId, voidReason, voidExtraData, status));
       }
     });
   }

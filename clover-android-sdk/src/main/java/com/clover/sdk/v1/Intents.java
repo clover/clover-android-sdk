@@ -1702,5 +1702,6 @@ public class Intents {
 
   public static final String EXTRA_CASHBACK_SUGGESTIONS = "clover.intent.extra.CASHBACK_SUGGESTIONS";
 
+  public static final String EXTRA_REMOTE_RECEIPTS = "clover.intent.extra.REMOTE_RECEIPTS";
 
 }

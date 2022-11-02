@@ -816,4 +816,20 @@ interface IOrderServiceV3_1 {
      */
     OrderFdParcelable deleteLineItemsWithReason2(String orderId, in List<String> lineItemIds, in String reason, in ClientEventType clientEventType, in String approvedByEmployeeId, out ResultStatus status);
 
+  /**
+   * Update {@link PrintGroup} on order object.
+   *
+   * @param orderId The ID of the order to be updated
+   * @param fdPrintGroupToUpdate PrintGroup to be updated
+   * @return the order with updated PrintGroup
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable updatePrintGroup(String orderId, in PrintGroupFdParcelable fdPrintGroupToUpdate, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable deletePreAuth(String orderId, String paymentId, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
+
 }
