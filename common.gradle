@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 repositories {
   mavenLocal()
-  maven {url "https://artifactory.corp.clover.com/artifactory/repo"}
+  mavenCentral()
   google()
 }
 
