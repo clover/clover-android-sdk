@@ -1,10 +1,9 @@
 apply from: "${project.rootDir}/versions.gradle"
 
-def printVersions = false
-
 def requiredGradleVersion = new File("${project.rootDir}/gradleVersion").text.split('-')[1].trim()
 if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
   print "WARNING: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
+  throw new GradleException("Unsupported Gradle version.")
 }
 
 ext {
@@ -14,9 +13,10 @@ ext {
   firebasePlugin = "com.google.firebase:firebase-crashlytics-gradle:$FIREBASE_PLUGIN_VERSION"
   hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$HILT_VERSION"
   heapPlugin = "com.heapanalytics.android:heap-android-gradle:$HEAP_VERSION"
+  detektPlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$DETEKT_VERSION"
 }
 
-if (printVersions) {
+if (project.hasProperty('print_versions') && project.properties["print_versions"] == "true") {
   def gradleVersions = gradle.gradleVersion.split('\\.')
   def gradleMajorVersion = gradleVersions[0].toInteger()
   def gradleMinorVersion = gradleVersions[1].toInteger()
@@ -32,4 +32,5 @@ if (printVersions) {
   println "kotlinPlugin = " + kotlinPlugin
   println "sonarqubePlugin = " + sonarqubePlugin
   println "firebasePlugin = " + firebasePlugin
+  println "detektPlugin = " + detektPlugin
 }

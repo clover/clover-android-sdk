@@ -7,6 +7,7 @@
 package com.clover.sdk.v3.payments;
 
 @SuppressWarnings(value="unused")
+@Deprecated
 public class ReceiptInfo {
 
   private java.util.Map<java.lang.String,java.lang.String> selectedReceiptOptions = null;

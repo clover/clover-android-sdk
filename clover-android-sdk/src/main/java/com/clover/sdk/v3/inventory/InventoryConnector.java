@@ -41,6 +41,7 @@ import java.util.List;
  * @see ModifierGroup
  * @see Option
  * @see Attribute
+ * @see OrderFee
  */
 public class InventoryConnector extends ServiceConnector<IInventoryService> {
   private static final String SERVICE_HOST = "com.clover.engine";
@@ -1379,5 +1380,59 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
         service.removeCategoriesFromItem(itemId, categoryIds, status);
       }
     });
+  }
+
+  public List<OrderFee> getOrderFees() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(IInventoryService::getOrderFees);
+  }
+
+  public void getOrderFees(Callback<List<OrderFee>> callback) {
+    execute(IInventoryService::getOrderFees, callback);
+  }
+
+  public OrderFee getOrderFee(final String orderFeeId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute((service, status) -> {
+      return service.getOrderFee(orderFeeId, status);
+    });
+  }
+
+  public void getOrderFee(final String orderFeeId, Callback<OrderFee> callback) {
+    execute((service, status) -> service.getOrderFee(orderFeeId, status), callback);
+  }
+
+  public OrderFee createOrderFee(final OrderFee orderFee) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute((service, status) -> {
+      return service.createOrderFee(orderFee, status);
+    });
+  }
+
+  public void createOrderFee(final OrderFee orderFee, Callback<OrderFee> callback) {
+    execute((service, status) -> service.createOrderFee(orderFee, status), callback);
+  }
+
+  public void updateOrderFee(final OrderFee orderFee) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute((service, status) -> {
+      service.updateOrderFee(orderFee, status);
+    });
+  }
+
+  public void updateOrderFee(final OrderFee orderFee, Callback<Void> callback) {
+    execute((service, status) -> {
+      service.updateOrderFee(orderFee, status);
+      return null;
+    }, callback);
+  }
+
+  public void deleteOrderFee(final String orderFeeId) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute((service, status) -> {
+      service.deleteOrderFee(orderFeeId, status);
+    });
+  }
+
+  public void deleteOrderFee(final String orderFeeId, Callback<Void> callback) {
+    execute((service, status) -> {
+      service.deleteOrderFee(orderFeeId, status);
+      return null;
+    }, callback);
   }
 }

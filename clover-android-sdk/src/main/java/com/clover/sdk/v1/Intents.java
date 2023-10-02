@@ -365,6 +365,7 @@ public class Intents {
    * Result data includes:
    * <ul>
    *   <li>{@link #EXTRA_EMPLOYEE_ID} String of the authenticated employee id if successful</li>
+   *   <li>{@link #EXTRA_EMPLOYEE_NAME} String of the authenticated employee name if successful</li>
    * </ul>
    * <p>
    * Result codes:
@@ -622,28 +623,33 @@ public class Intents {
   public static final String ACTION_SCAN = "clover.intent.action.BARCODE_SCAN";
 
   /**
-   * A broadcast intent sent to your app when it is installed or updated to a
-   * new version.
+   * A broadcast and service intent action sent to your app when it is initially
+   * installed or updated.
    * <p/>
    * When an Android app is first installed it is placed in a stopped state. While in
    * the stopped state an app may not receive implicit broadcasts. An app exits the
-   * stopped state when it has had an activity, service, or explicit broadcast started by
-   * the user or another app. On typical Android devices this usually means the app won't
-   * ever have any components invoked until the user taps the launcher icon once.
+   * stopped state when it has had an activity, service, or <i>explicit</i> broadcast
+   * started either by user interaction with the app's components or programmatically
+   * by another app. This usually means the app won't have any components invoked
+   * until the user taps the launcher icon.
    * <p/>
-   * By implementing a receiver for this broadcast and registering it in your app manifest
-   * your app will immediately move out of the stopped state upon installation on a Clover
-   * device. Even if you don't actually need to do anything specifically related to
-   * installation you may want to implement an empty receiver just to ensure that your app
+   * By implementing a receiver or service for this intent and registering it in the app's
+   * manifest it will immediately move out of the stopped state upon installation, on
+   * Clover devices. Even if you don't actually need to do any work when your app is
+   * installed you may want to implement an empty receiver or service to ensure your app
    * is moved out of the stopped state so it can immediately begin receiving other
    * broadcasts.
    * <p/>
-   * Ensure that any operation performed in this receiver is idempotent.
+   * Ensure that any operation performed in the receiver or service is idempotent. It
+   * is guaranteed that your receiver and / or service is invoked at least once, but
+   * they may be invoked multiple times for a single install or update of your
+   * app.
    * <p/>
    * <b>
    * The service version of this intent is deprecated. Versions of Android 26 and greater
    * place restrictions of background execution that prevent non-foreground services from
-   * being started. Receive this intent as a broadcast, as described below:
+   * being started. Prefer to receive this intent action as a broadcast, as described
+   * below:
    * </b>
    * <pre>
    * {@code
@@ -656,23 +662,27 @@ public class Intents {
    * </receiver>
    * }
    * </pre>
+   * <i>On API level 26 and greater only receivers are invoked; your service component
+   * will not be invoked on API level 26 and greater.</i>
+   * <p/>
+   * If your app implements both a receiver and service they will both be started
+   * when your app is installed or updated, with the caveat that services
+   * are never invoked when your app's target SDK is 26 or greater.
+   * <p/>
    * Apps are restricted from performing blocking or otherwise long running operations in
-   * a receiver's {@link android.content.BroadcastReceiver#onReceive(Context, Intent)}.
-   * If you need to perform such work as a result on this intent use
-   * <code>JobIntentService</code> from the support or androidx library.
-   * You can find an example of this in <code>AppInstallDoneService</code> in
-   * the SDK Examples.
+   * {@link android.content.BroadcastReceiver#onReceive(Context, Intent)}.
+   * If you need to perform blocking work as a result on this intent you must offload the
+   * work to another component. See https://developer.android.com/guide/background for
+   * details.
    * <p/>
    * If you are developing an app and installing it via ADB (Android Studio or command
    * line) then you must manually invoke this broadcast receiver with the following
    * command:
    * <pre>
-   *   adb shell am broadcast -a com.clover.intent.action.APP_INSTALL_DONE -n your.packagename/.MyAppInstalledReceiver
+   *   adb shell am broadcast -a com.clover.intent.action.APP_INSTALL_DONE -n 'your.packagename/.MyAppInstalledReceiver'
    * </pre>
    * This broadcast intent is only received by the app that was installed. You will
    * not receive this intent when other apps are installed or updated.
-   *
-   * @see <a href="https://developer.android.com/reference/androidx/core/app/JobIntentService">JobIntentService</a>
    */
   public static final String ACTION_APP_INSTALL_DONE = "com.clover.intent.action.APP_INSTALL_DONE";
 
@@ -736,10 +746,7 @@ public class Intents {
   /** {@link com.clover.sdk.v3.payments.Transaction}, a Transaction object */
   public static final String EXTRA_TRANSACTION = "clover.intent.extra.TRANSACTION";
 
-  @Deprecated
-  /** {@link String}, the UUID of an Order object
-   *  Use the EXTRA_CLOVER_ORDER_ID for setting the Order ID
-   */
+  /** {@link String}, the UUID of an Order object */
   public static final String EXTRA_ORDER_ID = "clover.intent.extra.ORDER_ID";
 
   /** {@link com.clover.sdk.v3.order.Order}, an Order object */
@@ -759,6 +766,9 @@ public class Intents {
 
   /** {@link String}, the UUID of an Item object */
   public static final String EXTRA_CLOVER_ITEM_ID = "com.clover.intent.extra.ITEM_ID";
+
+  /** {@link java.util.ArrayList} of {@link String} objects - LineItem UUIDs */
+  public static final String EXTRA_CLOVER_ITEM_IDS ="com.clover.intent.extra.ITEM_IDS";
 
   /** {@link String}, the UUID of a Payment object */
   public static final String EXTRA_CLOVER_PAYMENT_ID = "com.clover.intent.extra.PAYMENT_ID";
@@ -831,6 +841,9 @@ public class Intents {
 
   /** {@link String}, the UUID of an Employee object */
   public static final String EXTRA_EMPLOYEE_ID = "clover.intent.extra.EMPLOYEE_ID";
+
+  /** {@link String}, the Name of employee in Employee object */
+  public static final String EXTRA_EMPLOYEE_NAME = "clover.intent.extra.EMPLOYEE_NAME";
 
   /** An {@link java.util.ArrayList} of {@link com.clover.sdk.v3.employees.AccountRole}. */
   public static final String EXTRA_ACCOUNT_ROLES = "clover.intent.extra.ACCOUNT_ROLES";
@@ -940,6 +953,9 @@ public class Intents {
   /** {@link Boolean}, whether the launched activity should validate roles instead of permissions (Required) */
   public static final String EXTRA_VALIDATE_ROLE = "clover.intent.extra.CHECK_ROLE";
 
+  /** {@link Boolean}, whether the launched activity should validate if the pin is either admin or manager */
+  public static final String EXTRA_IS_ADMIN_OR_MANAGER = "clover.intent.extra.IS_ADMIN_OR_MANAGER";
+
   /** {@link Boolean}, whether to start or stop barcode scanner */
   public static final String EXTRA_START_SCAN = "clover.intent.extra.SCAN_START";
 
@@ -968,6 +984,12 @@ public class Intents {
   /** {@link Boolean}, whether 1D codes will be scanned */
   public static final String EXTRA_SCAN_1D_CODE = "clover.intent.extra.SCAN_1D_CODE";
 
+  /** {@link Boolean}, whether UPC-A check digit will be transmitted */
+  public static final String EXTRA_TRANSMIT_UPC_A_CHECK_DIGIT = "clover.intent.extra.SCAN_UPC_A_CHECK_DIGIT";
+
+  /** {@link Boolean}, whether UPC-A preamble will be transmitted */
+  public static final String EXTRA_TRANSMIT_UPC_A_PREAMBLE = "clover.intent.extra.SCAN_UPC_A_PREAMBLE";
+
   /** {@link Boolean}, whether scanner preview video will have a 'close' button. If the scan is
    * occurring in merchant-facing mode the merchant will always have a mechanism to close the
    * scanner app. */
@@ -981,6 +1003,10 @@ public class Intents {
   public static final String EXTRA_SCAN_X = "clover.intent.extra.SCAN_X";
 
   public static final String EXTRA_SCAN_Y = "clover.intent.extra.SCAN_Y";
+
+  /** {@link Boolean}, flag used to indicate if payment failed due to timeout
+   * */
+  public static final String EXTRA_TIMEOUT = "clover.intent.extra.TIMEOUT";
 
   public static final String EXTRA_TIMESTAMP = "clover.intent.extra.TIMESTAMP";
 
@@ -1197,6 +1223,8 @@ public class Intents {
   public static final int CARD_ENTRY_METHOD_MANUAL = 0b00001000;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, this value should be used exclusively if Vaulted Card payment is intended for headless mode  */
   public static final int CARD_ENTRY_METHOD_VAULTED_CARD = 0b00010000;
+  /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, this value should be used exclusively to scan QR code or barcode */
+  public static final int CARD_ENTRY_METHOD_SCAN = 0b00100000;
   /** A bit value for {@link #EXTRA_CARD_ENTRY_METHODS}, all card entry methods. */
   public static final int CARD_ENTRY_METHOD_ALL = CARD_ENTRY_METHOD_MAG_STRIPE | CARD_ENTRY_METHOD_ICC_CONTACT | CARD_ENTRY_METHOD_NFC_CONTACTLESS | CARD_ENTRY_METHOD_MANUAL;
 
@@ -1316,6 +1344,9 @@ public class Intents {
   /** {@link Long}, what is the signature threshold for this transaction */
   public static final String EXTRA_SIGNATURE_THRESHOLD = "clover.intent.extra.SIGNATURE_THRESHOLD";
 
+  /** {@link Boolean}, is the device interaction for this transaction in kioskMode (i.e. customer-only/no merchant present) */
+  public static final String EXTRA_ENABLE_KIOSK_MODE = "clover.intent.extra.ENABLE_KIOSK_MODE";
+
   /** {@link String}, elv transaction type for Germany */
   public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
@@ -1354,10 +1385,28 @@ public class Intents {
    * <ul>
    * <li>{@link #EXTRA_CLOVER_LINE_ITEM_ID} - the UUID of the created LineItem</li>
    * <li>{@link #EXTRA_CLOVER_ITEM_ID} - the UUID of the Item associated with the LineItem</li>
+   * <li>{@Link #EXTRA_LINE_ITEM_IDS} - the array of the UUIDs of the added LineItems</li>
+   * <li>{@Link #EXTRA_CLOVER_ITEM_IDS} - the array of the UUIDs of associated with lineItems</li>
    * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of the order associated with the LineItem</li>
    * </ul>
+   * Several item additions may be combined into a single broadcast message. The receiver must read the ArrayList extras (those with constants ending in {@code _IDS}) to ensure that all item additions are observed.
    */
   public static final String ACTION_LINE_ITEM_ADDED = "com.clover.intent.action.LINE_ITEM_ADDED";
+
+  /**
+   * Broadcast from Clover, line item has been deleted
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_CLOVER_LINE_ITEM_ID} - the UUID of the deleted LineItem</li>
+   * <li>{@link #EXTRA_CLOVER_ITEM_ID} - the UUID of the Item associated with the LineItem</li>
+   * <li>{@link #EXTRA_LINE_ITEM_IDS} - the array of UUIDs of the deleted LineItems</li>
+   * <li>{@link #EXTRA_CLOVER_ITEM_IDS} - the array of UUIDs of associated with LineItems</li>
+   * <li>{@link #EXTRA_CLOVER_ORDER_ID} - the UUID of the order associated with the LineItem</li>
+   * </ul>
+   * Several item deletions may be combined into a single broadcast message. The receiver must read the ArrayList extras (those with constants ending in {@code _IDS}) to ensure that all item deletions are observed.
+   */
+  public static final String ACTION_LINE_ITEM_DELETED = "com.clover.intent.action.LINE_ITEM_DELETED";
 
   /**
    * Broadcast from Clover, indicating a payment has been successfully processed
@@ -1703,5 +1752,58 @@ public class Intents {
   public static final String EXTRA_CASHBACK_SUGGESTIONS = "clover.intent.extra.CASHBACK_SUGGESTIONS";
 
   public static final String EXTRA_REMOTE_RECEIPTS = "clover.intent.extra.REMOTE_RECEIPTS";
+
+  public static final String EXTRA_SHOULD_RETRIEVE_OPEN_PAYMENTS = "clover.intent.extra.SHOULD_RETRIEVE_OPEN_PAYMENTS";
+
+  public static final String EXTRA_ZERO_OUT_OPEN_TIPS = "clover.intent.extra.ZERO_OUT_OPEN_TIPS";
+
+  public static final String EXTRA_LEAVE_PREAUTHS_OPEN = "clover.intent.extra.LEAVE_PREAUTHS_OPEN";
+
+  public static final String ACTION_START_HEADLESS_CLOSEOUT = "clover.intent.action.START_HEADLESS_CLOSEOUT";
+
+  public static final String EXTRA_CLOSEOUT_RESULT = "clover.intent.extra.CLOSEOUT_RESULT";
+
+  public static final String EXTRA_CLOVER_SHOULD_HANDLE_TIPS = "clover.intent.extra.CLOVER_SHOULD_HANDLE_RECEIPTS";
+
+  public static final String EXTRA_OPTED_INTO_MARKETING = "clover.intent.extra.OPTED_INTO_MARKETING";
+
+  public static final String EXTRA_TENDER_OPTIONS = "clover.intent.extra.TENDER_OPTIONS";
+
+  public static final String EXTRA_CHANGE_DUE = "clover.intent.extra.CHANGE_DUE";
+
+  /**
+   * Used to indicate if the "return to merchant" screen can/should be skipped.
+   */
+  public static final String EXTRA_ALWAYS_SHOW_RETURN_TO_MERCHANT = "clover.intent.extra.ALWAYS_SHOW_RETURN_TO_MERCHANT";
+
+  /**
+   * Used (by BillSplit) to have the ensuing activity be in customer mode.
+   */
+  public static final String EXTRA_EXIT_IN_CUSTOMER_MODE = "clover.intent.extra.EXTRA_EXIT_IN_CUSTOMER_MODE";
+
+  /**
+   * Intent to track package of the override manager id.
+   */
+  public static final String EXTRA_THRESHOLD_MANAGER_ID = "threshold_manager_id";
+
+  /**
+   * Intent to track package of the override manager name.
+   */
+  public static final String EXTRA_THRESHOLD_MANAGER_NAME = "threshold_manager_name";
+
+  /**
+   * Intent to define EBT manual card entry screen flow.
+   */
+  public static final String EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW = "ebt_manual_card_entry_screen_flow";
+
+  /**
+   * Intent to define if manager permission dialog should be skip or not
+   */
+  public static final String EXTRA_SKIP_REPRINT_ROLE_CHECK = "skip_reprint_role_check";
+
+  /**
+   * {@link Boolean} If set to true, it will hide navigation and status bar
+   */
+  public static final String EXTRA_IMMERSIVE_MODE = "immersive_mode";
 
 }

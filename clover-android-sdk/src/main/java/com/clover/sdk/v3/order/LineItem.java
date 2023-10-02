@@ -63,6 +63,11 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRevenueAmount revenueAmount}</li>
  * <li>{@link #getQuantitySold quantitySold}</li>
  * <li>{@link #getPrintGroup printGroup}</li>
+ * <li>{@link #getHidden hidden}</li>
+ * <li>{@link #getPercentage percentage}</li>
+ * <li>{@link #getOrderFee orderFee}</li>
+ * <li>{@link #getIsOrderFee isOrderFee}</li>
+ * <li>{@link #getIsPlatformOrderFee isPlatformOrderFee}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -127,7 +132,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-   * Unit quantity if this line item is priced by quantity, or null if the item is not priced by quantity. The value is a fixed-point integer with scaling factor of 1000 (e.g. if charging by ounces then the value should be set to 2500 for 2.5 ounces). To compute the complete price perform the following calculation: PRICE * (UNIT QTY / 1000).
+   * This is applicable only if the item is priced by quantity of a unit. The item must have a priceType of PER_UNIT. The value is a fixed-point integer with scaling factor of 1000 (e.g. if charging per ounce, the value should be set to 2500 for 2.5 ounces). To compute the complete price perform the following calculation: PRICE * (UNIT QTY / 1000). If the item doesn’t have a priceType of PER_UNIT, then unitQty is ignored.
    */
   public java.lang.Integer getUnitQty() {
     return genClient.cacheGet(CacheKey.unitQty);
@@ -277,6 +282,41 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.printGroup);
   }
 
+  /**
+   * True if this line item has been marked as hidden on User Interface like Orders page and receipts
+   */
+  public java.lang.Boolean getHidden() {
+    return genClient.cacheGet(CacheKey.hidden);
+  }
+
+  /**
+   * For percentage based order fee line item, percent to charge times 10000, e.g. 12.5% will be 125000
+   */
+  public java.lang.Long getPercentage() {
+    return genClient.cacheGet(CacheKey.percentage);
+  }
+
+  /**
+   * A reference to the inventory order fee that was used to create this line item. Note that since this a reference the order fee can be changed and deleted any time such that it no longer matches this line item.
+   */
+  public com.clover.sdk.v3.base.Reference getOrderFee() {
+    return genClient.cacheGet(CacheKey.orderFee);
+  }
+
+  /**
+   * True if this line item is an order fee line item
+   */
+  public java.lang.Boolean getIsOrderFee() {
+    return genClient.cacheGet(CacheKey.isOrderFee);
+  }
+
+  /**
+   * True if this line item is an platform order fee line item
+   */
+  public java.lang.Boolean getIsPlatformOrderFee() {
+    return genClient.cacheGet(CacheKey.isPlatformOrderFee);
+  }
+
 
 
 
@@ -347,6 +387,16 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
     printGroup
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    hidden
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    percentage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    orderFee
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    isOrderFee
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isPlatformOrderFee
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -438,9 +488,12 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     genClient.validateLength(CacheKey.binName, getBinName(), 127);
 
     genClient.validateLength(CacheKey.userData, getUserData(), 255);
+
+    genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000000L);
     genClient.validateReferences(CacheKey.item);
     genClient.validateReferences(CacheKey.exchangedLineItem);
     genClient.validateReferences(CacheKey.printGroup);
+    genClient.validateReferences(CacheKey.orderFee);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -626,6 +679,31 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.printGroup);
   }
 
+  /** Checks whether the 'hidden' field is set and is not null */
+  public boolean isNotNullHidden() {
+    return genClient.cacheValueIsNotNull(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'percentage' field is set and is not null */
+  public boolean isNotNullPercentage() {
+    return genClient.cacheValueIsNotNull(CacheKey.percentage);
+  }
+
+  /** Checks whether the 'orderFee' field is set and is not null */
+  public boolean isNotNullOrderFee() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderFee);
+  }
+
+  /** Checks whether the 'isOrderFee' field is set and is not null */
+  public boolean isNotNullIsOrderFee() {
+    return genClient.cacheValueIsNotNull(CacheKey.isOrderFee);
+  }
+
+  /** Checks whether the 'isPlatformOrderFee' field is set and is not null */
+  public boolean isNotNullIsPlatformOrderFee() {
+    return genClient.cacheValueIsNotNull(CacheKey.isPlatformOrderFee);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -791,6 +869,31 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'printGroup' field has been set, however the value could be null */
   public boolean hasPrintGroup() {
     return genClient.cacheHasKey(CacheKey.printGroup);
+  }
+
+  /** Checks whether the 'hidden' field has been set, however the value could be null */
+  public boolean hasHidden() {
+    return genClient.cacheHasKey(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'percentage' field has been set, however the value could be null */
+  public boolean hasPercentage() {
+    return genClient.cacheHasKey(CacheKey.percentage);
+  }
+
+  /** Checks whether the 'orderFee' field has been set, however the value could be null */
+  public boolean hasOrderFee() {
+    return genClient.cacheHasKey(CacheKey.orderFee);
+  }
+
+  /** Checks whether the 'isOrderFee' field has been set, however the value could be null */
+  public boolean hasIsOrderFee() {
+    return genClient.cacheHasKey(CacheKey.isOrderFee);
+  }
+
+  /** Checks whether the 'isPlatformOrderFee' field has been set, however the value could be null */
+  public boolean hasIsPlatformOrderFee() {
+    return genClient.cacheHasKey(CacheKey.isPlatformOrderFee);
   }
 
 
@@ -1045,6 +1148,43 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(printGroup, CacheKey.printGroup);
   }
 
+  /**
+   * Sets the field 'hidden'.
+   */
+  public LineItem setHidden(java.lang.Boolean hidden) {
+    return genClient.setOther(hidden, CacheKey.hidden);
+  }
+
+  /**
+   * Sets the field 'percentage'.
+   */
+  public LineItem setPercentage(java.lang.Long percentage) {
+    return genClient.setOther(percentage, CacheKey.percentage);
+  }
+
+  /**
+   * Sets the field 'orderFee'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public LineItem setOrderFee(com.clover.sdk.v3.base.Reference orderFee) {
+    return genClient.setRecord(orderFee, CacheKey.orderFee);
+  }
+
+  /**
+   * Sets the field 'isOrderFee'.
+   */
+  public LineItem setIsOrderFee(java.lang.Boolean isOrderFee) {
+    return genClient.setOther(isOrderFee, CacheKey.isOrderFee);
+  }
+
+  /**
+   * Sets the field 'isPlatformOrderFee'.
+   */
+  public LineItem setIsPlatformOrderFee(java.lang.Boolean isPlatformOrderFee) {
+    return genClient.setOther(isPlatformOrderFee, CacheKey.isPlatformOrderFee);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1178,6 +1318,26 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearPrintGroup() {
     genClient.clear(CacheKey.printGroup);
   }
+  /** Clears the 'hidden' field, the 'has' method for this field will now return false */
+  public void clearHidden() {
+    genClient.clear(CacheKey.hidden);
+  }
+  /** Clears the 'percentage' field, the 'has' method for this field will now return false */
+  public void clearPercentage() {
+    genClient.clear(CacheKey.percentage);
+  }
+  /** Clears the 'orderFee' field, the 'has' method for this field will now return false */
+  public void clearOrderFee() {
+    genClient.clear(CacheKey.orderFee);
+  }
+  /** Clears the 'isOrderFee' field, the 'has' method for this field will now return false */
+  public void clearIsOrderFee() {
+    genClient.clear(CacheKey.isOrderFee);
+  }
+  /** Clears the 'isPlatformOrderFee' field, the 'has' method for this field will now return false */
+  public void clearIsPlatformOrderFee() {
+    genClient.clear(CacheKey.isPlatformOrderFee);
+  }
 
 
   /**
@@ -1283,6 +1443,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean REVENUEAMOUNT_IS_REQUIRED = false;
     public static final boolean QUANTITYSOLD_IS_REQUIRED = false;
     public static final boolean PRINTGROUP_IS_REQUIRED = false;
+    public static final boolean HIDDEN_IS_REQUIRED = false;
+    public static final boolean PERCENTAGE_IS_REQUIRED = false;
+    public static final long PERCENTAGE_MIN = 0;
+    public static final long PERCENTAGE_MAX = 1000000;
+    public static final boolean ORDERFEE_IS_REQUIRED = false;
+    public static final boolean ISORDERFEE_IS_REQUIRED = false;
+    public static final boolean ISPLATFORMORDERFEE_IS_REQUIRED = false;
   }
 
 }

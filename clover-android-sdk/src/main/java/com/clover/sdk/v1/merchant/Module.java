@@ -71,6 +71,7 @@ public enum Module implements Parcelable {
   COST_OF_GOODS,
   ADVANCED_REPORTING,
   RETAIL_HUB,
+  PURCHASING_CARD,
   ;
 
   @Override

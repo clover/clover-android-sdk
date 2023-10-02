@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '293'
+version = '304'
 
 apply from: file("${project.rootDir}/lib.gradle")
 
@@ -31,27 +31,27 @@ android {
 
 dependencies {
   api files('lib/calc-jvm.jar')
-  api "org.jetbrains.kotlin:kotlin-stdlib:1.5.0"
-  api "org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0"
+  api 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
+  api 'org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0'
 
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
 
   // Android tests
   androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
   androidTestImplementation "androidx.multidex:multidex:$ANDROIDX_MULTIDEX_VERSION"
+  testImplementation "org.hamcrest:hamcrest:$HAMCREST_2_VERSION"
 }
 
 afterEvaluate {
   android.libraryVariants.all { variant ->
     def name = "${variant.name.capitalize()}"
-    task("javadoc${name}", type: Javadoc, dependsOn: "compile${name}Aidl") {
+    task("javadoc${name}", type: Javadoc, dependsOn: "assemble${name}") {
       source = android.sourceSets.main.java.srcDirs
       source += "build/generated/aidl_source_output_dir/${variant.name}/out"
+      classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
       classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
-      options.docletpath = [file("yworks-uml-doclet-3.1-jdk1.8/lib/ydoc.jar"), file("yworks-uml-doclet-3.1-jdk1.8/resources")]
-      options.doclet = "ydoc.doclets.YStandard"
-      options.addStringOption "filterpath", "yworks-uml-doclet-3.1-jdk1.8/lib/ydoc.jar"
-      options.addStringOption "filter", "ydoc.filters.ExcludeFilter"
+      options.addBooleanOption "Xdoclint:none", true
+      options.addBooleanOption "-frames", true
       options.links 'https://developer.android.com/reference/'
       options.overview 'overview.html'
       destinationDir = file("build/docs/javadoc/${variant.name}/")

@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.ViewDebug;
 
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.Category;
@@ -136,9 +137,15 @@ public abstract class PrintJob implements Parcelable {
     }
 
     /**
-     * Indicate that this job should be printed to any available printer in case the default is
+     * Indicates that this job should be printed to any available printer in case the default is
      * not available. Defaults to false.
+     *
+     * @deprecated Use {@link PrintJobsConnector#print(PrintJob)} to print to any suitable
+     * configured printer. This field is ignored when calling
+     * {@link PrintJobsConnector#print(PrintJob)} or
+     * {@link PrintJobsConnector#print(Printer, PrintJob)}.
      */
+    @Deprecated
     public Builder printToAny(boolean printToAny) {
       this.printToAny = printToAny;
       return this;
@@ -153,9 +160,16 @@ public abstract class PrintJob implements Parcelable {
   public final int flags;
 
   /**
-   * Indicate that this job should be printed to any available printer in case the default is
+   * Indicates that this job should be printed to any available printer in case the default is
    * not available. Defaults to false.
+   *
+   * @deprecated Use {@link PrintJobsConnector#print(PrintJob)} to print to any suitable
+   * configured printer. This field is ignored when calling
+   * {@link PrintJobsConnector#print(PrintJob)} or
+   * {@link PrintJobsConnector#print(Printer, PrintJob)}.
+   *
    */
+  @Deprecated
   public final boolean printToAny;
 
   @Deprecated
@@ -173,14 +187,24 @@ public abstract class PrintJob implements Parcelable {
 
   /**
    * Send this PrintJob to the default printer.
+   *
+   * @deprecated Use {@link PrintJobsConnector#print(PrintJob)}. This method provides
+   * no mechanism to understand success or failure, and no way to retrieve
+   * the status of the print job.
    */
+  @Deprecated
   public void print(Context context, Account account) {
     print(context, account, null);
   }
 
   /**
    * Send this PrintJob to the specified printer.
+   *
+   * @deprecated Use {@link PrintJobsConnector#print(Printer, PrintJob)}.
+   * This method provides no mechanism to understand success or failure, and no
+   * way to retrieve the status of the print job.
    */
+  @Deprecated
   public void print(Context context, Account account, Printer printer) {
     Intent intent = new Intent(PrinterIntent.ACTION_PRINT_SERVICE);
     intent.putExtra(PrinterIntent.EXTRA_PRINTJOB, this);

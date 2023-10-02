@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getClientCreatedTime clientCreatedTime}</li>
+ * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getGatewayProcessingTime gatewayProcessingTime}</li>
  * <li>{@link #getPayment payment}</li>
  * <li>{@link #getEmployee employee}</li>
@@ -118,6 +119,13 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public java.lang.Long getClientCreatedTime() {
     return genClient.cacheGet(CacheKey.clientCreatedTime);
+  }
+
+  /**
+   * The time when the refund was deleted on the server
+   */
+  public java.lang.Long getDeletedTime() {
+    return genClient.cacheGet(CacheKey.deletedTime);
   }
 
   /**
@@ -245,63 +253,65 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     orderRef
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     device
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     amount
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     taxAmount
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tipAmount
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     createdTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     clientCreatedTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     gatewayProcessingTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     payment
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     employee
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     lineItems
-            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     overrideMerchantTender
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
     taxableAmountRates
-            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TaxableAmountRate.JSON_CREATOR)),
     serviceChargeAmount
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
     additionalCharges
-            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
     attributes
-            (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     germanInfo
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
     appTracking
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
     voided
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     voidReason
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     cardTransaction
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
     transactionInfo
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
     merchant
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     externalReferenceId
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     authCode
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     status
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.RefundStatus.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.RefundStatus.class)),
     oceanGatewayInfo
-            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
     reason
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -422,6 +432,11 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'clientCreatedTime' field is set and is not null */
   public boolean isNotNullClientCreatedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.clientCreatedTime);
+  }
+
+  /** Checks whether the 'deletedTime' field is set and is not null */
+  public boolean isNotNullDeletedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
   }
 
   /** Checks whether the 'gatewayProcessingTime' field is set and is not null */
@@ -581,6 +596,11 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'clientCreatedTime' field has been set, however the value could be null */
   public boolean hasClientCreatedTime() {
     return genClient.cacheHasKey(CacheKey.clientCreatedTime);
+  }
+
+  /** Checks whether the 'deletedTime' field has been set, however the value could be null */
+  public boolean hasDeletedTime() {
+    return genClient.cacheHasKey(CacheKey.deletedTime);
   }
 
   /** Checks whether the 'gatewayProcessingTime' field has been set, however the value could be null */
@@ -747,6 +767,13 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Refund setClientCreatedTime(java.lang.Long clientCreatedTime) {
     return genClient.setOther(clientCreatedTime, CacheKey.clientCreatedTime);
+  }
+
+  /**
+   * Sets the field 'deletedTime'.
+   */
+  public Refund setDeletedTime(java.lang.Long deletedTime) {
+    return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
   /**
@@ -955,6 +982,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearClientCreatedTime() {
     genClient.clear(CacheKey.clientCreatedTime);
   }
+  /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
+  public void clearDeletedTime() {
+    genClient.clear(CacheKey.deletedTime);
+  }
   /** Clears the 'gatewayProcessingTime' field, the 'has' method for this field will now return false */
   public void clearGatewayProcessingTime() {
     genClient.clear(CacheKey.gatewayProcessingTime);
@@ -1109,6 +1140,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
+    public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean GATEWAYPROCESSINGTIME_IS_REQUIRED = false;
     public static final boolean PAYMENT_IS_REQUIRED = false;
     public static final boolean EMPLOYEE_IS_REQUIRED = false;

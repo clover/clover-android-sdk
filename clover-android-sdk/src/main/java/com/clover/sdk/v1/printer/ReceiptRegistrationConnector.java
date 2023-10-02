@@ -34,15 +34,25 @@ import java.util.Locale;
 /**
  * A class that encapsulates interaction with
  * {@link com.clover.sdk.v1.printer.IReceiptRegistrationService}.
- * This class automatically binds and provides both synchronous and asynchronous service
- * method invocation.
+ * This class automatically binds upon invocation of it's service methods
+ * (e.g., {@link #register(Uri)}.
  * <p>
  * Clients of this class may optionally call {@link #connect()} to force
  * pre-binding to the underlying service, and must call {@link #disconnect()}
  * when finished interacting with the underlying service.
  * <p>
- * For all service methods, this class provides both synchronous and asynchronous call options.
- * The synchronous methods must not be called on the UI thread.
+ * While this class originally provided both synchronous and asynchronous methods
+ * for interacting with the service, the asynchronous methods are now deprecated.
+ * <p>
+ * Consider using {@link com.clover.sdk.v1.Intents#ACTION_APP_PRE_UNINSTALL} to ensure
+ * your provider is unregistered when your application is uninstalled. Call
+ * {@link #unregister(Uri)} in your pre-uninstall service.
+ * <p>
+ * If your registered receipt registration content provider fails to respond it may
+ * be temporarily or permanently disabled. See {@link ReceiptContract}
+ * for more information.
+ *
+ * @see com.clover.sdk.v1.printer.ReceiptContract
  */
 public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegistrationService> {
   private static final String TAG = "ReceiptRegistrationConnector";
@@ -113,6 +123,10 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
   }
 
 
+  /**
+   * @deprecated Use {@link #register(Uri)} instead.
+   */
+  @Deprecated
   public void register(final Uri uri, Callback<Void> callback) {
     execute(new ReceiptRegistrationRunnable() {
       @Override
@@ -122,6 +136,11 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
     }, callback);
   }
 
+  /**
+   * Register a receipt registration {@link android.content.ContentProvider}.
+   *
+   * @param uri The "content://" URI of the receipt registration content provider.
+   */
   public void register(final Uri uri) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new ReceiptRegistrationRunnable() {
       @Override
@@ -131,6 +150,10 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
     });
   }
 
+  /**
+   * @deprecated Use {@link #unregister(Uri)} instead.
+   */
+  @Deprecated
   public void unregister(final Uri uri, Callback<Void> callback) {
     execute(new ReceiptRegistrationRunnable() {
       @Override
@@ -140,6 +163,11 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
     }, callback);
   }
 
+  /**
+   * Unregister a receipt registration {@link android.content.ContentProvider}.
+   *
+   * @param uri The "content://" URI of the receipt registration content provider.
+   */
   public void unregister(final Uri uri) throws RemoteException, ClientException, ServiceException, BindingException {
     execute(new ReceiptRegistrationRunnable() {
       @Override
@@ -149,6 +177,10 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
     });
   }
 
+  /**
+   * @deprecated Use {@link #getRegistrations()} instead.
+   */
+  @Deprecated
   public void getRegistrations(Callback<List<ReceiptRegistration>> callback) {
     execute(new ReceiptRegistrationCallable<List<ReceiptRegistration>>() {
       @Override
@@ -158,6 +190,10 @@ public class ReceiptRegistrationConnector extends ServiceConnector<IReceiptRegis
     }, callback);
   }
 
+  /**
+   * Get the list of all registered receipt registration
+   * {@link android.content.ContentProvider}s.
+   */
   public List<ReceiptRegistration> getRegistrations() throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ReceiptRegistrationCallable<List<ReceiptRegistration>>() {
       @Override

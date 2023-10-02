@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum TaxType implements Parcelable {
-  VAT_TAXABLE, VAT_NON_TAXABLE, VAT_EXEMPT, INTERNAL_TAX, PARTNER_TAX;
+  VAT_TAXABLE, VAT_NON_TAXABLE, VAT_EXEMPT, INTERNAL_TAX, PARTNER_TAX, ORDER_FEES;
 
   @Override
   public int describeContents() {

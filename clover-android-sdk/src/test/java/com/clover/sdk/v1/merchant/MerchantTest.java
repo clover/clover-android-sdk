@@ -34,5 +34,9 @@ public class MerchantTest {
     b.putString("modules", modules.put("fast_pay").toString());
     merchant = new Merchant(b, new Bundle());
     assertThat(merchant.getModules().contains(Module.FAST_PAY), is(true));
+
+    b.putString("modules", modules.put("purchasing_card").toString());
+    merchant = new Merchant(b, new Bundle());
+    assertThat(merchant.getModules().contains(Module.PURCHASING_CARD), is(true));
   }
 }

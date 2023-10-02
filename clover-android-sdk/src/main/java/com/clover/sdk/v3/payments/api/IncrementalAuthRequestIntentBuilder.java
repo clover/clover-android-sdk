@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.clover.sdk.v1.Intents;
 
 /**
- * Use the IncrementalAuthRequestIntentBuilder class to increment an existing Authorization.
+ * Use the IncrementalAuthRequestIntentBuilder class to increment an existing Authorization/PreAuth.
  */
 public class IncrementalAuthRequestIntentBuilder extends BaseIntentBuilder {
     private Long amount;

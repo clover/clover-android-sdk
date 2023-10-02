@@ -54,7 +54,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTransactionInfo transactionInfo}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getExternalReferenceId externalReferenceId}</li>
- * <li>{@link #getCreditAttributes CreditAttributes}</li>
+ * <li>{@link #getCreditAttributes creditAttributes}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -208,7 +208,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   public java.util.Map<java.lang.String,java.lang.String> getCreditAttributes() {
-    return genClient.cacheGet(CacheKey.CreditAttributes);
+    return genClient.cacheGet(CacheKey.creditAttributes);
   }
 
 
@@ -262,7 +262,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     externalReferenceId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
-    CreditAttributes
+    creditAttributes
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
       ;
 
@@ -470,12 +470,12 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
   }
 
-  /** Checks whether the 'CreditAttributes' field is set and is not null */
+  /** Checks whether the 'creditAttributes' field is set and is not null */
   public boolean isNotNullCreditAttributes() {
-    return genClient.cacheValueIsNotNull(CacheKey.CreditAttributes);
+    return genClient.cacheValueIsNotNull(CacheKey.creditAttributes);
   }
 
-  /** Checks whether the 'CreditAttributes' field is set and is not null and is not empty */
+  /** Checks whether the 'creditAttributes' field is set and is not null and is not empty */
   public boolean isNotEmptyCreditAttributes() { return isNotNullCreditAttributes() && !getCreditAttributes().isEmpty(); }
 
 
@@ -599,9 +599,9 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.externalReferenceId);
   }
 
-  /** Checks whether the 'CreditAttributes' field has been set, however the value could be null */
+  /** Checks whether the 'creditAttributes' field has been set, however the value could be null */
   public boolean hasCreditAttributes() {
-    return genClient.cacheHasKey(CacheKey.CreditAttributes);
+    return genClient.cacheHasKey(CacheKey.creditAttributes);
   }
 
   /**
@@ -801,10 +801,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
-   * Sets the field 'CreditAttributes'.
+   * Sets the field 'creditAttributes'.
    */
-  public Credit setCreditAttributes(java.util.Map<java.lang.String,java.lang.String> CreditAttributes) {
-    return genClient.setOther(CreditAttributes, CacheKey.CreditAttributes);
+  public Credit setCreditAttributes(java.util.Map<java.lang.String,java.lang.String> creditAttributes) {
+    return genClient.setOther(creditAttributes, CacheKey.creditAttributes);
   }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
@@ -903,9 +903,9 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearExternalReferenceId() {
     genClient.clear(CacheKey.externalReferenceId);
   }
-  /** Clears the 'CreditAttributes' field, the 'has' method for this field will now return false */
+  /** Clears the 'creditAttributes' field, the 'has' method for this field will now return false */
   public void clearCreditAttributes() {
-    genClient.clear(CacheKey.CreditAttributes);
+    genClient.clear(CacheKey.creditAttributes);
   }
 
 

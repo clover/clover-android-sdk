@@ -16,10 +16,10 @@
 package com.clover.android.sdk.examples;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.ResultStatus;
@@ -31,35 +31,35 @@ import java.util.List;
 public class CreateCustomTenderTestActivity extends Activity {
   private static final String TAG = "CreateCustomTenderTestActivity";
 
-  private static final int REQUEST_ACCOUNT = 1;
 
   private TenderConnector tenderConnector;
   private Account account;
 
   private TextView resultText;
+  private Button newTender, getTender;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_tenders_test);
-
+    account = CloverAccount.getAccount(this);
     resultText = (TextView) findViewById(R.id.result);
+    newTender = findViewById(R.id.newTender);
+    newTender.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        createTender();
+      }
+    });
+    getTender = findViewById(R.id.availTenders);
+    getTender.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        getTenders();
+      }
+    });
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_ACCOUNT && resultCode == RESULT_OK) {
-      String name = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-      String type = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
-
-      account = new Account(name, type);
-    }
-  }
-
-  private void startAccountChooser() {
-    Intent intent = AccountManager.newChooseAccountIntent(null, null, new String[]{CloverAccount.CLOVER_ACCOUNT_TYPE}, false, null, null, null, null);
-    startActivityForResult(intent, REQUEST_ACCOUNT);
-  }
 
   @Override
   protected void onResume() {
@@ -67,9 +67,6 @@ public class CreateCustomTenderTestActivity extends Activity {
 
     if (account != null) {
       connect();
-      createTender();
-    } else {
-      startAccountChooser();
     }
   }
 

@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum ServiceType implements Parcelable {
-  PICKUP, DELIVERY, CURBSIDE, DINEIN, SHIPPING;
+  PICKUP, DELIVERY, CURBSIDE, DINEIN, SHIPPING, CATERING_PICKUP, CATERING_DELIVERY, KIOSK_PICKUP, KIOSK_DINEIN;
 
   @Override
   public int describeContents() {

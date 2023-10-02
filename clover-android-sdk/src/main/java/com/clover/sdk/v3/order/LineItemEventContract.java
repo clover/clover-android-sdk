@@ -52,6 +52,31 @@ public final class LineItemEventContract {
      * @see #EXTRA_LINE_ITEM_EVENT
      */
     public static final String METHOD_INSERT = "insert";
+
+    /**
+     * Content provider call
+     * ({@link android.content.ContentResolver#call(Uri, String, String, Bundle)} method
+     * to copy list of {@link LineItemEvent} to new line item events.
+     *
+     * This method requires that extra {@link #EXTRA_FROM_LINE_ITEM_ID}
+     * {@link #EXTRA_TO_LINE_ITEM_ID} is included in
+     * the call extras.
+     * <p>
+     * The result bundle will contain a {@link com.clover.sdk.v1.ResultStatus} at extra
+     * {@link #EXTRA_RESULT_STATUS} to indicate the result of the operation.
+     *
+     * Prefer to use {@link com.clover.sdk.v3.order.LineItemEvents#copyLineItemEvents(String, String, String)}
+     * to copy line item events.
+     *
+     * @see android.content.ContentResolver#call(Uri, String, String, Bundle)
+     * @see LineItemEvent
+     * @see ResultStatus
+     * @see #EXTRA_RESULT_STATUS
+     * @see #EXTRA_LINE_ITEM_EVENTS
+     * @see #EXTRA_LINE_ITEM_EVENT_COUNT
+     */
+    public static final String METHOD_COPY_EVENTS = "copy_events";
+
     /**
      * Content provider call
      * ({@link android.content.ContentResolver#call(Uri, String, String, Bundle)} method
@@ -127,6 +152,20 @@ public final class LineItemEventContract {
      * A {@link ResultStatus}, the result of the operation.
      */
     public static final String EXTRA_RESULT_STATUS = "result_status";
+    /**
+     * A {@link String} that is a {@link LineItem} ID. This value must be a 13-character
+     * Clover UUID.
+     */
+    public static final String EXTRA_FROM_LINE_ITEM_ID = "from_line_item_id";
+    /**
+     * A {@link String} that is a {@link LineItem} ID. This value must be a 13-character
+     * Clover UUID.
+     */
+    public static final String EXTRA_TO_LINE_ITEM_ID = "to_line_item_id";
+    /**
+     * A {@link String}, the 13-character Clover order UUID corresponding to this event.
+     */
+    public static final String EXTRA_ORDER_ID = "order_id";
 
     /**
      * Columns for the line item event content provider schema.
@@ -166,6 +205,12 @@ public final class LineItemEventContract {
          * A {@link String}, the 13-character reference id which holds Clover UUID.
          */
         String REFERENCE_ID = "reference_id";
+        /**
+         * A {@link String}, device id where the line_item is marked ready/complete.
+         * Can be null for other KDS event types
+         * Default value is null
+         */
+        String DEVICE_ID = "device_id";
     }
 
     /**

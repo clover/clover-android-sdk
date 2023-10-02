@@ -21,25 +21,37 @@ import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.payments.Payment;
+import com.clover.sdk.v3.payments.Refund;
 
 public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parcelable {
   private static final String BUNDLE_KEY_PAYMENT = "pp";
   private static final String BUNDLE_KEY_PAYMENT_ID = "p";
 
+  private static final String BUNDLE_KEY_REFUND = "rp";
+
   public static class Builder extends StaticReceiptPrintJob.Builder {
     protected String paymentId;
     protected Payment payment;
+
+    protected Refund refund;
+
 
     public Builder staticPaymentPrintJob(StaticPaymentPrintJob pj) {
       staticReceiptPrintJob(pj);
       this.paymentId = pj.paymentId;
       this.payment = pj.payment;
+      this.refund = pj.refund;
 
       return this;
     }
 
     public Builder paymentId(String paymentId) {
       this.paymentId = paymentId;
+      return this;
+    }
+
+    public Builder refund(Refund refund) {
+      this.refund = refund;
       return this;
     }
 
@@ -56,12 +68,14 @@ public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parc
 
   public final String paymentId;
   public final Payment payment;
+  public final Refund refund;
 
 
   @Deprecated
   public StaticPaymentPrintJob(Order order, String paymentId, int flags) {
     super(order, flags);
     this.paymentId = paymentId;
+    this.refund = null;
     this.payment = null;
   }
 
@@ -69,6 +83,7 @@ public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parc
     super(builder);
     this.paymentId = builder.paymentId;
     this.payment = builder.payment;
+    this.refund = builder.refund;
   }
 
   public static final Creator<StaticPaymentPrintJob> CREATOR = new Creator<StaticPaymentPrintJob>() {
@@ -86,6 +101,7 @@ public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parc
     Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     paymentId = bundle.getString(BUNDLE_KEY_PAYMENT_ID);
     payment = bundle.getParcelable(BUNDLE_KEY_PAYMENT);
+    refund = bundle.getParcelable(BUNDLE_KEY_REFUND);
     // Add more data here, but remember old apps might not provide it!
   }
 
@@ -100,6 +116,7 @@ public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parc
     Bundle bundle = new Bundle();
     bundle.putString(BUNDLE_KEY_PAYMENT_ID, paymentId);
     bundle.putParcelable(BUNDLE_KEY_PAYMENT, payment);
+    bundle.putParcelable(BUNDLE_KEY_REFUND, refund);
 
     dest.writeBundle(bundle);
   }

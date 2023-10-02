@@ -10,7 +10,6 @@ import ssl
 import getopt
 import tempfile
 import os
-import sqlite3
 import shutil
 
 debug = False
@@ -18,11 +17,12 @@ dry_run = False
 keep_files = False
 downgrade = False
 
-version = "1.1"
+version = "1.2"
 # Version information:
-#       0.1: Initial release
+#       0.1  : Initial release
 #       1.0.1: Update to fix downgrade with no current app
-#       1.1: Require python3, use shutil to resolve adb executable
+#       1.1  : Require python3, use shutil to resolve adb executable
+#       1.2  : Query apps instead of pulling apps database 
 #
 
 def eprint(*args, **kwargs):
@@ -37,7 +37,8 @@ def run_command(command, no_print=False):
         lines.append(l.strip())
 
     if not no_print and (debug or p.returncode != 0):
-        for line in iter(lines): eprint('{} >>> {}'.format(command, line))
+        for line in iter(lines): 
+            if line: eprint('{} >>> {}'.format(command, line))
     return p.returncode, iter(lines)
     
 def print_help():
@@ -64,6 +65,34 @@ def download(apk_url, apk_file):
     output = open(apk_file, 'wb')
     output.write(r.data)
     output.close()
+
+# Query for the set of apps that should be installed to the device.
+#
+# Returns: a dict of dicts, where the first dict maps a package 
+#   name to a dict, and the mapped dict maps app keys to values.
+def query_apps(adb):
+    return_code, lines = run_command('{} shell content query --uri content://com.clover.apps/apps'.format(adb))
+    if return_code != 0:
+        eprint("Failed to query apps from device")
+        sys.exit(-2)
+    apps = {}    
+    pattern = re.compile(r'(?P<key>\w+)=(?P<value>[^,]+)(?:,\s*)?')
+
+    for line in lines:
+        if line:
+            matches = list(pattern.finditer(line))
+            if matches:
+                app = {}
+                for match in pattern.finditer(line): app[match['key']] = match['value']
+                if 'package' in app:
+                    apps[app['package']] = app
+                else:
+                    eprint("Failed to parse query result: {}".format(line))
+            else:
+                eprint("Failed to query apps from device")
+                sys.exit(-2)
+            
+    return apps
 
 def main(argv):
     if sys.version_info < (3,5):
@@ -132,59 +161,48 @@ def main(argv):
         if match:
             version_code = match.group(1)
             installed_versions[last_pkg] = version_code
-            if debug: print('Put installed version for pkg: {}, version code: {}'.format(last_pkg, version_code))
+            if debug: print('Put installed version for package: {}, version code: {}'.format(last_pkg, version_code))
 
     print('Getting current app data...')
     sys.stdout.flush()
+    apps = query_apps(adb)
+    print('Processing {} installed apps...'.format(len(apps)))
 
-    appinfo_db_file = '{}/appinfo.db'.format(tempfile.gettempdir())
-    return_code, lines = run_command('{} pull /data/data/com.clover.engine/databases/appinfo.db {}'.format(adb, appinfo_db_file))
-    if return_code != 0:
-        eprint("Failed to pull app info DB from device")
-        sys.exit(-2)
+    for app in apps.values():
+        pkg = app['package']
+        current_version = app['version_code']
+        apk_url = app['apk_url']
+        installed_version = installed_versions.get(pkg, "?")
 
-    try:
-        with sqlite3.connect(appinfo_db_file) as conn:
-            for row in conn.execute('select * from apps'):
-                pkg = row[3]
-                current_version = row[5]
-                apk_url = row[7]
-                installed_version = installed_versions.get(pkg, "?")
+        if debug: print('Package: {}, version: {} ({})'.format(pkg, installed_version, current_version))
 
-                if debug:
-                    print('Package: {}, version: {} ({})'.format(pkg, installed_version, current_version))
+        if (not downgrade and installed_version == '?') \
+            or (not downgrade and int(current_version) > int(installed_version)) \
+            or (downgrade and installed_version != '?' and int(current_version) < int(installed_version)):
+                if installed_version == '?' or int(current_version) > int(installed_version):
+                    print('Updating package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version))
+                else:
+                    print('Downgrading package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version))
+                sys.stdout.flush()
 
-                if (not downgrade and installed_version == '?') \
-                        or (not downgrade and int(current_version) > int(installed_version)) \
-                        or (downgrade and installed_version != '?' and int(current_version) < int(installed_version)):
-                    if installed_version == '?' or int(current_version) > int(installed_version):
-                        print('Updating package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version))
-                    else:
-                        print('Downgrading package: {} from version: {}, to version: {}...'.format(pkg, installed_version, current_version))
-                    sys.stdout.flush()
+                if apk_url == None:
+                    eprint('URL not found for package: {}, skipping'.format(pkg))
+                    continue
 
-                    if apk_url == None:
-                        eprint('URL not found for package: {}, skipping'.format(pkg))
-                        continue
+                apk_file = "{}/{}-{}.apk".format(tempfile.gettempdir(), pkg, current_version)
+                if debug: print('Downloading from URL: {}, to file: {}...'.format(apk_url, apk_file))
 
-                    apk_file = "{}/{}-{}.apk".format(tempfile.gettempdir(), pkg, current_version)
-                    if debug: print('Downloading from URL: {}, to file: {}...'.format(apk_url, apk_file))
+                try:
+                    if not dry_run or keep_files: download(apk_url, apk_file)
 
-                    try:
-                        if not dry_run or keep_files: download(apk_url, apk_file)
-
-                        adb_install_command = '{} install {} -r -d {}'.format(adb, no_streaming, apk_file)
-                        return_code = 0
-                        if dry_run: print(adb_install_command)
-                        else:
-                            return_code, lines = run_command(adb_install_command)
-                    finally:
-                        # If we are explicitly keeping or the command was not successful, keep the APK
-                        if keep_files or return_code != 0: print("APK file kept at: {}".format(apk_file))
-                        else: os.remove(apk_file)
-    finally:
-        if keep_files: print("App info DB file kept at: {}".format(appinfo_db_file))
-        else :os.remove(appinfo_db_file)
+                    adb_install_command = '{} install {} -r -d {}'.format(adb, no_streaming, apk_file)
+                    return_code = 0
+                    if dry_run: print(adb_install_command)
+                    else: return_code, lines = run_command(adb_install_command)
+                finally:
+                    # If we are explicitly keeping or the command was not successful, keep the APK
+                    if keep_files or return_code != 0: print("APK file kept at: {}".format(apk_file))
+                    else: os.remove(apk_file)
     
 if __name__ == "__main__":
     main(sys.argv[1:])

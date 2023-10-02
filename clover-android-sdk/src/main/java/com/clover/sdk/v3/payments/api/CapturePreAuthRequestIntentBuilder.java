@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Use the CapturePreAuthRequestIntentBuilder class to capture a pre-authorized payment on an Android device.
+ * Use the CapturePreAuthRequestIntentBuilder class to capture a pre-authorized payment on a Clover device.
  */
 public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
   private Long amount;
@@ -52,7 +52,7 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
   /**
    * Sets ReceiptOptions on the CapturePreAuthRequestIntentBuilder object
    *
-   * @param receiptOptions
+   * @param receiptOptions - @see com.clover.sdk.v3.payments.api.PaymentRequestIntentBuilder.ReceiptOptions
    * @return PaymentRequestIntentBuilder object with new ReceiptOptions
    */
   public CapturePreAuthRequestIntentBuilder receiptOptions(ReceiptOptions receiptOptions) {
@@ -64,7 +64,7 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
    * Builder method to create an Intent to be used by Integrator POS to capture a pre-authorization
    *
    * @param context
-   * @return Android Intent to be used to initiate a capture of a pre-authorization.
+   * @return Intent to be used to initiate a capture of a pre-authorization.
    * @throws IllegalArgumentException
    */
   public Intent build(Context context) {
@@ -208,21 +208,50 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
   }
 
   /**
-   * Receipt options that allow the Integrator to control the receipt selection on a per-transaction level.
+   * ReceiptOptions that allow the Integrator to control the receipt selection options on a per-transaction level.
    */
   public static class ReceiptOptions {
     private List<ReceiptOptions.ReceiptOption> providedReceiptOptions;
     private Boolean cloverShouldHandleReceipts;
 
     private ReceiptOptions() {}
+
+    /**
+     * Create ReceiptOptions with the default list of options displaying, with an option to have
+     * the Clover default receipt processing or not.
+     * @param cloverShouldHandleReceipts - <i>true</i>-Clover will process a default Clover receipt(default), or
+     *                                   <i>false</i>-will return the object with a REQUESTED value if a default
+     *                                   Clover receipt isn't desired. For SMS and Email, an additional
+     *                                   field containing the sms number or email address will also
+     *                                   be returned.
+     * @return
+     */
     public static ReceiptOptions Default(boolean cloverShouldHandleReceipts) {
       return new ReceiptOptions(cloverShouldHandleReceipts, null, null, null, null);
     }
 
+    /**
+     * This will cause the UI flow to skip the receipt selection screen and no customer receipt will be
+     * processed
+     * @return
+     */
     public static ReceiptOptions SkipReceiptSelection() {
       return new ReceiptOptions(true, SmsReceiptOption.Disable(), EmailReceiptOption.Disable(), PrintReceiptOption.Disable(), NoReceiptOption.Disable());
     }
 
+    /**
+     * Builds a ReceiptOptions where some options may be specified
+     * @param cloverShouldHandleReceipts - <i>true</i>-Clover will process a default Clover receipt(default), or
+     *                                   <i>false</i>-will return the object with a REQUESTED value if a default
+     *                                   Clover receipt isn't desired. For SMS and Email, an additional
+     *                                   field containing the sms number or email address will also
+     *                                   be returned.
+     * @param smsReceiptOption - @see SmsReceiptOption
+     * @param emailReceiptOption - @see EmailReceiptOptions
+     * @param printReceiptOption - @see PrintReceiptOption
+     * @param noReceiptOption - @see NoReceiptOption
+     * @return
+     */
     public static ReceiptOptions Instance(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
       return new ReceiptOptions(cloverShouldHandleReceipts, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
     }
@@ -252,57 +281,108 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
       protected String value;
     }
 
+    /**
+     * SmsReceiptOption that allows the Integrator to control the Sms receipt option.
+     */
     public static class SmsReceiptOption extends ReceiptOptions.ReceiptOption {
       private SmsReceiptOption(String sms, boolean enabled) {
         this.type = ReceiptOptionType.SMS;
         this.value = sms;
         this.enabled = enabled;
       }
+
+      /**
+       * The Sms Receipt option will be displayed, with an optional sms number provided
+       * @param sms - optional sms number that will pre-fill the number field
+       * @return
+       */
       public static SmsReceiptOption Enable(String sms) {
         return new SmsReceiptOption(sms, true);
       }
+
+      /**
+       * The Sms Receipt option will not be displayed
+       * @return
+       */
       public static SmsReceiptOption Disable() {
         return new SmsReceiptOption(null, false);
       }
 
     }
 
+    /**
+     * EmailReceiptOption that allows the Integrator to control the Email receipt option.
+     */
     public static class EmailReceiptOption extends ReceiptOptions.ReceiptOption {
       private EmailReceiptOption(String email, boolean enable) {
         this.type = ReceiptOptionType.EMAIL;
         this.value = email;
         this.enabled = enable;
       }
+      /**
+       * The Email Receipt option will be displayed, with an optional email address provided
+       * @param email - optional email address that will pre-fill the email address field
+       * @return
+       */
       public static EmailReceiptOption Enable(String email) {
         return new EmailReceiptOption(email, true);
       }
+      /**
+       * The Email Receipt option will not be displayed
+       * @return
+       */
       public static EmailReceiptOption Disable() {
         return new EmailReceiptOption(null, false);
       }
     }
 
+    /**
+     * PrintReceiptOption that allows the Integrator to control the Print receipt option.
+     */
     public static class PrintReceiptOption extends ReceiptOptions.ReceiptOption {
 
       private PrintReceiptOption(boolean enable){
         this.type=ReceiptOptionType.PRINT;
         this.enabled = enable;
       }
+      /**
+       * The Print Receipt option will be displayed
+       * @return
+       */
       public static PrintReceiptOption Enable() {
         return new PrintReceiptOption(true);
       }
+      /**
+       * The Print Receipt option will not be displayed
+       * @return
+       */
       public static PrintReceiptOption Disable() {
         return new PrintReceiptOption(false);
       }
     }
 
+    /**
+     * PrintReceiptOption that allows the Integrator to control the Print receipt option.
+     */
     public static class NoReceiptOption extends ReceiptOptions.ReceiptOption {
       private NoReceiptOption(boolean enable) {
         this.type = ReceiptOptionType.NO_RECEIPT;
         this.enabled = enable;
       }
+
+      /**
+       * The No Receipt option will be displayed
+       * @return
+       */
       public static NoReceiptOption Enable() {
         return new NoReceiptOption(true);
       }
+
+      /**
+       * The No Receipt option will not be displayed on the customer screen
+       * <i>note:</i> This will only hide the No Receipt option from the customer screen
+       * @return
+       */
       public static NoReceiptOption Disable() {
         return new NoReceiptOption(false);
       }

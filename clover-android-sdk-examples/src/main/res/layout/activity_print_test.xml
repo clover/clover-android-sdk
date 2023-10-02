@@ -32,7 +32,7 @@
     <EditText
         android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_printer_id"
+        android:id="@+id/printer_id"
         android:hint="Printer ID, or leave empty"
         android:editable="true"
         android:singleLine="true"

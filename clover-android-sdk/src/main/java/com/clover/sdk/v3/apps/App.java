@@ -141,6 +141,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTrialDays trialDays}</li>
  * <li>{@link #getTrialDaysLeft trialDaysLeft}</li>
  * <li>{@link #getIsHipaaCompliant isHipaaCompliant}</li>
+ * <li>{@link #getMerchantsPlanIdsExclusion merchantsPlanIdsExclusion}</li>
+ * <li>{@link #getResellersUuidsExclusion resellersUuidsExclusion}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -753,7 +755,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
-   * Returns the trial period in days left for this app.
+   * Returns the trial period left in days for this app.
    */
   public java.lang.Integer getTrialDaysLeft() {
     return genClient.cacheGet(CacheKey.trialDaysLeft);
@@ -764,6 +766,20 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public java.lang.Boolean getIsHipaaCompliant() {
     return genClient.cacheGet(CacheKey.isHipaaCompliant);
+  }
+
+  /**
+   * List of excluded merchant plan ids for given app
+   */
+  public java.util.List<java.lang.Long> getMerchantsPlanIdsExclusion() {
+    return genClient.cacheGet(CacheKey.merchantsPlanIdsExclusion);
+  }
+
+  /**
+   * List of excluded resellers uuids for given app
+   */
+  public java.util.List<java.lang.String> getResellersUuidsExclusion() {
+    return genClient.cacheGet(CacheKey.resellersUuidsExclusion);
   }
 
 
@@ -992,6 +1008,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     isHipaaCompliant
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    merchantsPlanIdsExclusion
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.Long.class)),
+    resellersUuidsExclusion
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -1718,6 +1738,22 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.isHipaaCompliant);
   }
 
+  /** Checks whether the 'merchantsPlanIdsExclusion' field is set and is not null */
+  public boolean isNotNullMerchantsPlanIdsExclusion() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantsPlanIdsExclusion);
+  }
+
+  /** Checks whether the 'merchantsPlanIdsExclusion' field is set and is not null and is not empty */
+  public boolean isNotEmptyMerchantsPlanIdsExclusion() { return isNotNullMerchantsPlanIdsExclusion() && !getMerchantsPlanIdsExclusion().isEmpty(); }
+
+  /** Checks whether the 'resellersUuidsExclusion' field is set and is not null */
+  public boolean isNotNullResellersUuidsExclusion() {
+    return genClient.cacheValueIsNotNull(CacheKey.resellersUuidsExclusion);
+  }
+
+  /** Checks whether the 'resellersUuidsExclusion' field is set and is not null and is not empty */
+  public boolean isNotEmptyResellersUuidsExclusion() { return isNotNullResellersUuidsExclusion() && !getResellersUuidsExclusion().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -2273,6 +2309,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'isHipaaCompliant' field has been set, however the value could be null */
   public boolean hasIsHipaaCompliant() {
     return genClient.cacheHasKey(CacheKey.isHipaaCompliant);
+  }
+
+  /** Checks whether the 'merchantsPlanIdsExclusion' field has been set, however the value could be null */
+  public boolean hasMerchantsPlanIdsExclusion() {
+    return genClient.cacheHasKey(CacheKey.merchantsPlanIdsExclusion);
+  }
+
+  /** Checks whether the 'resellersUuidsExclusion' field has been set, however the value could be null */
+  public boolean hasResellersUuidsExclusion() {
+    return genClient.cacheHasKey(CacheKey.resellersUuidsExclusion);
   }
 
 
@@ -3099,6 +3145,24 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setOther(isHipaaCompliant, CacheKey.isHipaaCompliant);
   }
 
+  /**
+   * Sets the field 'merchantsPlanIdsExclusion'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setMerchantsPlanIdsExclusion(java.util.List<java.lang.Long> merchantsPlanIdsExclusion) {
+    return genClient.setArrayOther(merchantsPlanIdsExclusion, CacheKey.merchantsPlanIdsExclusion);
+  }
+
+  /**
+   * Sets the field 'resellersUuidsExclusion'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public App setResellersUuidsExclusion(java.util.List<java.lang.String> resellersUuidsExclusion) {
+    return genClient.setArrayOther(resellersUuidsExclusion, CacheKey.resellersUuidsExclusion);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -3544,6 +3608,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearIsHipaaCompliant() {
     genClient.clear(CacheKey.isHipaaCompliant);
   }
+  /** Clears the 'merchantsPlanIdsExclusion' field, the 'has' method for this field will now return false */
+  public void clearMerchantsPlanIdsExclusion() {
+    genClient.clear(CacheKey.merchantsPlanIdsExclusion);
+  }
+  /** Clears the 'resellersUuidsExclusion' field, the 'has' method for this field will now return false */
+  public void clearResellersUuidsExclusion() {
+    genClient.clear(CacheKey.resellersUuidsExclusion);
+  }
 
 
   /**
@@ -3741,6 +3813,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean TRIALDAYS_IS_REQUIRED = false;
     public static final boolean TRIALDAYSLEFT_IS_REQUIRED = false;
     public static final boolean ISHIPAACOMPLIANT_IS_REQUIRED = false;
+    public static final boolean MERCHANTSPLANIDSEXCLUSION_IS_REQUIRED = false;
+    public static final boolean RESELLERSUUIDSEXCLUSION_IS_REQUIRED = false;
   }
 
 }

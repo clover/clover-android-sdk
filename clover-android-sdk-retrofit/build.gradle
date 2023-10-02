@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '293'
+version = '304'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
@@ -42,6 +42,7 @@ afterEvaluate {
       source = android.sourceSets.main.java.srcDirs
       classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
       classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+      options.addBooleanOption "Xdoclint:none", true
       options.links 'https://d.android.com/reference/'
       options.links 'https://d.android.com/reference/androidx/'
       options.links 'https://javadoc.io/static/com.squareup.okhttp3/okhttp/3.12.3/'

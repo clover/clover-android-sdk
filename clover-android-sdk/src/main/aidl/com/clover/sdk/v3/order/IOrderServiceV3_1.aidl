@@ -31,6 +31,7 @@ import com.clover.sdk.v3.inventory.ModifierFdParcelable;
 import com.clover.common.payments.TerminalManagementComponent;
 import com.clover.common.payments.VoidExtraData;
 import com.clover.sdk.v3.payments.AdditionalChargeAmount;
+import com.clover.sdk.v3.payments.AuthorizationFdParcelable;
 
 /**
  * An interface for interacting with the Clover order service.
@@ -831,5 +832,42 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   OrderFdParcelable deletePreAuth(String orderId, String paymentId, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  RefundFdParcelable voidRefund(String orderId, in RefundFdParcelable fdRefund, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  RefundFdParcelable voidRefundOffline(String orderId, in RefundFdParcelable fdRefund, out ResultStatus status);
+
+
+  /**
+      * Not available to non-Clover apps.
+      * @y.exclude
+  */
+  AuthorizationFdParcelable addAuthorization(String orderId, in AuthorizationFdParcelable authorization, out ResultStatus status);
+
+  /**
+     * Not available to non-Clover apps.
+     * @y.exclude
+  */
+  OrderFdParcelable captureAuthorization(String orderId, in AuthorizationFdParcelable authorization, out ResultStatus status);
+
+/**
+
+   * Not available to non-Clover apps.
+   * @y.excludez
+   */
+  RefundFdParcelable partialRefundV3(String orderId, in RefundFdParcelable fdRefund, boolean tipIncluded, out ResultStatus resultStatus);
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  OrderFdParcelable queueVoid(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in Map passThroughExtras, in VoidReason reason, in VoidExtraData voidExtraData, String source, out ResultStatus resultStatus);
 
 }

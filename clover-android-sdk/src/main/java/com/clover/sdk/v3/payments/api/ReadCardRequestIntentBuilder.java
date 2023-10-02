@@ -7,11 +7,17 @@ import com.clover.sdk.v1.Intents;
 
 import java.util.Set;
 
+/**
+ * Use the ReadCardRequestIntentBuilder to build a request to request a read card operation
+ */
 public class ReadCardRequestIntentBuilder extends BaseIntentBuilder {
     private CardOptions cardOptions = null;
 
-
-
+    /**
+     *
+     * @param cardOptions
+     * @return
+     */
     public ReadCardRequestIntentBuilder cardOptions(CardOptions cardOptions) {
         this.cardOptions = cardOptions;
         return this;
@@ -43,6 +49,11 @@ public class ReadCardRequestIntentBuilder extends BaseIntentBuilder {
             this.cardEntryMethods = cardEntryMethods;
         }
 
+        /**
+         * CardOptions to control card options for a single transaction
+         * @param cardEntryMethods - @see CardEntryMethod
+         * @return
+         */
         public static CardOptions Instance(Set<CardEntryMethod> cardEntryMethods) {
             return new CardOptions(cardEntryMethods);
         }

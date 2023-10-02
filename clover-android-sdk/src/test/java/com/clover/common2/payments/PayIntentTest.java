@@ -285,4 +285,166 @@ public class PayIntentTest {
     assertNotNull(fromParcel.refundReason);
     assertEquals("Deceased customer", fromParcel.refundReason);
   }
+
+  @Test
+  public void testThresholdMangerName() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.thresholdManagerName);
+
+    String thresholdManagerName = "TESTNAMEMANGER";
+
+    payIntent = new PayIntent.Builder().thresholdManagerName(thresholdManagerName).build();
+    assertNotNull(payIntent.thresholdManagerName);
+    assertEquals("TESTNAMEMANGER", payIntent.thresholdManagerName);
+  }
+
+  @Test
+  public void testThresholdMangerName_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.thresholdManagerName);
+
+    String thresholdManagerName = "TESTNAMEMANGER";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_THRESHOLD_MANAGER_NAME, thresholdManagerName);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.thresholdManagerName);
+    assertEquals("TESTNAMEMANGER", payIntent.thresholdManagerName);
+  }
+
+  @Test
+  public void testThresholdMangerName_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.thresholdManagerName);
+
+    String thresholdManagerName = "TESTMANAGERNAME";
+
+    sourcePayIntent = new PayIntent.Builder().thresholdManagerName(thresholdManagerName).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals("TESTMANAGERNAME", payIntent.thresholdManagerName);
+  }
+
+  @Test
+  public void testThresholdMangerName_serialization() {
+    String thresholdManagerName = "TESTNAMEMANGER";
+    PayIntent payIntent = new PayIntent.Builder().thresholdManagerName(thresholdManagerName).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.thresholdManagerName);
+    assertEquals("TESTNAMEMANGER", fromParcel.thresholdManagerName);
+  }
+
+  @Test
+  public void testThresholdMangerId() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.thresholdManagerId);
+
+    String thresholdManagerId = "KUYUYUIY658HG";
+
+    payIntent = new PayIntent.Builder().thresholdManagerId(thresholdManagerId).build();
+    assertNotNull(payIntent.thresholdManagerId);
+    assertEquals("KUYUYUIY658HG", payIntent.thresholdManagerId);
+  }
+
+  @Test
+  public void testThresholdMangerId_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.thresholdManagerId);
+
+    String thresholdManagerId = "KUYUYUIY658HG";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_THRESHOLD_MANAGER_ID, thresholdManagerId);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.thresholdManagerId);
+    assertEquals("KUYUYUIY658HG", payIntent.thresholdManagerId);
+  }
+
+  @Test
+  public void testThresholdMangerId_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.thresholdManagerId);
+
+    String thresholdManagerId = "KUYUYUIY658HG";
+
+    sourcePayIntent = new PayIntent.Builder().thresholdManagerId(thresholdManagerId).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals("KUYUYUIY658HG", payIntent.thresholdManagerId);
+  }
+
+  @Test
+  public void testThresholdMangerId_serialization() {
+    String thresholdManagerId = "KUYUYUIY658HG";
+    PayIntent payIntent = new PayIntent.Builder().thresholdManagerId(thresholdManagerId).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.thresholdManagerId);
+    assertEquals("KUYUYUIY658HG", fromParcel.thresholdManagerId);
+  }
+
+  @Test
+  public void testEBTManualCardEntryScreenFlow(){
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.ebtManualCardEntryScreenFlow);
+
+    String ebtManualCardData = "{\"EBTDirectManualEntryPan\":\"5076 8000 0111 1112\",\"EBTDirectManualEntryExpiry\":\"12\\/24\"}";
+
+    payIntent = new PayIntent.Builder().ebtManualCardEntryScreenFlow(ebtManualCardData).build();
+    assertNotNull(payIntent.ebtManualCardEntryScreenFlow);
+    assertEquals(ebtManualCardData, payIntent.ebtManualCardEntryScreenFlow);
+  }
+
+  @Test
+  public void testEBTManualCardEntryScreenFlow_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.ebtManualCardEntryScreenFlow);
+
+    String ebtManualCardData = "{\"EBTDirectManualEntryPan\":\"5076 8000 0111 1112\",\"EBTDirectManualEntryExpiry\":\"12\\/24\"}";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW, ebtManualCardData);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.ebtManualCardEntryScreenFlow);
+    assertEquals(ebtManualCardData, payIntent.ebtManualCardEntryScreenFlow);
+  }
+
+  @Test
+  public void testEBTManualCardEntryScreenFlow_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.ebtManualCardEntryScreenFlow);
+
+    String ebtManualCardData = "{\"EBTDirectManualEntryPan\":\"5076 8000 0111 1112\",\"EBTDirectManualEntryExpiry\":\"12\\/24\"}";
+
+    sourcePayIntent = new PayIntent.Builder().ebtManualCardEntryScreenFlow(ebtManualCardData).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals(ebtManualCardData, payIntent.ebtManualCardEntryScreenFlow);
+  }
+
+  @Test
+  public void testEBTManualCardEntryScreenFlow_serialization() {
+    String ebtManualCardData = "{\"EBTDirectManualEntryPan\":\"5076 8000 0111 1112\",\"EBTDirectManualEntryExpiry\":\"12\\/24\"}";
+    PayIntent payIntent = new PayIntent.Builder().ebtManualCardEntryScreenFlow(ebtManualCardData).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.ebtManualCardEntryScreenFlow);
+    assertEquals(ebtManualCardData, fromParcel.ebtManualCardEntryScreenFlow);
+  }
 }
