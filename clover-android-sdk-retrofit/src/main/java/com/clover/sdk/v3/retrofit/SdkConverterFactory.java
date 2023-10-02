@@ -30,7 +30,7 @@ import java.lang.reflect.Type;
  * A {@link Converter.Factory} that facilitates conversion between OkHttp
  * {@link okhttp3.Response} and {@link JSONifiable} objects. To register with
  * {@link retrofit2.Retrofit}:
- * <p></p>
+ * <p/>
  * <pre>
  * Retrofit retrofit = new Retrofit.Builder()
  *  ...

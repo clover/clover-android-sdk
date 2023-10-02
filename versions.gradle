@@ -3,7 +3,7 @@
 ext {
 
   // Bump compile SDK version any time a new SDK is released, it does not affect behavior
-  COMPILE_SDK_VERSION = 29 // https://developer.android.com/studio/releases/platforms
+  COMPILE_SDK_VERSION = 33 // https://developer.android.com/studio/releases/platforms
 
   // Oldest supported Clover device is goldleaf (original Station) which is Android API level 17
   MIN_SDK_VERSION = 17
@@ -20,47 +20,52 @@ ext {
   //  see https://developer.android.com/jetpack/androidx/versions/
   //  see https://maven.google.com/web/index.html
 
-  ANDROIDX_ACTIVITY_VERSION = "1.3.0" // androidx.activity:activity-ktx
-  ANDROIDX_ANNOTATION_VERSION = "1.1.0" // androidx.annotation:annotation
-  ANDROIDX_APPCOMPAT_VERSION = "1.2.0" // androidx.appcompat:appcompat
-  ANDROIDX_LIFECYCLE_VERSION = "2.2.0" // androidx.lifecycle:lifecycle-extensions
-  ANDROIDX_CARDVIEW_VERSION = "1.0.0" // androidx.cardview:cardview
-  ANDROIDX_CONSTRAINTLAYOUT_VERSION = "2.0.1" // androidx.constraintlayout:constraintlayout
-  ANDROIDX_FRAGMENT_VERSION = "1.3.6" // androidx.fragment:fragment
-  ANDROIDX_RECYCLERVIEW_VERSION = "1.1.0" // androidx.recyclerview:recyclerview
-  ANDROIDX_ROOM_VERSION = "2.2.5" // androidx.room:room-runtime
-                                  // androidx.room:room-compiler
-  ANDROIDX_VIEWPAGER_VERSION = "1.0.0" // androidx.viewpager:viewpager
-  ANDROIDX_MULTIDEX_VERSION = "2.0.1" // androidx.multidex:multidex
+  ANDROIDX_ACTIVITY_VERSION = "1.6.0" // https://developer.android.com/jetpack/androidx/releases/activity
+  ANDROIDX_ANNOTATION_VERSION = "1.5.0" // https://developer.android.com/jetpack/androidx/releases/annotation
+  ANDROIDX_APPCOMPAT_VERSION = "1.5.1" // https://developer.android.com/jetpack/androidx/releases/appcompat
+  ANDROIDX_LIFECYCLE_EXTENSION_VERSION = "2.2.0" //https://androidx.tech/artifacts/lifecycle/lifecycle-extensions/
+  ANDROID_LIFECYCLE_EXTENSION_VERSION = "2.2.0" // ** DEPRECATED USE ANDROIDX_LIFECYCLE_EXTENSION_VERSION **
+  ANDROIDX_CARDVIEW_VERSION = "1.0.0" // https://developer.android.com/jetpack/androidx/releases/cardview
+  ANDROIDX_CONSTRAINTLAYOUT_VERSION = "2.1.4" // https://developer.android.com/jetpack/androidx/releases/constraintlayout
+  ANDROIDX_CORE_VERSION = "1.9.0"  // https://developer.android.com/jetpack/androidx/releases/core
+  ANDROIDX_FRAGMENT_VERSION = "1.5.3" // https://developer.android.com/jetpack/androidx/releases/fragment
+  ANDROIDX_RECYCLERVIEW_VERSION = "1.2.1" // https://developer.android.com/jetpack/androidx/releases/recyclerview
+  ANDROIDX_ROOM_VERSION = "2.4.3" // https://developer.android.com/jetpack/androidx/releases/room
+  ANDROIDX_VIEWPAGER_VERSION = "1.0.0" // https://developer.android.com/jetpack/androidx/releases/viewpager
+  ANDROIDX_MULTIDEX_VERSION = "2.0.1" // https://developer.android.com/studio/build/multidex
   ANDROIDX_LEGACY_SUPPORT_V4_VERSION = "1.0.0" // androidx.legacy:legacy-support-v4
   ANDROIDX_LEGACY_SUPPORT_V13_VERSION = "1.0.0"  // androidx.legacy:legacy-support-v13
-  ANDROIDX_WORK_VERSION = "2.4.0" // androidx.work:work-*
-  ANDROIDX_PREFERENCE = "1.1.0" // androidx.preference:preference
-  ANDROIDX_LOCAL_BROADCASTMANAGER_VERSION = "1.0.0" //androidx.localbroadcastmanager:localbroadcastmanager
+  ANDROIDX_LIFECYCLE_VERSION = "2.5.1" //https://developer.android.com/jetpack/androidx/releases/lifecycle
+  ANDROIDX_WORK_VERSION = "2.7.1" // https://developer.android.com/jetpack/androidx/releases/work
+  ANDROIDX_PREFERENCE = "1.2.0" // https://developer.android.com/jetpack/androidx/releases/preference
+  ANDROIDX_LOCAL_BROADCASTMANAGER_VERSION = "1.1.0" //https://developer.android.com/jetpack/androidx/releases/localbroadcastmanager
+  ANDROIDX_NAVIGATION_VERSION = "2.5.2" //https://developer.android.com/jetpack/androidx/releases/navigation
 
   // Android X testing versions
 
   ANDROIDX_ARCH_CORE_VERSION = "2.1.0" // androidx.arch.core:core-testing
-  ANDROIDX_EXT_JUNIT_VERSION = "1.1.2" // androidx.test.ext:junit
-  ANDROIDX_ESPRESSO_VERSION = "3.3.0" // androidx.test.espresso:espresso-intents
+  ANDROIDX_EXT_JUNIT_VERSION = "1.1.3" // androidx.test.ext:junit
+  ANDROIDX_ESPRESSO_VERSION = "3.4.0" // androidx.test.espresso:espresso-intents
   ANDROIDX_UIAUTOMATOR_VERSION = "2.2.0" // androidx.uiautomator:uiautomator
-  ANDROIDX_TEST_CORE_VERSION = "1.3.0" // androidx.test:core
+  ANDROIDX_TEST_CORE_VERSION = "1.4.0" // androidx.test:core
+  ANDROIDX_DATA_STORE = "1.0.0" // androidx.datastore:datastore
 
   // Kotlin versions
 
-  KOTLIN_VERSION = "1.4.10" // org.jetbrains.kotlin:kotlin-gradle-plugin
+  KOTLIN_VERSION = "1.7.20" // org.jetbrains.kotlin:kotlin-gradle-plugin
   KOTLIN_COROUTINES_VERSION = "1.3.9" // org.jetbrains.kotlinx:kotlinx-coroutines-android
+  KOTLIN_SERIALIZATION_JSON = "1.5.1" //org.jetbrains.kotlinx:kotlinx-serialization-json
+  KOTLINX_IMMUTABLES =  "0.3.5"  // org.jetbrains.kotlinx:kotlinx-collections-immutable
 
   // Various dependencies
 
-  GOOGLE_ANDROID_MATERIAL_VERSION = "1.0.0" // com.google.android.material:material
-  DAGGER_VERSION = "2.29.1"
+  GOOGLE_ANDROID_MATERIAL_VERSION = "1.6.1" // com.google.android.material:material
+  DAGGER_VERSION = "2.44"   // https://github.com/google/dagger/releases
   GUAVA_VERSION = "29.0-android"
   BUTTER_KNIFE_VERSION = "10.2.3" // Project reached end of life, migrate to alternatives
   RX_JAVA_VERSION = "2.2.19"
   RX_ANDROID_VERSION = "2.1.1"
   GREEN_ROBOT_EVENT_BUS_VERSION = "3.0.0"
-  EVERNOTE_JOB_VERSION = "1.2.2" // Project reached end of life, migrate to Android X WorkManager
   GSON_VERSION = "2.8.6"
   ADVANCED_RECYCLER_VIEW_VERSION = "1.0.0" // com.h6ah4i.android.widget.advrecyclerview:advrecyclerview
 
@@ -78,13 +83,15 @@ ext {
   RETROFIT_ADAPTER_VERSION = "2.6.2"
   OKHTTP_VERSION = "3.12.12" // 3.12.x is the latest version compatible with Android API 17 https://developer.squareup.com/blog/okhttp-3-13-requires-android-5/
   GLIDE_VERSION = "4.11.0"
+  PICASSO2_OKHTTP = "1.1.0"
 
   // Test versions
 
-  JUNIT_VERSION = "4.13"
+  JUNIT_VERSION = "4.13.2"
   MOCKITO_VERSION = "3.4.6"
   HAMCREST_VERSION = "1.3"
-  ROBOLECTRIC_VERSION =  "4.0.2" // https://github.com/robolectric/robolectric/releases
+  HAMCREST_2_VERSION = "2.2" // Use org.hamcrest:hamcrest:<version> instead of org.hamcrest:hamcrest-all:<version>
+  ROBOLECTRIC_VERSION = "4.9" // https://github.com/robolectric/robolectric/releases
   JAVAX_INJECT_VERSION = "1"
   J_MOCK_VERSION = "2.12.0"
   EQUALSVERIFIER_VERSION = "3.4.2"
@@ -93,9 +100,10 @@ ext {
 
   // Build tool versions
 
-  JACOCO_VERSION = "0.8.6"
+  JACOCO_VERSION = "0.8.10"
   SONARQUBE_VERSION = "3.2.0"
-  ANDROID_PLUGIN_VERSION = "4.2.0"
+  ANDROID_PLUGIN_VERSION = "7.2.2"   // https://developer.android.com/studio/releases/gradle-plugin#updating-gradle
+  DETEKT_VERSION = "1.23.0"
 
   // Android platform libraries
 
@@ -104,22 +112,18 @@ ext {
   // Firebase versions
 
   FIREBASE_CRASHLYTICS_SDK_VERSION = "17.2.2"
-  FIREBASE_PLUGIN_VERSION = "2.3.0"
-
-  // Deprecated: To remove once Firebase Migrations complete.
-  CRASHLYTICS_VERSION = "2.7.0@aar"
+  FIREBASE_PLUGIN_VERSION = "2.9.5"
 
   // Hilt version
-  HILT_VERSION = "2.35"
+  HILT_VERSION = "2.44"
 
   // Calc version
   CALC_VERSION = "2.1.0"
 
   // Heap Analytics version
-  HEAP_VERSION = "1.9.3"
+  HEAP_VERSION = "1.10.6"
 
   // Java 8+ API desugaring support
   // https://developer.android.com/studio/write/java8-support
-  // Version 1.2.0 causes compilation to fail on CI!
-  CORE_LIBRARY_DESUGARING_VERSION = "1.1.6"
+  CORE_LIBRARY_DESUGARING_VERSION = "1.1.8"
 }

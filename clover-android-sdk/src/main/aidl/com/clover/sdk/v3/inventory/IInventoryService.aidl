@@ -9,6 +9,7 @@ import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
 import com.clover.sdk.v3.inventory.Option;
 import com.clover.sdk.v3.inventory.OptionItem;
+import com.clover.sdk.v3.inventory.OrderFee;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v1.ResultStatus;
@@ -108,6 +109,13 @@ import com.clover.sdk.v1.ResultStatus;
  * in those items being printed out on the associated printer when printing an order. Other than
  * that special case there is no effect when an item is associated with a tag. Developers may use
  * tags to establish a relationship meaningful for their needs.
+ * <p>
+ * <h2>OrderFees</h2>
+ * <p>
+ * An {@link OrderFee} is any type of additional fee, which could be associated with an entire
+ * Order subtotal. OrderFees are named and given either a percentage value or fixed amount.
+ * Order fees could be set default to be applied automatically to an Order. OrderFees appear as
+ * choices in Clover Register/Clover Dining and are printed on bills.
  * <p>
  * @see InventoryConnector
  */
@@ -745,4 +753,39 @@ interface IInventoryService {
    * @clover.perm INVENTORY_W
    */
   void removeCategoriesFromItem(in String itemId, in List<String> categoryIds, out ResultStatus resultStatus);
+
+  /**
+   * Retrieve the list of order fees.
+   *
+   * @clover.perm INVENTORY_R
+   */
+  List<OrderFee> getOrderFees(out ResultStatus resultStatus);
+
+  /**
+   * Gets a single order fee identified by its unique ID.
+   *
+   * @clover.perm INVENTORY_R
+   */
+  OrderFee getOrderFee(in String orderFeeId, out ResultStatus resultStatus);
+
+  /**
+   * Adds a new order fee.
+   *
+   * @clover.perm INVENTORY_W
+   */
+  OrderFee createOrderFee(in OrderFee orderFee, out ResultStatus resultStatus);
+
+  /**
+   * Updates an existing order fee.
+   *
+   * @clover.perm INVENTORY_W
+   */
+  void updateOrderFee(in OrderFee orderFee, out ResultStatus resultStatus);
+
+  /**
+   * Deletes an order fee.
+   *
+   * @clover.perm INVENTORY_W
+   */
+  void deleteOrderFee(in String orderFeeId, out ResultStatus resultStatus);
 }

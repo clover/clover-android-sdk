@@ -31,6 +31,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getLabel label}</li>
  * <li>{@link #getMid mid}</li>
  * <li>{@link #getMccSource mccSource}</li>
  * <li>{@link #getMcc mcc}</li>
@@ -51,6 +52,13 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
    */
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  /**
+   * Item
+   */
+  public java.lang.String getLabel() {
+    return genClient.cacheGet(CacheKey.label);
   }
 
   /**
@@ -125,6 +133,8 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    label
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     mid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -220,6 +230,8 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   public void validate() {
     genClient.validateCloverId(CacheKey.id, getId());
 
+    genClient.validateLength(CacheKey.label, getLabel(), 32);
+
     genClient.validateLength(CacheKey.mid, getMid(), 32);
     genClient.validateReferences(CacheKey.merchantGatewayEntitlement);
   }
@@ -227,6 +239,11 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   /** Checks whether the 'id' field is set and is not null */
   public boolean isNotNullId() {
     return genClient.cacheValueIsNotNull(CacheKey.id);
+  }
+
+  /** Checks whether the 'label' field is set and is not null */
+  public boolean isNotNullLabel() {
+    return genClient.cacheValueIsNotNull(CacheKey.label);
   }
 
   /** Checks whether the 'mid' field is set and is not null */
@@ -286,6 +303,11 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
     return genClient.cacheHasKey(CacheKey.id);
   }
 
+  /** Checks whether the 'label' field has been set, however the value could be null */
+  public boolean hasLabel() {
+    return genClient.cacheHasKey(CacheKey.label);
+  }
+
   /** Checks whether the 'mid' field has been set, however the value could be null */
   public boolean hasMid() {
     return genClient.cacheHasKey(CacheKey.mid);
@@ -342,6 +364,13 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
    */
   public MerchantGatewayEntitlementConfiguration setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'label'.
+   */
+  public MerchantGatewayEntitlementConfiguration setLabel(java.lang.String label) {
+    return genClient.setOther(label, CacheKey.label);
   }
 
   /**
@@ -420,6 +449,10 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
+  }
+  /** Clears the 'label' field, the 'has' method for this field will now return false */
+  public void clearLabel() {
+    genClient.clear(CacheKey.label);
   }
   /** Clears the 'mid' field, the 'has' method for this field will now return false */
   public void clearMid() {
@@ -525,6 +558,8 @@ public class MerchantGatewayEntitlementConfiguration extends GenericParcelable i
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean LABEL_IS_REQUIRED = false;
+    public static final long LABEL_MAX_LEN = 32;
     public static final boolean MID_IS_REQUIRED = false;
     public static final long MID_MAX_LEN = 32;
     public static final boolean MCCSOURCE_IS_REQUIRED = false;

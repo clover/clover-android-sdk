@@ -46,6 +46,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getEnableDeliveryMinimum enableDeliveryMinimum}</li>
  * <li>{@link #getProviderType providerType}</li>
+ * <li>{@link #getOnlineItemValidationEnabled onlineItemValidationEnabled}</li>
+ * <li>{@link #getOrderapiTimeValidationEnabled orderapiTimeValidationEnabled}</li>
+ * <li>{@link #getEnableDeliveryService enableDeliveryService}</li>
+ * <li>{@link #getEnableOrderStatusManagement enableOrderStatusManagement}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -163,42 +167,78 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.providerType);
   }
 
+  /**
+   * If the provider has been enabled for online order item validation checks
+   */
+  public java.lang.Boolean getOnlineItemValidationEnabled() {
+    return genClient.cacheGet(CacheKey.onlineItemValidationEnabled);
+  }
+
+  /**
+   * If the provider has been enabled for online order time validation checks
+   */
+  public java.lang.Boolean getOrderapiTimeValidationEnabled() {
+    return genClient.cacheGet(CacheKey.orderapiTimeValidationEnabled);
+  }
+
+  /**
+   * If the provider has been enabled for Clover delivery-service
+   */
+  public java.lang.Boolean getEnableDeliveryService() {
+    return genClient.cacheGet(CacheKey.enableDeliveryService);
+  }
+
+  /**
+   * If provider has been enabled for Order Status Management on device
+   */
+  public java.lang.Boolean getEnableOrderStatusManagement() {
+    return genClient.cacheGet(CacheKey.enableOrderStatusManagement);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     name
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     logoUrl
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     developerAppId
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     developerAppPackageName
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     token
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     authtokenUrl
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     backendInstall
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     autoOnline
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     trackCustomer
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     manageServices
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     createdTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTime
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     enableDeliveryMinimum
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     providerType
-            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.ProviderType.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.onlineorder.ProviderType.class)),
+    onlineItemValidationEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    orderapiTimeValidationEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enableDeliveryService
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enableOrderStatusManagement
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -367,6 +407,26 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.providerType);
   }
 
+  /** Checks whether the 'onlineItemValidationEnabled' field is set and is not null */
+  public boolean isNotNullOnlineItemValidationEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.onlineItemValidationEnabled);
+  }
+
+  /** Checks whether the 'orderapiTimeValidationEnabled' field is set and is not null */
+  public boolean isNotNullOrderapiTimeValidationEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderapiTimeValidationEnabled);
+  }
+
+  /** Checks whether the 'enableDeliveryService' field is set and is not null */
+  public boolean isNotNullEnableDeliveryService() {
+    return genClient.cacheValueIsNotNull(CacheKey.enableDeliveryService);
+  }
+
+  /** Checks whether the 'enableOrderStatusManagement' field is set and is not null */
+  public boolean isNotNullEnableOrderStatusManagement() {
+    return genClient.cacheValueIsNotNull(CacheKey.enableOrderStatusManagement);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -447,6 +507,26 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
   /** Checks whether the 'providerType' field has been set, however the value could be null */
   public boolean hasProviderType() {
     return genClient.cacheHasKey(CacheKey.providerType);
+  }
+
+  /** Checks whether the 'onlineItemValidationEnabled' field has been set, however the value could be null */
+  public boolean hasOnlineItemValidationEnabled() {
+    return genClient.cacheHasKey(CacheKey.onlineItemValidationEnabled);
+  }
+
+  /** Checks whether the 'orderapiTimeValidationEnabled' field has been set, however the value could be null */
+  public boolean hasOrderapiTimeValidationEnabled() {
+    return genClient.cacheHasKey(CacheKey.orderapiTimeValidationEnabled);
+  }
+
+  /** Checks whether the 'enableDeliveryService' field has been set, however the value could be null */
+  public boolean hasEnableDeliveryService() {
+    return genClient.cacheHasKey(CacheKey.enableDeliveryService);
+  }
+
+  /** Checks whether the 'enableOrderStatusManagement' field has been set, however the value could be null */
+  public boolean hasEnableOrderStatusManagement() {
+    return genClient.cacheHasKey(CacheKey.enableOrderStatusManagement);
   }
 
 
@@ -562,6 +642,34 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.setOther(providerType, CacheKey.providerType);
   }
 
+  /**
+   * Sets the field 'onlineItemValidationEnabled'.
+   */
+  public OnlineOrderProvider setOnlineItemValidationEnabled(java.lang.Boolean onlineItemValidationEnabled) {
+    return genClient.setOther(onlineItemValidationEnabled, CacheKey.onlineItemValidationEnabled);
+  }
+
+  /**
+   * Sets the field 'orderapiTimeValidationEnabled'.
+   */
+  public OnlineOrderProvider setOrderapiTimeValidationEnabled(java.lang.Boolean orderapiTimeValidationEnabled) {
+    return genClient.setOther(orderapiTimeValidationEnabled, CacheKey.orderapiTimeValidationEnabled);
+  }
+
+  /**
+   * Sets the field 'enableDeliveryService'.
+   */
+  public OnlineOrderProvider setEnableDeliveryService(java.lang.Boolean enableDeliveryService) {
+    return genClient.setOther(enableDeliveryService, CacheKey.enableDeliveryService);
+  }
+
+  /**
+   * Sets the field 'enableOrderStatusManagement'.
+   */
+  public OnlineOrderProvider setEnableOrderStatusManagement(java.lang.Boolean enableOrderStatusManagement) {
+    return genClient.setOther(enableOrderStatusManagement, CacheKey.enableOrderStatusManagement);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -626,6 +734,22 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
   /** Clears the 'providerType' field, the 'has' method for this field will now return false */
   public void clearProviderType() {
     genClient.clear(CacheKey.providerType);
+  }
+  /** Clears the 'onlineItemValidationEnabled' field, the 'has' method for this field will now return false */
+  public void clearOnlineItemValidationEnabled() {
+    genClient.clear(CacheKey.onlineItemValidationEnabled);
+  }
+  /** Clears the 'orderapiTimeValidationEnabled' field, the 'has' method for this field will now return false */
+  public void clearOrderapiTimeValidationEnabled() {
+    genClient.clear(CacheKey.orderapiTimeValidationEnabled);
+  }
+  /** Clears the 'enableDeliveryService' field, the 'has' method for this field will now return false */
+  public void clearEnableDeliveryService() {
+    genClient.clear(CacheKey.enableDeliveryService);
+  }
+  /** Clears the 'enableOrderStatusManagement' field, the 'has' method for this field will now return false */
+  public void clearEnableOrderStatusManagement() {
+    genClient.clear(CacheKey.enableOrderStatusManagement);
   }
 
 
@@ -712,6 +836,10 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean ENABLEDELIVERYMINIMUM_IS_REQUIRED = false;
     public static final boolean PROVIDERTYPE_IS_REQUIRED = false;
+    public static final boolean ONLINEITEMVALIDATIONENABLED_IS_REQUIRED = false;
+    public static final boolean ORDERAPITIMEVALIDATIONENABLED_IS_REQUIRED = false;
+    public static final boolean ENABLEDELIVERYSERVICE_IS_REQUIRED = false;
+    public static final boolean ENABLEORDERSTATUSMANAGEMENT_IS_REQUIRED = false;
   }
 
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Use the PaymentRequestIntentBuilder class to initiate a payment request on an Android device.
+ * Use the PaymentRequestIntentBuilder class to initiate a payment request on a Clover device.
  */
 public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
   private String externalPaymentId;
@@ -28,7 +28,9 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
   private ReceiptOptions receiptOptions = null;
   private OfflineOptions offlineOptions = null;
   private TokenizeOptions tokenizeOptions = null;
+  private TenderOptions tenderOptions = null;
   private String externalReferenceId;
+  private boolean kioskMode = false;
 
   private PaymentRequestIntentBuilder() {
   }
@@ -71,6 +73,16 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
   }
 
   /**
+   * Sets TenderOptions on the PaymentRequestIntentBuilder object
+   * @param tenderOptions - @see TenderOptions
+   * @return PaymentRequestIntentBuilder object with new TenderOptions
+   */
+  public PaymentRequestIntentBuilder tenderOptions(TenderOptions tenderOptions) {
+    this.tenderOptions = tenderOptions;
+    return this;
+  }
+
+  /**
    * Sets ReceiptOptions on the PaymentRequestIntentBuilder object
    *
    * @param receiptOptions
@@ -92,6 +104,12 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
     return this;
   }
 
+  /**
+   * Set TokenizeOptions for this single transaction
+   *
+   * @param tokenizeOptions - @see TokenizeOptions
+   * @return
+   */
   public PaymentRequestIntentBuilder tokenizeOptions(TokenizeOptions tokenizeOptions) {
     this.tokenizeOptions = tokenizeOptions;
     return this;
@@ -120,10 +138,10 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
   }
 
   /**
-   * Builder method to create an Intent to be used by Integrator POS to initiate payment
+   * return a single-use Intent to be used by Integrator POS to initiate payment
    *
    * @param context
-   * @return Android Intent to be used to initiate a payment.
+   * @return Intent to be used to initiate a payment.
    * @throws IllegalArgumentException
    */
   public Intent build(Context context) throws IllegalArgumentException {
@@ -264,6 +282,17 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       }
     }
 
+    if (tenderOptions != null) {
+      Map<String, String> tenderOptionsMap = new HashMap<>();
+      if (!tenderOptions.customDisabled) {
+        tenderOptionsMap.put(TenderOption.CUSTOM_TENDER, "null");
+      }
+      if (!tenderOptions.cashDisabled) {
+        tenderOptionsMap.put(TenderOption.CASH, "null");
+      }
+      i.putExtra(Intents.EXTRA_TENDER_OPTIONS, (Serializable) tenderOptionsMap);
+    }
+
     if (externalReferenceId != null) {
       i.putExtra(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
     }
@@ -287,6 +316,9 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       this.disablePromptForTips = disableTips;
     }
 
+    /**
+     * No tip will be taken and tipAmount will default to 0.
+     */
     public static PaymentRequestIntentBuilder.TipOptions Disable() {
       return new PaymentRequestIntentBuilder.TipOptions(0L, null, null, true);
     }
@@ -300,6 +332,8 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
 
     /**
      * Customers will be prompted to tip.
+     * @param baseAmount - Optional amount used to compute percentage based tip options
+     * @param tipSuggestions - Optional list of TipSuggestions for this transaction
      */
     public static PaymentRequestIntentBuilder.TipOptions PromptCustomer(Long baseAmount, List<TipSuggestion> tipSuggestions) {
       return new PaymentRequestIntentBuilder.TipOptions(null, baseAmount, tipSuggestions, false);
@@ -353,10 +387,27 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       this.cashbackOptions = cashbackOptions;
     }
 
+    /**
+     * CardOptions to control card options for a single transaction
+     * @param cardEntryMethods - @see CardEntryMethod
+     * @param cardNotPresent - If card is not present, will result in Manual card entry
+     * @param autoAcceptDuplicates - Accept, and don't prompt if potential duplicate payment is detected
+     * @return
+     */
     public static CardOptions Instance(Set<CardEntryMethod> cardEntryMethods, Boolean cardNotPresent, Boolean autoAcceptDuplicates) {
       return new CardOptions(cardEntryMethods, cardNotPresent, autoAcceptDuplicates, null);
     }
 
+    /**
+     * Receipt options that allow the Integrator to control the receipt selection on a per-transaction level.
+     *
+     * CardOptions to control card options for a single transaction
+     * @param cardEntryMethods - @see CardEntryMethod
+     * @param cardNotPresent - If card is not present, will result in Manual card entry
+     * @param autoAcceptDuplicates - Accept, and don't prompt if potential duplicate payment is detected
+     * @param cashbackOptions - optional list of cashback option amounts to be displayed
+     * @return
+     */
     public static CardOptions Instance(Set<CardEntryMethod> cardEntryMethods, Boolean cardNotPresent, Boolean autoAcceptDuplicates, CashbackOptions cashbackOptions) {
       return new CardOptions(cardEntryMethods, cardNotPresent, autoAcceptDuplicates, cashbackOptions);
     }
@@ -374,10 +425,19 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
         this.cashbackSuggestions = cashbackSuggestions;
       }
 
+      /**
+       * Disable cashback options on screen
+       * @return
+       */
       public static CashbackOptions Disable() {
         return new CashbackOptions(true, null);
       }
 
+      /**
+       * Provide a list of cashback suggestions to be displayed during cashback amount selection
+       * @param cashbackSuggestions
+       * @return
+       */
       public static CashbackOptions Suggestions(List<Long> cashbackSuggestions) {
         return new CashbackOptions(false, cashbackSuggestions);
       }
@@ -392,14 +452,42 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
     private Boolean cloverShouldHandleReceipts;
 
     private ReceiptOptions() {}
+    /**
+     * Create ReceiptOptions with the default list of options displaying, with an option to have
+     * the Clover default receipt processing or not.
+     * @param cloverShouldHandleReceipts - <i>true</i>-Clover will process a default Clover receipt(default), or
+     *                                   <i>false</i>-will return the object with a REQUESTED value if a default
+     *                                   Clover receipt isn't desired. For SMS and Email, an additional
+     *                                   field containing the sms number or email address will also
+     *                                   be returned.
+     * @return
+     */
     public static ReceiptOptions Default(boolean cloverShouldHandleReceipts) {
       return new ReceiptOptions(cloverShouldHandleReceipts, null, null, null, null);
     }
 
+    /**
+     * This will cause the UI flow to skip the receipt selection screen and no customer receipt will be
+     * processed
+     * @return
+     */
     public static ReceiptOptions SkipReceiptSelection() {
       return new ReceiptOptions(true, SmsReceiptOption.Disable(), EmailReceiptOption.Disable(), PrintReceiptOption.Disable(), NoReceiptOption.Disable());
     }
 
+    /**
+     * Builds a ReceiptOptions where some options may be specified
+     * @param cloverShouldHandleReceipts - <i>true</i>-Clover will process a default Clover receipt(default), or
+     *                                   <i>false</i>-will return the object with a REQUESTED value if a default
+     *                                   Clover receipt isn't desired. For SMS and Email, an additional
+     *                                   field containing the sms number or email address will also
+     *                                   be returned.
+     * @param smsReceiptOption - @see SmsReceiptOption
+     * @param emailReceiptOption - @see EmailReceiptOptions
+     * @param printReceiptOption - @see PrintReceiptOption
+     * @param noReceiptOption - @see NoReceiptOption
+     * @return
+     */
     public static ReceiptOptions Instance(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
       return new ReceiptOptions(cloverShouldHandleReceipts, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
     }
@@ -429,6 +517,9 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       protected String value;
     }
 
+    /**
+     * SmsReceiptOption that allows the Integrator to control the Sms receipt option.
+     */
     public static class SmsReceiptOption extends ReceiptOptions.ReceiptOption {
 
       private SmsReceiptOption(String sms, boolean enabled) {
@@ -436,15 +527,27 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
         this.value = sms;
         this.enabled = enabled;
       }
+      /**
+       * The Sms Receipt option will be displayed, with an optional sms number provided
+       * @param sms - optional sms number that will pre-fill the number field
+       * @return
+       */
       public static SmsReceiptOption Enable(String sms) {
         return new SmsReceiptOption(sms, true);
       }
+      /**
+       * The Sms Receipt option will not be displayed
+       * @return
+       */
       public static SmsReceiptOption Disable() {
         return new SmsReceiptOption(null, false);
       }
 
     }
 
+    /**
+     * EmailReceiptOption that allows the Integrator to control the Email receipt option.
+     */
     public static class EmailReceiptOption extends ReceiptOptions.ReceiptOption {
 
       private EmailReceiptOption(String email, boolean enable) {
@@ -452,36 +555,68 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
         this.value = email;
         this.enabled = enable;
       }
+      /**
+       * The Email Receipt option will be displayed, with an optional email address provided
+       * @param email - optional email address that will pre-fill the email address field
+       * @return
+       */
       public static EmailReceiptOption Enable(String email) {
         return new EmailReceiptOption(email, true);
       }
+      /**
+       * The Email Receipt option will not be displayed
+       * @return
+       */
       public static EmailReceiptOption Disable() {
         return new EmailReceiptOption(null, false);
       }
     }
 
+    /**
+     * PrintReceiptOption that allows the Integrator to control the Print receipt option.
+     */
     public static class PrintReceiptOption extends ReceiptOptions.ReceiptOption {
 
       private PrintReceiptOption(boolean enable){
         this.type = ReceiptOptionType.PRINT;
         this.enabled = enable;
       }
+      /**
+       * The Print Receipt option will be displayed
+       * @return
+       */
       public static PrintReceiptOption Enable() {
         return new PrintReceiptOption(true);
       }
+      /**
+       * The Print Receipt option will not be displayed
+       * @return
+       */
       public static PrintReceiptOption Disable() {
         return new PrintReceiptOption(false);
       }
     }
 
+    /**
+     * PrintReceiptOption that allows the Integrator to control the Print receipt option.
+     */
     public static class NoReceiptOption extends ReceiptOptions.ReceiptOption {
       private NoReceiptOption(boolean enable) {
         this.type = ReceiptOptionType.NO_RECEIPT;
         this.enabled = enable;
       }
+      /**
+       * The No Receipt option will be displayed
+       * @return
+       */
       public static NoReceiptOption Enable() {
         return new NoReceiptOption(true);
       }
+      /**
+       * The No Receipt option will not be displayed on the customer screen
+       * <i>note:</i> This will only hide the No Receipt option from the customer screen
+       * @return
+       */
       public static NoReceiptOption Disable() {
         return new NoReceiptOption(false);
       }
@@ -502,11 +637,22 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       this.forceOfflinePayment = forceOfflinePayment;
     }
 
+    /**
+     * Offline option that can be used per transaction
+     * @param allowOfflinePayment - if merchant is configured, will enable an offline payment
+     * @param approveOfflinePaymentWithoutPrompt - if an offline payment is needed, it will allow it without
+     *                                           prompting the merchant
+     * @param forceOfflinePayment - take the payment offline, even if the device is online
+     * @return
+     */
     public static OfflineOptions Instance(Boolean allowOfflinePayment, Boolean approveOfflinePaymentWithoutPrompt, Boolean forceOfflinePayment) {
       return new OfflineOptions(allowOfflinePayment, approveOfflinePaymentWithoutPrompt, forceOfflinePayment);
     }
   }
 
+  /**
+   * Options to tokenize card during transaction
+   */
   public static class TokenizeOptions {
     private final Boolean suppressConfirmation;
 
@@ -514,8 +660,44 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       this.suppressConfirmation = suppressConfirmation;
     }
 
+    /**
+     * Enable tokenizing card, with an option to not ask for confirmation
+     * @param suppressConfirmation
+     * @return
+     */
     public static TokenizeOptions Instance(boolean suppressConfirmation) {
       return new TokenizeOptions(suppressConfirmation);
+    }
+  }
+
+  /**
+   * Tender options allow Integrators to control Cash and Custom Tenders on a per-transaction level.
+   */
+  public static class TenderOptions {
+    private boolean cashDisabled;
+    private boolean customDisabled;
+
+    private TenderOptions(boolean disableCash, boolean disableCustom) {
+      this.cashDisabled = disableCash;
+      this.customDisabled = disableCustom;
+    }
+
+    /**
+     * The option to disable the cash and/or custom tenders independently of each other
+     * @param disableCash - if you would like to disable the cash tender, set to true
+     * @param disableCustom - if you would like to disable the custom tenders, set to true
+     * @return
+     */
+    public static TenderOptions Disable(boolean disableCash, boolean disableCustom) {
+      return new TenderOptions(disableCash, disableCustom);
+    }
+
+    /**
+     * The option to disable BOTH cash and custom tenders
+     * @return
+     */
+    public static TenderOptions Disable() {
+      return new TenderOptions(true, true);
     }
   }
 }

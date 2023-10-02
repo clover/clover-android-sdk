@@ -126,6 +126,10 @@ public class PayIntent implements Parcelable {
     private Boolean allowOfflinePayment;
     @Deprecated // Please use TransactionSettings
     private Boolean approveOfflinePaymentWithoutPrompt;
+    /**
+     * @deprecated Please use {@link TransactionSettings#getRemoteConfirmationRequired()}
+     */
+    @Deprecated
     private Boolean requiresRemoteConfirmation;
     private Boolean requiresFinalRemoteApproval;
     private Boolean skipELVLimitOverride;
@@ -158,6 +162,9 @@ public class PayIntent implements Parcelable {
     private TokenizeCardRequest tokenizeCardRequest;
     private String dataReadMode;
     private String refundReason;
+    private String thresholdManagerId;
+    private String thresholdManagerName;
+    private String ebtManualCardEntryScreenFlow;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -246,11 +253,6 @@ public class PayIntent implements Parcelable {
       if (intent.hasExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION)) {
         cashAdvanceCustomerIdentification = intent.getParcelableExtra(Intents.CASHADVANCE_CUSTOMER_IDENTIFICATION);
       }
-      if (intent.hasExtra(Intents.EXTRA_TRANSACTION_SETTINGS)) {
-        transactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
-      } else { //move the settings into the transactionSettings object for deprecated intents ** TEMPORARY
-        transactionSettings = buildTransactionSettingsFromIntentValues();
-      }
       if (intent.hasExtra(Intents.EXTRA_VAS_SETTINGS)) {
         vasSettings = intent.getParcelableExtra(Intents.EXTRA_VAS_SETTINGS);
       }
@@ -306,77 +308,74 @@ public class PayIntent implements Parcelable {
       dataReadMode = intent.getStringExtra(Intents.EXTRA_DATA_READ_MODE);
       refundReason = intent.getStringExtra(Intents.EXTRA_REFUND_REASON);
 
+      if (intent.hasExtra(Intents.EXTRA_THRESHOLD_MANAGER_NAME)) {
+        thresholdManagerName = intent.getStringExtra(Intents.EXTRA_THRESHOLD_MANAGER_NAME);
+      }
+
+      if (intent.hasExtra(Intents.EXTRA_THRESHOLD_MANAGER_ID)) {
+        thresholdManagerId = intent.getStringExtra(Intents.EXTRA_THRESHOLD_MANAGER_ID);
+      }
+
+      if (intent.hasExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW)){
+        ebtManualCardEntryScreenFlow = intent.getStringExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW);
+      }
+      // As a general rule, the transactionSettings assignment should always be the last one
+      // prior to the return statement.  This is to ensure any new/added overrides don't get
+      // reset by follow-on assignments and aids in preventing backward compatibility issues.
+      transactionSettings = buildTransactionSettingsFromIntent(intent);
       return this;
     }
 
-    private TransactionSettings buildTransactionSettingsFromIntentValues() {
-      TransactionSettings transactionSettings = new TransactionSettings();
+    public static TransactionSettings buildTransactionSettingsFromIntent(Intent intent) {
+      Long tippable_Amount = null;
+      boolean isDisableCashBack;
+      int cardEntryMethods;
+      boolean remotePrint;
+      boolean isForceSwipePinEntry;
+      boolean disableRestartTransactionWhenFailed;
+      Boolean allowOfflinePayment=null;
+      Boolean approveOfflinePaymentWithoutPrompt=null;
+      Boolean requiresRemoteConfirmation=null;
+      Boolean disableCreditSurcharge=null;
 
-      transactionSettings.setCloverShouldHandleReceipts(!remotePrint);
-      transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailed);
-      transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntry);
-      transactionSettings.setDisableCashBack(isDisableCashBack);
-      transactionSettings.setAllowOfflinePayment(allowOfflinePayment);
-      transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPrompt);
-      transactionSettings.setCardEntryMethods(cardEntryMethods);
-      transactionSettings.setDisableDuplicateCheck(false);
-      transactionSettings.setDisableReceiptSelection(false);
-      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
-      transactionSettings.setTipMode(null); // will default to clover setting
-      transactionSettings.setTippableAmount(tippableAmount);
-      transactionSettings.setDisableCreditSurcharge(isDisableCreditSurcharge);
+      if (intent != null) {
+        TransactionSettings existingTransactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
 
-      return transactionSettings;
+        remotePrint = intent.getBooleanExtra(Intents.EXTRA_REMOTE_PRINT, false);
+        disableRestartTransactionWhenFailed = intent.getBooleanExtra(Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, false);
+        isForceSwipePinEntry = intent.getBooleanExtra(Intents.EXTRA_FORCE_SWIPE_PIN_ENTRY, false);
+        isDisableCashBack = intent.getBooleanExtra(Intents.EXTRA_DISABLE_CASHBACK, false);
+        cardEntryMethods = intent.getIntExtra(Intents.EXTRA_CARD_ENTRY_METHODS, Intents.CARD_ENTRY_METHOD_ALL);
+        if(intent.hasExtra(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
+          allowOfflinePayment = ((Boolean) intent.getExtras().get(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE));
+        }
+        if (intent.hasExtra(Intents.EXTRA_OFFLINE_NO_PROMPT)) {
+          approveOfflinePaymentWithoutPrompt = ((Boolean) intent.getExtras().get(Intents.EXTRA_OFFLINE_NO_PROMPT));
+        }
+        if (intent.hasExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE)) {
+          disableCreditSurcharge = intent.getBooleanExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false);
+        }
+        if (intent.hasExtra(Intents.EXTRA_REQUIRES_REMOTE_CONFIRMATION)) {
+          requiresRemoteConfirmation = intent.getBooleanExtra(Intents.EXTRA_REQUIRES_REMOTE_CONFIRMATION, false);
+        }
+        if (intent.hasExtra(Intents.EXTRA_TIPPABLE_AMOUNT)) {
+          tippable_Amount = intent.getLongExtra(Intents.EXTRA_TIPPABLE_AMOUNT, -1L);
+        }
+
+        return mergeDeprecatedTransactionSettingsProperties(existingTransactionSettings, tippable_Amount, isDisableCashBack,
+          cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
+          approveOfflinePaymentWithoutPrompt, disableCreditSurcharge, requiresRemoteConfirmation);
+      }
+      return null;
     }
 
-    public TransactionSettings buildTransactionSettingsFromIntent(Intent intent) {
-
-      TransactionSettings transactionSettings = new TransactionSettings();
-
-      if (intent.hasExtra(Intents.EXTRA_AMOUNT)) {
-        amount = intent.getLongExtra(Intents.EXTRA_AMOUNT, 0L);
+    public static TransactionSettings buildTransactionSettingsFromPayIntent(PayIntent payIntent) {
+      if (payIntent != null) {
+       return mergeDeprecatedTransactionSettingsProperties(payIntent.transactionSettings, payIntent.tippableAmount, payIntent.isDisableCashBack,
+          payIntent.cardEntryMethods, payIntent.remotePrint, payIntent.isForceSwipePinEntry, payIntent.disableRestartTransactionWhenFailed, payIntent.allowOfflinePayment,
+          payIntent.approveOfflinePaymentWithoutPrompt, payIntent.isDisableCreditSurcharge, payIntent.requiresRemoteConfirmation);
       }
-      transactionSettings.setCloverShouldHandleReceipts(!intent.getBooleanExtra(Intents.EXTRA_REMOTE_PRINT, false));
-      transactionSettings.setDisableRestartTransactionOnFailure(intent.getBooleanExtra(
-          Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, false));
-      transactionSettings.setForcePinEntryOnSwipe(intent.getBooleanExtra(Intents.EXTRA_FORCE_SWIPE_PIN_ENTRY, false));
-      transactionSettings.setDisableCashBack(intent.getBooleanExtra(Intents.EXTRA_DISABLE_CASHBACK, false));
-      if(intent.hasExtra(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE)) {
-        transactionSettings.setAllowOfflinePayment((Boolean) intent.getExtras().get(Intents.EXTRA_ALLOW_OFFLINE_ACCEPTANCE));
-      }
-      if (intent.hasExtra(Intents.EXTRA_OFFLINE_NO_PROMPT)) {
-        transactionSettings.setApproveOfflinePaymentWithoutPrompt((Boolean) intent.getExtras().get(Intents.EXTRA_OFFLINE_NO_PROMPT));
-      }
-      transactionSettings.setCardEntryMethods(intent.getIntExtra(Intents.EXTRA_CARD_ENTRY_METHODS, Intents.CARD_ENTRY_METHOD_ALL));
-      transactionSettings.setDisableDuplicateCheck(false);
-      transactionSettings.setDisableReceiptSelection(false);
-      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
-      transactionSettings.setTipMode(null); // will default to clover setting
-      if (intent.hasExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE)) {
-        transactionSettings.setDisableCreditSurcharge(intent.getBooleanExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false));
-      }
-
-      return transactionSettings;
-    }
-
-    public TransactionSettings buildTransactionSettingsFromPayIntent(PayIntent payIntent) {
-      TransactionSettings transactionSettings = new TransactionSettings();
-
-      transactionSettings.setCloverShouldHandleReceipts(!payIntent.remotePrint);
-      transactionSettings.setDisableRestartTransactionOnFailure(payIntent.disableRestartTransactionWhenFailed);
-      transactionSettings.setForcePinEntryOnSwipe(payIntent.isForceSwipePinEntry);
-      transactionSettings.setDisableCashBack(payIntent.isDisableCashBack);
-      transactionSettings.setAllowOfflinePayment(payIntent.allowOfflinePayment);
-      transactionSettings.setApproveOfflinePaymentWithoutPrompt(payIntent.approveOfflinePaymentWithoutPrompt);
-      transactionSettings.setCardEntryMethods(payIntent.cardEntryMethods);
-      transactionSettings.setDisableDuplicateCheck(false); // default
-      transactionSettings.setDisableReceiptSelection(false); // default
-      transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
-      transactionSettings.setTipMode(null); // will default to clover setting
-      transactionSettings.setTippableAmount(payIntent.tippableAmount);
-      transactionSettings.setDisableCreditSurcharge(payIntent.isDisableCreditSurcharge);
-
-      return transactionSettings;
+      return null;
     }
 
     public Builder payment(Payment payment) {
@@ -429,11 +428,6 @@ public class PayIntent implements Parcelable {
       this.themeName = payIntent.themeName;
       this.germanInfo = payIntent.germanInfo;
       this.germanELVTransaction = payIntent.germanELVTransaction;
-      if (payIntent.transactionSettings != null) {
-        this.transactionSettings = payIntent.transactionSettings;
-      } else {
-        this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
-      }
       this.cashAdvanceCustomerIdentification = payIntent.cashAdvanceCustomerIdentification;
       this.vasSettings = payIntent.vasSettings;
       this.originatingPayment = payIntent.originatingPayment;
@@ -459,6 +453,13 @@ public class PayIntent implements Parcelable {
       this.tokenizeCardResponse = payIntent.tokenizeCardResponse;
       this.dataReadMode = payIntent.dataReadMode;
       this.refundReason = payIntent.refundReason;
+      this.thresholdManagerName = payIntent.thresholdManagerName;
+      this.thresholdManagerId = payIntent.thresholdManagerId;
+      this.ebtManualCardEntryScreenFlow = payIntent.ebtManualCardEntryScreenFlow;
+      // As a general rule, the transactionSettings assignment should always be the last one
+      // prior to the return statement.  This is to ensure any new/added overrides don't get
+      // reset by follow-on assignments and aids in preventing backward compatibility issues.
+      this.transactionSettings = buildTransactionSettingsFromPayIntent(payIntent);
       return this;
     }
 
@@ -472,6 +473,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setTippableAmount(Long)}
+     */
     @Deprecated
     public Builder tippableAmount(long tippableAmount) {
       this.tippableAmount = tippableAmount;
@@ -506,6 +510,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setCardEntryMethods(Integer)}
+     */
     @Deprecated
     public Builder cardEntryMethods(int cardEntryMethods) {
       this.cardEntryMethods = cardEntryMethods;
@@ -537,6 +544,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setCloverShouldHandleReceipts(Boolean)}
+     * NOTE - The boolean value for setCloverShouldHandleReceipts is the inverse of remotePrint
+     * (i.e. remotePrint(true) is the equivalent of TransactionSettings.setCloverShouldHandleReceipts(false))
+     */
     @Deprecated
     public Builder remotePrint(boolean remotePrint) {
       this.remotePrint = remotePrint;
@@ -546,6 +558,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setDisableCashBack(Boolean)}
+     */
     @Deprecated
     public Builder disableCashback(boolean disableCashBack) {
       this.isDisableCashBack = disableCashBack;
@@ -564,6 +579,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setForcePinEntryOnSwipe(Boolean)}
+     */
     @Deprecated
     public Builder forceSwipePinEntry(boolean isForceSwipePinEntry) {
       this.isForceSwipePinEntry = isForceSwipePinEntry;
@@ -573,6 +591,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setDisableRestartTransactionOnFailure(Boolean)}
+     */
     @Deprecated
     public Builder disableRestartTransactionWhenFailed(boolean disableRestartTransactionWhenFailed) {
       this.disableRestartTransactionWhenFailed = disableRestartTransactionWhenFailed;
@@ -602,6 +623,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setAllowOfflinePayment(Boolean)}
+     */
     @Deprecated
     public Builder allowOfflinePayment(Boolean allowOfflinePayment) {
       this.allowOfflinePayment = allowOfflinePayment;
@@ -611,6 +635,9 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setApproveOfflinePaymentWithoutPrompt(Boolean)}
+     */
     @Deprecated
     public Builder approveOfflinePaymentWithoutPrompt(Boolean approveOfflinePaymentWithoutPrompt) {
       this.approveOfflinePaymentWithoutPrompt = approveOfflinePaymentWithoutPrompt;
@@ -625,8 +652,15 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    /**
+     * @deprecated Please use {@link TransactionSettings#setRemoteConfirmationRequired(Boolean)}
+     */
+    @Deprecated
     public Builder requiresRemoteConfirmation(Boolean requiresRemoteConfirmation) {
       this.requiresRemoteConfirmation = requiresRemoteConfirmation;
+      if (transactionSettings != null) { // ** Backward Compatibility **
+        transactionSettings.setRemoteConfirmationRequired(requiresRemoteConfirmation);
+      }
       return this;
     }
 
@@ -782,6 +816,22 @@ public class PayIntent implements Parcelable {
       this.refundReason = refundReason;
       return this;
     }
+
+    public Builder thresholdManagerName(String thresholdManagerName) {
+      this.thresholdManagerName = thresholdManagerName;
+      return this;
+    }
+
+    public Builder thresholdManagerId(String thresholdManagerId) {
+      this.thresholdManagerId = thresholdManagerId;
+      return this;
+    }
+
+    public Builder ebtManualCardEntryScreenFlow(String ebtManualCardEntryScreenFlow){
+      this.ebtManualCardEntryScreenFlow = ebtManualCardEntryScreenFlow;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -798,12 +848,15 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow);
     }
   }
 
   public final String action;
   public final Long amount;
+  /**
+   * @deprecated Please use {@link TransactionSettings#getTippableAmount()}
+   */
   @Deprecated // Please use TransactionSettings
   public final Long tippableAmount;
   public final Long tipAmount;
@@ -815,9 +868,15 @@ public class PayIntent implements Parcelable {
   public final TransactionType transactionType;
   public final ArrayList<TaxableAmountRate> taxableAmountRateList;
   public final ServiceChargeAmount serviceChargeAmount;
+  /**
+   * @deprecated Please use {@link TransactionSettings#getDisableCashBack()}
+   */
   @Deprecated // Please use TransactionSettings
   public final boolean isDisableCashBack;
   public final boolean isTesting;
+  /**
+   * @deprecated Please use {@link TransactionSettings#getCardEntryMethods()}
+   */
   @Deprecated // Please use TransactionSettings
   public final int cardEntryMethods;
   public final String voiceAuthCode;
@@ -825,6 +884,11 @@ public class PayIntent implements Parcelable {
   public final String streetAddress;
   public final boolean isCardNotPresent;
   public final String cardDataMessage;
+  /**
+   * @deprecated Please use {@link TransactionSettings#getCloverShouldHandleReceipts()}
+   * NOTE - The boolean value for setCloverShouldHandleReceipts is the inverse of remotePrint
+   * (i.e. remotePrint == true is the equivalent of TransactionSettings.getCloverShouldHandleReceipts() == false)
+   */
   @Deprecated // Please use TransactionSettings
   public final boolean remotePrint;
   /**
@@ -832,18 +896,34 @@ public class PayIntent implements Parcelable {
    */
   @Deprecated
   public final String transactionNo;
+  /**
+   * @deprecated please use {@link TransactionSettings#getForcePinEntryOnSwipe()}
+   */
   @Deprecated // Please use TransactionSettings
   public final boolean isForceSwipePinEntry;
+  /**
+   * @deprecated please use {@link TransactionSettings#getDisableRestartTransactionOnFailure()}
+   */
   @Deprecated // Please use TransactionSettings
   public final boolean disableRestartTransactionWhenFailed;
   public final String externalPaymentId;
   public final String externalReferenceId;
   public final String originatingPaymentPackage;
   public final VaultedCard vaultedCard;
+  /**
+   * @deprecated please use {@link TransactionSettings#getAllowOfflinePayment()}
+   */
   @Deprecated // Please use TransactionSettings
   public final Boolean allowOfflinePayment;
+  /**
+   * @deprecated please use {@link TransactionSettings#getApproveOfflinePaymentWithoutPrompt()}
+   */
   @Deprecated // Please use TransactionSettings
   public final Boolean approveOfflinePaymentWithoutPrompt;
+  /**
+   * @deprecated please use {@link TransactionSettings#getRemoteConfirmationRequired()}
+   */
+  @Deprecated
   public final Boolean requiresRemoteConfirmation;
   public final Boolean requiresFinalRemoteApproval;
   public final Boolean skipELVLimitOverride;
@@ -873,6 +953,9 @@ public class PayIntent implements Parcelable {
   public TokenizeCardResponse tokenizeCardResponse;
   public String dataReadMode;
   public String refundReason;
+  public String thresholdManagerName;
+  public String thresholdManagerId;
+  public String ebtManualCardEntryScreenFlow;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -890,7 +973,7 @@ public class PayIntent implements Parcelable {
                     Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues,
                     Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender, boolean isDisableCreditSurcharge,
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
-                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode, String refundReason) {
+                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode, String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -946,40 +1029,111 @@ public class PayIntent implements Parcelable {
     this.tokenizeCardRequest = tokenizeCardRequest;
     this.dataReadMode = dataReadMode;
     this.refundReason = refundReason;
-
-    if (transactionSettings != null) {
-      this.transactionSettings = transactionSettings;
-    } else {
-      this.transactionSettings = buildTransactionSettingsPrivate(tippableAmount, isDisableCashBack,
-          cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
-          approveOfflinePaymentWithoutPrompt);
-    }
-
+    this.thresholdManagerName = thresholdManagerName;
+    this.thresholdManagerId = thresholdManagerId;
+    this.ebtManualCardEntryScreenFlow = ebtManualCardEntryScreenFlow;
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
+    // As a general rule, the transactionSettings assignment should always be the last one
+    // prior to the return statement.  This is to ensure any new/added overrides don't get
+    // reset by follow-on assignments and aids in preventing backward compatibility issues.
+    this.transactionSettings = mergeDeprecatedTransactionSettingsProperties(transactionSettings, tippableAmount, isDisableCashBack,
+      cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
+      approveOfflinePaymentWithoutPrompt, isDisableCreditSurcharge, requiresRemoteConfirmation);
   }
 
-  private TransactionSettings buildTransactionSettingsPrivate(Long tippableAmountIn, boolean isDisableCashBackIn, int cardEntryMethodsIn,
-                                                              boolean remotePrintIn, boolean isForceSwipePinEntryIn,
-                                                              boolean disableRestartTransactionWhenFailedIn, Boolean allowOfflinePaymentIn,
-                                                              Boolean approveOfflinePaymentWithoutPromptIn) {
+  // To maintain proper backward compatibility, this method will compare the existing
+  // transactionSettings properties against the individual deprecated properties and populate
+  // any missing transactionSettings data.  If data already exists in the transactionSettings
+  // property, then the individual deprecated property is ignored.  In certain cases, if no
+  // incoming data exists for certain settings, default values will be used.
+  private static TransactionSettings mergeDeprecatedTransactionSettingsProperties(TransactionSettings ts,
+                                                                     Long tippableAmountIn,
+                                                                     boolean isDisableCashBackIn,
+                                                                     int cardEntryMethodsIn,
+                                                                     boolean remotePrintIn,
+                                                                     boolean isForceSwipePinEntryIn,
+                                                                     boolean disableRestartTransactionWhenFailedIn,
+                                                                     Boolean allowOfflinePaymentIn,
+                                                                     Boolean approveOfflinePaymentWithoutPromptIn,
+                                                                     Boolean isDisableCreditSurcharge,
+                                                                     Boolean requiresRemoteConfirmation) {
     TransactionSettings transactionSettings = new TransactionSettings();
-
-    transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
-    transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);
-    transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntryIn);
-    transactionSettings.setDisableCashBack(isDisableCashBackIn);
-    transactionSettings.setAllowOfflinePayment(allowOfflinePaymentIn);
-    transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPromptIn);
-    transactionSettings.setCardEntryMethods(cardEntryMethodsIn);
-    transactionSettings.setDisableDuplicateCheck(false);
-    transactionSettings.setDisableReceiptSelection(false);
-    transactionSettings.setSignatureEntryLocation(null); // will default to clover setting
-    transactionSettings.setTipMode(null); // will default to clover setting
-    transactionSettings.setTippableAmount(tippableAmountIn);
-    transactionSettings.setDisableCreditSurcharge(isDisableCreditSurcharge);
-
+    // Smart merge of incoming values where existing ts fields win
+    if (ts != null) {
+      // Deprecated fields checked for backward compatibility
+      transactionSettings.setCloverShouldHandleReceipts(ts.isNotNullCloverShouldHandleReceipts() ? ts.getCloverShouldHandleReceipts() : !remotePrintIn);
+      transactionSettings.setDisableRestartTransactionOnFailure(ts.isNotNullDisableRestartTransactionOnFailure() ? ts.getDisableRestartTransactionOnFailure() : disableRestartTransactionWhenFailedIn);
+      transactionSettings.setForcePinEntryOnSwipe(ts.isNotNullForcePinEntryOnSwipe() ? ts.getForcePinEntryOnSwipe() : isForceSwipePinEntryIn);
+      transactionSettings.setDisableCashBack(ts.isNotNullDisableCashBack() ? ts.getDisableCashBack() : isDisableCashBackIn);
+      transactionSettings.setAllowOfflinePayment(ts.isNotNullAllowOfflinePayment() ? ts.getAllowOfflinePayment() : allowOfflinePaymentIn);
+      transactionSettings.setApproveOfflinePaymentWithoutPrompt(ts.isNotNullApproveOfflinePaymentWithoutPrompt() ? ts.getApproveOfflinePaymentWithoutPrompt() : approveOfflinePaymentWithoutPromptIn);
+      transactionSettings.setCardEntryMethods(ts.isNotNullCardEntryMethods() ? ts.getCardEntryMethods() : cardEntryMethodsIn);
+      transactionSettings.setTippableAmount(ts.isNotNullTippableAmount() ? ts.getTippableAmount() : tippableAmountIn);
+      transactionSettings.setDisableCreditSurcharge(ts.isNotNullDisableCreditSurcharge() ? ts.getDisableCreditSurcharge() : isDisableCreditSurcharge);
+      transactionSettings.setRemoteConfirmationRequired(ts.isNotNullRemoteConfirmationRequired() ? ts.getRemoteConfirmationRequired() : requiresRemoteConfirmation);
+      // Non-deprecated fields with default values - backward compatibility is key here
+      transactionSettings.setDisableDuplicateCheck(ts.isNotNullDisableDuplicateCheck() ? ts.getDisableDuplicateCheck() : false);
+      transactionSettings.setDisableReceiptSelection(ts.isNotNullDisableReceiptSelection() ? ts.getDisableReceiptSelection() : false);
+      // Non-deprecated fields - no default values, so only set if not null in ts
+      if (ts.isNotNullAutoAcceptPaymentConfirmations()) {
+        transactionSettings.setAutoAcceptPaymentConfirmations(ts.getAutoAcceptPaymentConfirmations());
+      }
+      if (ts.isNotNullAutoAcceptSignature()) {
+        transactionSettings.setAutoAcceptSignature(ts.getAutoAcceptSignature());
+      }
+      if (ts.isNotNullReturnResultOnTransactionComplete()) {
+        transactionSettings.setReturnResultOnTransactionComplete(ts.getReturnResultOnTransactionComplete());
+      }
+      if (ts.isNotNullRemoteReceipts()) {
+        transactionSettings.setRemoteReceipts(ts.getRemoteReceipts());
+      }
+      if (ts.isNotNullForceOfflinePayment()) {
+        transactionSettings.setForceOfflinePayment(ts.getForceOfflinePayment());
+      }
+      if (ts.isNotNullSignatureThreshold()) {
+        transactionSettings.setSignatureThreshold(ts.getSignatureThreshold());
+      }
+      if (ts.isNotNullTipSuggestions()) {
+        transactionSettings.setTipSuggestions(ts.getTipSuggestions());
+      }
+      if (ts.isNotNullCashbackSuggestions()) {
+        transactionSettings.setCashbackSuggestions(ts.getCashbackSuggestions());
+      }
+      if (ts.isNotNullRegionalExtras()) {
+        transactionSettings.setRegionalExtras(ts.getRegionalExtras());
+      }
+      if (ts.isNotNullReceiptOptions()) {
+        transactionSettings.setReceiptOptions(ts.getReceiptOptions());
+      }
+      if (ts.isNotNullSignatureEntryLocation()) {
+        transactionSettings.setSignatureEntryLocation(ts.getSignatureEntryLocation());
+      }
+      if (ts.isNotNullTipMode()) {
+        transactionSettings.setTipMode(ts.getTipMode());
+      }
+      if (ts.isNotNullTenderOptions()) {
+        transactionSettings.setTenderOptions(ts.getTenderOptions());
+      }
+      if (ts.isNotNullEnableKioskMode()) {
+        transactionSettings.setEnableKioskMode(ts.getEnableKioskMode());
+      }
+    } else { // No incoming ts fields, so use deprecated properties and default values where appropriate.
+      transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
+      transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);
+      transactionSettings.setForcePinEntryOnSwipe(isForceSwipePinEntryIn);
+      transactionSettings.setDisableCashBack(isDisableCashBackIn);
+      transactionSettings.setAllowOfflinePayment(allowOfflinePaymentIn);
+      transactionSettings.setApproveOfflinePaymentWithoutPrompt(approveOfflinePaymentWithoutPromptIn);
+      transactionSettings.setCardEntryMethods(cardEntryMethodsIn);
+      transactionSettings.setTippableAmount(tippableAmountIn);
+      transactionSettings.setDisableCreditSurcharge(isDisableCreditSurcharge);
+      transactionSettings.setRemoteConfirmationRequired(requiresRemoteConfirmation);
+      // Non-deprecated fields with default values - backward compatibility is key here
+      transactionSettings.setDisableDuplicateCheck(false);
+      transactionSettings.setDisableReceiptSelection(false);
+    }
     return transactionSettings;
   }
 
@@ -1153,6 +1307,26 @@ public class PayIntent implements Parcelable {
     if (refundReason != null) {
       intent.putExtra(Intents.EXTRA_REFUND_REASON, refundReason);
     }
+
+    if (thresholdManagerName != null) {
+      intent.putExtra(Intents.EXTRA_THRESHOLD_MANAGER_NAME, thresholdManagerName);
+    }
+
+    if (thresholdManagerId != null) {
+      intent.putExtra(Intents.EXTRA_THRESHOLD_MANAGER_ID, thresholdManagerId);
+    }
+
+    if (ebtManualCardEntryScreenFlow != null){
+      intent.putExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW, ebtManualCardEntryScreenFlow);
+    }
+
+    if (originatingPaymentPackage != null) {
+      intent.putExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE, originatingPaymentPackage);
+    }
+    intent.putExtra(Intents.EXTRA_USE_LAST_SWIPE, useLastSwipe);
+    if (themeName != null) {
+      intent.putExtra(Intents.EXTRA_THEME_NAME, (Parcelable) themeName);
+    }
   }
 
   @Override
@@ -1212,6 +1386,9 @@ public class PayIntent implements Parcelable {
            ", tokenResponse=" + tokenizeCardResponse +
            ", dataReadMode=" + dataReadMode +
            ", refundReason=" + refundReason +
+           ", thresholdManagerName=" + thresholdManagerName +
+           ", thresholdManagerId=" + thresholdManagerId +
+           ", ebtManualCardEntryScreenFlow=" + ebtManualCardEntryScreenFlow +
            '}';
   }
 
@@ -1404,6 +1581,18 @@ public class PayIntent implements Parcelable {
 
     if (refundReason != null) {
       bundle.putString(Intents.EXTRA_REFUND_REASON, refundReason);
+    }
+
+    if (thresholdManagerName != null) {
+      bundle.putString(Intents.EXTRA_THRESHOLD_MANAGER_NAME, thresholdManagerName);
+    }
+
+    if (thresholdManagerId != null) {
+      bundle.putString(Intents.EXTRA_THRESHOLD_MANAGER_ID, thresholdManagerId);
+    }
+
+    if (ebtManualCardEntryScreenFlow != null) {
+      bundle.putString(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW, ebtManualCardEntryScreenFlow);
     }
 
     // write out
@@ -1633,6 +1822,18 @@ public class PayIntent implements Parcelable {
 
       if (bundle.containsKey(Intents.EXTRA_REFUND_REASON)) {
         builder.refundReason(bundle.getString(Intents.EXTRA_REFUND_REASON));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_THRESHOLD_MANAGER_NAME)) {
+        builder.thresholdManagerName(bundle.getString(Intents.EXTRA_THRESHOLD_MANAGER_NAME));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_THRESHOLD_MANAGER_ID)) {
+        builder.thresholdManagerId(bundle.getString(Intents.EXTRA_THRESHOLD_MANAGER_ID));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW)) {
+        builder.ebtManualCardEntryScreenFlow(bundle.getString(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW));
       }
       // build
       return builder.build();

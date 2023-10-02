@@ -17,6 +17,10 @@ public class TipAdjustRequestIntentBuilder extends BaseIntentBuilder {
     String paymentId;
     Long tipAmount;
 
+    /**
+     * Create the build with a required paymentId of the payment to apply the tip
+     * @param paymentId
+     */
     public TipAdjustRequestIntentBuilder(String paymentId) {
         if(Strings.isNullOrEmpty(paymentId)) {
             throw new IllegalArgumentException("payment id is required.");
@@ -24,6 +28,12 @@ public class TipAdjustRequestIntentBuilder extends BaseIntentBuilder {
         this.paymentId = paymentId;
     }
 
+    /**
+     * The amount of the tip. If null, the Clover Tip app will open for the user
+     * to enter the tip for the payment
+     * @param tipAmount
+     * @return
+     */
     public TipAdjustRequestIntentBuilder tipAmount(Long tipAmount) {
         this.tipAmount = tipAmount;
         return this;

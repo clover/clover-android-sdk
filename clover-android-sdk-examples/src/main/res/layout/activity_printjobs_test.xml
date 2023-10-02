@@ -13,63 +13,68 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MerchantTestActivity">
+    tools:context=".PrintJobsTestActivity">
 
-  <LinearLayout
-      android:layout_width="match_parent"
+  <LinearLayout android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-    <EditText
-        android:layout_width="256dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_printer_id"
-        android:hint="Printer ID, or leave empty"
-        android:editable="true"
-        android:singleLine="true"
-        android:layout_gravity="left|center_vertical"/>
-
-    <LinearLayout
+    <TextView android:id="@+id/text_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left|center_vertical">
+        android:layout_gravity="center_vertical"
+        android:text="No receipt printer configured"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-      <Button
+    <LinearLayout android:id="@+id/layout_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:orientation="horizontal">
+
+      <Button android:id="@+id/button_print"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Print"
-          android:id="@+id/button_print"
-          android:layout_gravity="left|center_vertical"/>
+          android:layout_gravity="start|center_vertical"
+          android:text="Print to Printer" />
 
-      <Space android:layout_width="10dp" android:layout_height="0dp"/>
+      <Space android:layout_width="16dp"
+          android:layout_height="0dp" />
 
-      <TextView
-          android:layout_width="wrap_content"
+      <TextView android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceLarge"
-          tools:text="1234567890"
           android:layout_gravity="center_vertical"
-          android:id="@+id/text_id"/>
+          android:text="or"
+          android:textAppearance="?android:attr/textAppearanceLarge" />
+
+      <Space android:layout_width="16dp"
+          android:layout_height="0dp" />
+
+      <Button android:id="@+id/button_print_to_any"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start|center_vertical"
+          android:text="Print to Any" />
     </LinearLayout>
 
-    <Space android:layout_width="0dp" android:layout_height="20dp"/>
+    <Space android:layout_width="0dp"
+        android:layout_height="32dp" />
 
-    <TextView
+    <TextView android:id="@+id/printjob_ids"
+        android:fontFamily="monospace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="1234567890: IN_QUEUE"
         android:layout_gravity="center_vertical"
-        android:id="@+id/text_printjob_ids"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="1234567890: IN_QUEUE" />
   </LinearLayout>
 </ScrollView>

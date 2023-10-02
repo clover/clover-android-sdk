@@ -55,6 +55,7 @@ import com.clover.sdk.v3.inventory.ItemGroup;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
 import com.clover.sdk.v3.inventory.Option;
+import com.clover.sdk.v3.inventory.OrderFee;
 import com.clover.sdk.v3.inventory.PriceType;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
@@ -1211,6 +1212,31 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void removeCategoriesFromItem(String itemId, List<String> categoryId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement removeCategoriesFromItem()");
+    }
+
+    @Override
+    public List<OrderFee> getOrderFees(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getOrderFees()");
+    }
+
+    @Override
+    public OrderFee getOrderFee(String orderFeeId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getOrderFee()");
+    }
+
+    @Override
+    public OrderFee createOrderFee(OrderFee orderFee, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement createOrderFee()");
+    }
+
+    @Override
+    public void updateOrderFee(OrderFee orderFee, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement updateOrderFee()");
+    }
+
+    @Override
+    public void deleteOrderFee(String orderFeeId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement deleteOrderFee()");
     }
   }
 

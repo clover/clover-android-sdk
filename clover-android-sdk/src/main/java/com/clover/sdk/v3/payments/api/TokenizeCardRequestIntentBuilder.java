@@ -7,15 +7,27 @@ import com.clover.sdk.v1.Intents;
 
 import java.util.Set;
 
+/**
+ * Use the TokenizeCardRequestIntentBuilder class to initiate a tokenize card request on a Clover device.
+ */
 public class TokenizeCardRequestIntentBuilder extends BaseIntentBuilder {
     private CardOptions cardOptions;
     private Boolean suppressConfirmation;
-    
+
+    /**
+     * set the CardOptions for a single transaction
+     * @param cardOptions
+     * @return
+     */
     public TokenizeCardRequestIntentBuilder cardOptions(CardOptions cardOptions) {
         this.cardOptions = cardOptions;
         return this;
     }
 
+    /**
+     * Option to allow tokenization without confirmation
+     * @return
+     */
     public TokenizeCardRequestIntentBuilder suppressConfirmation(Boolean suppressConfirmation) {
         this.suppressConfirmation = suppressConfirmation;
         return this;
@@ -50,6 +62,11 @@ public class TokenizeCardRequestIntentBuilder extends BaseIntentBuilder {
             this.cardEntryMethods = cardEntryMethods;
         }
 
+        /**
+         * CardOptions to control card options for a single transaction
+         * @param cardEntryMethods - @see CardEntryMethod
+         * @return
+         */
         public static CardOptions Instance(Set<CardEntryMethod> cardEntryMethods) {
             return new CardOptions(cardEntryMethods);
         }

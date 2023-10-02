@@ -12,9 +12,17 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-
+/**
+ * Base class for other intent builders to associate a request to the requesting application
+ */
 public class BaseIntentBuilder {
   public static final String PAPI_SDK_NAME = BaseIntentBuilder.class.getPackage().getName() + ":apapi";
+
+  /**
+   * returns a single-use Intent that can be used to launch an Activity to process the request
+   * @param context
+   * @return
+   */
   public Intent build(Context context) {
     if (context == null) {
       throw new IllegalArgumentException("context cannot be null");
@@ -44,7 +52,6 @@ public class BaseIntentBuilder {
 
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
-      // TODO: what to do here...
     } catch (ExecutionException e) {
       e.printStackTrace();
     } catch (InterruptedException e) {

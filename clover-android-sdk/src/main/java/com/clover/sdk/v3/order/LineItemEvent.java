@@ -39,6 +39,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getClientCreatedTime clientCreatedTime}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getParentLineItemEvent parentLineItemEvent}</li>
+ * <li>{@link #getDeviceId deviceId}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -93,25 +94,34 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.parentLineItemEvent);
   }
 
+  /**
+   * Used to identify KDS device id where this line item is marked as Ready/complete. Can be null for all other KDS event types
+   */
+  public java.lang.String getDeviceId() {
+    return genClient.cacheGet(CacheKey.deviceId);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     type
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     orderId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     lineItemId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     clientCreatedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     createdTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     parentLineItemEvent
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
-      ;
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    deviceId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -231,6 +241,11 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.parentLineItemEvent);
   }
 
+  /** Checks whether the 'deviceId' field is set and is not null */
+  public boolean isNotNullDeviceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.deviceId);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -266,6 +281,11 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'parentLineItemEvent' field has been set, however the value could be null */
   public boolean hasParentLineItemEvent() {
     return genClient.cacheHasKey(CacheKey.parentLineItemEvent);
+  }
+
+  /** Checks whether the 'deviceId' field has been set, however the value could be null */
+  public boolean hasDeviceId() {
+    return genClient.cacheHasKey(CacheKey.deviceId);
   }
 
 
@@ -320,6 +340,13 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.setRecord(parentLineItemEvent, CacheKey.parentLineItemEvent);
   }
 
+  /**
+   * Sets the field 'deviceId'.
+   */
+  public LineItemEvent setDeviceId(java.lang.String deviceId) {
+    return genClient.setOther(deviceId, CacheKey.deviceId);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -348,6 +375,10 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'parentLineItemEvent' field, the 'has' method for this field will now return false */
   public void clearParentLineItemEvent() {
     genClient.clear(CacheKey.parentLineItemEvent);
+  }
+  /** Clears the 'deviceId' field, the 'has' method for this field will now return false */
+  public void clearDeviceId() {
+    genClient.clear(CacheKey.deviceId);
   }
 
 
@@ -421,6 +452,7 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = true;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean PARENTLINEITEMEVENT_IS_REQUIRED = false;
+    public static final boolean DEVICEID_IS_REQUIRED = false;
   }
 
 }

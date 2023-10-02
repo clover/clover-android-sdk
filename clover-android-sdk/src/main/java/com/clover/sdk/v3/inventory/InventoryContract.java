@@ -345,6 +345,16 @@ public final class InventoryContract {
     public static final Uri MODIFIERS_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, MODIFIERS_CONTENT_DIRECTORY);
 
     /**
+     * base content directory for all menu modifiers and menu modifier groups for an item (does not map to an actual table)
+     */
+    public static final String MENU_MODIFIERS_CONTENT_DIRECTORY = "menu_modifiers_for_item";
+
+    /**
+     * URI to get all menu modifiers and menu modifier groups for an item
+     */
+    public static final Uri MENU_MODIFIERS_CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, MENU_MODIFIERS_CONTENT_DIRECTORY);
+
+    /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of modifiers.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/item";
@@ -2277,6 +2287,94 @@ public final class InventoryContract {
      * The MIME type of a {@link #CONTENT_URI} subdirectory of a single menu section.
      */
     public static final String CONTENT_MENU_SECTION_TYPE = "vnd.android.cursor.item/item_layout_menu_section";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.OrderFee}.
+   */
+  public interface OrderFeeColumns {
+    /**
+     * A {@link String}, the 13-character Clover UUID of this order fee.
+     */
+    String UUID = "uuid";
+
+    /**
+     * A {@link String}, merchant specified name of this order fee.
+     */
+    String NAME = "name";
+
+    /**
+     * A {@link String}, which defines the type of this order fee.
+     * It could be used to define this order fee as "gratuity",
+     * "delivery fee" etc.
+     * If the value of this field is set as com.clover.gratuity,
+     * this order fee will be applied automatically to the order as
+     * gratuity when com.clover.min_guest_count is greater than set number
+     */
+    String TYPE = "type";
+
+    /**
+     * A {@link Long}, amount created by merchant for flat fee based order fees.
+     */
+    String AMOUNT = "amount";
+
+    /**
+     * A {@link Long}, percentage created by merchant for this order fee.
+     */
+    String PERCENTAGE = "percentage";
+
+    /**
+     * A {@link Boolean} to set default order fee.
+     */
+    String IS_DEFAULT = "is_default";
+
+    /**
+     * A {@link Boolean} to hide order fee.
+     */
+    String IS_HIDDEN = "is_hidden";
+
+    String CREATED_TIME = "created_time";
+    String MODIFIED_TIME = "modified_time";
+    String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.OrderFee} instances via
+   * content provider.
+   */
+  public static final class OrderFee implements BaseColumns, OrderFeeColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private OrderFee() {
+    }
+
+    /**
+     * Base content directory (table) for order fees.
+     */
+    public static final String CONTENT_DIRECTORY = "order_fee";
+
+    /**
+     * The content:// style URI for the order fees table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of order fees.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/order_fee";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single order fee.
+     */
+    public static final String CONTENT_ORDER_FEE_TYPE = "vnd.android.cursor.item/order_fee";
 
     public static Uri contentUriWithAccount(Account account) {
       Uri.Builder builder = CONTENT_URI.buildUpon();

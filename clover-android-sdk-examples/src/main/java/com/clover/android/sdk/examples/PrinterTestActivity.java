@@ -16,9 +16,9 @@
 package com.clover.android.sdk.examples;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
+
 import android.app.Activity;
-import android.content.Intent;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -49,7 +49,6 @@ import java.util.Random;
 
 public class PrinterTestActivity extends Activity implements ServiceConnector.OnServiceConnectedListener {
   private static final String TAG = "PrinterTestActivity";
-  private static final int REQUEST_ACCOUNT = 0;
   private static final Random RANDOM = new Random(SystemClock.currentThreadTimeMillis());
 
   private PrinterConnector connector;
@@ -89,7 +88,7 @@ public class PrinterTestActivity extends Activity implements ServiceConnector.On
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_printer_test);
-
+    account = CloverAccount.getAccount(this);
     resultGetPrintersText = (TextView) findViewById(R.id.result_get_printers);
     statusGetPrintersText = (TextView) findViewById(R.id.status_get_printers);
     buttonGetPrinters = (Button) findViewById(R.id.button_get_printers);
@@ -342,15 +341,10 @@ public class PrinterTestActivity extends Activity implements ServiceConnector.On
 
     if (account != null) {
       connect();
-    } else {
-      startAccountChooser();
     }
   }
 
-  private void startAccountChooser() {
-    Intent intent = AccountManager.newChooseAccountIntent(null, null, new String[]{CloverAccount.CLOVER_ACCOUNT_TYPE}, false, null, null, null, null);
-    startActivityForResult(intent, REQUEST_ACCOUNT);
-  }
+
 
   @Override
   protected void onPause() {
@@ -384,21 +378,6 @@ public class PrinterTestActivity extends Activity implements ServiceConnector.On
   }
 
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_ACCOUNT) {
-      if (resultCode == RESULT_OK) {
-        String name = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-        String type = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE);
-
-        account = new Account(name, type);
-      } else {
-        if (account == null) {
-          finish();
-        }
-      }
-    }
-  }
 
   private void updatePrinters(String status, ResultStatus resultStatus, List<Printer> result) {
     statusGetPrintersText.setText("<" + status + " " + (resultStatus != null ? resultStatus : "") + ": " + DateFormat.getDateTimeInstance().format(new Date()) + ">");

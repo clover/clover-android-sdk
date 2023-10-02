@@ -1,12 +1,13 @@
 package com.clover.sdk.v1.printer;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
+
+import java.util.Collections;
 
 @RunWith(RobolectricTestRunner.class)
 public class TypeDetailsTest {

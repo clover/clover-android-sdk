@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum Themes implements Parcelable {
-  DARK, LIGHT;
+  DARK, LIGHT, AVOCADO, DEFAULT;
 
   @Override
   public int describeContents() {

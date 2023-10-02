@@ -258,7 +258,7 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     pricingModel
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantPlanPricingModel.class)),
     tags
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     pricingDescription
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     bogo

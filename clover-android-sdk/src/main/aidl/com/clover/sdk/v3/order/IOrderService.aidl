@@ -16,6 +16,7 @@ import com.clover.sdk.v3.payments.TransactionInfo;
 import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.order.VoidReason;
+import com.clover.sdk.v3.payments.Authorization;
 
 /**
  * An interface for interacting with the Clover order service. The order
@@ -480,4 +481,16 @@ interface IOrderService {
    * @y.exclude
   */
   CreditRefund vaultedCreditRefund(in String orderId, in String creditId, out ResultStatus status);
+
+  /**
+     * Not available to non-Clover apps.
+     * @y.exclude
+  */
+  Authorization addAuthorization(String orderId, in Authorization authorization, out ResultStatus status);
+
+  /**
+       * Not available to non-Clover apps.
+       * @y.exclude
+  */
+  Order captureAuthorization(String orderId, in Authorization authorization, out ResultStatus status);
 }

@@ -36,8 +36,16 @@ buildscript {
 
   dependencies {
     classpath androidPlugin
+    classpath kotlinPlugin
+    classpath sonarqubePlugin
+    classpath detektPlugin
   }
 }
 
 defaultTasks 'clean', 'install'
- 
+
+// SonarQube static analysis configuration
+
+//  Adding detekt tasks to all the sub-modules
+subprojects {
+}

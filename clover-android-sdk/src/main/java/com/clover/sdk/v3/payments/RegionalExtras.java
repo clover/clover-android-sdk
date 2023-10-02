@@ -5,6 +5,7 @@ public final class RegionalExtras {
   public static final String FISCAL_INVOICE_NUMBER_KEY = "com.clover.regionalextras.ar.FISCAL_INVOICE_NUMBER_KEY";
   public static final String INSTALLMENT_NUMBER_KEY = "com.clover.regionalextras.ar.INSTALLMENT_NUMBER_KEY";
   public static final String INSTALLMENT_PLAN_KEY = "com.clover.regionalextras.ar.INSTALLMENT_PLAN_KEY";
+  public static final String MERCHANT_ID_KEY = "com.clover.regionalextras.ar.MERCHANT_ID_KEY";
 
 
   //  Values - can be used in conjunction with keys to induce the desired effect during

@@ -5,13 +5,17 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static com.clover.sdk.v3.order.LineItemEventContract.*;
 
@@ -149,5 +153,53 @@ public class LineItemEvents {
             throw new ClientException(SERVICE_ERROR);
         }
         return event;
+    }
+
+    /**
+     * Copy line item events from one line item id to new line item events. Either all events are copied, or none if a failure occurs.
+     * ContentProvider using {@link LineItemEventContract} to get a list of LineItemEvents.
+     *
+     * @param fromLineItemId line item id to copy line item events.
+     * @param toLineItemId   line item id to set line item events.
+     * @return The number of events created.
+     * @throws ClientException if an event could not be copied, in which case no events will be
+     *                         inserted. Inspect {@link ClientException#getResultStatus()} to understand the reason.
+     * @see LineItemEventContract#METHOD_COPY_EVENTS
+     */
+    public int copyLineItemEvents(@NonNull String fromLineItemId, @NonNull String toLineItemId) throws ClientException {
+        final Bundle extras = new Bundle();
+        extras.putString(EXTRA_FROM_LINE_ITEM_ID, fromLineItemId);
+        extras.putString(EXTRA_TO_LINE_ITEM_ID, toLineItemId);
+        final Bundle result = call(METHOD_COPY_EVENTS, extras);
+        final int count = result.getInt(EXTRA_LINE_ITEM_EVENT_COUNT, -1);
+        if (count < 0) {
+            throw new ClientException(SERVICE_ERROR);
+        }
+        return count;
+    }
+
+    /**
+     * Copy line item events from one line item id to new line item events. Either all events are copied, or none if a failure occurs.
+     * ContentProvider using {@link LineItemEventContract} to get a list of LineItemEvents.
+     *
+     * @param fromLineItemId line item id to copy line item events.
+     * @param toLineItemId   line item id to set line item events.
+     * @param orderId        new line item events will be created for this order ID.
+     * @return The number of events created.
+     * @throws ClientException if an event could not be copied, in which case no events will be
+     *                         inserted. Inspect {@link ClientException#getResultStatus()} to understand the reason.
+     * @see LineItemEventContract#METHOD_COPY_EVENTS
+     */
+    public int copyLineItemEvents(@NonNull String fromLineItemId, @NonNull String toLineItemId, @NonNull String orderId) throws ClientException {
+        final Bundle extras = new Bundle();
+        extras.putString(EXTRA_FROM_LINE_ITEM_ID, fromLineItemId);
+        extras.putString(EXTRA_TO_LINE_ITEM_ID, toLineItemId);
+        extras.putString(EXTRA_ORDER_ID, orderId);
+        final Bundle result = call(METHOD_COPY_EVENTS, extras);
+        final int count = result.getInt(EXTRA_LINE_ITEM_EVENT_COUNT, -1);
+        if (count < 0) {
+            throw new ClientException(SERVICE_ERROR);
+        }
+        return count;
     }
 }

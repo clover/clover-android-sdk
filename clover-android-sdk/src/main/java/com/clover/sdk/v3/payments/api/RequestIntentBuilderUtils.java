@@ -5,7 +5,7 @@ import com.clover.sdk.v1.Intents;
 
 import java.util.Set;
 
-class RequestIntentBuilderUtils {
+public class RequestIntentBuilderUtils {
 
   public static int convert(Set<CardEntryMethod> methods) {
     if (methods == null || methods.isEmpty()) {

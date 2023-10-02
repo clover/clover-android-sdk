@@ -15,46 +15,60 @@
  */
 package com.clover.sdk.v1.printer;
 
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * A class defining the contract that must be implemented by content providers that wish
- * to provide additional data on customer receipts.
- * To register such a content provider with the Clover platform, use the
- * {@link IReceiptRegistrationService#register(android.net.Uri, com.clover.sdk.v1.ResultStatus)}
- * method.
+ * A class defining the contract to be implemented by content providers that wish
+ * to provide additional content on customer receipts.
+ * <p>
+ * To register a receipt registration content provider with the Clover platform, use the
+ * {@link ReceiptRegistrationConnector#register(Uri)} method.
  * <p/>
- * Such a content provider must support either the
- * {@link Text#CONTENT_TYPE} or {@link Image#CONTENT_TYPE}
- * content type. If it supports the {@link Text#CONTENT_TYPE} content type, it must implement
+ * Receipt registration content providers must support either, or both the
+ * {@link Text#CONTENT_TYPE} and {@link Image#CONTENT_TYPE} content types.
+ * <p>
+ * If the provider supports the {@link Text#CONTENT_TYPE} content type, it must implement the
  * {@link android.content.ContentProvider#query(android.net.Uri, String[], String, String[], String)}
- * method, and the returned cursor must must contain the columns defined by the {@link Text}
- * class. If the content provider supports the {@link Image#CONTENT_TYPE} content type,
- * it must implement the
- * {@link android.content.ContentProvider#openFile(android.net.Uri, String)}
+ * method. If the returned cursor contains the column {@link Text#TEXT}, the string
+ * value of the column is added to the receipt. The content provider may
+ * return a null cursor, or a cursor that does not contain the {@link Text#TEXT} column to
+ * indicate that the receipt should not be modified.
+ * <p>
+ * If the content provider supports the {@link Image#CONTENT_TYPE} content type,
+ * it must implement the {@link android.content.ContentProvider#openFile(android.net.Uri, String)}
  * method, and the returned file descriptor value must either:
  * <ul>
  *   <li>
- *     Point to a file that contains bitmap data that is decodable using
+ *     Point to a file that contains bitmap data that can be decoded using
  *     {@link android.graphics.BitmapFactory#decodeStream(java.io.InputStream)}.
  *     For example, it can be a PNG, GIF, or JPG encoded file.
  *   </li>
  *   <li>
- *     Be null, indicating that the content provider declined to add
- *     data to this receipt.
+ *     Be {@code null}, indicating that the content provider declined to add
+ *     image content to this receipt.
  *   </li>
  * </ul>
  * <p/>
- * When called, a registered content provider is passed the {@code PARAM_*} query parameters
- * listed below. This may be used as input to other Clover
- * services to obtain additional information about the order, the customer, etc.
+ * When called, a receipt registration content provider is passed the {@code PARAM_*}
+ * query parameters listed below. This may be used as input to other Clover
+ * services to obtain additional information about the order, customer, etc.
  * <p/>
- * Registered content providers have a maximum of 2 seconds to return receipt data from their
- * content provider. It is advisable to stay well below this limit. You must not perform
- * long-running tasks such as network I/O.
+ * Receipt registration content providers have a maximum of 2 seconds to return receipt
+ * content. It is advisable to stay well below this limit. You must not perform
+ * long-running tasks such as network I/O. If the receipt registration content provider
+ * repeatedly fails to respond in the allotted time, throws exceptions, or otherwise
+ * fails to return valid content as specified above, the provider may be temporarily
+ * or permanently disabled.
+ * <p>
+ * It is recommended that apps registering receipt registration providers implement
+ * a pre-uninstall hook and unregister the content provider. See:
+ * {@link com.clover.sdk.v1.Intents#ACTION_APP_PRE_UNINSTALL} for more information.
  *
  * @see com.clover.sdk.v1.printer.IReceiptRegistrationService
  * @see android.content.ContentProvider
+ * @see ReceiptRegistrationConnector
+ * @see com.clover.sdk.v1.Intents#ACTION_APP_PRE_UNINSTALL
  */
 public final class ReceiptContract {
   /**

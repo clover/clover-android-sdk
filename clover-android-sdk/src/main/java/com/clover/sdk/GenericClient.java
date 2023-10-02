@@ -15,11 +15,6 @@
  */
 package com.clover.sdk;
 
-import com.clover.sdk.extractors.ExtractionStrategy;
-import com.clover.sdk.extractors.RecordExtractionStrategy;
-import com.clover.sdk.extractors.RecordListExtractionStrategy;
-import com.clover.sdk.v3.Validator;
-
 import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
@@ -31,7 +26,6 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -136,6 +130,16 @@ public final class GenericClient<D> {
       else {
         cacheState[index] = STATE_CACHED_NO_VALUE;
       }
+    }
+  }
+
+  /**
+   * Delete the existing cache and it's contents.
+   */
+  private void clearCache() {
+    synchronized (LOCK) {
+      cache = null;
+      cacheState = null;
     }
   }
 
@@ -740,6 +744,9 @@ public final class GenericClient<D> {
    */
   public void mergeChanges(JSONObject srcObj, GenericClient srcGC) {
     try {
+      // Cache needs to be invalidated since data in the SPoT JSONObject are being updated
+      // making current cache contents invalid.
+      clearCache();
       // Make a copy of the source so the destination fields are copies
       JSONObject dstObj = getJSONObject();
       for (String field : srcGC.getChangeLog().keySet()) {

@@ -8,7 +8,7 @@ import com.clover.sdk.v1.Intents;
 import java.util.Set;
 
 /**
- * Use the PreAuthRequestIntentBuilder class to initiate a pre-authorized payment on an Android device.
+ * Use the PreAuthRequestIntentBuilder class to initiate a pre-authorized payment on a Clover device.
  */
 public class PreAuthRequestIntentBuilder extends BaseIntentBuilder {
   private String externalPaymentId;
@@ -39,6 +39,11 @@ public class PreAuthRequestIntentBuilder extends BaseIntentBuilder {
     return this;
   }
 
+  /**
+   * Sets the tokenize options for this transaction intent
+   * @param tokenizeOptions
+   * @return
+   */
   public PreAuthRequestIntentBuilder tokenizeOptions(TokenizeOptions tokenizeOptions) {
     this.tokenizeOptions = tokenizeOptions;
     return this;
@@ -116,11 +121,21 @@ public class PreAuthRequestIntentBuilder extends BaseIntentBuilder {
       this.autoAcceptDuplicates = autoAcceptDuplicates;
     }
 
+    /**
+     * CardOptions to control card options for a single transaction
+     * @param cardEntryMethods - @see CardEntryMethod
+     * @param cardNotPresent - If card is not present, will result in Manual card entry
+     * @param autoAcceptDuplicates - Accept, and don't prompt if potential duplicate payment is detected
+     * @return
+     */
     public static CardOptions Instance(Set<CardEntryMethod> cardEntryMethods, Boolean cardNotPresent, Boolean autoAcceptDuplicates) {
       return new CardOptions(cardEntryMethods, cardNotPresent, autoAcceptDuplicates);
     }
   }
 
+  /**
+   * Options to tokenize card during transaction
+   */
   public static class TokenizeOptions {
     private final Boolean suppressConfirmation;
 
@@ -128,6 +143,11 @@ public class PreAuthRequestIntentBuilder extends BaseIntentBuilder {
       this.suppressConfirmation = suppressConfirmation;
     }
 
+    /**
+     * Enable tokenizing card, with an option to not ask for confirmation
+     * @param suppressConfirmation
+     * @return
+     */
     public static TokenizeOptions Instance(boolean suppressConfirmation) {
       return new TokenizeOptions(suppressConfirmation);
     }

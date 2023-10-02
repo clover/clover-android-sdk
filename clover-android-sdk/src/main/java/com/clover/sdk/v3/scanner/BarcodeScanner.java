@@ -121,6 +121,8 @@ public class BarcodeScanner {
    * <li>{@link Intents#EXTRA_LED_ON} - whether LED will be on (selected devices only), default is false</li>
    * <li>{@link Intents#EXTRA_SCAN_QR_CODE} - whether QR codes will be scanned, default is true</li>
    * <li>{@link Intents#EXTRA_SCAN_1D_CODE} - whether 1D codes will be scanned, default is true</li>
+   * <li>{@link Intents#EXTRA_TRANSMIT_UPC_A_CHECK_DIGIT} - whether UPC-A check digit can be transmitted, default is true</li>
+   * <li>{@link Intents#EXTRA_TRANSMIT_UPC_A_PREAMBLE} - whether UPC-A preamble can be transmitted, default is true</li>
    * <li>{@link Intents#EXTRA_SHOW_CLOSE_BUTTON} - whether scanner preview will have a 'close' button, default is true</li>
    * <li>{@link Intents#EXTRA_SHOW_LED_BUTTON} - whether scanner preview will have an LED toggle, default is true</li>
    * </ul>

@@ -17,14 +17,6 @@ ext.getCommonProguardFile = { name ->
 
 def manifestFile = new File(project.projectDir, '/src/main/AndroidManifest.xml')
 
-def getPackage = { ->
-  def parser = new groovy.util.XmlParser(false, true)
-  def rootNode = parser.parse(manifestFile)
-  def attributes = rootNode.attributes()
-  def pkg = attributes['package']
-  return pkg
-}
-
 def getVersionCode = { ->
   def code = project.hasProperty('versionCode') ? versionCode.toInteger() : 32000
   return code
@@ -44,7 +36,7 @@ def releaseBuildTypes = ['release', 'releaseSigned']
 
 android.applicationVariants.all { variant ->
   if (releaseBuildTypes.contains(buildType.name)) {
-    String pkg = getPackage()
+    String pkg = variant.applicationId
     if (!variant.productFlavors.empty) {
       logger.warn('There are product flavors in the project, going to use package names from their override')
       if (variant.productFlavors.get(0).applicationId != null) {

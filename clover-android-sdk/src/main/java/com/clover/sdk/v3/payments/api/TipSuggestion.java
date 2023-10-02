@@ -1,5 +1,8 @@
 package com.clover.sdk.v3.payments.api;
 
+/**
+ * A tip suggestion that can be either amount or percentage based
+ */
 public class TipSuggestion {
       private final Long tipAmount;
       private final Long tipPercentage;
@@ -11,7 +14,7 @@ public class TipSuggestion {
         this.tipPercentage = tipPercentage;
       }
 
-      com.clover.sdk.v3.merchant.TipSuggestion getV3TipSuggestion() {
+      public com.clover.sdk.v3.merchant.TipSuggestion getV3TipSuggestion() {
         com.clover.sdk.v3.merchant.TipSuggestion tipSuggestion = new com.clover.sdk.v3.merchant.TipSuggestion();
         tipSuggestion.setName(this.name);
         if (this.tipAmount != null) {
