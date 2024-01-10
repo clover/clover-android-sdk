@@ -168,4 +168,13 @@ public interface IPaymentConnector extends IDeviceConnector{
    * needs to be used cautiously as a last resort
    */
   void resetDevice();
-}
+
+  /**
+   * PreAuth method to obtain a Pre-Auth for a card, with high availability.
+   * When using preAuthV2, you might not be able to capture immediately by using this method.
+   * The client will have to wait for the order to sync for the capture to be successful.
+   * The Authorization request(%s/v3/merchants/%s/authorizations) can be skipped on the client and will be handled by the server.
+   *
+   * @param request -
+   **/
+  void preAuthV2(PreAuthRequest request);}

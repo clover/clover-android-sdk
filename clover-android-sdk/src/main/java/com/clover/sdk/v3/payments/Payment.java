@@ -74,6 +74,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOceanGatewayInfo oceanGatewayInfo}</li>
  * <li>{@link #getTerminalManagementComponents terminalManagementComponents}</li>
  * <li>{@link #getEmiInfo emiInfo}</li>
+ * <li>{@link #getPaymentBatchInfo paymentBatchInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -351,98 +352,104 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.emiInfo);
   }
 
-
-
+  /**
+   * Information about the Batch used for payments
+   */
+  public com.clover.sdk.v3.payments.PaymentBatchInfo getPaymentBatchInfo() {
+    return genClient.cacheGet(CacheKey.paymentBatchInfo);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     order
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     device
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     tender
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
     amount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tipAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     taxAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     cashbackAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     cashTendered
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     externalPaymentId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     employee
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     createdTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     clientCreatedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     gatewayProcessingTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offline
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     result
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.Result.class)),
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.Result.class)),
     cardTransaction
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CardTransaction.JSON_CREATOR)),
     serviceCharge
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ServiceChargeAmount.JSON_CREATOR)),
     attributes
-        (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+            (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     additionalCharges
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
     taxRates
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentTaxRate.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentTaxRate.JSON_CREATOR)),
     refunds
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
     note
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     lineItemPayments
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR)),
     authorization
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     voidPaymentRef
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     voidReason
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReason.class)),
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReason.class)),
     voidReasonDetails
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReasonDetails.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.VoidReasonDetails.JSON_CREATOR)),
     dccInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.DCCInfo.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.DCCInfo.JSON_CREATOR)),
     transactionSettings
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionSettings.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionSettings.JSON_CREATOR)),
     germanInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.GermanInfo.JSON_CREATOR)),
     appTracking
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
     cashAdvanceExtra
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CashAdvanceExtra.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CashAdvanceExtra.JSON_CREATOR)),
     transactionInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.TransactionInfo.JSON_CREATOR)),
     signatureDisclaimer
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.SignatureDisclaimer.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.SignatureDisclaimer.JSON_CREATOR)),
     externalReferenceId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     merchant
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     increments
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.IncrementalAuthorization.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.IncrementalAuthorization.JSON_CREATOR)),
     purchaseCardL2
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL2.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL2.JSON_CREATOR)),
     purchaseCardL3
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL3.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL3.JSON_CREATOR)),
     oceanGatewayInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
     terminalManagementComponents
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TerminalManagementComponent.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TerminalManagementComponent.JSON_CREATOR)),
     emiInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentEmiInfo.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentEmiInfo.JSON_CREATOR)),
+    paymentBatchInfo
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentBatchInfo.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -768,6 +775,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.emiInfo);
   }
 
+  /** Checks whether the 'paymentBatchInfo' field is set and is not null */
+  public boolean isNotNullPaymentBatchInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentBatchInfo);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -990,6 +1001,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.emiInfo);
   }
 
+  /** Checks whether the 'paymentBatchInfo' field has been set, however the value could be null */
+  public boolean hasPaymentBatchInfo() {
+    return genClient.cacheHasKey(CacheKey.paymentBatchInfo);
+  }
 
   /**
    * Sets the field 'id'.
@@ -1353,6 +1368,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setRecord(emiInfo, CacheKey.emiInfo);
   }
 
+  /**
+   * Sets the field 'paymentBatchInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setPaymentBatchInfo(com.clover.sdk.v3.payments.PaymentBatchInfo paymentBatchInfo) {
+    return genClient.setRecord(paymentBatchInfo, CacheKey.paymentBatchInfo);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1530,7 +1554,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearEmiInfo() {
     genClient.clear(CacheKey.emiInfo);
   }
-
+  /** Clears the 'paymentBatchInfo' field, the 'has' method for this field will now return false */
+  public void clearPaymentBatchInfo() {
+    genClient.clear(CacheKey.paymentBatchInfo);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1639,6 +1666,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean OCEANGATEWAYINFO_IS_REQUIRED = false;
     public static final boolean TERMINALMANAGEMENTCOMPONENTS_IS_REQUIRED = false;
     public static final boolean EMIINFO_IS_REQUIRED = false;
+    public static final boolean PAYMENTBATCHINFO_IS_REQUIRED = false;
   }
 
 }

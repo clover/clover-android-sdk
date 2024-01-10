@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '304'
+version = '306'
 
 apply from: file("${project.rootDir}/lib.gradle")
+apply plugin: 'kotlin-android'
 
 android {
   defaultConfig {
@@ -51,7 +52,8 @@ afterEvaluate {
       classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
       classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
       options.addBooleanOption "Xdoclint:none", true
-      options.addBooleanOption "-frames", true
+      options.addBooleanOption "-frames", true // https://bugs.openjdk.org/browse/JDK-8202961
+      options.addBooleanOption "-no-module-directories", true // https://stackoverflow.com/a/52603413
       options.links 'https://developer.android.com/reference/'
       options.overview 'overview.html'
       destinationDir = file("build/docs/javadoc/${variant.name}/")

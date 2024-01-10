@@ -21,6 +21,7 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
   private String externalPaymentId;
   private Long amount;
   private Long taxAmount;
+  private String orderId;
   private Boolean preferOnScreen = null;
   private CardOptions cardOptions = null;
   private TipOptions tipOptions = null;
@@ -134,6 +135,17 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
    */
   public PaymentRequestIntentBuilder taxAmount(Long taxAmount) {
     this.taxAmount = taxAmount;
+    return this;
+  }
+
+
+  /**
+   * Set the id of the order, to which the payment will be added
+   * @param orderId - id of an existing order
+   * @return PaymentRequestIntentBuilder object with new orderId
+   */
+  public PaymentRequestIntentBuilder orderId(String orderId) {
+    this.orderId = orderId;
     return this;
   }
 
@@ -295,6 +307,10 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
 
     if (externalReferenceId != null) {
       i.putExtra(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
+    }
+
+    if (orderId != null) {
+      i.putExtra(Intents.EXTRA_ORDER_ID, orderId);
     }
 
     return i;

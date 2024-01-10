@@ -1097,6 +1097,42 @@ public class PaymentConnector implements IPaymentConnector {
     }
   }
 
+  /**
+   * PreAuth method to obtain a Pre-Auth for a card
+   *
+   * @param request        -
+   **/
+  @Override
+  public void preAuthV2(final PreAuthRequest request) {
+    try {
+      if (request != null) {
+        request.setVersion(2); // this version supports validation
+      }
+      if (paymentV3Connector != null) {
+        if (paymentV3Connector.isConnected()) {
+          paymentV3Connector.getService().preAuthV2(request);
+        } else {
+          this.paymentV3Connector.connect();
+          waitingTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+              try {
+                paymentV3Connector.getService().preAuthV2(request);
+              } catch (RemoteException e) {
+                Log.e(this.getClass().getSimpleName(), " preAuthV2", e);
+              }
+              return null;
+            }
+          };
+        }
+      }
+    } catch (IllegalArgumentException e) {
+      Log.e(this.getClass().getSimpleName(), " preAuthV2", e);
+    } catch (RemoteException e) {
+      Log.e(this.getClass().getSimpleName(), " preAuthV2", e);
+    }
+  }
+
   public static String getAppVersion(Context context) {
     String version = "Unknown";
     try {

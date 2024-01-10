@@ -447,4 +447,112 @@ public class PayIntentTest {
     assertNotNull(fromParcel.ebtManualCardEntryScreenFlow);
     assertEquals(ebtManualCardData, fromParcel.ebtManualCardEntryScreenFlow);
   }
+
+  @Test
+  public void testPaymentType() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.paymentType);
+
+    String paymentType = "TEST_PAYMENT_TYPE";
+
+    payIntent = new PayIntent.Builder().paymentType(paymentType).build();
+    assertNotNull(payIntent.paymentType);
+    assertEquals("TEST_PAYMENT_TYPE", payIntent.paymentType);
+  }
+
+  @Test
+  public void testPaymentType_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.paymentType);
+
+    String paymentType = "TEST_PAYMENT_TYPE";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_PAYMENT_TYPE, paymentType);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.paymentType);
+    assertEquals("TEST_PAYMENT_TYPE", payIntent.paymentType);
+  }
+
+  @Test
+  public void testPaymentType_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.paymentType);
+
+    String paymentType = "TEST_PAYMENT_TYPE";
+
+    sourcePayIntent = new PayIntent.Builder().paymentType(paymentType).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals("TEST_PAYMENT_TYPE", payIntent.paymentType);
+  }
+
+  @Test
+  public void testPaymentType_serialization() {
+    String paymentType = "TEST_PAYMENT_TYPE";
+    PayIntent payIntent = new PayIntent.Builder().paymentType(paymentType).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.paymentType);
+    assertEquals("TEST_PAYMENT_TYPE", fromParcel.paymentType);
+  }
+
+  @Test
+  public void testCreateAuth() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.createAuth);
+
+    Boolean createAuth = true;
+
+    payIntent = new PayIntent.Builder().createAuth(createAuth).build();
+    assertNotNull(payIntent.createAuth);
+    assertTrue(payIntent.createAuth);
+  }
+
+  @Test
+  public void testCreateAuth_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.createAuth);
+
+    Boolean createAuth = true;
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_CREATE_AUTH, createAuth);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.createAuth);
+    assertTrue(payIntent.createAuth);
+  }
+
+  @Test
+  public void testCreateAuth_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.createAuth);
+
+    Boolean createAuth = true;
+
+    sourcePayIntent = new PayIntent.Builder().createAuth(createAuth).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertTrue(payIntent.createAuth);
+  }
+
+  @Test
+  public void testCreateAuth_serialization() {
+    Boolean createAuth = true;
+    PayIntent payIntent = new PayIntent.Builder().createAuth(createAuth).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.createAuth);
+    assertTrue(fromParcel.createAuth);
+  }
 }

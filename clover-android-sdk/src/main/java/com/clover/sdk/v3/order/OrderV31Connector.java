@@ -826,6 +826,22 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
   }
 
   /**
+   * Send all line items added in the List to the kitchen or order printer. Only prints
+   * items that have tags (also called labels) associating them with a printer
+   *
+   * @param orderId           the ID of the order to fire.
+   * @param lineItemList      list of line item items to be printed.
+   * @return true if items are printed, returns false  line items or printers are empty.
+   */
+  public boolean fireLineItems(final String orderId,
+                               List<LineItem> lineItemList)
+      throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return service.fireLineItems(orderId, lineItemList, status);
+    });
+  }
+
+  /**
    * Not available to non-Clover apps.
    * @y.exclude
    */
@@ -915,6 +931,19 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  /**
+   * This method has been deprecated because the payment used for the preauth is no longer the same as the payment for capture.
+   * Please use {@link #capturePreAuthorization(String, Payment, Payment, List)}
+   * @param orderId
+   * @param preAuth
+   * @param lineItems
+   * @return
+   * @throws RemoteException
+   * @throws ClientException
+   * @throws ServiceException
+   * @throws BindingException
+   */
+  @Deprecated
   public Order capturePreAuth(final String orderId, final Payment preAuth, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -992,6 +1021,14 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     void onRefundProcessed(String orderId, String refundId);
 
     void onCreditProcessed(String orderId, String creditId);
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onOrderFeeAdded(String orderId, String orderFeeLineItemId) {
+    }
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) {
+    }
   }
 
   private static class OnOrderUpdateListenerParent2 extends IOnOrderUpdateListener2.Stub {
@@ -1165,6 +1202,16 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
           listener.onLineItemModificationsDeleted(orderId, lineItemIds, modificationIds);
         }
       });
+    }
+
+    @Override
+    public void onOrderFeeAdded(String orderId, String orderFeeLineItemId) throws RemoteException {
+      postChange(listener -> listener.onOrderFeeAdded(orderId, orderFeeLineItemId));
+    }
+
+    @Override
+    public void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) throws RemoteException {
+      postChange(listener -> listener.onOrderFeeDeleted(orderId, orderFeeLineItemId));
     }
 
     // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
@@ -1398,4 +1445,38 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       }
     });
   }
+
+  public Order addOrderFee(final String orderId, final String orderFeeId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.addOrderFee(orderId, orderFeeId, status));
+    });
+  }
+
+  public Order deleteOrderFee(final String orderId, final String orderFeeLineItemId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.deleteOrderFee(orderId, orderFeeLineItemId, status));
+    });
+  }
+
+  /**
+   * This method is used to capture a preauthorized payment.
+   * @param orderId -- ID of the order that the preauth and captured payment are associated with.
+   * @param preAuth -- The original preauth payment
+   * @param closingPayment -- The successfully captured payment.
+   * @param lineItems -- the line items associated with the payment.
+   * @return updated Order object
+   * @throws RemoteException
+   * @throws ClientException
+   * @throws ServiceException
+   * @throws BindingException
+   */
+  public Order capturePreAuthorization(final String orderId, final Payment preAuth, final Payment closingPayment, final List<LineItem> lineItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.capturePreAuthorization(orderId, new PaymentFdParcelable(preAuth), new PaymentFdParcelable(closingPayment), new LineItemListFdParcelable(lineItems), status));
+      }
+    });
+  }
+
 }

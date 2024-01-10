@@ -16,11 +16,13 @@
 package com.clover.sdk.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Build;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -171,7 +173,7 @@ public final class Platform2 {
       }
     },
     /**
-     * Device has a secure touch screen.
+     * Device has a secure touch screen(eg: flex, mini) or a secure keypad(eg: pinetree)
      */
     SECURE_TOUCH {
       @Override
@@ -185,7 +187,8 @@ public final class Platform2 {
             return true;
         }
 
-        return context.getPackageManager().hasSystemFeature("clover.hardware.secure_touch");
+        return context.getPackageManager().hasSystemFeature("clover.hardware.secure_touch")
+          || context.getPackageManager().hasSystemFeature("clover.hardware.secure_keypad");
       }
     },
     /**
@@ -285,7 +288,9 @@ public final class Platform2 {
   private static Orientation defaultOrientation;
 
   /**
-   * Get the default orientation under which this device is normally used.
+   * Get the default orientation under which this device is normally used, for the default
+   * display.
+   *
    * <b>This method does not return the current orientation!</b>
    */
   public static Orientation defaultOrientation(Context context) {
@@ -310,4 +315,42 @@ public final class Platform2 {
     return defaultOrientation;
   }
 
+  /**
+   * If the ratio of the the largest screen dimension to the smallest screen dimension is
+   * less or equal to this value then we consider the display to be "square".
+   */
+  public static final float CLOSE_TO_SQUARE_ASPECT_RATIO = 4.0f / 3; // 1.3333...
+
+  /**
+   * Answer if this device's default display is "square". A display is square if
+   * the ratio of it's largest to smallest screen dimension is
+   * {@link #CLOSE_TO_SQUARE_ASPECT_RATIO} or less.
+   * <p/>
+   * Applications should avoid changing the screen orientation (e.g. by calling
+   * {@link Activity#setRequestedOrientation(int)}) when running on
+   * square displays. The results of doing so are not well defined.
+   * <p/>
+   * Android has no official "square" screen orientation. On square displays,
+   * {@link #defaultOrientation(Context)} may return either {@link Orientation#LANDSCAPE}
+   * or {@link Orientation#PORTRAIT}.
+   *
+   * @see #CLOSE_TO_SQUARE_ASPECT_RATIO
+   * @see #defaultOrientation(Context)
+   */
+  public static boolean isSquareDisplay(Context context) {
+    final Point size = new Point();
+    final WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    wm.getDefaultDisplay().getSize(size);
+
+    if ((size.x >= size.y) &&
+        ((float) size.x / size.y <= CLOSE_TO_SQUARE_ASPECT_RATIO)) {
+      return true;
+    }
+    if ((size.x < size.y) &&
+        ((float) size.y / size.x <= CLOSE_TO_SQUARE_ASPECT_RATIO)) {
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -231,4 +231,71 @@ public class OrderCalcTest {
 
     assertEquals(0, additionalChargeSummaries.size());
   }
+
+  @Test
+  public void testGetOrderFeePrice() {
+    List<LineItem> lineItems = createDummyLineItems();
+
+    LineItem orderFeeLineItem = new LineItem();
+    orderFeeLineItem.setIsOrderFee(true);
+    orderFeeLineItem.setPercentage(150000L);
+    lineItems.add(orderFeeLineItem);
+
+    orderCalc.order.setLineItems(lineItems);
+
+    assertEquals(45L, orderCalc.getOrderFeePrice(orderFeeLineItem));
+  }
+
+  @Test
+  public void testGetOrderFeePrice_nonOrderFeeLineItem() {
+    List<LineItem> lineItems = createDummyLineItems();
+
+    assertEquals(0L, orderCalc.getOrderFeePrice(lineItems.get(1)));
+  }
+
+  @Test
+  public void testGetTotalOrderFees() {
+    LineItem orderFeeLineItem1 = new LineItem();
+    orderFeeLineItem1.setIsOrderFee(true);
+    orderFeeLineItem1.setPercentage(150000L);
+    orderFeeLineItem1.setPrice(15L);
+
+    LineItem orderFeeLineItem2 = new LineItem();
+    orderFeeLineItem2.setIsOrderFee(true);
+    orderFeeLineItem2.setPercentage(150000L);
+    orderFeeLineItem2.setPrice(35L);
+
+    List<LineItem> lineItems = new ArrayList<>();
+    lineItems.add(orderFeeLineItem1);
+    lineItems.add(orderFeeLineItem2);
+
+    orderCalc.order.setLineItems(lineItems);
+
+    assertEquals(50L, orderCalc.getTotalOrderFees());
+  }
+
+  @Test
+  public void testGetTotalOrderFees_noLineItems() {
+    assertEquals(0L, orderCalc.getTotalOrderFees());
+  }
+
+  @Test
+  public void testGetTotalOrderFees_noOrderFeeLineItems() {
+    orderCalc.order.setLineItems(createDummyLineItems());
+
+    assertEquals(0L, orderCalc.getTotalOrderFees());
+  }
+
+  private List<LineItem> createDummyLineItems() {
+    LineItem lineItem1 = new LineItem();
+    lineItem1.setPrice(100L);
+    LineItem lineItem2 = new LineItem();
+    lineItem2.setPrice(200L);
+
+    List<LineItem> lineItems = new ArrayList<>();
+    lineItems.add(lineItem1);
+    lineItems.add(lineItem2);
+
+    return lineItems;
+  }
 }
