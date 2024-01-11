@@ -32,6 +32,7 @@ import com.clover.common.payments.TerminalManagementComponent;
 import com.clover.common.payments.VoidExtraData;
 import com.clover.sdk.v3.payments.AdditionalChargeAmount;
 import com.clover.sdk.v3.payments.AuthorizationFdParcelable;
+import com.clover.sdk.v3.order.LineItem;
 
 /**
  * An interface for interacting with the Clover order service.
@@ -870,4 +871,36 @@ interface IOrderServiceV3_1 {
    */
   OrderFdParcelable queueVoid(String orderId, String paymentId, String iccContainer, in PaymentRequestCardDetails card, in TransactionInfo transactionInfo, in Map passThroughExtras, in VoidReason reason, in VoidExtraData voidExtraData, String source, out ResultStatus resultStatus);
 
+  /**
+   * This method can be used to apply an order fee to the order
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable addOrderFee(String orderId, in String orderFeeId, out ResultStatus status);
+
+  /**
+   * This method can be used to remove an order fee from the order
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable deleteOrderFee(String orderId, in String orderFeeLineItemId, out ResultStatus status);
+
+
+  /**
+   * Send all line items added in the List to the kitchen or order printer. Only prints
+   * items that have tags (also called labels) associating them with a printer.
+   *
+   * Line items will always be sent to prniter even if they are already printed they will be refired.
+   *
+   * @param orderId the ID of the order to fire.
+   * @param lineItemList line items list to be printed.
+   * @return true if items are printed, returns false  line items or printers are empty.
+   * @clover.perm ORDERS_W
+   */
+  boolean fireLineItems(String sourceOrderid, in List<LineItem> lineItemList, out ResultStatus status);
+
+
+  /**
+     * Not available to non-Clover apps.
+     * @y.exclude
+     */
+    OrderFdParcelable capturePreAuthorization(String orderId, in PaymentFdParcelable preAuth, in PaymentFdParcelable closingPayment, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
 }

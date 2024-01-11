@@ -18,4 +18,6 @@ interface IOnOrderUpdateListener2 {
   void onRefundProcessed(String orderId, String refundId);
   void onCreditProcessed(String orderId, String creditId);
   void onLineItemModificationsDeleted(String orderId, in List<String> lineItemIds, in List<String> modificationIds);
+  void onOrderFeeAdded(String orderId, String orderFeeLineItemId);
+  void onOrderFeeDeleted(String orderId, String orderFeeLineItemId);
 }

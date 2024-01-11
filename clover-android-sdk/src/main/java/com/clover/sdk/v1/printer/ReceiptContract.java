@@ -98,6 +98,11 @@ public final class ReceiptContract {
   public static final String PARAM_RECEIPT_WIDTH = "receipt_width";
 
   /**
+   * The payment ID of the receipt to be printed.
+   */
+  public static final String PARAM_PAYMENT_ID = "payment_id";
+
+  /**
    * Column name for returning text-only receipt data. Must map to a string column value.
    */
   public interface TextColumns {

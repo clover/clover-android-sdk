@@ -42,6 +42,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getType type}</li>
+ * <li>{@link #getServiceChargeUuid serviceChargeUuid}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -89,21 +90,21 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
-   * Timestamp when the menu item was created
+   * Timestamp when the order fee was created
    */
   public Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
-   * Timestamp when the menu item was last modified
+   * Timestamp when the order fee was last modified
    */
   public Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
   /**
-   * Timestamp when menu item was last deleted
+   * Timestamp when order fee was last deleted
    */
   public Long getDeletedTime() {
     return genClient.cacheGet(CacheKey.deletedTime);
@@ -114,6 +115,13 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public String getType() {
     return genClient.cacheGet(CacheKey.type);
+  }
+
+  /**
+   * Original service charge uuid
+   */
+  public String getServiceChargeUuid() {
+    return genClient.cacheGet(CacheKey.serviceChargeUuid);
   }
 
 
@@ -143,6 +151,8 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     type
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    serviceChargeUuid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
       ;
 
@@ -224,6 +234,8 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     genClient.validateMin(CacheKey.amount, getAmount(), 0L);
 
     genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000000L);
+
+    genClient.validateLength(CacheKey.serviceChargeUuid, getServiceChargeUuid(), 13);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -289,6 +301,11 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.type);
   }
 
+  /** Checks whether the 'serviceChargeUuid' field is set and is not null */
+  public boolean isNotNullServiceChargeUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceChargeUuid);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -349,6 +366,11 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'type' field has been set, however the value could be null */
   public boolean hasType() {
     return genClient.cacheHasKey(CacheKey.type);
+  }
+
+  /** Checks whether the 'serviceChargeUuid' field has been set, however the value could be null */
+  public boolean hasServiceChargeUuid() {
+    return genClient.cacheHasKey(CacheKey.serviceChargeUuid);
   }
 
 
@@ -438,6 +460,13 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(type, CacheKey.type);
   }
 
+  /**
+   * Sets the field 'serviceChargeUuid'.
+   */
+  public OrderFee setServiceChargeUuid(String serviceChargeUuid) {
+    return genClient.setOther(serviceChargeUuid, CacheKey.serviceChargeUuid);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -486,6 +515,10 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
     genClient.clear(CacheKey.type);
+  }
+  /** Clears the 'serviceChargeUuid' field, the 'has' method for this field will now return false */
+  public void clearServiceChargeUuid() {
+    genClient.clear(CacheKey.serviceChargeUuid);
   }
 
 
@@ -566,6 +599,8 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
+    public static final boolean SERVICECHARGEUUID_IS_REQUIRED = false;
+    public static final long SERVICECHARGEUUID_MAX_LEN = 13;
   }
 
 }

@@ -20,12 +20,13 @@ uid=0(root) gid=0(root) groups=0(root)...
 ```
 $ ./install_apps.py -h
 Usage: install_apps.py [--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade]
-	--debug or -d    : print extended debug information
-	--version or -v  : print version (and exit)
-	--dry-run or -r  : show actions but do not perform them (do not download or install APKs
-	--keep or -k     : keep temporary files (temp files are located under: /tmp)
-	--downgrade or -o: only downgrade, if current version is less than installed version; do not update
-	--help or -h     : show this message (and exit)
+  --debug or -d               : print extended debug information
+  --version or -v             : print version (and exit)
+  --dry-run or -r             : show actions but do not perform them (do not download or install APKs
+  --keep or -k                : keep temporary files (temp files are located under: /tmp)
+  --downgrade or -o           : only downgrade, if current version is less than installed version; do not update
+  --serial SERIAL or -s SERIAL: use device with given serial (overrides $ANDROID_SERIAL)
+  --help or -h                : show this message (and exit)
 ```
 
 ### --version or -v
@@ -73,6 +74,11 @@ adb install -r -d /tmp/com.clover.engine-6528.apk
 
 ### --debug or -d
 Print extended debug information. This output is extremely verbose and is probably not useful unless you are experiencing problems with the script.
+
+### --serial SERIAL or -s SERIAL
+Use the Android device with the given serial. Useful when more than one device is connected. You can list all of your connected devices with the command `$ adb devices`.
+
+It is also possible to set the serial by setting the environment variable `ANDROID_SERIAL`. Note that the `-s` option overrides `$ANDROID_SERIAL`.
 
 ### --help or -h
 Print help / usage.

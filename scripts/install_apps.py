@@ -11,18 +11,21 @@ import getopt
 import tempfile
 import os
 import shutil
+import shlex
 
 debug = False
 dry_run = False
 keep_files = False
 downgrade = False
+serial = None
 
-version = "1.2"
+version = "1.2.1"
 # Version information:
 #       0.1  : Initial release
 #       1.0.1: Update to fix downgrade with no current app
 #       1.1  : Require python3, use shutil to resolve adb executable
 #       1.2  : Query apps instead of pulling apps database 
+#       1.2.1: Add -s argument to specify a device serial
 #
 
 def eprint(*args, **kwargs):
@@ -43,12 +46,13 @@ def run_command(command, no_print=False):
     
 def print_help():
     eprint('Usage: ' + os.path.basename(__file__) + ' [--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade]')
-    eprint('\t--debug or -d    : print extended debug information')
-    eprint('\t--version or -v  : print version (and exit)')
-    eprint('\t--dry-run or -r  : show actions but do not perform them (do not download or install APKs')
-    eprint('\t--keep or -k     : keep temporary files (temp files are located under: {})'.format(tempfile.gettempdir()))
-    eprint('\t--downgrade or -o: only downgrade, if current version is less than installed version; do not update')
-    eprint('\t--help or -h     : show this message (and exit)')
+    eprint('  --debug or -d               : print extended debug information')
+    eprint('  --version or -v             : print version (and exit)')
+    eprint('  --dry-run or -r             : show actions but do not perform them (do not download or install APKs')
+    eprint('  --keep or -k                : keep temporary files (temp files are located under: {})'.format(tempfile.gettempdir()))
+    eprint('  --downgrade or -o           : only downgrade, if current version is less than installed version; do not update')
+    eprint('  --serial SERIAL or -s SERIAL: use device with given serial (overrides $ANDROID_SERIAL)')
+    eprint('  --help or -h                : show this message (and exit)')
 
 def run_contains(command, s):
     return_code, lines = run_command(command, no_print=True)
@@ -103,13 +107,15 @@ def main(argv):
     global dry_run
     global keep_files
     global downgrade
+    global serial
 
     try:
-        opts, args = getopt.getopt(argv, 'dvrkoh', ['debug', 'version', 'dry-run', 'keep', 'downgrade', 'help'])
+        opts, args = getopt.getopt(
+            argv, 'dvrkos:h', ['debug', 'version', 'dry-run', 'keep', 'downgrade', 'serial', 'help'])
     except getopt.GetoptError:
         print_help()
         sys.exit(2)
-    
+
     for opt, arg in opts:
         if opt == '--help' or opt == '-h':
             print_help()
@@ -125,11 +131,15 @@ def main(argv):
             sys.exit(0)
         if opt == '--downgrade' or opt == '-o':
             downgrade = True
+        if opt == '--serial' or opt == '-s':
+            serial = arg
 
     adb = shutil.which('adb')
     if debug: print("adb={}".format(adb))
     if adb is None:
         sys.exit('"adb" command not found. Ensure it is in your path.')
+    if serial:
+        adb = '{} -s {}'.format(adb, shlex.quote(serial))
 
     run_command('{} root'.format(adb))
 

@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOrderId orderId}</li>
  * <li>{@link #getSourcePaymentId sourcePaymentId}</li>
  * <li>{@link #getVaultedCard vaultedCard}</li>
+ * <li>{@link #getSourcePayment sourcePayment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -67,6 +68,14 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     return genClient.cacheGet(CacheKey.vaultedCard);
   }
 
+  /**
+   * Only required when using auth server
+   * Payment object
+   * /auth/service_fees/payments
+   */
+  public com.clover.sdk.v3.payments.Payment getSourcePayment() {
+    return genClient.cacheGet(CacheKey.sourcePayment);
+  }
 
 
 
@@ -77,6 +86,8 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     sourcePaymentId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sourcePayment
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
     vaultedCard
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.VaultedCard.JSON_CREATOR)),
       ;
@@ -177,7 +188,9 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     return genClient.cacheValueIsNotNull(CacheKey.vaultedCard);
   }
 
-
+  public boolean isNotNullSourcePayment() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourcePayment);
+  }
 
   /** Checks whether the 'amount' field has been set, however the value could be null */
   public boolean hasAmount() {
@@ -199,6 +212,10 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     return genClient.cacheHasKey(CacheKey.vaultedCard);
   }
 
+  /** Checks whether the 'sourcePayment' field has been set, however the value could be null */
+  public boolean hasSourcePayment() {
+    return genClient.cacheHasKey(CacheKey.sourcePayment);
+  }
 
   /**
    * Sets the field 'amount'.
@@ -230,6 +247,14 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     return genClient.setRecord(vaultedCard, CacheKey.vaultedCard);
   }
 
+  /**
+   * Sets the field 'sourcePayment'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public ServiceFeeRequest setSourcePayment(com.clover.sdk.v3.payments.Payment sourcePayment) {
+    return genClient.setRecord(sourcePayment, CacheKey.sourcePayment);
+  }
 
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
   public void clearAmount() {
@@ -248,6 +273,10 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     genClient.clear(CacheKey.vaultedCard);
   }
 
+  /** Clears the 'sourcePayment' field, the 'has' method for this field will now return false */
+  public void clearSourcePayment() {
+    genClient.clear(CacheKey.sourcePayment);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -315,6 +344,7 @@ public class ServiceFeeRequest extends GenericParcelable implements com.clover.s
     public static final boolean SOURCEPAYMENTID_IS_REQUIRED = false;
     public static final long SOURCEPAYMENTID_MAX_LEN = 13;
     public static final boolean VAULTEDCARD_IS_REQUIRED = false;
+    public static final boolean SOURCE_PAYMENT_IS_REQUIRED = false;
   }
 
 }

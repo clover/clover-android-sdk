@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '304'
+version = '306'
 
 apply from: file("${project.rootDir}/app.gradle")
 apply plugin: 'kotlin-android'

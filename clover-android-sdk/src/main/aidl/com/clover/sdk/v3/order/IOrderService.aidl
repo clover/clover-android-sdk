@@ -17,6 +17,7 @@ import com.clover.sdk.v3.pay.PaymentRequest;
 import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.order.VoidReason;
 import com.clover.sdk.v3.payments.Authorization;
+import com.clover.sdk.v3.order.LineItem;
 
 /**
  * An interface for interacting with the Clover order service. The order

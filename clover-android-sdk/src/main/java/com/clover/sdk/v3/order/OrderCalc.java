@@ -288,6 +288,23 @@ public class OrderCalc {
       }
       return HUNDRED;
     }
+
+    @Nullable
+    @Override
+    public Decimal getPercentage() {
+      if (line.isNotNullPercentage()) {
+        return new Decimal(line.getPercentage()).divide(SERVICE_CHARGE_DIVISOR);
+      }
+      return null;
+    }
+
+    @Override
+    public boolean isOrderFee() {
+      if (line.isNotNullIsOrderFee()){
+        return line.getIsOrderFee();
+      }
+      return false;
+    }
   }
 
   /**
@@ -475,5 +492,24 @@ public class OrderCalc {
    */
   public List<Calc.AdditionalChargeSummary> getAdditionalChargeSummaries(final Collection<LineItem> lines) {
     return getCalc().getAdditionalChargeSummaries(toCalcLines(lines));
+  }
+
+  /**
+   * Get an orderFee price based on passed orderFeeLineItem's percentage
+   *
+   * @param orderFeeLineItem order fee line item for which price needs to be calculated
+   * @return long price for given orderFeeLineItem
+   */
+  public long getOrderFeePrice(LineItem orderFeeLineItem) {
+    return getCalc().getOrderFeePrice(new CalcLineItem(orderFeeLineItem)).getCents();
+  }
+
+  /**
+   * Get the total orderFee amount for given order
+   *
+   * @return long total of order fees applied to given order
+   */
+  public long getTotalOrderFees() {
+    return getCalc().getOrderFee().getCents();
   }
 }

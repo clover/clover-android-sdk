@@ -165,6 +165,8 @@ public class PayIntent implements Parcelable {
     private String thresholdManagerId;
     private String thresholdManagerName;
     private String ebtManualCardEntryScreenFlow;
+    private String paymentType;
+    private Boolean createAuth;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -319,6 +321,15 @@ public class PayIntent implements Parcelable {
       if (intent.hasExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW)){
         ebtManualCardEntryScreenFlow = intent.getStringExtra(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW);
       }
+
+      if (intent.hasExtra(Intents.EXTRA_PAYMENT_TYPE)) {
+        paymentType = intent.getStringExtra(Intents.EXTRA_PAYMENT_TYPE);
+      }
+
+      if (intent.hasExtra(Intents.EXTRA_CREATE_AUTH)) {
+        createAuth = intent.getBooleanExtra(Intents.EXTRA_CREATE_AUTH, false);
+      }
+
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
       // reset by follow-on assignments and aids in preventing backward compatibility issues.
@@ -456,6 +467,8 @@ public class PayIntent implements Parcelable {
       this.thresholdManagerName = payIntent.thresholdManagerName;
       this.thresholdManagerId = payIntent.thresholdManagerId;
       this.ebtManualCardEntryScreenFlow = payIntent.ebtManualCardEntryScreenFlow;
+      this.paymentType = payIntent.paymentType;
+      this.createAuth = payIntent.createAuth;
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
       // reset by follow-on assignments and aids in preventing backward compatibility issues.
@@ -832,6 +845,16 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder paymentType(String paymentType) {
+      this.paymentType = paymentType;
+      return this;
+    }
+
+    public Builder createAuth(Boolean createAuth) {
+      this.createAuth = createAuth;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -848,7 +871,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth);
     }
   }
 
@@ -956,6 +979,8 @@ public class PayIntent implements Parcelable {
   public String thresholdManagerName;
   public String thresholdManagerId;
   public String ebtManualCardEntryScreenFlow;
+  public String paymentType;
+  public Boolean createAuth;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -973,7 +998,9 @@ public class PayIntent implements Parcelable {
                     Themes themeName, Payment originatingPayment, Credit originatingCredit, Map<String, String> passThroughValues,
                     Map<String, String> applicationSpecificValues, Refund refund, Tender customerTender, boolean isDisableCreditSurcharge,
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
-                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode, String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow) {
+                    Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode,
+                    String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow,
+                    String paymentType, Boolean createAuth) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -1032,6 +1059,8 @@ public class PayIntent implements Parcelable {
     this.thresholdManagerName = thresholdManagerName;
     this.thresholdManagerId = thresholdManagerId;
     this.ebtManualCardEntryScreenFlow = ebtManualCardEntryScreenFlow;
+    this.paymentType = paymentType;
+    this.createAuth = createAuth;
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
@@ -1323,9 +1352,19 @@ public class PayIntent implements Parcelable {
     if (originatingPaymentPackage != null) {
       intent.putExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE, originatingPaymentPackage);
     }
+
     intent.putExtra(Intents.EXTRA_USE_LAST_SWIPE, useLastSwipe);
+
     if (themeName != null) {
       intent.putExtra(Intents.EXTRA_THEME_NAME, (Parcelable) themeName);
+    }
+
+    if (createAuth != null) {
+      intent.putExtra(Intents.EXTRA_CREATE_AUTH, createAuth);
+    }
+
+    if (paymentType != null) {
+      intent.putExtra(Intents.EXTRA_PAYMENT_TYPE, paymentType);
     }
   }
 
@@ -1389,6 +1428,8 @@ public class PayIntent implements Parcelable {
            ", thresholdManagerName=" + thresholdManagerName +
            ", thresholdManagerId=" + thresholdManagerId +
            ", ebtManualCardEntryScreenFlow=" + ebtManualCardEntryScreenFlow +
+           ", paymentType=" + paymentType +
+           ", createAuth=" + createAuth +
            '}';
   }
 
@@ -1593,6 +1634,14 @@ public class PayIntent implements Parcelable {
 
     if (ebtManualCardEntryScreenFlow != null) {
       bundle.putString(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW, ebtManualCardEntryScreenFlow);
+    }
+
+    if (paymentType != null) {
+      bundle.putString(Intents.EXTRA_PAYMENT_TYPE, paymentType);
+    }
+
+    if (createAuth != null) {
+      bundle.putBoolean(Intents.EXTRA_CREATE_AUTH, createAuth);
     }
 
     // write out
@@ -1835,6 +1884,12 @@ public class PayIntent implements Parcelable {
       if (bundle.containsKey(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW)) {
         builder.ebtManualCardEntryScreenFlow(bundle.getString(Intents.EXTRA_EBT_MANUAL_CARD_ENTRY_SCREEN_FLOW));
       }
+
+      if (bundle.containsKey(Intents.EXTRA_PAYMENT_TYPE)) {
+        builder.paymentType(bundle.getString(Intents.EXTRA_PAYMENT_TYPE));
+      }
+
+      builder.createAuth(bundle.getBoolean(Intents.EXTRA_CREATE_AUTH, false));
       // build
       return builder.build();
     }

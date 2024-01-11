@@ -1806,4 +1806,33 @@ public class Intents {
    */
   public static final String EXTRA_IMMERSIVE_MODE = "immersive_mode";
 
+  /**
+   * Intent to track payment sub types
+   */
+  public static final String EXTRA_PAYMENT_TYPE = "payment_type";
+
+  /**
+   * Intent to track create an auth
+   */
+  public static final String EXTRA_CREATE_AUTH = "create_auth";
+
+  /**
+   * The transaction name
+   * (held in the Terminal apps' settings)
+   */
+  public static final String EXTRA_TRANSACTION_NAME = "transaction_name";
+
+  /**
+   * {@link Boolean} whether or not to apply taxes to a transaction
+   * (held in the Terminal apps' settings)
+   */
+  public static final String EXTRA_APPLY_TAXES_AND_FEES = "apply_taxes_and_fees";
+
+  /**
+   * {@link String} Summary line showing taxes and fees, e.g.
+   * "Tax Rate + Fees: 30% + $2.00"
+   * (held in the Terminal apps' settings)
+   */
+  public static final String EXTRA_TAXES_AND_FEES_BREAKDOWN = "taxes_and_fees_breakdown";
+
 }

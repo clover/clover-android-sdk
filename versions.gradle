@@ -118,10 +118,13 @@ ext {
   HILT_VERSION = "2.44"
 
   // Calc version
-  CALC_VERSION = "2.1.0"
+  CALC_VERSION = "2.2.0"
 
   // Heap Analytics version
   HEAP_VERSION = "1.10.6"
+
+  // Rapid Deposit version
+  ANDROID_RAPID_DEPOSIT_VERSION = "1.0.0"
 
   // Java 8+ API desugaring support
   // https://developer.android.com/studio/write/java8-support

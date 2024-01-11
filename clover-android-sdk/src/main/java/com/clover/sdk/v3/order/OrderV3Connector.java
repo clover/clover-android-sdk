@@ -745,6 +745,14 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
     void onRefundProcessed(String orderId, String refundId);
 
     void onCreditProcessed(String orderId, String creditId);
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onOrderFeeAdded(String orderId, String orderFeeLineItemId) {
+    }
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) {
+    }
   }
 
   private static class OnOrderUpdateListenerParent2 extends IOnOrderUpdateListener2.Stub {
@@ -918,6 +926,16 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
           listener.onLineItemModificationsDeleted(orderId, lineItemIds, modificationIds);
         }
       });
+    }
+
+    @Override
+    public void onOrderFeeAdded(String orderId, String orderFeeLineItemId) throws RemoteException {
+      postChange(listener -> listener.onOrderFeeAdded(orderId, orderFeeLineItemId));
+    }
+
+    @Override
+    public void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) throws RemoteException {
+      postChange(listener -> listener.onOrderFeeDeleted(orderId, orderFeeLineItemId));
     }
 
     // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
