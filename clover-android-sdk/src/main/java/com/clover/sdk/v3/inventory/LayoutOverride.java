@@ -32,6 +32,8 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
+ * <li>{@link #getCosUuid cosUuid}</li>
+ * <li>{@link #getMenuId menuId}</li>
  * <li>{@link #getId id}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getColorCode colorCode}</li>
@@ -43,6 +45,20 @@ import com.clover.sdk.GenericParcelable;
  */
 @SuppressWarnings("all")
 public class LayoutOverride extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
+
+  /**
+   * Unique Clover identifier.
+   */
+  public String getCosUuid() {
+    return genClient.cacheGet(CacheKey.cosUuid);
+  }
+
+  /**
+   * Unique Clover identifier.
+   */
+  public String getMenuId() {
+    return genClient.cacheGet(CacheKey.menuId);
+  }
 
   /**
    * Unique Clover identifier.
@@ -97,6 +113,10 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
+    cosUuid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    menuId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     sortOrder
@@ -183,9 +203,23 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
 
   @Override
   public void validate() {
-    genClient.validateCloverId(CacheKey.id, getId());
+    genClient.validateCloverId(CacheKey.cosUuid, getCosUuid());
+
+    genClient.validateLength(CacheKey.menuId, getMenuId(), 127);
+
+    genClient.validateLength(CacheKey.id, getId(), 127);
 
     genClient.validateNotNull(CacheKey.sortOrder, getSortOrder());
+  }
+
+  /** Checks whether the 'cosUuid' field is set and is not null */
+  public boolean isNotNullCosUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.cosUuid);
+  }
+
+  /** Checks whether the 'menuId' field is set and is not null */
+  public boolean isNotNullMenuId() {
+    return genClient.cacheValueIsNotNull(CacheKey.menuId);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -225,6 +259,16 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
 
 
 
+  /** Checks whether the 'cosUuid' field has been set, however the value could be null */
+  public boolean hasCosUuid() {
+    return genClient.cacheHasKey(CacheKey.cosUuid);
+  }
+
+  /** Checks whether the 'menuId' field has been set, however the value could be null */
+  public boolean hasMenuId() {
+    return genClient.cacheHasKey(CacheKey.menuId);
+  }
+
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
@@ -260,6 +304,20 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheHasKey(CacheKey.deletedTime);
   }
 
+
+  /**
+   * Sets the field 'cosUuid'.
+   */
+  public LayoutOverride setCosUuid(String cosUuid) {
+    return genClient.setOther(cosUuid, CacheKey.cosUuid);
+  }
+
+  /**
+   * Sets the field 'menuId'.
+   */
+  public LayoutOverride setMenuId(String menuId) {
+    return genClient.setOther(menuId, CacheKey.menuId);
+  }
 
   /**
    * Sets the field 'id'.
@@ -311,6 +369,14 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
   }
 
 
+  /** Clears the 'cosUuid' field, the 'has' method for this field will now return false */
+  public void clearCosUuid() {
+    genClient.clear(CacheKey.cosUuid);
+  }
+  /** Clears the 'menuId' field, the 'has' method for this field will now return false */
+  public void clearMenuId() {
+    genClient.clear(CacheKey.menuId);
+  }
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -401,6 +467,10 @@ public class LayoutOverride extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
+    public static final boolean COSUUID_IS_REQUIRED = false;
+    public static final long COSUUID_MAX_LEN = 127;
+    public static final boolean MENUID_IS_REQUIRED = false;
+    public static final long MENUID_MAX_LEN = 127;
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 127;
     public static final boolean SORTORDER_IS_REQUIRED = true;

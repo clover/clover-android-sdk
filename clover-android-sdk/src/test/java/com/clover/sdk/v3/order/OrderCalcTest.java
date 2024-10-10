@@ -254,7 +254,38 @@ public class OrderCalcTest {
   }
 
   @Test
-  public void testGetTotalOrderFees() {
+  public void testGetOrderFeePriceForLineItems() {
+    List<LineItem> lineItems = createDummyLineItems();
+
+    LineItem orderFeeLineItem = new LineItem();
+    orderFeeLineItem.setIsOrderFee(true);
+    orderFeeLineItem.setPercentage(150000L);
+    lineItems.add(orderFeeLineItem);
+
+    assertEquals(45L, orderCalc.getOrderFeePriceForLineItems(lineItems, orderFeeLineItem));
+  }
+
+  @Test
+  public void testGetTotalOrderFeeFromLineItems() {
+    LineItem orderFeeLineItem1 = new LineItem();
+    orderFeeLineItem1.setIsOrderFee(true);
+    orderFeeLineItem1.setPercentage(150000L);
+    orderFeeLineItem1.setPrice(15L);
+
+    LineItem orderFeeLineItem2 = new LineItem();
+    orderFeeLineItem2.setIsOrderFee(true);
+    orderFeeLineItem2.setPercentage(150000L);
+    orderFeeLineItem2.setPrice(35L);
+
+    List<LineItem> lineItems = new ArrayList<>();
+    lineItems.add(orderFeeLineItem1);
+    lineItems.add(orderFeeLineItem2);
+
+    assertEquals(50L, orderCalc.getTotalOrderFeeFromLineItems(lineItems));
+  }
+
+  @Test
+  public void testGetTotalOrderFee() {
     LineItem orderFeeLineItem1 = new LineItem();
     orderFeeLineItem1.setIsOrderFee(true);
     orderFeeLineItem1.setPercentage(150000L);
@@ -271,19 +302,19 @@ public class OrderCalcTest {
 
     orderCalc.order.setLineItems(lineItems);
 
-    assertEquals(50L, orderCalc.getTotalOrderFees());
+    assertEquals(50L, orderCalc.getTotalOrderFee());
   }
 
   @Test
-  public void testGetTotalOrderFees_noLineItems() {
-    assertEquals(0L, orderCalc.getTotalOrderFees());
+  public void testGetTotalOrderFee_noLineItems() {
+    assertEquals(0L, orderCalc.getTotalOrderFee());
   }
 
   @Test
-  public void testGetTotalOrderFees_noOrderFeeLineItems() {
+  public void testGetTotalOrderFee_noOrderFeeLineItems() {
     orderCalc.order.setLineItems(createDummyLineItems());
 
-    assertEquals(0L, orderCalc.getTotalOrderFees());
+    assertEquals(0L, orderCalc.getTotalOrderFee());
   }
 
   private List<LineItem> createDummyLineItems() {

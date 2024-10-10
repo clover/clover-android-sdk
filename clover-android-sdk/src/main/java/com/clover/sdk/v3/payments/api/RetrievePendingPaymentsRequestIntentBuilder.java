@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import com.clover.sdk.v1.Intents;
+
 /**
  * Use the RetrievePendingPaymentsRequestIntentBuilder class to retrieve a list of pending (offline) payments
  */
@@ -27,5 +29,17 @@ public class RetrievePendingPaymentsRequestIntentBuilder extends BaseIntentBuild
         i.setComponent(new ComponentName("com.clover.payment.builder.pay", "com.clover.payment.builder.pay.handler.RetrievePendingPaymentsRequestHandler"));
 
         return i;
+    }
+
+
+    public static class Response {
+        /**
+         * A list of retrieved pending payments.
+         */
+        public static final String PAYMENTS = Intents.EXTRA_PAYMENTS;
+        /**
+         * If retrieving pending payments fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
     }
 }

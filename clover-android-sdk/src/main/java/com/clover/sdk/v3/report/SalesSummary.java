@@ -37,20 +37,52 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSegmentLabel segmentLabel}</li>
  * <li>{@link #getGrossSales grossSales}</li>
  * <li>{@link #getExchangeAmount exchangeAmount}</li>
+ * <li>{@link #getNumExchanges numExchanges}</li>
  * <li>{@link #getDiscountAmount discountAmount}</li>
  * <li>{@link #getRefundAmount refundAmount}</li>
  * <li>{@link #getRefundRepaymentAmount refundRepaymentAmount}</li>
  * <li>{@link #getNet net}</li>
  * <li>{@link #getGiftCardLoads giftCardLoads}</li>
  * <li>{@link #getNonRevenueItems nonRevenueItems}</li>
+ * <li>{@link #getOverpaymentAmount overpaymentAmount}</li>
+ * <li>{@link #getAmountCollectedByOtherEmployeesOrDevices amountCollectedByOtherEmployeesOrDevices}</li>
+ * <li>{@link #getPaymentTowardsFilteredGross paymentTowardsFilteredGross}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * <li>{@link #getServiceChargeAmountCollected serviceChargeAmountCollected}</li>
  * <li>{@link #getTipAmount tipAmount}</li>
+ * <li>{@link #getTipDetails tipDetails}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getAdditionalChargeAmount additionalChargeAmount}</li>
+ * <li>{@link #getChargeDetails chargeDetails}</li>
  * <li>{@link #getTaxAmountCollected taxAmountCollected}</li>
  * <li>{@link #getAmountCollected amountCollected}</li>
+ * <li>{@link #getTotalAmount totalAmount}</li>
+ * <li>{@link #getAmountCollectedWithoutTax amountCollectedWithoutTax}</li>
  * <li>{@link #getUnpaidBalance unpaidBalance}</li>
  * <li>{@link #getNumFullyPaidOrders numFullyPaidOrders}</li>
  * <li>{@link #getNumPartiallyPaidOrders numPartiallyPaidOrders}</li>
+ * <li>{@link #getNumPaidOrders numPaidOrders}</li>
+ * <li>{@link #getNumTransactions numTransactions}</li>
+ * <li>{@link #getNumPayments numPayments}</li>
+ * <li>{@link #getNumCredits numCredits}</li>
+ * <li>{@link #getNumRefunds numRefunds}</li>
+ * <li>{@link #getNumDiscounts numDiscounts}</li>
+ * <li>{@link #getVoids voids}</li>
+ * <li>{@link #getNumVoids numVoids}</li>
+ * <li>{@link #getNumLocations numLocations}</li>
+ * <li>{@link #getAverageNetSales averageNetSales}</li>
+ * <li>{@link #getNetQuantity netQuantity}</li>
+ * <li>{@link #getChangeInGrossSales changeInGrossSales}</li>
+ * <li>{@link #getChangeInNet changeInNet}</li>
+ * <li>{@link #getChangeInTaxAmountCollected changeInTaxAmountCollected}</li>
+ * <li>{@link #getChangeInNumFullyPaidOrders changeInNumFullyPaidOrders}</li>
+ * <li>{@link #getChangeInNumPaidOrders changeInNumPaidOrders}</li>
+ * <li>{@link #getChangeInNumTransactions changeInNumTransactions}</li>
+ * <li>{@link #getChangeInAverageNetSales changeInAverageNetSales}</li>
+ * <li>{@link #getChangeInAmountCollected changeInAmountCollected}</li>
+ * <li>{@link #getOrderType orderType}</li>
+ * <li>{@link #getFromCloverDevice fromCloverDevice}</li>
+ * <li>{@link #getSectionName sectionName}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -78,7 +110,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * The amount that would have been paid before discounts were applied. This does not include non-revenue items. It does not include tax. This is the amount before any refunds occurred. This is the total of orders where the first payment is in the reporting time range.
+   * The amount that would have been paid before discounts were applied. This does not include non-revenue items. Includes tax for VAT items, otherwise does not include tax. This is the amount before any refunds occurred. This is the total of orders where the first payment is in the reporting time range.
    */
   public java.lang.Long getGrossSales() {
     return genClient.cacheGet(CacheKey.grossSales);
@@ -92,6 +124,13 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * How many exchanges have occurred during the period. Every time an item is exchanged this value is incremented.
+   */
+  public java.lang.Long getNumExchanges() {
+    return genClient.cacheGet(CacheKey.numExchanges);
+  }
+
+  /**
    * Total of all discounts applied on orders that have some payment. Reported as a negative number since it is subtracted from Gross Sales to arrive at Net Sales.
    */
   public java.lang.Long getDiscountAmount() {
@@ -99,7 +138,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Total of all refunds and manual refunds excluding tax, tip, service charge, and non-revenue items. Reported as a negative number since it is subtracted from Gross Sales to arrive at Net Sales.
+   * Total of all refunds and manual refunds excluding tip, service charge, and non-revenue items. Includes tax for VAT items, otherwise does not include tax. Reported as a negative number since it is subtracted from Gross Sales to arrive at Net Sales.
    */
   public java.lang.Long getRefundAmount() {
     return genClient.cacheGet(CacheKey.refundAmount);
@@ -113,7 +152,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * The total of all orders with any payment with discounts and with refunds and manual refunds deducted. Excludes non-revenue items, service charges, tips and taxes.
+   * The total of all orders with any payment with discounts and with refunds and manual refunds deducted. Excludes non-revenue items, service charges, and tips. Includes tax for VAT items, otherwise does not include tax.
    */
   public java.lang.Long getNet() {
     return genClient.cacheGet(CacheKey.net);
@@ -127,17 +166,45 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Total of all non-revenue items without tax and excluding paid gift card activations and loads. Reported as a positive number since it is added to Net to arrive at Amount Collected.
+   * Total of all non-revenue items excluding paid gift card activations and loads. Includes tax for VAT items, otherwise does not include tax. Reported as a positive number since it is added to Net to arrive at Amount Collected.
    */
   public java.lang.Long getNonRevenueItems() {
     return genClient.cacheGet(CacheKey.nonRevenueItems);
   }
 
   /**
-   * Total service charges on orders with payment minus total service charge refunded. Reported as a positive number since it is added to Net to arrive at Amount Collected.
+   * Extra money that was collected for the gross, or at least something in the order state causes it to appear as extra money towards gross. Includes Non-revenue items and gift card activations. Does not include tip, service or additional charge. Includes tax for VAT items, otherwise does not include tax.
+   */
+  public java.lang.Long getOverpaymentAmount() {
+    return genClient.cacheGet(CacheKey.overpaymentAmount);
+  }
+
+  /**
+   * Amount paid minus amount refunded towards gross but which isn't visible because it was filtered out by employee or device. Includes tax and service. Does not include tip.
+   */
+  public java.lang.Long getAmountCollectedByOtherEmployeesOrDevices() {
+    return genClient.cacheGet(CacheKey.amountCollectedByOtherEmployeesOrDevices);
+  }
+
+  /**
+   * Amount paid which meets the filter conditions but the gross occurred either before the report started or the gross was attributed to an employee or a device which was filtered out. Includes gift card activations and non-revenue items. Does not include tip, service charge or additional charge. Includes tax for VAT items, otherwise does not include tax.
+   */
+  public java.lang.Long getPaymentTowardsFilteredGross() {
+    return genClient.cacheGet(CacheKey.paymentTowardsFilteredGross);
+  }
+
+  /**
+   * Total service charges expected on orders with payment minus total service charge refunded. Reported as a positive number since it is added to Net to arrive at Amount Collected.
    */
   public java.lang.Long getServiceChargeAmount() {
     return genClient.cacheGet(CacheKey.serviceChargeAmount);
+  }
+
+  /**
+   * Total service charges paid minus total service charge refunded. Reported as a positive number since it is added to Net to arrive at Amount Collected.
+   */
+  public java.lang.Long getServiceChargeAmountCollected() {
+    return genClient.cacheGet(CacheKey.serviceChargeAmountCollected);
   }
 
   /**
@@ -148,10 +215,31 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Array of summary objects. Each row represents a possible type of tip that makes up the tipAmount field.
+   */
+  public java.util.List<com.clover.sdk.v3.report.Summary> getTipDetails() {
+    return genClient.cacheGet(CacheKey.tipDetails);
+  }
+
+  /**
    * The total tax liability. That is, the total of all taxes and flat tax on orders in Gross Sales minus total of all tax and flat tax refunded. Reported as a positive number since it is added to Net to arrive at Amount Collected.
    */
   public java.lang.Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
+  }
+
+  /**
+   * Total additional charge amount paid minus the additional charge amount refunded. Currently only interac surcharges in Canada.
+   */
+  public java.lang.Long getAdditionalChargeAmount() {
+    return genClient.cacheGet(CacheKey.additionalChargeAmount);
+  }
+
+  /**
+   * Each row represents a possible type of service or additional charge. The total of these charges is 'totalCharges'.
+   */
+  public com.clover.sdk.v3.report.ChargeSummarySection getChargeDetails() {
+    return genClient.cacheGet(CacheKey.chargeDetails);
   }
 
   /**
@@ -166,6 +254,20 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public java.lang.Long getAmountCollected() {
     return genClient.cacheGet(CacheKey.amountCollected);
+  }
+
+  /**
+   * Used by revenue classes. Price as sold with all discounts and modifiers plus tax. Excludes non-revenue items.
+   */
+  public java.lang.Long getTotalAmount() {
+    return genClient.cacheGet(CacheKey.totalAmount);
+  }
+
+  /**
+   * Total amount of money collected minus total amount refunded or manually refunded. Includes tip, service charge, non-revenue items, paid gift card activations and loads and discounts. Does not include tax.
+   */
+  public java.lang.Long getAmountCollectedWithoutTax() {
+    return genClient.cacheGet(CacheKey.amountCollectedWithoutTax);
   }
 
   /**
@@ -189,6 +291,154 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.numPartiallyPaidOrders);
   }
 
+  /**
+   * Number of fully or partially paid orders. Not always populated as we usually return numFullyPaidOrders and numPartiallyPaidOrders instead.
+   */
+  public java.lang.Long getNumPaidOrders() {
+    return genClient.cacheGet(CacheKey.numPaidOrders);
+  }
+
+  /**
+   * Sum of the number of payments, credits and refunds.
+   */
+  public java.lang.Long getNumTransactions() {
+    return genClient.cacheGet(CacheKey.numTransactions);
+  }
+
+  /**
+   * Number of payments for the current period.
+   */
+  public java.lang.Long getNumPayments() {
+    return genClient.cacheGet(CacheKey.numPayments);
+  }
+
+  /**
+   * Number of credits for the current period.
+   */
+  public java.lang.Long getNumCredits() {
+    return genClient.cacheGet(CacheKey.numCredits);
+  }
+
+  /**
+   * Number of refunds for the current period.
+   */
+  public java.lang.Long getNumRefunds() {
+    return genClient.cacheGet(CacheKey.numRefunds);
+  }
+
+  /**
+   * Number of discounts applied.
+   */
+  public java.lang.Long getNumDiscounts() {
+    return genClient.cacheGet(CacheKey.numDiscounts);
+  }
+
+  public java.lang.Long getVoids() {
+    return genClient.cacheGet(CacheKey.voids);
+  }
+
+  public java.lang.Long getNumVoids() {
+    return genClient.cacheGet(CacheKey.numVoids);
+  }
+
+  /**
+   * Number of merchant locations included in the enterprise report. Optional field available in some sections of some enterprise reports.
+   */
+  public java.lang.Integer getNumLocations() {
+    return genClient.cacheGet(CacheKey.numLocations);
+  }
+
+  /**
+   * NetSales divided by (numFullyPaidOrders + numPartiallyPaidOrders)  (OR if no order module present then netSales divided by numTransactions)
+   */
+  public java.lang.Long getAverageNetSales() {
+    return genClient.cacheGet(CacheKey.averageNetSales);
+  }
+
+  /**
+   * Optional field, net quantity of items sold
+   */
+  public java.lang.Double getNetQuantity() {
+    return genClient.cacheGet(CacheKey.netQuantity);
+  }
+
+  /**
+   * Change in gross sales comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInGrossSales() {
+    return genClient.cacheGet(CacheKey.changeInGrossSales);
+  }
+
+  /**
+   * Change in net sales comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInNet() {
+    return genClient.cacheGet(CacheKey.changeInNet);
+  }
+
+  /**
+   * Change in net tax amount actually collected, comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInTaxAmountCollected() {
+    return genClient.cacheGet(CacheKey.changeInTaxAmountCollected);
+  }
+
+  /**
+   * Change in the count of fully paid orders comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase. Orders are counted at the time when the first payment is taken.
+   */
+  public java.lang.Double getChangeInNumFullyPaidOrders() {
+    return genClient.cacheGet(CacheKey.changeInNumFullyPaidOrders);
+  }
+
+  /**
+   * Change in the count of paid orders comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase. Orders are counted at the time when the first payment is taken.
+   */
+  public java.lang.Double getChangeInNumPaidOrders() {
+    return genClient.cacheGet(CacheKey.changeInNumPaidOrders);
+  }
+
+  /**
+   * Change in transactions count comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase. Transactions count is the sum of the number of payments, credits and refunds.
+   */
+  public java.lang.Double getChangeInNumTransactions() {
+    return genClient.cacheGet(CacheKey.changeInNumTransactions);
+  }
+
+  /**
+   * Change in average net sales comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInAverageNetSales() {
+    return genClient.cacheGet(CacheKey.changeInAverageNetSales);
+  }
+
+  /**
+   * Change in total amount collected comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInAmountCollected() {
+    return genClient.cacheGet(CacheKey.changeInAmountCollected);
+  }
+
+  /**
+   * Optional: if the report is aggregated by order type, then this is the order type related to this summary.
+   */
+  public com.clover.sdk.v3.base.Reference getOrderType() {
+    return genClient.cacheGet(CacheKey.orderType);
+  }
+
+  /**
+   * Optional: if the report is aggregated by order type, then there may be sales summaries for sales associated with an order type but that are not associated with a Clover Online Order Provider. For those sales, there may be summaries additionally grouped by whether they are associated with a Clover device.
+   */
+  public java.lang.Boolean getFromCloverDevice() {
+    return genClient.cacheGet(CacheKey.fromCloverDevice);
+  }
+
+  /**
+   * Optional: Used in snowflake to group items together based on orderType, providers or devices.
+   */
+  public java.lang.String getSectionName() {
+    return genClient.cacheGet(CacheKey.sectionName);
+  }
+
 
 
 
@@ -203,6 +453,8 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     exchangeAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numExchanges
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     discountAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     refundAmount
@@ -215,15 +467,33 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     nonRevenueItems
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    overpaymentAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    amountCollectedByOtherEmployeesOrDevices
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    paymentTowardsFilteredGross
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     serviceChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    serviceChargeAmountCollected
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tipAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tipDetails
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
     taxAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    additionalChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    chargeDetails
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ChargeSummarySection.JSON_CREATOR)),
     taxAmountCollected
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     amountCollected
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    totalAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    amountCollectedWithoutTax
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     unpaidBalance
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -231,6 +501,50 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     numPartiallyPaidOrders
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numPaidOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numTransactions
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numPayments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numCredits
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numRefunds
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numDiscounts
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    voids
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numVoids
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numLocations
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    averageNetSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    netQuantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInGrossSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInNet
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInTaxAmountCollected
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInNumFullyPaidOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInNumPaidOrders
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInNumTransactions
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInAverageNetSales
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInAmountCollected
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    orderType
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    fromCloverDevice
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    sectionName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -303,6 +617,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
 
   @Override
   public void validate() {
+    genClient.validateReferences(CacheKey.orderType);
   }
 
   /** Checks whether the 'startTimestamp' field is set and is not null */
@@ -328,6 +643,11 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'exchangeAmount' field is set and is not null */
   public boolean isNotNullExchangeAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.exchangeAmount);
+  }
+
+  /** Checks whether the 'numExchanges' field is set and is not null */
+  public boolean isNotNullNumExchanges() {
+    return genClient.cacheValueIsNotNull(CacheKey.numExchanges);
   }
 
   /** Checks whether the 'discountAmount' field is set and is not null */
@@ -360,9 +680,29 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.nonRevenueItems);
   }
 
+  /** Checks whether the 'overpaymentAmount' field is set and is not null */
+  public boolean isNotNullOverpaymentAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.overpaymentAmount);
+  }
+
+  /** Checks whether the 'amountCollectedByOtherEmployeesOrDevices' field is set and is not null */
+  public boolean isNotNullAmountCollectedByOtherEmployeesOrDevices() {
+    return genClient.cacheValueIsNotNull(CacheKey.amountCollectedByOtherEmployeesOrDevices);
+  }
+
+  /** Checks whether the 'paymentTowardsFilteredGross' field is set and is not null */
+  public boolean isNotNullPaymentTowardsFilteredGross() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentTowardsFilteredGross);
+  }
+
   /** Checks whether the 'serviceChargeAmount' field is set and is not null */
   public boolean isNotNullServiceChargeAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'serviceChargeAmountCollected' field is set and is not null */
+  public boolean isNotNullServiceChargeAmountCollected() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmountCollected);
   }
 
   /** Checks whether the 'tipAmount' field is set and is not null */
@@ -370,9 +710,27 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.tipAmount);
   }
 
+  /** Checks whether the 'tipDetails' field is set and is not null */
+  public boolean isNotNullTipDetails() {
+    return genClient.cacheValueIsNotNull(CacheKey.tipDetails);
+  }
+
+  /** Checks whether the 'tipDetails' field is set and is not null and is not empty */
+  public boolean isNotEmptyTipDetails() { return isNotNullTipDetails() && !getTipDetails().isEmpty(); }
+
   /** Checks whether the 'taxAmount' field is set and is not null */
   public boolean isNotNullTaxAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmount' field is set and is not null */
+  public boolean isNotNullAdditionalChargeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalChargeAmount);
+  }
+
+  /** Checks whether the 'chargeDetails' field is set and is not null */
+  public boolean isNotNullChargeDetails() {
+    return genClient.cacheValueIsNotNull(CacheKey.chargeDetails);
   }
 
   /** Checks whether the 'taxAmountCollected' field is set and is not null */
@@ -383,6 +741,16 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'amountCollected' field is set and is not null */
   public boolean isNotNullAmountCollected() {
     return genClient.cacheValueIsNotNull(CacheKey.amountCollected);
+  }
+
+  /** Checks whether the 'totalAmount' field is set and is not null */
+  public boolean isNotNullTotalAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.totalAmount);
+  }
+
+  /** Checks whether the 'amountCollectedWithoutTax' field is set and is not null */
+  public boolean isNotNullAmountCollectedWithoutTax() {
+    return genClient.cacheValueIsNotNull(CacheKey.amountCollectedWithoutTax);
   }
 
   /** Checks whether the 'unpaidBalance' field is set and is not null */
@@ -398,6 +766,116 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'numPartiallyPaidOrders' field is set and is not null */
   public boolean isNotNullNumPartiallyPaidOrders() {
     return genClient.cacheValueIsNotNull(CacheKey.numPartiallyPaidOrders);
+  }
+
+  /** Checks whether the 'numPaidOrders' field is set and is not null */
+  public boolean isNotNullNumPaidOrders() {
+    return genClient.cacheValueIsNotNull(CacheKey.numPaidOrders);
+  }
+
+  /** Checks whether the 'numTransactions' field is set and is not null */
+  public boolean isNotNullNumTransactions() {
+    return genClient.cacheValueIsNotNull(CacheKey.numTransactions);
+  }
+
+  /** Checks whether the 'numPayments' field is set and is not null */
+  public boolean isNotNullNumPayments() {
+    return genClient.cacheValueIsNotNull(CacheKey.numPayments);
+  }
+
+  /** Checks whether the 'numCredits' field is set and is not null */
+  public boolean isNotNullNumCredits() {
+    return genClient.cacheValueIsNotNull(CacheKey.numCredits);
+  }
+
+  /** Checks whether the 'numRefunds' field is set and is not null */
+  public boolean isNotNullNumRefunds() {
+    return genClient.cacheValueIsNotNull(CacheKey.numRefunds);
+  }
+
+  /** Checks whether the 'numDiscounts' field is set and is not null */
+  public boolean isNotNullNumDiscounts() {
+    return genClient.cacheValueIsNotNull(CacheKey.numDiscounts);
+  }
+
+  /** Checks whether the 'voids' field is set and is not null */
+  public boolean isNotNullVoids() {
+    return genClient.cacheValueIsNotNull(CacheKey.voids);
+  }
+
+  /** Checks whether the 'numVoids' field is set and is not null */
+  public boolean isNotNullNumVoids() {
+    return genClient.cacheValueIsNotNull(CacheKey.numVoids);
+  }
+
+  /** Checks whether the 'numLocations' field is set and is not null */
+  public boolean isNotNullNumLocations() {
+    return genClient.cacheValueIsNotNull(CacheKey.numLocations);
+  }
+
+  /** Checks whether the 'averageNetSales' field is set and is not null */
+  public boolean isNotNullAverageNetSales() {
+    return genClient.cacheValueIsNotNull(CacheKey.averageNetSales);
+  }
+
+  /** Checks whether the 'netQuantity' field is set and is not null */
+  public boolean isNotNullNetQuantity() {
+    return genClient.cacheValueIsNotNull(CacheKey.netQuantity);
+  }
+
+  /** Checks whether the 'changeInGrossSales' field is set and is not null */
+  public boolean isNotNullChangeInGrossSales() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInGrossSales);
+  }
+
+  /** Checks whether the 'changeInNet' field is set and is not null */
+  public boolean isNotNullChangeInNet() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNet);
+  }
+
+  /** Checks whether the 'changeInTaxAmountCollected' field is set and is not null */
+  public boolean isNotNullChangeInTaxAmountCollected() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInTaxAmountCollected);
+  }
+
+  /** Checks whether the 'changeInNumFullyPaidOrders' field is set and is not null */
+  public boolean isNotNullChangeInNumFullyPaidOrders() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNumFullyPaidOrders);
+  }
+
+  /** Checks whether the 'changeInNumPaidOrders' field is set and is not null */
+  public boolean isNotNullChangeInNumPaidOrders() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNumPaidOrders);
+  }
+
+  /** Checks whether the 'changeInNumTransactions' field is set and is not null */
+  public boolean isNotNullChangeInNumTransactions() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNumTransactions);
+  }
+
+  /** Checks whether the 'changeInAverageNetSales' field is set and is not null */
+  public boolean isNotNullChangeInAverageNetSales() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInAverageNetSales);
+  }
+
+  /** Checks whether the 'changeInAmountCollected' field is set and is not null */
+  public boolean isNotNullChangeInAmountCollected() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInAmountCollected);
+  }
+
+  /** Checks whether the 'orderType' field is set and is not null */
+  public boolean isNotNullOrderType() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderType);
+  }
+
+  /** Checks whether the 'fromCloverDevice' field is set and is not null */
+  public boolean isNotNullFromCloverDevice() {
+    return genClient.cacheValueIsNotNull(CacheKey.fromCloverDevice);
+  }
+
+  /** Checks whether the 'sectionName' field is set and is not null */
+  public boolean isNotNullSectionName() {
+    return genClient.cacheValueIsNotNull(CacheKey.sectionName);
   }
 
 
@@ -425,6 +903,11 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'exchangeAmount' field has been set, however the value could be null */
   public boolean hasExchangeAmount() {
     return genClient.cacheHasKey(CacheKey.exchangeAmount);
+  }
+
+  /** Checks whether the 'numExchanges' field has been set, however the value could be null */
+  public boolean hasNumExchanges() {
+    return genClient.cacheHasKey(CacheKey.numExchanges);
   }
 
   /** Checks whether the 'discountAmount' field has been set, however the value could be null */
@@ -457,9 +940,29 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.nonRevenueItems);
   }
 
+  /** Checks whether the 'overpaymentAmount' field has been set, however the value could be null */
+  public boolean hasOverpaymentAmount() {
+    return genClient.cacheHasKey(CacheKey.overpaymentAmount);
+  }
+
+  /** Checks whether the 'amountCollectedByOtherEmployeesOrDevices' field has been set, however the value could be null */
+  public boolean hasAmountCollectedByOtherEmployeesOrDevices() {
+    return genClient.cacheHasKey(CacheKey.amountCollectedByOtherEmployeesOrDevices);
+  }
+
+  /** Checks whether the 'paymentTowardsFilteredGross' field has been set, however the value could be null */
+  public boolean hasPaymentTowardsFilteredGross() {
+    return genClient.cacheHasKey(CacheKey.paymentTowardsFilteredGross);
+  }
+
   /** Checks whether the 'serviceChargeAmount' field has been set, however the value could be null */
   public boolean hasServiceChargeAmount() {
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'serviceChargeAmountCollected' field has been set, however the value could be null */
+  public boolean hasServiceChargeAmountCollected() {
+    return genClient.cacheHasKey(CacheKey.serviceChargeAmountCollected);
   }
 
   /** Checks whether the 'tipAmount' field has been set, however the value could be null */
@@ -467,9 +970,24 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.tipAmount);
   }
 
+  /** Checks whether the 'tipDetails' field has been set, however the value could be null */
+  public boolean hasTipDetails() {
+    return genClient.cacheHasKey(CacheKey.tipDetails);
+  }
+
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return genClient.cacheHasKey(CacheKey.taxAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmount' field has been set, however the value could be null */
+  public boolean hasAdditionalChargeAmount() {
+    return genClient.cacheHasKey(CacheKey.additionalChargeAmount);
+  }
+
+  /** Checks whether the 'chargeDetails' field has been set, however the value could be null */
+  public boolean hasChargeDetails() {
+    return genClient.cacheHasKey(CacheKey.chargeDetails);
   }
 
   /** Checks whether the 'taxAmountCollected' field has been set, however the value could be null */
@@ -480,6 +998,16 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'amountCollected' field has been set, however the value could be null */
   public boolean hasAmountCollected() {
     return genClient.cacheHasKey(CacheKey.amountCollected);
+  }
+
+  /** Checks whether the 'totalAmount' field has been set, however the value could be null */
+  public boolean hasTotalAmount() {
+    return genClient.cacheHasKey(CacheKey.totalAmount);
+  }
+
+  /** Checks whether the 'amountCollectedWithoutTax' field has been set, however the value could be null */
+  public boolean hasAmountCollectedWithoutTax() {
+    return genClient.cacheHasKey(CacheKey.amountCollectedWithoutTax);
   }
 
   /** Checks whether the 'unpaidBalance' field has been set, however the value could be null */
@@ -495,6 +1023,116 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'numPartiallyPaidOrders' field has been set, however the value could be null */
   public boolean hasNumPartiallyPaidOrders() {
     return genClient.cacheHasKey(CacheKey.numPartiallyPaidOrders);
+  }
+
+  /** Checks whether the 'numPaidOrders' field has been set, however the value could be null */
+  public boolean hasNumPaidOrders() {
+    return genClient.cacheHasKey(CacheKey.numPaidOrders);
+  }
+
+  /** Checks whether the 'numTransactions' field has been set, however the value could be null */
+  public boolean hasNumTransactions() {
+    return genClient.cacheHasKey(CacheKey.numTransactions);
+  }
+
+  /** Checks whether the 'numPayments' field has been set, however the value could be null */
+  public boolean hasNumPayments() {
+    return genClient.cacheHasKey(CacheKey.numPayments);
+  }
+
+  /** Checks whether the 'numCredits' field has been set, however the value could be null */
+  public boolean hasNumCredits() {
+    return genClient.cacheHasKey(CacheKey.numCredits);
+  }
+
+  /** Checks whether the 'numRefunds' field has been set, however the value could be null */
+  public boolean hasNumRefunds() {
+    return genClient.cacheHasKey(CacheKey.numRefunds);
+  }
+
+  /** Checks whether the 'numDiscounts' field has been set, however the value could be null */
+  public boolean hasNumDiscounts() {
+    return genClient.cacheHasKey(CacheKey.numDiscounts);
+  }
+
+  /** Checks whether the 'voids' field has been set, however the value could be null */
+  public boolean hasVoids() {
+    return genClient.cacheHasKey(CacheKey.voids);
+  }
+
+  /** Checks whether the 'numVoids' field has been set, however the value could be null */
+  public boolean hasNumVoids() {
+    return genClient.cacheHasKey(CacheKey.numVoids);
+  }
+
+  /** Checks whether the 'numLocations' field has been set, however the value could be null */
+  public boolean hasNumLocations() {
+    return genClient.cacheHasKey(CacheKey.numLocations);
+  }
+
+  /** Checks whether the 'averageNetSales' field has been set, however the value could be null */
+  public boolean hasAverageNetSales() {
+    return genClient.cacheHasKey(CacheKey.averageNetSales);
+  }
+
+  /** Checks whether the 'netQuantity' field has been set, however the value could be null */
+  public boolean hasNetQuantity() {
+    return genClient.cacheHasKey(CacheKey.netQuantity);
+  }
+
+  /** Checks whether the 'changeInGrossSales' field has been set, however the value could be null */
+  public boolean hasChangeInGrossSales() {
+    return genClient.cacheHasKey(CacheKey.changeInGrossSales);
+  }
+
+  /** Checks whether the 'changeInNet' field has been set, however the value could be null */
+  public boolean hasChangeInNet() {
+    return genClient.cacheHasKey(CacheKey.changeInNet);
+  }
+
+  /** Checks whether the 'changeInTaxAmountCollected' field has been set, however the value could be null */
+  public boolean hasChangeInTaxAmountCollected() {
+    return genClient.cacheHasKey(CacheKey.changeInTaxAmountCollected);
+  }
+
+  /** Checks whether the 'changeInNumFullyPaidOrders' field has been set, however the value could be null */
+  public boolean hasChangeInNumFullyPaidOrders() {
+    return genClient.cacheHasKey(CacheKey.changeInNumFullyPaidOrders);
+  }
+
+  /** Checks whether the 'changeInNumPaidOrders' field has been set, however the value could be null */
+  public boolean hasChangeInNumPaidOrders() {
+    return genClient.cacheHasKey(CacheKey.changeInNumPaidOrders);
+  }
+
+  /** Checks whether the 'changeInNumTransactions' field has been set, however the value could be null */
+  public boolean hasChangeInNumTransactions() {
+    return genClient.cacheHasKey(CacheKey.changeInNumTransactions);
+  }
+
+  /** Checks whether the 'changeInAverageNetSales' field has been set, however the value could be null */
+  public boolean hasChangeInAverageNetSales() {
+    return genClient.cacheHasKey(CacheKey.changeInAverageNetSales);
+  }
+
+  /** Checks whether the 'changeInAmountCollected' field has been set, however the value could be null */
+  public boolean hasChangeInAmountCollected() {
+    return genClient.cacheHasKey(CacheKey.changeInAmountCollected);
+  }
+
+  /** Checks whether the 'orderType' field has been set, however the value could be null */
+  public boolean hasOrderType() {
+    return genClient.cacheHasKey(CacheKey.orderType);
+  }
+
+  /** Checks whether the 'fromCloverDevice' field has been set, however the value could be null */
+  public boolean hasFromCloverDevice() {
+    return genClient.cacheHasKey(CacheKey.fromCloverDevice);
+  }
+
+  /** Checks whether the 'sectionName' field has been set, however the value could be null */
+  public boolean hasSectionName() {
+    return genClient.cacheHasKey(CacheKey.sectionName);
   }
 
 
@@ -531,6 +1169,13 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public SalesSummary setExchangeAmount(java.lang.Long exchangeAmount) {
     return genClient.setOther(exchangeAmount, CacheKey.exchangeAmount);
+  }
+
+  /**
+   * Sets the field 'numExchanges'.
+   */
+  public SalesSummary setNumExchanges(java.lang.Long numExchanges) {
+    return genClient.setOther(numExchanges, CacheKey.numExchanges);
   }
 
   /**
@@ -576,10 +1221,38 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'overpaymentAmount'.
+   */
+  public SalesSummary setOverpaymentAmount(java.lang.Long overpaymentAmount) {
+    return genClient.setOther(overpaymentAmount, CacheKey.overpaymentAmount);
+  }
+
+  /**
+   * Sets the field 'amountCollectedByOtherEmployeesOrDevices'.
+   */
+  public SalesSummary setAmountCollectedByOtherEmployeesOrDevices(java.lang.Long amountCollectedByOtherEmployeesOrDevices) {
+    return genClient.setOther(amountCollectedByOtherEmployeesOrDevices, CacheKey.amountCollectedByOtherEmployeesOrDevices);
+  }
+
+  /**
+   * Sets the field 'paymentTowardsFilteredGross'.
+   */
+  public SalesSummary setPaymentTowardsFilteredGross(java.lang.Long paymentTowardsFilteredGross) {
+    return genClient.setOther(paymentTowardsFilteredGross, CacheKey.paymentTowardsFilteredGross);
+  }
+
+  /**
    * Sets the field 'serviceChargeAmount'.
    */
   public SalesSummary setServiceChargeAmount(java.lang.Long serviceChargeAmount) {
     return genClient.setOther(serviceChargeAmount, CacheKey.serviceChargeAmount);
+  }
+
+  /**
+   * Sets the field 'serviceChargeAmountCollected'.
+   */
+  public SalesSummary setServiceChargeAmountCollected(java.lang.Long serviceChargeAmountCollected) {
+    return genClient.setOther(serviceChargeAmountCollected, CacheKey.serviceChargeAmountCollected);
   }
 
   /**
@@ -590,10 +1263,35 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'tipDetails'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public SalesSummary setTipDetails(java.util.List<com.clover.sdk.v3.report.Summary> tipDetails) {
+    return genClient.setArrayRecord(tipDetails, CacheKey.tipDetails);
+  }
+
+  /**
    * Sets the field 'taxAmount'.
    */
   public SalesSummary setTaxAmount(java.lang.Long taxAmount) {
     return genClient.setOther(taxAmount, CacheKey.taxAmount);
+  }
+
+  /**
+   * Sets the field 'additionalChargeAmount'.
+   */
+  public SalesSummary setAdditionalChargeAmount(java.lang.Long additionalChargeAmount) {
+    return genClient.setOther(additionalChargeAmount, CacheKey.additionalChargeAmount);
+  }
+
+  /**
+   * Sets the field 'chargeDetails'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public SalesSummary setChargeDetails(com.clover.sdk.v3.report.ChargeSummarySection chargeDetails) {
+    return genClient.setRecord(chargeDetails, CacheKey.chargeDetails);
   }
 
   /**
@@ -608,6 +1306,20 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public SalesSummary setAmountCollected(java.lang.Long amountCollected) {
     return genClient.setOther(amountCollected, CacheKey.amountCollected);
+  }
+
+  /**
+   * Sets the field 'totalAmount'.
+   */
+  public SalesSummary setTotalAmount(java.lang.Long totalAmount) {
+    return genClient.setOther(totalAmount, CacheKey.totalAmount);
+  }
+
+  /**
+   * Sets the field 'amountCollectedWithoutTax'.
+   */
+  public SalesSummary setAmountCollectedWithoutTax(java.lang.Long amountCollectedWithoutTax) {
+    return genClient.setOther(amountCollectedWithoutTax, CacheKey.amountCollectedWithoutTax);
   }
 
   /**
@@ -631,6 +1343,162 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setOther(numPartiallyPaidOrders, CacheKey.numPartiallyPaidOrders);
   }
 
+  /**
+   * Sets the field 'numPaidOrders'.
+   */
+  public SalesSummary setNumPaidOrders(java.lang.Long numPaidOrders) {
+    return genClient.setOther(numPaidOrders, CacheKey.numPaidOrders);
+  }
+
+  /**
+   * Sets the field 'numTransactions'.
+   */
+  public SalesSummary setNumTransactions(java.lang.Long numTransactions) {
+    return genClient.setOther(numTransactions, CacheKey.numTransactions);
+  }
+
+  /**
+   * Sets the field 'numPayments'.
+   */
+  public SalesSummary setNumPayments(java.lang.Long numPayments) {
+    return genClient.setOther(numPayments, CacheKey.numPayments);
+  }
+
+  /**
+   * Sets the field 'numCredits'.
+   */
+  public SalesSummary setNumCredits(java.lang.Long numCredits) {
+    return genClient.setOther(numCredits, CacheKey.numCredits);
+  }
+
+  /**
+   * Sets the field 'numRefunds'.
+   */
+  public SalesSummary setNumRefunds(java.lang.Long numRefunds) {
+    return genClient.setOther(numRefunds, CacheKey.numRefunds);
+  }
+
+  /**
+   * Sets the field 'numDiscounts'.
+   */
+  public SalesSummary setNumDiscounts(java.lang.Long numDiscounts) {
+    return genClient.setOther(numDiscounts, CacheKey.numDiscounts);
+  }
+
+  /**
+   * Sets the field 'voids'.
+   */
+  public SalesSummary setVoids(java.lang.Long voids) {
+    return genClient.setOther(voids, CacheKey.voids);
+  }
+
+  /**
+   * Sets the field 'numVoids'.
+   */
+  public SalesSummary setNumVoids(java.lang.Long numVoids) {
+    return genClient.setOther(numVoids, CacheKey.numVoids);
+  }
+
+  /**
+   * Sets the field 'numLocations'.
+   */
+  public SalesSummary setNumLocations(java.lang.Integer numLocations) {
+    return genClient.setOther(numLocations, CacheKey.numLocations);
+  }
+
+  /**
+   * Sets the field 'averageNetSales'.
+   */
+  public SalesSummary setAverageNetSales(java.lang.Long averageNetSales) {
+    return genClient.setOther(averageNetSales, CacheKey.averageNetSales);
+  }
+
+  /**
+   * Sets the field 'netQuantity'.
+   */
+  public SalesSummary setNetQuantity(java.lang.Double netQuantity) {
+    return genClient.setOther(netQuantity, CacheKey.netQuantity);
+  }
+
+  /**
+   * Sets the field 'changeInGrossSales'.
+   */
+  public SalesSummary setChangeInGrossSales(java.lang.Double changeInGrossSales) {
+    return genClient.setOther(changeInGrossSales, CacheKey.changeInGrossSales);
+  }
+
+  /**
+   * Sets the field 'changeInNet'.
+   */
+  public SalesSummary setChangeInNet(java.lang.Double changeInNet) {
+    return genClient.setOther(changeInNet, CacheKey.changeInNet);
+  }
+
+  /**
+   * Sets the field 'changeInTaxAmountCollected'.
+   */
+  public SalesSummary setChangeInTaxAmountCollected(java.lang.Double changeInTaxAmountCollected) {
+    return genClient.setOther(changeInTaxAmountCollected, CacheKey.changeInTaxAmountCollected);
+  }
+
+  /**
+   * Sets the field 'changeInNumFullyPaidOrders'.
+   */
+  public SalesSummary setChangeInNumFullyPaidOrders(java.lang.Double changeInNumFullyPaidOrders) {
+    return genClient.setOther(changeInNumFullyPaidOrders, CacheKey.changeInNumFullyPaidOrders);
+  }
+
+  /**
+   * Sets the field 'changeInNumPaidOrders'.
+   */
+  public SalesSummary setChangeInNumPaidOrders(java.lang.Double changeInNumPaidOrders) {
+    return genClient.setOther(changeInNumPaidOrders, CacheKey.changeInNumPaidOrders);
+  }
+
+  /**
+   * Sets the field 'changeInNumTransactions'.
+   */
+  public SalesSummary setChangeInNumTransactions(java.lang.Double changeInNumTransactions) {
+    return genClient.setOther(changeInNumTransactions, CacheKey.changeInNumTransactions);
+  }
+
+  /**
+   * Sets the field 'changeInAverageNetSales'.
+   */
+  public SalesSummary setChangeInAverageNetSales(java.lang.Double changeInAverageNetSales) {
+    return genClient.setOther(changeInAverageNetSales, CacheKey.changeInAverageNetSales);
+  }
+
+  /**
+   * Sets the field 'changeInAmountCollected'.
+   */
+  public SalesSummary setChangeInAmountCollected(java.lang.Double changeInAmountCollected) {
+    return genClient.setOther(changeInAmountCollected, CacheKey.changeInAmountCollected);
+  }
+
+  /**
+   * Sets the field 'orderType'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public SalesSummary setOrderType(com.clover.sdk.v3.base.Reference orderType) {
+    return genClient.setRecord(orderType, CacheKey.orderType);
+  }
+
+  /**
+   * Sets the field 'fromCloverDevice'.
+   */
+  public SalesSummary setFromCloverDevice(java.lang.Boolean fromCloverDevice) {
+    return genClient.setOther(fromCloverDevice, CacheKey.fromCloverDevice);
+  }
+
+  /**
+   * Sets the field 'sectionName'.
+   */
+  public SalesSummary setSectionName(java.lang.String sectionName) {
+    return genClient.setOther(sectionName, CacheKey.sectionName);
+  }
+
 
   /** Clears the 'startTimestamp' field, the 'has' method for this field will now return false */
   public void clearStartTimestamp() {
@@ -651,6 +1519,10 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'exchangeAmount' field, the 'has' method for this field will now return false */
   public void clearExchangeAmount() {
     genClient.clear(CacheKey.exchangeAmount);
+  }
+  /** Clears the 'numExchanges' field, the 'has' method for this field will now return false */
+  public void clearNumExchanges() {
+    genClient.clear(CacheKey.numExchanges);
   }
   /** Clears the 'discountAmount' field, the 'has' method for this field will now return false */
   public void clearDiscountAmount() {
@@ -676,17 +1548,45 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   public void clearNonRevenueItems() {
     genClient.clear(CacheKey.nonRevenueItems);
   }
+  /** Clears the 'overpaymentAmount' field, the 'has' method for this field will now return false */
+  public void clearOverpaymentAmount() {
+    genClient.clear(CacheKey.overpaymentAmount);
+  }
+  /** Clears the 'amountCollectedByOtherEmployeesOrDevices' field, the 'has' method for this field will now return false */
+  public void clearAmountCollectedByOtherEmployeesOrDevices() {
+    genClient.clear(CacheKey.amountCollectedByOtherEmployeesOrDevices);
+  }
+  /** Clears the 'paymentTowardsFilteredGross' field, the 'has' method for this field will now return false */
+  public void clearPaymentTowardsFilteredGross() {
+    genClient.clear(CacheKey.paymentTowardsFilteredGross);
+  }
   /** Clears the 'serviceChargeAmount' field, the 'has' method for this field will now return false */
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
+  }
+  /** Clears the 'serviceChargeAmountCollected' field, the 'has' method for this field will now return false */
+  public void clearServiceChargeAmountCollected() {
+    genClient.clear(CacheKey.serviceChargeAmountCollected);
   }
   /** Clears the 'tipAmount' field, the 'has' method for this field will now return false */
   public void clearTipAmount() {
     genClient.clear(CacheKey.tipAmount);
   }
+  /** Clears the 'tipDetails' field, the 'has' method for this field will now return false */
+  public void clearTipDetails() {
+    genClient.clear(CacheKey.tipDetails);
+  }
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
+  }
+  /** Clears the 'additionalChargeAmount' field, the 'has' method for this field will now return false */
+  public void clearAdditionalChargeAmount() {
+    genClient.clear(CacheKey.additionalChargeAmount);
+  }
+  /** Clears the 'chargeDetails' field, the 'has' method for this field will now return false */
+  public void clearChargeDetails() {
+    genClient.clear(CacheKey.chargeDetails);
   }
   /** Clears the 'taxAmountCollected' field, the 'has' method for this field will now return false */
   public void clearTaxAmountCollected() {
@@ -695,6 +1595,14 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'amountCollected' field, the 'has' method for this field will now return false */
   public void clearAmountCollected() {
     genClient.clear(CacheKey.amountCollected);
+  }
+  /** Clears the 'totalAmount' field, the 'has' method for this field will now return false */
+  public void clearTotalAmount() {
+    genClient.clear(CacheKey.totalAmount);
+  }
+  /** Clears the 'amountCollectedWithoutTax' field, the 'has' method for this field will now return false */
+  public void clearAmountCollectedWithoutTax() {
+    genClient.clear(CacheKey.amountCollectedWithoutTax);
   }
   /** Clears the 'unpaidBalance' field, the 'has' method for this field will now return false */
   public void clearUnpaidBalance() {
@@ -707,6 +1615,94 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'numPartiallyPaidOrders' field, the 'has' method for this field will now return false */
   public void clearNumPartiallyPaidOrders() {
     genClient.clear(CacheKey.numPartiallyPaidOrders);
+  }
+  /** Clears the 'numPaidOrders' field, the 'has' method for this field will now return false */
+  public void clearNumPaidOrders() {
+    genClient.clear(CacheKey.numPaidOrders);
+  }
+  /** Clears the 'numTransactions' field, the 'has' method for this field will now return false */
+  public void clearNumTransactions() {
+    genClient.clear(CacheKey.numTransactions);
+  }
+  /** Clears the 'numPayments' field, the 'has' method for this field will now return false */
+  public void clearNumPayments() {
+    genClient.clear(CacheKey.numPayments);
+  }
+  /** Clears the 'numCredits' field, the 'has' method for this field will now return false */
+  public void clearNumCredits() {
+    genClient.clear(CacheKey.numCredits);
+  }
+  /** Clears the 'numRefunds' field, the 'has' method for this field will now return false */
+  public void clearNumRefunds() {
+    genClient.clear(CacheKey.numRefunds);
+  }
+  /** Clears the 'numDiscounts' field, the 'has' method for this field will now return false */
+  public void clearNumDiscounts() {
+    genClient.clear(CacheKey.numDiscounts);
+  }
+  /** Clears the 'voids' field, the 'has' method for this field will now return false */
+  public void clearVoids() {
+    genClient.clear(CacheKey.voids);
+  }
+  /** Clears the 'numVoids' field, the 'has' method for this field will now return false */
+  public void clearNumVoids() {
+    genClient.clear(CacheKey.numVoids);
+  }
+  /** Clears the 'numLocations' field, the 'has' method for this field will now return false */
+  public void clearNumLocations() {
+    genClient.clear(CacheKey.numLocations);
+  }
+  /** Clears the 'averageNetSales' field, the 'has' method for this field will now return false */
+  public void clearAverageNetSales() {
+    genClient.clear(CacheKey.averageNetSales);
+  }
+  /** Clears the 'netQuantity' field, the 'has' method for this field will now return false */
+  public void clearNetQuantity() {
+    genClient.clear(CacheKey.netQuantity);
+  }
+  /** Clears the 'changeInGrossSales' field, the 'has' method for this field will now return false */
+  public void clearChangeInGrossSales() {
+    genClient.clear(CacheKey.changeInGrossSales);
+  }
+  /** Clears the 'changeInNet' field, the 'has' method for this field will now return false */
+  public void clearChangeInNet() {
+    genClient.clear(CacheKey.changeInNet);
+  }
+  /** Clears the 'changeInTaxAmountCollected' field, the 'has' method for this field will now return false */
+  public void clearChangeInTaxAmountCollected() {
+    genClient.clear(CacheKey.changeInTaxAmountCollected);
+  }
+  /** Clears the 'changeInNumFullyPaidOrders' field, the 'has' method for this field will now return false */
+  public void clearChangeInNumFullyPaidOrders() {
+    genClient.clear(CacheKey.changeInNumFullyPaidOrders);
+  }
+  /** Clears the 'changeInNumPaidOrders' field, the 'has' method for this field will now return false */
+  public void clearChangeInNumPaidOrders() {
+    genClient.clear(CacheKey.changeInNumPaidOrders);
+  }
+  /** Clears the 'changeInNumTransactions' field, the 'has' method for this field will now return false */
+  public void clearChangeInNumTransactions() {
+    genClient.clear(CacheKey.changeInNumTransactions);
+  }
+  /** Clears the 'changeInAverageNetSales' field, the 'has' method for this field will now return false */
+  public void clearChangeInAverageNetSales() {
+    genClient.clear(CacheKey.changeInAverageNetSales);
+  }
+  /** Clears the 'changeInAmountCollected' field, the 'has' method for this field will now return false */
+  public void clearChangeInAmountCollected() {
+    genClient.clear(CacheKey.changeInAmountCollected);
+  }
+  /** Clears the 'orderType' field, the 'has' method for this field will now return false */
+  public void clearOrderType() {
+    genClient.clear(CacheKey.orderType);
+  }
+  /** Clears the 'fromCloverDevice' field, the 'has' method for this field will now return false */
+  public void clearFromCloverDevice() {
+    genClient.clear(CacheKey.fromCloverDevice);
+  }
+  /** Clears the 'sectionName' field, the 'has' method for this field will now return false */
+  public void clearSectionName() {
+    genClient.clear(CacheKey.sectionName);
   }
 
 
@@ -775,20 +1771,52 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean SEGMENTLABEL_IS_REQUIRED = false;
     public static final boolean GROSSSALES_IS_REQUIRED = false;
     public static final boolean EXCHANGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean NUMEXCHANGES_IS_REQUIRED = false;
     public static final boolean DISCOUNTAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDREPAYMENTAMOUNT_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
     public static final boolean GIFTCARDLOADS_IS_REQUIRED = false;
     public static final boolean NONREVENUEITEMS_IS_REQUIRED = false;
+    public static final boolean OVERPAYMENTAMOUNT_IS_REQUIRED = false;
+    public static final boolean AMOUNTCOLLECTEDBYOTHEREMPLOYEESORDEVICES_IS_REQUIRED = false;
+    public static final boolean PAYMENTTOWARDSFILTEREDGROSS_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean SERVICECHARGEAMOUNTCOLLECTED_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
+    public static final boolean TIPDETAILS_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean CHARGEDETAILS_IS_REQUIRED = false;
     public static final boolean TAXAMOUNTCOLLECTED_IS_REQUIRED = false;
     public static final boolean AMOUNTCOLLECTED_IS_REQUIRED = false;
+    public static final boolean TOTALAMOUNT_IS_REQUIRED = false;
+    public static final boolean AMOUNTCOLLECTEDWITHOUTTAX_IS_REQUIRED = false;
     public static final boolean UNPAIDBALANCE_IS_REQUIRED = false;
     public static final boolean NUMFULLYPAIDORDERS_IS_REQUIRED = false;
     public static final boolean NUMPARTIALLYPAIDORDERS_IS_REQUIRED = false;
+    public static final boolean NUMPAIDORDERS_IS_REQUIRED = false;
+    public static final boolean NUMTRANSACTIONS_IS_REQUIRED = false;
+    public static final boolean NUMPAYMENTS_IS_REQUIRED = false;
+    public static final boolean NUMCREDITS_IS_REQUIRED = false;
+    public static final boolean NUMREFUNDS_IS_REQUIRED = false;
+    public static final boolean NUMDISCOUNTS_IS_REQUIRED = false;
+    public static final boolean VOIDS_IS_REQUIRED = false;
+    public static final boolean NUMVOIDS_IS_REQUIRED = false;
+    public static final boolean NUMLOCATIONS_IS_REQUIRED = false;
+    public static final boolean AVERAGENETSALES_IS_REQUIRED = false;
+    public static final boolean NETQUANTITY_IS_REQUIRED = false;
+    public static final boolean CHANGEINGROSSSALES_IS_REQUIRED = false;
+    public static final boolean CHANGEINNET_IS_REQUIRED = false;
+    public static final boolean CHANGEINTAXAMOUNTCOLLECTED_IS_REQUIRED = false;
+    public static final boolean CHANGEINNUMFULLYPAIDORDERS_IS_REQUIRED = false;
+    public static final boolean CHANGEINNUMPAIDORDERS_IS_REQUIRED = false;
+    public static final boolean CHANGEINNUMTRANSACTIONS_IS_REQUIRED = false;
+    public static final boolean CHANGEINAVERAGENETSALES_IS_REQUIRED = false;
+    public static final boolean CHANGEINAMOUNTCOLLECTED_IS_REQUIRED = false;
+    public static final boolean ORDERTYPE_IS_REQUIRED = false;
+    public static final boolean FROMCLOVERDEVICE_IS_REQUIRED = false;
+    public static final boolean SECTIONNAME_IS_REQUIRED = false;
   }
 
 }

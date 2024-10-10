@@ -66,8 +66,11 @@ public class CardTransactionConstants {
   public static final String IPG_RESPONSE_CODE = "responseCode";
   public static final String IPG_PROMOTIONAL_MESSAGE = "promotionalMessage";
   public static final String NETWORK_TRANS_ID = "networkTransId";
-  public static final String INDIA_TERMINAL_ID = "terminalId";
+  public static final String TERMINAL_ID = "terminalId";
   public static final String AMEX_SE_ID = "amexServiceEstablishmentNumber";
   public static final String TRANSACTION_CERTIFICATE = "transactionCertificate";
   public static final String ORIGINAL_AMOUNT = "orig_amt";
+  public static final String NETWORK_EXTRA_CARD = "card";
+  public static final String POS_ENTRY_MODE = "posEntryMode";
+
 }

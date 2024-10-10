@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getRate rate}</li>
+ * <li>{@link #getPretax pretax}</li>
  * <li>{@link #getType type}</li>
  * </ul>
  */
@@ -61,6 +62,13 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   }
 
   /**
+   * If this charge was applied pretax
+   */
+  public java.lang.Boolean getPretax() {
+    return genClient.cacheGet(CacheKey.pretax);
+  }
+
+  /**
    * The type of additional charge
    */
   public com.clover.sdk.v3.payments.AdditionalChargeType getType() {
@@ -72,13 +80,15 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     amount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     rate
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    pretax
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     type
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeType.class)),
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeType.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -173,6 +183,11 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     return genClient.cacheValueIsNotNull(CacheKey.rate);
   }
 
+  /** Checks whether the 'pretax' field is set and is not null */
+  public boolean isNotNullPretax() {
+    return genClient.cacheValueIsNotNull(CacheKey.pretax);
+  }
+
   /** Checks whether the 'type' field is set and is not null */
   public boolean isNotNullType() {
     return genClient.cacheValueIsNotNull(CacheKey.type);
@@ -193,6 +208,11 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   /** Checks whether the 'rate' field has been set, however the value could be null */
   public boolean hasRate() {
     return genClient.cacheHasKey(CacheKey.rate);
+  }
+
+  /** Checks whether the 'pretax' field has been set, however the value could be null */
+  public boolean hasPretax() {
+    return genClient.cacheHasKey(CacheKey.pretax);
   }
 
   /** Checks whether the 'type' field has been set, however the value could be null */
@@ -223,6 +243,13 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   }
 
   /**
+   * Sets the field 'pretax'.
+   */
+  public AdditionalChargeAmount setPretax(java.lang.Boolean pretax) {
+    return genClient.setOther(pretax, CacheKey.pretax);
+  }
+
+  /**
    * Sets the field 'type'.
    */
   public AdditionalChargeAmount setType(com.clover.sdk.v3.payments.AdditionalChargeType type) {
@@ -241,6 +268,10 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   /** Clears the 'rate' field, the 'has' method for this field will now return false */
   public void clearRate() {
     genClient.clear(CacheKey.rate);
+  }
+  /** Clears the 'pretax' field, the 'has' method for this field will now return false */
+  public void clearPretax() {
+    genClient.clear(CacheKey.pretax);
   }
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
@@ -315,6 +346,7 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     public static final boolean RATE_IS_REQUIRED = false;
     public static final long RATE_MIN = 0;
     public static final long RATE_MAX = 1000000;
+    public static final boolean PRETAX_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
   }
 

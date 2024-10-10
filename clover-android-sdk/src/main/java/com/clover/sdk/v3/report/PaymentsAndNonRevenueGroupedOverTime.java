@@ -43,12 +43,20 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTop5Items top5Items}</li>
  * <li>{@link #getTop5Category top5Category}</li>
  * <li>{@link #getTop5RevenueClasses top5RevenueClasses}</li>
+ * <li>{@link #getTop5Employees top5Employees}</li>
+ * <li>{@link #getEmployees employees}</li>
  * <li>{@link #getPeriod period}</li>
  * <li>{@link #getTendersSection tendersSection}</li>
+ * <li>{@link #getTenderGroups tenderGroups}</li>
  * <li>{@link #getRevenueClasses revenueClasses}</li>
  * <li>{@link #getCardTypesSection cardTypesSection}</li>
- * <li>{@link #getCashDepositSection cashDepositSection}</li>
  * <li>{@link #getDeclinedOfflinePaymentsSection declinedOfflinePaymentsSection}</li>
+ * <li>{@link #getCashSection cashSection}</li>
+ * <li>{@link #getCashAdjustmentsSection cashAdjustmentsSection}</li>
+ * <li>{@link #getEmployeeRemovalSummary employeeRemovalSummary}</li>
+ * <li>{@link #getDynamicCurrencyConversionSection dynamicCurrencyConversionSection}</li>
+ * <li>{@link #getDiscountCardTransactionsSection discountCardTransactionsSection}</li>
+ * <li>{@link #getVoidTotals voidTotals}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -132,6 +140,20 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
+   * List of top 5 employees in descending order by total amount collected
+   */
+  public java.util.List<com.clover.sdk.v3.report.EmployeeSummaryLite> getTop5Employees() {
+    return genClient.cacheGet(CacheKey.top5Employees);
+  }
+
+  /**
+   * List of employees in descending order by net sales. Contains sales calculations.
+   */
+  public java.util.List<com.clover.sdk.v3.report.EmployeeSummaries> getEmployees() {
+    return genClient.cacheGet(CacheKey.employees);
+  }
+
+  /**
    * The time period that defines the size of the groups: hour, day, week, month, ungrouped.
    */
   public com.clover.sdk.v3.report.TimePeriod getPeriod() {
@@ -143,6 +165,13 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
    */
   public com.clover.sdk.v3.report.ReportPaymentsV2Section getTendersSection() {
     return genClient.cacheGet(CacheKey.tendersSection);
+  }
+
+  /**
+   * Summary of payments and refunds by groups of tenders: Card, Cash and Other.
+   */
+  public com.clover.sdk.v3.report.TenderGroupSection getTenderGroups() {
+    return genClient.cacheGet(CacheKey.tenderGroups);
   }
 
   /**
@@ -160,17 +189,52 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
-   * Summary and further details on cash transactions
-   */
-  public com.clover.sdk.v3.report.DeviceCashSummaryRow getCashDepositSection() {
-    return genClient.cacheGet(CacheKey.cashDepositSection);
-  }
-
-  /**
-   * Summary of declined offline payments
+   * Summary of declined offline payments.
    */
   public com.clover.sdk.v3.report.ReportPaymentsV2Row getDeclinedOfflinePaymentsSection() {
     return genClient.cacheGet(CacheKey.declinedOfflinePaymentsSection);
+  }
+
+  /**
+   * Summary and further details on activities affecting cash deposit.
+   */
+  public com.clover.sdk.v3.report.DeviceCashSection getCashSection() {
+    return genClient.cacheGet(CacheKey.cashSection);
+  }
+
+  /**
+   * Details on cash added and removed from cash drawer.
+   */
+  public com.clover.sdk.v3.report.CashAdjustmentsDeviceGroups getCashAdjustmentsSection() {
+    return genClient.cacheGet(CacheKey.cashAdjustmentsSection);
+  }
+
+  /**
+   * summary of employee data
+   */
+  public java.util.List<com.clover.sdk.v3.order.VoidedLineItemEmployeeData> getEmployeeRemovalSummary() {
+    return genClient.cacheGet(CacheKey.employeeRemovalSummary);
+  }
+
+  /**
+   * Summary of Dynamic Currency Conversion (DCC) broken down by foreign currency
+   */
+  public com.clover.sdk.v3.report.DynamicCurrencyConversionSection getDynamicCurrencyConversionSection() {
+    return genClient.cacheGet(CacheKey.dynamicCurrencyConversionSection);
+  }
+
+  /**
+   * List of discount cards with number of times each card was used and the net payment amount.
+   */
+  public com.clover.sdk.v3.report.ReportPaymentsV2Section getDiscountCardTransactionsSection() {
+    return genClient.cacheGet(CacheKey.discountCardTransactionsSection);
+  }
+
+  /**
+   * return total of all the voids in the time period
+   */
+  public java.lang.Long getVoidTotals() {
+    return genClient.cacheGet(CacheKey.voidTotals);
   }
 
 
@@ -199,18 +263,34 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.SummarySection.JSON_CREATOR)),
     top5RevenueClasses
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.SummarySection.JSON_CREATOR)),
+    top5Employees
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.EmployeeSummaryLite.JSON_CREATOR)),
+    employees
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.EmployeeSummaries.JSON_CREATOR)),
     period
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.report.TimePeriod.class)),
     tendersSection
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ReportPaymentsV2Section.JSON_CREATOR)),
+    tenderGroups
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.TenderGroupSection.JSON_CREATOR)),
     revenueClasses
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.LabelSummarySection.JSON_CREATOR)),
     cardTypesSection
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ReportPaymentsV2Section.JSON_CREATOR)),
-    cashDepositSection
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.DeviceCashSummaryRow.JSON_CREATOR)),
     declinedOfflinePaymentsSection
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ReportPaymentsV2Row.JSON_CREATOR)),
+    cashSection
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.DeviceCashSection.JSON_CREATOR)),
+    cashAdjustmentsSection
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.CashAdjustmentsDeviceGroups.JSON_CREATOR)),
+    employeeRemovalSummary
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.VoidedLineItemEmployeeData.JSON_CREATOR)),
+    dynamicCurrencyConversionSection
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.DynamicCurrencyConversionSection.JSON_CREATOR)),
+    discountCardTransactionsSection
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ReportPaymentsV2Section.JSON_CREATOR)),
+    voidTotals
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -340,6 +420,22 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     return genClient.cacheValueIsNotNull(CacheKey.top5RevenueClasses);
   }
 
+  /** Checks whether the 'top5Employees' field is set and is not null */
+  public boolean isNotNullTop5Employees() {
+    return genClient.cacheValueIsNotNull(CacheKey.top5Employees);
+  }
+
+  /** Checks whether the 'top5Employees' field is set and is not null and is not empty */
+  public boolean isNotEmptyTop5Employees() { return isNotNullTop5Employees() && !getTop5Employees().isEmpty(); }
+
+  /** Checks whether the 'employees' field is set and is not null */
+  public boolean isNotNullEmployees() {
+    return genClient.cacheValueIsNotNull(CacheKey.employees);
+  }
+
+  /** Checks whether the 'employees' field is set and is not null and is not empty */
+  public boolean isNotEmptyEmployees() { return isNotNullEmployees() && !getEmployees().isEmpty(); }
+
   /** Checks whether the 'period' field is set and is not null */
   public boolean isNotNullPeriod() {
     return genClient.cacheValueIsNotNull(CacheKey.period);
@@ -348,6 +444,11 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   /** Checks whether the 'tendersSection' field is set and is not null */
   public boolean isNotNullTendersSection() {
     return genClient.cacheValueIsNotNull(CacheKey.tendersSection);
+  }
+
+  /** Checks whether the 'tenderGroups' field is set and is not null */
+  public boolean isNotNullTenderGroups() {
+    return genClient.cacheValueIsNotNull(CacheKey.tenderGroups);
   }
 
   /** Checks whether the 'revenueClasses' field is set and is not null */
@@ -360,14 +461,42 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     return genClient.cacheValueIsNotNull(CacheKey.cardTypesSection);
   }
 
-  /** Checks whether the 'cashDepositSection' field is set and is not null */
-  public boolean isNotNullCashDepositSection() {
-    return genClient.cacheValueIsNotNull(CacheKey.cashDepositSection);
-  }
-
   /** Checks whether the 'declinedOfflinePaymentsSection' field is set and is not null */
   public boolean isNotNullDeclinedOfflinePaymentsSection() {
     return genClient.cacheValueIsNotNull(CacheKey.declinedOfflinePaymentsSection);
+  }
+
+  /** Checks whether the 'cashSection' field is set and is not null */
+  public boolean isNotNullCashSection() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashSection);
+  }
+
+  /** Checks whether the 'cashAdjustmentsSection' field is set and is not null */
+  public boolean isNotNullCashAdjustmentsSection() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashAdjustmentsSection);
+  }
+
+  /** Checks whether the 'employeeRemovalSummary' field is set and is not null */
+  public boolean isNotNullEmployeeRemovalSummary() {
+    return genClient.cacheValueIsNotNull(CacheKey.employeeRemovalSummary);
+  }
+
+  /** Checks whether the 'employeeRemovalSummary' field is set and is not null and is not empty */
+  public boolean isNotEmptyEmployeeRemovalSummary() { return isNotNullEmployeeRemovalSummary() && !getEmployeeRemovalSummary().isEmpty(); }
+
+  /** Checks whether the 'dynamicCurrencyConversionSection' field is set and is not null */
+  public boolean isNotNullDynamicCurrencyConversionSection() {
+    return genClient.cacheValueIsNotNull(CacheKey.dynamicCurrencyConversionSection);
+  }
+
+  /** Checks whether the 'discountCardTransactionsSection' field is set and is not null */
+  public boolean isNotNullDiscountCardTransactionsSection() {
+    return genClient.cacheValueIsNotNull(CacheKey.discountCardTransactionsSection);
+  }
+
+  /** Checks whether the 'voidTotals' field is set and is not null */
+  public boolean isNotNullVoidTotals() {
+    return genClient.cacheValueIsNotNull(CacheKey.voidTotals);
   }
 
 
@@ -427,6 +556,16 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     return genClient.cacheHasKey(CacheKey.top5RevenueClasses);
   }
 
+  /** Checks whether the 'top5Employees' field has been set, however the value could be null */
+  public boolean hasTop5Employees() {
+    return genClient.cacheHasKey(CacheKey.top5Employees);
+  }
+
+  /** Checks whether the 'employees' field has been set, however the value could be null */
+  public boolean hasEmployees() {
+    return genClient.cacheHasKey(CacheKey.employees);
+  }
+
   /** Checks whether the 'period' field has been set, however the value could be null */
   public boolean hasPeriod() {
     return genClient.cacheHasKey(CacheKey.period);
@@ -435,6 +574,11 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   /** Checks whether the 'tendersSection' field has been set, however the value could be null */
   public boolean hasTendersSection() {
     return genClient.cacheHasKey(CacheKey.tendersSection);
+  }
+
+  /** Checks whether the 'tenderGroups' field has been set, however the value could be null */
+  public boolean hasTenderGroups() {
+    return genClient.cacheHasKey(CacheKey.tenderGroups);
   }
 
   /** Checks whether the 'revenueClasses' field has been set, however the value could be null */
@@ -447,14 +591,39 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     return genClient.cacheHasKey(CacheKey.cardTypesSection);
   }
 
-  /** Checks whether the 'cashDepositSection' field has been set, however the value could be null */
-  public boolean hasCashDepositSection() {
-    return genClient.cacheHasKey(CacheKey.cashDepositSection);
-  }
-
   /** Checks whether the 'declinedOfflinePaymentsSection' field has been set, however the value could be null */
   public boolean hasDeclinedOfflinePaymentsSection() {
     return genClient.cacheHasKey(CacheKey.declinedOfflinePaymentsSection);
+  }
+
+  /** Checks whether the 'cashSection' field has been set, however the value could be null */
+  public boolean hasCashSection() {
+    return genClient.cacheHasKey(CacheKey.cashSection);
+  }
+
+  /** Checks whether the 'cashAdjustmentsSection' field has been set, however the value could be null */
+  public boolean hasCashAdjustmentsSection() {
+    return genClient.cacheHasKey(CacheKey.cashAdjustmentsSection);
+  }
+
+  /** Checks whether the 'employeeRemovalSummary' field has been set, however the value could be null */
+  public boolean hasEmployeeRemovalSummary() {
+    return genClient.cacheHasKey(CacheKey.employeeRemovalSummary);
+  }
+
+  /** Checks whether the 'dynamicCurrencyConversionSection' field has been set, however the value could be null */
+  public boolean hasDynamicCurrencyConversionSection() {
+    return genClient.cacheHasKey(CacheKey.dynamicCurrencyConversionSection);
+  }
+
+  /** Checks whether the 'discountCardTransactionsSection' field has been set, however the value could be null */
+  public boolean hasDiscountCardTransactionsSection() {
+    return genClient.cacheHasKey(CacheKey.discountCardTransactionsSection);
+  }
+
+  /** Checks whether the 'voidTotals' field has been set, however the value could be null */
+  public boolean hasVoidTotals() {
+    return genClient.cacheHasKey(CacheKey.voidTotals);
   }
 
 
@@ -558,6 +727,24 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
+   * Sets the field 'top5Employees'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setTop5Employees(java.util.List<com.clover.sdk.v3.report.EmployeeSummaryLite> top5Employees) {
+    return genClient.setArrayRecord(top5Employees, CacheKey.top5Employees);
+  }
+
+  /**
+   * Sets the field 'employees'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setEmployees(java.util.List<com.clover.sdk.v3.report.EmployeeSummaries> employees) {
+    return genClient.setArrayRecord(employees, CacheKey.employees);
+  }
+
+  /**
    * Sets the field 'period'.
    */
   public PaymentsAndNonRevenueGroupedOverTime setPeriod(com.clover.sdk.v3.report.TimePeriod period) {
@@ -571,6 +758,15 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
    */
   public PaymentsAndNonRevenueGroupedOverTime setTendersSection(com.clover.sdk.v3.report.ReportPaymentsV2Section tendersSection) {
     return genClient.setRecord(tendersSection, CacheKey.tendersSection);
+  }
+
+  /**
+   * Sets the field 'tenderGroups'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setTenderGroups(com.clover.sdk.v3.report.TenderGroupSection tenderGroups) {
+    return genClient.setRecord(tenderGroups, CacheKey.tenderGroups);
   }
 
   /**
@@ -592,21 +788,64 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   }
 
   /**
-   * Sets the field 'cashDepositSection'.
-   *
-   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
-   */
-  public PaymentsAndNonRevenueGroupedOverTime setCashDepositSection(com.clover.sdk.v3.report.DeviceCashSummaryRow cashDepositSection) {
-    return genClient.setRecord(cashDepositSection, CacheKey.cashDepositSection);
-  }
-
-  /**
    * Sets the field 'declinedOfflinePaymentsSection'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
   public PaymentsAndNonRevenueGroupedOverTime setDeclinedOfflinePaymentsSection(com.clover.sdk.v3.report.ReportPaymentsV2Row declinedOfflinePaymentsSection) {
     return genClient.setRecord(declinedOfflinePaymentsSection, CacheKey.declinedOfflinePaymentsSection);
+  }
+
+  /**
+   * Sets the field 'cashSection'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setCashSection(com.clover.sdk.v3.report.DeviceCashSection cashSection) {
+    return genClient.setRecord(cashSection, CacheKey.cashSection);
+  }
+
+  /**
+   * Sets the field 'cashAdjustmentsSection'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setCashAdjustmentsSection(com.clover.sdk.v3.report.CashAdjustmentsDeviceGroups cashAdjustmentsSection) {
+    return genClient.setRecord(cashAdjustmentsSection, CacheKey.cashAdjustmentsSection);
+  }
+
+  /**
+   * Sets the field 'employeeRemovalSummary'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setEmployeeRemovalSummary(java.util.List<com.clover.sdk.v3.order.VoidedLineItemEmployeeData> employeeRemovalSummary) {
+    return genClient.setArrayRecord(employeeRemovalSummary, CacheKey.employeeRemovalSummary);
+  }
+
+  /**
+   * Sets the field 'dynamicCurrencyConversionSection'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setDynamicCurrencyConversionSection(com.clover.sdk.v3.report.DynamicCurrencyConversionSection dynamicCurrencyConversionSection) {
+    return genClient.setRecord(dynamicCurrencyConversionSection, CacheKey.dynamicCurrencyConversionSection);
+  }
+
+  /**
+   * Sets the field 'discountCardTransactionsSection'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setDiscountCardTransactionsSection(com.clover.sdk.v3.report.ReportPaymentsV2Section discountCardTransactionsSection) {
+    return genClient.setRecord(discountCardTransactionsSection, CacheKey.discountCardTransactionsSection);
+  }
+
+  /**
+   * Sets the field 'voidTotals'.
+   */
+  public PaymentsAndNonRevenueGroupedOverTime setVoidTotals(java.lang.Long voidTotals) {
+    return genClient.setOther(voidTotals, CacheKey.voidTotals);
   }
 
 
@@ -654,6 +893,14 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   public void clearTop5RevenueClasses() {
     genClient.clear(CacheKey.top5RevenueClasses);
   }
+  /** Clears the 'top5Employees' field, the 'has' method for this field will now return false */
+  public void clearTop5Employees() {
+    genClient.clear(CacheKey.top5Employees);
+  }
+  /** Clears the 'employees' field, the 'has' method for this field will now return false */
+  public void clearEmployees() {
+    genClient.clear(CacheKey.employees);
+  }
   /** Clears the 'period' field, the 'has' method for this field will now return false */
   public void clearPeriod() {
     genClient.clear(CacheKey.period);
@@ -661,6 +908,10 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   /** Clears the 'tendersSection' field, the 'has' method for this field will now return false */
   public void clearTendersSection() {
     genClient.clear(CacheKey.tendersSection);
+  }
+  /** Clears the 'tenderGroups' field, the 'has' method for this field will now return false */
+  public void clearTenderGroups() {
+    genClient.clear(CacheKey.tenderGroups);
   }
   /** Clears the 'revenueClasses' field, the 'has' method for this field will now return false */
   public void clearRevenueClasses() {
@@ -670,13 +921,33 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
   public void clearCardTypesSection() {
     genClient.clear(CacheKey.cardTypesSection);
   }
-  /** Clears the 'cashDepositSection' field, the 'has' method for this field will now return false */
-  public void clearCashDepositSection() {
-    genClient.clear(CacheKey.cashDepositSection);
-  }
   /** Clears the 'declinedOfflinePaymentsSection' field, the 'has' method for this field will now return false */
   public void clearDeclinedOfflinePaymentsSection() {
     genClient.clear(CacheKey.declinedOfflinePaymentsSection);
+  }
+  /** Clears the 'cashSection' field, the 'has' method for this field will now return false */
+  public void clearCashSection() {
+    genClient.clear(CacheKey.cashSection);
+  }
+  /** Clears the 'cashAdjustmentsSection' field, the 'has' method for this field will now return false */
+  public void clearCashAdjustmentsSection() {
+    genClient.clear(CacheKey.cashAdjustmentsSection);
+  }
+  /** Clears the 'employeeRemovalSummary' field, the 'has' method for this field will now return false */
+  public void clearEmployeeRemovalSummary() {
+    genClient.clear(CacheKey.employeeRemovalSummary);
+  }
+  /** Clears the 'dynamicCurrencyConversionSection' field, the 'has' method for this field will now return false */
+  public void clearDynamicCurrencyConversionSection() {
+    genClient.clear(CacheKey.dynamicCurrencyConversionSection);
+  }
+  /** Clears the 'discountCardTransactionsSection' field, the 'has' method for this field will now return false */
+  public void clearDiscountCardTransactionsSection() {
+    genClient.clear(CacheKey.discountCardTransactionsSection);
+  }
+  /** Clears the 'voidTotals' field, the 'has' method for this field will now return false */
+  public void clearVoidTotals() {
+    genClient.clear(CacheKey.voidTotals);
   }
 
 
@@ -751,12 +1022,20 @@ public class PaymentsAndNonRevenueGroupedOverTime extends GenericParcelable impl
     public static final boolean TOP5ITEMS_IS_REQUIRED = false;
     public static final boolean TOP5CATEGORY_IS_REQUIRED = false;
     public static final boolean TOP5REVENUECLASSES_IS_REQUIRED = false;
+    public static final boolean TOP5EMPLOYEES_IS_REQUIRED = false;
+    public static final boolean EMPLOYEES_IS_REQUIRED = false;
     public static final boolean PERIOD_IS_REQUIRED = false;
     public static final boolean TENDERSSECTION_IS_REQUIRED = false;
+    public static final boolean TENDERGROUPS_IS_REQUIRED = false;
     public static final boolean REVENUECLASSES_IS_REQUIRED = false;
     public static final boolean CARDTYPESSECTION_IS_REQUIRED = false;
-    public static final boolean CASHDEPOSITSECTION_IS_REQUIRED = false;
     public static final boolean DECLINEDOFFLINEPAYMENTSSECTION_IS_REQUIRED = false;
+    public static final boolean CASHSECTION_IS_REQUIRED = false;
+    public static final boolean CASHADJUSTMENTSSECTION_IS_REQUIRED = false;
+    public static final boolean EMPLOYEEREMOVALSUMMARY_IS_REQUIRED = false;
+    public static final boolean DYNAMICCURRENCYCONVERSIONSECTION_IS_REQUIRED = false;
+    public static final boolean DISCOUNTCARDTRANSACTIONSSECTION_IS_REQUIRED = false;
+    public static final boolean VOIDTOTALS_IS_REQUIRED = false;
   }
 
 }

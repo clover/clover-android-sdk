@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: file("${project.rootDir}/common.gradle")
+apply from: file("${project.rootDir}/list-dependencies.gradle")
 
 android {
   lintOptions {
@@ -26,6 +27,11 @@ android {
     main {
       manifest.srcFile 'src/main/AndroidManifest.xml'
     }
+  }
+  publishing {
+    singleVariant('release')
+    singleVariant('debug')
+    singleVariant('assembleRelease')
   }
 }
 

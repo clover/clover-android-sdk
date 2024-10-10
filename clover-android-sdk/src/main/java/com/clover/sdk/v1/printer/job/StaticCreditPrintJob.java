@@ -25,15 +25,18 @@ import com.clover.sdk.v3.payments.Credit;
 public class StaticCreditPrintJob extends StaticReceiptPrintJob implements Parcelable {
   private static final String BUNDLE_KEY_CREDIT_ID = "c";
   private static final String BUNDLE_KEY_CREDIT = "cc";
+  private static final String BUNDLE_KEY_ORDER = "o";
 
   public static class Builder extends StaticReceiptPrintJob.Builder {
     private String creditId;
     private Credit credit;
+    private Order order;
 
     public Builder staticCreditPrintJob(StaticCreditPrintJob pj) {
       staticReceiptPrintJob(pj);
       this.creditId = pj.creditId;
       this.credit = pj.credit;
+      this.order = pj.order;
 
       return this;
     }
@@ -48,6 +51,11 @@ public class StaticCreditPrintJob extends StaticReceiptPrintJob implements Parce
       return this;
     }
 
+    public Builder order(Order order) {
+      this.order = order;
+      return this;
+    }
+
     public StaticCreditPrintJob build() {
       return new StaticCreditPrintJob(this);
     }
@@ -55,18 +63,21 @@ public class StaticCreditPrintJob extends StaticReceiptPrintJob implements Parce
 
   public final String creditId;
   public final Credit credit;
+  public final Order order;
 
   @Deprecated
   public StaticCreditPrintJob(Order order, String creditId, int flags) {
     super(order, flags);
     this.creditId = creditId;
     this.credit = null;
+    this.order = order;
   }
 
   protected StaticCreditPrintJob(Builder builder) {
     super(builder);
     this.creditId = builder.creditId;
     this.credit = builder.credit;
+    this.order = builder.order;
   }
 
   public static final Creator<StaticCreditPrintJob> CREATOR = new Creator<StaticCreditPrintJob>() {
@@ -84,6 +95,7 @@ public class StaticCreditPrintJob extends StaticReceiptPrintJob implements Parce
     Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     creditId = bundle.getString(BUNDLE_KEY_CREDIT_ID);
     credit = bundle.getParcelable(BUNDLE_KEY_CREDIT);
+    order = bundle.getParcelable(BUNDLE_KEY_ORDER);
     // Add more data here, but remember old apps might not provide it!
   }
 
@@ -98,6 +110,7 @@ public class StaticCreditPrintJob extends StaticReceiptPrintJob implements Parce
     Bundle bundle = new Bundle();
     bundle.putString(BUNDLE_KEY_CREDIT_ID, creditId);
     bundle.putParcelable(BUNDLE_KEY_CREDIT, credit);
+    bundle.putParcelable(BUNDLE_KEY_ORDER, order);
 
     dest.writeBundle(bundle);
   }

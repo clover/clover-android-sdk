@@ -1124,6 +1124,12 @@ public final class InventoryContract {
      */
     public static final String PERCENTAGE = "percentage";
 
+    /**
+     * Discount Type.
+     * <p/>
+     * Type: Type: ENUN: DEFAULT, CASH_DISCOUNT
+     */
+    public static final String TYPE = "type";
   }
 
   /**
@@ -1697,6 +1703,8 @@ public final class InventoryContract {
      */
     public static final Uri CONTENT_URI_AND_SAMPLE_ITEMS = Uri.withAppendedPath(AUTHORITY_URI, "item_groups_and_sample_items");
 
+    public static final Uri CONTENT_URI_AND_SAMPLE_ITEMS_FOR_MENU = Uri.withAppendedPath(AUTHORITY_URI, "menu_item_groups_and_sample_items");
+
     /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of item groups.
      */
@@ -1735,6 +1743,17 @@ public final class InventoryContract {
 
     public static Uri contentUriAndSampleItemWithAccount(Account account) {
       Uri.Builder builder = CONTENT_URI_AND_SAMPLE_ITEMS.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static Uri contentUriAndSampleItemForMenuWithToken(String token) {
+      return CONTENT_URI_AND_SAMPLE_ITEMS_FOR_MENU.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriAndSampleItemForMenuWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI_AND_SAMPLE_ITEMS_FOR_MENU.buildUpon();
       builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
       builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
       return builder.build();

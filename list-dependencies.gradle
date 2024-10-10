@@ -1,0 +1,117 @@
+// List Sub-Modules (or) Projects from the given Android App/Library
+task printSubModuleNames {
+    doLast {
+        subprojects.each {
+            println it.name
+        }
+    }
+}
+
+// List All the dependencies from the given Android App/Library
+task printSubProjectDependencies {
+    doLast {
+        subprojects.each { subproject ->
+            println("Dependencies for ${subproject.name}:")
+            subproject.configurations.each { config ->
+                println("Configuration: ${config.name}")
+                config.dependencies.forEach { dependency ->
+                    println(" - ${dependency.group}:${dependency.name}:${dependency.version}")
+                }
+            }
+            println("\n")
+        }
+    }
+}
+
+// Define the group you are interested in
+def interestedGroup = 'com.clover'
+
+allprojects {
+    // Task to get direct and transitive dependencies for all groups
+    task getAllDependencies {
+        doLast {
+            // Make a copy of the configurations collection
+            def configs = configurations.toList()
+
+            // Iterate over the copied configurations
+            configs.each { config ->
+                try {
+                    // Print the dependency tree for each configuration
+                    println "Configuration: ${config.name}"
+                    config.resolve()
+                    println config.incoming.resolutionResult.allDependencies.collect { it_test -> 
+                        "${it_test.from.moduleVersion}|${it_test.requested}|[${it_test.constraint ? 'constraint' : 'direct'}]"
+                    }.join('\n')
+                } catch (Exception e) {
+                    // Catch cases where a configuration cannot be resolved
+                    println "Could not resolve configuration: ${config.name}"
+                }
+            }
+        }
+    }
+
+    // Task to get direct and transitive dependencies for com.clover group
+    task getInternalDependencies {
+        doLast {
+            def filteredDependencies = [:] as TreeMap // Use TreeMap to sort groups
+
+            // Make a copy of the configurations collection
+            def configs = configurations.toList()
+
+            // Iterate over the copied configurations
+            configs.each { config ->
+                try {
+                    config.resolvedConfiguration.lenientConfiguration.allModuleDependencies.each { dependency ->
+                        // Check if this dependency is from the group we're interested in
+                        if (dependency.moduleGroup =~ interestedGroup) {
+                                // Initialize a set for the group if it doesn't exist
+                                filteredDependencies.putIfAbsent(dependency.moduleGroup, [] as TreeSet)
+                                // Add the module name and version
+                                // filteredDependencies[dependency.moduleGroup].add("${dependency.moduleName}")
+                                filteredDependencies[dependency.moduleGroup].add("${dependency.moduleGroup}:${dependency.moduleName}:${dependency.moduleVersion}")
+                        }
+                    }
+                } catch (Exception ignored) {
+                    // Exceptions for unresolvable configurations are ignored
+                }
+            }
+
+            // Print filtered dependencies
+            if (filteredDependencies.isEmpty()) {
+                println "No dependencies found matching criteria."
+            } else {
+                filteredDependencies.each { group, dependencies ->
+                    // println "Dependencies for group: $group"
+                    dependencies.each {
+                        println "$it"
+                    }
+                }
+            }
+        }
+    }
+}
+
+task listSpecificGroupDependencies {
+    doLast {
+        def group = 'com.clover'
+        def uniqueDependencies = []
+
+        subprojects.each { subproject ->
+            // println("Dependencies for ${subproject.name}:")
+            subproject.configurations.each { config ->
+                // println("Configuration: ${config.name}")
+                config.dependencies.forEach { dependency ->
+                    if (dependency.group =~ group) {
+                        String depString = "${dependency.group}:${dependency.name}:${dependency.version}"
+                        if (!uniqueDependencies.contains(depString)) {
+                            uniqueDependencies.add(depString)
+                        }
+                    }
+                }
+            }
+        }
+        uniqueDependencies.sort().each {
+            println it
+        }
+    }
+}

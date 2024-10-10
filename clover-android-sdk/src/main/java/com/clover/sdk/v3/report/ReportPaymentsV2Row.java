@@ -34,17 +34,24 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getName name}</li>
  * <li>{@link #getNumTransactions numTransactions}</li>
+ * <li>{@link #getNumPayments numPayments}</li>
+ * <li>{@link #getNumRefunds numRefunds}</li>
+ * <li>{@link #getNumCredits numCredits}</li>
  * <li>{@link #getNet net}</li>
  * <li>{@link #getPaymentAmount paymentAmount}</li>
+ * <li>{@link #getPaymentAmountWithoutTipAndServiceCharge paymentAmountWithoutTipAndServiceCharge}</li>
+ * <li>{@link #getPaymentAmountWithTipAndServiceCharge paymentAmountWithTipAndServiceCharge}</li>
  * <li>{@link #getRevenueAmount revenueAmount}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
  * <li>{@link #getTipAmount tipAmount}</li>
  * <li>{@link #getRefundTipAmount refundTipAmount}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * <li>{@link #getAdditionalChargeAmount additionalChargeAmount}</li>
  * <li>{@link #getRefundAmount refundAmount}</li>
  * <li>{@link #getCreditAmount creditAmount}</li>
  * <li>{@link #getRefundAndCreditAmount refundAndCreditAmount}</li>
  * <li>{@link #getTender tender}</li>
+ * <li>{@link #getChangeInNet changeInNet}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +72,27 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   }
 
   /**
+   * Total number of payments of this type.
+   */
+  public java.lang.Long getNumPayments() {
+    return genClient.cacheGet(CacheKey.numPayments);
+  }
+
+  /**
+   * Total number of payment refunds of this type.
+   */
+  public java.lang.Long getNumRefunds() {
+    return genClient.cacheGet(CacheKey.numRefunds);
+  }
+
+  /**
+   * Total number of manual refunds of this type.
+   */
+  public java.lang.Long getNumCredits() {
+    return genClient.cacheGet(CacheKey.numCredits);
+  }
+
+  /**
    * Revenue plus tax plus tips minus refunds minus manual refunds. Revenue includes service charge.
    */
   public java.lang.Long getNet() {
@@ -76,6 +104,20 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
    */
   public java.lang.Long getPaymentAmount() {
     return genClient.cacheGet(CacheKey.paymentAmount);
+  }
+
+  /**
+   * Revenue plus tax. Does not include service charge or tip.
+   */
+  public java.lang.Long getPaymentAmountWithoutTipAndServiceCharge() {
+    return genClient.cacheGet(CacheKey.paymentAmountWithoutTipAndServiceCharge);
+  }
+
+  /**
+   * Revenue plus tax plus tip. Revenue includes service charge.
+   */
+  public java.lang.Long getPaymentAmountWithTipAndServiceCharge() {
+    return genClient.cacheGet(CacheKey.paymentAmountWithTipAndServiceCharge);
   }
 
   /**
@@ -114,6 +156,13 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   }
 
   /**
+   * Total additional charge amount paid minus the additional charge amount refunded. Currently only interac surcharges in Canada.
+   */
+  public java.lang.Long getAdditionalChargeAmount() {
+    return genClient.cacheGet(CacheKey.additionalChargeAmount);
+  }
+
+  /**
    * Total amount of refunds. This amount includes tax, tip and service charge.
    */
   public java.lang.Long getRefundAmount() {
@@ -141,6 +190,13 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.tender);
   }
 
+  /**
+   * Change in net sales comparing the previous period to this period. Expressed as a proportion: 0.5 = 50% increase, -0.75 = 75% decrease, 0 = no change, null = previous period had no sales, 1.2 = 120% increase.
+   */
+  public java.lang.Double getChangeInNet() {
+    return genClient.cacheGet(CacheKey.changeInNet);
+  }
+
 
 
 
@@ -149,9 +205,19 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     numTransactions
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numPayments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numRefunds
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numCredits
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     net
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     paymentAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    paymentAmountWithoutTipAndServiceCharge
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    paymentAmountWithTipAndServiceCharge
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     revenueAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -163,6 +229,8 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     serviceChargeAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    additionalChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     refundAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     creditAmount
@@ -171,6 +239,8 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tender
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Tender.JSON_CREATOR)),
+    changeInNet
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -255,6 +325,21 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.numTransactions);
   }
 
+  /** Checks whether the 'numPayments' field is set and is not null */
+  public boolean isNotNullNumPayments() {
+    return genClient.cacheValueIsNotNull(CacheKey.numPayments);
+  }
+
+  /** Checks whether the 'numRefunds' field is set and is not null */
+  public boolean isNotNullNumRefunds() {
+    return genClient.cacheValueIsNotNull(CacheKey.numRefunds);
+  }
+
+  /** Checks whether the 'numCredits' field is set and is not null */
+  public boolean isNotNullNumCredits() {
+    return genClient.cacheValueIsNotNull(CacheKey.numCredits);
+  }
+
   /** Checks whether the 'net' field is set and is not null */
   public boolean isNotNullNet() {
     return genClient.cacheValueIsNotNull(CacheKey.net);
@@ -263,6 +348,16 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   /** Checks whether the 'paymentAmount' field is set and is not null */
   public boolean isNotNullPaymentAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.paymentAmount);
+  }
+
+  /** Checks whether the 'paymentAmountWithoutTipAndServiceCharge' field is set and is not null */
+  public boolean isNotNullPaymentAmountWithoutTipAndServiceCharge() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentAmountWithoutTipAndServiceCharge);
+  }
+
+  /** Checks whether the 'paymentAmountWithTipAndServiceCharge' field is set and is not null */
+  public boolean isNotNullPaymentAmountWithTipAndServiceCharge() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentAmountWithTipAndServiceCharge);
   }
 
   /** Checks whether the 'revenueAmount' field is set and is not null */
@@ -290,6 +385,11 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
   }
 
+  /** Checks whether the 'additionalChargeAmount' field is set and is not null */
+  public boolean isNotNullAdditionalChargeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalChargeAmount);
+  }
+
   /** Checks whether the 'refundAmount' field is set and is not null */
   public boolean isNotNullRefundAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.refundAmount);
@@ -310,6 +410,11 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.tender);
   }
 
+  /** Checks whether the 'changeInNet' field is set and is not null */
+  public boolean isNotNullChangeInNet() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNet);
+  }
+
 
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -322,6 +427,21 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.numTransactions);
   }
 
+  /** Checks whether the 'numPayments' field has been set, however the value could be null */
+  public boolean hasNumPayments() {
+    return genClient.cacheHasKey(CacheKey.numPayments);
+  }
+
+  /** Checks whether the 'numRefunds' field has been set, however the value could be null */
+  public boolean hasNumRefunds() {
+    return genClient.cacheHasKey(CacheKey.numRefunds);
+  }
+
+  /** Checks whether the 'numCredits' field has been set, however the value could be null */
+  public boolean hasNumCredits() {
+    return genClient.cacheHasKey(CacheKey.numCredits);
+  }
+
   /** Checks whether the 'net' field has been set, however the value could be null */
   public boolean hasNet() {
     return genClient.cacheHasKey(CacheKey.net);
@@ -330,6 +450,16 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   /** Checks whether the 'paymentAmount' field has been set, however the value could be null */
   public boolean hasPaymentAmount() {
     return genClient.cacheHasKey(CacheKey.paymentAmount);
+  }
+
+  /** Checks whether the 'paymentAmountWithoutTipAndServiceCharge' field has been set, however the value could be null */
+  public boolean hasPaymentAmountWithoutTipAndServiceCharge() {
+    return genClient.cacheHasKey(CacheKey.paymentAmountWithoutTipAndServiceCharge);
+  }
+
+  /** Checks whether the 'paymentAmountWithTipAndServiceCharge' field has been set, however the value could be null */
+  public boolean hasPaymentAmountWithTipAndServiceCharge() {
+    return genClient.cacheHasKey(CacheKey.paymentAmountWithTipAndServiceCharge);
   }
 
   /** Checks whether the 'revenueAmount' field has been set, however the value could be null */
@@ -357,6 +487,11 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
   }
 
+  /** Checks whether the 'additionalChargeAmount' field has been set, however the value could be null */
+  public boolean hasAdditionalChargeAmount() {
+    return genClient.cacheHasKey(CacheKey.additionalChargeAmount);
+  }
+
   /** Checks whether the 'refundAmount' field has been set, however the value could be null */
   public boolean hasRefundAmount() {
     return genClient.cacheHasKey(CacheKey.refundAmount);
@@ -377,6 +512,11 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.tender);
   }
 
+  /** Checks whether the 'changeInNet' field has been set, however the value could be null */
+  public boolean hasChangeInNet() {
+    return genClient.cacheHasKey(CacheKey.changeInNet);
+  }
+
 
   /**
    * Sets the field 'name'.
@@ -393,6 +533,27 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'numPayments'.
+   */
+  public ReportPaymentsV2Row setNumPayments(java.lang.Long numPayments) {
+    return genClient.setOther(numPayments, CacheKey.numPayments);
+  }
+
+  /**
+   * Sets the field 'numRefunds'.
+   */
+  public ReportPaymentsV2Row setNumRefunds(java.lang.Long numRefunds) {
+    return genClient.setOther(numRefunds, CacheKey.numRefunds);
+  }
+
+  /**
+   * Sets the field 'numCredits'.
+   */
+  public ReportPaymentsV2Row setNumCredits(java.lang.Long numCredits) {
+    return genClient.setOther(numCredits, CacheKey.numCredits);
+  }
+
+  /**
    * Sets the field 'net'.
    */
   public ReportPaymentsV2Row setNet(java.lang.Long net) {
@@ -404,6 +565,20 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
    */
   public ReportPaymentsV2Row setPaymentAmount(java.lang.Long paymentAmount) {
     return genClient.setOther(paymentAmount, CacheKey.paymentAmount);
+  }
+
+  /**
+   * Sets the field 'paymentAmountWithoutTipAndServiceCharge'.
+   */
+  public ReportPaymentsV2Row setPaymentAmountWithoutTipAndServiceCharge(java.lang.Long paymentAmountWithoutTipAndServiceCharge) {
+    return genClient.setOther(paymentAmountWithoutTipAndServiceCharge, CacheKey.paymentAmountWithoutTipAndServiceCharge);
+  }
+
+  /**
+   * Sets the field 'paymentAmountWithTipAndServiceCharge'.
+   */
+  public ReportPaymentsV2Row setPaymentAmountWithTipAndServiceCharge(java.lang.Long paymentAmountWithTipAndServiceCharge) {
+    return genClient.setOther(paymentAmountWithTipAndServiceCharge, CacheKey.paymentAmountWithTipAndServiceCharge);
   }
 
   /**
@@ -442,6 +617,13 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'additionalChargeAmount'.
+   */
+  public ReportPaymentsV2Row setAdditionalChargeAmount(java.lang.Long additionalChargeAmount) {
+    return genClient.setOther(additionalChargeAmount, CacheKey.additionalChargeAmount);
+  }
+
+  /**
    * Sets the field 'refundAmount'.
    */
   public ReportPaymentsV2Row setRefundAmount(java.lang.Long refundAmount) {
@@ -471,6 +653,13 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
     return genClient.setRecord(tender, CacheKey.tender);
   }
 
+  /**
+   * Sets the field 'changeInNet'.
+   */
+  public ReportPaymentsV2Row setChangeInNet(java.lang.Double changeInNet) {
+    return genClient.setOther(changeInNet, CacheKey.changeInNet);
+  }
+
 
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
@@ -480,6 +669,18 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   public void clearNumTransactions() {
     genClient.clear(CacheKey.numTransactions);
   }
+  /** Clears the 'numPayments' field, the 'has' method for this field will now return false */
+  public void clearNumPayments() {
+    genClient.clear(CacheKey.numPayments);
+  }
+  /** Clears the 'numRefunds' field, the 'has' method for this field will now return false */
+  public void clearNumRefunds() {
+    genClient.clear(CacheKey.numRefunds);
+  }
+  /** Clears the 'numCredits' field, the 'has' method for this field will now return false */
+  public void clearNumCredits() {
+    genClient.clear(CacheKey.numCredits);
+  }
   /** Clears the 'net' field, the 'has' method for this field will now return false */
   public void clearNet() {
     genClient.clear(CacheKey.net);
@@ -487,6 +688,14 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   /** Clears the 'paymentAmount' field, the 'has' method for this field will now return false */
   public void clearPaymentAmount() {
     genClient.clear(CacheKey.paymentAmount);
+  }
+  /** Clears the 'paymentAmountWithoutTipAndServiceCharge' field, the 'has' method for this field will now return false */
+  public void clearPaymentAmountWithoutTipAndServiceCharge() {
+    genClient.clear(CacheKey.paymentAmountWithoutTipAndServiceCharge);
+  }
+  /** Clears the 'paymentAmountWithTipAndServiceCharge' field, the 'has' method for this field will now return false */
+  public void clearPaymentAmountWithTipAndServiceCharge() {
+    genClient.clear(CacheKey.paymentAmountWithTipAndServiceCharge);
   }
   /** Clears the 'revenueAmount' field, the 'has' method for this field will now return false */
   public void clearRevenueAmount() {
@@ -508,6 +717,10 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
   }
+  /** Clears the 'additionalChargeAmount' field, the 'has' method for this field will now return false */
+  public void clearAdditionalChargeAmount() {
+    genClient.clear(CacheKey.additionalChargeAmount);
+  }
   /** Clears the 'refundAmount' field, the 'has' method for this field will now return false */
   public void clearRefundAmount() {
     genClient.clear(CacheKey.refundAmount);
@@ -523,6 +736,10 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   /** Clears the 'tender' field, the 'has' method for this field will now return false */
   public void clearTender() {
     genClient.clear(CacheKey.tender);
+  }
+  /** Clears the 'changeInNet' field, the 'has' method for this field will now return false */
+  public void clearChangeInNet() {
+    genClient.clear(CacheKey.changeInNet);
   }
 
 
@@ -588,17 +805,24 @@ public class ReportPaymentsV2Row extends GenericParcelable implements com.clover
   public interface Constraints {
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean NUMTRANSACTIONS_IS_REQUIRED = false;
+    public static final boolean NUMPAYMENTS_IS_REQUIRED = false;
+    public static final boolean NUMREFUNDS_IS_REQUIRED = false;
+    public static final boolean NUMCREDITS_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
     public static final boolean PAYMENTAMOUNT_IS_REQUIRED = false;
+    public static final boolean PAYMENTAMOUNTWITHOUTTIPANDSERVICECHARGE_IS_REQUIRED = false;
+    public static final boolean PAYMENTAMOUNTWITHTIPANDSERVICECHARGE_IS_REQUIRED = false;
     public static final boolean REVENUEAMOUNT_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDTIPAMOUNT_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGEAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDAMOUNT_IS_REQUIRED = false;
     public static final boolean CREDITAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDANDCREDITAMOUNT_IS_REQUIRED = false;
     public static final boolean TENDER_IS_REQUIRED = false;
+    public static final boolean CHANGEINNET_IS_REQUIRED = false;
   }
 
 }

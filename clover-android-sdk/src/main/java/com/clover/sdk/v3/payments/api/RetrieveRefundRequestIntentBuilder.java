@@ -33,4 +33,15 @@ public class RetrieveRefundRequestIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+    public static class Response {
+        /**
+         * The retrieved refund.
+         */
+        public static final String REFUND = Intents.EXTRA_REFUND;
+        /**
+         * If retrieving the refund fails, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

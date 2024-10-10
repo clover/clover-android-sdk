@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /**
  * Copyright (C) 2016 Clover Network, Inc.
  *
@@ -14,14 +16,44 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '306'
+version = '316'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka'
+
+android {
+
+  buildTypes.configureEach {
+    consumerProguardFiles 'proguard-rules.pro'
+  }
+
+  buildFeatures {
+    aidl true
+  }
+
+  namespace "com.clover.android.loyalty"
+
+  compileOptions {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+  }
+  tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+      jvmTarget = '1.8'
+    }
+  }
+}
 
 dependencies {
   implementation project(':clover-android-sdk')
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
+  implementation ("com.google.code.gson:gson") {
+    version {
+      strictly "$GSON_VERSION"
+    }
+  }
 }
 
 ext{

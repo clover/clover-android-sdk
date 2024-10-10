@@ -899,6 +899,9 @@ public class Intents {
   /** {@link int}, is partial authorization allowed (if it occurs)? */
   public static final String EXTRA_ALLOW_PARTIAL_AUTH = "clover.intent.extra.ALLOW_PARTIAL_AUTH";
 
+  /** {@link int}, optionally set the desired locale)? */
+  public static final String EXTRA_LOCALE = "clover.intent.extra.LOCALE";
+
   /** {@link int}, does this intent need german info */
   public static final String GERMAN_INFO = "clover.intent.extra.GERMAN_INFO";
 
@@ -1347,6 +1350,9 @@ public class Intents {
   /** {@link Boolean}, is the device interaction for this transaction in kioskMode (i.e. customer-only/no merchant present) */
   public static final String EXTRA_ENABLE_KIOSK_MODE = "clover.intent.extra.ENABLE_KIOSK_MODE";
 
+  /** {@link String}, Is the customer phone number associated with Kiosk order */
+  public static final String EXTRA_KIOSK_FULFILLMENT_INFO_PHONE_NUMBER = "clover.intent.extra.KIOSK_FULFILLMENT_INFO_PHONE_NUMBER";
+
   /** {@link String}, elv transaction type for Germany */
   public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
@@ -1365,6 +1371,10 @@ public class Intents {
    * {@link #CARD_DATA_READ_MODE_ENHANCED_CVV}
    * */
   public static final String EXTRA_DATA_READ_MODE = "clover.intent.extra.EXTRA_DATA_READ_MODE";
+
+  /** A value for {@link #EXTRA_INITIATE_REFUND} data read mode for specific integration use cases
+   *  where want trigger refund flow through transaction app */
+  public static final String EXTRA_INITIATE_REFUND = "initiateRefund";
 
   /* Transaction Settings Section End */
 
@@ -1835,4 +1845,16 @@ public class Intents {
    */
   public static final String EXTRA_TAXES_AND_FEES_BREAKDOWN = "taxes_and_fees_breakdown";
 
+  // Indicates that the reason for cancelling a transaction was an error (e.g. authorisation declined)
+  // and not e.g. because the user cancelled the manual card entry screen.
+  public static final String EXTRA_TX_CANCELLED_DUE_TO_ERROR = "clover.intent.extra.EXTRA_TX_CANCELLED_DUE_TO_ERROR";
+
+  public static final String EXTRA_OPEN_PAYMENT_OPTIONS = "clover.intent.extra.EXTRA_OPEN_PAYMENT_OPTIONS";
+
+  public static final String EXTRA_RECEIPT_SELECTION_TIMEOUT_THRESHOLD = "clover.intent.extra.EXTRA_RECEIPT_SELECTION_TIMEOUT_THRESHOLD";
+
+  public static final String EXTRA_VOIDED_PAYMENT_IDS = "clover.intent.extra.EXTRA_VOIDED_PAYMENT_IDS";
+
+  //Pass terminal settings (e.g. Nexo: Config > E1 > DF34 Terminal Settings)
+  public static final String EXTRA_TERMINAL_SETTINGS = "clover.intent.extra.TERMINAL_SETTINGS";
 }

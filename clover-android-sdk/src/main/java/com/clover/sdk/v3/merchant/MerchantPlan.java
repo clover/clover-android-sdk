@@ -38,22 +38,27 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTrialExpirationTime trialExpirationTime}</li>
  * <li>{@link #getModules modules}</li>
  * <li>{@link #getAppBundle appBundle}</li>
+ * <li>{@link #getNumDevicesIncludedWithPrice numDevicesIncludedWithPrice}</li>
  * <li>{@link #getDefaultPlan defaultPlan}</li>
  * <li>{@link #getRecommended recommended}</li>
  * <li>{@link #getPricingModel pricingModel}</li>
- * <li>{@link #getTags tags}</li>
  * <li>{@link #getPricingDescription pricingDescription}</li>
+ * <li>{@link #getTags tags}</li>
  * <li>{@link #getBogo bogo}</li>
+ * <li>{@link #getIncludeAllFeatures includeAllFeatures}</li>
  * <li>{@link #getWeight weight}</li>
  * <li>{@link #getFeatures features}</li>
  * <li>{@link #getTranslatedFeatures translatedFeatures}</li>
+ * <li>{@link #getMccs mccs}</li>
  * <li>{@link #getBillToMid billToMid}</li>
  * <li>{@link #getType type}</li>
  * <li>{@link #getPlanCode planCode}</li>
  * <li>{@link #getActivationTime activationTime}</li>
  * <li>{@link #getDeactivationTime deactivationTime}</li>
- * <li>{@link #getReseller reseller}</li>
  * <li>{@link #getMerchantPlanGroup merchantPlanGroup}</li>
+ * <li>{@link #getEnforced enforced}</li>
+ * <li>{@link #getHidden hidden}</li>
+ * <li>{@link #getPlanActionFeeRateSummary planActionFeeRateSummary}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
@@ -108,6 +113,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.appBundle);
   }
 
+  public java.lang.Integer getNumDevicesIncludedWithPrice() {
+    return genClient.cacheGet(CacheKey.numDevicesIncludedWithPrice);
+  }
+
   /**
    * If true and multiple plans of this code then treat as default plan for reseller. Cannot use word default.
    */
@@ -123,10 +132,17 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Pricing model for plan.
+   * Pricing model for plan. This is calculated based on the plan's flags. This enum is typically used to show appropriate text for the plan's pricing.
    */
   public com.clover.sdk.v3.merchant.MerchantPlanPricingModel getPricingModel() {
     return genClient.cacheGet(CacheKey.pricingModel);
+  }
+
+  /**
+   * User-friendly description of plan pricing for display
+   */
+  public java.lang.String getPricingDescription() {
+    return genClient.cacheGet(CacheKey.pricingDescription);
   }
 
   /**
@@ -137,17 +153,17 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Pricing description of plan.
+   * If true then plan offers by one device get one free.
    */
-  public java.lang.String getPricingDescription() {
-    return genClient.cacheGet(CacheKey.pricingDescription);
+  public java.lang.Boolean getBogo() {
+    return genClient.cacheGet(CacheKey.bogo);
   }
 
   /**
    * If true then plan offers by one device get one free.
    */
-  public java.lang.Boolean getBogo() {
-    return genClient.cacheGet(CacheKey.bogo);
+  public java.lang.Boolean getIncludeAllFeatures() {
+    return genClient.cacheGet(CacheKey.includeAllFeatures);
   }
 
   /**
@@ -158,7 +174,7 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * List of feature keys this plans supports. Used by plan selection/summary pages.
+   * List of feature keys this plan supports. Used by plan selection/summary pages.
    */
   public java.util.List<java.lang.String> getFeatures() {
     return genClient.cacheGet(CacheKey.features);
@@ -169,6 +185,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public java.util.List<java.lang.String> getTranslatedFeatures() {
     return genClient.cacheGet(CacheKey.translatedFeatures);
+  }
+
+  /**
+   * List of MCC codes this plan supports or is restricted to. Used for HIPAA MCC processing.
+   */
+  public java.util.List<java.lang.String> getMccs() {
+    return genClient.cacheGet(CacheKey.mccs);
   }
 
   /**
@@ -206,15 +229,29 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.deactivationTime);
   }
 
-  public com.clover.sdk.v3.resellers.Reseller getReseller() {
-    return genClient.cacheGet(CacheKey.reseller);
-  }
-
   /**
    * Plan Group of this Plan as associated with merchant in context
    */
   public com.clover.sdk.v3.base.Reference getMerchantPlanGroup() {
     return genClient.cacheGet(CacheKey.merchantPlanGroup);
+  }
+
+  /**
+   * If true and merchant is assigned this plan then merchant cannot self-serve change from the plan.
+   */
+  public java.lang.Boolean getEnforced() {
+    return genClient.cacheGet(CacheKey.enforced);
+  }
+
+  /**
+   * If true and a merchant in same plan group is not assigned this plan then merchant cannot see this plan.
+   */
+  public java.lang.Boolean getHidden() {
+    return genClient.cacheGet(CacheKey.hidden);
+  }
+
+  public com.clover.sdk.v3.billing.PlanActionFeeRateSummary getPlanActionFeeRateSummary() {
+    return genClient.cacheGet(CacheKey.planActionFeeRateSummary);
   }
 
   /**
@@ -251,23 +288,29 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.merchant.Module.JSON_CREATOR)),
     appBundle
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppBundle.JSON_CREATOR)),
+    numDevicesIncludedWithPrice
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     defaultPlan
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     recommended
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     pricingModel
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.merchant.MerchantPlanPricingModel.class)),
-    tags
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     pricingDescription
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    tags
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     bogo
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    includeAllFeatures
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     weight
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     features
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     translatedFeatures
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+    mccs
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     billToMid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
@@ -279,10 +322,14 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deactivationTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-    reseller
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.resellers.Reseller.JSON_CREATOR)),
     merchantPlanGroup
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    enforced
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    hidden
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    planActionFeeRateSummary
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.billing.PlanActionFeeRateSummary.JSON_CREATOR)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
@@ -412,6 +459,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.appBundle);
   }
 
+  /** Checks whether the 'numDevicesIncludedWithPrice' field is set and is not null */
+  public boolean isNotNullNumDevicesIncludedWithPrice() {
+    return genClient.cacheValueIsNotNull(CacheKey.numDevicesIncludedWithPrice);
+  }
+
   /** Checks whether the 'defaultPlan' field is set and is not null */
   public boolean isNotNullDefaultPlan() {
     return genClient.cacheValueIsNotNull(CacheKey.defaultPlan);
@@ -427,22 +479,27 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.pricingModel);
   }
 
-  /** Checks whether the 'tags' field is set and is not null and is not empty */
-  public boolean isNotEmptyTags() { return isNotNullTags() && !getTags().isEmpty(); }
+  /** Checks whether the 'pricingDescription' field is set and is not null */
+  public boolean isNotNullPricingDescription() {
+    return genClient.cacheValueIsNotNull(CacheKey.pricingDescription);
+  }
 
   /** Checks whether the 'tags' field is set and is not null */
   public boolean isNotNullTags() {
     return genClient.cacheValueIsNotNull(CacheKey.tags);
   }
 
-  /** Checks whether the 'pricingDescription' field is set and is not null */
-  public boolean isNotNullPricingDescription() {
-    return genClient.cacheValueIsNotNull(CacheKey.pricingDescription);
-  }
+  /** Checks whether the 'tags' field is set and is not null and is not empty */
+  public boolean isNotEmptyTags() { return isNotNullTags() && !getTags().isEmpty(); }
 
   /** Checks whether the 'bogo' field is set and is not null */
   public boolean isNotNullBogo() {
     return genClient.cacheValueIsNotNull(CacheKey.bogo);
+  }
+
+  /** Checks whether the 'includeAllFeatures' field is set and is not null */
+  public boolean isNotNullIncludeAllFeatures() {
+    return genClient.cacheValueIsNotNull(CacheKey.includeAllFeatures);
   }
 
   /** Checks whether the 'weight' field is set and is not null */
@@ -465,6 +522,14 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
 
   /** Checks whether the 'translatedFeatures' field is set and is not null and is not empty */
   public boolean isNotEmptyTranslatedFeatures() { return isNotNullTranslatedFeatures() && !getTranslatedFeatures().isEmpty(); }
+
+  /** Checks whether the 'mccs' field is set and is not null */
+  public boolean isNotNullMccs() {
+    return genClient.cacheValueIsNotNull(CacheKey.mccs);
+  }
+
+  /** Checks whether the 'mccs' field is set and is not null and is not empty */
+  public boolean isNotEmptyMccs() { return isNotNullMccs() && !getMccs().isEmpty(); }
 
   /** Checks whether the 'billToMid' field is set and is not null */
   public boolean isNotNullBillToMid() {
@@ -491,14 +556,24 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.deactivationTime);
   }
 
-  /** Checks whether the 'reseller' field is set and is not null */
-  public boolean isNotNullReseller() {
-    return genClient.cacheValueIsNotNull(CacheKey.reseller);
-  }
-
   /** Checks whether the 'merchantPlanGroup' field is set and is not null */
   public boolean isNotNullMerchantPlanGroup() {
     return genClient.cacheValueIsNotNull(CacheKey.merchantPlanGroup);
+  }
+
+  /** Checks whether the 'enforced' field is set and is not null */
+  public boolean isNotNullEnforced() {
+    return genClient.cacheValueIsNotNull(CacheKey.enforced);
+  }
+
+  /** Checks whether the 'hidden' field is set and is not null */
+  public boolean isNotNullHidden() {
+    return genClient.cacheValueIsNotNull(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'planActionFeeRateSummary' field is set and is not null */
+  public boolean isNotNullPlanActionFeeRateSummary() {
+    return genClient.cacheValueIsNotNull(CacheKey.planActionFeeRateSummary);
   }
 
   /** Checks whether the 'createdTime' field is set and is not null */
@@ -553,6 +628,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.appBundle);
   }
 
+  /** Checks whether the 'numDevicesIncludedWithPrice' field has been set, however the value could be null */
+  public boolean hasNumDevicesIncludedWithPrice() {
+    return genClient.cacheHasKey(CacheKey.numDevicesIncludedWithPrice);
+  }
+
   /** Checks whether the 'defaultPlan' field has been set, however the value could be null */
   public boolean hasDefaultPlan() {
     return genClient.cacheHasKey(CacheKey.defaultPlan);
@@ -568,19 +648,24 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.pricingModel);
   }
 
-  /** Checks whether the 'tags' field has been set, however the value could be null */
-  public boolean hasTags() {
-    return genClient.cacheHasKey(CacheKey.tags);
-  }
-
   /** Checks whether the 'pricingDescription' field has been set, however the value could be null */
   public boolean hasPricingDescription() {
     return genClient.cacheHasKey(CacheKey.pricingDescription);
   }
 
+  /** Checks whether the 'tags' field has been set, however the value could be null */
+  public boolean hasTags() {
+    return genClient.cacheHasKey(CacheKey.tags);
+  }
+
   /** Checks whether the 'bogo' field has been set, however the value could be null */
   public boolean hasBogo() {
     return genClient.cacheHasKey(CacheKey.bogo);
+  }
+
+  /** Checks whether the 'includeAllFeatures' field has been set, however the value could be null */
+  public boolean hasIncludeAllFeatures() {
+    return genClient.cacheHasKey(CacheKey.includeAllFeatures);
   }
 
   /** Checks whether the 'weight' field has been set, however the value could be null */
@@ -596,6 +681,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'translatedFeatures' field has been set, however the value could be null */
   public boolean hasTranslatedFeatures() {
     return genClient.cacheHasKey(CacheKey.translatedFeatures);
+  }
+
+  /** Checks whether the 'mccs' field has been set, however the value could be null */
+  public boolean hasMccs() {
+    return genClient.cacheHasKey(CacheKey.mccs);
   }
 
   /** Checks whether the 'billToMid' field has been set, however the value could be null */
@@ -623,14 +713,24 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.deactivationTime);
   }
 
-  /** Checks whether the 'reseller' field has been set, however the value could be null */
-  public boolean hasReseller() {
-    return genClient.cacheHasKey(CacheKey.reseller);
-  }
-
   /** Checks whether the 'merchantPlanGroup' field has been set, however the value could be null */
   public boolean hasMerchantPlanGroup() {
     return genClient.cacheHasKey(CacheKey.merchantPlanGroup);
+  }
+
+  /** Checks whether the 'enforced' field has been set, however the value could be null */
+  public boolean hasEnforced() {
+    return genClient.cacheHasKey(CacheKey.enforced);
+  }
+
+  /** Checks whether the 'hidden' field has been set, however the value could be null */
+  public boolean hasHidden() {
+    return genClient.cacheHasKey(CacheKey.hidden);
+  }
+
+  /** Checks whether the 'planActionFeeRateSummary' field has been set, however the value could be null */
+  public boolean hasPlanActionFeeRateSummary() {
+    return genClient.cacheHasKey(CacheKey.planActionFeeRateSummary);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -705,6 +805,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'numDevicesIncludedWithPrice'.
+   */
+  public MerchantPlan setNumDevicesIncludedWithPrice(java.lang.Integer numDevicesIncludedWithPrice) {
+    return genClient.setOther(numDevicesIncludedWithPrice, CacheKey.numDevicesIncludedWithPrice);
+  }
+
+  /**
    * Sets the field 'defaultPlan'.
    */
   public MerchantPlan setDefaultPlan(java.lang.Boolean defaultPlan) {
@@ -726,6 +833,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'pricingDescription'.
+   */
+  public MerchantPlan setPricingDescription(java.lang.String pricingDescription) {
+    return genClient.setOther(pricingDescription, CacheKey.pricingDescription);
+  }
+
+  /**
    * Sets the field 'tags'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -735,19 +849,17 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Sets the field 'pricingDescription'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
-   */
-  public MerchantPlan setPricingDescription(java.lang.String pricingDescription) {
-    return genClient.setOther(pricingDescription, CacheKey.pricingDescription);
-  }
-
-  /**
    * Sets the field 'bogo'.
    */
   public MerchantPlan setBogo(java.lang.Boolean bogo) {
     return genClient.setOther(bogo, CacheKey.bogo);
+  }
+
+  /**
+   * Sets the field 'includeAllFeatures'.
+   */
+  public MerchantPlan setIncludeAllFeatures(java.lang.Boolean includeAllFeatures) {
+    return genClient.setOther(includeAllFeatures, CacheKey.includeAllFeatures);
   }
 
   /**
@@ -773,6 +885,15 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public MerchantPlan setTranslatedFeatures(java.util.List<java.lang.String> translatedFeatures) {
     return genClient.setArrayOther(translatedFeatures, CacheKey.translatedFeatures);
+  }
+
+  /**
+   * Sets the field 'mccs'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public MerchantPlan setMccs(java.util.List<java.lang.String> mccs) {
+    return genClient.setArrayOther(mccs, CacheKey.mccs);
   }
 
   /**
@@ -811,21 +932,35 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
-   * Sets the field 'reseller'.
-   *
-   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
-   */
-  public MerchantPlan setReseller(com.clover.sdk.v3.resellers.Reseller reseller) {
-    return genClient.setRecord(reseller, CacheKey.reseller);
-  }
-
-  /**
    * Sets the field 'merchantPlanGroup'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
   public MerchantPlan setMerchantPlanGroup(com.clover.sdk.v3.base.Reference merchantPlanGroup) {
     return genClient.setRecord(merchantPlanGroup, CacheKey.merchantPlanGroup);
+  }
+
+  /**
+   * Sets the field 'enforced'.
+   */
+  public MerchantPlan setEnforced(java.lang.Boolean enforced) {
+    return genClient.setOther(enforced, CacheKey.enforced);
+  }
+
+  /**
+   * Sets the field 'hidden'.
+   */
+  public MerchantPlan setHidden(java.lang.Boolean hidden) {
+    return genClient.setOther(hidden, CacheKey.hidden);
+  }
+
+  /**
+   * Sets the field 'planActionFeeRateSummary'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public MerchantPlan setPlanActionFeeRateSummary(com.clover.sdk.v3.billing.PlanActionFeeRateSummary planActionFeeRateSummary) {
+    return genClient.setRecord(planActionFeeRateSummary, CacheKey.planActionFeeRateSummary);
   }
 
   /**
@@ -875,6 +1010,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   public void clearAppBundle() {
     genClient.clear(CacheKey.appBundle);
   }
+  /** Clears the 'numDevicesIncludedWithPrice' field, the 'has' method for this field will now return false */
+  public void clearNumDevicesIncludedWithPrice() {
+    genClient.clear(CacheKey.numDevicesIncludedWithPrice);
+  }
   /** Clears the 'defaultPlan' field, the 'has' method for this field will now return false */
   public void clearDefaultPlan() {
     genClient.clear(CacheKey.defaultPlan);
@@ -887,17 +1026,21 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   public void clearPricingModel() {
     genClient.clear(CacheKey.pricingModel);
   }
-  /** Clears the 'tags' field, the 'has' method for this field will now return false */
-  public void clearTags() {
-    genClient.clear(CacheKey.tags);
-  }
   /** Clears the 'pricingDescription' field, the 'has' method for this field will now return false */
   public void clearPricingDescription() {
     genClient.clear(CacheKey.pricingDescription);
   }
-  /** Clears the 'bogo' field, the 'has' method for this field will now return false */
+  /** Clears the 'tags' field, the 'has' method for this field will now return false */
+  public void clearTags() {
+    genClient.clear(CacheKey.tags);
+  }
+  /** Clears the 'tags' field, the 'has' method for this field will now return false */
   public void clearBogo() {
     genClient.clear(CacheKey.bogo);
+  }
+  /** Clears the 'weight' field, the 'has' method for this field will now return false */
+  public void clearIncludeAllFeatures() {
+    genClient.clear(CacheKey.includeAllFeatures);
   }
   /** Clears the 'weight' field, the 'has' method for this field will now return false */
   public void clearWeight() {
@@ -910,6 +1053,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'translatedFeatures' field, the 'has' method for this field will now return false */
   public void clearTranslatedFeatures() {
     genClient.clear(CacheKey.translatedFeatures);
+  }
+  /** Clears the 'mccs' field, the 'has' method for this field will now return false */
+  public void clearMccs() {
+    genClient.clear(CacheKey.mccs);
   }
   /** Clears the 'billToMid' field, the 'has' method for this field will now return false */
   public void clearBillToMid() {
@@ -931,13 +1078,21 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   public void clearDeactivationTime() {
     genClient.clear(CacheKey.deactivationTime);
   }
-  /** Clears the 'reseller' field, the 'has' method for this field will now return false */
-  public void clearReseller() {
-    genClient.clear(CacheKey.reseller);
-  }
   /** Clears the 'merchantPlanGroup' field, the 'has' method for this field will now return false */
   public void clearMerchantPlanGroup() {
     genClient.clear(CacheKey.merchantPlanGroup);
+  }
+  /** Clears the 'enforced' field, the 'has' method for this field will now return false */
+  public void clearEnforced() {
+    genClient.clear(CacheKey.enforced);
+  }
+  /** Clears the 'hidden' field, the 'has' method for this field will now return false */
+  public void clearHidden() {
+    genClient.clear(CacheKey.hidden);
+  }
+  /** Clears the 'planActionFeeRateSummary' field, the 'has' method for this field will now return false */
+  public void clearPlanActionFeeRateSummary() {
+    genClient.clear(CacheKey.planActionFeeRateSummary);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -1020,23 +1175,28 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean TRIALEXPIRATIONTIME_IS_REQUIRED = false;
     public static final boolean MODULES_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;
+    public static final boolean NUMDEVICESINCLUDEDWITHPRICE_IS_REQUIRED = false;
     public static final boolean DEFAULTPLAN_IS_REQUIRED = false;
     public static final boolean RECOMMENDED_IS_REQUIRED = false;
     public static final boolean PRICINGMODEL_IS_REQUIRED = false;
+    public static final boolean PRICINGDESCRIPTION_IS_REQUIRED = false;
     public static final boolean TAGS_IS_REQUIRED = false;
-    public static final boolean PRICING_DESCRIPTION_IS_REQUIRED = false;
     public static final boolean BOGO_IS_REQUIRED = false;
+    public static final boolean INCLUDE_ALL_FEATURES = false;
     public static final boolean WEIGHT_IS_REQUIRED = false;
     public static final boolean FEATURES_IS_REQUIRED = false;
     public static final boolean TRANSLATEDFEATURES_IS_REQUIRED = false;
+    public static final boolean MCCS_IS_REQUIRED = false;
     public static final boolean BILLTOMID_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean PLANCODE_IS_REQUIRED = false;
     public static final long PLANCODE_MAX_LEN = 50;
     public static final boolean ACTIVATIONTIME_IS_REQUIRED = false;
     public static final boolean DEACTIVATIONTIME_IS_REQUIRED = false;
-    public static final boolean RESELLER_IS_REQUIRED = false;
     public static final boolean MERCHANTPLANGROUP_IS_REQUIRED = false;
+    public static final boolean ENFORCED_IS_REQUIRED = false;
+    public static final boolean HIDDEN_IS_REQUIRED = false;
+    public static final boolean PLANACTIONFEERATESUMMARY_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
   }

@@ -60,6 +60,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getStatus status}</li>
  * <li>{@link #getOceanGatewayInfo oceanGatewayInfo}</li>
  * <li>{@link #getReason reason}</li>
+ * <li>{@link #getCloseoutBatchInfo closeoutBatchInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -248,8 +249,12 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.reason);
   }
 
-
-
+  /**
+   * Information about the Batch used for payments
+   */
+  public com.clover.sdk.v3.payments.CloseoutBatchInfo getCloseoutBatchInfo() {
+    return genClient.cacheGet(CacheKey.closeoutBatchInfo);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
@@ -312,6 +317,8 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
     reason
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    closeoutBatchInfo
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CloseoutBatchInfo.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -556,7 +563,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.reason);
   }
 
-
+  /** Checks whether the 'closeoutBatchInfo' field is set and is not null */
+  public boolean isNotNullCloseoutBatchInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.closeoutBatchInfo);
+  }
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -708,6 +718,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.reason);
   }
 
+  /** Checks whether the 'closeoutBatchInfo' field has been set, however the value could be null */
+  public boolean hasCloseoutBatchInfo() {
+    return genClient.cacheHasKey(CacheKey.closeoutBatchInfo);
+  }
 
   /**
    * Sets the field 'id'.
@@ -949,6 +963,14 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.setOther(reason, CacheKey.reason);
   }
 
+  /**
+   * Sets the field 'closeoutBatchInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Refund setCloseoutBatchInfo(com.clover.sdk.v3.payments.CloseoutBatchInfo closeoutBatchInfo) {
+    return genClient.setRecord(closeoutBatchInfo, CacheKey.closeoutBatchInfo);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1070,7 +1092,10 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearReason() {
     genClient.clear(CacheKey.reason);
   }
-
+  /** Clears the 'closeoutBatchInfo' field, the 'has' method for this field will now return false */
+  public void clearCloseoutBatchInfo() {
+    genClient.clear(CacheKey.closeoutBatchInfo);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1163,6 +1188,7 @@ public class Refund extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean OCEANGATEWAYINFO_IS_REQUIRED = false;
     public static final boolean REASON_IS_REQUIRED = false;
     public static final long REASON_MAX_LEN = 255;
+    public static final boolean CLOSEOUTBATCHINFO_IS_REQUIRED = false;
   }
 
 }

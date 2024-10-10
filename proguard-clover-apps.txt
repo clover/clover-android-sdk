@@ -77,3 +77,10 @@
 -keepclassmembers class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator CREATOR;
 }
+
+-keep class * extends com.fasterxml.jackson.core.type.TypeReference
+-keep class * extends com.fasterxml.jackson.core.type.TypeReference
+-keep class com.fasterxml.jackson.core.type.TypeReference
+-keep class com.fasterxml.jackson.core.type.TypeReference
+-keepclassmembers class * extends com.fasterxml.jackson.core.type.TypeReference
+-keepclassmembers class * extends com.fasterxml.jackson.core.type.TypeReference

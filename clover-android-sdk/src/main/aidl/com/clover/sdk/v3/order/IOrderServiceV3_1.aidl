@@ -16,8 +16,10 @@ import com.clover.sdk.v3.order.LineItemMapFdParcelable;
 import com.clover.sdk.v3.order.DiscountFdParcelable;
 import com.clover.sdk.v3.order.DiscountListFdParcelable;
 import com.clover.sdk.v3.order.ModificationFdParcelable;
+import com.clover.sdk.v3.order.FulfillmentInfo;
 import com.clover.sdk.v3.onlineorder.OrderState;
 import com.clover.sdk.v3.onlineorder.Reason;
+import com.clover.sdk.v3.payments.Authorization;
 import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.PaymentListFdParcelable;
 import com.clover.sdk.v3.payments.CreditFdParcelable;
@@ -830,9 +832,10 @@ interface IOrderServiceV3_1 {
 
   /**
    * Not available to non-Clover apps.
+   * @deprecated Use {@link #deletePreAuth2}.
    * @y.exclude
    */
-  OrderFdParcelable deletePreAuth(String orderId, String paymentId, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
+  OrderFdParcelable deletePreAuth(String orderId, in String paymentId, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
 
   /**
    * Not available to non-Clover apps.
@@ -897,10 +900,74 @@ interface IOrderServiceV3_1 {
    */
   boolean fireLineItems(String sourceOrderid, in List<LineItem> lineItemList, out ResultStatus status);
 
+  /**
+   * Set the fulfillment info for an order.
+   * @clover.perm ORDERS_W
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   *
+   */
+   OrderFdParcelable setFulfillmentInfo(String orderId, in FulfillmentInfo fulfillmentInfo, out ResultStatus status);
 
   /**
      * Not available to non-Clover apps.
      * @y.exclude
      */
     OrderFdParcelable capturePreAuthorization(String orderId, in PaymentFdParcelable preAuth, in PaymentFdParcelable closingPayment, in LineItemListFdParcelable fdLineItems, out ResultStatus status);
+
+    LineItemListFdParcelable addMenuFixedPriceLineItems(String orderId, String menuId, String itemId, String binName, String userData, int numItems, out ResultStatus status);
+
+    LineItemListFdParcelable addMenuPerUnitLineItems(String orderId, String menuId, String itemId, int unitQuantity, String binName, String userData, int numItems, out ResultStatus status);
+
+    LineItemListFdParcelable addMenuVariablePriceLineItems(String orderId, String menuId, String itemId, long price, String binName, String userData, int numItems, out ResultStatus status);
+
+  /**
+   * Adds a native cash discount on an order. If lineitemIds is empty, the discount will be applied to the entire order.
+   * @clover.perm ORDERS_W
+   *
+   * Not available to non-Clover apps.
+   * @y.exclude
+   *
+   */
+    OrderFdParcelable updateCashDiscount(String orderId, in List<String> lineItemIds, in DiscountFdParcelable cashDiscount, out ResultStatus status);
+
+   /**
+    * Reopen an order for further edits if possible. Once reopened, new line items,
+    * discounts, etc. may be added to the order.
+
+    * @param orderId the ID of the order to change the state.
+    * @return true if order is reopenable else false.
+    * @clover.perm ORDERS_W
+    */
+    boolean reopenOrder(String orderId, out ResultStatus status);
+
+    /**
+     * Not available to non-Clover apps.
+     * @y.exclude
+     */
+    OrderFdParcelable deletePreAuth2(String orderId, in Authorization auth, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
+
+  /**
+    * This is a replacement for the methods addPayment2() and addLPMPayment()
+    * It will handle a payment with optional line items so can be used in full POS mode (Register, Dining)
+    * It will also handle both card transactions that have already been processed on server via /v1/pay
+    *  or (via createOnServer boolean flag) will POST the transaction to the CreatePayment endpoint on server
+    * Additionally, it will support being called by SiTef apps if a) the device has TRANSACTION_OPERATION_MODE
+    *  of SITEF, and b) if the calling package is in RAW_TRANSACTION_SERVICE_WHITELIST
+    * Not available to most non-Clover apps.
+    * @y.exclude
+   */
+    OrderFdParcelable addPayment3(String orderId, in PaymentFdParcelable payment, in LineItemListFdParcelable fdLineItems, boolean createOnServer, out ResultStatus status);
+
+  /**
+    * This is a replacement for the method refund2(), with passthroughs
+    * It will record a refund locally and also update refund on the server
+    * Additionally, it will support being called by SiTef apps if a) the device has TRANSACTION_OPERATION_MODE
+    *  of SITEF, and b) if the calling package is in RAW_TRANSACTION_SERVICE_WHITELIST
+    * Not available to most non-Clover apps.
+    * @y.exclude
+   */
+  RefundFdParcelable addRefund3(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
+
 }

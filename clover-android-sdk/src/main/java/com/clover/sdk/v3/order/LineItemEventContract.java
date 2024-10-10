@@ -211,6 +211,11 @@ public final class LineItemEventContract {
          * Default value is null
          */
         String DEVICE_ID = "device_id";
+        /**
+         * A {@link String} line item info has line item info in form of json object string.
+         * The line item info is optional, it need not always be present.
+         */
+        String LINE_ITEM_INFO = "line_item_info";
     }
 
     /**

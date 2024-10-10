@@ -40,6 +40,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getPrintTime printTime}</li>
+ * <li>{@link #getClientPrintingTime clientPrintingTime}</li>
+ * <li>{@link #getErrorMessage errorMessage}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -117,6 +119,20 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheGet(CacheKey.printTime);
   }
 
+  /**
+   * Timestamp when the device client starts printing, for internal tracing only.
+   */
+  public java.lang.Long getClientPrintingTime() {
+    return genClient.cacheGet(CacheKey.clientPrintingTime);
+  }
+
+  /**
+   * Error message when device client fails to print the event, for internal tracing only.
+   */
+  public java.lang.String getErrorMessage() {
+    return genClient.cacheGet(CacheKey.errorMessage);
+  }
+
 
 
 
@@ -141,6 +157,10 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     printTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    clientPrintingTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    errorMessage
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -216,6 +236,8 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
     genClient.validateLength(CacheKey.id, getId(), 13);
 
     genClient.validateLength(CacheKey.orderSnapshot, getOrderSnapshot(), 5242880);
+
+    genClient.validateLength(CacheKey.errorMessage, getErrorMessage(), 65535);
     genClient.validateReferences(CacheKey.orderRef);
   }
 
@@ -269,6 +291,16 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.cacheValueIsNotNull(CacheKey.printTime);
   }
 
+  /** Checks whether the 'clientPrintingTime' field is set and is not null */
+  public boolean isNotNullClientPrintingTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.clientPrintingTime);
+  }
+
+  /** Checks whether the 'errorMessage' field is set and is not null */
+  public boolean isNotNullErrorMessage() {
+    return genClient.cacheValueIsNotNull(CacheKey.errorMessage);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -319,6 +351,16 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'printTime' field has been set, however the value could be null */
   public boolean hasPrintTime() {
     return genClient.cacheHasKey(CacheKey.printTime);
+  }
+
+  /** Checks whether the 'clientPrintingTime' field has been set, however the value could be null */
+  public boolean hasClientPrintingTime() {
+    return genClient.cacheHasKey(CacheKey.clientPrintingTime);
+  }
+
+  /** Checks whether the 'errorMessage' field has been set, however the value could be null */
+  public boolean hasErrorMessage() {
+    return genClient.cacheHasKey(CacheKey.errorMessage);
   }
 
 
@@ -396,6 +438,20 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
     return genClient.setOther(printTime, CacheKey.printTime);
   }
 
+  /**
+   * Sets the field 'clientPrintingTime'.
+   */
+  public PrintOrder setClientPrintingTime(java.lang.Long clientPrintingTime) {
+    return genClient.setOther(clientPrintingTime, CacheKey.clientPrintingTime);
+  }
+
+  /**
+   * Sets the field 'errorMessage'.
+   */
+  public PrintOrder setErrorMessage(java.lang.String errorMessage) {
+    return genClient.setOther(errorMessage, CacheKey.errorMessage);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -436,6 +492,14 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'printTime' field, the 'has' method for this field will now return false */
   public void clearPrintTime() {
     genClient.clear(CacheKey.printTime);
+  }
+  /** Clears the 'clientPrintingTime' field, the 'has' method for this field will now return false */
+  public void clearClientPrintingTime() {
+    genClient.clear(CacheKey.clientPrintingTime);
+  }
+  /** Clears the 'errorMessage' field, the 'has' method for this field will now return false */
+  public void clearErrorMessage() {
+    genClient.clear(CacheKey.errorMessage);
   }
 
 
@@ -511,6 +575,9 @@ public class PrintOrder extends GenericParcelable implements com.clover.sdk.v3.V
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean PRINTTIME_IS_REQUIRED = false;
+    public static final boolean CLIENTPRINTINGTIME_IS_REQUIRED = false;
+    public static final boolean ERRORMESSAGE_IS_REQUIRED = false;
+    public static final long ERRORMESSAGE_MAX_LEN = 65535;
   }
 
 }

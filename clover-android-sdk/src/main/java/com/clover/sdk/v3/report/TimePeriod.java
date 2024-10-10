@@ -28,10 +28,11 @@ import android.os.Parcel;
 
 /**
  * This is an auto-generated Clover data enum.
+ * The time period that defines the size of the groups: hour, day, week, month, ungrouped.
  */
 @SuppressWarnings("all")
 public enum TimePeriod implements Parcelable {
-  HOUR, DAY, WEEK, MONTH;
+  HOUR, DAY, WEEK, MONTH, UNGROUPED;
 
   @Override
   public int describeContents() {

@@ -258,6 +258,27 @@ public final class Platform2 {
         return context.getPackageManager().hasSystemFeature("clover.hardware.merchant_only");
       }
     },
+    /**
+     * Form factor of this device is such that, it is designed only for payment related tasks e.g.
+     * Clover companion
+     */
+    PAYMENT_ONLY {
+      @Override
+      protected boolean isSupported(Context context) {
+        return context.getPackageManager().hasSystemFeature("clover.software.payment_only");
+      }
+    },
+
+    /**
+     * Form factor of this device such that printer is bundled with the device, at this writing there
+     * are only 2 Clover devices which doesn't support bundled printer, Flex 4 Pocket and Clover Companion
+     */
+    BUNDLED_PRINTER {
+      @Override
+      protected boolean isSupported(Context context) {
+        return !context.getPackageManager().hasSystemFeature("clover.hardware.no_bundled_printer");
+      }
+    },
     ;
 
     protected abstract boolean isSupported(Context context);

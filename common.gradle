@@ -26,13 +26,13 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
   }
 }
 
 // Disable all releaseUnitTests, newer android testing libs are not compilable for ReleaseUnitTest
-tasks.whenTaskAdded {task ->
+tasks.configureEach {task ->
   if (task.name.contains("ReleaseSignedUnitTest")) {
     task.enabled = false
   }

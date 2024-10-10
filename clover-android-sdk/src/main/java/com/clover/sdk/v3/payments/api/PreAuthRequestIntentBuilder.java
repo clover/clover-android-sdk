@@ -152,4 +152,36 @@ public class PreAuthRequestIntentBuilder extends BaseIntentBuilder {
       return new TokenizeOptions(suppressConfirmation);
     }
   }
+
+  public static class Response {
+    /**
+     * The payment as a result of the pre-authorization
+     */
+    public final static String PAYMENT = Intents.EXTRA_PAYMENT;
+    /**
+     * If tokenizing the card is requested, this will return the type of Token.
+     */
+    public static final String TOKEN_TYPE = Intents.EXTRA_TOKEN_TYPE;
+    /**
+     * The token to be used for EComm transactions.
+     */
+    public static final String TOKEN = Intents.EXTRA_TOKEN;
+    /**
+     * Card information for the tokenized card.  This should  consist of information such as:
+     * first6, last4, expiration month, expiration year.
+     */
+    public static final String CARD = Intents.EXTRA_CARD;
+    /**
+     * If tokenizing the card fails, the reason will be present.
+     */
+    public static final String REASON = Intents.EXTRA_REASON;
+    /**
+     * If the customer confirmation of saving their card is suppressed.
+     */
+    public static final String SUPPRESS_CONFIRMATION = Intents.EXTRA_SUPPRESS_CONFIRMATION;
+    /**
+     * If the pre-authorization fails for any reason, there will be a failure message sent.
+     */
+    public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+  }
 }

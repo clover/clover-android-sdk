@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
+ * <li>{@link #getDefaultPosMenu defaultPosMenu}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
@@ -45,35 +46,42 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
   /**
    * Unique Clover identifier.
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Name of the menu
    */
-  public String getName() {
+  public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
+  }
+
+  /**
+   * true in case the menu is default POS menu
+   */
+  public java.lang.Boolean getDefaultPosMenu() {
+    return genClient.cacheGet(CacheKey.defaultPosMenu);
   }
 
   /**
    * Timestamp when menu was last modified
    */
-  public Long getModifiedTime() {
+  public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
   /**
    * Timestamp when menu was last created
    */
-  public Long getCreatedTime() {
+  public java.lang.Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
    * Timestamp when menu was last deleted
    */
-  public Long getDeletedTime() {
+  public java.lang.Long getDeletedTime() {
     return genClient.cacheGet(CacheKey.deletedTime);
   }
 
@@ -82,15 +90,17 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     name
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    defaultPosMenu
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     modifiedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     createdTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -179,6 +189,11 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
 
+  /** Checks whether the 'defaultPosMenu' field is set and is not null */
+  public boolean isNotNullDefaultPosMenu() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultPosMenu);
+  }
+
   /** Checks whether the 'modifiedTime' field is set and is not null */
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
@@ -206,6 +221,11 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheHasKey(CacheKey.name);
   }
 
+  /** Checks whether the 'defaultPosMenu' field has been set, however the value could be null */
+  public boolean hasDefaultPosMenu() {
+    return genClient.cacheHasKey(CacheKey.defaultPosMenu);
+  }
+
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
@@ -225,35 +245,42 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
   /**
    * Sets the field 'id'.
    */
-  public Menu setId(String id) {
+  public Menu setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public Menu setName(String name) {
+  public Menu setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
+  }
+
+  /**
+   * Sets the field 'defaultPosMenu'.
+   */
+  public Menu setDefaultPosMenu(java.lang.Boolean defaultPosMenu) {
+    return genClient.setOther(defaultPosMenu, CacheKey.defaultPosMenu);
   }
 
   /**
    * Sets the field 'modifiedTime'.
    */
-  public Menu setModifiedTime(Long modifiedTime) {
+  public Menu setModifiedTime(java.lang.Long modifiedTime) {
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
   /**
    * Sets the field 'createdTime'.
    */
-  public Menu setCreatedTime(Long createdTime) {
+  public Menu setCreatedTime(java.lang.Long createdTime) {
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
    * Sets the field 'deletedTime'.
    */
-  public Menu setDeletedTime(Long deletedTime) {
+  public Menu setDeletedTime(java.lang.Long deletedTime) {
     return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
@@ -265,6 +292,10 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
+  }
+  /** Clears the 'defaultPosMenu' field, the 'has' method for this field will now return false */
+  public void clearDefaultPosMenu() {
+    genClient.clear(CacheKey.defaultPosMenu);
   }
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
@@ -344,6 +375,7 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final long ID_MAX_LEN = 127;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
+    public static final boolean DEFAULTPOSMENU_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;

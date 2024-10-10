@@ -436,6 +436,17 @@ public class OrderCalc {
   }
 
   /**
+   * Summarize the taxes for the given line items.
+   * This ignores refunded or exchanged line items.
+   * @param lines for this subset of line items
+   * @param overrideSplitPercent optional. if specified, then assume we're computing a partial payment and this percent is the amount of a partial payment.
+   * @return summary of the given line items at, optionally, the given partial payment percentage
+   */
+  public List<Calc.TaxSummary> getTaxSummaries(final Collection<LineItem> lines, final Decimal overrideSplitPercent) {
+    return getCalc().getTaxSummaries(toCalcLines(lines, overrideSplitPercent));
+  }
+
+  /**
    * Summarize the taxes for the given line items. If an item was refunded, still include it.
    * If an item was exchanged, then ignore it.
    * @param lines for this subset of line items
@@ -505,11 +516,30 @@ public class OrderCalc {
   }
 
   /**
+   * Get an orderFee price for passed LineItems, which will be calculated based on
+   * passed orderFeeLineItem's percentage
+   *
+   * @param lines LineItems to be considered while calculating order fee price
+   * @param orderFeeLineItem order fee line item using which price needs to be calculated
+   * @return long price for given LineItems, calculated using passed orderFeeLineItem
+   */
+  public long getOrderFeePriceForLineItems(final Collection<LineItem> lines, LineItem orderFeeLineItem) {
+    return getCalc().getOrderFeePrice(toCalcLines(lines), new CalcLineItem(orderFeeLineItem)).getCents();
+  }
+
+  /**
+   * @return long total orderFee amount from given line items
+   */
+  public long getTotalOrderFeeFromLineItems(final Collection<LineItem> lines) {
+    return getCalc().getOrderFee(toCalcLines(lines)).getCents();
+  }
+
+  /**
    * Get the total orderFee amount for given order
    *
    * @return long total of order fees applied to given order
    */
-  public long getTotalOrderFees() {
+  public long getTotalOrderFee() {
     return getCalc().getOrderFee().getCents();
   }
 }

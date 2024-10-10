@@ -41,4 +41,23 @@ public class RetrievePaymentRequestIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+    public static class Response {
+        /**
+         * If an external Payment ID is sent in, it will be returned.
+         */
+        public static final String EXTERNAL_PAYMENT_ID = Intents.EXTRA_EXTERNAL_PAYMENT_ID;
+        /**
+         * If a Payment ID is sent in, it will be returned.
+         */
+        public static final String PAYMENT_ID = Intents.EXTRA_PAYMENT_ID;
+        /**
+         * The retrieved payment.
+         */
+        public static final String PAYMENT = Intents.EXTRA_PAYMENT;
+        /**
+         * If retrieving the payment fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

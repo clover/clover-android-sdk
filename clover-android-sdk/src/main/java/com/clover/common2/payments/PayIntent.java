@@ -1148,6 +1148,12 @@ public class PayIntent implements Parcelable {
       if (ts.isNotNullEnableKioskMode()) {
         transactionSettings.setEnableKioskMode(ts.getEnableKioskMode());
       }
+      if (ts.isNotNullPreAuthType()) {
+        transactionSettings.setPreAuthType(ts.getPreAuthType());
+      }
+      if (ts.isNotNullReceiptSelectionTimeoutThreshold()) {
+        transactionSettings.setReceiptSelectionTimeoutThreshold(ts.getReceiptSelectionTimeoutThreshold());
+      }
     } else { // No incoming ts fields, so use deprecated properties and default values where appropriate.
       transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
       transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);

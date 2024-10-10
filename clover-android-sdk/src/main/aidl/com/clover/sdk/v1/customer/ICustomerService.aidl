@@ -71,6 +71,7 @@ interface ICustomerService {
      *                         asked the customer.
      * @return A {@link com.clover.sdk.v1.customer.Customer} object.
      * @clover.perm CUSTOMERS_W
+     * @deprecated Use {@link #newCustomer(firstName, lastName, ResultStatus)} instead as {@code marketingAllowed} is ignored.
      */
     Customer createCustomer(in String firstName, in String lastName, in boolean marketingAllowed, out ResultStatus resultStatus);
 
@@ -92,6 +93,7 @@ interface ICustomerService {
      *                         direct marketing. Please set to false unless you have explicitly
      *                         asked the customer.
      * @clover.perm CUSTOMERS_W or CUSTOMERS_MARKETING_W (EU)
+     * @deprecated as {@code marketingAllowed} is ignored.
      */
     void setMarketingAllowed(in String customerId, in boolean marketingAllowed, out ResultStatus resultStatus);
 
@@ -236,5 +238,15 @@ interface ICustomerService {
      * @clover.perm CUSTOMERS_W or CUSTOMERS_CARDS_W (EU)
      */
     void deleteCard(in String customerId, in String cardId, out ResultStatus resultStatus);
+
+    /**
+     * Creates a new customer for the merchant bound to the service.
+     * <p>
+     * This call will return immediately with the new customer.
+     * @param firstName        The first name of the customer, can be null.
+     * @param lastName         The last name of the customer, can be null.
+     * @return A {@link com.clover.sdk.v1.customer.Customer} object.
+     */
+    Customer newCustomer(in String firstName, in String lastName, out ResultStatus resultStatus);
 
 }

@@ -12,7 +12,7 @@ ext {
   sonarqubePlugin = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:$SONARQUBE_VERSION"
   firebasePlugin = "com.google.firebase:firebase-crashlytics-gradle:$FIREBASE_PLUGIN_VERSION"
   hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$HILT_VERSION"
-  heapPlugin = "com.heapanalytics.android:heap-android-gradle:$HEAP_VERSION"
+  heapGradlePlugin = "io.heap.gradle:heap-plugin:$HEAP_PLUGIN_VERSION"
   detektPlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$DETEKT_VERSION"
 }
 

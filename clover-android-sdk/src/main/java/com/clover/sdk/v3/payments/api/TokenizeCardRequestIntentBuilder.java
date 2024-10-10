@@ -71,4 +71,41 @@ public class TokenizeCardRequestIntentBuilder extends BaseIntentBuilder {
             return new CardOptions(cardEntryMethods);
         }
     }
+
+
+    public static class Response {
+        /**
+         * If tokenizing the card is requested, this will return the type of Token.
+         */
+        public static final String TOKEN_TYPE = Intents.EXTRA_TOKEN_TYPE;
+        /**
+         * The token to be used for EComm transactions.
+         */
+        public static final String TOKEN = Intents.EXTRA_TOKEN;
+        /**
+         * Card information for the tokenized card.  This should  consist of information such as:
+         * first6, last4, expiration month, expiration year.
+         */
+        public static final String CARD = Intents.EXTRA_CARD;
+        /**
+         * If tokenizing the card fails, the reason will be present.
+         */
+        public static final String REASON = Intents.EXTRA_REASON;
+        /**
+         * If the customer confirmation of saving their card is suppressed.
+         */
+        public static final String SUPPRESS_CONFIRMATION = Intents.EXTRA_SUPPRESS_CONFIRMATION;
+        /**
+         * If legacy vault card is requested, the resulting Vaulted Card.
+         */
+        public static final String VAULTED_CARD = Intents.EXTRA_VAULTED_CARD;
+        /**
+         * If legacy vault card is requested, the resulting card data such as track data and card holder information.
+         */
+        public static final String CARD_DATA = Intents.EXTRA_CARD_DATA;
+        /**
+         * If tokenizing or vaulting the card fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

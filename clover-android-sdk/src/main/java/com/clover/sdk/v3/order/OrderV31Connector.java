@@ -325,6 +325,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public List<LineItem> addMenuFixedPriceLineItems(final String orderId, String menuId, final String itemId, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addMenuFixedPriceLineItems(orderId, menuId, itemId, binName, userData, numItems, status));
+      }
+    });
+  }
+
   public List<LineItem> addPerUnitLineItems(final String orderId, final String itemId, final int unitQuantity, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
       @Override
@@ -334,11 +343,30 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public List<LineItem> addMenuPerUnitLineItems(final String orderId, String menuId, final String itemId, final int unitQuantity, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addMenuPerUnitLineItems(orderId, menuId, itemId, unitQuantity, binName, userData, numItems, status));
+      }
+    });
+  }
+
   public List<LineItem> addVariablePriceLineItems(final String orderId, final String itemId, final long price, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
       @Override
       public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.addVariablePriceLineItems(orderId, itemId, price, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addMenuVariablePriceLineItems(final String orderId, String menuId, final String itemId, final long price, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addMenuVariablePriceLineItems(orderId, menuId, itemId, price, binName,
+                userData, numItems, status));
       }
     });
   }
@@ -962,6 +990,7 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  @Deprecated
   public Order deletePreAuth(final String orderId, final String paymentId, final VoidReason voidReason, final VoidExtraData voidExtraData) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -970,6 +999,13 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       }
     });
   }
+
+  public Order deletePreAuth2(final String orderId, final Authorization auth, final VoidReason voidReason, final VoidExtraData voidExtraData) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.deletePreAuth2(orderId, auth, voidReason, voidExtraData, status));
+    });
+  }
+
 
   public Order voidPreAuthOnline(final String orderId, final String preAuthId, final String iccContainer, final VoidReason voidReason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
@@ -1475,6 +1511,61 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       @Override
       public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
         return getValue(service.capturePreAuthorization(orderId, new PaymentFdParcelable(preAuth), new PaymentFdParcelable(closingPayment), new LineItemListFdParcelable(lineItems), status));
+      }
+    });
+  }
+
+  public Order setFulfillmentInfo(final String orderId, final FulfillmentInfo fulfillmentInfo) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.setFulfillmentInfo(orderId, fulfillmentInfo, status));
+    });
+  }
+
+  public Order updateCashDiscount(final String orderId, final List<String> lineItemIds, final Discount cashDiscount) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.updateCashDiscount(orderId, lineItemIds, new DiscountFdParcelable(cashDiscount), status));
+    });
+  }
+  public boolean reopenOrder(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {
+   return execute((service, status) -> {
+     return service.reopenOrder(orderId, status);
+    });
+  }
+
+  /**
+   * Not available to (most) non-Clover apps.
+   * This is a replacement for the methods addPayment2() and addLPMPayment()
+   * It will handle a payment with optional line items so can be used in full POS mode (Register, Dining)
+   * It will also handle both card transactions that have already been processed on server via /v1/pay
+   *  or (via createOnServer boolean flag) will POST the transaction to the CreatePayment endpoint on server
+   * Additionally, it will support being called by SiTef apps if a) the device has TRANSACTION_OPERATION_MODE
+   *  of SITEF, and b) if the calling package is in RAW_TRANSACTION_SERVICE_WHITELIST
+   *
+   * @y.exclude
+   */
+  public Order addPayment3(final String orderId, final Payment payment, final List<LineItem> lineItems, boolean createOnServer) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPayment3(orderId, new PaymentFdParcelable(payment), new LineItemListFdParcelable(lineItems), createOnServer, status));
+      }
+    });
+  }
+
+  /**
+   * Not available to (most) non-Clover apps.
+   * This is a replacement for the method refund2(), with passthroughs
+   * It will record a refund locally and also update refund on the server
+   * Additionally, it will support being called by SiTef apps if a) the device has TRANSACTION_OPERATION_MODE
+   *  of SITEF, and b) if the calling package is in RAW_TRANSACTION_SERVICE_WHITELIST
+   *
+   * @y.exclude
+   */
+  public Refund addRefund3(final String orderId, final Refund refund, final Map<String, String> passThroughExtras) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Refund>() {
+      @Override
+      public Refund call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addRefund3(orderId, new RefundFdParcelable(refund), passThroughExtras, status));
       }
     });
   }

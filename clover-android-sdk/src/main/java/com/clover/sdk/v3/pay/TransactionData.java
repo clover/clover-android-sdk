@@ -96,6 +96,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIccIssuerCodeTableIndex iccIssuerCodeTableIndex}</li>
  * <li>{@link #getIccIssuerScripts iccIssuerScripts}</li>
  * <li>{@link #getIccIssuerScriptResults iccIssuerScriptResults}</li>
+ * <li>{@link #getIssuerCountryCode issuerCountryCode}</li>
  * <li>{@link #getDebugTrack2EquivalentData debugTrack2EquivalentData}</li>
  * <li>{@link #getDebugApplicationPan debugApplicationPan}</li>
  * <li>{@link #getDebugAmountAuthorizedBinary debugAmountAuthorizedBinary}</li>
@@ -394,6 +395,10 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.iccIssuerScriptResults);
   }
 
+  public java.lang.String getIssuerCountryCode() {
+    return genClient.cacheGet(CacheKey.issuerCountryCode);
+  }
+
   public java.lang.String getDebugTrack2EquivalentData() {
     return genClient.cacheGet(CacheKey.debugTrack2EquivalentData);
   }
@@ -645,6 +650,8 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     iccIssuerScripts
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     iccIssuerScriptResults
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    issuerCountryCode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     debugTrack2EquivalentData
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -1106,6 +1113,11 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'iccIssuerScriptResults' field is set and is not null */
   public boolean isNotNullIccIssuerScriptResults() {
     return genClient.cacheValueIsNotNull(CacheKey.iccIssuerScriptResults);
+  }
+
+  /** Checks whether the 'issuerCountryCode' field is set and is not null */
+  public boolean isNotNullIssuerCountryCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.issuerCountryCode);
   }
 
   /** Checks whether the 'debugTrack2EquivalentData' field is set and is not null */
@@ -1583,6 +1595,11 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'iccIssuerScriptResults' field has been set, however the value could be null */
   public boolean hasIccIssuerScriptResults() {
     return genClient.cacheHasKey(CacheKey.iccIssuerScriptResults);
+  }
+
+  /** Checks whether the 'issuerCountryCode' field has been set, however the value could be null */
+  public boolean hasIssuerCountryCode() {
+    return genClient.cacheHasKey(CacheKey.issuerCountryCode);
   }
 
   /** Checks whether the 'debugTrack2EquivalentData' field has been set, however the value could be null */
@@ -2194,6 +2211,13 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * Sets the field 'issuerCountryCode'.
+   */
+  public TransactionData setIssuerCountryCode(java.lang.String issuerCountryCode) {
+    return genClient.setOther(issuerCountryCode, CacheKey.issuerCountryCode);
+  }
+
+  /**
    * Sets the field 'debugTrack2EquivalentData'.
    */
   public TransactionData setDebugTrack2EquivalentData(java.lang.String debugTrack2EquivalentData) {
@@ -2661,6 +2685,10 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
   public void clearIccIssuerScriptResults() {
     genClient.clear(CacheKey.iccIssuerScriptResults);
   }
+  /** Clears the 'issuerCountryCode' field, the 'has' method for this field will now return false */
+  public void clearIssuerCountryCode() {
+    genClient.clear(CacheKey.issuerCountryCode);
+  }
   /** Clears the 'debugTrack2EquivalentData' field, the 'has' method for this field will now return false */
   public void clearDebugTrack2EquivalentData() {
     genClient.clear(CacheKey.debugTrack2EquivalentData);
@@ -2905,6 +2933,7 @@ public class TransactionData extends GenericParcelable implements com.clover.sdk
     public static final boolean ICCISSUERCODETABLEINDEX_IS_REQUIRED = false;
     public static final boolean ICCISSUERSCRIPTS_IS_REQUIRED = false;
     public static final boolean ICCISSUERSCRIPTRESULTS_IS_REQUIRED = false;
+    public static final boolean ISSUERCOUNTRYCODE_IS_REQUIRED = false;
     public static final boolean DEBUGTRACK2EQUIVALENTDATA_IS_REQUIRED = false;
     public static final boolean DEBUGAPPLICATIONPAN_IS_REQUIRED = false;
     public static final boolean DEBUGAMOUNTAUTHORIZEDBINARY_IS_REQUIRED = false;

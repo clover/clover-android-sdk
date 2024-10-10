@@ -55,6 +55,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getExternalReferenceId externalReferenceId}</li>
  * <li>{@link #getCreditAttributes creditAttributes}</li>
+ * <li>{@link #getCloseoutBatchInfo closeoutBatchInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -211,6 +212,12 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.creditAttributes);
   }
 
+  /**
+   * Information about the Batch used for credits
+   */
+  public com.clover.sdk.v3.payments.CloseoutBatchInfo getCloseoutBatchInfo() {
+    return genClient.cacheGet(CacheKey.closeoutBatchInfo);
+  }
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -264,7 +271,9 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     creditAttributes
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
-      ;
+    closeoutBatchInfo
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CloseoutBatchInfo.JSON_CREATOR)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -478,6 +487,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'creditAttributes' field is set and is not null and is not empty */
   public boolean isNotEmptyCreditAttributes() { return isNotNullCreditAttributes() && !getCreditAttributes().isEmpty(); }
 
+  /** Checks whether the 'closeoutBatchInfo' field is set and is not null */
+  public boolean isNotNullCloseoutBatchInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.closeoutBatchInfo);
+  }
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -602,6 +615,11 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'creditAttributes' field has been set, however the value could be null */
   public boolean hasCreditAttributes() {
     return genClient.cacheHasKey(CacheKey.creditAttributes);
+  }
+
+  /** Checks whether the 'closeoutBatchInfo' field has been set, however the value could be null */
+  public boolean hasCloseoutBatchInfo() {
+    return genClient.cacheHasKey(CacheKey.closeoutBatchInfo);
   }
 
   /**
@@ -807,6 +825,16 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.setOther(creditAttributes, CacheKey.creditAttributes);
   }
 
+  /**
+   * Sets the field 'closeoutBatchInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Credit setCloseoutBatchInfo(com.clover.sdk.v3.payments.CloseoutBatchInfo closeoutBatchInfo) {
+    return genClient.setRecord(closeoutBatchInfo, CacheKey.closeoutBatchInfo);
+  }
+
+
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -907,7 +935,10 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearCreditAttributes() {
     genClient.clear(CacheKey.creditAttributes);
   }
-
+  /** Clears the 'closeoutBatchInfo' field, the 'has' method for this field will now return false */
+  public void clearCloseoutBatchInfo() {
+    genClient.clear(CacheKey.closeoutBatchInfo);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -996,6 +1027,7 @@ public class Credit extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
     public static final boolean CREDITATTRIBUTES_IS_REQUIRED = false;
+    public static final boolean CLOSEOUTBATCHINFO_IS_REQUIRED = false;
   }
 
 }

@@ -288,4 +288,42 @@ public class SelectReceiptRequestIntentBuilder extends BaseIntentBuilder {
         return i;
     }
 
+
+    public static class Response {
+        /**
+         * The payment the receipt was selected for.
+         */
+        public final static String PAYMENT = Intents.EXTRA_PAYMENT;
+        /**
+         * The credit the receipt was selected for.
+         */
+        public final static String CREDIT = Intents.EXTRA_CREDIT;
+        /**
+         * The refund the receipt was selected for.
+         */
+        public final static String REFUND = Intents.EXTRA_REFUND;
+        /**
+         * The customer's entered email/phone number from the customer facing receipt screen.
+         */
+        public static final String ENTERED_RECEIPT_VALUE = Intents.EXTRA_ENTERED_RECEIPT_VALUE;
+        /**
+         * The status of the customer's receipt delivery.  If cloverShouldHandleReceipts is true, then it will
+         * return PROCESSED.  If cloverShouldHandleReceipts is false, then it will return REQUESTED.
+         */
+        public static final String RECEIPT_DELIVERY_STATUS = Intents.EXTRA_RECEIPT_DELIVERY_STATUS;
+        /**
+         * The type of receipt requested by the customer.
+         * e.g., SMS, Email, Print, No Receipt
+         */
+        public static final String RECEIPT_DELIVERY_TYPE = Intents.EXTRA_RECEIPT_DELIVERY_TYPE;
+        /**
+         * If the customer chose to opt into marketing communication on the receipt screen.
+         */
+        public static final String OPTED_INTO_MARKETING = Intents.EXTRA_OPTED_INTO_MARKETING;
+        /**
+         * If selecting a receipt fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
+
 }

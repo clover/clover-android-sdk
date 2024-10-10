@@ -65,15 +65,10 @@ public class SessionContract {
     matcher.addURI(SessionContract.AUTHORITY, SessionContract.SESSION_EVENT + "/*", SessionContract.EVENT);
   }
 
-
   public static final String CALL_METHOD_ON_EVENT = "onEvent";
   public static final String CALL_METHOD_CLEAR_SESSION = "clearSession";
-  public static final String CALL_METHOD_GET_MERCHANT = "getMerchant";
-  public static final String CALL_METHOD_GET_EMPLOYEE = "getEmployee";
   public static final String CALL_METHOD_SET_ORDER = "setOrder";
   public static final String CALL_METHOD_SET_CUSTOMER_INFO = "setCustomerInfo";
   public static final String CALL_METHOD_SET_PROPERTY = "setProperty";
   public static final String CALL_METHOD_SET_TRANSACTION = "setTransaction";
-  public static final String CALL_METHOD_ANNOUNCE_CUSTOMER_PROVIDED_DATA = "announceCustomerProvidedData";
-
   }

@@ -234,7 +234,7 @@ public class Printer implements Parcelable, JSONifiable {
     if (uuid != null ? !uuid.equals(printer.uuid) : printer.uuid != null) {
       return false;
     }
-    if (type != printer.type) {
+    if (type != null ? !type.equals(printer.type) : printer.type != null) {
       return false;
     }
     if (name != null ? !name.equals(printer.name) : printer.name != null) {

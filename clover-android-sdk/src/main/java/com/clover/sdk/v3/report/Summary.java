@@ -36,12 +36,18 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTipAmount tipAmount}</li>
+ * <li>{@link #getDriverTip driverTip}</li>
  * <li>{@link #getTaxAmount taxAmount}</li>
+ * <li>{@link #getTipDetails tipDetails}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
+ * <li>{@link #getAdditionalChargeAmount additionalChargeAmount}</li>
+ * <li>{@link #getAdditionalChargeAmountWithoutInteracV1 additionalChargeAmountWithoutInteracV1}</li>
  * <li>{@link #getStartTimestamp startTimestamp}</li>
  * <li>{@link #getEndTimestamp endTimestamp}</li>
  * <li>{@link #getAmountWithoutTips amountWithoutTips}</li>
  * <li>{@link #getNetQuantity netQuantity}</li>
+ * <li>{@link #getChangeInAmount changeInAmount}</li>
+ * <li>{@link #getChangeInNetQuantity changeInNetQuantity}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -76,16 +82,47 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.amount);
   }
 
+  /**
+   * Tip amount will now include driver tip when applicable.
+   */
   public java.lang.Long getTipAmount() {
     return genClient.cacheGet(CacheKey.tipAmount);
+  }
+
+  /**
+   * Tip amount classified as driver tip based on payment attribute value.
+   */
+  public java.lang.Long getDriverTip() {
+    return genClient.cacheGet(CacheKey.driverTip);
   }
 
   public java.lang.Long getTaxAmount() {
     return genClient.cacheGet(CacheKey.taxAmount);
   }
 
+  /**
+   * Array of summary objects. Each row represents a possible type of tip that makes up the tipAmount field.
+   */
+  public java.util.List<com.clover.sdk.v3.report.Summary> getTipDetails() {
+    return genClient.cacheGet(CacheKey.tipDetails);
+  }
+
   public java.lang.Long getServiceChargeAmount() {
     return genClient.cacheGet(CacheKey.serviceChargeAmount);
+  }
+
+  /**
+   * Total additional charge amount paid minus the additional charge amount refunded.
+   */
+  public java.lang.Long getAdditionalChargeAmount() {
+    return genClient.cacheGet(CacheKey.additionalChargeAmount);
+  }
+
+  /**
+   * Total additional charge amount paid minus the additional charge amount refunded. Excludes interac v1 surcharges in Canada.
+   */
+  public java.lang.Long getAdditionalChargeAmountWithoutInteracV1() {
+    return genClient.cacheGet(CacheKey.additionalChargeAmountWithoutInteracV1);
   }
 
   /**
@@ -116,6 +153,20 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.netQuantity);
   }
 
+  /**
+   * Percent change in amount field for current period compared to previous period. Value is always null in previous period section. Used by sales_grouped_compared
+   */
+  public java.lang.Double getChangeInAmount() {
+    return genClient.cacheGet(CacheKey.changeInAmount);
+  }
+
+  /**
+   * Percent change in net quantity field for current period compared to previous period. Value is always null in previous period section. Used by sales_grouped_compared 
+   */
+  public java.lang.Double getChangeInNetQuantity() {
+    return genClient.cacheGet(CacheKey.changeInNetQuantity);
+  }
+
 
 
 
@@ -132,9 +183,17 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tipAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    driverTip
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     taxAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    tipDetails
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
     serviceChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    additionalChargeAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    additionalChargeAmountWithoutInteracV1
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     startTimestamp
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -143,6 +202,10 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     amountWithoutTips
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     netQuantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
+    changeInNetQuantity
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Double.class)),
       ;
 
@@ -248,14 +311,37 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.tipAmount);
   }
 
+  /** Checks whether the 'driverTip' field is set and is not null */
+  public boolean isNotNullDriverTip() {
+    return genClient.cacheValueIsNotNull(CacheKey.driverTip);
+  }
+
   /** Checks whether the 'taxAmount' field is set and is not null */
   public boolean isNotNullTaxAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'tipDetails' field is set and is not null */
+  public boolean isNotNullTipDetails() {
+    return genClient.cacheValueIsNotNull(CacheKey.tipDetails);
+  }
+
+  /** Checks whether the 'tipDetails' field is set and is not null and is not empty */
+  public boolean isNotEmptyTipDetails() { return isNotNullTipDetails() && !getTipDetails().isEmpty(); }
+
   /** Checks whether the 'serviceChargeAmount' field is set and is not null */
   public boolean isNotNullServiceChargeAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmount' field is set and is not null */
+  public boolean isNotNullAdditionalChargeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalChargeAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmountWithoutInteracV1' field is set and is not null */
+  public boolean isNotNullAdditionalChargeAmountWithoutInteracV1() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalChargeAmountWithoutInteracV1);
   }
 
   /** Checks whether the 'startTimestamp' field is set and is not null */
@@ -276,6 +362,16 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'netQuantity' field is set and is not null */
   public boolean isNotNullNetQuantity() {
     return genClient.cacheValueIsNotNull(CacheKey.netQuantity);
+  }
+
+  /** Checks whether the 'changeInAmount' field is set and is not null */
+  public boolean isNotNullChangeInAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInAmount);
+  }
+
+  /** Checks whether the 'changeInNetQuantity' field is set and is not null */
+  public boolean isNotNullChangeInNetQuantity() {
+    return genClient.cacheValueIsNotNull(CacheKey.changeInNetQuantity);
   }
 
 
@@ -310,14 +406,34 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.tipAmount);
   }
 
+  /** Checks whether the 'driverTip' field has been set, however the value could be null */
+  public boolean hasDriverTip() {
+    return genClient.cacheHasKey(CacheKey.driverTip);
+  }
+
   /** Checks whether the 'taxAmount' field has been set, however the value could be null */
   public boolean hasTaxAmount() {
     return genClient.cacheHasKey(CacheKey.taxAmount);
   }
 
+  /** Checks whether the 'tipDetails' field has been set, however the value could be null */
+  public boolean hasTipDetails() {
+    return genClient.cacheHasKey(CacheKey.tipDetails);
+  }
+
   /** Checks whether the 'serviceChargeAmount' field has been set, however the value could be null */
   public boolean hasServiceChargeAmount() {
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmount' field has been set, however the value could be null */
+  public boolean hasAdditionalChargeAmount() {
+    return genClient.cacheHasKey(CacheKey.additionalChargeAmount);
+  }
+
+  /** Checks whether the 'additionalChargeAmountWithoutInteracV1' field has been set, however the value could be null */
+  public boolean hasAdditionalChargeAmountWithoutInteracV1() {
+    return genClient.cacheHasKey(CacheKey.additionalChargeAmountWithoutInteracV1);
   }
 
   /** Checks whether the 'startTimestamp' field has been set, however the value could be null */
@@ -338,6 +454,16 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'netQuantity' field has been set, however the value could be null */
   public boolean hasNetQuantity() {
     return genClient.cacheHasKey(CacheKey.netQuantity);
+  }
+
+  /** Checks whether the 'changeInAmount' field has been set, however the value could be null */
+  public boolean hasChangeInAmount() {
+    return genClient.cacheHasKey(CacheKey.changeInAmount);
+  }
+
+  /** Checks whether the 'changeInNetQuantity' field has been set, however the value could be null */
+  public boolean hasChangeInNetQuantity() {
+    return genClient.cacheHasKey(CacheKey.changeInNetQuantity);
   }
 
 
@@ -384,6 +510,13 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'driverTip'.
+   */
+  public Summary setDriverTip(java.lang.Long driverTip) {
+    return genClient.setOther(driverTip, CacheKey.driverTip);
+  }
+
+  /**
    * Sets the field 'taxAmount'.
    */
   public Summary setTaxAmount(java.lang.Long taxAmount) {
@@ -391,10 +524,33 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'tipDetails'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Summary setTipDetails(java.util.List<com.clover.sdk.v3.report.Summary> tipDetails) {
+    return genClient.setArrayRecord(tipDetails, CacheKey.tipDetails);
+  }
+
+  /**
    * Sets the field 'serviceChargeAmount'.
    */
   public Summary setServiceChargeAmount(java.lang.Long serviceChargeAmount) {
     return genClient.setOther(serviceChargeAmount, CacheKey.serviceChargeAmount);
+  }
+
+  /**
+   * Sets the field 'additionalChargeAmount'.
+   */
+  public Summary setAdditionalChargeAmount(java.lang.Long additionalChargeAmount) {
+    return genClient.setOther(additionalChargeAmount, CacheKey.additionalChargeAmount);
+  }
+
+  /**
+   * Sets the field 'additionalChargeAmountWithoutInteracV1'.
+   */
+  public Summary setAdditionalChargeAmountWithoutInteracV1(java.lang.Long additionalChargeAmountWithoutInteracV1) {
+    return genClient.setOther(additionalChargeAmountWithoutInteracV1, CacheKey.additionalChargeAmountWithoutInteracV1);
   }
 
   /**
@@ -425,6 +581,20 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.setOther(netQuantity, CacheKey.netQuantity);
   }
 
+  /**
+   * Sets the field 'changeInAmount'.
+   */
+  public Summary setChangeInAmount(java.lang.Double changeInAmount) {
+    return genClient.setOther(changeInAmount, CacheKey.changeInAmount);
+  }
+
+  /**
+   * Sets the field 'changeInNetQuantity'.
+   */
+  public Summary setChangeInNetQuantity(java.lang.Double changeInNetQuantity) {
+    return genClient.setOther(changeInNetQuantity, CacheKey.changeInNetQuantity);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -450,13 +620,29 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearTipAmount() {
     genClient.clear(CacheKey.tipAmount);
   }
+  /** Clears the 'driverTip' field, the 'has' method for this field will now return false */
+  public void clearDriverTip() {
+    genClient.clear(CacheKey.driverTip);
+  }
   /** Clears the 'taxAmount' field, the 'has' method for this field will now return false */
   public void clearTaxAmount() {
     genClient.clear(CacheKey.taxAmount);
   }
+  /** Clears the 'tipDetails' field, the 'has' method for this field will now return false */
+  public void clearTipDetails() {
+    genClient.clear(CacheKey.tipDetails);
+  }
   /** Clears the 'serviceChargeAmount' field, the 'has' method for this field will now return false */
   public void clearServiceChargeAmount() {
     genClient.clear(CacheKey.serviceChargeAmount);
+  }
+  /** Clears the 'additionalChargeAmount' field, the 'has' method for this field will now return false */
+  public void clearAdditionalChargeAmount() {
+    genClient.clear(CacheKey.additionalChargeAmount);
+  }
+  /** Clears the 'additionalChargeAmountWithoutInteracV1' field, the 'has' method for this field will now return false */
+  public void clearAdditionalChargeAmountWithoutInteracV1() {
+    genClient.clear(CacheKey.additionalChargeAmountWithoutInteracV1);
   }
   /** Clears the 'startTimestamp' field, the 'has' method for this field will now return false */
   public void clearStartTimestamp() {
@@ -473,6 +659,14 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'netQuantity' field, the 'has' method for this field will now return false */
   public void clearNetQuantity() {
     genClient.clear(CacheKey.netQuantity);
+  }
+  /** Clears the 'changeInAmount' field, the 'has' method for this field will now return false */
+  public void clearChangeInAmount() {
+    genClient.clear(CacheKey.changeInAmount);
+  }
+  /** Clears the 'changeInNetQuantity' field, the 'has' method for this field will now return false */
+  public void clearChangeInNetQuantity() {
+    genClient.clear(CacheKey.changeInNetQuantity);
   }
 
 
@@ -542,12 +736,18 @@ public class Summary extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean NAME_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;
+    public static final boolean DRIVERTIP_IS_REQUIRED = false;
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
+    public static final boolean TIPDETAILS_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGEAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGEAMOUNTWITHOUTINTERACV1_IS_REQUIRED = false;
     public static final boolean STARTTIMESTAMP_IS_REQUIRED = false;
     public static final boolean ENDTIMESTAMP_IS_REQUIRED = false;
     public static final boolean AMOUNTWITHOUTTIPS_IS_REQUIRED = false;
     public static final boolean NETQUANTITY_IS_REQUIRED = false;
+    public static final boolean CHANGEINAMOUNT_IS_REQUIRED = false;
+    public static final boolean CHANGEINNETQUANTITY_IS_REQUIRED = false;
   }
 
 }
