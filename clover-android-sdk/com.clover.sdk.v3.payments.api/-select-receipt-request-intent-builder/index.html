@@ -1,0 +1,335 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SelectReceiptRequestIntentBuilder</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.payments.api/SelectReceiptRequestIntentBuilder///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.payments.api</a><span class="delimiter">/</span><span class="current">SelectReceiptRequestIntentBuilder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Select</span><wbr><span>Receipt</span><wbr><span>Request</span><wbr><span>Intent</span><wbr><span><span>Builder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">SelectReceiptRequestIntentBuilder</a><span class="token keyword"> extends </span><a href="../-base-intent-builder/index.html">BaseIntentBuilder</a></div><p class="paragraph">Use the ReceiptSelectionRequestIntentBuilder class to initiate a receipt selection activity, for the merchant. It currently support payment, credits and refund receipts. It can also be used to configure specific options for receipt selection such as hiding or showing options or specifying if a default Clover receipt should be sent.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-949407519%2FClasslikes%2F1904710855" anchor-label="EmailReceiptOption" id="-949407519%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-email-receipt-option/index.html"><span>Email</span><wbr><span>Receipt</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-949407519%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-email-receipt-option/index.html">EmailReceiptOption</a><span class="token keyword"> extends </span><a href="-receipt-option/index.html">SelectReceiptRequestIntentBuilder.ReceiptOption</a></div><div class="brief ">EmailReceiptOption that allows the Integrator to control the Email receipt option.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1341685084%2FClasslikes%2F1904710855" anchor-label="NoReceiptOption" id="-1341685084%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-no-receipt-option/index.html"><span>No</span><wbr><span>Receipt</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1341685084%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-no-receipt-option/index.html">NoReceiptOption</a><span class="token keyword"> extends </span><a href="-receipt-option/index.html">SelectReceiptRequestIntentBuilder.ReceiptOption</a></div><div class="brief ">PrintReceiptOption that allows the Integrator to control the Print receipt option.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="651281202%2FClasslikes%2F1904710855" anchor-label="PrintReceiptOption" id="651281202%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-print-receipt-option/index.html"><span>Print</span><wbr><span>Receipt</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="651281202%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-print-receipt-option/index.html">PrintReceiptOption</a><span class="token keyword"> extends </span><a href="-receipt-option/index.html">SelectReceiptRequestIntentBuilder.ReceiptOption</a></div><div class="brief ">PrintReceiptOption that allows the Integrator to control the Print receipt option.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1620036285%2FClasslikes%2F1904710855" anchor-label="ReceiptOption" id="-1620036285%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-receipt-option/index.html"><span>Receipt</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1620036285%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-receipt-option/index.html">ReceiptOption</a></div><div class="brief ">Base class for specific receipt options</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1281137039%2FClasslikes%2F1904710855" anchor-label="Response" id="-1281137039%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-response/index.html"><span><span>Response</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1281137039%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-response/index.html">Response</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1493631262%2FClasslikes%2F1904710855" anchor-label="SmsReceiptOption" id="1493631262%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sms-receipt-option/index.html"><span>Sms</span><wbr><span>Receipt</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1493631262%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-sms-receipt-option/index.html">SmsReceiptOption</a><span class="token keyword"> extends </span><a href="-receipt-option/index.html">SelectReceiptRequestIntentBuilder.ReceiptOption</a></div><div class="brief ">Options for Sms/Text receipts option</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1475413430%2FProperties%2F1904710855" anchor-label="PAPI_SDK_NAME" id="1475413430%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tip-adjust-request-intent-builder/index.html#1475413430%2FProperties%2F1904710855"><span><span>PAPI_SDK_NAME</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1475413430%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="../-tip-adjust-request-intent-builder/index.html#1475413430%2FProperties%2F1904710855">PAPI_SDK_NAME</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-646357768%2FFunctions%2F1904710855" anchor-label="build" id="-646357768%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build.html"><span><span>build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-646357768%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>&nbsp;<a href="build.html"><span class="token function">build</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context</span></span><span class="token punctuation">)</span></div><div class="brief ">Creates a <strong>single use</strong> intent to start the receipt selection screen Activity</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-72026588%2FFunctions%2F1904710855" anchor-label="cloverShouldHandleReceipts" id="-72026588%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clover-should-handle-receipts.html"><span>clover</span><wbr><span>Should</span><wbr><span>Handle</span><wbr><span><span>Receipts</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-72026588%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="clover-should-handle-receipts.html"><span class="token function">cloverShouldHandleReceipts</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;cloverShouldHandleReceipts</span></span><span class="token punctuation">)</span></div><div class="brief ">If true, default Clover receipts will be processed using Clover's default receipt processing.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1150999969%2FFunctions%2F1904710855" anchor-label="Credit" id="-1150999969%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-credit.html"><span><span>Credit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1150999969%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="-credit.html"><span class="token function">Credit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;creditId</span></span><span class="token punctuation">)</span></div><div class="brief ">Used to create a Credit/Manual Refund receipt request to launch the Receipt Selection Activity</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1081873192%2FFunctions%2F1904710855" anchor-label="emailReceiptOptions" id="-1081873192%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="email-receipt-options.html"><span>email</span><wbr><span>Receipt</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1081873192%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="email-receipt-options.html"><span class="token function">emailReceiptOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="-email-receipt-option/index.html">SelectReceiptRequestIntentBuilder.EmailReceiptOption</a>&nbsp;receiptOptions</span></span><span class="token punctuation">)</span></div><div class="brief ">Set Email receipt options for the Select Receipt Activity, including enabled/disabled and a pre-populated email address</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2060986734%2FFunctions%2F1904710855" anchor-label="noReceiptReceiptOptions" id="-2060986734%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="no-receipt-receipt-options.html"><span>no</span><wbr><span>Receipt</span><wbr><span>Receipt</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2060986734%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="no-receipt-receipt-options.html"><span class="token function">noReceiptReceiptOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="-no-receipt-option/index.html">SelectReceiptRequestIntentBuilder.NoReceiptOption</a>&nbsp;receiptOptions</span></span><span class="token punctuation">)</span></div><div class="brief ">Set No Receipt, receipt options for the Select Receipt Activity, including enabled/disabled <i>note: this will only have an effect on customer facing screens</i></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-59735310%2FFunctions%2F1904710855" anchor-label="Payment" id="-59735310%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-payment.html"><span><span>Payment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-59735310%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="-payment.html"><span class="token function">Payment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;paymentId</span></span><span class="token punctuation">)</span></div><div class="brief ">Used to create a Payment receipt request to launch the Receipt Selection Activity</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1383524550%2FFunctions%2F1904710855" anchor-label="printReceiptOptions" id="-1383524550%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="print-receipt-options.html"><span>print</span><wbr><span>Receipt</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1383524550%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="print-receipt-options.html"><span class="token function">printReceiptOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="-print-receipt-option/index.html">SelectReceiptRequestIntentBuilder.PrintReceiptOption</a>&nbsp;receiptOptions</span></span><span class="token punctuation">)</span></div><div class="brief ">Set Print receipt options for the Select Receipt Activity, including enabled/disabled</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1027422016%2FFunctions%2F1904710855" anchor-label="Refund" id="-1027422016%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-refund.html"><span><span>Refund</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1027422016%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="-refund.html"><span class="token function">Refund</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;refundId</span></span><span class="token punctuation">)</span></div><div class="brief ">Used to create a payment Refund receipt request to launch the Receipt Selection Activity</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1395730222%2FFunctions%2F1904710855" anchor-label="smsReceiptOptions" id="-1395730222%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sms-receipt-options.html"><span>sms</span><wbr><span>Receipt</span><wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1395730222%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">SelectReceiptRequestIntentBuilder</a>&nbsp;<a href="sms-receipt-options.html"><span class="token function">smsReceiptOptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="-sms-receipt-option/index.html">SelectReceiptRequestIntentBuilder.SmsReceiptOption</a>&nbsp;receiptOptions</span></span><span class="token punctuation">)</span></div><div class="brief ">Set SMS receipt options for the Select Receipt Activity, including enabled/disabled and a pre-populated phone number</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

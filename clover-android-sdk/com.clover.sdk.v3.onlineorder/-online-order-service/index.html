@@ -1,0 +1,1239 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>OnlineOrderService</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.onlineorder/OnlineOrderService///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.onlineorder</a><span class="delimiter">/</span><span class="current">OnlineOrderService</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Online</span><wbr><span>Order</span><wbr><span><span>Service</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">OnlineOrderService</a><span class="token keyword"> extends </span><a href="../../com.clover.sdk/-generic-parcelable/index.html">GenericParcelable</a><span class="token keyword"> implements </span><a href="../../com.clover.sdk.v3/-validator/index.html">Validator</a><span class="token punctuation">, </span><a href="../../com.clover.sdk/-j-s-o-nifiable/index.html">JSONifiable</a></div><p class="paragraph">This is an auto-generated Clover data object. </p><h3 class="">Fields</h3><ul><li><a href="get-id.html">id</a></li><li><a href="get-online-order-provider-id.html">onlineOrderProviderId</a></li><li><a href="get-type.html">type</a></li><li><a href="get-enabled.html">enabled</a></li><li><a href="get-start-time.html">startTime</a></li><li><a href="get-created-time.html">createdTime</a></li><li><a href="get-modified-time.html">modifiedTime</a></li><li><a href="get-deleted-time.html">deletedTime</a></li><li><a href="get-resume-time.html">resumeTime</a></li><li><a href="get-note.html">note</a></li><li><a href="get-activated.html">activated</a></li><li><a href="get-order-type.html">orderType</a></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="486795330%2FConstructors%2F1904710855" anchor-label="OnlineOrderService" id="486795330%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-online-order-service.html"><span>Online</span><wbr><span>Order</span><wbr><span><span>Service</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="486795330%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-online-order-service.html"><span class="token function">OnlineOrderService</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new empty instance.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-online-order-service.html"><span class="token function">OnlineOrderService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;json</span></span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new instance from the given JSON String.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-online-order-service.html"><span class="token function">OnlineOrderService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/org/json/JSONObject.html">JSONObject</a>&nbsp;jsonObject</span></span><span class="token punctuation">)</span></div><div class="brief ">Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be reflected in this instance and vice-versa.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-online-order-service.html"><span class="token function">OnlineOrderService</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;src</span></span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new instance that is a deep copy of the source instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1476152478%2FClasslikes%2F1904710855" anchor-label="Constraints" id="-1476152478%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-constraints/index.html"><span><span>Constraints</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1476152478%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-constraints/index.html">Constraints</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-255210448%2FProperties%2F1904710855" anchor-label="CONTENTS_FILE_DESCRIPTOR" id="-255210448%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.common2/-signature2/-stroke/index.html#-255210448%2FProperties%2F1904710855"><span><span>CONTENTS_FILE_DESCRIPTOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-255210448%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="../../com.clover.common2/-signature2/-stroke/index.html#-255210448%2FProperties%2F1904710855">CONTENTS_FILE_DESCRIPTOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="596040505%2FProperties%2F1904710855" anchor-label="CREATOR" id="596040505%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#596040505%2FProperties%2F1904710855"><span><span>CREATOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="596040505%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/os/Parcelable.Creator.html">Parcelable.Creator</a><span class="token operator">&lt;</span><a href="index.html">OnlineOrderService</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#596040505%2FProperties%2F1904710855">CREATOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="513982624%2FProperties%2F1904710855" anchor-label="JSON_CREATOR" id="513982624%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#513982624%2FProperties%2F1904710855"><span><span>JSON_CREATOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="513982624%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="../../com.clover.sdk/-j-s-o-nifiable/-creator/index.html">JSONifiable.Creator</a><span class="token operator">&lt;</span><a href="index.html">OnlineOrderService</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#513982624%2FProperties%2F1904710855">JSON_CREATOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-865205281%2FProperties%2F1904710855" anchor-label="PARCELABLE_WRITE_RETURN_VALUE" id="-865205281%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.common2/-signature2/-stroke/index.html#-865205281%2FProperties%2F1904710855"><span><span>PARCELABLE_WRITE_RETURN_VALUE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865205281%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="../../com.clover.common2/-signature2/-stroke/index.html#-865205281%2FProperties%2F1904710855">PARCELABLE_WRITE_RETURN_VALUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1540686031%2FFunctions%2F1904710855" anchor-label="clearActivated" id="-1540686031%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-activated.html"><span>clear</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1540686031%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-activated.html"><span class="token function">clearActivated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'activated' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="416943725%2FFunctions%2F1904710855" anchor-label="clearCreatedTime" id="416943725%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-created-time.html"><span>clear</span><wbr><span>Created</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="416943725%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-created-time.html"><span class="token function">clearCreatedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'createdTime' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-145434916%2FFunctions%2F1904710855" anchor-label="clearDeletedTime" id="-145434916%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-deleted-time.html"><span>clear</span><wbr><span>Deleted</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-145434916%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-deleted-time.html"><span class="token function">clearDeletedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'deletedTime' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2098168065%2FFunctions%2F1904710855" anchor-label="clearEnabled" id="2098168065%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-enabled.html"><span>clear</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2098168065%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-enabled.html"><span class="token function">clearEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'enabled' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1968864643%2FFunctions%2F1904710855" anchor-label="clearId" id="-1968864643%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-id.html"><span>clear</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1968864643%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-id.html"><span class="token function">clearId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'id' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="842348802%2FFunctions%2F1904710855" anchor-label="clearModifiedTime" id="842348802%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-modified-time.html"><span>clear</span><wbr><span>Modified</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="842348802%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-modified-time.html"><span class="token function">clearModifiedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'modifiedTime' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1772944582%2FFunctions%2F1904710855" anchor-label="clearNote" id="1772944582%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-note.html"><span>clear</span><wbr><span><span>Note</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1772944582%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-note.html"><span class="token function">clearNote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'note' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1460183099%2FFunctions%2F1904710855" anchor-label="clearOnlineOrderProviderId" id="1460183099%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-online-order-provider-id.html"><span>clear</span><wbr><span>Online</span><wbr><span>Order</span><wbr><span>Provider</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1460183099%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-online-order-provider-id.html"><span class="token function">clearOnlineOrderProviderId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'onlineOrderProviderId' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1785887430%2FFunctions%2F1904710855" anchor-label="clearOrderType" id="-1785887430%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-order-type.html"><span>clear</span><wbr><span>Order</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1785887430%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-order-type.html"><span class="token function">clearOrderType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'orderType' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="996266206%2FFunctions%2F1904710855" anchor-label="clearResumeTime" id="996266206%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-resume-time.html"><span>clear</span><wbr><span>Resume</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="996266206%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-resume-time.html"><span class="token function">clearResumeTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'resumeTime' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163077747%2FFunctions%2F1904710855" anchor-label="clearStartTime" id="1163077747%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-start-time.html"><span>clear</span><wbr><span>Start</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163077747%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-start-time.html"><span class="token function">clearStartTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'startTime' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-462266754%2FFunctions%2F1904710855" anchor-label="clearType" id="-462266754%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-type.html"><span>clear</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-462266754%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-type.html"><span class="token function">clearType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'type' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1102092639%2FFunctions%2F1904710855" anchor-label="containsChanges" id="-1102092639%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contains-changes.html"><span>contains</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1102092639%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="contains-changes.html"><span class="token function">containsChanges</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns true if this instance has any changes.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-611185673%2FFunctions%2F1904710855" anchor-label="copyChanges" id="-611185673%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-changes.html"><span>copy</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-611185673%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="copy-changes.html"><span class="token function">copyChanges</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Create a copy of this instance that contains only fields that were set after the constructor was called.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="461818262%2FFunctions%2F1904710855" anchor-label="describeContents" id="461818262%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1578325224%2FFunctions%2F1904710855"><span>describe</span><wbr><span><span>Contents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461818262%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>int&nbsp;<a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1578325224%2FFunctions%2F1904710855"><span class="token function">describeContents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>int&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/describe-contents.html"><span class="token function">describeContents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1531104262%2FFunctions%2F1904710855" anchor-label="getActivated" id="-1531104262%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-activated.html"><span>get</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1531104262%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-activated.html"><span class="token function">getActivated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Service subscribe / unsubscribe status</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="270226899%2FFunctions%2F1904710855" anchor-label="getBundle" id="270226899%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk/-generic-parcelable/get-bundle.html"><span>get</span><wbr><span><span>Bundle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="270226899%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/get-bundle.html"><span class="token function">getBundle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets a Bundle which can be used to get and set data attached to this instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1035089142%2FFunctions%2F1904710855" anchor-label="getCreatedTime" id="1035089142%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-created-time.html"><span>get</span><wbr><span>Created</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1035089142%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-created-time.html"><span class="token function">getCreatedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Timestamp when the online ordering service was created</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="472710501%2FFunctions%2F1904710855" anchor-label="getDeletedTime" id="472710501%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-deleted-time.html"><span>get</span><wbr><span>Deleted</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472710501%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-deleted-time.html"><span class="token function">getDeletedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Timestamp when online ordering service was last deleted</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1861594102%2FFunctions%2F1904710855" anchor-label="getEnabled" id="-1861594102%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-enabled.html"><span>get</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1861594102%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-enabled.html"><span class="token function">getEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Service enabled for online order</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="536030676%2FFunctions%2F1904710855" anchor-label="getId" id="536030676%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-id.html"><span>get</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="536030676%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-id.html"><span class="token function">getId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Unique identifier</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1958640568%2FFunctions%2F1904710855" anchor-label="getJSONObject" id="-1958640568%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-j-s-o-n-object.html"><span>get</span><wbr><span><span>JSONObject</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1958640568%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/org/json/JSONObject.html">JSONObject</a>&nbsp;<a href="get-j-s-o-n-object.html"><span class="token function">getJSONObject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the internal JSONObject backing this instance, the return value is not a copy so changes to it will be reflected in this instance and vice-versa.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1469979751%2FFunctions%2F1904710855" anchor-label="getModifiedTime" id="-1469979751%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-modified-time.html"><span>get</span><wbr><span>Modified</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1469979751%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-modified-time.html"><span class="token function">getModifiedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Timestamp when the online ordering service was last modified</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-499306915%2FFunctions%2F1904710855" anchor-label="getNote" id="-499306915%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-note.html"><span>get</span><wbr><span><span>Note</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-499306915%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-note.html"><span class="token function">getNote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">merchant instructions that are specific to service</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-288559228%2FFunctions%2F1904710855" anchor-label="getOnlineOrderProviderId" id="-288559228%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-online-order-provider-id.html"><span>get</span><wbr><span>Online</span><wbr><span>Order</span><wbr><span>Provider</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-288559228%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-online-order-provider-id.html"><span class="token function">getOnlineOrderProviderId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Provider Uuid</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1776305661%2FFunctions%2F1904710855" anchor-label="getOrderType" id="-1776305661%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-order-type.html"><span>get</span><wbr><span>Order</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1776305661%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../../com.clover.sdk.v3.order/-order-type/index.html">OrderType</a>&nbsp;<a href="get-order-type.html"><span class="token function">getOrderType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1293301045%2FFunctions%2F1904710855" anchor-label="getResumeTime" id="1293301045%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-resume-time.html"><span>get</span><wbr><span>Resume</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1293301045%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-resume-time.html"><span class="token function">getResumeTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Timestamp when the merchant scheduled to resume the online ordering service in the future</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1172659516%2FFunctions%2F1904710855" anchor-label="getStartTime" id="1172659516%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-start-time.html"><span>get</span><wbr><span>Start</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1172659516%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-start-time.html"><span class="token function">getStartTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Timestamp when the merchant started trial for online ordering service</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1560449045%2FFunctions%2F1904710855" anchor-label="getType" id="1560449045%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-type.html"><span>get</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1560449045%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../-service-type/index.html">ServiceType</a>&nbsp;<a href="get-type.html"><span class="token function">getType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2138085826%2FFunctions%2F1904710855" anchor-label="hasActivated" id="-2138085826%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-activated.html"><span>has</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2138085826%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-activated.html"><span class="token function">hasActivated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'activated' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1841358394%2FFunctions%2F1904710855" anchor-label="hasCreatedTime" id="1841358394%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-created-time.html"><span>has</span><wbr><span>Created</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1841358394%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-created-time.html"><span class="token function">hasCreatedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'createdTime' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1278979753%2FFunctions%2F1904710855" anchor-label="hasDeletedTime" id="1278979753%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-deleted-time.html"><span>has</span><wbr><span>Deleted</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1278979753%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-deleted-time.html"><span class="token function">hasDeletedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'deletedTime' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2054404274%2FFunctions%2F1904710855" anchor-label="hasEnabled" id="-2054404274%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-enabled.html"><span>has</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2054404274%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-enabled.html"><span class="token function">hasEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'enabled' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970323440%2FFunctions%2F1904710855" anchor-label="hasId" id="-1970323440%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-id.html"><span>has</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970323440%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-id.html"><span class="token function">hasId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'id' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2049530581%2FFunctions%2F1904710855" anchor-label="hasModifiedTime" id="2049530581%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-modified-time.html"><span>has</span><wbr><span>Modified</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2049530581%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-modified-time.html"><span class="token function">hasModifiedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'modifiedTime' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="371040665%2FFunctions%2F1904710855" anchor-label="hasNote" id="371040665%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-note.html"><span>has</span><wbr><span><span>Note</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="371040665%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-note.html"><span class="token function">hasNote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'note' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1850614840%2FFunctions%2F1904710855" anchor-label="hasOnlineOrderProviderId" id="-1850614840%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-online-order-provider-id.html"><span>has</span><wbr><span>Online</span><wbr><span>Order</span><wbr><span>Provider</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1850614840%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-online-order-provider-id.html"><span class="token function">hasOnlineOrderProviderId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'onlineOrderProviderId' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1911680071%2FFunctions%2F1904710855" anchor-label="hasOrderType" id="1911680071%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-order-type.html"><span>has</span><wbr><span>Order</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1911680071%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-order-type.html"><span class="token function">hasOrderType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'orderType' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-343258255%2FFunctions%2F1904710855" anchor-label="hasResumeTime" id="-343258255%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-resume-time.html"><span>has</span><wbr><span>Resume</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-343258255%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-resume-time.html"><span class="token function">hasResumeTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'resumeTime' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="565677952%2FFunctions%2F1904710855" anchor-label="hasStartTime" id="565677952%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-start-time.html"><span>has</span><wbr><span>Start</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="565677952%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-start-time.html"><span class="token function">hasStartTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'startTime' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864170671%2FFunctions%2F1904710855" anchor-label="hasType" id="-1864170671%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-type.html"><span>has</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864170671%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-type.html"><span class="token function">hasType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'type' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1195757204%2FFunctions%2F1904710855" anchor-label="isNotNullActivated" id="1195757204%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-activated.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1195757204%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-activated.html"><span class="token function">isNotNullActivated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'activated' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1618907408%2FFunctions%2F1904710855" anchor-label="isNotNullCreatedTime" id="1618907408%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-created-time.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Created</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1618907408%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-created-time.html"><span class="token function">isNotNullCreatedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'createdTime' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1056528767%2FFunctions%2F1904710855" anchor-label="isNotNullDeletedTime" id="1056528767%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-deleted-time.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Deleted</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1056528767%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-deleted-time.html"><span class="token function">isNotNullDeletedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'deletedTime' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2051853604%2FFunctions%2F1904710855" anchor-label="isNotNullEnabled" id="2051853604%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-enabled.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2051853604%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-enabled.html"><span class="token function">isNotNullEnabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'enabled' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="666627194%2FFunctions%2F1904710855" anchor-label="isNotNullId" id="666627194%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-id.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="666627194%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-id.html"><span class="token function">isNotNullId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'id' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-551482689%2FFunctions%2F1904710855" anchor-label="isNotNullModifiedTime" id="-551482689%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-modified-time.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Modified</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-551482689%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-modified-time.html"><span class="token function">isNotNullModifiedTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'modifiedTime' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="449895299%2FFunctions%2F1904710855" anchor-label="isNotNullNote" id="449895299%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-note.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Note</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="449895299%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-note.html"><span class="token function">isNotNullNote</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'note' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1376809758%2FFunctions%2F1904710855" anchor-label="isNotNullOnlineOrderProviderId" id="1376809758%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-online-order-provider-id.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Online</span><wbr><span>Order</span><wbr><span>Provider</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1376809758%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-online-order-provider-id.html"><span class="token function">isNotNullOnlineOrderProviderId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'onlineOrderProviderId' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="950555805%2FFunctions%2F1904710855" anchor-label="isNotNullOrderType" id="950555805%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-order-type.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Order</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="950555805%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-order-type.html"><span class="token function">isNotNullOrderType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'orderType' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-73339429%2FFunctions%2F1904710855" anchor-label="isNotNullResumeTime" id="-73339429%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-resume-time.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Resume</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-73339429%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-resume-time.html"><span class="token function">isNotNullResumeTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'resumeTime' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-395446314%2FFunctions%2F1904710855" anchor-label="isNotNullStartTime" id="-395446314%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-start-time.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Start</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-395446314%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-start-time.html"><span class="token function">isNotNullStartTime</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'startTime' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1785316037%2FFunctions%2F1904710855" anchor-label="isNotNullType" id="-1785316037%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-type.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1785316037%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-type.html"><span class="token function">isNotNullType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'type' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1410450524%2FFunctions%2F1904710855" anchor-label="mergeChanges" id="-1410450524%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge-changes.html"><span>merge</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1410450524%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="merge-changes.html"><span class="token function">mergeChanges</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;src</span></span><span class="token punctuation">)</span></div><div class="brief ">Copy all the changed fields from the given source to this instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-311458960%2FFunctions%2F1904710855" anchor-label="resetChangeLog" id="-311458960%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-change-log.html"><span>reset</span><wbr><span>Change</span><wbr><span><span>Log</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-311458960%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="reset-change-log.html"><span class="token function">resetChangeLog</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="69229544%2FFunctions%2F1904710855" anchor-label="setActivated" id="69229544%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-activated.html"><span>set</span><wbr><span><span>Activated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="69229544%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-activated.html"><span class="token function">setActivated</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;activated</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'activated'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-878090638%2FFunctions%2F1904710855" anchor-label="setCreatedTime" id="-878090638%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-created-time.html"><span>set</span><wbr><span>Created</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-878090638%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-created-time.html"><span class="token function">setCreatedTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;createdTime</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'createdTime'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="768164001%2FFunctions%2F1904710855" anchor-label="setDeletedTime" id="768164001%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-deleted-time.html"><span>set</span><wbr><span>Deleted</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="768164001%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-deleted-time.html"><span class="token function">setDeletedTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;deletedTime</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'deletedTime'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="229812952%2FFunctions%2F1904710855" anchor-label="setEnabled" id="229812952%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-enabled.html"><span>set</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="229812952%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-enabled.html"><span class="token function">setEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;enabled</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'enabled'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1101681475%2FFunctions%2F1904710855" anchor-label="setId" id="1101681475%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-id.html"><span>set</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1101681475%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-id.html"><span class="token function">setId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;id</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'id'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1267652925%2FFunctions%2F1904710855" anchor-label="setModifiedTime" id="1267652925%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-modified-time.html"><span>set</span><wbr><span>Modified</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1267652925%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-modified-time.html"><span class="token function">setModifiedTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;modifiedTime</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'modifiedTime'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1589712076%2FFunctions%2F1904710855" anchor-label="setNote" id="1589712076%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-note.html"><span>set</span><wbr><span><span>Note</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1589712076%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-note.html"><span class="token function">setNote</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;note</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'note'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1224101493%2FFunctions%2F1904710855" anchor-label="setOnlineOrderProviderId" id="-1224101493%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-online-order-provider-id.html"><span>set</span><wbr><span>Online</span><wbr><span>Order</span><wbr><span>Provider</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1224101493%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-online-order-provider-id.html"><span class="token function">setOnlineOrderProviderId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;onlineOrderProviderId</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'onlineOrderProviderId'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1053648036%2FFunctions%2F1904710855" anchor-label="setOrderType" id="1053648036%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-order-type.html"><span>set</span><wbr><span>Order</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1053648036%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-order-type.html"><span class="token function">setOrderType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.clover.sdk.v3.order/-order-type/index.html">OrderType</a>&nbsp;orderType</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'orderType'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1066174759%2FFunctions%2F1904710855" anchor-label="setResumeTime" id="-1066174759%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-resume-time.html"><span>set</span><wbr><span>Resume</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1066174759%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-resume-time.html"><span class="token function">setResumeTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;resumeTime</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'resumeTime'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1694150456%2FFunctions%2F1904710855" anchor-label="setStartTime" id="1694150456%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-start-time.html"><span>set</span><wbr><span>Start</span><wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1694150456%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-start-time.html"><span class="token function">setStartTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;startTime</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'startTime'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-23089162%2FFunctions%2F1904710855" anchor-label="setType" id="-23089162%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-type.html"><span>set</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-23089162%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">OnlineOrderService</a>&nbsp;<a href="set-type.html"><span class="token function">setType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-service-type/index.html">ServiceType</a>&nbsp;type</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'type'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="944892547%2FFunctions%2F1904710855" anchor-label="toString" id="944892547%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk/-generic-parcelable/to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="944892547%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="142717535%2FFunctions%2F1904710855" anchor-label="validate" id="142717535%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="validate.html"><span><span>validate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="142717535%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="879110710%2FFunctions%2F1904710855" anchor-label="writeToParcel" id="879110710%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1953101016%2FFunctions%2F1904710855"><span>write</span><wbr><span>To</span><wbr><span><span>Parcel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="879110710%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1953101016%2FFunctions%2F1904710855"><span class="token function">writeToParcel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Parcel.html">Parcel</a>&nbsp;p<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int&nbsp;p1</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>void&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/write-to-parcel.html"><span class="token function">writeToParcel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Parcel.html">Parcel</a>&nbsp;dest<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int&nbsp;flags</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

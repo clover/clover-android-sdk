@@ -1,0 +1,472 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CloverCFPLoyaltyHelper</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-loyalty-kit:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-loyalty-kit::com.clover.loyalty.activity.helper/CloverCFPLoyaltyHelper///PointingToDeclaration//-853416430">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-loyalty-kit</a><span class="delimiter">/</span><a href="../index.html">com.clover.loyalty.activity.helper</a><span class="delimiter">/</span><span class="current">CloverCFPLoyaltyHelper</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Clover</span><wbr><span>CFPLoyalty</span><wbr><span><span>Helper</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CloverCFPLoyaltyHelper</a></div><p class="paragraph">Used by an Activity on the customer facing side to allow loyalty and customer information to be passed between the customer and merchant facing sides. </p><p class="paragraph"> Allows an integrator to use whatever base class they want to use for their Activity.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">4.1.0</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1219187643%2FConstructors%2F-853416430" anchor-label="CloverCFPLoyaltyHelper" id="1219187643%2FConstructors%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-clover-c-f-p-loyalty-helper.html"><span>Clover</span><wbr><span>CFPLoyalty</span><wbr><span><span>Helper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219187643%2FConstructors%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-clover-c-f-p-loyalty-helper.html"><span class="token function">CloverCFPLoyaltyHelper</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="-loyalty-listener/index.html">CloverCFPLoyaltyHelper.LoyaltyListener</a>&nbsp;loyaltyListener<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.cfp.connector.session/-c-f-p-session-listener/index.html">CFPSessionListener</a>&nbsp;externalSessionListener</span></span><span class="token punctuation">)</span></div><div class="brief ">Main constructor.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="356554643%2FClasslikes%2F-853416430" anchor-label="LoyaltyListener" id="356554643%2FClasslikes%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-loyalty-listener/index.html"><span>Loyalty</span><wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="356554643%2FClasslikes%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-loyalty-listener/index.html">LoyaltyListener</a></div><div class="brief ">Interface implemented on the customer facing side.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-2036997484%2FProperties%2F-853416430" anchor-label="customerInfo" id="-2036997484%2FProperties%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2036997484%2FProperties%2F-853416430"><span>customer</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2036997484%2FProperties%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.customers/-customer-info/index.html">CustomerInfo</a>&nbsp;<a href="index.html#-2036997484%2FProperties%2F-853416430">customerInfo</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-479316844%2FProperties%2F-853416430" anchor-label="displayOrder" id="-479316844%2FProperties%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-479316844%2FProperties%2F-853416430"><span>display</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-479316844%2FProperties%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.order/-display-order/index.html">DisplayOrder</a>&nbsp;<a href="index.html#-479316844%2FProperties%2F-853416430">displayOrder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-423020158%2FProperties%2F-853416430" anchor-label="isStopping" id="-423020158%2FProperties%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-stopping.html"><span>is</span><wbr><span><span>Stopping</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423020158%2FProperties%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-stopping.html">isStopping</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1488285659%2FProperties%2F-853416430" anchor-label="LOG_TAG" id="1488285659%2FProperties%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1488285659%2FProperties%2F-853416430"><span><span>LOG_TAG</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1488285659%2FProperties%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1488285659%2FProperties%2F-853416430">LOG_TAG</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-674975147%2FFunctions%2F-853416430" anchor-label="announceCustomerProvidedData" id="-674975147%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="announce-customer-provided-data.html"><span>announce</span><wbr><span>Customer</span><wbr><span>Provided</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-674975147%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="announce-customer-provided-data.html"><span class="token function">announceCustomerProvidedData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.clover.sdk.v3.loyalty/-loyalty-data-config/index.html">LoyaltyDataConfig</a>&nbsp;loyaltyDataConfig<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;data</span></span><span class="token punctuation">)</span></div><div class="brief ">Used by custom activities to announce loyalty data, collected by the custom activity and put it in the loyalty platform.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-399230565%2FFunctions%2F-853416430" anchor-label="dispose" id="-399230565%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dispose.html"><span><span>dispose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-399230565%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="dispose.html"><span class="token function">dispose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Cleans up the sessionConnector, loyalty connector and  Consumers of this class will want to call this method in their Activity's onDestroy method: <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  public class CloverLoyaltyCustomActivity extends Activity {
+      private CloverCFPLoyaltyHelper cloverCFPLoyaltyHelper;
+      ...
+      protected void onDestroy() {
+          // Tell the helper to clean up everything
+          cloverCFPLoyaltyHelper.dispose();
+          super.onDestroy();
+      }
+      ...
+  }
+</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1090073730%2FFunctions%2F-853416430" anchor-label="finishActivity" id="-1090073730%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="finish-activity.html"><span>finish</span><wbr><span><span>Activity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1090073730%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>void&nbsp;<a href="finish-activity.html"><span class="token function">finishActivity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Finish the activity setting RESULT_OK with a null payload.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1335484408%2FFunctions%2F-853416430" anchor-label="getCustomerInfo" id="1335484408%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-customer-info.html"><span>get</span><wbr><span>Customer</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1335484408%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.customers/-customer-info/index.html">CustomerInfo</a>&nbsp;<a href="get-customer-info.html"><span class="token function">getCustomerInfo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1401802248%2FFunctions%2F-853416430" anchor-label="getDisplayOrder" id="-1401802248%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-display-order.html"><span>get</span><wbr><span>Display</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1401802248%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.order/-display-order/index.html">DisplayOrder</a>&nbsp;<a href="get-display-order.html"><span class="token function">getDisplayOrder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1929444735%2FFunctions%2F-853416430" anchor-label="getLoyaltyDataConfig" id="1929444735%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-loyalty-data-config.html"><span>get</span><wbr><span>Loyalty</span><wbr><span>Data</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1929444735%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span><a href="../../com.clover.sdk.v3.loyalty/-loyalty-data-config/index.html">LoyaltyDataConfig</a>&nbsp;<a href="get-loyalty-data-config.html"><span class="token function">getLoyaltyDataConfig</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span>&nbsp;</span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;type</span></span><span class="token punctuation">)</span></div><div class="brief ">Given a config type, returns the corresponding LoyaltyDataConfig.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="47021582%2FFunctions%2F-853416430" anchor-label="getOrderTotal" id="47021582%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-order-total.html"><span>get</span><wbr><span>Order</span><wbr><span><span>Total</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="47021582%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-order-total.html"><span class="token function">getOrderTotal</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2032131564%2FFunctions%2F-853416430" anchor-label="hasOrder" id="2032131564%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-order.html"><span>has</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2032131564%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-order.html"><span class="token function">hasOrder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-423020158%2FFunctions%2F-853416430" anchor-label="isStopping" id="-423020158%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-stopping.html"><span>is</span><wbr><span><span>Stopping</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423020158%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-stopping.html"><span class="token function">isStopping</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Use this method to know if dispose() has been called on this class.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1903781495%2FFunctions%2F-853416430" anchor-label="onStart" id="1903781495%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-start.html"><span>on</span><wbr><span><span>Start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1903781495%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="on-start.html"><span class="token function">onStart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Mirrors the Activity Lifecycle method (@see Activity#onStart()) Consumers of this class should call this method in their activity's "onStart()" method: <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  public class CloverLoyaltyCustomActivity extends Activity {
+      private CloverCFPLoyaltyHelper cloverCFPLoyaltyHelper;
+      ...
+      protected void onStart() {
+          super.onStart();
+          cloverCFPLoyaltyHelper.onStart();
+      }
+      ...
+  }
+</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="248447391%2FFunctions%2F-853416430" anchor-label="onStop" id="248447391%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-stop.html"><span>on</span><wbr><span><span>Stop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="248447391%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="on-stop.html"><span class="token function">onStop</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Mirrors the Activity Lifecycle method (@see Activity#onStop()) Consumers of this class should call this method in their activity's "onStop()" method: <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  public class CloverLoyaltyCustomActivity extends Activity {
+      private CloverCFPLoyaltyHelper cloverCFPLoyaltyHelper;
+      ...
+      protected void onStop() {
+          super.onStop();
+          cloverCFPLoyaltyHelper.onStop();
+      }
+      ...
+  }
+</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1096137258%2FFunctions%2F-853416430" anchor-label="sendMessage" id="-1096137258%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-message.html"><span>send</span><wbr><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1096137258%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="send-message.html"><span class="token function">sendMessage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;payload</span></span><span class="token punctuation">)</span></div><div class="brief ">Send a message back to the POS.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="316545582%2FFunctions%2F-853416430" anchor-label="setCustomerInfo" id="316545582%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-customer-info.html"><span>set</span><wbr><span>Customer</span><wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="316545582%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="set-customer-info.html"><span class="token function">setCustomerInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span>&nbsp;</span><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.customers/-customer-info/index.html">CustomerInfo</a>&nbsp;customerInfo</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1492872793%2FFunctions%2F-853416430" anchor-label="setDisplayOrder" id="-1492872793%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-display-order.html"><span>set</span><wbr><span>Display</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1492872793%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="set-display-order.html"><span class="token function">setDisplayOrder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.order/-display-order/index.html">DisplayOrder</a>&nbsp;displayOrder</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="592993159%2FFunctions%2F-853416430" anchor-label="start" id="592993159%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start.html"><span><span>start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="592993159%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;type</span></span><span class="token punctuation">)</span></div><br><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;type<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span>&nbsp;</span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Map.html">Map</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;dataExtrasIn<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;config</span></span><span class="token punctuation">)</span></div><div class="brief ">use to start a loyalty data service.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1610932222%2FFunctions%2F-853416430" anchor-label="startLoyaltyServices" id="1610932222%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-loyalty-services.html"><span>start</span><wbr><span>Loyalty</span><wbr><span><span>Services</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1610932222%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="start-loyalty-services.html"><span class="token function">startLoyaltyServices</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1688151343%2FFunctions%2F-853416430" anchor-label="stop" id="-1688151343%2FFunctions%2F-853416430" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-loyalty-kit:dokkaHtmlPartial/release" data-filterable-set=":clover-android-loyalty-kit:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop.html"><span><span>stop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1688151343%2FFunctions%2F-853416430"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-loyalty-kit:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="stop.html"><span class="token function">stop</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;type</span></span><span class="token punctuation">)</span></div><div class="brief ">Used to stop a loyalty data service</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="stop.html"><span class="token function">stop</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;type<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>boolean&nbsp;forceStop</span></span><span class="token punctuation">)</span></div><div class="brief ">used to force stop a loyalty data service</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

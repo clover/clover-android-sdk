@@ -1,0 +1,1010 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>InventoryContract</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.inventory/InventoryContract///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.inventory</a><span class="delimiter">/</span><span class="current">InventoryContract</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Inventory</span><wbr><span><span>Contract</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">InventoryContract</a></div><p class="paragraph">The contract between the inventory provider and apps. For more detailed information about inventory please read <a href="../-i-inventory-service/index.html">IInventoryService</a>. </p> The content provider for inventory may be used directly by apps wishing to use a <a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">android.database.Cursor</a> to navigate a large inventory database. Read <a href="https://developer.android.com/guide/topics/providers/content-provider-basics">Content provider basics</a> for an overview of how to interact with a content provider. In this case only methods which read data such as <a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html#query">query</a> will work. Methods which write data will be rejected.  Using this contract requires the client app have <a href="../../com.clover.sdk.v3.employees/-permission/-i-n-v-e-n-t-o-r-y_-r/index.html">INVENTORY_R</a> permission.  Note that there are frequently multiple content URIs which join multiple tables such as <a href="-item-modifier-group/index.html#1798225784%2FProperties%2F1904710855">CONTENT_WITH_NAME_URI</a>. These join tables are very helpful when a client app needs to display filtered results. In this particular example an app can retrieve <a href="../-modifier-group/index.html">ModifierGroup</a> details for a particular <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> by querying the above content URI and selecting by <a href="-item-modifier-group/index.html#-1351339823%2FProperties%2F1904710855">ITEM_ID</a>.  To insert/update/delete inventory use the <a href="../-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a> via binding to the AIDL service, or through the wrapper class <a href="../-inventory-connector/index.html">com.clover.sdk.v3.inventory.InventoryConnector</a>.  The inventory database is typically kept up to date using push notifications from the Clover server to the client, so in most cases any changes made through the web or through another device will be immediately reflected on all devices belonging to a particular merchant. When network connections are available but unreliable, the inventory service will attempt to synchronize its local database (i.e. the backing store for this content provider) with the server on a regular basis, usually on an interval no greater than 3 hours.</div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1778215460%2FConstructors%2F1904710855" anchor-label="InventoryContract" id="-1778215460%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-inventory-contract.html"><span>Inventory</span><wbr><span><span>Contract</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1778215460%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-inventory-contract.html"><span class="token function">InventoryContract</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="57612609%2FClasslikes%2F1904710855" anchor-label="Attribute" id="57612609%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-attribute/index.html"><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="57612609%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-attribute/index.html">Attribute</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-attribute-columns/index.html">InventoryContract.AttributeColumns</a></div><div class="brief ">Contract for accessing <a href="../-attribute/index.html">com.clover.sdk.v3.inventory.Attribute</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1166544900%2FClasslikes%2F1904710855" anchor-label="AttributeColumns" id="1166544900%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-attribute-columns/index.html"><span>Attribute</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1166544900%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-attribute-columns/index.html">AttributeColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-attribute/index.html">com.clover.sdk.v3.inventory.Attribute</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1607046983%2FClasslikes%2F1904710855" anchor-label="Category" id="1607046983%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-category/index.html"><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1607046983%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-category/index.html">Category</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-category-columns/index.html">InventoryContract.CategoryColumns</a></div><div class="brief ">Contract for accessing <a href="../-category/index.html">com.clover.sdk.v3.inventory.Category</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1934286654%2FClasslikes%2F1904710855" anchor-label="CategoryColumns" id="1934286654%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-category-columns/index.html"><span>Category</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1934286654%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-category-columns/index.html">CategoryColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-category/index.html">com.clover.sdk.v3.inventory.Category</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="163815524%2FClasslikes%2F1904710855" anchor-label="Discount" id="163815524%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-discount/index.html"><span><span>Discount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="163815524%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-discount/index.html">Discount</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-discount-columns/index.html">InventoryContract.DiscountColumns</a></div><div class="brief ">Contract for accessing <a href="../-discount/index.html">com.clover.sdk.v3.inventory.Discount</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="723962753%2FClasslikes%2F1904710855" anchor-label="DiscountColumns" id="723962753%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-discount-columns/index.html"><span>Discount</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="723962753%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-discount-columns/index.html">DiscountColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-discount/index.html">com.clover.sdk.v3.inventory.Discount</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="330750142%2FClasslikes%2F1904710855" anchor-label="Group" id="330750142%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-group/index.html"><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="330750142%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-group/index.html">Group</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-group-columns/index.html">InventoryContract.GroupColumns</a></div><div class="brief ">Contract for accessing <a href="../-modifier-group/index.html">com.clover.sdk.v3.inventory.ModifierGroup</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1624136167%2FClasslikes%2F1904710855" anchor-label="GroupColumns" id="1624136167%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-group-columns/index.html"><span>Group</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1624136167%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-group-columns/index.html">GroupColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-modifier-group/index.html">com.clover.sdk.v3.inventory.ModifierGroup</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="865580242%2FClasslikes%2F1904710855" anchor-label="Item" id="865580242%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item/index.html"><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865580242%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item/index.html">Item</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-columns/index.html">InventoryContract.ItemColumns</a></div><div class="brief ">Contract for accessing <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1159036755%2FClasslikes%2F1904710855" anchor-label="ItemColumns" id="1159036755%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-columns/index.html"><span>Item</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1159036755%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-columns/index.html">ItemColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1344371023%2FClasslikes%2F1904710855" anchor-label="ItemGroup" id="-1344371023%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-group/index.html"><span>Item</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1344371023%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-group/index.html">ItemGroup</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-group-columns/index.html">InventoryContract.ItemGroupColumns</a></div><div class="brief ">Contract for accessing <a href="../-item-group/index.html">com.clover.sdk.v3.inventory.ItemGroup</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-522738540%2FClasslikes%2F1904710855" anchor-label="ItemGroupColumns" id="-522738540%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-group-columns/index.html"><span>Item</span><wbr><span>Group</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-522738540%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-group-columns/index.html">ItemGroupColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-item-group/index.html">com.clover.sdk.v3.inventory.ItemGroup</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1803547472%2FClasslikes%2F1904710855" anchor-label="ItemGroupsAndItemsColumns" id="1803547472%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-groups-and-items-columns/index.html"><span>Item</span><wbr><span>Groups</span><wbr><span>And</span><wbr><span>Items</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1803547472%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-groups-and-items-columns/index.html">ItemGroupsAndItemsColumns</a><span class="token keyword"> implements </span><a href="-item-columns/index.html">InventoryContract.ItemColumns</a></div><div class="brief ">These column names are used to access fields of <a href="../-item-group/index.html">com.clover.sdk.v3.inventory.ItemGroup</a> which have names identical to <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> or which are computed when querying via the <a href="-item-group/index.html#1119057037%2FProperties%2F1904710855">CONTENT_URI_AND_ITEMS</a> URI.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-181848984%2FClasslikes%2F1904710855" anchor-label="ItemModifierGroup" id="-181848984%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-modifier-group/index.html"><span>Item</span><wbr><span>Modifier</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-181848984%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-modifier-group/index.html">ItemModifierGroup</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-modifier-group-columns/index.html">InventoryContract.ItemModifierGroupColumns</a></div><div class="brief ">Contract for accessing <a href="../-item-modifier-group/index.html">com.clover.sdk.v3.inventory.ItemModifierGroup</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1637313277%2FClasslikes%2F1904710855" anchor-label="ItemModifierGroupColumns" id="1637313277%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-modifier-group-columns/index.html"><span>Item</span><wbr><span>Modifier</span><wbr><span>Group</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1637313277%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-modifier-group-columns/index.html">ItemModifierGroupColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-item-modifier-group/index.html">com.clover.sdk.v3.inventory.ItemModifierGroup</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="792519965%2FClasslikes%2F1904710855" anchor-label="ItemOption" id="792519965%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-option/index.html"><span>Item</span><wbr><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="792519965%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-option/index.html">ItemOption</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-option-columns/index.html">InventoryContract.ItemOptionColumns</a></div><div class="brief ">Contract for accessing <a href="../-option-item/index.html">com.clover.sdk.v3.inventory.OptionItem</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2100458664%2FClasslikes%2F1904710855" anchor-label="ItemOptionColumns" id="2100458664%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-option-columns/index.html"><span>Item</span><wbr><span>Option</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2100458664%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-option-columns/index.html">ItemOptionColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-option-item/index.html">com.clover.sdk.v3.inventory.OptionItem</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-106656262%2FClasslikes%2F1904710855" anchor-label="ItemStock" id="-106656262%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-stock/index.html"><span>Item</span><wbr><span><span>Stock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106656262%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-stock/index.html">ItemStock</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-stock-columns/index.html">InventoryContract.ItemStockColumns</a></div><div class="brief ">Contract for accessing <a href="../-item-stock/index.html">com.clover.sdk.v3.inventory.ItemStock</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-205420245%2FClasslikes%2F1904710855" anchor-label="ItemStockColumns" id="-205420245%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-stock-columns/index.html"><span>Item</span><wbr><span>Stock</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-205420245%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-stock-columns/index.html">ItemStockColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-item-stock/index.html">com.clover.sdk.v3.inventory.ItemStock</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-622879306%2FClasslikes%2F1904710855" anchor-label="ItemTag" id="-622879306%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-tag/index.html"><span>Item</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-622879306%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-tag/index.html">ItemTag</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-tag-columns/index.html">InventoryContract.ItemTagColumns</a></div><div class="brief ">Contract for accessing <a href="../-tag-item/index.html">com.clover.sdk.v3.inventory.TagItem</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-987460113%2FClasslikes%2F1904710855" anchor-label="ItemTagColumns" id="-987460113%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-tag-columns/index.html"><span>Item</span><wbr><span>Tag</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-987460113%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-tag-columns/index.html">ItemTagColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-tag-item/index.html">com.clover.sdk.v3.inventory.TagItem</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2114840635%2FClasslikes%2F1904710855" anchor-label="ItemTaxRate" id="-2114840635%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-tax-rate/index.html"><span>Item</span><wbr><span>Tax</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2114840635%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-item-tax-rate/index.html">ItemTaxRate</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-item-tax-rate-columns/index.html">InventoryContract.ItemTaxRateColumns</a></div><div class="brief ">Contract for accessing <a href="../-tax-rate-item/index.html">com.clover.sdk.v3.inventory.TaxRateItem</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-882477824%2FClasslikes%2F1904710855" anchor-label="ItemTaxRateColumns" id="-882477824%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-item-tax-rate-columns/index.html"><span>Item</span><wbr><span>Tax</span><wbr><span>Rate</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-882477824%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-tax-rate-columns/index.html">ItemTaxRateColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-tax-rate-item/index.html">com.clover.sdk.v3.inventory.TaxRateItem</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-709323341%2FClasslikes%2F1904710855" anchor-label="MenuItem" id="-709323341%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-item/index.html"><span>Menu</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-709323341%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-menu-item/index.html">MenuItem</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-menu-item-columns/index.html">InventoryContract.MenuItemColumns</a></div><div class="brief ">Contract for accessing <a href="../-menu-item/index.html">com.clover.sdk.v3.inventory.MenuItem</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1394675538%2FClasslikes%2F1904710855" anchor-label="MenuItemColumns" id="1394675538%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-item-columns/index.html"><span>Menu</span><wbr><span>Item</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1394675538%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-menu-item-columns/index.html">MenuItemColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-menu-item/index.html">com.clover.sdk.v3.inventory.MenuItem</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1613828113%2FClasslikes%2F1904710855" anchor-label="MenuModifier" id="-1613828113%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-modifier/index.html"><span>Menu</span><wbr><span><span>Modifier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1613828113%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-menu-modifier/index.html">MenuModifier</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-menu-modifier-columns/index.html">InventoryContract.MenuModifierColumns</a></div><div class="brief ">Contract for accessing <a href="../-menu-modifier/index.html">com.clover.sdk.v3.inventory.MenuModifier</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1495795306%2FClasslikes%2F1904710855" anchor-label="MenuModifierColumns" id="-1495795306%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-modifier-columns/index.html"><span>Menu</span><wbr><span>Modifier</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1495795306%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-menu-modifier-columns/index.html">MenuModifierColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-menu-modifier/index.html">com.clover.sdk.v3.inventory.MenuModifier</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="762361268%2FClasslikes%2F1904710855" anchor-label="MenuModifierGroup" id="762361268%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-modifier-group/index.html"><span>Menu</span><wbr><span>Modifier</span><wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="762361268%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-menu-modifier-group/index.html">MenuModifierGroup</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-menu-modifier-group-columns/index.html">InventoryContract.MenuModifierGroupColumns</a></div><div class="brief ">Contract for accessing <a href="../-menu-modifier-group/index.html">com.clover.sdk.v3.inventory.MenuModifierGroup</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-370795471%2FClasslikes%2F1904710855" anchor-label="MenuModifierGroupColumns" id="-370795471%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-modifier-group-columns/index.html"><span>Menu</span><wbr><span>Modifier</span><wbr><span>Group</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-370795471%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-menu-modifier-group-columns/index.html">MenuModifierGroupColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-menu-modifier-group/index.html">com.clover.sdk.v3.inventory.MenuModifierGroup</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="328432535%2FClasslikes%2F1904710855" anchor-label="MenuSection" id="328432535%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-section/index.html"><span>Menu</span><wbr><span><span>Section</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="328432535%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-menu-section/index.html">MenuSection</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-menu-section-columns/index.html">InventoryContract.MenuSectionColumns</a></div><div class="brief ">Contract for accessing <a href="../-menu-section/index.html">com.clover.sdk.v3.inventory.MenuSection</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1648983826%2FClasslikes%2F1904710855" anchor-label="MenuSectionColumns" id="-1648983826%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-menu-section-columns/index.html"><span>Menu</span><wbr><span>Section</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1648983826%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-menu-section-columns/index.html">MenuSectionColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-menu-section/index.html">com.clover.sdk.v3.inventory.MenuSection</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1397004402%2FClasslikes%2F1904710855" anchor-label="Modifier" id="-1397004402%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-modifier/index.html"><span><span>Modifier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1397004402%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-modifier/index.html">Modifier</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-modifier-columns/index.html">InventoryContract.ModifierColumns</a></div><div class="brief ">Contract for accessing <a href="../-modifier/index.html">com.clover.sdk.v3.inventory.Modifier</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1457356521%2FClasslikes%2F1904710855" anchor-label="ModifierColumns" id="-1457356521%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-modifier-columns/index.html"><span>Modifier</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1457356521%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-modifier-columns/index.html">ModifierColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-modifier/index.html">com.clover.sdk.v3.inventory.Modifier</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1181668528%2FClasslikes%2F1904710855" anchor-label="Option" id="1181668528%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-option/index.html"><span><span>Option</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1181668528%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-option/index.html">Option</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-option-columns/index.html">InventoryContract.OptionColumns</a></div><div class="brief ">Contract for accessing <a href="../-option/index.html">com.clover.sdk.v3.inventory.Option</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-65902155%2FClasslikes%2F1904710855" anchor-label="OptionColumns" id="-65902155%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-option-columns/index.html"><span>Option</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-65902155%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-option-columns/index.html">OptionColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-option/index.html">com.clover.sdk.v3.inventory.Option</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="694840365%2FClasslikes%2F1904710855" anchor-label="OrderFee" id="694840365%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-order-fee/index.html"><span>Order</span><wbr><span><span>Fee</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="694840365%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-order-fee/index.html">OrderFee</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-order-fee-columns/index.html">InventoryContract.OrderFeeColumns</a></div><div class="brief ">Contract for accessing <a href="../-order-fee/index.html">com.clover.sdk.v3.inventory.OrderFee</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1663163288%2FClasslikes%2F1904710855" anchor-label="OrderFeeColumns" id="1663163288%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-order-fee-columns/index.html"><span>Order</span><wbr><span>Fee</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1663163288%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-order-fee-columns/index.html">OrderFeeColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-order-fee/index.html">com.clover.sdk.v3.inventory.OrderFee</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1081227163%2FClasslikes%2F1904710855" anchor-label="PrinterTag" id="-1081227163%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-printer-tag/index.html"><span>Printer</span><wbr><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1081227163%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-printer-tag/index.html">PrinterTag</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-printer-tag-columns/index.html">InventoryContract.PrinterTagColumns</a></div><div class="brief ">Contract for accessing <a href="../-tag-printer/index.html">com.clover.sdk.v3.inventory.TagPrinter</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-721366944%2FClasslikes%2F1904710855" anchor-label="PrinterTagColumns" id="-721366944%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-printer-tag-columns/index.html"><span>Printer</span><wbr><span>Tag</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-721366944%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-printer-tag-columns/index.html">PrinterTagColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-tag-printer/index.html">com.clover.sdk.v3.inventory.TagPrinter</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-53539069%2FClasslikes%2F1904710855" anchor-label="Tag" id="-53539069%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tag/index.html"><span><span>Tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-53539069%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-tag/index.html">Tag</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-tag-columns/index.html">InventoryContract.TagColumns</a></div><div class="brief ">Contract for accessing <a href="../-tag/index.html">com.clover.sdk.v3.inventory.Tag</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="199130114%2FClasslikes%2F1904710855" anchor-label="TagColumns" id="199130114%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tag-columns/index.html"><span>Tag</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="199130114%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-tag-columns/index.html">TagColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-tag/index.html">com.clover.sdk.v3.inventory.Tag</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1358830226%2FClasslikes%2F1904710855" anchor-label="TaxRate" id="1358830226%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rate/index.html"><span>Tax</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358830226%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-tax-rate/index.html">TaxRate</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-tax-rate-columns/index.html">InventoryContract.TaxRateColumns</a></div><div class="brief ">Contract for accessing <a href="../-tax-rate/index.html">com.clover.sdk.v3.inventory.TaxRate</a> instances via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="679813523%2FClasslikes%2F1904710855" anchor-label="TaxRateColumns" id="679813523%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rate-columns/index.html"><span>Tax</span><wbr><span>Rate</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="679813523%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-tax-rate-columns/index.html">TaxRateColumns</a></div><div class="brief ">These columns correspond to fields of an <a href="../-tax-rate/index.html">com.clover.sdk.v3.inventory.TaxRate</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1456089078%2FClasslikes%2F1904710855" anchor-label="TaxRule" id="1456089078%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule/index.html"><span>Tax</span><wbr><span><span>Rule</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1456089078%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-tax-rule/index.html">TaxRule</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-tax-rule-columns/index.html">InventoryContract.TaxRuleColumns</a></div><div class="brief ">Contract for accessing tax rule information.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1215691695%2FClasslikes%2F1904710855" anchor-label="TaxRuleColumns" id="1215691695%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule-columns/index.html"><span>Tax</span><wbr><span>Rule</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1215691695%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-tax-rule-columns/index.html">TaxRuleColumns</a></div><div class="brief ">Columns containing data for tax rules.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1470808669%2FClasslikes%2F1904710855" anchor-label="TaxRuleItem" id="-1470808669%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule-item/index.html"><span>Tax</span><wbr><span>Rule</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1470808669%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-tax-rule-item/index.html">TaxRuleItem</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-tax-rule-item-columns/index.html">InventoryContract.TaxRuleItemColumns</a></div><div class="brief ">Contract for accessing tax rule and <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> associations via content provider.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-530278046%2FClasslikes%2F1904710855" anchor-label="TaxRuleItemColumns" id="-530278046%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule-item-columns/index.html"><span>Tax</span><wbr><span>Rule</span><wbr><span>Item</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-530278046%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-tax-rule-item-columns/index.html">TaxRuleItemColumns</a></div><div class="brief ">Columns for rows of data mapping UUIDs of tax rules to items.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2058185695%2FClasslikes%2F1904710855" anchor-label="TaxRuleTaxRate" id="-2058185695%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule-tax-rate/index.html"><span>Tax</span><wbr><span>Rule</span><wbr><span>Tax</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2058185695%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-tax-rule-tax-rate/index.html">TaxRuleTaxRate</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-tax-rule-tax-rate-columns/index.html">InventoryContract.TaxRuleTaxRateColumns</a></div><div class="brief ">Contract for accessing tax rule and <a href="../-tax-rate/index.html">com.clover.sdk.v3.inventory.TaxRate</a> association data.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1565615836%2FClasslikes%2F1904710855" anchor-label="TaxRuleTaxRateColumns" id="-1565615836%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tax-rule-tax-rate-columns/index.html"><span>Tax</span><wbr><span>Rule</span><wbr><span>Tax</span><wbr><span>Rate</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1565615836%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-tax-rule-tax-rate-columns/index.html">TaxRuleTaxRateColumns</a></div><div class="brief ">Columns for rows of data mapping UUIDs of tax rule to <a href="../-tax-rate/index.html">com.clover.sdk.v3.inventory.TaxRate</a>.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-368189499%2FProperties%2F1904710855" anchor-label="ACCOUNT_NAME_PARAM" id="-368189499%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-368189499%2FProperties%2F1904710855"><span><span>ACCOUNT_NAME_PARAM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-368189499%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-368189499%2FProperties%2F1904710855">ACCOUNT_NAME_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2019297994%2FProperties%2F1904710855" anchor-label="ACCOUNT_TYPE_PARAM" id="-2019297994%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2019297994%2FProperties%2F1904710855"><span><span>ACCOUNT_TYPE_PARAM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019297994%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-2019297994%2FProperties%2F1904710855">ACCOUNT_TYPE_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1143673056%2FProperties%2F1904710855" anchor-label="AUTH_TOKEN_PARAM" id="1143673056%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1143673056%2FProperties%2F1904710855"><span><span>AUTH_TOKEN_PARAM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1143673056%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1143673056%2FProperties%2F1904710855">AUTH_TOKEN_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1642753081%2FProperties%2F1904710855" anchor-label="AUTHORITY" id="-1642753081%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1642753081%2FProperties%2F1904710855"><span><span>AUTHORITY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1642753081%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1642753081%2FProperties%2F1904710855">AUTHORITY</a></div><div class="brief ">The authority for the inventory provider</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1691889958%2FProperties%2F1904710855" anchor-label="AUTHORITY_URI" id="-1691889958%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1691889958%2FProperties%2F1904710855"><span><span>AUTHORITY_URI</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1691889958%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="index.html#-1691889958%2FProperties%2F1904710855">AUTHORITY_URI</a></div><div class="brief ">A content:// style uri to the authority for the modifiers provider</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-851726981%2FProperties%2F1904710855" anchor-label="COUNT_KEY" id="-851726981%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-851726981%2FProperties%2F1904710855"><span><span>COUNT_KEY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-851726981%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-851726981%2FProperties%2F1904710855">COUNT_KEY</a></div><div class="brief ">Integer result returned by call count methods.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="921902582%2FProperties%2F1904710855" anchor-label="GET_COUNT_METHOD" id="921902582%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#921902582%2FProperties%2F1904710855"><span><span>GET_COUNT_METHOD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="921902582%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#921902582%2FProperties%2F1904710855">GET_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1942250165%2FProperties%2F1904710855" anchor-label="GET_ITEM_MOD_OR_VAR_COUNT_METHOD" id="-1942250165%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1942250165%2FProperties%2F1904710855"><span><span>GET_ITEM_MOD_OR_VAR_COUNT_METHOD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942250165%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1942250165%2FProperties%2F1904710855">GET_ITEM_MOD_OR_VAR_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1380701141%2FProperties%2F1904710855" anchor-label="GET_ITEMS_WITH_MODIFIERS_METHOD" id="1380701141%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1380701141%2FProperties%2F1904710855"><span><span>GET_ITEMS_WITH_MODIFIERS_METHOD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1380701141%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1380701141%2FProperties%2F1904710855">GET_ITEMS_WITH_MODIFIERS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with modifiers.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-482903793%2FProperties%2F1904710855" anchor-label="GET_ITEMS_WITH_VARIANTS_METHOD" id="-482903793%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-482903793%2FProperties%2F1904710855"><span><span>GET_ITEMS_WITH_VARIANTS_METHOD</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-482903793%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-482903793%2FProperties%2F1904710855">GET_ITEMS_WITH_VARIANTS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with variants.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1839999796%2FProperties%2F1904710855" anchor-label="IS_SYNC_PARAM" id="-1839999796%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1839999796%2FProperties%2F1904710855"><span><span>IS_SYNC_PARAM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1839999796%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1839999796%2FProperties%2F1904710855">IS_SYNC_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

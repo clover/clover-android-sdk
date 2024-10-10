@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ConnectorSafeAsyncTask</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-connector-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-connector-sdk::com.clover.sdk.v3.common/ConnectorSafeAsyncTask///PointingToDeclaration//569469959">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-connector-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.common</a><span class="delimiter">/</span><span class="current">ConnectorSafeAsyncTask</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Connector</span><wbr><span>Safe</span><wbr><span>Async</span><wbr><span><span>Task</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">ConnectorSafeAsyncTask</a><span class="token operator">&lt;</span>Params<span class="token punctuation">, </span>Progress<span class="token punctuation">, </span>Result<span class="token operator">&gt;</span><span class="token keyword"> extends </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">AsyncTask</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Params</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Progress</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Result</a><span class="token operator">&gt;</span></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-create-or-update-order-task/index.html">CreateOrUpdateOrderTask</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1993365409%2FConstructors%2F569469959" anchor-label="ConnectorSafeAsyncTask" id="-1993365409%2FConstructors%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-connector-safe-async-task.html"><span>Connector</span><wbr><span>Safe</span><wbr><span>Async</span><wbr><span><span>Task</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1993365409%2FConstructors%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-connector-safe-async-task.html"><span class="token function">ConnectorSafeAsyncTask</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-connector-safe-async-task.html"><span class="token function">ConnectorSafeAsyncTask</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Fragment.html">Fragment</a>&nbsp;fragment</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1761172185%2FProperties%2F569469959" anchor-label="SERIAL_EXECUTOR" id="1761172185%2FProperties%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#1761172185%2FProperties%2F569469959"><span><span>SERIAL_EXECUTOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1761172185%2FProperties%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Executor.html">Executor</a>&nbsp;<a href="../-create-or-update-order-task/index.html#1761172185%2FProperties%2F569469959">SERIAL_EXECUTOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1090545950%2FProperties%2F569469959" anchor-label="THREAD_POOL_EXECUTOR" id="-1090545950%2FProperties%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#-1090545950%2FProperties%2F569469959"><span><span>THREAD_POOL_EXECUTOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1090545950%2FProperties%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Executor.html">Executor</a>&nbsp;<a href="../-create-or-update-order-task/index.html#-1090545950%2FProperties%2F569469959">THREAD_POOL_EXECUTOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1092985135%2FFunctions%2F569469959" anchor-label="cancel" id="-1092985135%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#-1092985135%2FFunctions%2F569469959"><span><span>cancel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1092985135%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>boolean&nbsp;<a href="../-create-or-update-order-task/index.html#-1092985135%2FFunctions%2F569469959"><span class="token function">cancel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span>boolean&nbsp;mayInterruptIfRunning</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1280812549%2FFunctions%2F569469959" anchor-label="execute" id="1280812549%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#1209835320%2FFunctions%2F569469959"><span><span>execute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1280812549%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">AsyncTask</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Params</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Progress</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Result</a><span class="token operator">&gt;</span>&nbsp;<a href="../-create-or-update-order-task/index.html#1209835320%2FFunctions%2F569469959"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Params</a><span class="token operator">&gt;</span>&nbsp;params</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="../-create-or-update-order-task/index.html#-501180879%2FFunctions%2F569469959"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Runnable.html">Runnable</a>&nbsp;runnable</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1500366621%2FFunctions%2F569469959" anchor-label="executeOnExecutor" id="-1500366621%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#-1500366621%2FFunctions%2F569469959"><span>execute</span><wbr><span>On</span><wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1500366621%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">AsyncTask</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Params</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Progress</a><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Result</a><span class="token operator">&gt;</span>&nbsp;<a href="../-create-or-update-order-task/index.html#-1500366621%2FFunctions%2F569469959"><span class="token function">executeOnExecutor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Executor.html">Executor</a>&nbsp;exec<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Params</a><span class="token operator">&gt;</span>&nbsp;params</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="942839873%2FFunctions%2F569469959" anchor-label="get" id="942839873%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#942839873%2FFunctions%2F569469959"><span><span>get</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="942839873%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.html">Result</a>&nbsp;<a href="../-create-or-update-order-task/index.html#942839873%2FFunctions%2F569469959"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-152731513%2FFunctions%2F569469959" anchor-label="getContext" id="-152731513%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-context.html"><span>get</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-152731513%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;<a href="get-context.html"><span class="token function">getContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1368739572%2FFunctions%2F569469959" anchor-label="getFragment" id="1368739572%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-fragment.html"><span>get</span><wbr><span><span>Fragment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1368739572%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Fragment.html">Fragment</a>&nbsp;<a href="get-fragment.html"><span class="token function">getFragment</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="641909103%2FFunctions%2F569469959" anchor-label="getStatus" id="641909103%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#641909103%2FFunctions%2F569469959"><span>get</span><wbr><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="641909103%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/AsyncTask.Status.html">AsyncTask.Status</a>&nbsp;<a href="../-create-or-update-order-task/index.html#641909103%2FFunctions%2F569469959"><span class="token function">getStatus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1443978384%2FFunctions%2F569469959" anchor-label="isCancelled" id="-1443978384%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-create-or-update-order-task/index.html#-1443978384%2FFunctions%2F569469959"><span>is</span><wbr><span><span>Cancelled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1443978384%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>boolean&nbsp;<a href="../-create-or-update-order-task/index.html#-1443978384%2FFunctions%2F569469959"><span class="token function">isCancelled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

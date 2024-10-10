@@ -1,0 +1,185 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BluetoothMessageChunker</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-connector-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-connector-sdk::com.clover.sdk.v3.bluetooth/BluetoothMessageChunker///PointingToDeclaration//569469959">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-connector-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.bluetooth</a><span class="delimiter">/</span><span class="current">BluetoothMessageChunker</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Bluetooth</span><wbr><span>Message</span><wbr><span><span>Chunker</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">BluetoothMessageChunker</a></div><p class="paragraph">Helper class for working with the message chunks that traverse the bluetooth connection. Necessary since bluetooth packets have an MTU that requires that our RemoteMessages are broken up into smaller chunks.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1285047972%2FConstructors%2F569469959" anchor-label="BluetoothMessageChunker" id="1285047972%2FConstructors%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-bluetooth-message-chunker.html"><span>Bluetooth</span><wbr><span>Message</span><wbr><span><span>Chunker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1285047972%2FConstructors%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-bluetooth-message-chunker.html"><span class="token function">BluetoothMessageChunker</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1571121257%2FProperties%2F569469959" anchor-label="mtu" id="-1571121257%2FProperties%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1571121257%2FProperties%2F569469959"><span><span>mtu</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1571121257%2FProperties%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>int&nbsp;<a href="index.html#-1571121257%2FProperties%2F569469959">mtu</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1342974996%2FFunctions%2F569469959" anchor-label="addMessageChunk" id="1342974996%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-message-chunk.html"><span>add</span><wbr><span>Message</span><wbr><span><span>Chunk</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1342974996%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="add-message-chunk.html"><span class="token function">addMessageChunk</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span>byte<span class="token operator">&gt;</span>&nbsp;chunk</span></span><span class="token punctuation">)</span></div><div class="brief ">Stores the individual message chunks until a full message can be reconstructed</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1407789045%2FFunctions%2F569469959" anchor-label="chunk" id="1407789045%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="chunk.html"><span><span>chunk</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1407789045%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/ConcurrentLinkedQueue.html">ConcurrentLinkedQueue</a><span class="token operator">&lt;</span><a href="../-bluetooth-frame/index.html">BluetoothFrame</a><span class="token operator">&gt;</span>&nbsp;<a href="chunk.html"><span class="token function">chunk</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span>byte<span class="token operator">&gt;</span>&nbsp;payload</span></span><span class="token punctuation">)</span></div><div class="brief ">Chunk a RemoteMessage payload into smaller messages that will fit inside the provided <a href="index.html#-1571121257%2FProperties%2F569469959">mtu</a></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/ConcurrentLinkedQueue.html">ConcurrentLinkedQueue</a><span class="token operator">&lt;</span><a href="../-bluetooth-frame/index.html">BluetoothFrame</a><span class="token operator">&gt;</span>&nbsp;<a href="chunk.html"><span class="token function">chunk</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;string</span></span><span class="token punctuation">)</span></div><div class="brief ">Chunk a RemoteMessage string into smaller messages that will fit inside the provided <a href="index.html#-1571121257%2FProperties%2F569469959">mtu</a> Convenience wrapper around the <a href="chunk.html">chunk</a> method, that takes a RemoteMessage string instead of a byte array</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="939135357%2FFunctions%2F569469959" anchor-label="getMtu" id="939135357%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-mtu.html"><span>get</span><wbr><span><span>Mtu</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939135357%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>int&nbsp;<a href="get-mtu.html"><span class="token function">getMtu</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1657828298%2FFunctions%2F569469959" anchor-label="setMtu" id="1657828298%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-mtu.html"><span>set</span><wbr><span><span>Mtu</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1657828298%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="set-mtu.html"><span class="token function">setMtu</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span>int&nbsp;mtu</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

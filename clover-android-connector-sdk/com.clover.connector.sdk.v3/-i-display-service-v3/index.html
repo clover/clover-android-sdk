@@ -1,0 +1,256 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>IDisplayServiceV3</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-connector-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-connector-sdk::com.clover.connector.sdk.v3/IDisplayServiceV3///PointingToDeclaration//569469959">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-connector-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.connector.sdk.v3</a><span class="delimiter">/</span><span class="current">IDisplayServiceV3</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>IDisplay</span><wbr><span>Service</span><wbr><span><span>V3</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="index.html">IDisplayServiceV3</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/os/IInterface.html">IInterface</a></div><p class="paragraph">Functional implementation of Display Control. Part of the DisplayConnector architecture. In the clover-android-sdk repo, the com.clover.connector.sdk.v3.DisplayConnector uses a com.clover.connector.sdk.v3.DisplayV3Connector to connect to an aidl service located in the payments repo using the com.clover.connector.sdk.v3.DisplayIntent#ACTION_DISPLAY_SERVICE_V3 ("com.clover.intent.action.DISPLAY_SERVICE_V3") intent action. In the payments repo, the com.clover.payment.display.DisplayService is started by the ACTION_DISPLAY_SERVICE_V3 intent. The DisplayService creates a com.clover.payment.v3.DisplayBinderV3 during binding, which creates the com.clover.payment.v3.DisplayBinderImpl instance. The DisplayBinderImpl contains the functionality to control the display. It does this via broadcasts that are received by the com.clover.payment.display.PaymentDisplayService.OrderPaymentEventsReceiver which sends the broadcast intent to com.clover.payment.display.PaymentDisplayService#onStartCommand(android.content.Intent, int, int). The PaymentDisplayService interprets the intent, and displays a message on the display(s) it controls, or the intent may (en/dis)able display of orders created on the device. This is the service interface definition</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-default/index.html">Default</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-stub/index.html">Stub</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="745026295%2FClasslikes%2F569469959" anchor-label="_Parcel" id="745026295%2FClasslikes%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="_-parcel/index.html"><span><span>_Parcel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="745026295%2FClasslikes%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="_-parcel/index.html">_Parcel</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1513071678%2FClasslikes%2F569469959" anchor-label="Default" id="1513071678%2FClasslikes%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-default/index.html"><span><span>Default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1513071678%2FClasslikes%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-default/index.html">Default</a><span class="token keyword"> implements </span><a href="index.html">IDisplayServiceV3</a></div><div class="brief ">Default implementation for IDisplayServiceV3.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="674742997%2FClasslikes%2F569469959" anchor-label="Stub" id="674742997%2FClasslikes%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stub/index.html"><span><span>Stub</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="674742997%2FClasslikes%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="-stub/index.html">Stub</a><span class="token keyword"> extends </span><a href="https://developer.android.com/reference/kotlin/android/os/Binder.html">Binder</a><span class="token keyword"> implements </span><a href="index.html">IDisplayServiceV3</a></div><div class="brief ">Local-side IPC implementation stub class.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1815575910%2FFunctions%2F569469959" anchor-label="addDisplayServiceListener" id="1815575910%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-display-service-listener.html"><span>add</span><wbr><span>Display</span><wbr><span>Service</span><wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1815575910%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="add-display-service-listener.html"><span class="token function">addDisplayServiceListener</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-i-display-service-listener/index.html">IDisplayServiceListener</a>&nbsp;listener</span></span><span class="token punctuation">)</span></div><div class="brief ">add an ICloverConnectorListener to receive callbacks</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="221946815%2FFunctions%2F569469959" anchor-label="asBinder" id="221946815%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#221946815%2FFunctions%2F569469959"><span>as</span><wbr><span><span>Binder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="221946815%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/IBinder.html">IBinder</a>&nbsp;<a href="index.html#221946815%2FFunctions%2F569469959"><span class="token function">asBinder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1498919027%2FFunctions%2F569469959" anchor-label="dispose" id="-1498919027%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dispose.html"><span><span>dispose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1498919027%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="dispose.html"><span class="token function">dispose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Destroy the connector.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="850914887%2FFunctions%2F569469959" anchor-label="removeDisplayServiceListener" id="850914887%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remove-display-service-listener.html"><span>remove</span><wbr><span>Display</span><wbr><span>Service</span><wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="850914887%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="remove-display-service-listener.html"><span class="token function">removeDisplayServiceListener</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-i-display-service-listener/index.html">IDisplayServiceListener</a>&nbsp;listener</span></span><span class="token punctuation">)</span></div><div class="brief ">remove an ICloverConnectorListener from receiving callbacks</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1878097632%2FFunctions%2F569469959" anchor-label="showDisplayOrder" id="-1878097632%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-display-order.html"><span>show</span><wbr><span>Display</span><wbr><span><span>Order</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1878097632%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="show-display-order.html"><span class="token function">showDisplayOrder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../../clover-android-sdk/com.clover.sdk.v3.order/-display-order/index.html">DisplayOrder</a>&nbsp;order</span></span><span class="token punctuation">)</span></div><div class="brief ">Display order information on the screen.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-480551875%2FFunctions%2F569469959" anchor-label="showMessage" id="-480551875%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-message.html"><span>show</span><wbr><span><span>Message</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-480551875%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="show-message.html"><span class="token function">showMessage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;message</span></span><span class="token punctuation">)</span></div><div class="brief ">Show a text message on the device.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1537403120%2FFunctions%2F569469959" anchor-label="showThankYouScreen" id="-1537403120%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-thank-you-screen.html"><span>show</span><wbr><span>Thank</span><wbr><span>You</span><wbr><span><span>Screen</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1537403120%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="show-thank-you-screen.html"><span class="token function">showThankYouScreen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Show the thank you display on the device.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="279953595%2FFunctions%2F569469959" anchor-label="showWelcomeScreen" id="279953595%2FFunctions%2F569469959" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-connector-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-connector-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-welcome-screen.html"><span>show</span><wbr><span>Welcome</span><wbr><span><span>Screen</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="279953595%2FFunctions%2F569469959"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-connector-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="show-welcome-screen.html"><span class="token function">showWelcomeScreen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Show the welcome display on the device.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

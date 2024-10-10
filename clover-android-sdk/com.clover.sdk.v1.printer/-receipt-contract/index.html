@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ReceiptContract</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v1.printer/ReceiptContract///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v1.printer</a><span class="delimiter">/</span><span class="current">ReceiptContract</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Receipt</span><wbr><span><span>Contract</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">ReceiptContract</a></div><p class="paragraph">A class defining the contract to be implemented by content providers that wish to provide additional content on customer receipts. </p><p class="paragraph"> To register a receipt registration content provider with the Clover platform, use the <a href="../-receipt-registration-connector/register.html">register</a> method. </p> Receipt registration content providers must support either, or both the <a href="-text/index.html#-687818801%2FProperties%2F1904710855">CONTENT_TYPE</a> and <a href="-image/index.html#-2034782635%2FProperties%2F1904710855">CONTENT_TYPE</a> content types. <p class="paragraph"> If the provider supports the <a href="-text/index.html#-687818801%2FProperties%2F1904710855">CONTENT_TYPE</a> content type, it must implement the <a href="https://developer.android.com/reference/kotlin/android/content/ContentProvider.html#query">query</a> method. If the returned cursor contains the column <a href="-text/index.html#-11630083%2FProperties%2F1904710855">TEXT</a>, the string value of the column is added to the receipt. The content provider may return a null cursor, or a cursor that does not contain the <a href="-text/index.html#-11630083%2FProperties%2F1904710855">TEXT</a> column to indicate that the receipt should not be modified. </p><p class="paragraph"> If the content provider supports the <a href="-image/index.html#-2034782635%2FProperties%2F1904710855">CONTENT_TYPE</a> content type, it must implement the <a href="https://developer.android.com/reference/kotlin/android/content/ContentProvider.html#openfile">openFile</a> method, and the returned file descriptor value must either: </p><ul><li> Point to a file that contains bitmap data that can be decoded using <a href="https://developer.android.com/reference/kotlin/android/graphics/BitmapFactory.html#decodestream">decodeStream</a>. For example, it can be a PNG, GIF, or JPG encoded file. </li><li> Be <code class="lang-kotlin">null</code>, indicating that the content provider declined to add image content to this receipt. </li></ul> When called, a receipt registration content provider is passed the <code class="lang-kotlin">PARAM_*</code> query parameters listed below. This may be used as input to other Clover services to obtain additional information about the order, customer, etc.  Receipt registration content providers have a maximum of 2 seconds to return receipt content. It is advisable to stay well below this limit. You must not perform long-running tasks such as network I/O. If the receipt registration content provider repeatedly fails to respond in the allotted time, throws exceptions, or otherwise fails to return valid content as specified above, the provider may be temporarily or permanently disabled. <p class="paragraph"> It is recommended that apps registering receipt registration providers implement a pre-uninstall hook and unregister the content provider. See: <a href="../../com.clover.sdk.v1/-intents/index.html#-47513206%2FProperties%2F1904710855">ACTION_APP_PRE_UNINSTALL</a> for more information.</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-i-receipt-registration-service/index.html"><span>IReceipt</span><wbr><span>Registration</span><wbr><span><span>Service</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://developer.android.com/reference/kotlin/android/content/ContentProvider.html"><span>Content</span><wbr><span><span>Provider</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-receipt-registration-connector/index.html"><span>Receipt</span><wbr><span>Registration</span><wbr><span><span>Connector</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.clover.sdk.v1/-intents/index.html#-47513206%2FProperties%2F1904710855"><span><span>Intents</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1118349928%2FConstructors%2F1904710855" anchor-label="ReceiptContract" id="1118349928%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-receipt-contract.html"><span>Receipt</span><wbr><span><span>Contract</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1118349928%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-receipt-contract.html"><span class="token function">ReceiptContract</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-115600886%2FClasslikes%2F1904710855" anchor-label="Image" id="-115600886%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-image/index.html"><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-115600886%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-image/index.html">Image</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2025903536%2FClasslikes%2F1904710855" anchor-label="Text" id="-2025903536%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text/index.html"><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2025903536%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="-text/index.html">Text</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/provider/BaseColumns.html">BaseColumns</a><span class="token punctuation">, </span><a href="-text-columns/index.html">ReceiptContract.TextColumns</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-505118699%2FClasslikes%2F1904710855" anchor-label="TextColumns" id="-505118699%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-text-columns/index.html"><span>Text</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-505118699%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-text-columns/index.html">TextColumns</a></div><div class="brief ">Column name for returning text-only receipt data.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-210367559%2FProperties%2F1904710855" anchor-label="PARAM_ACCOUNT_NAME" id="-210367559%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-210367559%2FProperties%2F1904710855"><span><span>PARAM_ACCOUNT_NAME</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-210367559%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-210367559%2FProperties%2F1904710855">PARAM_ACCOUNT_NAME</a></div><div class="brief ">The Clover account that is printing the receipt.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="719407594%2FProperties%2F1904710855" anchor-label="PARAM_ACCOUNT_TYPE" id="719407594%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#719407594%2FProperties%2F1904710855"><span><span>PARAM_ACCOUNT_TYPE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="719407594%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#719407594%2FProperties%2F1904710855">PARAM_ACCOUNT_TYPE</a></div><div class="brief ">The Clover account type is printing the receipt.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1429738883%2FProperties%2F1904710855" anchor-label="PARAM_FLAGS" id="-1429738883%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1429738883%2FProperties%2F1904710855"><span><span>PARAM_FLAGS</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1429738883%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1429738883%2FProperties%2F1904710855">PARAM_FLAGS</a></div><div class="brief ">The print flags.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1200147694%2FProperties%2F1904710855" anchor-label="PARAM_MERCHANT_ID" id="-1200147694%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1200147694%2FProperties%2F1904710855"><span><span>PARAM_MERCHANT_ID</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1200147694%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1200147694%2FProperties%2F1904710855">PARAM_MERCHANT_ID</a></div><div class="brief ">The merchant ID.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="943895754%2FProperties%2F1904710855" anchor-label="PARAM_ORDER_ID" id="943895754%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#943895754%2FProperties%2F1904710855"><span><span>PARAM_ORDER_ID</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="943895754%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#943895754%2FProperties%2F1904710855">PARAM_ORDER_ID</a></div><div class="brief ">The order ID of the receipt to be printed.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="482127170%2FProperties%2F1904710855" anchor-label="PARAM_PAYMENT_ID" id="482127170%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#482127170%2FProperties%2F1904710855"><span><span>PARAM_PAYMENT_ID</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="482127170%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#482127170%2FProperties%2F1904710855">PARAM_PAYMENT_ID</a></div><div class="brief ">The payment ID of the receipt to be printed.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1973704741%2FProperties%2F1904710855" anchor-label="PARAM_RECEIPT_WIDTH" id="1973704741%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1973704741%2FProperties%2F1904710855"><span><span>PARAM_RECEIPT_WIDTH</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1973704741%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1973704741%2FProperties%2F1904710855">PARAM_RECEIPT_WIDTH</a></div><div class="brief ">The receipt width</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

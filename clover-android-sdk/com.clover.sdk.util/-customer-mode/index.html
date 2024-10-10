@@ -1,0 +1,304 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CustomerMode</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.util/CustomerMode///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.util</a><span class="delimiter">/</span><span class="current">CustomerMode</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Customer</span><wbr><span><span>Mode</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CustomerMode</a></div><p class="paragraph">This class allows an app to check and update the state of customer mode. Customer mode is a feature available on Clover devices (except Station) that allows an activity run fullscreen on the primary display without the navigation bar or status bar and without the ability to do a gesture to bring them back. Customer mode also prevents the keyguard from appearing so customers cannot get stuck on the employee login screen. </p><p class="paragraph"> Unless you intend for all users of the device to be locked out of all other applications you should ensure that your application always has some way to exit customer mode so the operator (employees, manager, etc) can exit your app and manage the device. </p><h3 class="">Display Timeout</h3> Customer mode doesn't prevent the display from timing out and becoming totally black. The default display timeout may be too short for a good customer experience. It may be prudent when using customer mode to additionally keep the display on longer while also considering the possibility of LCD burn-in if the display is showing the same content indefinitely. <p class="paragraph"> See <a href="https://developer.android.com/training/scheduling/wakelock#screen">this page</a> for several techniques to keep the screen on programmatically. </p><h3 class="">Secondary Display Support</h3> Activities running on secondary display of a multi-display device need not invoke the methods here since secondary display has no navigation bar or status bar and has no exit gestures by default. The enable and disable methods will attempt to detect if the passed context is an activity and if so will perform no action on a secondary display activity. The secondary display also has it's own display timeout mechanism that is intended for customer use. <h3 class="">Original Station</h3> If you are writing an application for the original Clover Station, this class won't function properly. Instead using the following code snippet to get Clover Station into customer mode. <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  if (!Platform2.supportsFeature(context, Platform2.Feature.CUSTOMER_MODE)) {
+      getWindow().getDecorView().setSystemUiVisibility(
+          View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+          | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+          | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+          | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+          | View.SYSTEM_UI_FLAG_LOW_PROFILE
+          | View.SYSTEM_UI_FLAG_FULLSCREEN
+          | 0x10000000);
+  }
+</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1685857629%2FConstructors%2F1904710855" anchor-label="CustomerMode" id="-1685857629%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-customer-mode.html"><span>Customer</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1685857629%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-customer-mode.html"><span class="token function"><strike>CustomerMode</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Instances of this class have never been necessary and do nothing, all methods and fields are static.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-181438984%2FClasslikes%2F1904710855" anchor-label="State" id="-181438984%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-state/index.html"><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-181438984%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">enum </span><a href="-state/index.html">State</a></div><div class="brief ">State of customer mode.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="125049993%2FProperties%2F1904710855" anchor-label="ACTION_CUSTOMER_MODE" id="125049993%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#125049993%2FProperties%2F1904710855"><span><span>ACTION_CUSTOMER_MODE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="125049993%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#125049993%2FProperties%2F1904710855">ACTION_CUSTOMER_MODE</a></div><div class="brief ">Broadcast Action: This is a sticky broadcast containing the customer mode state.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1763142801%2FProperties%2F1904710855" anchor-label="EXTRA_CUSTOMER_MODE_STATE" id="-1763142801%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1763142801%2FProperties%2F1904710855"><span><span>EXTRA_CUSTOMER_MODE_STATE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1763142801%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1763142801%2FProperties%2F1904710855">EXTRA_CUSTOMER_MODE_STATE</a></div><div class="brief ">String extra with one of the <a href="-state/index.html">State</a> enum values.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1461805336%2FProperties%2F1904710855" anchor-label="WINDOW_FEATURE_CUSTOMER_MODE" id="1461805336%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1461805336%2FProperties%2F1904710855"><span><span>WINDOW_FEATURE_CUSTOMER_MODE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1461805336%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="index.html#1461805336%2FProperties%2F1904710855"><strike>WINDOW_FEATURE_CUSTOMER_MODE</strike></a></div><div class="brief ">Deprecated.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-790806408%2FProperties%2F1904710855" anchor-label="WINDOW_FEATURE_NO_CUSTOMER_MODE" id="-790806408%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-790806408%2FProperties%2F1904710855"><span><span>WINDOW_FEATURE_NO_CUSTOMER_MODE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-790806408%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="index.html#-790806408%2FProperties%2F1904710855"><strike>WINDOW_FEATURE_NO_CUSTOMER_MODE</strike></a></div><div class="brief ">Deprecated.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="180805606%2FFunctions%2F1904710855" anchor-label="disable" id="180805606%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="disable.html"><span><span>disable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="180805606%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="disable.html"><span class="token function">disable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="disable.html"><span class="token function"><strike>disable</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="disable.html"><span class="token function">disable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>boolean&nbsp;requireEmployeePasscode</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="disable.html"><span class="token function"><strike>disable</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>boolean&nbsp;requireEmployeePasscode</span></span><span class="token punctuation">)</span></div><div class="brief ">Disable customer mode.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-419677172%2FFunctions%2F1904710855" anchor-label="enable" id="-419677172%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable.html"><span><span>enable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-419677172%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="enable.html"><span class="token function">enable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="enable.html"><span class="token function"><strike>enable</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context</span></span><span class="token punctuation">)</span></div><div class="brief ">Enable customer mode.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="952041660%2FFunctions%2F1904710855" anchor-label="getState" id="952041660%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-state.html"><span>get</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="952041660%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="-state/index.html">CustomerMode.State</a>&nbsp;<a href="get-state.html"><span class="token function">getState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/java/lang/Deprecated.html"><span class="token annotation builtin">Deprecated</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">static </span><a href="-state/index.html">CustomerMode.State</a>&nbsp;<a href="get-state.html"><span class="token function"><strike>getState</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>&nbsp;context</span></span><span class="token punctuation">)</span></div><div class="brief ">Returns the current state of customer mode.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-622711469%2FFunctions%2F1904710855" anchor-label="getStateFromIntent" id="-622711469%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-state-from-intent.html"><span>get</span><wbr><span>State</span><wbr><span>From</span><wbr><span><span>Intent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-622711469%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="-state/index.html">CustomerMode.State</a>&nbsp;<a href="get-state-from-intent.html"><span class="token function">getStateFromIntent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/Intent.html">Intent</a>&nbsp;intent</span></span><span class="token punctuation">)</span></div><div class="brief ">Return the current state of customer mode given the <a href="index.html#-1763142801%2FProperties%2F1904710855">EXTRA_CUSTOMER_MODE_STATE</a> string that was obtained from a <a href="index.html#125049993%2FProperties%2F1904710855">ACTION_CUSTOMER_MODE</a> broadcast.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-396139531%2FFunctions%2F1904710855" anchor-label="isShownOnPrimaryDisplay" id="-396139531%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-shown-on-primary-display.html"><span>is</span><wbr><span>Shown</span><wbr><span>On</span><wbr><span>Primary</span><wbr><span><span>Display</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-396139531%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>boolean&nbsp;<a href="is-shown-on-primary-display.html"><span class="token function">isShownOnPrimaryDisplay</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity</span></span><span class="token punctuation">)</span></div><div class="brief ">Returns true if the given activity is shown on the primary display of a device capable of entering customer mode.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="366765150%2FFunctions%2F1904710855" anchor-label="registerReceiver" id="366765150%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="register-receiver.html"><span>register</span><wbr><span><span>Receiver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="366765150%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="register-receiver.html"><span class="token function">registerReceiver</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>&nbsp;customerModeReceiver</span></span><span class="token punctuation">)</span></div><div class="brief ">Convenience method to register broadcast receiver of customer mode change.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-982502171%2FFunctions%2F1904710855" anchor-label="unregisterReceiver" id="-982502171%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unregister-receiver.html"><span>unregister</span><wbr><span><span>Receiver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-982502171%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span>void&nbsp;<a href="unregister-receiver.html"><span class="token function">unregisterReceiver</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a>&nbsp;activity<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/content/BroadcastReceiver.html">BroadcastReceiver</a>&nbsp;customerModeReceiver</span></span><span class="token punctuation">)</span></div><div class="brief ">Convenience method to unregister broadcast receiver of customer mode change.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

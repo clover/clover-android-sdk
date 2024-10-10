@@ -1,0 +1,755 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Module</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v1.merchant/Module///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v1.merchant</a><span class="delimiter">/</span><span class="current">Module</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Module</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">enum </span><a href="index.html">Module</a><span class="token keyword"> implements </span><a href="https://developer.android.com/reference/kotlin/android/os/Parcelable.html">Parcelable</a></div><p class="paragraph">Modules control which software features a merchant has access to and which apps a merchant may install and use. The modules enabled for a particular merchant are defined by the plan that a merchant is currently enrolled in. See <a href="https://docs.clover.com/clover-platform/docs/understanding-modules">Clover Docs: Understanding Modules</a> for detailed information about plans and modules. </p> App developers can choose which modules they consider required for their app on the developer app dashboard. Merchants will not be able to purchase or install an app unless their plan has all the required modules for that particular app.  An app developer may choose to not require a module but could instead detect the enabled modules at runtime to show or hide software features.  Modules <strong>do not</strong> affect API functionality. For example, assuming an app has proper permissions, an app may still use the inventory APIs for a merchant that does not have the "ITEMS" module enabled.<h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-merchant/get-modules.html"><span><span>Merchant</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-merchant-connector/index.html"><span>Merchant</span><wbr><span><span>Connector</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="735696882%2FClasslikes%2F1904710855" anchor-label="MERCHANT" id="735696882%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-e-r-c-h-a-n-t/index.html">MERCHANT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="735696882%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-m-e-r-c-h-a-n-t/index.html">MERCHANT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2105613673%2FClasslikes%2F1904710855" anchor-label="PAYMENTS" id="-2105613673%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-a-y-m-e-n-t-s/index.html">PAYMENTS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2105613673%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-p-a-y-m-e-n-t-s/index.html">PAYMENTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1413253731%2FClasslikes%2F1904710855" anchor-label="EMPLOYEES" id="1413253731%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-e-m-p-l-o-y-e-e-s/index.html">EMPLOYEES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1413253731%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-e-m-p-l-o-y-e-e-s/index.html">EMPLOYEES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1873115651%2FClasslikes%2F1904710855" anchor-label="PRINTERS" id="1873115651%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-r-i-n-t-e-r-s/index.html">PRINTERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1873115651%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-p-r-i-n-t-e-r-s/index.html">PRINTERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="277941043%2FClasslikes%2F1904710855" anchor-label="CUSTOMERS" id="277941043%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-u-s-t-o-m-e-r-s/index.html">CUSTOMERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="277941043%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-u-s-t-o-m-e-r-s/index.html">CUSTOMERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="750155215%2FClasslikes%2F1904710855" anchor-label="ORDERS" id="750155215%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-r-d-e-r-s/index.html">ORDERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="750155215%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-o-r-d-e-r-s/index.html">ORDERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1479654818%2FClasslikes%2F1904710855" anchor-label="ITEMS" id="-1479654818%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-t-e-m-s/index.html">ITEMS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1479654818%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-i-t-e-m-s/index.html">ITEMS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-182256867%2FClasslikes%2F1904710855" anchor-label="CASH" id="-182256867%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-a-s-h/index.html">CASH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-182256867%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-a-s-h/index.html">CASH</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-365720208%2FClasslikes%2F1904710855" anchor-label="DISCOUNTS" id="-365720208%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-i-s-c-o-u-n-t-s/index.html">DISCOUNTS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-365720208%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-d-i-s-c-o-u-n-t-s/index.html">DISCOUNTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-959339715%2FClasslikes%2F1904710855" anchor-label="TAX_RATES" id="-959339715%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-x_-r-a-t-e-s/index.html">TAX_RATES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-959339715%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-t-a-x_-r-a-t-e-s/index.html">TAX_RATES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="200342854%2FClasslikes%2F1904710855" anchor-label="ORDER_TYPES" id="200342854%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-r-d-e-r_-t-y-p-e-s/index.html">ORDER_TYPES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="200342854%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-o-r-d-e-r_-t-y-p-e-s/index.html">ORDER_TYPES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-793329740%2FClasslikes%2F1904710855" anchor-label="ORDER_PRINTERS" id="-793329740%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-r-d-e-r_-p-r-i-n-t-e-r-s/index.html">ORDER_PRINTERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-793329740%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-o-r-d-e-r_-p-r-i-n-t-e-r-s/index.html">ORDER_PRINTERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-566253094%2FClasslikes%2F1904710855" anchor-label="ITEM_MODIFIERS" id="-566253094%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-t-e-m_-m-o-d-i-f-i-e-r-s/index.html">ITEM_MODIFIERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-566253094%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-i-t-e-m_-m-o-d-i-f-i-e-r-s/index.html">ITEM_MODIFIERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1530862579%2FClasslikes%2F1904710855" anchor-label="SERVICE_CHARGES" id="1530862579%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-r-v-i-c-e_-c-h-a-r-g-e-s/index.html">SERVICE_CHARGES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1530862579%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-s-e-r-v-i-c-e_-c-h-a-r-g-e-s/index.html">SERVICE_CHARGES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-594606829%2FClasslikes%2F1904710855" anchor-label="COMBINE_ASSIGN_ORDERS" id="-594606829%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-m-b-i-n-e_-a-s-s-i-g-n_-o-r-d-e-r-s/index.html">COMBINE_ASSIGN_ORDERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-594606829%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-o-m-b-i-n-e_-a-s-s-i-g-n_-o-r-d-e-r-s/index.html">COMBINE_ASSIGN_ORDERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-92713284%2FClasslikes%2F1904710855" anchor-label="AUTOMATIC_DISCOUNTS" id="-92713284%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-u-t-o-m-a-t-i-c_-d-i-s-c-o-u-n-t-s/index.html">AUTOMATIC_DISCOUNTS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-92713284%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-a-u-t-o-m-a-t-i-c_-d-i-s-c-o-u-n-t-s/index.html">AUTOMATIC_DISCOUNTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2109916308%2FClasslikes%2F1904710855" anchor-label="WEIGH_PER_UNIT_ITEMS" id="2109916308%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-w-e-i-g-h_-p-e-r_-u-n-i-t_-i-t-e-m-s/index.html">WEIGH_PER_UNIT_ITEMS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2109916308%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-w-e-i-g-h_-p-e-r_-u-n-i-t_-i-t-e-m-s/index.html">WEIGH_PER_UNIT_ITEMS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1163180920%2FClasslikes%2F1904710855" anchor-label="ITEM_VARIANTS" id="1163180920%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-t-e-m_-v-a-r-i-a-n-t-s/index.html">ITEM_VARIANTS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1163180920%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-i-t-e-m_-v-a-r-i-a-n-t-s/index.html">ITEM_VARIANTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="748970142%2FClasslikes%2F1904710855" anchor-label="TABLE_MANAGEMENT" id="748970142%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b-l-e_-m-a-n-a-g-e-m-e-n-t/index.html">TABLE_MANAGEMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="748970142%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-t-a-b-l-e_-m-a-n-a-g-e-m-e-n-t/index.html">TABLE_MANAGEMENT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="726287630%2FClasslikes%2F1904710855" anchor-label="ITEM_EXCHANGES" id="726287630%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-i-t-e-m_-e-x-c-h-a-n-g-e-s/index.html">ITEM_EXCHANGES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="726287630%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-i-t-e-m_-e-x-c-h-a-n-g-e-s/index.html">ITEM_EXCHANGES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="515870134%2FClasslikes%2F1904710855" anchor-label="CUSTOMER_PREFERENCES_PROMOTIONS" id="515870134%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-u-s-t-o-m-e-r_-p-r-e-f-e-r-e-n-c-e-s_-p-r-o-m-o-t-i-o-n-s/index.html">CUSTOMER_PREFERENCES_PROMOTIONS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="515870134%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-u-s-t-o-m-e-r_-p-r-e-f-e-r-e-n-c-e-s_-p-r-o-m-o-t-i-o-n-s/index.html">CUSTOMER_PREFERENCES_PROMOTIONS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2145632259%2FClasslikes%2F1904710855" anchor-label="BAR_TAB_MANAGEMENT" id="2145632259%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-r_-t-a-b_-m-a-n-a-g-e-m-e-n-t/index.html">BAR_TAB_MANAGEMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2145632259%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-b-a-r_-t-a-b_-m-a-n-a-g-e-m-e-n-t/index.html">BAR_TAB_MANAGEMENT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1771374784%2FClasslikes%2F1904710855" anchor-label="RESTAURANT_SHIFT_MANAGEMENT" id="1771374784%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-s-t-a-u-r-a-n-t_-s-h-i-f-t_-m-a-n-a-g-e-m-e-n-t/index.html">RESTAURANT_SHIFT_MANAGEMENT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1771374784%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-r-e-s-t-a-u-r-a-n-t_-s-h-i-f-t_-m-a-n-a-g-e-m-e-n-t/index.html">RESTAURANT_SHIFT_MANAGEMENT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1854137928%2FClasslikes%2F1904710855" anchor-label="FISCAL_PRINTERS" id="-1854137928%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-i-s-c-a-l_-p-r-i-n-t-e-r-s/index.html">FISCAL_PRINTERS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1854137928%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-f-i-s-c-a-l_-p-r-i-n-t-e-r-s/index.html">FISCAL_PRINTERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1144492871%2FClasslikes%2F1904710855" anchor-label="PHONE_SALES" id="-1144492871%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-h-o-n-e_-s-a-l-e-s/index.html">PHONE_SALES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1144492871%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-p-h-o-n-e_-s-a-l-e-s/index.html">PHONE_SALES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1317969159%2FClasslikes%2F1904710855" anchor-label="REGISTER_PREAUTH" id="-1317969159%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-g-i-s-t-e-r_-p-r-e-a-u-t-h/index.html">REGISTER_PREAUTH</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1317969159%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-r-e-g-i-s-t-e-r_-p-r-e-a-u-t-h/index.html">REGISTER_PREAUTH</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1890949233%2FClasslikes%2F1904710855" anchor-label="FAST_PAY" id="-1890949233%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-a-s-t_-p-a-y/index.html">FAST_PAY</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1890949233%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-f-a-s-t_-p-a-y/index.html">FAST_PAY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2039119678%2FClasslikes%2F1904710855" anchor-label="TABLE_SERVICE" id="-2039119678%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-a-b-l-e_-s-e-r-v-i-c-e/index.html">TABLE_SERVICE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2039119678%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-t-a-b-l-e_-s-e-r-v-i-c-e/index.html">TABLE_SERVICE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-473436226%2FClasslikes%2F1904710855" anchor-label="COST_OF_GOODS" id="-473436226%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-o-s-t_-o-f_-g-o-o-d-s/index.html">COST_OF_GOODS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-473436226%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-o-s-t_-o-f_-g-o-o-d-s/index.html">COST_OF_GOODS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1797994267%2FClasslikes%2F1904710855" anchor-label="ADVANCED_REPORTING" id="1797994267%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-d-v-a-n-c-e-d_-r-e-p-o-r-t-i-n-g/index.html">ADVANCED_REPORTING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1797994267%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-a-d-v-a-n-c-e-d_-r-e-p-o-r-t-i-n-g/index.html">ADVANCED_REPORTING</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2044562301%2FClasslikes%2F1904710855" anchor-label="RETAIL_HUB" id="-2044562301%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-t-a-i-l_-h-u-b/index.html">RETAIL_HUB</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2044562301%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-r-e-t-a-i-l_-h-u-b/index.html">RETAIL_HUB</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1704943697%2FClasslikes%2F1904710855" anchor-label="PURCHASING_CARD" id="-1704943697%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-u-r-c-h-a-s-i-n-g_-c-a-r-d/index.html">PURCHASING_CARD</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1704943697%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-p-u-r-c-h-a-s-i-n-g_-c-a-r-d/index.html">PURCHASING_CARD</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="374664926%2FClasslikes%2F1904710855" anchor-label="APPOINTMENTS" id="374664926%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-p-p-o-i-n-t-m-e-n-t-s/index.html">APPOINTMENTS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="374664926%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-a-p-p-o-i-n-t-m-e-n-t-s/index.html">APPOINTMENTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="114771892%2FClasslikes%2F1904710855" anchor-label="SERVICE_ITEMS" id="114771892%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-r-v-i-c-e_-i-t-e-m-s/index.html">SERVICE_ITEMS</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="114771892%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-s-e-r-v-i-c-e_-i-t-e-m-s/index.html">SERVICE_ITEMS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1981999961%2FClasslikes%2F1904710855" anchor-label="SERVICE_RESOURCES" id="1981999961%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-e-r-v-i-c-e_-r-e-s-o-u-r-c-e-s/index.html">SERVICE_RESOURCES</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1981999961%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-s-e-r-v-i-c-e_-r-e-s-o-u-r-c-e-s/index.html">SERVICE_RESOURCES</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1164358520%2FClasslikes%2F1904710855" anchor-label="BASIC_WEBSITE" id="-1164358520%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-a-s-i-c_-w-e-b-s-i-t-e/index.html">BASIC_WEBSITE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1164358520%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-b-a-s-i-c_-w-e-b-s-i-t-e/index.html">BASIC_WEBSITE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1313927534%2FClasslikes%2F1904710855" anchor-label="STOREFRONT" id="-1313927534%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-t-o-r-e-f-r-o-n-t/index.html">STOREFRONT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1313927534%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-s-t-o-r-e-f-r-o-n-t/index.html">STOREFRONT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1967932144%2FClasslikes%2F1904710855" anchor-label="CHECKOUT" id="1967932144%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-c-h-e-c-k-o-u-t/index.html">CHECKOUT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1967932144%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-c-h-e-c-k-o-u-t/index.html">CHECKOUT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-457923388%2FClasslikes%2F1904710855" anchor-label="SHIFT_PLANNING" id="-457923388%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-s-h-i-f-t_-p-l-a-n-n-i-n-g/index.html">SHIFT_PLANNING</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-457923388%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><a href="-s-h-i-f-t_-p-l-a-n-n-i-n-g/index.html">SHIFT_PLANNING</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1747880376%2FProperties%2F1904710855" anchor-label="CREATOR" id="-1747880376%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1747880376%2FProperties%2F1904710855"><span><span>CREATOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1747880376%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/os/Parcelable.Creator.html">Parcelable.Creator</a><span class="token operator">&lt;</span><a href="index.html">Module</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#-1747880376%2FProperties%2F1904710855">CREATOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-617547487%2FFunctions%2F1904710855" anchor-label="describeContents" id="-617547487%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="describe-contents.html"><span>describe</span><wbr><span><span>Contents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-617547487%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>int&nbsp;<a href="describe-contents.html"><span class="token function">describeContents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1951811751%2FFunctions%2F1904710855" anchor-label="valueOf" id="1951811751%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951811751%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">Module</a>&nbsp;<a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;name</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1057212188%2FFunctions%2F1904710855" anchor-label="values" id="-1057212188%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1057212188%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">Module</a><span class="token operator">&gt;</span>&nbsp;<a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared. This method may be used to iterate over the constants.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1600108303%2FFunctions%2F1904710855" anchor-label="writeToParcel" id="-1600108303%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="write-to-parcel.html"><span>write</span><wbr><span>To</span><wbr><span><span>Parcel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1600108303%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="write-to-parcel.html"><span class="token function">writeToParcel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Parcel.html">Parcel</a>&nbsp;dest<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int&nbsp;flags</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
