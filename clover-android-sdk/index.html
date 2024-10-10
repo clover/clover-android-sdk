@@ -1,0 +1,1110 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>clover-android-sdk</title>
+<link href="../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<link href="../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../scripts/main.js" defer></script>
+<script type="text/javascript" src="../scripts/prism.js" async></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../images/logo-icon.svg">
+<link href="../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" id="content" pageids="clover-android-sdk::////PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>clover-android-sdk</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><p class="paragraph">The Clover SDK for Android facilitates development of applications running on Clover devices, see below for more information about the functionality provided by this SDK.</p><h2 class="">Service Interfaces</h2><p class="paragraph">Interfaces to use with bound Clover services that allow management of a merchant's data: orders,   inventory, customers, employees, printers, properties, etc. Service classes starting with 'I' are   the underlying AIDL interfaces. Clover provides corresponding ServiceConnector classes for simpler   usage.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.apps/-i-apps-service/index.html">com.clover.sdk.v3.apps.IAppsService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-i-customer-service/index.html">com.clover.sdk.v1.customer.ICustomerService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.employees/-i-employee-service/index.html">com.clover.sdk.v3.employees.IEmployeeService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.merchant/-i-merchant-service/index.html">com.clover.sdk.v1.merchant.IMerchantService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-i-order-service-v3_1/index.html">com.clover.sdk.v3.order.IOrderServiceV3_1</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-printer-service/index.html">com.clover.sdk.v1.printer.IPrinterService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-receipt-registration-service/index.html">com.clover.sdk.v1.printer.IReceiptRegistrationService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.tender/-i-tender-service/index.html">com.clover.sdk.v1.tender.ITenderService</a></p></li></ul><p class="paragraph">For more information about binding to services, refer to the Android documentation: <a href="http://developer.android.com/guide/components/bound-services.html#Binding" target="_blank">     Bound Services</a>.</p><h2 class="">Intents</h2><p class="paragraph">Intents are used to send and receive broadcast messages in Android as well as start activities and   services. The <a href="com.clover.sdk.v1/-intents/index.html">com.clover.sdk.v1.Intents</a> class has definitions for most commonly used   intents for broadcasts sent by Clover and starting Clover activities.</p><h2 class="">Clover Device Interfaces</h2><p class="paragraph">Clover devices offer additional functionality beyond standard Android, such as:</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.scanner/-barcode-result/index.html">com.clover.sdk.v3.scanner.BarcodeResult</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.util/-customer-mode/index.html">com.clover.sdk.util.CustomerMode</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.cashdrawer/-cash-drawers/index.html">com.clover.sdk.cashdrawer.CashDrawers</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-job/index.html">com.clover.sdk.v1.printer.job.PrintJob</a></p></li></ul><h2 class="">Provider Contracts</h2><p class="paragraph">Searching for and displaying large amounts of data is best done through a content provider.   Inserting, updating and deleting Clover data objects via content provider is generally not   supported.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-customer-contract/index.html">com.clover.sdk.v1.customer.CustomerContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-jobs-contract/index.html">com.clover.sdk.v1.printer.job.PrintJobsContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-printer-contract/index.html">com.clover.sdk.v1.printer.PrinterContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-contract/index.html">com.clover.sdk.v1.printer.ReceiptContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-file-contract/index.html">com.clover.sdk.v1.printer.ReceiptFileContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-registration-contract/index.html">com.clover.sdk.v1.printer.ReceiptRegistrationContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.cash/-cash-contract/index.html">com.clover.sdk.v3.cash.CashContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-inventory-contract/index.html">com.clover.sdk.v3.inventory.InventoryContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-order-contract/index.html">com.clover.sdk.v3.order.OrderContract</a></p></li></ul><p class="paragraph">For more information about content providers, refer to the Android documentation:   <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html" target="_blank">     Content Provider Basics</a>.</p><h2 class="">Clover Data Objects</h2><p class="paragraph">The v1 data objects and associated interfaces tend to conform to the deprecated Clover v1 and v2   web REST API, the v3 objects and associated interfaces tend to conform to the Clover v3 web REST   API. Changes to Clover data objects must be sent to the appropriate service interface to take   effect.</p><p class="paragraph">Clover data objects offer interfaces to convert to and from JSON as well as being Parcelable.</p><p class="paragraph">For complete examples and more information about Clover development please visit the   <a href="https://www.clover.com/developers" target="_blank">Clover development website</a>.</p></div></div>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="-3047026%2FPackages%2F1904710855" anchor-label="com.clover.common.payments" id="-3047026%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.common.payments/index.html">com.clover.common.payments</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-3047026%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1642614107%2FPackages%2F1904710855" anchor-label="com.clover.common2" id="-1642614107%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.common2/index.html">com.clover.common2</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1642614107%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1015119846%2FPackages%2F1904710855" anchor-label="com.clover.common2.payments" id="-1015119846%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.common2.payments/index.html">com.clover.common2.payments</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1015119846%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-228276360%2FPackages%2F1904710855" anchor-label="com.clover.sdk" id="-228276360%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk/index.html">com.clover.sdk</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-228276360%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="315834014%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cashdrawer" id="315834014%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cashdrawer/index.html">com.clover.sdk.cashdrawer</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="315834014%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="315834014%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cashdrawer" id="315834014%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+            <p class="paragraph">This package contains classes for opening cash drawers connected to Clover devices. For example, </p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="45473578%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cfp.activity" id="45473578%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cfp.activity/index.html">com.clover.sdk.cfp.activity</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="45473578%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-243815434%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cfp.activity.helper" id="-243815434%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cfp.activity.helper/index.html">com.clover.sdk.cfp.activity.helper</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-243815434%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1662221846%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cfp.connector" id="1662221846%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cfp.connector/index.html">com.clover.sdk.cfp.connector</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1662221846%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1145838270%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cfp.connector.session" id="1145838270%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cfp.connector.session/index.html">com.clover.sdk.cfp.connector.session</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1145838270%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="430876365%2FPackages%2F1904710855" anchor-label="com.clover.sdk.cfp.connector.touchpoint" id="430876365%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.cfp.connector.touchpoint/index.html">com.clover.sdk.cfp.connector.touchpoint</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="430876365%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1000107063%2FPackages%2F1904710855" anchor-label="com.clover.sdk.extractors" id="-1000107063%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.extractors/index.html">com.clover.sdk.extractors</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1000107063%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-414415350%2FPackages%2F1904710855" anchor-label="com.clover.sdk.fragment" id="-414415350%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.fragment/index.html">com.clover.sdk.fragment</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-414415350%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1383432157%2FPackages%2F1904710855" anchor-label="com.clover.sdk.internal.util" id="1383432157%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.internal.util/index.html">com.clover.sdk.internal.util</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1383432157%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1890799320%2FPackages%2F1904710855" anchor-label="com.clover.sdk.nexo" id="-1890799320%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.nexo/index.html">com.clover.sdk.nexo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1890799320%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="931210556%2FPackages%2F1904710855" anchor-label="com.clover.sdk.util" id="931210556%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.util/index.html">com.clover.sdk.util</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="931210556%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1092781173%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1" id="1092781173%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1/index.html">com.clover.sdk.v1</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1092781173%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-578585496%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.app" id="-578585496%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.app/index.html">com.clover.sdk.v1.app</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-578585496%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-823713682%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.base" id="-823713682%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.base/index.html">com.clover.sdk.v1.base</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-823713682%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1664818365%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.configuration" id="1664818365%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.configuration/index.html">com.clover.sdk.v1.configuration</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1664818365%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1228219%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.customer" id="1228219%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.customer/index.html">com.clover.sdk.v1.customer</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228219%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1884088539%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.merchant" id="-1884088539%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.merchant/index.html">com.clover.sdk.v1.merchant</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1884088539%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="592968353%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.printer" id="592968353%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.printer/index.html">com.clover.sdk.v1.printer</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="592968353%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2131301168%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.printer.job" id="2131301168%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.printer.job/index.html">com.clover.sdk.v1.printer.job</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2131301168%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div><span class="brief-comment"><a data-name="2131301168%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.printer.job" id="2131301168%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+            <p class="paragraph">Copyright (C) 2016 Clover Network, Inc. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+          </span></div>
+      </div>
+    </div>
+<a data-name="-431150095%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.tender" id="-431150095%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v1.tender/index.html">com.clover.sdk.v1.tender</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-431150095%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1278958089%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3" id="-1278958089%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3/index.html">com.clover.sdk.v3</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1278958089%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="756349558%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.account" id="756349558%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.account/index.html">com.clover.sdk.v3.account</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="756349558%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1423912753%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.analytics" id="-1423912753%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.analytics/index.html">com.clover.sdk.v3.analytics</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1423912753%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1706742643%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.apps" id="-1706742643%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.apps/index.html">com.clover.sdk.v3.apps</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1706742643%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-548954068%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.base" id="-548954068%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.base/index.html">com.clover.sdk.v3.base</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-548954068%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1118130876%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.billing" id="-1118130876%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.billing/index.html">com.clover.sdk.v3.billing</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1118130876%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-823595906%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.binhandler" id="-823595906%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.binhandler/index.html">com.clover.sdk.v3.binhandler</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-823595906%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="945800299%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.cacheindex" id="945800299%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.cacheindex/index.html">com.clover.sdk.v3.cacheindex</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="945800299%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1947763186%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.cash" id="-1947763186%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.cash/index.html">com.clover.sdk.v3.cash</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1947763186%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1476989913%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.connectpay" id="1476989913%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.connectpay/index.html">com.clover.sdk.v3.connectpay</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1476989913%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2049469812%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.custom" id="-2049469812%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.custom/index.html">com.clover.sdk.v3.custom</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2049469812%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-527614754%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.customers" id="-527614754%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.customers/index.html">com.clover.sdk.v3.customers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-527614754%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="154963987%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.developer" id="154963987%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.developer/index.html">com.clover.sdk.v3.developer</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="154963987%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-423780047%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.device" id="-423780047%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.device/index.html">com.clover.sdk.v3.device</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423780047%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-676195314%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.employees" id="-676195314%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.employees/index.html">com.clover.sdk.v3.employees</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-676195314%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1268979455%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.entitlements" id="-1268979455%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.entitlements/index.html">com.clover.sdk.v3.entitlements</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1268979455%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2046893939%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.happyhour" id="-2046893939%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.happyhour/index.html">com.clover.sdk.v3.happyhour</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2046893939%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-725074280%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.hours" id="-725074280%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.hours/index.html">com.clover.sdk.v3.hours</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-725074280%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="21761829%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.inventory" id="21761829%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.inventory/index.html">com.clover.sdk.v3.inventory</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="21761829%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2016511971%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.merchant" id="2016511971%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.merchant/index.html">com.clover.sdk.v3.merchant</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2016511971%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1617818660%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.onlineorder" id="1617818660%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.onlineorder/index.html">com.clover.sdk.v3.onlineorder</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1617818660%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="921640471%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.order" id="921640471%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.order/index.html">com.clover.sdk.v3.order</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="921640471%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1520277681%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.pay" id="1520277681%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.pay/index.html">com.clover.sdk.v3.pay</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1520277681%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1311893321%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.client.model" id="1311893321%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.client.model/index.html">com.clover.sdk.v3.payment.client.model</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311893321%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1161373960%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payments" id="1161373960%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payments/index.html">com.clover.sdk.v3.payments</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1161373960%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1686645300%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payments.api" id="1686645300%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payments.api/index.html">com.clover.sdk.v3.payments.api</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1686645300%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-251037149%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.printer" id="-251037149%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.printer/index.html">com.clover.sdk.v3.printer</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-251037149%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-986456433%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.report" id="-986456433%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.report/index.html">com.clover.sdk.v3.report</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-986456433%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-620137270%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.resellers" id="-620137270%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.resellers/index.html">com.clover.sdk.v3.resellers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-620137270%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-795389177%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.scanner" id="-795389177%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.scanner/index.html">com.clover.sdk.v3.scanner</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-795389177%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1260322268%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.serverfeature" id="1260322268%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.serverfeature/index.html">com.clover.sdk.v3.serverfeature</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1260322268%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1258737994%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.tables2" id="-1258737994%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.tables2/index.html">com.clover.sdk.v3.tables2</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1258737994%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="161004405%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.tokens" id="161004405%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.tokens/index.html">com.clover.sdk.v3.tokens</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="161004405%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

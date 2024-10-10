@@ -1,0 +1,436 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>OrderCalc</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r316
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.order/OrderCalc///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.order</a><span class="delimiter">/</span><span class="current">OrderCalc</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Order</span><wbr><span><span>Calc</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">OrderCalc</a></div><p class="paragraph">Interfaces with <span data-unresolved-link="com.clover.core.internal.calc/Calc///PointingToDeclaration/">Calc</span> to calculate total, discount, and tax of an <a href="../-order/index.html">Order</a>.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1451342253%2FConstructors%2F1904710855" anchor-label="OrderCalc" id="1451342253%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-order-calc.html"><span>Order</span><wbr><span><span>Calc</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1451342253%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-order-calc.html"><span class="token function">OrderCalc</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-order/index.html">Order</a>&nbsp;order</span></span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new instance to calculate values for the given order.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1183539068%2FFunctions%2F1904710855" anchor-label="getAdditionalChargeSummaries" id="-1183539068%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-additional-charge-summaries.html"><span>get</span><wbr><span>Additional</span><wbr><span>Charge</span><wbr><span><span>Summaries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1183539068%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.clover.core.internal.calc/Calc.AdditionalChargeSummary///PointingToDeclaration/">Calc.AdditionalChargeSummary</span><span class="token operator">&gt;</span>&nbsp;<a href="get-additional-charge-summaries.html"><span class="token function">getAdditionalChargeSummaries</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div><div class="brief ">Get the Additional charges calculated for passed in line items</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="571133897%2FFunctions%2F1904710855" anchor-label="getDiscountedSubtotal" id="571133897%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-discounted-subtotal.html"><span>get</span><wbr><span>Discounted</span><wbr><span><span>Subtotal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="571133897%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-discounted-subtotal.html"><span class="token function">getDiscountedSubtotal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1515628331%2FFunctions%2F1904710855" anchor-label="getDiscountMultiplier" id="1515628331%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-discount-multiplier.html"><span>get</span><wbr><span>Discount</span><wbr><span><span>Multiplier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1515628331%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="com.clover.core.internal.calc/Decimal///PointingToDeclaration/">Decimal</span>&nbsp;<a href="get-discount-multiplier.html"><span class="token function">getDiscountMultiplier</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1989238639%2FFunctions%2F1904710855" anchor-label="getLineExtendedPrice" id="-1989238639%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-extended-price.html"><span>get</span><wbr><span>Line</span><wbr><span>Extended</span><wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1989238639%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-line-extended-price.html"><span class="token function">getLineExtendedPrice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-line-item/index.html">LineItem</a>&nbsp;line</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1926832885%2FFunctions%2F1904710855" anchor-label="getLineSubtotal" id="1926832885%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-subtotal.html"><span>get</span><wbr><span>Line</span><wbr><span><span>Subtotal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1926832885%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-line-subtotal.html"><span class="token function">getLineSubtotal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1635270359%2FFunctions%2F1904710855" anchor-label="getLineSubtotalBeforeRefunds" id="-1635270359%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-subtotal-before-refunds.html"><span>get</span><wbr><span>Line</span><wbr><span>Subtotal</span><wbr><span>Before</span><wbr><span><span>Refunds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1635270359%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-line-subtotal-before-refunds.html"><span class="token function">getLineSubtotalBeforeRefunds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-664975829%2FFunctions%2F1904710855" anchor-label="getLineSubtotalWithoutDiscounts" id="-664975829%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-line-subtotal-without-discounts.html"><span>get</span><wbr><span>Line</span><wbr><span>Subtotal</span><wbr><span>Without</span><wbr><span><span>Discounts</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-664975829%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-line-subtotal-without-discounts.html"><span class="token function">getLineSubtotalWithoutDiscounts</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="798727004%2FFunctions%2F1904710855" anchor-label="getOrderFeePrice" id="798727004%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-order-fee-price.html"><span>get</span><wbr><span>Order</span><wbr><span>Fee</span><wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="798727004%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-order-fee-price.html"><span class="token function">getOrderFeePrice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-line-item/index.html">LineItem</a>&nbsp;orderFeeLineItem</span></span><span class="token punctuation">)</span></div><div class="brief ">Get an orderFee price based on passed orderFeeLineItem's percentage</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="551486054%2FFunctions%2F1904710855" anchor-label="getOrderFeePriceForLineItems" id="551486054%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-order-fee-price-for-line-items.html"><span>get</span><wbr><span>Order</span><wbr><span>Fee</span><wbr><span>Price</span><wbr><span>For</span><wbr><span>Line</span><wbr><span><span>Items</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="551486054%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-order-fee-price-for-line-items.html"><span class="token function">getOrderFeePriceForLineItems</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-line-item/index.html">LineItem</a>&nbsp;orderFeeLineItem</span></span><span class="token punctuation">)</span></div><div class="brief ">Get an orderFee price for passed LineItems, which will be calculated based on passed orderFeeLineItem's percentage</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-782852973%2FFunctions%2F1904710855" anchor-label="getPaymentDetails" id="-782852973%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-payment-details.html"><span>get</span><wbr><span>Payment</span><wbr><span><span>Details</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782852973%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="com.clover.core.internal.calc/Calc.PaymentDetails///PointingToDeclaration/">Calc.PaymentDetails</span>&nbsp;<a href="get-payment-details.html"><span class="token function">getPaymentDetails</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span>long&nbsp;paymentAmount</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="com.clover.core.internal.calc/Calc.PaymentDetails///PointingToDeclaration/">Calc.PaymentDetails</span>&nbsp;<a href="get-payment-details.html"><span class="token function">getPaymentDetails</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span>long&nbsp;paymentAmount<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-32330525%2FFunctions%2F1904710855" anchor-label="getPriceWithoutVAT" id="-32330525%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-price-without-v-a-t.html"><span>get</span><wbr><span>Price</span><wbr><span>Without</span><wbr><span><span>VAT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-32330525%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-price-without-v-a-t.html"><span class="token function">getPriceWithoutVAT</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-line-item/index.html">LineItem</a>&nbsp;lineItem</span></span><span class="token punctuation">)</span></div><div class="brief ">Pass VAT inclusive price Line Item and get back VAT exclusive price</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1992821901%2FFunctions%2F1904710855" anchor-label="getPriceWithVAT" id="-1992821901%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-price-with-v-a-t.html"><span>get</span><wbr><span>Price</span><wbr><span>With</span><wbr><span><span>VAT</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1992821901%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-price-with-v-a-t.html"><span class="token function">getPriceWithVAT</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-line-item/index.html">LineItem</a>&nbsp;lineItem</span></span><span class="token punctuation">)</span></div><div class="brief ">Pass VAT exclusive price Line Item and get back VAT inclusive price</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="763995020%2FFunctions%2F1904710855" anchor-label="getServiceCharge" id="763995020%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-service-charge.html"><span>get</span><wbr><span>Service</span><wbr><span><span>Charge</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="763995020%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-service-charge.html"><span class="token function">getServiceCharge</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-service-charge.html"><span class="token function">getServiceCharge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1745934132%2FFunctions%2F1904710855" anchor-label="getTax" id="-1745934132%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tax.html"><span>get</span><wbr><span><span>Tax</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1745934132%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-tax.html"><span class="token function">getTax</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-tax.html"><span class="token function">getTax</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-864232383%2FFunctions%2F1904710855" anchor-label="getTaxSummaries" id="-864232383%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tax-summaries.html"><span>get</span><wbr><span>Tax</span><wbr><span><span>Summaries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-864232383%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.clover.core.internal.calc/Calc.TaxSummary///PointingToDeclaration/">Calc.TaxSummary</span><span class="token operator">&gt;</span>&nbsp;<a href="get-tax-summaries.html"><span class="token function">getTaxSummaries</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div><br><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.clover.core.internal.calc/Calc.TaxSummary///PointingToDeclaration/">Calc.TaxSummary</span><span class="token operator">&gt;</span>&nbsp;<a href="get-tax-summaries.html"><span class="token function">getTaxSummaries</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="com.clover.core.internal.calc/Decimal///PointingToDeclaration/">Decimal</span>&nbsp;overrideSplitPercent</span></span><span class="token punctuation">)</span></div><div class="brief ">Summarize the taxes for the given line items.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-585456817%2FFunctions%2F1904710855" anchor-label="getTaxSummariesBeforeRefunds" id="-585456817%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tax-summaries-before-refunds.html"><span>get</span><wbr><span>Tax</span><wbr><span>Summaries</span><wbr><span>Before</span><wbr><span><span>Refunds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-585456817%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.clover.core.internal.calc/Calc.TaxSummary///PointingToDeclaration/">Calc.TaxSummary</span><span class="token operator">&gt;</span>&nbsp;<a href="get-tax-summaries-before-refunds.html"><span class="token function">getTaxSummariesBeforeRefunds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="com.clover.core.internal.calc/Decimal///PointingToDeclaration/">Decimal</span>&nbsp;overrideSplitPercent</span></span><span class="token punctuation">)</span></div><div class="brief ">Summarize the taxes for the given line items.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-741996942%2FFunctions%2F1904710855" anchor-label="getTip" id="-741996942%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-tip.html"><span>get</span><wbr><span><span>Tip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-741996942%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-tip.html"><span class="token function">getTip</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1590762281%2FFunctions%2F1904710855" anchor-label="getTotal" id="1590762281%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-total.html"><span>get</span><wbr><span><span>Total</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1590762281%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-total.html"><span class="token function">getTotal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-665862795%2FFunctions%2F1904710855" anchor-label="getTotalBeforeRefunds" id="-665862795%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-total-before-refunds.html"><span>get</span><wbr><span>Total</span><wbr><span>Before</span><wbr><span><span>Refunds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-665862795%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-total-before-refunds.html"><span class="token function">getTotalBeforeRefunds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="493598065%2FFunctions%2F1904710855" anchor-label="getTotalOrderFee" id="493598065%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-total-order-fee.html"><span>get</span><wbr><span>Total</span><wbr><span>Order</span><wbr><span><span>Fee</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="493598065%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-total-order-fee.html"><span class="token function">getTotalOrderFee</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Get the total orderFee amount for given order</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="832654855%2FFunctions%2F1904710855" anchor-label="getTotalOrderFeeFromLineItems" id="832654855%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-total-order-fee-from-line-items.html"><span>get</span><wbr><span>Total</span><wbr><span>Order</span><wbr><span>Fee</span><wbr><span>From</span><wbr><span>Line</span><wbr><span><span>Items</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="832654855%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-total-order-fee-from-line-items.html"><span class="token function">getTotalOrderFeeFromLineItems</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1688290084%2FFunctions%2F1904710855" anchor-label="getTotalWithTip" id="-1688290084%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-total-with-tip.html"><span>get</span><wbr><span>Total</span><wbr><span>With</span><wbr><span><span>Tip</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1688290084%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>long&nbsp;<a href="get-total-with-tip.html"><span class="token function">getTotalWithTip</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/Collection.html">Collection</a><span class="token operator">&lt;</span><a href="../-line-item/index.html">LineItem</a><span class="token operator">&gt;</span>&nbsp;lines</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
