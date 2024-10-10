@@ -769,23 +769,25 @@ interface IInventoryService {
   OrderFee getOrderFee(in String orderFeeId, out ResultStatus resultStatus);
 
   /**
-   * Adds a new order fee.
-   *
-   * @clover.perm INVENTORY_W
+   * Not available to non-Clover apps.
+   * @y.exclude
    */
   OrderFee createOrderFee(in OrderFee orderFee, out ResultStatus resultStatus);
 
   /**
-   * Updates an existing order fee.
-   *
-   * @clover.perm INVENTORY_W
+   * Not available to non-Clover apps.
+   * @y.exclude
    */
   void updateOrderFee(in OrderFee orderFee, out ResultStatus resultStatus);
 
   /**
-   * Deletes an order fee.
-   *
-   * @clover.perm INVENTORY_W
+   * Not available to non-Clover apps.
+   * @y.exclude
    */
   void deleteOrderFee(in String orderFeeId, out ResultStatus resultStatus);
+
+   /**
+     * Retrieve an individual item using the item ID.
+     */
+   Item getPosMenuItem(in String itemId, in String menuId, out ResultStatus resultStatus);
 }

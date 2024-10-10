@@ -1,8 +1,6 @@
 package com.clover.connector.sdk.v3.session;
 
-import com.clover.sdk.v1.merchant.Merchant;
 import com.clover.sdk.v3.customers.CustomerInfo;
-import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.order.DisplayOrder;
 import com.clover.sdk.v3.payments.Transaction;
 
@@ -47,8 +45,6 @@ public class SessionConnector implements Serializable, SessionListener {
     public static final String QUERY_PARAMETER_VALUE = "value";
     public static final String QUERY_PARAMETER_NAME = "name";
     public static final String QUERY_PARAMETER_SRC = "src";
-    public static final String BUNDLE_KEY_MERCHANT = "Merchant";
-    public static final String BUNDLE_KEY_EMPLOYEE = "Employee";
     public static final String BUNDLE_KEY_TYPE = "TYPE";
     public static final String BUNDLE_KEY_DATA = "DATA";
     public static final String BUNDLE_KEY_MESSAGE = "MESSAGE";
@@ -187,48 +183,6 @@ public class SessionConnector implements Serializable, SessionListener {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
-    }
-
-    public Map<String, String> getProperties() {
-        Map<String, String> properties = new HashMap<>();
-        try {
-            if (connect()) {
-                try (Cursor cursor = sessionContentProviderClient.query(SessionContract.PROPERTIES_URI, null, null, null, null)) {
-                    if (null != cursor && cursor.moveToFirst()) {
-                        do {
-                            String key = cursor.getString(0);
-                            String value = cursor.getString(1);
-                            properties.put(key, value);
-                        } while (cursor.moveToNext());
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return properties;
-    }
-
-    public Merchant getMerchantInfo() {
-        try {
-            Log.d(TAG, "Calling getMerchant");
-            Bundle result = sessionContentProviderClient.call(SessionContract.CALL_METHOD_GET_MERCHANT, null, null);
-            return result == null ? null : (Merchant) result.getParcelable(BUNDLE_KEY_MERCHANT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Employee getEmployee() {
-        try {
-            Log.d(TAG, "Calling getEmployee");
-            Bundle result = sessionContentProviderClient.call(SessionContract.CALL_METHOD_GET_EMPLOYEE, null, null);
-            return result == null ? null : (Employee) result.getParcelable(BUNDLE_KEY_EMPLOYEE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public void setProperty(String key, String value) {

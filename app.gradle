@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: file("${project.rootDir}/common.gradle")
+apply from: file("${project.rootDir}/list-dependencies.gradle")
 
 /**
  * Gets the full path of the proguard file specified by `name`.
@@ -80,7 +81,13 @@ android {
 
       matchingFallbacks = ['release']
     }
+
   }
+
+  buildFeatures {
+    buildConfig = true
+  }
+
 
   compileSdkVersion COMPILE_SDK_VERSION
 
@@ -102,9 +109,5 @@ android {
 
   lintOptions {
     abortOnError false
-  }
-
-  dexOptions {
-   preDexLibraries = Boolean.valueOf(System.getProperty("androidPreDex", "true"))
   }
 }

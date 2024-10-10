@@ -42,6 +42,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNet net}</li>
  * <li>{@link #getNetTips netTips}</li>
  * <li>{@link #getExpectedDeposit expectedDeposit}</li>
+ * <li>{@link #getQuantity quantity}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -50,7 +51,7 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
   /**
    * The device that this summary is for. For the total row, this field will be null. A 128-bit UUID, not a normal base-13 Clover ID.
    */
-  public com.clover.sdk.v3.base.Reference getDevice() {
+  public com.clover.sdk.v3.device.Device getDevice() {
     return genClient.cacheGet(CacheKey.device);
   }
 
@@ -117,12 +118,19 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     return genClient.cacheGet(CacheKey.expectedDeposit);
   }
 
+  /**
+   * Count of how many relevant cash activities appeared in the period.
+   */
+  public java.lang.Integer getQuantity() {
+    return genClient.cacheGet(CacheKey.quantity);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     device
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.device.Device.JSON_CREATOR)),
     cashSalesAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     cashPaymentAmount
@@ -141,6 +149,8 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     expectedDeposit
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    quantity
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -265,6 +275,11 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     return genClient.cacheValueIsNotNull(CacheKey.expectedDeposit);
   }
 
+  /** Checks whether the 'quantity' field is set and is not null */
+  public boolean isNotNullQuantity() {
+    return genClient.cacheValueIsNotNull(CacheKey.quantity);
+  }
+
 
 
   /** Checks whether the 'device' field has been set, however the value could be null */
@@ -317,13 +332,18 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     return genClient.cacheHasKey(CacheKey.expectedDeposit);
   }
 
+  /** Checks whether the 'quantity' field has been set, however the value could be null */
+  public boolean hasQuantity() {
+    return genClient.cacheHasKey(CacheKey.quantity);
+  }
+
 
   /**
    * Sets the field 'device'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public DeviceCashSummaryRow setDevice(com.clover.sdk.v3.base.Reference device) {
+  public DeviceCashSummaryRow setDevice(com.clover.sdk.v3.device.Device device) {
     return genClient.setRecord(device, CacheKey.device);
   }
 
@@ -390,6 +410,13 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     return genClient.setOther(expectedDeposit, CacheKey.expectedDeposit);
   }
 
+  /**
+   * Sets the field 'quantity'.
+   */
+  public DeviceCashSummaryRow setQuantity(java.lang.Integer quantity) {
+    return genClient.setOther(quantity, CacheKey.quantity);
+  }
+
 
   /** Clears the 'device' field, the 'has' method for this field will now return false */
   public void clearDevice() {
@@ -430,6 +457,10 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
   /** Clears the 'expectedDeposit' field, the 'has' method for this field will now return false */
   public void clearExpectedDeposit() {
     genClient.clear(CacheKey.expectedDeposit);
+  }
+  /** Clears the 'quantity' field, the 'has' method for this field will now return false */
+  public void clearQuantity() {
+    genClient.clear(CacheKey.quantity);
   }
 
 
@@ -503,6 +534,7 @@ public class DeviceCashSummaryRow extends GenericParcelable implements com.clove
     public static final boolean NET_IS_REQUIRED = false;
     public static final boolean NETTIPS_IS_REQUIRED = false;
     public static final boolean EXPECTEDDEPOSIT_IS_REQUIRED = false;
+    public static final boolean QUANTITY_IS_REQUIRED = false;
   }
 
 }

@@ -45,7 +45,8 @@ def run_command(command, no_print=False):
     return p.returncode, iter(lines)
     
 def print_help():
-    eprint('Usage: ' + os.path.basename(__file__) + ' [--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade]')
+    eprint('Usage: ' + os.path.basename(__file__)
+           + '[--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade] [--serial SERIAL]')
     eprint('  --debug or -d               : print extended debug information')
     eprint('  --version or -v             : print version (and exit)')
     eprint('  --dry-run or -r             : show actions but do not perform them (do not download or install APKs')
@@ -111,7 +112,7 @@ def main(argv):
 
     try:
         opts, args = getopt.getopt(
-            argv, 'dvrkos:h', ['debug', 'version', 'dry-run', 'keep', 'downgrade', 'serial', 'help'])
+            argv, 'dvrkos:h', ['debug', 'version', 'dry-run', 'keep', 'downgrade', 'serial=', 'help'])
     except getopt.GetoptError:
         print_help()
         sys.exit(2)
@@ -160,14 +161,14 @@ def main(argv):
     if return_code != 0:
         eprint("Failed to execute command: {}".format(command))
     for line in lines:
-        match = re.search('Package \[([a-zA-Z0-9\._]+)\]', line)
+        match = re.search(r'Package \[([a-zA-Z0-9\._]+)\]', line)
         if match:
             last_pkg = match.group(1)
             if debug:
                 print('Found package: {}'.format(last_pkg))
             continue
 
-        match = re.search('versionCode=(\d+)', line)
+        match = re.search(r'versionCode=(\d+)', line)
         if match:
             version_code = match.group(1)
             installed_versions[last_pkg] = version_code

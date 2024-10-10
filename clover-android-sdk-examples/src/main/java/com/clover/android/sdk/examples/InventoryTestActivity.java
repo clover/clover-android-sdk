@@ -815,6 +815,12 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public Item getPosMenuItem(String itemId, String menuId, ResultStatus resultStatus) throws RemoteException {
+      String uri = "/v2/merchant/" + merchantId + "/inventory/items/" + itemId;
+      return getResult(Item.class, uri, "item", resultStatus);
+    }
+
+    @Override
     public Item getItemWithCategories(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("getItemWithCategories() not supported through web service API");
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2013 Clover Network, Inc.
+  ~ Copyright (C) 2024 Clover Network, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
-    package="com.clover.android.sdk.examples"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -201,5 +200,18 @@ xmlns:tools="http://schemas.android.com/tools"
           android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestProvider"
           android:authorities="com.clover.android.sdk.examples.receipt"
           android:exported="true" />
+
+        <activity
+            android:name="com.clover.android.sdk.examples.CustomReceiptProviderTestActivity"
+            android:label="@string/custom_receipt_provider_test" />
+        <provider
+            android:name=".CustomReceiptProviderTest"
+            android:authorities="com.clover.android.sdk.examples.receipt.custom"
+            android:exported="true"
+            tools:ignore="ExportedContentProvider">
+            <meta-data
+                android:name="com.clover.printer.receipt.custom.content.receipt.types"
+                android:value="Payment,Bill,Refund,Credit"/>
+        </provider>
     </application>
 </manifest>

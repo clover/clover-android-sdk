@@ -44,16 +44,16 @@ import com.clover.sdk.GenericParcelable;
 public class ReportDiscountRow extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Reference to the order for this row
+   * The order for this row
    */
-  public com.clover.sdk.v3.base.Reference getOrder() {
+  public com.clover.sdk.v3.order.Order getOrder() {
     return genClient.cacheGet(CacheKey.order);
   }
 
   /**
    * Reference to the employees who approved the discounts on this order
    */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getApprovers() {
+  public java.util.List<com.clover.sdk.v3.employees.Employee> getApprovers() {
     return genClient.cacheGet(CacheKey.approvers);
   }
 
@@ -104,9 +104,9 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     order
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.Order.JSON_CREATOR)),
     approvers
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.employees.Employee.JSON_CREATOR)),
     orderDiscountTotal
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     orderDiscountCount
@@ -191,8 +191,6 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
 
   @Override
   public void validate() {
-    genClient.validateReferences(CacheKey.order);
-    genClient.validateReferences(CacheKey.approvers);
   }
 
   /** Checks whether the 'order' field is set and is not null */
@@ -286,7 +284,7 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public ReportDiscountRow setOrder(com.clover.sdk.v3.base.Reference order) {
+  public ReportDiscountRow setOrder(com.clover.sdk.v3.order.Order order) {
     return genClient.setRecord(order, CacheKey.order);
   }
 
@@ -295,7 +293,7 @@ public class ReportDiscountRow extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public ReportDiscountRow setApprovers(java.util.List<com.clover.sdk.v3.base.Reference> approvers) {
+  public ReportDiscountRow setApprovers(java.util.List<com.clover.sdk.v3.employees.Employee> approvers) {
     return genClient.setArrayRecord(approvers, CacheKey.approvers);
   }
 

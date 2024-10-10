@@ -33,4 +33,15 @@ public class RetrieveCreditRequestIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+    public static class Response {
+        /**
+         * The retrieved Credit object.
+         */
+        public static final String CREDIT = Intents.EXTRA_CREDIT;
+        /**
+         * If retrieving the credit fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

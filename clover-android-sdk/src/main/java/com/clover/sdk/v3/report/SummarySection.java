@@ -28,37 +28,45 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * Combines a collection of rows with a total to form a section in payments API's
+ * Combines a collection of rows with a total to form a section in reporting API responses.
  * <p>
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getRows rows}</li>
  * <li>{@link #getTotal total}</li>
  * <li>{@link #getMajorLabelsExist majorLabelsExist}</li>
+ * <li>{@link #getPeriod period}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class SummarySection extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * The detail rows of a particular section of a payments API
+   * The detail rows of a particular section of a reporting API response.
    */
   public java.util.List<com.clover.sdk.v3.report.Summary> getRows() {
     return genClient.cacheGet(CacheKey.rows);
   }
 
   /**
-   * The sum of the above rows
+   * The sum of the above rows.
    */
   public com.clover.sdk.v3.report.Summary getTotal() {
     return genClient.cacheGet(CacheKey.total);
   }
 
   /**
-   * Optional flag used for revenue class to indicate whether the merchant has any labels marked 'Show in Reporting?'
+   * Optional flag used for revenue class to indicate whether the merchant has any labels marked 'Show in Reporting?'.
    */
   public java.lang.Boolean getMajorLabelsExist() {
     return genClient.cacheGet(CacheKey.majorLabelsExist);
+  }
+
+  /**
+   * The time period that defines the size of the groups: hour, day, week, month, ungrouped. In some contexts this section might have a different grouping size than the rest of the objects on the response.
+   */
+  public com.clover.sdk.v3.report.TimePeriod getPeriod() {
+    return genClient.cacheGet(CacheKey.period);
   }
 
 
@@ -71,6 +79,8 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
     majorLabelsExist
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    period
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.report.TimePeriod.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -163,6 +173,11 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.majorLabelsExist);
   }
 
+  /** Checks whether the 'period' field is set and is not null */
+  public boolean isNotNullPeriod() {
+    return genClient.cacheValueIsNotNull(CacheKey.period);
+  }
+
 
 
   /** Checks whether the 'rows' field has been set, however the value could be null */
@@ -178,6 +193,11 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'majorLabelsExist' field has been set, however the value could be null */
   public boolean hasMajorLabelsExist() {
     return genClient.cacheHasKey(CacheKey.majorLabelsExist);
+  }
+
+  /** Checks whether the 'period' field has been set, however the value could be null */
+  public boolean hasPeriod() {
+    return genClient.cacheHasKey(CacheKey.period);
   }
 
 
@@ -206,6 +226,13 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     return genClient.setOther(majorLabelsExist, CacheKey.majorLabelsExist);
   }
 
+  /**
+   * Sets the field 'period'.
+   */
+  public SummarySection setPeriod(com.clover.sdk.v3.report.TimePeriod period) {
+    return genClient.setOther(period, CacheKey.period);
+  }
+
 
   /** Clears the 'rows' field, the 'has' method for this field will now return false */
   public void clearRows() {
@@ -218,6 +245,10 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'majorLabelsExist' field, the 'has' method for this field will now return false */
   public void clearMajorLabelsExist() {
     genClient.clear(CacheKey.majorLabelsExist);
+  }
+  /** Clears the 'period' field, the 'has' method for this field will now return false */
+  public void clearPeriod() {
+    genClient.clear(CacheKey.period);
   }
 
 
@@ -284,6 +315,7 @@ public class SummarySection extends GenericParcelable implements com.clover.sdk.
     public static final boolean ROWS_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean MAJORLABELSEXIST_IS_REQUIRED = false;
+    public static final boolean PERIOD_IS_REQUIRED = false;
   }
 
 }

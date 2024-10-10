@@ -154,6 +154,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     });
   }
 
+  public Item getPosMenuItem(final String itemId, String menuId) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Item>() {
+      public Item call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getPosMenuItem(itemId, menuId, status);
+      }
+    });
+  }
+
   public void getItem(final String itemId, Callback<Item> callback) {
     execute(new ServiceCallable<IInventoryService, Item>() {
       public Item call(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -1400,22 +1408,38 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     execute((service, status) -> service.getOrderFee(orderFeeId, status), callback);
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public OrderFee createOrderFee(final OrderFee orderFee) throws ClientException, ServiceException, BindingException, RemoteException {
     return execute((service, status) -> {
       return service.createOrderFee(orderFee, status);
     });
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public void createOrderFee(final OrderFee orderFee, Callback<OrderFee> callback) {
     execute((service, status) -> service.createOrderFee(orderFee, status), callback);
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public void updateOrderFee(final OrderFee orderFee) throws ClientException, ServiceException, BindingException, RemoteException {
     execute((service, status) -> {
       service.updateOrderFee(orderFee, status);
     });
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public void updateOrderFee(final OrderFee orderFee, Callback<Void> callback) {
     execute((service, status) -> {
       service.updateOrderFee(orderFee, status);
@@ -1423,12 +1447,20 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public void deleteOrderFee(final String orderFeeId) throws ClientException, ServiceException, BindingException, RemoteException {
     execute((service, status) -> {
       service.deleteOrderFee(orderFeeId, status);
     });
   }
 
+  /**
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
   public void deleteOrderFee(final String orderFeeId, Callback<Void> callback) {
     execute((service, status) -> {
       service.deleteOrderFee(orderFeeId, status);

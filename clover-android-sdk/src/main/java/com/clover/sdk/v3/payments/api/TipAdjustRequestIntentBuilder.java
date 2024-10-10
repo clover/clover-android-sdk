@@ -80,4 +80,23 @@ public class TipAdjustRequestIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+    public static class Response {
+        /**
+         * If only one payment tip adjusted, the ID of the payment tip adjusted.
+         */
+        public static final String PAYMENT_ID = Intents.EXTRA_PAYMENT_ID;
+        /**
+         * If only one payment tip adjusted, the tip amount selected.
+         */
+        public static final String TIP_AMOUNT = Intents.EXTRA_TIP_AMOUNT;
+        /**
+         * A map of payment IDs and tipAmounts of payments tip adjusted.
+         */
+        public static final String TIP_AMOUNTS = Intents.EXTRA_TIP_AMOUNTS;
+        /**
+         * If tip adjusting fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

@@ -85,6 +85,13 @@ public abstract class PrintJob implements Parcelable {
   /** Force customer tip line on print out even if normally not required */
   public static final int FLAG_FORCE_TIP = 1 << 12;
 
+  /** Indicate this print job is for pay at register,  additional instructions will be included in printout */
+  public static final int FLAG_PAY_AT_REGISTER = 1 << 13;
+  /**
+   * Indicate this is a voided item on the print out
+   */
+  public static final int FLAG_PRINT_VOID_RECEIPT = 1 << 14;
+
   public abstract static class Builder {
     protected int flags = FLAG_NONE;
     protected boolean printToAny = false;

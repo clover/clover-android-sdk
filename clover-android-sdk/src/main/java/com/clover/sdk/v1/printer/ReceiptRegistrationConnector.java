@@ -30,7 +30,6 @@ import android.util.Log;
 
 import java.util.List;
 import java.util.Locale;
-
 /**
  * A class that encapsulates interaction with
  * {@link com.clover.sdk.v1.printer.IReceiptRegistrationService}.

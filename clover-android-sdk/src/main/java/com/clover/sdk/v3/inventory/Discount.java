@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getPercentage percentage}</li>
+ * <li>{@link #getType type}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -69,6 +70,13 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.percentage);
   }
 
+  /**
+   * The type of Discount
+   */
+  public com.clover.sdk.v3.inventory.DiscountType getType() {
+    return genClient.cacheGet(CacheKey.type);
+  }
+
 
 
 
@@ -81,6 +89,8 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     percentage
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.DiscountType.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -183,6 +193,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.percentage);
   }
 
+  /** Checks whether the 'type' field is set and is not null */
+  public boolean isNotNullType() {
+    return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -203,6 +218,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'percentage' field has been set, however the value could be null */
   public boolean hasPercentage() {
     return genClient.cacheHasKey(CacheKey.percentage);
+  }
+
+  /** Checks whether the 'type' field has been set, however the value could be null */
+  public boolean hasType() {
+    return genClient.cacheHasKey(CacheKey.type);
   }
 
 
@@ -234,6 +254,13 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(percentage, CacheKey.percentage);
   }
 
+  /**
+   * Sets the field 'type'.
+   */
+  public Discount setType(com.clover.sdk.v3.inventory.DiscountType type) {
+    return genClient.setOther(type, CacheKey.type);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -250,6 +277,10 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'percentage' field, the 'has' method for this field will now return false */
   public void clearPercentage() {
     genClient.clear(CacheKey.percentage);
+  }
+  /** Clears the 'type' field, the 'has' method for this field will now return false */
+  public void clearType() {
+    genClient.clear(CacheKey.type);
   }
 
 
@@ -322,6 +353,7 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean PERCENTAGE_IS_REQUIRED = false;
     public static final long PERCENTAGE_MIN = 0;
     public static final long PERCENTAGE_MAX = 100;
+    public static final boolean TYPE_IS_REQUIRED = false;
   }
 
 }

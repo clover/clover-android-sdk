@@ -28,11 +28,10 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * An object containing all of the fields of a Summary plus one additional key (groupByString). This object is useful for mapping the result set of a SQL query which selects Summaries using a GROUP BY clause.
+ * An object containing all of the fields of a Summary plus one additional key, tenderId. This object is useful for mapping the result set of a SQL query which selects Summaries using a GROUP BY clause.
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getGroupByField groupByField}</li>
  * <li>{@link #getNum num}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTipAmount tipAmount}</li>
@@ -42,13 +41,6 @@ import com.clover.sdk.GenericParcelable;
  */
 @SuppressWarnings("all")
 public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
-
-  /**
-   * Group by field
-   */
-  public java.lang.String getGroupByField() {
-    return genClient.cacheGet(CacheKey.groupByField);
-  }
 
   /**
    * Number of rows
@@ -89,8 +81,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    groupByField
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     num
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     amount
@@ -175,11 +165,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   public void validate() {
   }
 
-  /** Checks whether the 'groupByField' field is set and is not null */
-  public boolean isNotNullGroupByField() {
-    return genClient.cacheValueIsNotNull(CacheKey.groupByField);
-  }
-
   /** Checks whether the 'num' field is set and is not null */
   public boolean isNotNullNum() {
     return genClient.cacheValueIsNotNull(CacheKey.num);
@@ -207,11 +192,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
 
 
 
-  /** Checks whether the 'groupByField' field has been set, however the value could be null */
-  public boolean hasGroupByField() {
-    return genClient.cacheHasKey(CacheKey.groupByField);
-  }
-
   /** Checks whether the 'num' field has been set, however the value could be null */
   public boolean hasNum() {
     return genClient.cacheHasKey(CacheKey.num);
@@ -237,13 +217,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.serviceChargeAmount);
   }
 
-
-  /**
-   * Sets the field 'groupByField'.
-   */
-  public KeyedSummary setGroupByField(java.lang.String groupByField) {
-    return genClient.setOther(groupByField, CacheKey.groupByField);
-  }
 
   /**
    * Sets the field 'num'.
@@ -281,10 +254,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
 
-  /** Clears the 'groupByField' field, the 'has' method for this field will now return false */
-  public void clearGroupByField() {
-    genClient.clear(CacheKey.groupByField);
-  }
   /** Clears the 'num' field, the 'has' method for this field will now return false */
   public void clearNum() {
     genClient.clear(CacheKey.num);
@@ -367,7 +336,6 @@ public class KeyedSummary extends GenericParcelable implements com.clover.sdk.v3
   };
 
   public interface Constraints {
-    public static final boolean GROUPBYFIELD_IS_REQUIRED = false;
     public static final boolean NUM_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TIPAMOUNT_IS_REQUIRED = false;

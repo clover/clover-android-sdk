@@ -58,4 +58,15 @@ public class ReadCardRequestIntentBuilder extends BaseIntentBuilder {
             return new CardOptions(cardEntryMethods);
         }
     }
+
+    public static class Response {
+        /**
+         * The resulting card data, such as track data and card holder information.
+         */
+        public static final String CARD_DATA = Intents.EXTRA_CARD_DATA;
+        /**
+         * If the card read fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

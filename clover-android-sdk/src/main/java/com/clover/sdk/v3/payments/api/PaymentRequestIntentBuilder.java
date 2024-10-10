@@ -716,4 +716,62 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       return new TenderOptions(true, true);
     }
   }
+
+  public static class Response {
+    /**
+     * The resulting payment.
+     */
+    public final static String PAYMENT = Intents.EXTRA_PAYMENT;
+    /**
+     * The customer's entered email/phone number from the customer facing receipt screen.
+     */
+    public static final String ENTERED_RECEIPT_VALUE = Intents.EXTRA_ENTERED_RECEIPT_VALUE;
+    /**
+     * The type of receipt requested by the customer.
+     * e.g., SMS, Email, Print, No Receipt
+     */
+    public static final String RECEIPT_DELIVERY_TYPE = Intents.EXTRA_RECEIPT_DELIVERY_TYPE;
+    /**
+     * The status of the customer's receipt delivery.  If cloverShouldHandleReceipts is true, then it will
+     * return PROCESSED.  If cloverShouldHandleReceipts is false, then it will return REQUESTED.
+     */
+    public static final String RECEIPT_DELIVERY_STATUS = Intents.EXTRA_RECEIPT_DELIVERY_STATUS;
+    /**
+     * If the customer chose to opt into marketing communication on the receipt screen.
+     */
+    public static final String OPTED_INTO_MARKETING = Intents.EXTRA_OPTED_INTO_MARKETING;
+    /**
+     * If taken, customer's signature.
+     */
+    public static final String SIGNATURE = Intents.EXTRA_SIGNATURE;
+    /**
+     * If a cash payment is taken, the amount of change due to customer.
+     */
+    public static final String CHANGE_DUE = Intents.EXTRA_CHANGE_DUE;
+    /**
+     * If tokenizing the card is requested, this will return the type of Token.
+     */
+    public static final String TOKEN_TYPE = Intents.EXTRA_TOKEN_TYPE;
+    /**
+     * The token to be used for EComm transactions.
+     */
+    public static final String TOKEN = Intents.EXTRA_TOKEN;
+    /**
+     * Card information for the tokenized card.  This should  consist of information such as:
+     * first6, last4, expiration month, expiration year.
+     */
+    public static final String CARD = Intents.EXTRA_CARD;
+    /**
+     * If tokenizing the card fails, the reason will be present.
+     */
+    public static final String REASON = Intents.EXTRA_REASON;
+    /**
+     * If the customer confirmation of saving their card is suppressed.
+     */
+    public static final String SUPPRESS_CONFIRMATION = Intents.EXTRA_SUPPRESS_CONFIRMATION;
+    /**
+     * If the payment fails for any reason, there will be a failure message sent.
+     */
+    public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+  }
 }

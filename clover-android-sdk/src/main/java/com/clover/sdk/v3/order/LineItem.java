@@ -68,6 +68,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOrderFee orderFee}</li>
  * <li>{@link #getIsOrderFee isOrderFee}</li>
  * <li>{@link #getIsPlatformOrderFee isPlatformOrderFee}</li>
+ * <li>{@link #getOrderFeeType orderFeeType}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -317,7 +318,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.isPlatformOrderFee);
   }
 
-
+  /**
+   * Used to define the type of order fee line item.
+   * Auto-gratuity enabled orderFee lineItem, has this field set to "AUTO_GRATUITY", otherwise null
+   * */
+  public java.lang.String getOrderFeeType() {
+    return genClient.cacheGet(CacheKey.orderFeeType);
+  }
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -397,6 +404,8 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     isPlatformOrderFee
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    orderFeeType
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -705,6 +714,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
 
+  /** Checks whether the 'orderFeeType' field is set and is not null */
+  public boolean isNotNullOrderFeeType() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderFeeType);
+  }
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -896,6 +910,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.isPlatformOrderFee);
   }
 
+  /** Checks whether the 'orderFeeType' field has been set, however the value could be null */
+  public boolean hasOrderFeeType() {
+    return genClient.cacheHasKey(CacheKey.orderFeeType);
+  }
 
   /**
    * Sets the field 'id'.
@@ -1185,6 +1203,12 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(isPlatformOrderFee, CacheKey.isPlatformOrderFee);
   }
 
+  /**
+   * Sets the field 'orderFeeType'.
+   */
+  public LineItem setOrderFeeType(java.lang.String orderFeeType) {
+    return genClient.setOther(orderFeeType, CacheKey.orderFeeType);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1338,7 +1362,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearIsPlatformOrderFee() {
     genClient.clear(CacheKey.isPlatformOrderFee);
   }
-
+  /** Clears the 'orderFee' field, the 'has' method for this field will now return false */
+  public void clearOrderFeeType() {
+    genClient.clear(CacheKey.orderFeeType);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1450,6 +1477,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ORDERFEE_IS_REQUIRED = false;
     public static final boolean ISORDERFEE_IS_REQUIRED = false;
     public static final boolean ISPLATFORMORDERFEE_IS_REQUIRED = false;
+    public static final boolean ORDERFEETYPE_IS_REQUIRED = false;
   }
 
 }

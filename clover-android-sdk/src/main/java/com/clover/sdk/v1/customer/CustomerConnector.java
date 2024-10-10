@@ -91,12 +91,22 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
     });
   }
 
+  @Deprecated
   public Customer createCustomer(final String firstName, final String lastName, final boolean marketingAllowed) throws ClientException, ServiceException, BindingException, RemoteException {
     return execute(new ServiceCallable<ICustomerService, Customer>() {
       public Customer call(ICustomerService service, ResultStatus status) throws RemoteException {
         return service.createCustomer(firstName, lastName, marketingAllowed, status);
       }
     });
+  }
+
+  public Customer newCustomer(final String firstName, final String lastName)throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<ICustomerService, Customer>() {
+      public Customer call(ICustomerService service, ResultStatus status) throws RemoteException {
+        return service.newCustomer(firstName, lastName, status);
+      }
+    });
+
   }
 
   public void setName(final String customerId, final String firstName, final String lastName) throws ClientException, ServiceException, BindingException, RemoteException {
@@ -107,6 +117,7 @@ public class CustomerConnector extends ServiceConnector<ICustomerService> {
     });
   }
 
+  @Deprecated
   public void setMarketingAllowed(final String customerId, final boolean marketingAllowed) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<ICustomerService>() {
       public void run(ICustomerService service, ResultStatus status) throws RemoteException {

@@ -35,4 +35,16 @@ public class IncrementalAuthRequestIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+
+    public static class Response {
+        /**
+         * The resulting incremented Authorization object.
+         */
+        public static final String AUTHORIZATION_INCREMENT = Intents.EXTRA_AUTHORIZATION_INCREMENT;
+        /**
+         * If incrementing the pre-authorization fails for any reason, there will be failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

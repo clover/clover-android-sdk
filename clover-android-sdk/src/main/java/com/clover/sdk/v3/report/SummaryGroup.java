@@ -32,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getSummaryObject summaryObject}</li>
+ * <li>{@link #getTotals totals}</li>
  * <li>{@link #getPaymentsSummary paymentsSummary}</li>
  * <li>{@link #getRefundsSummary refundsSummary}</li>
  * <li>{@link #getCreditsSummary creditsSummary}</li>
@@ -47,6 +48,13 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
 
   public com.clover.sdk.v3.base.Reference getSummaryObject() {
     return genClient.cacheGet(CacheKey.summaryObject);
+  }
+
+  /**
+   * Contains total number of transactions and total amount collected
+   */
+  public com.clover.sdk.v3.report.SalesSummaryLite getTotals() {
+    return genClient.cacheGet(CacheKey.totals);
   }
 
   public com.clover.sdk.v3.report.Summary getPaymentsSummary() {
@@ -73,6 +81,8 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     summaryObject
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    totals
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.SalesSummaryLite.JSON_CREATOR)),
     paymentsSummary
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.Summary.JSON_CREATOR)),
     refundsSummary
@@ -166,6 +176,11 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.summaryObject);
   }
 
+  /** Checks whether the 'totals' field is set and is not null */
+  public boolean isNotNullTotals() {
+    return genClient.cacheValueIsNotNull(CacheKey.totals);
+  }
+
   /** Checks whether the 'paymentsSummary' field is set and is not null */
   public boolean isNotNullPaymentsSummary() {
     return genClient.cacheValueIsNotNull(CacheKey.paymentsSummary);
@@ -196,6 +211,11 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'summaryObject' field has been set, however the value could be null */
   public boolean hasSummaryObject() {
     return genClient.cacheHasKey(CacheKey.summaryObject);
+  }
+
+  /** Checks whether the 'totals' field has been set, however the value could be null */
+  public boolean hasTotals() {
+    return genClient.cacheHasKey(CacheKey.totals);
   }
 
   /** Checks whether the 'paymentsSummary' field has been set, however the value could be null */
@@ -233,6 +253,15 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
    */
   public SummaryGroup setSummaryObject(com.clover.sdk.v3.base.Reference summaryObject) {
     return genClient.setRecord(summaryObject, CacheKey.summaryObject);
+  }
+
+  /**
+   * Sets the field 'totals'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public SummaryGroup setTotals(com.clover.sdk.v3.report.SalesSummaryLite totals) {
+    return genClient.setRecord(totals, CacheKey.totals);
   }
 
   /**
@@ -279,6 +308,10 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'summaryObject' field, the 'has' method for this field will now return false */
   public void clearSummaryObject() {
     genClient.clear(CacheKey.summaryObject);
+  }
+  /** Clears the 'totals' field, the 'has' method for this field will now return false */
+  public void clearTotals() {
+    genClient.clear(CacheKey.totals);
   }
   /** Clears the 'paymentsSummary' field, the 'has' method for this field will now return false */
   public void clearPaymentsSummary() {
@@ -360,6 +393,7 @@ public class SummaryGroup extends GenericParcelable implements com.clover.sdk.v3
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final boolean SUMMARYOBJECT_IS_REQUIRED = false;
+    public static final boolean TOTALS_IS_REQUIRED = false;
     public static final boolean PAYMENTSSUMMARY_IS_REQUIRED = false;
     public static final boolean REFUNDSSUMMARY_IS_REQUIRED = false;
     public static final boolean CREDITSSUMMARY_IS_REQUIRED = false;

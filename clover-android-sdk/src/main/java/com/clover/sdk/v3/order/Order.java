@@ -35,9 +35,11 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getCurrency currency}</li>
  * <li>{@link #getCustomers customers}</li>
+ * <li>{@link #getFulfillmentInfo fulfillmentInfo}</li>
  * <li>{@link #getEmployee employee}</li>
  * <li>{@link #getTotal total}</li>
  * <li>{@link #getExternalReferenceId externalReferenceId}</li>
+ * <li>{@link #getInvoiceId invoiceId}</li>
  * <li>{@link #getUnpaidBalance unpaidBalance}</li>
  * <li>{@link #getPaymentState paymentState}</li>
  * <li>{@link #getTitle title}</li>
@@ -98,6 +100,13 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
+   * Fulfillment information associated with this order. Contains customer info.
+   */
+  public com.clover.sdk.v3.order.FulfillmentInfo getFulfillmentInfo() {
+    return genClient.cacheGet(CacheKey.fulfillmentInfo);
+  }
+
+  /**
    * The employee who took this order
    */
   public com.clover.sdk.v3.base.Reference getEmployee() {
@@ -116,6 +125,13 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public java.lang.String getExternalReferenceId() {
     return genClient.cacheGet(CacheKey.externalReferenceId);
+  }
+
+  /**
+   * If this order has an invoice, this is the id of that invoice. Null otherwise
+   */
+  public java.lang.String getInvoiceId() {
+    return genClient.cacheGet(CacheKey.invoiceId);
   }
 
   /**
@@ -162,7 +178,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
-   * A String generally describing the state of the order. If no value is set, the state defaults to null, which indicates a hidden order. A hidden order is not displayed in user interfaces and can only be retrieved by its id. When creating an order via the REST API the value must be manually set to "open". When creating an order via the Android SDK the value must be left empty and the value will be updated to "open" and "locked" automatically when actions such as taking payments and adding line items occur. The state value is not checked or enforced by the Clover server, at this time it is used for visualization purposes only.
+   * A String describing the state of the order. There is no restriction on the value but Clover will automatically set the value to "open", "OPEN" and "locked" in certain circumstances such as when an order has a line item added or a payment is taken. If no value is set, the state defaults to null, which indicates a hidden order. A hidden order is not displayed in user interfaces and can only be retrieved by its id. When creating an order via the REST API the value it is strongly recommended the value be set to "open", this is the only situation it is recommended to set this value manually. When creating an order via the Android SDK the value must be left empty and the value will be updated to "open" and "locked" automatically. Developers are discouraged from relying on the value of the state or modifying it other than setting it to "open" during order creation via the REST API.
    */
   public java.lang.String getState() {
     return genClient.cacheGet(CacheKey.state);
@@ -328,11 +344,15 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     customers
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.Customer.JSON_CREATOR)),
+    fulfillmentInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.FulfillmentInfo.JSON_CREATOR)),
     employee
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     total
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     externalReferenceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    invoiceId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     unpaidBalance
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -472,6 +492,8 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
 
     genClient.validateLength(CacheKey.currency, getCurrency(), 3);
 
+    genClient.validateLength(CacheKey.invoiceId, getInvoiceId(), 13);
+
     genClient.validateLength(CacheKey.title, getTitle(), 127);
 
     genClient.validateLength(CacheKey.note, getNote(), 2047);
@@ -499,6 +521,11 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'customers' field is set and is not null and is not empty */
   public boolean isNotEmptyCustomers() { return isNotNullCustomers() && !getCustomers().isEmpty(); }
 
+  /** Checks whether the 'fulfillmentInfo' field is set and is not null */
+  public boolean isNotNullFulfillmentInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.fulfillmentInfo);
+  }
+
   /** Checks whether the 'employee' field is set and is not null */
   public boolean isNotNullEmployee() {
     return genClient.cacheValueIsNotNull(CacheKey.employee);
@@ -512,6 +539,11 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'externalReferenceId' field is set and is not null */
   public boolean isNotNullExternalReferenceId() {
     return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
+  }
+
+  /** Checks whether the 'invoiceId' field is set and is not null */
+  public boolean isNotNullInvoiceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.invoiceId);
   }
 
   /** Checks whether the 'unpaidBalance' field is set and is not null */
@@ -716,6 +748,11 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheHasKey(CacheKey.customers);
   }
 
+  /** Checks whether the 'fulfillmentInfo' field has been set, however the value could be null */
+  public boolean hasFulfillmentInfo() {
+    return genClient.cacheHasKey(CacheKey.fulfillmentInfo);
+  }
+
   /** Checks whether the 'employee' field has been set, however the value could be null */
   public boolean hasEmployee() {
     return genClient.cacheHasKey(CacheKey.employee);
@@ -729,6 +766,11 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Checks whether the 'externalReferenceId' field has been set, however the value could be null */
   public boolean hasExternalReferenceId() {
     return genClient.cacheHasKey(CacheKey.externalReferenceId);
+  }
+
+  /** Checks whether the 'invoiceId' field has been set, however the value could be null */
+  public boolean hasInvoiceId() {
+    return genClient.cacheHasKey(CacheKey.invoiceId);
   }
 
   /** Checks whether the 'unpaidBalance' field has been set, however the value could be null */
@@ -911,6 +953,15 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   }
 
   /**
+   * Sets the field 'fulfillmentInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Order setFulfillmentInfo(com.clover.sdk.v3.order.FulfillmentInfo fulfillmentInfo) {
+    return genClient.setRecord(fulfillmentInfo, CacheKey.fulfillmentInfo);
+  }
+
+  /**
    * Sets the field 'employee'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -931,6 +982,13 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    */
   public Order setExternalReferenceId(java.lang.String externalReferenceId) {
     return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
+  }
+
+  /**
+   * Sets the field 'invoiceId'.
+   */
+  public Order setInvoiceId(java.lang.String invoiceId) {
+    return genClient.setOther(invoiceId, CacheKey.invoiceId);
   }
 
   /**
@@ -1195,6 +1253,10 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   public void clearCustomers() {
     genClient.clear(CacheKey.customers);
   }
+  /** Clears the 'fulfillmentInfo' field, the 'has' method for this field will now return false */
+  public void clearFulfillmentInfo() {
+    genClient.clear(CacheKey.fulfillmentInfo);
+  }
   /** Clears the 'employee' field, the 'has' method for this field will now return false */
   public void clearEmployee() {
     genClient.clear(CacheKey.employee);
@@ -1206,6 +1268,10 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /** Clears the 'externalReferenceId' field, the 'has' method for this field will now return false */
   public void clearExternalReferenceId() {
     genClient.clear(CacheKey.externalReferenceId);
+  }
+  /** Clears the 'invoiceId' field, the 'has' method for this field will now return false */
+  public void clearInvoiceId() {
+    genClient.clear(CacheKey.invoiceId);
   }
   /** Clears the 'unpaidBalance' field, the 'has' method for this field will now return false */
   public void clearUnpaidBalance() {
@@ -1398,9 +1464,12 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean CURRENCY_IS_REQUIRED = false;
     public static final long CURRENCY_MAX_LEN = 3;
     public static final boolean CUSTOMERS_IS_REQUIRED = false;
+    public static final boolean FULFILLMENTINFO_IS_REQUIRED = false;
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
     public static final boolean TOTAL_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
+    public static final boolean INVOICEID_IS_REQUIRED = false;
+    public static final long INVOICEID_MAX_LEN = 13;
     public static final boolean UNPAIDBALANCE_IS_REQUIRED = false;
     public static final boolean PAYMENTSTATE_IS_REQUIRED = false;
     public static final boolean TITLE_IS_REQUIRED = false;

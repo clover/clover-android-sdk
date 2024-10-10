@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /**
  * Copyright (C) 2022 Clover Network, Inc.
  *
@@ -14,11 +16,35 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '306'
+version = '316'
 
 
 apply from: file("${project.rootDir}/lib.gradle")
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka'
 
+android {
+
+  buildTypes.configureEach {
+    consumerProguardFiles 'proguard-rules.pro'
+  }
+
+  buildFeatures {
+    aidl true
+  }
+
+  compileOptions {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+  }
+  tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+      jvmTarget = '1.8'
+    }
+  }
+
+  namespace "com.clover.sdk.retrofit"
+}
 dependencies {
   api project(':clover-android-sdk')
   api "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
@@ -33,23 +59,6 @@ dependencies {
   }
 
   testImplementation "org.mockito:mockito-inline:$MOCKITO_VERSION"
-}
-
-afterEvaluate {
-  android.libraryVariants.all { variant ->
-    def name = "${variant.name.capitalize()}"
-    task("javadoc${name}", type: Javadoc, dependsOn: "assemble${name}") {
-      source = android.sourceSets.main.java.srcDirs
-      classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
-      classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
-      options.addBooleanOption "Xdoclint:none", true
-      options.links 'https://d.android.com/reference/'
-      options.links 'https://d.android.com/reference/androidx/'
-      options.links 'https://javadoc.io/static/com.squareup.okhttp3/okhttp/3.12.3/'
-      options.links 'https://clover.github.io/clover-android-sdk/' // FIXME: Doesn't work?
-      destinationDir = file("build/docs/javadoc/${variant.name}/")
-    }
-  }
 }
 
 ext {

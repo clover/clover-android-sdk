@@ -389,4 +389,38 @@ public class CapturePreAuthRequestIntentBuilder extends BaseIntentBuilder {
     }
   }
 
+  public static class Response {
+    /**
+     * The payment as a result of the capturing the pre-authorization
+     */
+    public static final String PAYMENT = Intents.EXTRA_PAYMENT;
+    /**
+     * If taken, customer's signature.
+     */
+    public static final String SIGNATURE = Intents.EXTRA_SIGNATURE;
+    /**
+     * The customer's entered email/phone number from the customer facing receipt screen.
+     */
+    public static final String ENTERED_RECEIPT_VALUE = Intents.EXTRA_ENTERED_RECEIPT_VALUE;
+    /**
+     * The type of receipt requested by the customer.
+     * e.g., SMS, Email, Print, No Receipt
+     */
+    public static final String RECEIPT_DELIVERY_TYPE = Intents.EXTRA_RECEIPT_DELIVERY_TYPE;
+    /**
+     * The status of the customer's receipt delivery.  If cloverShouldHandleReceipts is true, then it will
+     * return PROCESSED.  If cloverShouldHandleReceipts is false, then it will return REQUESTED.
+     */
+    public static final String RECEIPT_DELIVERY_STATUS = Intents.EXTRA_RECEIPT_DELIVERY_STATUS;
+    /**
+     * If the customer chose to opt into marketing communication on the receipt screen.
+     * @see MarketingDecision
+     */
+    public static final String OPTED_INTO_MARKETING = Intents.EXTRA_OPTED_INTO_MARKETING;
+    /**
+     * If capturing the pre-authorization fails for any reason, there will be failure message sent.
+     */
+    public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+  }
+
 }

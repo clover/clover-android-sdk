@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /**
  * Copyright (C) 2016 Clover Network, Inc.
  *
@@ -14,10 +17,11 @@
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '306'
+version = '316'
 
 apply from: file("${project.rootDir}/lib.gradle")
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
   defaultConfig {
@@ -25,15 +29,37 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
-  buildTypes.all {
+  buildTypes.configureEach {
     consumerProguardFiles 'proguard-rules.pro'
   }
+
+  buildFeatures {
+    aidl true
+    buildConfig true
+  }
+  defaultConfig {
+    buildConfigField("String", "VERSION_NAME", "\"${version}\"")
+    return void
+  }
+
+  namespace "com.clover.android.sdk"
+
+  compileOptions {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+  }
+  tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+      jvmTarget = '1.8'
+    }
+  }
+
 }
 
 dependencies {
   api files('lib/calc-jvm.jar')
-  api 'org.jetbrains.kotlin:kotlin-stdlib:1.5.0'
-  api 'org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0'
+  api 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'
+  api 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'
 
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
 
@@ -43,27 +69,7 @@ dependencies {
   testImplementation "org.hamcrest:hamcrest:$HAMCREST_2_VERSION"
 }
 
-afterEvaluate {
-  android.libraryVariants.all { variant ->
-    def name = "${variant.name.capitalize()}"
-    task("javadoc${name}", type: Javadoc, dependsOn: "assemble${name}") {
-      source = android.sourceSets.main.java.srcDirs
-      source += "build/generated/aidl_source_output_dir/${variant.name}/out"
-      classpath += project.files(variant.javaCompileProvider.get().classpath.files) // https://stackoverflow.com/a/34572606
-      classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
-      options.addBooleanOption "Xdoclint:none", true
-      options.addBooleanOption "-frames", true // https://bugs.openjdk.org/browse/JDK-8202961
-      options.addBooleanOption "-no-module-directories", true // https://stackoverflow.com/a/52603413
-      options.links 'https://developer.android.com/reference/'
-      options.overview 'overview.html'
-      destinationDir = file("build/docs/javadoc/${variant.name}/")
-    }
-  }
-}
-
 ext{
   project_name = 'Clover Android SDK'
   project_description = 'Android services and objects used for interacting with Clover Services'
 }
-
-

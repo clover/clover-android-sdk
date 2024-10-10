@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getParentLineItemEvent parentLineItemEvent}</li>
  * <li>{@link #getDeviceId deviceId}</li>
+ * <li>{@link #getLineItemInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -101,6 +102,13 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheGet(CacheKey.deviceId);
   }
 
+  /**
+   * Used to identify line item info which is used to supports voided items. Can be null for all other event types
+   */
+  public java.lang.String getLineItemInfo() {
+    return genClient.cacheGet(CacheKey.lineItemInfo);
+  }
+
 
 
 
@@ -120,6 +128,8 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     parentLineItemEvent
             (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     deviceId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    lineItemInfo
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
@@ -246,6 +256,11 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.deviceId);
   }
 
+  /** checks whether the 'lineItemInfo' field is set and is not null */
+  public boolean isNotNullLineItemInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.lineItemInfo);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -286,6 +301,13 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'deviceId' field has been set, however the value could be null */
   public boolean hasDeviceId() {
     return genClient.cacheHasKey(CacheKey.deviceId);
+  }
+
+  /**
+   * Checks whether the 'lineItemInfo' field has been set, however the value could be null
+   */
+  public boolean hasLineItemInfo() {
+    return genClient.cacheHasKey(CacheKey.lineItemInfo);
   }
 
 
@@ -347,7 +369,12 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     return genClient.setOther(deviceId, CacheKey.deviceId);
   }
 
-
+  /**
+   * Sets the field 'lineItemInfo'.
+   */
+  public LineItemEvent setLineItemInfo(java.lang.String lineItemInfo) {
+    return genClient.setOther(lineItemInfo, CacheKey.lineItemInfo);
+  }
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -379,6 +406,13 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'deviceId' field, the 'has' method for this field will now return false */
   public void clearDeviceId() {
     genClient.clear(CacheKey.deviceId);
+  }
+
+  /**
+   * Clears the 'lineItemInfo' field, the 'has' method for this field will now return false
+   */
+  public void clearLineItemInfo() {
+    genClient.clear(CacheKey.lineItemInfo);
   }
 
 
@@ -453,6 +487,7 @@ public class LineItemEvent extends GenericParcelable implements com.clover.sdk.v
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean PARENTLINEITEMEVENT_IS_REQUIRED = false;
     public static final boolean DEVICEID_IS_REQUIRED = false;
+    public static final boolean LINE_ITEM_INFO_IS_REQUIRED = false;
   }
 
 }

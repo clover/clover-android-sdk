@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum MerchantPlanType implements Parcelable {
-  PAYMENTS, PAYMENTS_PLUS, REGISTER_LITE, CLASSIC, REGISTER, DINING, QSR;
+  PAYMENTS, PAYMENTS_PLUS, REGISTER_LITE, CLASSIC, REGISTER, SERVICES, RETAIL, DINING, QSR;
 
   @Override
   public int describeContents() {

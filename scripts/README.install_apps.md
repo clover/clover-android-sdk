@@ -19,7 +19,7 @@ uid=0(root) gid=0(root) groups=0(root)...
 ## Usage
 ```
 $ ./install_apps.py -h
-Usage: install_apps.py [--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade]
+Usage: install_apps.py [--debug] [--version] [--dry_run] [--keep] [--help] [--downgrade] [--serial SERIAL]
   --debug or -d               : print extended debug information
   --version or -v             : print version (and exit)
   --dry-run or -r             : show actions but do not perform them (do not download or install APKs

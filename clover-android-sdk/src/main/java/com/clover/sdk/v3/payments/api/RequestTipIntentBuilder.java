@@ -70,4 +70,15 @@ public class RequestTipIntentBuilder extends BaseIntentBuilder {
 
         return i;
     }
+
+    public static class Response {
+        /**
+         * The selected tip amount.
+         */
+        public static final String TIP_AMOUNT = Intents.EXTRA_TIP_AMOUNT;
+        /**
+         * If requesting tip fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

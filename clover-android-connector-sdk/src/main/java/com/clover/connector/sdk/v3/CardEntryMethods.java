@@ -19,7 +19,7 @@ package com.clover.connector.sdk.v3;
 public class CardEntryMethods {
   private static int KIOSK_CARD_ENTRY_METHODS			= 1 << 15;
 
-  public static int CARD_ENTRY_METHOD_MAG_STRIPE = 0b0001 | 0b000100000000 | CardEntryMethods.KIOSK_CARD_ENTRY_METHODS; // 33026
+  public static int CARD_ENTRY_METHOD_MAG_STRIPE = 0b0001 | 0b000100000000 | CardEntryMethods.KIOSK_CARD_ENTRY_METHODS; // 33025
   public static int CARD_ENTRY_METHOD_ICC_CONTACT = 0b0010 | 0b001000000000 | CardEntryMethods.KIOSK_CARD_ENTRY_METHODS; // 33282
   public static int CARD_ENTRY_METHOD_NFC_CONTACTLESS	= 0b0100 | 0b010000000000 | CardEntryMethods.KIOSK_CARD_ENTRY_METHODS; // 33796
   public static int CARD_ENTRY_METHOD_MANUAL = 0b1000 | 0b100000000000 | CardEntryMethods.KIOSK_CARD_ENTRY_METHODS; // 34824
@@ -27,11 +27,11 @@ public class CardEntryMethods {
   public static int DEFAULT =
   CardEntryMethods.CARD_ENTRY_METHOD_MAG_STRIPE |
   CardEntryMethods.CARD_ENTRY_METHOD_ICC_CONTACT |
-  CardEntryMethods.CARD_ENTRY_METHOD_NFC_CONTACTLESS; // | CARD_ENTRY_METHOD_MANUAL;
+  CardEntryMethods.CARD_ENTRY_METHOD_NFC_CONTACTLESS; // 34567;
 
   public static int ALL =
   CardEntryMethods.CARD_ENTRY_METHOD_MAG_STRIPE |
   CardEntryMethods.CARD_ENTRY_METHOD_ICC_CONTACT |
   CardEntryMethods.CARD_ENTRY_METHOD_NFC_CONTACTLESS |
-  CardEntryMethods.CARD_ENTRY_METHOD_MANUAL;
+  CardEntryMethods.CARD_ENTRY_METHOD_MANUAL; // 32768
 }

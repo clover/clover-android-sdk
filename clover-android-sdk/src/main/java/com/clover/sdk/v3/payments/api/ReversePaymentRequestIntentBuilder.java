@@ -53,4 +53,28 @@ public class ReversePaymentRequestIntentBuilder extends BaseIntentBuilder {
         }
         return i;
     }
+
+    public static class Response {
+        /**
+         * The result of reversing the payment.
+         * @see ReversePaymentResult
+         */
+        public static final String REVERSE_PAYMENT_RESULT = Intents.EXTRA_REVERSE_PAYMENT_RESULT;
+        /**
+         * The ID of the payment to be reversed.
+         */
+        public static final String PAYMENT_ID = Intents.EXTRA_PAYMENT_ID;
+        /**
+         * If refunded, the resulting Refund object.
+         */
+        public static final String REFUND = Intents.EXTRA_REFUND;
+        /**
+         * If refunded, the Tender object.
+         */
+        public static final String TENDER = Intents.EXTRA_TENDER;
+        /**
+         * If reversing the payment fails for any reason, there will be a failure message sent.
+         */
+        public static final String FAILURE_MESSAGE = Intents.EXTRA_FAILURE_MESSAGE;
+    }
 }

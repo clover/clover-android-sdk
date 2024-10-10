@@ -1,0 +1,13 @@
+.theme-dark {
+  --sidemenu-section-active-color: rgba(34, 136, 0, 0.5) !important;
+}
+html:not(.theme-dark) {
+  --sidemenu-section-active-color: rgba(34, 136, 0, 0.09) !important;
+}
+html:not(.theme-dark) .sideMenuPart[data-active] > .overview > a {
+  color: #1c6e00 !important;
+}
+
+html:not(.theme-dark) .sideMenuPart[data-active] > .overview .navButtonContent::before {
+	background-color: var(--default-font-color);
+}

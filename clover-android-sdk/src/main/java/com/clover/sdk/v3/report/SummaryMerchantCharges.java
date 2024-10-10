@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTotalTax totalTax}</li>
  * <li>{@link #getTotalDeveloperPortion totalDeveloperPortion}</li>
  * <li>{@link #getNumOfMerchants numOfMerchants}</li>
+ * <li>{@link #getDownloadCheckFreeReceiptEnabled downloadCheckFreeReceiptEnabled}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -65,6 +66,10 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
     return genClient.cacheGet(CacheKey.numOfMerchants);
   }
 
+  public java.lang.Boolean getDownloadCheckFreeReceiptEnabled() {
+    return genClient.cacheGet(CacheKey.downloadCheckFreeReceiptEnabled);
+  }
+
 
 
 
@@ -81,6 +86,8 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     numOfMerchants
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    downloadCheckFreeReceiptEnabled
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -185,6 +192,11 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
     return genClient.cacheValueIsNotNull(CacheKey.numOfMerchants);
   }
 
+  /** Checks whether the 'downloadCheckFreeReceiptEnabled' field is set and is not null */
+  public boolean isNotNullDownloadCheckFreeReceiptEnabled() {
+    return genClient.cacheValueIsNotNull(CacheKey.downloadCheckFreeReceiptEnabled);
+  }
+
 
 
   /** Checks whether the 'currency' field has been set, however the value could be null */
@@ -215,6 +227,11 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
   /** Checks whether the 'numOfMerchants' field has been set, however the value could be null */
   public boolean hasNumOfMerchants() {
     return genClient.cacheHasKey(CacheKey.numOfMerchants);
+  }
+
+  /** Checks whether the 'downloadCheckFreeReceiptEnabled' field has been set, however the value could be null */
+  public boolean hasDownloadCheckFreeReceiptEnabled() {
+    return genClient.cacheHasKey(CacheKey.downloadCheckFreeReceiptEnabled);
   }
 
 
@@ -260,6 +277,13 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
     return genClient.setOther(numOfMerchants, CacheKey.numOfMerchants);
   }
 
+  /**
+   * Sets the field 'downloadCheckFreeReceiptEnabled'.
+   */
+  public SummaryMerchantCharges setDownloadCheckFreeReceiptEnabled(java.lang.Boolean downloadCheckFreeReceiptEnabled) {
+    return genClient.setOther(downloadCheckFreeReceiptEnabled, CacheKey.downloadCheckFreeReceiptEnabled);
+  }
+
 
   /** Clears the 'currency' field, the 'has' method for this field will now return false */
   public void clearCurrency() {
@@ -284,6 +308,10 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
   /** Clears the 'numOfMerchants' field, the 'has' method for this field will now return false */
   public void clearNumOfMerchants() {
     genClient.clear(CacheKey.numOfMerchants);
+  }
+  /** Clears the 'downloadCheckFreeReceiptEnabled' field, the 'has' method for this field will now return false */
+  public void clearDownloadCheckFreeReceiptEnabled() {
+    genClient.clear(CacheKey.downloadCheckFreeReceiptEnabled);
   }
 
 
@@ -353,6 +381,7 @@ public class SummaryMerchantCharges extends GenericParcelable implements com.clo
     public static final boolean TOTALTAX_IS_REQUIRED = false;
     public static final boolean TOTALDEVELOPERPORTION_IS_REQUIRED = false;
     public static final boolean NUMOFMERCHANTS_IS_REQUIRED = false;
+    public static final boolean DOWNLOADCHECKFREERECEIPTENABLED_IS_REQUIRED = false;
   }
 
 }

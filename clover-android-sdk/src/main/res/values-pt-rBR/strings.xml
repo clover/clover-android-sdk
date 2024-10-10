@@ -19,4 +19,17 @@
 
   <string name="title_activity_account_chooser">Contas Clover</string>
 
+  <!-- rotate back to merchant -->
+  <string name="rotateInstructions">Agradecemos a sua compra.\nGire a tela para a posição original.</string>
+  <string name="backToRegisterDescription">Gire a tela à direita para o atendente</string>
+
+  <!-- return to merchant -->
+  <string name="returnToMerchantPaymentSuccessful">Agradecemos a sua compra.\n Devolva este dispositivo para um funcionário</string>
+  <string name="returnToMerchantTitle">Tudo pronto!</string>
+  <string name="returnToMerchant">Devolva este dispositivo para um funcionário</string>
+
+  <string name="returnToMerchantFontFamily">sans-serif-light</string>
+  <string name="register_uri">URI do Caixa</string>
+  <string name="print_label">Imprimir</string>
+
 </resources>
