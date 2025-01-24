@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r316
+            <div class="library-version">r320
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -64,7 +64,7 @@
   <div class="breadcrumbs"></div>
   <div class="cover ">
     <h1 class="cover"><span><span>clover-android-sdk</span></span></h1>
-    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><p class="paragraph">The Clover SDK for Android facilitates development of applications running on Clover devices, see below for more information about the functionality provided by this SDK.</p><h2 class="">Service Interfaces</h2><p class="paragraph">Interfaces to use with bound Clover services that allow management of a merchant's data: orders,   inventory, customers, employees, printers, properties, etc. Service classes starting with 'I' are   the underlying AIDL interfaces. Clover provides corresponding ServiceConnector classes for simpler   usage.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.apps/-i-apps-service/index.html">com.clover.sdk.v3.apps.IAppsService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-i-customer-service/index.html">com.clover.sdk.v1.customer.ICustomerService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.employees/-i-employee-service/index.html">com.clover.sdk.v3.employees.IEmployeeService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.merchant/-i-merchant-service/index.html">com.clover.sdk.v1.merchant.IMerchantService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-i-order-service-v3_1/index.html">com.clover.sdk.v3.order.IOrderServiceV3_1</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-printer-service/index.html">com.clover.sdk.v1.printer.IPrinterService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-receipt-registration-service/index.html">com.clover.sdk.v1.printer.IReceiptRegistrationService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.tender/-i-tender-service/index.html">com.clover.sdk.v1.tender.ITenderService</a></p></li></ul><p class="paragraph">For more information about binding to services, refer to the Android documentation: <a href="http://developer.android.com/guide/components/bound-services.html#Binding" target="_blank">     Bound Services</a>.</p><h2 class="">Intents</h2><p class="paragraph">Intents are used to send and receive broadcast messages in Android as well as start activities and   services. The <a href="com.clover.sdk.v1/-intents/index.html">com.clover.sdk.v1.Intents</a> class has definitions for most commonly used   intents for broadcasts sent by Clover and starting Clover activities.</p><h2 class="">Clover Device Interfaces</h2><p class="paragraph">Clover devices offer additional functionality beyond standard Android, such as:</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.scanner/-barcode-result/index.html">com.clover.sdk.v3.scanner.BarcodeResult</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.util/-customer-mode/index.html">com.clover.sdk.util.CustomerMode</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.cashdrawer/-cash-drawers/index.html">com.clover.sdk.cashdrawer.CashDrawers</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-job/index.html">com.clover.sdk.v1.printer.job.PrintJob</a></p></li></ul><h2 class="">Provider Contracts</h2><p class="paragraph">Searching for and displaying large amounts of data is best done through a content provider.   Inserting, updating and deleting Clover data objects via content provider is generally not   supported.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-customer-contract/index.html">com.clover.sdk.v1.customer.CustomerContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-jobs-contract/index.html">com.clover.sdk.v1.printer.job.PrintJobsContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-printer-contract/index.html">com.clover.sdk.v1.printer.PrinterContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-contract/index.html">com.clover.sdk.v1.printer.ReceiptContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-file-contract/index.html">com.clover.sdk.v1.printer.ReceiptFileContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-registration-contract/index.html">com.clover.sdk.v1.printer.ReceiptRegistrationContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.cash/-cash-contract/index.html">com.clover.sdk.v3.cash.CashContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-inventory-contract/index.html">com.clover.sdk.v3.inventory.InventoryContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-order-contract/index.html">com.clover.sdk.v3.order.OrderContract</a></p></li></ul><p class="paragraph">For more information about content providers, refer to the Android documentation:   <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html" target="_blank">     Content Provider Basics</a>.</p><h2 class="">Clover Data Objects</h2><p class="paragraph">The v1 data objects and associated interfaces tend to conform to the deprecated Clover v1 and v2   web REST API, the v3 objects and associated interfaces tend to conform to the Clover v3 web REST   API. Changes to Clover data objects must be sent to the appropriate service interface to take   effect.</p><p class="paragraph">Clover data objects offer interfaces to convert to and from JSON as well as being Parcelable.</p><p class="paragraph">For complete examples and more information about Clover development please visit the   <a href="https://www.clover.com/developers" target="_blank">Clover development website</a>.</p></div></div>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><p class="paragraph">The Clover SDK for Android facilitates development of applications running on Clover devices, see   below for more information about the functionality provided by this SDK.</p><h2 class="">Permissions</h2><p class="paragraph">Most APIs offered by this SDK require the calling application hold relevant permissions such as   <code class="lang-kotlin">ORDERS_W</code>, <code class="lang-kotlin">CUSTOMER_R</code>, etc. Method documentation references required permissions. Calls made by   applications not holding the required permission will fail with an error. Applications must be   submitted to Clover and installed to the merchant for permissions to be granted. Check the Clover    developer docs for details on    <a href="https://docs.clover.com/dev/docs/app-settings" target="_blank">app permissions.</a>.</p><h2 class="">Service Interfaces</h2><p class="paragraph">Interfaces to use with bound Clover services that allow management of a merchant's data: orders,   inventory, customers, employees, printers, properties, etc. Service classes starting with <code class="lang-kotlin">I</code> are   the underlying AIDL interfaces. Clover provides corresponding <code class="lang-kotlin">ServiceConnector</code> classes for    simpler usage.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.apps/-i-apps-service/index.html">com.clover.sdk.v3.apps.IAppsService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-i-customer-service/index.html">com.clover.sdk.v1.customer.ICustomerService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.employees/-i-employee-service/index.html">com.clover.sdk.v3.employees.IEmployeeService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.merchant/-i-merchant-service/index.html">com.clover.sdk.v1.merchant.IMerchantService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-i-order-service-v3_1/index.html">com.clover.sdk.v3.order.IOrderServiceV3_1</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-printer-service/index.html">com.clover.sdk.v1.printer.IPrinterService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-i-receipt-registration-service/index.html">com.clover.sdk.v1.printer.IReceiptRegistrationService</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.tender/-i-tender-service/index.html">com.clover.sdk.v1.tender.ITenderService</a></p></li></ul><p class="paragraph">For more information about binding to services, refer to the Android documentation: <a href="http://developer.android.com/guide/components/bound-services.html#Binding" target="_blank">     Bound Services</a>.</p><h2 class="">Intents</h2><p class="paragraph">Intents are used to send and receive broadcast messages in Android as well as start activities and   services. The <a href="com.clover.sdk.v1/-intents/index.html">com.clover.sdk.v1.Intents</a> class has definitions for most commonly used   intents for broadcasts sent by Clover and starting Clover activities.</p><h2 class="">Clover Device Interfaces</h2><p class="paragraph">Clover devices offer additional functionality beyond standard Android, such as:</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v3.scanner/-barcode-result/index.html">com.clover.sdk.v3.scanner.BarcodeResult</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.util/-customer-mode/index.html">com.clover.sdk.util.CustomerMode</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.cashdrawer/-cash-drawers/index.html">com.clover.sdk.cashdrawer.CashDrawers</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-job/index.html">com.clover.sdk.v1.printer.job.PrintJob</a></p></li></ul><h2 class="">Provider Contracts</h2><p class="paragraph">Searching for and displaying large amounts of data is best done through a content provider.   Inserting, updating and deleting Clover data objects via content provider is generally not   supported.</p><ul><li><p class="paragraph"><a href="com.clover.sdk.v1.customer/-customer-contract/index.html">com.clover.sdk.v1.customer.CustomerContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer.job/-print-jobs-contract/index.html">com.clover.sdk.v1.printer.job.PrintJobsContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-printer-contract/index.html">com.clover.sdk.v1.printer.PrinterContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-contract/index.html">com.clover.sdk.v1.printer.ReceiptContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-file-contract/index.html">com.clover.sdk.v1.printer.ReceiptFileContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v1.printer/-receipt-registration-contract/index.html">com.clover.sdk.v1.printer.ReceiptRegistrationContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.cash/-cash-contract/index.html">com.clover.sdk.v3.cash.CashContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.inventory/-inventory-contract/index.html">com.clover.sdk.v3.inventory.InventoryContract</a></p></li><li><p class="paragraph"><a href="com.clover.sdk.v3.order/-order-contract/index.html">com.clover.sdk.v3.order.OrderContract</a></p></li></ul><p class="paragraph">A common pattern for applications to listen for provider data changes is to register a   <code class="lang-kotlin">ContentObserver</code> via the relevant contract URI. See    com.clover.android.sdk.examples.PrintJobsTestActivity for an example.</p><p class="paragraph">For more information about content providers, refer to the Android documentation:   <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html" target="_blank">     Content Provider Basics</a>.</p><h2 class="">Clover Data Objects</h2><p class="paragraph">The v1 data objects and associated interfaces tend to conform to the deprecated Clover v1 and v2   web REST API, the v3 objects and associated interfaces tend to conform to the Clover v3 web REST   API. Changes to Clover data objects must be sent to the appropriate service interface to take   effect.</p><p class="paragraph">Clover data objects offer interfaces to convert to and from JSON as well as being Parcelable.</p><p class="paragraph">For complete examples and more information about Clover development please visit the   <a href="https://www.clover.com/developers" target="_blank">Clover development website</a>.</p></div></div>
   </div>
   <h2 class="">Packages</h2>
   <div class="table"><a data-name="-3047026%2FPackages%2F1904710855" anchor-label="com.clover.common.payments" id="-3047026%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
@@ -285,24 +285,6 @@
         <div></div>
       </div>
     </div>
-<a data-name="1383432157%2FPackages%2F1904710855" anchor-label="com.clover.sdk.internal.util" id="1383432157%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
-    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
-      <div>
-        <div class="main-subrow ">
-          <div class=""><span class="inline-flex">
-              <div><a href="com.clover.sdk.internal.util/index.html">com.clover.sdk.internal.util</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1383432157%2FPackages%2F1904710855"></span>
-                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-              </span></span></div>
-          <div class="pull-right">
-            <div class="platform-tags no-gutters">
-              <div class="platform-tag jvm-like">androidJvm</div>
-            </div>
-          </div>
-        </div>
-        <div></div>
-      </div>
-    </div>
 <a data-name="-1890799320%2FPackages%2F1904710855" anchor-label="com.clover.sdk.nexo" id="-1890799320%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
     <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
       <div>
@@ -481,7 +463,7 @@
           </div>
         </div>
         <div><span class="brief-comment"><a data-name="2131301168%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v1.printer.job" id="2131301168%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
-            <p class="paragraph">Copyright (C) 2016 Clover Network, Inc. Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+            <p class="paragraph">This package contains classes for printing to Clover connected printers. </p>
           </span></div>
       </div>
     </div>
@@ -863,6 +845,24 @@
         <div></div>
       </div>
     </div>
+<a data-name="-633447862%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.multiplemenu" id="-633447862%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.multiplemenu/index.html">com.clover.sdk.v3.multiplemenu</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-633447862%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
 <a data-name="1617818660%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.onlineorder" id="1617818660%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
     <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
       <div>
@@ -924,6 +924,96 @@
           <div class=""><span class="inline-flex">
               <div><a href="com.clover.sdk.v3.payment.client.model/index.html">com.clover.sdk.v3.payment.client.model</a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1311893321%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1968827816%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.raw.connector" id="1968827816%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.raw.connector/index.html">com.clover.sdk.v3.payment.raw.connector</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1968827816%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-665143131%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.raw.handler" id="-665143131%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.raw.handler/index.html">com.clover.sdk.v3.payment.raw.handler</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-665143131%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1076391235%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.raw.listener" id="-1076391235%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.raw.listener/index.html">com.clover.sdk.v3.payment.raw.listener</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1076391235%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-230351356%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.raw.model" id="-230351356%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.raw.model/index.html">com.clover.sdk.v3.payment.raw.model</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-230351356%2FPackages%2F1904710855"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">androidJvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2054711376%2FPackages%2F1904710855" anchor-label="com.clover.sdk.v3.payment.raw.service" id="2054711376%2FPackages%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+    <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="com.clover.sdk.v3.payment.raw.service/index.html">com.clover.sdk.v3.payment.raw.service</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2054711376%2FPackages%2F1904710855"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
           <div class="pull-right">
@@ -1100,7 +1190,7 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
             </div>
         </div>
