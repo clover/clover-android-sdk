@@ -36,6 +36,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getResult result}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getEmployee employee}</li>
+ * <li>{@link #getIncrementAmount incrementAmount}</li>
+ * <li>{@link #getAdditionalCharges additionalCharges}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -80,6 +82,17 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
     return genClient.cacheGet(CacheKey.employee);
   }
 
+  /**
+   * Amount of the incremental authorization
+   */
+  public Long getIncrementAmount() {
+    return genClient.cacheGet(CacheKey.incrementAmount);
+  }
+
+  public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
+    return genClient.cacheGet(CacheKey.additionalCharges);
+  }
+
 
 
 
@@ -96,6 +109,10 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     employee
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    incrementAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    additionalCharges
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -202,6 +219,19 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
     return genClient.cacheValueIsNotNull(CacheKey.employee);
   }
 
+  /** Checks whether the 'incrementAmount' field is set and is not null */
+  public boolean isNotNullIncrementAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.incrementAmount);
+  }
+
+  /** Checks whether the 'additionalCharges' field is set and is not null */
+  public boolean isNotNullAdditionalCharges() {
+    return genClient.cacheValueIsNotNull(CacheKey.additionalCharges);
+  }
+
+  /** Checks whether the 'additionalCharges' field is set and is not null and is not empty */
+  public boolean isNotEmptyAdditionalCharges() { return isNotNullAdditionalCharges() && !getAdditionalCharges().isEmpty(); }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -232,6 +262,16 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
   /** Checks whether the 'employee' field has been set, however the value could be null */
   public boolean hasEmployee() {
     return genClient.cacheHasKey(CacheKey.employee);
+  }
+
+  /** Checks whether the 'incrementAmount' field has been set, however the value could be null */
+  public boolean hasIncrementAmount() {
+    return genClient.cacheHasKey(CacheKey.incrementAmount);
+  }
+
+  /** Checks whether the 'additionalCharges' field has been set, however the value could be null */
+  public boolean hasAdditionalCharges() {
+    return genClient.cacheHasKey(CacheKey.additionalCharges);
   }
 
 
@@ -281,6 +321,22 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
     return genClient.setRecord(employee, CacheKey.employee);
   }
 
+  /**
+   * Sets the field 'incrementAmount'.
+   */
+  public IncrementalAuthorization setIncrementAmount(java.lang.Long incrementAmount) {
+    return genClient.setOther(incrementAmount, CacheKey.incrementAmount);
+  }
+
+  /**
+   * Sets the field 'additionalCharges'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public IncrementalAuthorization setAdditionalCharges(java.util.List<AdditionalChargeAmount> additionalCharges) {
+    return genClient.setArrayRecord(additionalCharges, CacheKey.additionalCharges);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -305,6 +361,14 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
   /** Clears the 'employee' field, the 'has' method for this field will now return false */
   public void clearEmployee() {
     genClient.clear(CacheKey.employee);
+  }
+  /** Clears the 'incrementAmount' field, the 'has' method for this field will now return false */
+  public void clearIncrementAmount() {
+    genClient.clear(CacheKey.incrementAmount);
+  }
+  /** Clears the 'additionalCharges' field, the 'has' method for this field will now return false */
+  public void clearAdditionalCharges() {
+    genClient.clear(CacheKey.additionalCharges);
   }
 
 
@@ -375,6 +439,8 @@ public class IncrementalAuthorization extends GenericParcelable implements com.c
     public static final boolean RESULT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean EMPLOYEE_IS_REQUIRED = false;
+    public static final boolean INCREMENTAMOUNT_IS_REQUIRED = false;
+    public static final boolean ADDITIONALCHARGES_IS_REQUIRED = false;
   }
 
 }

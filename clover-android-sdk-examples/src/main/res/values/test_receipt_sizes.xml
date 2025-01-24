@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="test_receipt_sizes_array">
-    <item>Default dimensions (Based on selected printer)</item>
-    <item>small (224 x 592)</item>
-    <item>medium (479 x 479)</item>
-    <item>large (900 x 1653)</item>
+    <item>Auto-select (based on current printer)</item>
+    <item>Small (Flex, Mini)</item>
+    <item>Medium (Station)</item>
+    <item>Large (Invalid))</item>
   </string-array>
 </resources>

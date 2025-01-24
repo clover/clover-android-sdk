@@ -93,6 +93,15 @@ public class CloseoutRequestIntentBuilder extends BaseIntentBuilder {
         public static TipOptions ReturnOpenPayments() {
             return new TipOptions(OpenPaymentOption.RETURN_OPEN_TIP_PAYMENTS);
         }
+
+        /**
+         * TipOption that will return immediately with the count of open payments.
+         * When open tips are present, a closeout will not be queued.
+         * @return
+         */
+        public static TipOptions ReturnOpenPaymentsCount() {
+            return new TipOptions(OpenPaymentOption.RETURN_OPEN_PAYMENTS_COUNT);
+        }
     }
 
     public static class Response {
@@ -113,5 +122,10 @@ public class CloseoutRequestIntentBuilder extends BaseIntentBuilder {
          * If there are open payments in the current Batch, there will be a list of payment IDs.
          */
         public static final String PAYMENT_IDS = Intents.EXTRA_PAYMENT_IDS;
+
+        /**
+         * The count of open payments, if any.  This will only be returned when ReturnOpenPaymentsCount() is used for TipOptions.
+         */
+        public static final String OPEN_PAYMENT_COUNT = "clover.intent.extra.OPEN_PAYMENT_COUNT";
     }
 }

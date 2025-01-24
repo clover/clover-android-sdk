@@ -3,13 +3,20 @@
 ext {
 
   // Bump compile SDK version any time a new SDK is released, it does not affect behavior
-  COMPILE_SDK_VERSION = 34 // https://developer.android.com/studio/releases/platforms
+  COMPILE_SDK_VERSION = 35 // https://developer.android.com/studio/releases/platforms
 
   // Oldest supported Clover device is goldleaf (original Station) which is Android API level 17
   MIN_SDK_VERSION = 17
 
   // Target version affects behavior, bump only with good reason and test all devices carefully
   TARGET_SDK_VERSION = 17
+
+  // Build tool versions
+
+  JACOCO_VERSION = "0.8.10" // https://github.com/jacoco/jacoco
+  SONARQUBE_VERSION = "4.4.1.3373" // https://github.com/SonarSource/sonar-scanner-gradle
+  ANDROID_PLUGIN_VERSION = "8.7.2"   // https://developer.android.com/studio/releases/gradle-plugin#updating-gradle
+  DETEKT_VERSION = "1.23.0" // https://github.com/detekt/detekt
 
   // Android X versions
   //
@@ -20,47 +27,48 @@ ext {
   //  see https://developer.android.com/jetpack/androidx/versions/
   //  see https://maven.google.com/web/index.html
 
-  ANDROIDX_ACTIVITY_VERSION = "1.8.1" // https://developer.android.com/jetpack/androidx/releases/activity
-  ANDROIDX_ANNOTATION_VERSION = "1.7.0" // https://developer.android.com/jetpack/androidx/releases/annotation
-  ANDROIDX_APPCOMPAT_VERSION = "1.6.1" // https://developer.android.com/jetpack/androidx/releases/appcompat
+  ANDROIDX_ACTIVITY_VERSION = "1.8.1" //1.8.1 is the latest version compatible with Android API 17,  https://developer.android.com/jetpack/androidx/releases/activity
+  ANDROIDX_ANNOTATION_VERSION = "1.9.0" // https://developer.android.com/jetpack/androidx/releases/annotation
+  ANDROIDX_APPCOMPAT_VERSION = "1.6.1" // 1.6.1 is the latest version compatible with Android API 17 https://developer.android.com/jetpack/androidx/releases/appcompat
   ANDROIDX_LIFECYCLE_EXTENSION_VERSION = "2.2.0" //https://androidx.tech/artifacts/lifecycle/lifecycle-extensions/
   ANDROID_LIFECYCLE_EXTENSION_VERSION = "2.2.0" // ** DEPRECATED USE ANDROIDX_LIFECYCLE_EXTENSION_VERSION **
   ANDROIDX_CARDVIEW_VERSION = "1.0.0" // https://developer.android.com/jetpack/androidx/releases/cardview
   ANDROIDX_CONSTRAINTLAYOUT_VERSION = "2.1.4" // https://developer.android.com/jetpack/androidx/releases/constraintlayout
-  ANDROIDX_CORE_VERSION = "1.12.0"  // https://developer.android.com/jetpack/androidx/releases/core
-  ANDROIDX_FRAGMENT_VERSION = "1.6.2" // https://developer.android.com/jetpack/androidx/releases/fragment
+  ANDROIDX_CORE_VERSION = "1.12.0"  //1.12.0 is the latest version compatible with Android API 17 https://developer.android.com/jetpack/androidx/releases/core
+  ANDROIDX_FRAGMENT_VERSION = "1.6.2" // 1.6.2 is the latest version compatible with Android API 17 https://developer.android.com/jetpack/androidx/releases/fragment
   ANDROIDX_RECYCLERVIEW_VERSION = "1.3.2" // https://developer.android.com/jetpack/androidx/releases/recyclerview
-  ANDROIDX_ROOM_VERSION = "2.6.0" // https://developer.android.com/jetpack/androidx/releases/room
+  ANDROIDX_ROOM_VERSION = "2.6.1" // https://developer.android.com/jetpack/androidx/releases/room
   ANDROIDX_VIEWPAGER_VERSION = "1.0.0" // https://developer.android.com/jetpack/androidx/releases/viewpager
   ANDROIDX_MULTIDEX_VERSION = "2.0.1" // https://developer.android.com/studio/build/multidex
   ANDROIDX_LEGACY_SUPPORT_V4_VERSION = "1.0.0" // androidx.legacy:legacy-support-v4
   ANDROIDX_LEGACY_SUPPORT_V13_VERSION = "1.0.0"  // androidx.legacy:legacy-support-v13
-  ANDROIDX_LIFECYCLE_VERSION = "2.6.2" //https://developer.android.com/jetpack/androidx/releases/lifecycle
-  ANDROIDX_WORK_VERSION = "2.8.1" // https://developer.android.com/jetpack/androidx/releases/work
+  ANDROIDX_LIFECYCLE_VERSION = "2.6.2" // 2.6.2 is the latest version compatible with Android API 17 https://developer.android.com/jetpack/androidx/releases/lifecycle
+  ANDROIDX_WORK_VERSION = "2.9.1" // https://developer.android.com/jetpack/androidx/releases/work
   ANDROIDX_PREFERENCE = "1.2.1" // https://developer.android.com/jetpack/androidx/releases/preference
   ANDROIDX_LOCAL_BROADCASTMANAGER_VERSION = "1.1.0" //https://developer.android.com/jetpack/androidx/releases/localbroadcastmanager
-  ANDROIDX_NAVIGATION_VERSION = "2.7.4" //https://developer.android.com/jetpack/androidx/releases/navigation
+  ANDROIDX_NAVIGATION_VERSION = "2.7.7" // 2.7.7 is the latest version compatible with Android API 17  https://developer.android.com/jetpack/androidx/releases/navigation
 
   // Android X testing versions
 
   ANDROIDX_ARCH_CORE_VERSION = "2.2.0" // androidx.arch.core:core-testing
-  ANDROIDX_EXT_JUNIT_VERSION = "1.1.5" // androidx.test.ext:junit (https://developer.android.com/jetpack/androidx/releases/test)
-  ANDROIDX_ESPRESSO_VERSION = "3.4.0" // androidx.test.espresso:espresso-intents (https://developer.android.com/training/testing/espresso/intents)
+  ANDROIDX_EXT_JUNIT_VERSION = "1.1.5" // 1.1.5 is the latest version compatible with Android API 17, androidx.test.ext:junit (https://developer.android.com/jetpack/androidx/releases/test)
+  ANDROIDX_ESPRESSO_VERSION = "3.5.1" // androidx.test.espresso:espresso-intents (https://developer.android.com/training/testing/espresso/intents)
   ANDROIDX_UIAUTOMATOR_VERSION = "2.2.0" // androidx.uiautomator:uiautomator
   ANDROIDX_TEST_CORE_VERSION = "1.5.0" // androidx.test:core
   ANDROIDX_DATA_STORE = "1.0.0" // androidx.datastore:datastore
 
   // Kotlin versions
-
-  KOTLIN_VERSION = "1.9.10" // org.jetbrains.kotlin:kotlin-gradle-plugin
+  
+  KOTLIN_VERSION = "2.0.21" // org.jetbrains.kotlin:kotlin-gradle-plugin
   KOTLIN_COROUTINES_VERSION = "1.7.3" // org.jetbrains.kotlinx:kotlinx-coroutines-android
-  KOTLIN_SERIALIZATION_JSON = "1.6.0" // org.jetbrains.kotlinx:kotlinx-serialization-json
-  KOTLINX_IMMUTABLES =  "0.3.5"  // org.jetbrains.kotlinx:kotlinx-collections-immutable
+  KOTLIN_SERIALIZATION_JSON = "1.7.3" // org.jetbrains.kotlinx:kotlinx-serialization-json
+  KOTLINX_IMMUTABLES =  "0.3.8"  // org.jetbrains.kotlinx:kotlinx-collections-immutable
+  KSP_VERSION = "2.0.21-1.0.26" //https://github.com/google/ksp/releases
 
   // Various dependencies
 
-  GOOGLE_ANDROID_MATERIAL_VERSION = "1.10.0" // com.google.android.material:material
-  DAGGER_VERSION = "2.48.1"   // https://github.com/google/dagger/releases
+  GOOGLE_ANDROID_MATERIAL_VERSION = "1.10.0" // 1.10.0 is the latest version compatible with Android API 17. com.google.android.material:material
+  DAGGER_VERSION = "2.52"   // https://github.com/google/dagger/releases
   GUAVA_VERSION = "32.1.2-android" // https://github.com/google/guava
   BUTTER_KNIFE_VERSION = "10.2.3" // Project reached end of life, migrate to alternatives
   RX_JAVA_VERSION = "2.2.21" // https://github.com/ReactiveX/RxJava/releases End of Life and last to be compatible > 21
@@ -73,7 +81,7 @@ ext {
 
   // 2.7 is the latest version compatible with Android API 17 https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.8#changes-compatibility
   JACKSON_VERSION = "2.7.9" // com.fasterxml.jackson.core:jackson-core
-                            // com.fasterxml.jackson.core:jackson-annotations
+  // com.fasterxml.jackson.core:jackson-annotations
   JACKSON_DATABIND_VERSION = "2.7.9.7"  // com.fasterxml.jackson.core:jackson-databind
 
   // Nemesis versions
@@ -97,13 +105,6 @@ ext {
   MOCKK_VERSION = "1.10.2" // Like Mockito, but specially for Kotlin.  See: https://mockk.io/
   KOTLIN_MOCKITO_VERSION = "2.2.0"
 
-  // Build tool versions
-
-  JACOCO_VERSION = "0.8.10"
-  SONARQUBE_VERSION = "4.4.1.3373" // https://github.com/SonarSource/sonar-scanner-gradle
-  ANDROID_PLUGIN_VERSION = "8.1.4"   // https://developer.android.com/studio/releases/gradle-plugin#updating-gradle
-  DETEKT_VERSION = "1.23.0"
-
   // Android platform libraries
 
   HTTP_LIBRARY = 'org.apache.http.legacy' // Legacy, should not be used going forward, migrate to OkHttp (see android-common)
@@ -114,7 +115,7 @@ ext {
   FIREBASE_PLUGIN_VERSION = "2.9.5"
 
   // Hilt version
-  HILT_VERSION = "2.48.1"
+  HILT_VERSION = "2.52"
 
   // Calc version
   CALC_VERSION = "3.1.2"
@@ -139,4 +140,13 @@ ext {
   // Markwon
   // https://github.com/noties/Markwon
   MARKWON_VERSION = "4.4.0"
+
+  // Apache commons-io
+  // https://commons.apache.org/proper/commons-io/
+  APACHE_COMMONS_IO_VERSION = "2.16.1"
+
+    // Compose Version  
+  COMPOSE_VERSION = "1.7.2"
+  COMPOSE_MATERIAL_VERSION = "1.3.0"
+  COMPOSE_COMPILER_VERSION = "1.5.3" // For compatibility with KOTLIN_VERSION https://developer.android.com/jetpack/androidx/releases/compose-kotlin
 }

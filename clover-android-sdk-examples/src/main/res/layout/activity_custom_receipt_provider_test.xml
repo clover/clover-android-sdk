@@ -1,84 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="10dp"
-    android:orientation="vertical"
-    tools:context=".CustomReceiptProviderTestActivity">
+    android:fadeScrollbars="false">
 
-  <TextView android:layout_width="match_parent"
+  <LinearLayout android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginTop="80dp"
-      android:text="@string/custom_receipt_provider_note" />
+      android:layout_marginHorizontal="10dp"
+      android:orientation="vertical"
+      tools:context=".CustomReceiptProviderTestActivity">
 
-  <LinearLayout android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="50dp"
-      android:orientation="horizontal">
-
-    <TextView android:layout_width="match_parent"
+    <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/bitmap_chunks_edit_text_desc" />
+        android:orientation="horizontal">
 
-    <EditText android:id="@+id/number_of_bitmap_chunks"
-        android:layout_width="200dp"
+      <TextView android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/bitmap_chunks_edit_text_desc" />
+
+      <EditText android:id="@+id/number_of_bitmap_chunks"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:maxLength="2" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_weight="1"
-        android:inputType="number"
-        android:maxLength="2" />
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-  </LinearLayout>
+      <TextView android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/receipt_size_selection_spinner_desc" />
 
-  <LinearLayout android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal">
+      <Spinner android:id="@+id/test_receipt_size_selector"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_weight="1" />
 
-    <TextView android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/receipt_size_selection_spinner_desc" />
+    </LinearLayout>
 
-    <Spinner android:id="@+id/test_receipt_size_selector"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_weight="1"
-        />
-
-  </LinearLayout>
-
-  <Button android:id="@+id/save_number_of_bitmap_chunks"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="start"
-      android:layout_marginTop="20dp"
-      android:text="@string/save" />
-
-  <LinearLayout android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal">
-
-    <Button android:id="@+id/enable_provider"
+    <Button android:id="@+id/save_number_of_bitmap_chunks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="20dp"
-        android:text="@string/enable_provider" />
+        android:text="@string/save" />
 
-    <Button android:id="@+id/disable_provider"
-        android:layout_width="wrap_content"
+    <View android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="10dp"/>
+
+    <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:text="@string/disable_provider" />
+        android:orientation="horizontal">
+
+      <Button android:id="@+id/timeout_uris_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:text="@string/with_uri_timeout" />
+
+      <Button android:id="@+id/timeout_bitmap_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:layout_marginStart="20dp"
+          android:text="@string/with_bitmap_timeout" />
+
+      <Button android:id="@+id/test_without_timeout_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:layout_marginStart="20dp"
+          android:text="@string/without_timeout" />
+    </LinearLayout>
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/custom_receipt_provider_timeout_note" />
+
+    <View android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="10dp"/>
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <Button android:id="@+id/enable_provider"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:text="@string/enable_provider" />
+
+      <Button android:id="@+id/disable_provider"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:layout_marginStart="20dp"
+          android:text="@string/disable_provider" />
+
+    </LinearLayout>
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/custom_receipt_provider_note"
+        android:layout_marginBottom="20dp"/>
 
   </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

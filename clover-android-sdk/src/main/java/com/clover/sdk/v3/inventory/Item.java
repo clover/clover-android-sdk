@@ -58,6 +58,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getPriceWithoutVat priceWithoutVat}</li>
  * <li>{@link #getColorCode colorCode}</li>
+ * <li>{@link #getIsAgeRestricted isAgeRestricted}</li>
+ * <li>{@link #getAgeRestrictedObj ageRestrictedObj}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -250,7 +252,19 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.colorCode);
   }
 
+  /**
+   * If this item is age-restricted
+   */
+  public Boolean getIsAgeRestricted() {
+    return genClient.cacheGet(CacheKey.isAgeRestricted);
+  }
 
+  /**
+   * Age restricted information for this item
+   */
+  public AgeRestrictedObj getAgeRestrictedObj() {
+    return genClient.cacheGet(CacheKey.ageRestrictedObj);
+  }
 
   public static final String AUTHORITY = "com.clover.inventory";
 
@@ -311,7 +325,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     colorCode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
-      ;
+    isAgeRestricted
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    ageRestrictedObj
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.AgeRestrictedObj.JSON_CREATOR)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -561,7 +579,15 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.colorCode);
   }
 
+  /** Checks whether the 'isAgeRestricted' field is set and is not null */
+  public boolean isNotNullIsAgeRestricted() {
+    return genClient.cacheValueIsNotNull(CacheKey.isAgeRestricted);
+  }
 
+  /** Checks whether the 'ageRestrictedObj' field is set and is not null */
+  public boolean isNotNullAgeRestrictedObj() {
+    return genClient.cacheValueIsNotNull(CacheKey.ageRestrictedObj);
+  }
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -703,6 +729,15 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheHasKey(CacheKey.colorCode);
   }
 
+  /** Checks whether the 'isAgeRestricted' field has been set, however the value could be null */
+  public boolean hasIsAgeRestricted() {
+    return genClient.cacheHasKey(CacheKey.isAgeRestricted);
+  }
+
+  /** Checks whether the 'ageRestrictedObj' field has been set, however the value could be null */
+  public boolean hasAgeRestrictedObj() {
+    return genClient.cacheHasKey(CacheKey.ageRestrictedObj);
+  }
 
   /**
    * Sets the field 'id'.
@@ -918,6 +953,21 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setOther(colorCode, CacheKey.colorCode);
   }
 
+  /**
+   * Sets the field 'isAgeRestricted'.
+   */
+  public Item setIsAgeRestricted(Boolean isAgeRestricted) {
+    return genClient.setOther(isAgeRestricted, CacheKey.isAgeRestricted);
+  }
+
+  /**
+   * Sets the field 'ageRestrictedObj'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Item setAgeRestrictedObj(AgeRestrictedObj ageRestrictedObj) {
+    return genClient.setRecord(ageRestrictedObj, CacheKey.ageRestrictedObj);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1032,6 +1082,14 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     genClient.clear(CacheKey.colorCode);
   }
 
+  /** Clears the 'isAgeRestricted' field, the 'has' method for this field will now return false */
+  public void clearIsAgeRestricted() {
+    genClient.clear(CacheKey.isAgeRestricted);
+  }
+  /** Clears the 'ageRestrictedObj' field, the 'has' method for this field will now return false */
+  public void clearAgeRestrictedObj() {
+    genClient.clear(CacheKey.ageRestrictedObj);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1130,6 +1188,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean PRICEWITHOUTVAT_IS_REQUIRED = false;
     public static final boolean COLORCODE_IS_REQUIRED = false;
     public static final long COLORCODE_MAX_LEN = 9;
+    static final boolean ISAGERESTRICTED_IS_REQUIRED = false;
+    public static final boolean AGERESTRICTEDOBJ_IS_REQUIRED = false;
   }
 
 }

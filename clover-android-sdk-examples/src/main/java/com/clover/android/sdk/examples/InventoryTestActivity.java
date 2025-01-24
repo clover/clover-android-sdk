@@ -52,6 +52,7 @@ import com.clover.sdk.v3.inventory.InventoryContract;
 import com.clover.sdk.v3.inventory.InventoryIntent;
 import com.clover.sdk.v3.inventory.Item;
 import com.clover.sdk.v3.inventory.ItemGroup;
+import com.clover.sdk.v3.inventory.Menu;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
 import com.clover.sdk.v3.inventory.Option;
@@ -818,6 +819,26 @@ public class InventoryTestActivity extends Activity {
     public Item getPosMenuItem(String itemId, String menuId, ResultStatus resultStatus) throws RemoteException {
       String uri = "/v2/merchant/" + merchantId + "/inventory/items/" + itemId;
       return getResult(Item.class, uri, "item", resultStatus);
+    }
+
+    @Override
+    public List<Menu> getMenusForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getMenusForItem()");
+    }
+
+    @Override
+    public Menu getDefaultPosMenu(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getDefaultPosMenu()");
+    }
+
+    @Override
+    public void removeMenusFromItem(String itemId, List<String> menuId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement removeMenusFromItem()");
+    }
+
+    @Override
+    public void assignMenusToItem(String itemId, List<String> mendIds, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement assignMenusToItem()");
     }
 
     @Override

@@ -106,8 +106,4 @@ android {
     exclude 'META-INF/NOTICE'
     pickFirst 'META-INF/ASL2.0'
   }
-
-  lintOptions {
-    abortOnError false
-  }
 }

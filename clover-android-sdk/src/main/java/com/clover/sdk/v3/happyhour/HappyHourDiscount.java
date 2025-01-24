@@ -22,8 +22,10 @@
 
 package com.clover.sdk.v3.happyhour;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
+import androidx.annotation.Nullable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -51,77 +53,88 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /**
    * Unique identifier
    */
-  public java.lang.String getId() {
+  @Nullable
+  public String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Name of the discount
    */
-  public java.lang.String getName() {
+  @Nullable
+  public String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
   /**
    * Discount amount in currency units(e.g. cents)
    */
-  public java.lang.Long getAmount() {
+  @Nullable
+  public Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
   /**
    * Discount amount in percent
    */
-  public java.lang.Long getPercentage() {
+  @Nullable
+  public Long getPercentage() {
     return genClient.cacheGet(CacheKey.percentage);
   }
 
   /**
    * Discount begin hours time
    */
-  public java.lang.Integer getBeginTimeHours() {
+  @Nullable
+  public Integer getBeginTimeHours() {
     return genClient.cacheGet(CacheKey.beginTimeHours);
   }
 
   /**
    * Discount end hours time
    */
-  public java.lang.Integer getEndTimeHours() {
+  @Nullable
+  public Integer getEndTimeHours() {
     return genClient.cacheGet(CacheKey.endTimeHours);
   }
 
   /**
    * Discount begin time minutes
    */
-  public java.lang.Integer getBeginTimeMinutes() {
+  @Nullable
+  public Integer getBeginTimeMinutes() {
     return genClient.cacheGet(CacheKey.beginTimeMinutes);
   }
 
   /**
    * Discount end time minutes
    */
-  public java.lang.Integer getEndTimeMinutes() {
+  @Nullable
+  public Integer getEndTimeMinutes() {
     return genClient.cacheGet(CacheKey.endTimeMinutes);
   }
 
   /**
    * list of category ids associated with this discount.
    */
-  public java.util.List<java.lang.String> getCategoryIds() {
+  @Nullable
+  public java.util.List<String> getCategoryIds() {
     return genClient.cacheGet(CacheKey.categoryIds);
   }
 
   /**
    * list of item ids associated with this discount.
    */
-  public java.util.List<java.lang.String> getItemIds() {
+  @Nullable
+  public java.util.List<String> getItemIds() {
     return genClient.cacheGet(CacheKey.itemIds);
   }
 
   /**
    * Days of week on which this discount is applicable
    */
-  public java.util.List<java.lang.String> getDaysOfWeek() {
+  @Nullable
+  public java.util.List<String> getDaysOfWeek() {
     return genClient.cacheGet(CacheKey.daysOfWeek);
   }
 
@@ -130,27 +143,27 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     name
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     amount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     percentage
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     beginTimeHours
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     endTimeHours
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     beginTimeMinutes
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     endTimeMinutes
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     categoryIds
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
     itemIds
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
     daysOfWeek
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -366,56 +379,56 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /**
    * Sets the field 'id'.
    */
-  public HappyHourDiscount setId(java.lang.String id) {
+  public HappyHourDiscount setId(@Nullable String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public HappyHourDiscount setName(java.lang.String name) {
+  public HappyHourDiscount setName(@Nullable String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'amount'.
    */
-  public HappyHourDiscount setAmount(java.lang.Long amount) {
+  public HappyHourDiscount setAmount(@Nullable Long amount) {
     return genClient.setOther(amount, CacheKey.amount);
   }
 
   /**
    * Sets the field 'percentage'.
    */
-  public HappyHourDiscount setPercentage(java.lang.Long percentage) {
+  public HappyHourDiscount setPercentage(@Nullable Long percentage) {
     return genClient.setOther(percentage, CacheKey.percentage);
   }
 
   /**
    * Sets the field 'beginTimeHours'.
    */
-  public HappyHourDiscount setBeginTimeHours(java.lang.Integer beginTimeHours) {
+  public HappyHourDiscount setBeginTimeHours(@Nullable Integer beginTimeHours) {
     return genClient.setOther(beginTimeHours, CacheKey.beginTimeHours);
   }
 
   /**
    * Sets the field 'endTimeHours'.
    */
-  public HappyHourDiscount setEndTimeHours(java.lang.Integer endTimeHours) {
+  public HappyHourDiscount setEndTimeHours(@Nullable Integer endTimeHours) {
     return genClient.setOther(endTimeHours, CacheKey.endTimeHours);
   }
 
   /**
    * Sets the field 'beginTimeMinutes'.
    */
-  public HappyHourDiscount setBeginTimeMinutes(java.lang.Integer beginTimeMinutes) {
+  public HappyHourDiscount setBeginTimeMinutes(@Nullable Integer beginTimeMinutes) {
     return genClient.setOther(beginTimeMinutes, CacheKey.beginTimeMinutes);
   }
 
   /**
    * Sets the field 'endTimeMinutes'.
    */
-  public HappyHourDiscount setEndTimeMinutes(java.lang.Integer endTimeMinutes) {
+  public HappyHourDiscount setEndTimeMinutes(@Nullable Integer endTimeMinutes) {
     return genClient.setOther(endTimeMinutes, CacheKey.endTimeMinutes);
   }
 
@@ -424,7 +437,7 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public HappyHourDiscount setCategoryIds(java.util.List<java.lang.String> categoryIds) {
+  public HappyHourDiscount setCategoryIds(@Nullable java.util.List<String> categoryIds) {
     return genClient.setArrayOther(categoryIds, CacheKey.categoryIds);
   }
 
@@ -433,7 +446,7 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public HappyHourDiscount setItemIds(java.util.List<java.lang.String> itemIds) {
+  public HappyHourDiscount setItemIds(@Nullable java.util.List<String> itemIds) {
     return genClient.setArrayOther(itemIds, CacheKey.itemIds);
   }
 
@@ -442,7 +455,7 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public HappyHourDiscount setDaysOfWeek(java.util.List<java.lang.String> daysOfWeek) {
+  public HappyHourDiscount setDaysOfWeek(@Nullable java.util.List<String> daysOfWeek) {
     return genClient.setArrayOther(daysOfWeek, CacheKey.daysOfWeek);
   }
 

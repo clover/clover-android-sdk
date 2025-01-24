@@ -415,6 +415,13 @@ public final class InventoryContract {
     public static final String COLOR_CODE = "color_code";
 
     /**
+     * Reference to parent category UUID.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String PARENT_CATEGORY_ID = "parent_category_id";
+
+    /**
      * Customer facing category name. Only provided when using the {@link Group#CONTENT_WITH_MENU_URI}.
      * <p>
      * Type: TEXT

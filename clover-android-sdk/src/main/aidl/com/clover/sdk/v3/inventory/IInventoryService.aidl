@@ -13,6 +13,7 @@ import com.clover.sdk.v3.inventory.OrderFee;
 import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v3.inventory.Menu;
 
 /**
  * An interface for interacting with the Clover inventory service. The inventory
@@ -790,4 +791,34 @@ interface IInventoryService {
      * Retrieve an individual item using the item ID.
      */
    Item getPosMenuItem(in String itemId, in String menuId, out ResultStatus resultStatus);
+
+
+  /**
+   * Retrieve all menus that contain the given item.
+   *
+   * @clover.perm INVENTORY_R
+   */
+   List<Menu> getMenusForItem(in String itemId, out ResultStatus resultStatus);
+
+   /**
+    * Retrieve defaultPosMenu from the menu table.
+    *
+    * @clover.perm INVENTORY_R
+    */
+
+   Menu getDefaultPosMenu(out ResultStatus resultStatus);
+
+   /**
+    * Remove an item from all given menus.
+    *
+    * @clover.perm INVENTORY_W
+    */
+   void removeMenusFromItem(in String itemId, in List<String> menuId, out ResultStatus resultStatus);
+
+   /**
+    * Add an item to all given menus.
+    *
+    * @clover.perm INVENTORY_W
+    */
+   void assignMenusToItem(in String itemId, in List<String> mendIds, out ResultStatus resultStatus);
 }

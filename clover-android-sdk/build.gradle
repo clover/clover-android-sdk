@@ -1,4 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -17,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '316'
+version = '320'
 
 apply from: file("${project.rootDir}/lib.gradle")
 apply plugin: 'kotlin-android'
@@ -66,7 +65,12 @@ dependencies {
   // Android tests
   androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
   androidTestImplementation "androidx.multidex:multidex:$ANDROIDX_MULTIDEX_VERSION"
+
   testImplementation "org.hamcrest:hamcrest:$HAMCREST_2_VERSION"
+  testImplementation "androidx.core:core-ktx:$ANDROIDX_CORE_VERSION"
+  testImplementation "androidx.test:core:$ANDROIDX_TEST_CORE_VERSION"
+  testImplementation "org.mockito:mockito-inline:$MOCKITO_VERSION"
+  testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
 }
 
 ext{

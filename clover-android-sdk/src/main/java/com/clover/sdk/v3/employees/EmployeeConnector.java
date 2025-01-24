@@ -52,12 +52,15 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   private static final String TAG = "EmployeeConnector";
   private static final String SERVICE_HOST = "com.clover.engine";
 
-  private final List<WeakReference<OnActiveEmployeeChangedListener>> mOnActiveEmployeeChangedListener = new CopyOnWriteArrayList<WeakReference<OnActiveEmployeeChangedListener>>();
+  private final List<WeakReference<OnActiveEmployeeChangedListener>> mOnActiveEmployeeChangedListener = new CopyOnWriteArrayList<>();
+
+  // Protect mutations to mService and mListener
+  private final Object mServiceAndListenerLock = new Object();
 
   /**
    * A listener that is invoked when the active employee changes.
    */
-  public static interface OnActiveEmployeeChangedListener {
+  public interface OnActiveEmployeeChangedListener {
     void onActiveEmployeeChanged(Employee employee);
   }
 
@@ -161,7 +164,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   public void disconnect() {
     mOnActiveEmployeeChangedListener.clear();
 
-    synchronized (this) {
+    synchronized (mServiceAndListenerLock) {
       if (mListener != null) {
         if (mService != null) {
           try {
@@ -288,7 +291,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   /**
    * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
    *
-   * @deprecated Use {@link #updateEmployee(Employee, ResultStatus)} instead.
+   * @deprecated Use {@link #updateEmployee(Employee)} instead.
    */
   @Deprecated
   public void setEmployeePin(final String id, final String pin, EmployeeCallback<Employee> callback) {
@@ -303,7 +306,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   /**
    * Invokes {@link com.clover.sdk.v3.employees.IEmployeeService#setEmployeePin(String, String, ResultStatus)}.
    *
-   * @deprecated Use {@link #updateEmployee(Employee, ResultStatus)} instead.
+   * @deprecated Use {@link #updateEmployee(Employee)} instead.
    */
   @Deprecated
   public Employee setEmployeePin(final String id, final String pin) throws RemoteException, ClientException, ServiceException, BindingException {
@@ -599,12 +602,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
   }
 
   private void postOnActiveEmployeeChanged(final Employee employee, final OnActiveEmployeeChangedListener listener) {
-    mHandler.post(new Runnable() {
-      @Override
-      public void run() {
-        listener.onActiveEmployeeChanged(employee);
-      }
-    });
+    mHandler.post(() -> listener.onActiveEmployeeChanged(employee));
   }
 
   /**
@@ -616,7 +614,7 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
       execute(new EmployeeCallable<Void>() {
         @Override
         public Void call(IEmployeeService service, ResultStatus status) throws RemoteException {
-          synchronized (EmployeeConnector.this) {
+          synchronized (mServiceAndListenerLock) {
             if (mListener == null) {
               mListener = new OnEmployeeListenerParent(EmployeeConnector.this);
               service.addListener(mListener, status);
@@ -624,9 +622,9 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
           }
           return null;
         }
-      }, new EmployeeCallback<Void>());
+      }, new EmployeeCallback<>());
     }
-    mOnActiveEmployeeChangedListener.add(new WeakReference<OnActiveEmployeeChangedListener>(listener));
+    mOnActiveEmployeeChangedListener.add(new WeakReference<>(listener));
   }
 
   /**
@@ -642,20 +640,21 @@ public class EmployeeConnector extends ServiceConnector<IEmployeeService> {
           break;
         }
       }
+
       if (listenerWeakReference != null) {
         mOnActiveEmployeeChangedListener.remove(listenerWeakReference);
       }
 
       if (mOnActiveEmployeeChangedListener.isEmpty()) {
-        synchronized (EmployeeConnector.this) {
-          if (isConnected() && mListener != null) {
-            try {
+        synchronized (mServiceAndListenerLock) {
+          try {
+            if (isConnected() && mListener != null) {
               mService.removeListener(mListener, new ResultStatus());
               mListener.destroy();
               mListener = null;
-            } catch (RemoteException e) {
-              e.printStackTrace();
             }
+          } catch (RemoteException e) {
+            e.printStackTrace();
           }
         }
       }

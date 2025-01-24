@@ -719,9 +719,9 @@ interface IOrderServiceV3_1 {
   /**
    * Update the online order state.
    *
-   * @Param orderId The ID of the order to be updated
-   * @Param orderState The new orderstate of the online order
-   * @Param reason A reason if the order is calcelled or declined.
+   * @param orderId The ID of the order to be updated
+   * @param orderState The new orderstate of the online order
+   * @param reason A reason if the order is calcelled or declined.
    *
    */
   void updateOnlineOrderState(in String orderId, in OrderState orderState, in Reason reason, out ResultStatus resultStatus);
@@ -969,5 +969,64 @@ interface IOrderServiceV3_1 {
     * @y.exclude
    */
   RefundFdParcelable addRefund3(String orderId, in RefundFdParcelable fdRefund, in Map passThroughExtras, out ResultStatus resultStatus);
+
+  /**
+    * Fire voided line items(deleted items) to order printer
+    * @param orderId the ID of the order to change the state.
+    * @return true if order is reopenable else false.
+    * @clover.perm ORDERS_R
+   */
+  boolean fireVoidedLineItem(String orderId, out ResultStatus resultStatus);
+
+    /**
+     * This method should be used when unit quatity comes from scale for reason of some compliance
+     * Add 1 or more per-unit line item to an order along with decimal precision. A per unit line item is priced per unit, not per item. A good example
+     * is items that are sold by weight (e.g., per ounce).
+     *
+     * {@link LineItem}s are linked to {@link com.clover.sdk.v3.inventory.Item}s with an item ID. Think of the
+     * {@link com.clover.sdk.v3.inventory.Item} as a template for creating a {@link LineItem}, and a
+     * {@link LineItem} as the order's copy of an {@link com.clover.sdk.v3.inventory.Item}.
+     *
+     * @param orderId The ID of the order to which to add the line item.
+     * @param itemId The item ID from which to create the line item to be added to the order.
+     * @param unitQuantity The unit quantity for the line item (e.g., "10 ounces").
+     * @param unitQtyDecimalDigits decimal precision from scale (e.g 1.00 : unitQtyDecimalDigits -> 2 , 1.000 : unitQtyDecimalDigits -> 3 ).
+     * @param binName The BIN name for the line item. May be {@link null}.
+     * @param userData Meta-data to attach to the line item. May be {@link null}.
+     * @param numItems number of {@link LineItem}s to create
+     * @return The newly created {@link LineItem}.
+     * @clover.perm ORDERS_W
+     */
+  LineItemListFdParcelable addPerUnitLineItemsWithDecimal(String orderId, String itemId, int unitQuantity, int unitQtyDecimalDigits, String binName, String userData, int numItems, out ResultStatus status);
+
+  LineItemListFdParcelable addMenuPerUnitLineItemsWithDecimal(String orderId, String menuId, String itemId, int unitQuantity, int unitQtyDecimalDigits, String binName, String userData, int numItems, out ResultStatus status);
+
+  /**
+   * Authorise the particular payment and creates new authorization.
+   * @param orderId The ID of the order to which to add new created authoirzation.
+   * @param payment object which needs to be authorized.
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  AuthorizationFdParcelable createAuthorization(String orderId, in PaymentFdParcelable payment, out ResultStatus status);
+
+  /**
+   * Authorise the incremented amount for particular authorization.
+   * @param orderId The ID of the order to which to update new incremented authoirzation.
+   * @param authId The ID of the authoiration to which to update new incremented authoirzation.
+   * @param incrementAmount amount to be incremented for particular authorization(NOT including the previously authorized amount).
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  AuthorizationFdParcelable incrementAuthorization(String orderId, String authId, long incrementAmount, out ResultStatus status);
+
+/**
+   * Capture the create/incremented authorization at server.
+   * @param orderId The ID of the order to which to capture the authoirzation.
+   * @param authId The ID of the authoiration to which to capture it.
+   * Not available to non-Clover apps.
+   * @y.exclude
+   */
+  AuthorizationFdParcelable captureAuth(String orderId, in AuthorizationFdParcelable auth, out ResultStatus status);
 
 }

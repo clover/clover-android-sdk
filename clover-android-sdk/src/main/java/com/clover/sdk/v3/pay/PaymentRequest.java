@@ -42,6 +42,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEmployeeId employeeId}</li>
  * <li>{@link #getEmployeeName employeeName}</li>
  * <li>{@link #getAuthorizationCode authorizationCode}</li>
+ * <li>{@link #getExternalReferenceId externalReferenceId}</li>
  * <li>{@link #getExternalPaymentId externalPaymentId}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
  * <li>{@link #getSinglePayToken singlePayToken}</li>
@@ -135,6 +136,13 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * External reference Id used for invoice number to store in EBT sale
+   */
+  public java.lang.String getExternalReferenceId() {
+    return genClient.cacheGet(CacheKey.externalReferenceId);
+  }
+
+  /**
    * External payment ID when using custom tender
    */
   public java.lang.String getExternalPaymentId() {
@@ -191,6 +199,8 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     employeeName
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     authorizationCode
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    externalReferenceId
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     externalPaymentId
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -347,6 +357,11 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.authorizationCode);
   }
 
+  /** Checks whether the 'externalReferenceId' field is set and is not null */
+  public boolean isNotNullExternalReferenceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
+  }
+
   /** Checks whether the 'externalPaymentId' field is set and is not null */
   public boolean isNotNullExternalPaymentId() {
     return genClient.cacheValueIsNotNull(CacheKey.externalPaymentId);
@@ -443,6 +458,11 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'authorizationCode' field has been set, however the value could be null */
   public boolean hasAuthorizationCode() {
     return genClient.cacheHasKey(CacheKey.authorizationCode);
+  }
+
+  /** Checks whether the 'externalReferenceId' field has been set, however the value could be null */
+  public boolean hasExternalReferenceId() {
+    return genClient.cacheHasKey(CacheKey.externalReferenceId);
   }
 
   /** Checks whether the 'externalPaymentId' field has been set, however the value could be null */
@@ -563,6 +583,13 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * Sets the field 'externalReferenceId'.
+   */
+  public PaymentRequest setExternalReferenceId(java.lang.String externalReferenceId) {
+    return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
+  }
+
+  /**
    * Sets the field 'externalPaymentId'.
    */
   public PaymentRequest setExternalPaymentId(java.lang.String externalPaymentId) {
@@ -660,6 +687,10 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'authorizationCode' field, the 'has' method for this field will now return false */
   public void clearAuthorizationCode() {
     genClient.clear(CacheKey.authorizationCode);
+  }
+  /** Clears the 'externalReferenceId' field, the 'has' method for this field will now return false */
+  public void clearExternalReferenceId() {
+    genClient.clear(CacheKey.externalReferenceId);
   }
   /** Clears the 'externalPaymentId' field, the 'has' method for this field will now return false */
   public void clearExternalPaymentId() {
@@ -763,6 +794,7 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     public static final boolean EMPLOYEENAME_IS_REQUIRED = false;
     public static final long EMPLOYEENAME_MAX_LEN = 127;
     public static final boolean AUTHORIZATIONCODE_IS_REQUIRED = false;
+    public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
     public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
     public static final long EXTERNALPAYMENTID_MAX_LEN = 32;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;

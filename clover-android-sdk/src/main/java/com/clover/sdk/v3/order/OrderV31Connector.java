@@ -352,6 +352,24 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public List<LineItem> addPerUnitLineItemsWithDecimal(final String orderId, final String itemId, final int unitQuantity, final int unitQtyDecimalDigits, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addPerUnitLineItemsWithDecimal(orderId, itemId, unitQuantity, unitQtyDecimalDigits, binName, userData, numItems, status));
+      }
+    });
+  }
+
+  public List<LineItem> addMenuPerUnitLineItemsWithDecimal(final String orderId, String menuId, final String itemId, final int unitQuantity, final int unitQtyDecimalDigits, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
+      @Override
+      public List<LineItem> call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.addMenuPerUnitLineItemsWithDecimal(orderId, menuId, itemId, unitQuantity, unitQtyDecimalDigits, binName, userData, numItems, status));
+      }
+    });
+  }
+
   public List<LineItem> addVariablePriceLineItems(final String orderId, final String itemId, final long price, final String binName, final String userData, final int numItems) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, List<LineItem>>() {
       @Override
@@ -1006,6 +1024,18 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Authorization incrementAuthorization(final String orderId, final String authId, final long amount) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.incrementAuthorization(orderId, authId, amount, status));
+    });
+  }
+
+  public Authorization createAuthorization(final String orderId, final Payment payment) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.createAuthorization(orderId, new PaymentFdParcelable(payment), status));
+    });
+  }
+
 
   public Order voidPreAuthOnline(final String orderId, final String preAuthId, final String iccContainer, final VoidReason voidReason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
@@ -1468,6 +1498,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Authorization captureAuth(String orderId, final Authorization authorization) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Authorization>() {
+      @Override
+      public Authorization call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.captureAuth(orderId, new AuthorizationFdParcelable(authorization), status));
+      }
+    });
+  }
+
   /**
    * Not available to non-Clover apps.
    * @y.exclude
@@ -1570,4 +1609,9 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public boolean fireVoidedLineItems(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return service.fireVoidedLineItem(orderId, status);
+    });
+  }
 }

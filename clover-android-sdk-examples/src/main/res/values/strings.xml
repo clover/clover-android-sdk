@@ -48,12 +48,22 @@
   <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
   <string name="app_event_name">App event name</string>
   <string name="custom_receipt_provider_test">Custom Receipt Provider Test</string>
-  <string name="custom_receipt_provider_note">Note:Activity will be closed automatically to apply the changes when either of the buttons is clicked.</string>
-  <string name="bitmap_chunks_edit_text_desc">Number of bitmap chunks to be printed: (Please enter the number between 0 and 20):</string>
+  <string name="custom_receipt_provider_note"><b>Note:</b> Activity will be closed automatically to apply the changes when either of the buttons is clicked. This is needed because
+  the current activity may still not be aware of the provider\'s new state unless it is restarted.</string>
+  <string name="custom_receipt_provider_timeout_note"><b>Note:</b> For custom receipt printing, Clover has fixed timeout set in place for provider\'s response.
+    If provider doesn\'t respond within that timeout, Clover will reject print request and show \"Print Failed\" toast message.\nThis behavior can be tested using timeout options: \n
+    \u25CF Timeout Uris: It will force provider to respond with list of uris after the timeout. \n
+    \u25CF Timeout Bitmaps: It will force provider to respond with receipt bitmap(s) after the timeout. \n
+    \u25CF Test without Timeout: Provider will respond normally without any timeout. \n
+  </string>
+  <string name="bitmap_chunks_edit_text_desc">Number of bitmap chunks to be printed: (Please enter the number between 0 and 99):</string>
   <string name="receipt_size_selection_spinner_desc">Select the size of the test receipt that you would like:</string>
   <string name="enable_provider">Enable Provider</string>
   <string name="disable_provider">Disable Provider</string>
   <string name="save">Save</string>
+  <string name="with_uri_timeout">Timeout Uris</string>
+  <string name="with_bitmap_timeout">Timeout Bitmap(s)</string>
+  <string name="without_timeout">Test without timeout</string>
 
   <array name="connection_type">
     <item>Use app service</item>

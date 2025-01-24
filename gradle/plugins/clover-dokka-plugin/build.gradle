@@ -1,0 +1,16 @@
+apply plugin: "org.jetbrains.kotlin.jvm"
+
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenLocal()
+    if (project.properties.containsKey("localArtifactoryUrl")) {
+        maven { url localArtifactoryUrl }
+    }
+    mavenCentral()
+    google()
+}
+dependencies {
+    compileOnly("org.jetbrains.dokka:dokka-core:1.9.20")
+    implementation("org.jetbrains.dokka:dokka-base:1.9.20")
+}

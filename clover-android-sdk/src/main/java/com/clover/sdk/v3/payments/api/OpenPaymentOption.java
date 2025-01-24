@@ -9,4 +9,6 @@ public class OpenPaymentOption {
     public static final String RETURN_OPEN_TIP_PAYMENTS = "RETURN_OPEN_TIP_PAYMENTS";
 
     public static final String ADJUST_OPEN_PAYMENT = "ADJUST_OPEN_PAYMENT";
+
+    public static final String RETURN_OPEN_PAYMENTS_COUNT = "RETURN_OPEN_PAYMENTS_COUNT";
 }

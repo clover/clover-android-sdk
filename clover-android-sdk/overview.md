@@ -1,12 +1,20 @@
 # Module clover-android-sdk
 The Clover SDK for Android facilitates development of applications running on Clover devices, see
-below for more information about the functionality provided by this SDK.
+  below for more information about the functionality provided by this SDK.
+
+## Permissions
+Most APIs offered by this SDK require the calling application hold relevant permissions such as
+  `ORDERS_W`, `CUSTOMER_R`, etc. Method documentation references required permissions. Calls made by
+  applications not holding the required permission will fail with an error. Applications must be
+  submitted to Clover and installed to the merchant for permissions to be granted. Check the Clover 
+  developer docs for details on 
+  <a href="https://docs.clover.com/dev/docs/app-settings" target="_blank">app permissions.</a>.
 
 ## Service Interfaces
 Interfaces to use with bound Clover services that allow management of a merchant's data: orders,
-  inventory, customers, employees, printers, properties, etc. Service classes starting with 'I' are
-  the underlying AIDL interfaces. Clover provides corresponding ServiceConnector classes for simpler
-  usage.
+  inventory, customers, employees, printers, properties, etc. Service classes starting with `I` are
+  the underlying AIDL interfaces. Clover provides corresponding `ServiceConnector` classes for 
+  simpler usage.
  * [com.clover.sdk.v3.apps.IAppsService]
  * [com.clover.sdk.v1.customer.ICustomerService]
  * [com.clover.sdk.v3.employees.IEmployeeService]
@@ -46,6 +54,10 @@ Searching for and displaying large amounts of data is best done through a conten
  * [com.clover.sdk.v3.cash.CashContract]
  * [com.clover.sdk.v3.inventory.InventoryContract]
  * [com.clover.sdk.v3.order.OrderContract]
+
+A common pattern for applications to listen for provider data changes is to register a
+  `ContentObserver` via the relevant contract URI. See 
+  [com.clover.android.sdk.examples.PrintJobsTestActivity] for an example.
 
 For more information about content providers, refer to the Android documentation:
   <a href="https://developer.android.com/guide/topics/providers/content-provider-basics.html" target="_blank">

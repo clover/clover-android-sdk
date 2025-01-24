@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: clover-android-sdk
+  description: This repo contains two Android Studio projects:clover-android-sdk and clover-android-sdk-examples
+  annotations:
+    github.com/project-slug: clover/clover-android-sdk
+    github.com/team-slug: clover/clover-android-sdk
+    backstage.io/techdocs-ref: dir:.
+    sonarqube.org/project-key: com.clover:clover-android-sdk
+    jira/project-key: N/A
+    pagerduty.com/service-id: N/A
+    jenkins.io/job-full-name: clover-libraries/clover-android-sdk
+    backstage.io/kubernetes-namespace: N/A
+    argocd/app-name: N/A
+spec:
+  type: library
+  owner: android
+  lifecycle: development

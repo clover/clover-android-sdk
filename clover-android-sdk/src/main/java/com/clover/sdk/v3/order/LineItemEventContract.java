@@ -80,6 +80,29 @@ public final class LineItemEventContract {
     /**
      * Content provider call
      * ({@link android.content.ContentResolver#call(Uri, String, String, Bundle)} method
+     * to get list of {@link LineItemEvent} which are voided from order.
+     * <p>
+     * This method requires that extra {@link #EXTRA_ORDER_ID}
+     * {@link #EXTRA_ORDER_ID} is included in
+     * the call extras.
+     * <p>
+     * The result bundle will contain a {@link com.clover.sdk.v1.ResultStatus} at extra
+     * {@link #EXTRA_RESULT_STATUS} to indicate the result of the operation.
+     * <p>
+     * Prefer to use {@link com.clover.sdk.v3.order.LineItemEvents#getVoidedLineItemEvents(String)} method
+     * to copy line item events.
+     *
+     * @see android.content.ContentResolver#call(Uri, String, String, Bundle)
+     * @see LineItemEvent
+     * @see ResultStatus
+     * @see #EXTRA_RESULT_STATUS
+     * @see #EXTRA_LINE_ITEM_EVENTS
+     */
+    public static final String METHOD_GET_VOIDED_LINE_ITEM_EVENTS = "get_voided_line_item_events";
+
+    /**
+     * Content provider call
+     * ({@link android.content.ContentResolver#call(Uri, String, String, Bundle)} method
      * to insert an ArrayList of {@link LineItemEvent}. Only one change notification is sent when
      * the operation is successful.
      *
@@ -152,6 +175,10 @@ public final class LineItemEventContract {
      * A {@link ResultStatus}, the result of the operation.
      */
     public static final String EXTRA_RESULT_STATUS = "result_status";
+    /**
+     * A {@link java.util.ArrayList} that is list of  {@link LineItemEvent}.
+     */
+    public static final String EXTRA_VOIDED_LINE_ITEM_RESULT ="voided_line_item_result";
     /**
      * A {@link String} that is a {@link LineItem} ID. This value must be a 13-character
      * Clover UUID.
