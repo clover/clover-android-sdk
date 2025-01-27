@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 /**
- * This package contains classes for printing to Clover connected printers. The name of the class
- * describes the type of print job. For example, {@link com.clover.sdk.v1.printer.job.StaticBillPrintJob}
- * prints bills, {@link com.clover.sdk.v1.printer.job.StaticOrderPrintJob} prints orders, etc.
+ * This package contains classes for printing to Clover connected printers.
+ * <p/>
+ * The name of the class describes the type of print job. For example,
+ * {@link com.clover.sdk.v1.printer.job.StaticBillPrintJob} prints bills,
+ * {@link com.clover.sdk.v1.printer.job.StaticOrderPrintJob} prints orders, etc.
  * <br/>
  * <br/>
  * Each class contains a builder subclass that is used to construct the print job. Use the

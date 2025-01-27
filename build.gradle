@@ -45,12 +45,14 @@ buildscript {
     classpath detektPlugin
   }
 }
-
 plugins {
   id("org.jetbrains.dokka") version "1.9.20"
 }
-
 repositories {
+  mavenLocal()
+  if (project.properties.containsKey("localArtifactoryUrl")) {
+    maven { url localArtifactoryUrl }
+  }
   mavenCentral()
 }
 
@@ -60,6 +62,7 @@ defaultTasks 'clean', 'install'
 
 //  Adding detekt tasks to all the sub-modules
 subprojects {
+
   tasks.withType(DokkaTaskPartial.class).configureEach {
     dependsOn compileReleaseAidl
     moduleName.set(project.name)
@@ -81,6 +84,7 @@ subprojects {
         suppressGeneratedFiles.set(false)
         sourceLink {
           // FIXME: source linking just doesn't seem to work
+          //  possibly related to https://github.com/Kotlin/dokka/issues/2876
           localDirectory.set(rootDir)
           remoteUrl.set(new URL("https://github.com/clover/clover-android-sdk/tree/master"))
           remoteLineSuffix.set("#L")
@@ -92,28 +96,37 @@ subprojects {
           url.set(new URL("https://square.github.io/okhttp/3.x/okhttp/"))
         }
         if(project.name == "clover-android-sdk") includes.from("overview.md")
+
+        perPackageOption {
+          matchingRegex.set("com.clover.sdk.internal.*")
+          suppress.set(true)
+        }
       }
     }
 
     dependencies {
       dokkaPlugin('org.jetbrains.dokka:kotlin-as-java-plugin:1.9.20')
+      dokkaPlugin('org.jetbrains.dokka:android-documentation-plugin:1.9.20')
+      dokkaPlugin('com.clover:clover-dokka-plugin:1.0-SNAPSHOT')
     }
   }
 }
 tasks.dokkaHtmlMultiModule {
   moduleName.set("Clover Android SDK")
-  moduleVersion.set("r"+(project(":clover-android-sdk") as DefaultProject).evaluate().version)
+  moduleVersion.set("r" + (project(":clover-android-sdk") as DefaultProject).evaluate().version)
 
   String config = """
-{
-  "customAssets": ["${file("assets/logo-icon.svg")}"],
-  "customStyleSheets": ["${file("assets/clover.css")}"]
-}
-"""
+  {
+    "customAssets": ["${file("assets/logo-icon.svg")}"],
+    "customStyleSheets": ["${file("assets/clover.css")}"]
+  }
+  """
   pluginsMapConfiguration.set([
           "org.jetbrains.dokka.base.DokkaBase": config
   ])
 }
 dependencies {
   dokkaPlugin('org.jetbrains.dokka:kotlin-as-java-plugin:1.9.20')
+  dokkaPlugin('org.jetbrains.dokka:android-documentation-plugin:1.9.20')
+  dokkaPlugin('com.clover:clover-dokka-plugin:1.0-SNAPSHOT')
 }

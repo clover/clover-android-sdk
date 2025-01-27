@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Clover Network, Inc.
+ * Copyright (C) 2024 Clover Network, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,38 +23,70 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * For internal use only.
  * <p>
- * Using this class to communicate with providers in other processes ensures that if the provider
- * process dies your process will not die with it. This class also automatically retries for several
- * seconds any operations that fail due to the provider process not being available, such as when
- * the provider process has crashed or is being reinstalled.
+ * <b>
+ * Because of the context where this class is used, it must not have any dependencies on
+ * other libraries outside of the Android SDK. It must compile to language level 7. This means,
+ * for example, it cannot use lambdas, method references, or try-with-resources.
+ * </b>
  * <p>
- * Unlike the standard ContentProviderClient this class does not require you to release/close
- * instances you obtain, instead this class acquires and releases the internal ContentProviderClient
- * for each method invocation.
+ * Using this class to communicate with providers in other processes ensures that, if the provider
+ * process dies, your process will not die with it. This class also automatically retries for
+ * several seconds any operations that fail due to the provider process not being available, such
+ * as when the provider process has crashed or is being reinstalled.
  * <p>
- * Note that methods in this class eat all usage exceptions and return null (or the default value as
- * with the call method) instead.
+ * Unlike the standard {@link ContentProviderClient}, this class does not require you to
+ * release/close instances you obtain, instead this class acquires and releases the internal
+ * instance of {@link ContentProviderClient} for each method invocation.
+ * <p>
+ * Methods in this class eat all usage exceptions and return null (or the default value as
+ * with the {@link #call(String, String, Bundle, Bundle)} method) if the provider is not available.
+ * This behavior can be changed by setting the {@link #noDefault} flag to true. When true,
+ * the exception that occurred on the last retry attmpt is thrown, wrapped in a
+ * {@link RuntimeException}.
  */
 public class UnstableContentResolverClient {
 
   private static final String TAG = "UnstableResolverClient";
 
-  private static final int MAX_RETRY_ATTEMPTS = 8;
-  private static final long RETRY_DELAY_MS = 500;
+  // VisibleForTesting
+  static final int MAX_RETRY_ATTEMPTS = 8;
+  // VisibleForTesting
+  static long RETRY_DELAY_MS = 500;
+
+  /**
+   * List of exception classes that, if they are thrown during execution, are logged at INFO level.
+   * Otherwise, they are logged at ERROR level.
+   */
+  private static final List<Class<? extends Throwable>> INFO_EXCEPTIONS =
+      new ArrayList<Class<? extends Throwable>>() {{
+        add(InterruptedException.class);
+      }};
 
   private final ContentResolver contentResolver;
   private final Uri uri;
+
+  /**
+   * Do not log UnsupportedOperationExceptions when true.
+   */
+  public boolean quiet = false;
+
+  /**
+   * Never return the default value, instead throw a RuntimeException with the last exception cause.
+   */
+  public boolean noDefault = false;
 
   public UnstableContentResolverClient(ContentResolver contentResolver, Uri uri) {
     this.contentResolver = contentResolver;
@@ -69,22 +101,6 @@ public class UnstableContentResolverClient {
     Throwable savedException = null;
 
     for (int retryCount = 0; retryCount < MAX_RETRY_ATTEMPTS; retryCount++) {
-      if (Thread.currentThread().isInterrupted()) {
-        savedException = new InterruptedException("Retry interrupted for URI: " + uri).fillInStackTrace();
-        break;
-      }
-
-      if (retryCount > 1) {
-        try {
-          Thread.sleep(RETRY_DELAY_MS);
-        } catch (InterruptedException e) {
-          // Reset interrupted flag
-          Thread.currentThread().interrupt();
-
-          savedException = new InterruptedException("Sleep interrupted").fillInStackTrace();
-          break;
-        }
-      }
 
       // Always use a fresh client when retrying, per javadocs:
       // In particular, catching a {@link android.os.DeadObjectException} from the calls there
@@ -92,12 +108,28 @@ public class UnstableContentResolverClient {
       // ContentProviderClient object is invalid, and you should release it.
       ContentProviderClient client = null;
       try {
+        if (Thread.currentThread().isInterrupted()) {
+          throw new InterruptedException("Interrupted for URI: " + uri);
+        }
+
+        if (retryCount > 1) {
+          Thread.sleep(RETRY_DELAY_MS);
+        }
+
         client = contentResolver.acquireUnstableContentProviderClient(uri);
         if (client == null) {
           savedException = new Exception("Client is null for URI: " + uri).fillInStackTrace();
           continue;
         }
         return callable.call(client);
+      } catch (InterruptedException e) {
+        savedException = e;
+
+        // Reset interrupted flag
+        Thread.currentThread().interrupt();
+
+        // Break out of loop; we don't want to keep retrying if we were interrupted
+        break;
       } catch (RemoteException e) {
         savedException = e;
       } catch (IllegalStateException e) {
@@ -119,7 +151,13 @@ public class UnstableContentResolverClient {
         break;
       } catch (Exception e) {
         savedException = e;
-        // No retry, fail now
+
+        if (!noDefault &&
+            quiet &&
+            UnsupportedOperationException.class.isAssignableFrom(e.getClass())) {
+          // Don't log, don't retry, we expected this
+          return defaultValue;
+        }
         break;
       } finally {
         if (client != null) {
@@ -129,7 +167,17 @@ public class UnstableContentResolverClient {
     }
 
     // Operation failed
-    Log.e(TAG, String.format(Locale.ROOT, "Usage of provider %s failed", uri ), savedException);
+
+    if (noDefault) {
+      throw new RuntimeException(savedException);
+    }
+
+    if (isExpectedException(savedException)) {
+      Log.i(TAG, String.format(Locale.ROOT, "Communication with URI: %s failed: %s", uri, savedException));
+    } else {
+      Log.e(TAG, String.format(Locale.ROOT, "Communication with URI: %s failed", uri), savedException);
+    }
+
     return defaultValue;
   }
 
@@ -145,9 +193,13 @@ public class UnstableContentResolverClient {
    *          if the content provider wasn't available even after waiting a few seconds or the
    *          insert generated any other type of exception
    */
-  public Uri insert(ContentValues values) {
-    Uri resultUri = makeUnstableCall((client) -> client.insert(uri, values));
-    return resultUri;
+  public Uri insert(final ContentValues values) {
+    return makeUnstableCall(new ContentProviderClientCallable<Uri>() {
+      @Override
+      public Uri call(ContentProviderClient client) throws RemoteException {
+        return client.insert(uri, values);
+      }
+    });
   }
 
   /**
@@ -162,8 +214,13 @@ public class UnstableContentResolverClient {
    *          if the content provider wasn't available even after waiting a few seconds or the
    *          update generated any other type of exception
    */
-  public int update(ContentValues values, String selection, String[] selectionArgs) {
-    Integer numRowsChanged = makeUnstableCall((client) -> client.update(uri, values, selection, selectionArgs));
+  public int update(final ContentValues values, final String selection, final String[] selectionArgs) {
+    Integer numRowsChanged = makeUnstableCall(new ContentProviderClientCallable<Integer>() {
+      @Override
+      public Integer call(ContentProviderClient client) throws RemoteException {
+        return client.update(uri, values, selection, selectionArgs);
+      }
+    });
     return numRowsChanged != null ? numRowsChanged : 0;
   }
 
@@ -179,8 +236,13 @@ public class UnstableContentResolverClient {
    *          if the content provider wasn't available even after waiting a few seconds or the
    *          delete generated any other type of exception
    */
-  public int delete(String selection, String[] selectionArgs) {
-    Integer numRowsDeleted = makeUnstableCall((client) -> client.delete(uri, selection, selectionArgs));
+  public int delete(final String selection, final String[] selectionArgs) {
+    Integer numRowsDeleted = makeUnstableCall(new ContentProviderClientCallable<Integer>() {
+      @Override
+      public Integer call(ContentProviderClient client) throws RemoteException {
+        return client.delete(uri, selection, selectionArgs);
+      }
+    });
     return numRowsDeleted != null ? numRowsDeleted : 0;
   }
 
@@ -198,10 +260,18 @@ public class UnstableContentResolverClient {
    *          if the content provider wasn't available even after retrying a few seconds or the
    *          query generated any other type of exception
    */
-  public Cursor query(String[] projection,
-                      String selection, String[] selectionArgs,
-                      String sortOrder) {
-    return makeUnstableCall((client) -> client.query(uri, projection, selection, selectionArgs, sortOrder));
+  public Cursor query(
+      final String[] projection,
+      final String selection,
+      final String[] selectionArgs,
+      final String sortOrder
+  ) {
+    return makeUnstableCall(new ContentProviderClientCallable<Cursor>() {
+      @Override
+      public Cursor call(ContentProviderClient client) throws RemoteException {
+        return client.query(uri, projection, selection, selectionArgs, sortOrder);
+      }
+    });
   }
 
   /**
@@ -216,8 +286,18 @@ public class UnstableContentResolverClient {
    *          if the content provider wasn't available even after waiting a few seconds or the call
    *          generated any other type of exception
    */
-  public Bundle call(String method, String arg, Bundle extras, Bundle defaultResult) {
-    return makeUnstableCall((client) -> client.call(method, arg, extras), defaultResult);
+  public Bundle call(
+      final String method,
+      final String arg,
+      final Bundle extras,
+      final Bundle defaultResult
+  ) {
+    return makeUnstableCall(new ContentProviderClientCallable<Bundle>() {
+      @Override
+      public Bundle call(ContentProviderClient client) throws RemoteException {
+        return client.call(method, arg, extras);
+      }
+    }, defaultResult);
   }
 
   /**
@@ -234,12 +314,53 @@ public class UnstableContentResolverClient {
    *
    * @see ContentResolver#openAssetFileDescriptor(Uri, String)
    */
-  public AssetFileDescriptor openAssetFile(String mode) {
-    return makeUnstableCall((client) -> client.openAssetFile(uri, mode));
+  public AssetFileDescriptor openAssetFile(final String mode) {
+    return makeUnstableCall(new ContentProviderClientCallable<AssetFileDescriptor>() {
+      @Override
+      public AssetFileDescriptor call(ContentProviderClient client) throws RemoteException, FileNotFoundException {
+        return client.openAssetFile(uri, mode);
+      }
+    });
+  }
+
+  /**
+   * Perform {@link android.content.ContentProvider#openFile(Uri, String)} while
+   * allowing for a provider that may not be available momentarily.
+   *
+   * @return The input stream (may be null) upon a successful invocation of openFile, or defaultResult
+   *          if the content provider wasn't available even after waiting a few seconds or the call
+   *          generated any other type of exception
+   */
+  public InputStream openInputStream(final String mode) {
+    return makeUnstableCall(new ContentProviderClientCallable<InputStream>() {
+      @Override
+      public InputStream call(ContentProviderClient client) throws RemoteException, FileNotFoundException {
+        ParcelFileDescriptor pfd = client.openFile(uri, mode);
+        return pfd != null ? new ParcelFileDescriptor.AutoCloseInputStream(pfd) : null;
+      }
+    });
+  }
+
+  public boolean isExpectedException(Throwable e) {
+    for (Class<? extends Throwable> exception : INFO_EXCEPTIONS) {
+      if (isAnyInstance(e, exception)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isAnyInstance(Throwable e, Class<? extends Throwable> expected) {
+    if (e == null) {
+      return false;
+    }
+    if (expected.isInstance(e)) {
+      return true;
+    }
+    return isAnyInstance(e.getCause(), expected);
   }
 
   private interface ContentProviderClientCallable<T> {
     T call(ContentProviderClient client) throws RemoteException, FileNotFoundException;
   }
-
 }

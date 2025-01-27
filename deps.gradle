@@ -1,10 +1,13 @@
 apply from: "${project.rootDir}/versions.gradle"
 
-def requiredGradleVersion = new File("${project.rootDir}/gradleVersion").text.split('-')[1].trim()
-if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
-  print "WARNING: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
-  throw new GradleException("Unsupported Gradle version.")
-}
+
+
+//def requiredGradleVersion = new File("${project.rootDir}/gradleVersion").text.split('-')[1].trim()
+//if ("${gradle.gradleVersion}" != "$requiredGradleVersion") {
+//  print "WARNING: Gradle version $requiredGradleVersion is required. Detected Gradle version ${gradle.gradleVersion}"
+//  throw new GradleException("Unsupported Gradle version.")
+//}
+
 
 ext {
   androidPlugin = "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
@@ -14,6 +17,7 @@ ext {
   hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$HILT_VERSION"
   heapGradlePlugin = "io.heap.gradle:heap-plugin:$HEAP_PLUGIN_VERSION"
   detektPlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$DETEKT_VERSION"
+  kspPlugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:$KSP_VERSION"
 }
 
 if (project.hasProperty('print_versions') && project.properties["print_versions"] == "true") {

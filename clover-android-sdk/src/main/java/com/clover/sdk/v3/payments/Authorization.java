@@ -43,6 +43,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getExternalReferenceId externalReferenceId}</li>
  * <li>{@link #getClosingPayment closingPayment}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
+ * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getAdditionalCharges additionalCharges}</li>
  * <li>{@link #getTransactionSequenceCounter transactionSequenceCounter}</li>
  * <li>{@link #getAcquirerTerminalId acquirerTerminalId}</li>
@@ -139,6 +140,13 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Time authorization was voided or completed
+   */
+  public java.lang.Long getDeletedTime() {
+    return genClient.cacheGet(CacheKey.deletedTime);
+  }
+
+  /**
    * Additional charges associated with the authorization. For incremental auth, it is the additional charge on total auth amount.
    */
   public java.util.List<com.clover.sdk.v3.payments.AdditionalChargeAmount> getAdditionalCharges() {
@@ -199,6 +207,8 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     closingPayment
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
     createdTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     additionalCharges
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeAmount.JSON_CREATOR)),
@@ -360,6 +370,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
   }
 
+  /** Checks whether the 'deletedTime' field is set and is not null */
+  public boolean isNotNullDeletedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
+  }
+
   /** Checks whether the 'additionalCharges' field is set and is not null */
   public boolean isNotNullAdditionalCharges() {
     return genClient.cacheValueIsNotNull(CacheKey.additionalCharges);
@@ -453,6 +468,11 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
   public boolean hasCreatedTime() {
     return genClient.cacheHasKey(CacheKey.createdTime);
+  }
+
+  /** Checks whether the 'deletedTime' field has been set, however the value could be null */
+  public boolean hasDeletedTime() {
+    return genClient.cacheHasKey(CacheKey.deletedTime);
   }
 
   /** Checks whether the 'additionalCharges' field has been set, however the value could be null */
@@ -577,6 +597,13 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'deletedTime'.
+   */
+  public Authorization setDeletedTime(java.lang.Long deletedTime) {
+    return genClient.setOther(deletedTime, CacheKey.deletedTime);
+  }
+
+  /**
    * Sets the field 'additionalCharges'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -665,6 +692,10 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
+  }
+  /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
+  public void clearDeletedTime() {
+    genClient.clear(CacheKey.deletedTime);
   }
   /** Clears the 'additionalCharges' field, the 'has' method for this field will now return false */
   public void clearAdditionalCharges() {
@@ -767,6 +798,7 @@ public class Authorization extends GenericParcelable implements com.clover.sdk.v
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
     public static final boolean CLOSINGPAYMENT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
+    public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean ADDITIONALCHARGES_IS_REQUIRED = false;
     public static final boolean TRANSACTIONSEQUENCECOUNTER_IS_REQUIRED = false;
     public static final boolean ACQUIRERTERMINALID_IS_REQUIRED = false;

@@ -69,6 +69,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsOrderFee isOrderFee}</li>
  * <li>{@link #getIsPlatformOrderFee isPlatformOrderFee}</li>
  * <li>{@link #getOrderFeeType orderFeeType}</li>
+ * <li>{@link #getUnitQtyDecimalDigits unitQtyDecimalDigits}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -327,6 +328,17 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
 
+  /**
+   * This is applicable only if the item is priced by quantity of a unit.
+   * The item must have a priceType of PER_UNIT and has a unitQty.
+   * The value represents the decimal digits when the unitQty is collected. (e.g. if charging per ounce, and the weight scale shows 2.50, then value should be set to 2.
+   * If the weight scale shows 2.500, then value should be set to 3, etc.). If the item doesn’t have a priceType of PER_UNIT, then unitQtyDecimalDigits is ignored.
+   */
+  public java.lang.Integer getUnitQtyDecimalDigits() {
+    return genClient.cacheGet(CacheKey.unitQtyDecimalDigits);
+  }
+
+
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -406,6 +418,8 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     orderFeeType
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    unitQtyDecimalDigits
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -499,6 +513,8 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     genClient.validateLength(CacheKey.userData, getUserData(), 255);
 
     genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000000L);
+
+    genClient.validateMinMax(CacheKey.unitQtyDecimalDigits, getUnitQtyDecimalDigits(), 0L, 3L);
     genClient.validateReferences(CacheKey.item);
     genClient.validateReferences(CacheKey.exchangedLineItem);
     genClient.validateReferences(CacheKey.printGroup);
@@ -719,6 +735,12 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.orderFeeType);
   }
 
+  /** Checks whether the 'unitQtyDecimalDigits' field is set and is not null */
+  public boolean isNotNullUnitQtyDecimalDigits() {
+    return genClient.cacheValueIsNotNull(CacheKey.unitQtyDecimalDigits);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -914,6 +936,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public boolean hasOrderFeeType() {
     return genClient.cacheHasKey(CacheKey.orderFeeType);
   }
+
+
+  /** Checks whether the 'unitQtyDecimalDigits' field has been set, however the value could be null */
+  public boolean hasUnitQtyDecimalDigits() {
+    return genClient.cacheHasKey(CacheKey.unitQtyDecimalDigits);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -1210,6 +1239,14 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(orderFeeType, CacheKey.orderFeeType);
   }
 
+  /**
+   * Sets the field 'unitQtyDecimalDigits'.
+   */
+  public LineItem setUnitQtyDecimalDigits(java.lang.Integer unitQtyDecimalDigits) {
+    return genClient.setOther(unitQtyDecimalDigits, CacheKey.unitQtyDecimalDigits);
+  }
+
+
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -1366,6 +1403,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearOrderFeeType() {
     genClient.clear(CacheKey.orderFeeType);
   }
+  /** Clears the 'unitQtyDecimalDigits' field, the 'has' method for this field will now return false */
+  public void clearUnitQtyDecimalDigits() {
+    genClient.clear(CacheKey.unitQtyDecimalDigits);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1478,6 +1520,9 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ISORDERFEE_IS_REQUIRED = false;
     public static final boolean ISPLATFORMORDERFEE_IS_REQUIRED = false;
     public static final boolean ORDERFEETYPE_IS_REQUIRED = false;
+    public static final boolean UNITQTYDECIMALDIGITS_IS_REQUIRED = false;
+    public static final long UNITQTYDECIMALDIGITS_MIN = 0;
+    public static final long UNITQTYDECIMALDIGITS_MAX = 3;
   }
 
 }

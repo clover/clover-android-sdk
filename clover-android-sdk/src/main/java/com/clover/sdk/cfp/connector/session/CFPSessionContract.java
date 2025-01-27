@@ -27,7 +27,6 @@ public class CFPSessionContract {
   public static final String COLUMN_DISPLAY_ORDER = "DISPLAY_ORDER";
   public static final String COLUMN_DISPLAY_ORDER_MODIFICATION_SUPPORTED = "DISPLAY_ORDER_MODIFICATION_SUPPORTED";
   public static final String COLUMN_TRANSACTION = "TX";
-  public static final String COLUMN_TRANSACTION_CLASS = "TX_CLASS";
   public static final String COLUMN_MESSAGE = "CFP_MESSAGE";
   // Session property table/column definition
   public static final String PROPERTIES_TABLE_NAME = "SESSION_PROPERTY";
@@ -38,7 +37,7 @@ public class CFPSessionContract {
   public static final String SESSION_EVENT = "SESSION_EVENT";
 
   //Authority is unique string for the app.
-  public static String AUTHORITY = "com.clover.cfp.provider.session";
+  public static String AUTHORITY = "com.clover.engine.providers.cfp.session";
 
   public static Uri SESSION_URI = Uri.parse("content://" + AUTHORITY + "/" + SESSION_TABLE_NAME);
   public static Uri SESSION_CUSTOMER_URI = Uri.parse("content://" + AUTHORITY + "/" + SESSION_TABLE_NAME + "/" + COLUMN_CUSTOMER_INFO);
@@ -69,10 +68,23 @@ public class CFPSessionContract {
   }
 
   public static final String CALL_METHOD_ON_EVENT = "onEvent";
+  public static final String CALL_METHOD_ON_REMOTE_EVENT = "onRemoteEvent";
+  /*
+    Clears all session data and non-protected properties.  Normally
+    used as part of doing a reset on the CFD.
+   */
   public static final String CALL_METHOD_CLEAR_SESSION = "clearSession";
+  /*
+    Clears the DisplayOrder, Message & Transaction data from the current session.
+    This allows CustomerInfo and potential associated properties to survive,
+    should there be a need to retain/revive order association when
+    processing pauses between application switching and then restarts.
+   */
+  public static final String CALL_METHOD_PAUSE_SESSION = "pauseSession";
   public static final String CALL_METHOD_SET_ORDER = "setOrder";
   public static final String CALL_METHOD_SET_CUSTOMER_INFO = "setCustomerInfo";
   public static final String CALL_METHOD_SET_PROPERTY = "setProperty";
+  public static final String CALL_METHOD_SET_REMOTE_PROPERTY = "setRemoteProperty";
   public static final String CALL_METHOD_SET_TRANSACTION = "setTransaction";
   public static final String CALL_METHOD_SET_MESSAGE = "setMessage";
 }

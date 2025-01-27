@@ -3,10 +3,6 @@ apply from: file("${project.rootDir}/common.gradle")
 apply from: file("${project.rootDir}/list-dependencies.gradle")
 
 android {
-  lintOptions {
-    abortOnError false
-  }
-
   compileSdkVersion COMPILE_SDK_VERSION
 
   defaultConfig {

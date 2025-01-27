@@ -4,3 +4,4 @@ include 'clover-android-connector-sdk'
 include 'clover-android-sdk-examples'
 include 'clover-android-loyalty-kit'
 include 'clover-android-sdk-retrofit'
+includeBuild "$rootDir/gradle/plugins"

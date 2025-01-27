@@ -1554,6 +1554,10 @@ public class Intents {
    */
   public static final String ACTION_V1_CUSTOMER_IDENTIFIED = "clover.intent.action.V1_CUSTOMER_IDENTIFIED";
 
+  public static final String ACTION_V1_POST_CFD_MESSAGE = "clover.intent.action.V1_POST_CFD_MESSAGE";
+
+  public static final String EXTRA_CFD_MESSAGE = "clover.intent.extra.CFD_MESSAGE";
+
   /** @deprecated */
   public static final String EXTRA_AVAILABLE = "clover.intent.extra_AVAILABLE";
 
@@ -1792,6 +1796,11 @@ public class Intents {
   public static final String EXTRA_EXIT_IN_CUSTOMER_MODE = "clover.intent.extra.EXTRA_EXIT_IN_CUSTOMER_MODE";
 
   /**
+   * {@link Boolean} If set to true, it will reprint the transaction receipt.
+   */
+  public static final String EXTRA_REPRINT_RECEIPT_FLAG = "clover.intent.extra.EXTRA_REPRINT_RECEIPT_FLAG";
+
+  /**
    * Intent to track package of the override manager id.
    */
   public static final String EXTRA_THRESHOLD_MANAGER_ID = "threshold_manager_id";
@@ -1825,6 +1834,11 @@ public class Intents {
    * Intent to track create an auth
    */
   public static final String EXTRA_CREATE_AUTH = "create_auth";
+
+  /**
+   * Intent to track apply realtime discount for package name
+   */
+  public static final String EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME = "applyRealtimeDiscountForPkgName";
 
   /**
    * The transaction name

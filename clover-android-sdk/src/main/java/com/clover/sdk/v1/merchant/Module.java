@@ -78,7 +78,9 @@ public enum Module implements Parcelable {
   BASIC_WEBSITE,
   STOREFRONT,
   CHECKOUT,
-  SHIFT_PLANNING
+  SHIFT_PLANNING,
+  TEMPORARY_BUSINESS_HOURS,
+  DAY_PARTS
   ;
 
   @Override

@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.inventory;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -34,6 +35,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getName name}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getItems items}</li>
+ * <li>{@link #getParentCategory parentCategory}</li>
+ * <li>{@link #getSubCategories subCategories}</li>
  * <li>{@link #getColorCode colorCode}</li>
  * <li>{@link #getDeleted deleted}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
@@ -72,6 +75,20 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
     return genClient.cacheGet(CacheKey.items);
+  }
+
+  /**
+   * Reference to parent category
+   */
+  public com.clover.sdk.v3.base.Reference getParentCategory() {
+    return genClient.cacheGet(CacheKey.parentCategory);
+  }
+
+  /**
+   * List of subcategories under this category.
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getSubCategories() {
+    return genClient.cacheGet(CacheKey.subCategories);
   }
 
   /**
@@ -120,6 +137,10 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     sortOrder
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     items
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    parentCategory
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    subCategories
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     colorCode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -210,6 +231,8 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
 
     genClient.validateLength(CacheKey.colorCode, getColorCode(), 9);
     genClient.validateReferences(CacheKey.items);
+    genClient.validateReferences(CacheKey.parentCategory);
+    genClient.validateReferences(CacheKey.subCategories);
     genClient.validateReferences(CacheKey.canonical);
   }
 
@@ -235,6 +258,19 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
 
   /** Checks whether the 'items' field is set and is not null and is not empty */
   public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
+
+  /** Checks whether the 'parentCategory' field is set and is not null */
+  public boolean isNotNullParentCategory() {
+    return genClient.cacheValueIsNotNull(CacheKey.parentCategory);
+  }
+
+  /** Checks whether the 'subCategories' field is set and is not null */
+  public boolean isNotNullSubCategories() {
+    return genClient.cacheValueIsNotNull(CacheKey.subCategories);
+  }
+
+  /** Checks whether the 'subCategories' field is set and is not null and is not empty */
+  public boolean isNotEmptySubCategories() { return isNotNullSubCategories() && !getSubCategories().isEmpty(); }
 
   /** Checks whether the 'colorCode' field is set and is not null */
   public boolean isNotNullColorCode() {
@@ -281,6 +317,16 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'items' field has been set, however the value could be null */
   public boolean hasItems() {
     return genClient.cacheHasKey(CacheKey.items);
+  }
+
+  /** Checks whether the 'parentCategory' field has been set, however the value could be null */
+  public boolean hasParentCategory() {
+    return genClient.cacheHasKey(CacheKey.parentCategory);
+  }
+
+  /** Checks whether the 'subCategories' field has been set, however the value could be null */
+  public boolean hasSubCategories() {
+    return genClient.cacheHasKey(CacheKey.subCategories);
   }
 
   /** Checks whether the 'colorCode' field has been set, however the value could be null */
@@ -340,6 +386,24 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
+   * Sets the field 'parentCategory'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Category setParentCategory(com.clover.sdk.v3.base.Reference parentCategory) {
+    return genClient.setRecord(parentCategory, CacheKey.parentCategory);
+  }
+
+  /**
+   * Sets the field 'subCategories'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public Category setSubCategories(java.util.List<com.clover.sdk.v3.base.Reference> subCategories) {
+    return genClient.setArrayRecord(subCategories, CacheKey.subCategories);
+  }
+
+  /**
    * Sets the field 'colorCode'.
    */
   public Category setColorCode(java.lang.String colorCode) {
@@ -394,6 +458,14 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'items' field, the 'has' method for this field will now return false */
   public void clearItems() {
     genClient.clear(CacheKey.items);
+  }
+  /** Clears the 'parentCategory' field, the 'has' method for this field will now return false */
+  public void clearParentCategory() {
+    genClient.clear(CacheKey.parentCategory);
+  }
+  /** Clears the 'subCategories' field, the 'has' method for this field will now return false */
+  public void clearSubCategories() {
+    genClient.clear(CacheKey.subCategories);
   }
   /** Clears the 'colorCode' field, the 'has' method for this field will now return false */
   public void clearColorCode() {
@@ -483,6 +555,8 @@ public class Category extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long NAME_MAX_LEN = 127;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
+    public static final boolean PARENTCATEGORY_IS_REQUIRED = false;
+    public static final boolean SUBCATEGORIES_IS_REQUIRED = false;
     public static final boolean COLORCODE_IS_REQUIRED = false;
     public static final long COLORCODE_MAX_LEN = 9;
     public static final boolean DELETED_IS_REQUIRED = false;

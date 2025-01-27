@@ -1467,4 +1467,44 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       return null;
     }, callback);
   }
+
+  public List<Menu> getMenusForItem(final String itemId) throws ClientException,
+          ServiceException, BindingException,
+          RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Menu>>() {
+      public List<Menu> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getMenusForItem(itemId,status);
+      }
+    });
+  }
+
+  public Menu getDefaultPosMenu() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Menu>() {
+      public Menu call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getDefaultPosMenu(status);
+      }
+    });
+  }
+
+  public void removeMenusFromItem(final String itemId, final List<String> menuIds) throws ClientException,
+
+          ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      @Override
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.removeMenusFromItem(itemId, menuIds, status);
+      }
+    });
+  }
+
+  public void assignMenusToItem(final String itemId, final List<String> menuIds) throws ClientException,
+
+          ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      @Override
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.assignMenusToItem(itemId, menuIds, status);
+      }
+    });
+  }
 }

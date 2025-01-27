@@ -45,7 +45,9 @@ import com.clover.sdk.v1.printer.job.TokenRequestBasedPrintJob
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
@@ -57,7 +59,8 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
   private var printerConnector: PrinterConnector? = null
   private var account: Account? = null
   private var supportedReceiptWidth: Int? = null
-  private var selectedFileResId = R.drawable.test_receipt_extra_large
+  private var selectedFileResId = R.drawable.test_receipt_auto_select
+  private var delayedResponseBitmaps: Boolean? = false
 
   companion object {
     const val AUTHORITY = "com.clover.android.sdk.examples.receipt.custom"
@@ -77,6 +80,8 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
     const val SHARED_PREFS = "customReceiptProviderPrefs"
     const val N_CHUNKS = "nChunks"
     const val SELECTED_FILE_RES_ID = "selectedFileResId"
+    const val DELAYED_RESPONSE_URIS = "delayedResponseUris"
+    const val DELAYED_RESPONSE_BITMAPS = "delayedResponseBitmaps"
     const val MAX_RECEIPT_HEIGHT = 2048
     const val TAG = "CustomReceiptProviderTest"
   }
@@ -183,7 +188,7 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
   @Throws(FileNotFoundException::class)
   override fun openFile(contentUri: Uri, mode: String): ParcelFileDescriptor {
     val bitmap = getReceiptSegmentBitmap(contentUri)
-    val rescaledBitmap = if (selectedFileResId == R.drawable.test_receipt_extra_large && bitmap != null && supportedReceiptWidth != null) {
+    val rescaledBitmap = if (selectedFileResId == R.drawable.test_receipt_auto_select && bitmap != null && supportedReceiptWidth != null) {
       // WARNING: Generate the receipt bitmap with width = supportedReceiptWidth and height up to
       // CustomReceiptProviderTest.MAX_RECEIPT_HEIGHT. Instead of generating a receipt bitmap
       // matching the supportedReceiptWidth, for testing purpose this app resizes the test bitmap
@@ -191,6 +196,10 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
       Bitmap.createScaledBitmap(bitmap, supportedReceiptWidth!!, supportedReceiptWidth!!, false)
     } else {
       getReceiptSegmentBitmap(contentUri)
+    }
+
+    if (delayedResponseBitmaps == true) {
+      runBlocking { delay(ReceiptContentContract.PROVIDER_TIMEOUT + 1000) }
     }
 
     return openPipeHelper<Bitmap>(
@@ -241,8 +250,10 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
     val result = Bundle()
     val sharedPrefs = context?.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
     val nChunksToSend = sharedPrefs?.getInt(N_CHUNKS, 3) ?: 3
-    selectedFileResId = sharedPrefs?.getInt(SELECTED_FILE_RES_ID, R.drawable.test_receipt_extra_large)
-      ?: R.drawable.test_receipt_extra_large
+    val delayedResponseUris = sharedPrefs?.getBoolean(DELAYED_RESPONSE_URIS, false)
+    delayedResponseBitmaps = sharedPrefs?.getBoolean(DELAYED_RESPONSE_BITMAPS, false)
+    selectedFileResId = sharedPrefs?.getInt(SELECTED_FILE_RES_ID, R.drawable.test_receipt_auto_select)
+      ?: R.drawable.test_receipt_auto_select
 
     if (method == ReceiptContentContract.METHOD_GET_RECEIPT_CONTENT_URIS) {
       extras?.let {
@@ -333,6 +344,10 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
 
         val bitmapUri = storeInCP(selectedFileResId)
         Log.d(TAG, "bitmapUri: $bitmapUri")
+
+        if (delayedResponseUris == true) {
+          runBlocking { delay(ReceiptContentContract.PROVIDER_TIMEOUT + 1000) }
+        }
 
         result.putParcelableArrayList(
           ReceiptContentContract.EXTRA_RECEIPT_CONTENT_URIS,

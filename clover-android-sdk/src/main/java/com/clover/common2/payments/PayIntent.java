@@ -167,6 +167,7 @@ public class PayIntent implements Parcelable {
     private String ebtManualCardEntryScreenFlow;
     private String paymentType;
     private Boolean createAuth;
+    private String applyRealtimeDiscountForPkgName;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -330,6 +331,10 @@ public class PayIntent implements Parcelable {
         createAuth = intent.getBooleanExtra(Intents.EXTRA_CREATE_AUTH, false);
       }
 
+      if (intent.hasExtra(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME)) {
+        applyRealtimeDiscountForPkgName = intent.getStringExtra(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME);
+      }
+
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
       // reset by follow-on assignments and aids in preventing backward compatibility issues.
@@ -469,6 +474,8 @@ public class PayIntent implements Parcelable {
       this.ebtManualCardEntryScreenFlow = payIntent.ebtManualCardEntryScreenFlow;
       this.paymentType = payIntent.paymentType;
       this.createAuth = payIntent.createAuth;
+      this.applyRealtimeDiscountForPkgName = payIntent.applyRealtimeDiscountForPkgName;
+
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
       // reset by follow-on assignments and aids in preventing backward compatibility issues.
@@ -855,6 +862,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder applyRealtimeDiscountForPkgName(String applyRealtimeDiscountForPkgName) {
+      this.applyRealtimeDiscountForPkgName = applyRealtimeDiscountForPkgName;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -871,7 +883,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName);
     }
   }
 
@@ -981,6 +993,7 @@ public class PayIntent implements Parcelable {
   public String ebtManualCardEntryScreenFlow;
   public String paymentType;
   public Boolean createAuth;
+  public String applyRealtimeDiscountForPkgName;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -1000,7 +1013,7 @@ public class PayIntent implements Parcelable {
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
                     Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode,
                     String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow,
-                    String paymentType, Boolean createAuth) {
+                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -1061,6 +1074,7 @@ public class PayIntent implements Parcelable {
     this.ebtManualCardEntryScreenFlow = ebtManualCardEntryScreenFlow;
     this.paymentType = paymentType;
     this.createAuth = createAuth;
+    this.applyRealtimeDiscountForPkgName = applyRealtimeDiscountForPkgName;
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
@@ -1369,6 +1383,10 @@ public class PayIntent implements Parcelable {
       intent.putExtra(Intents.EXTRA_CREATE_AUTH, createAuth);
     }
 
+    if (applyRealtimeDiscountForPkgName != null) {
+      intent.putExtra(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME, applyRealtimeDiscountForPkgName);
+    }
+
     if (paymentType != null) {
       intent.putExtra(Intents.EXTRA_PAYMENT_TYPE, paymentType);
     }
@@ -1436,6 +1454,7 @@ public class PayIntent implements Parcelable {
            ", ebtManualCardEntryScreenFlow=" + ebtManualCardEntryScreenFlow +
            ", paymentType=" + paymentType +
            ", createAuth=" + createAuth +
+           ", applyRealtimeDiscountForPkgName=" + applyRealtimeDiscountForPkgName +
            '}';
   }
 
@@ -1648,6 +1667,10 @@ public class PayIntent implements Parcelable {
 
     if (createAuth != null) {
       bundle.putBoolean(Intents.EXTRA_CREATE_AUTH, createAuth);
+    }
+
+    if (applyRealtimeDiscountForPkgName != null) {
+      bundle.putString(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME, applyRealtimeDiscountForPkgName);
     }
 
     // write out
@@ -1896,6 +1919,8 @@ public class PayIntent implements Parcelable {
       }
 
       builder.createAuth(bundle.getBoolean(Intents.EXTRA_CREATE_AUTH, false));
+
+      builder.applyRealtimeDiscountForPkgName(bundle.getString(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME));
       // build
       return builder.build();
     }

@@ -60,7 +60,7 @@ public interface ILoyaltyKit {
    * Starts a dynamic loyalty service
    *
    * @param dynamicService - the 'type' of the service to start
-   * @parem dataExtras - additional data passed when starting services that might be used by the service as runtime initialization
+   * @param dataExtras - additional data passed when starting services that might be used by the service as runtime initialization
    * @param configuration - any runtime configuration information needed to start the service.  This can be a json
    *                      object, or some other format.  It is up to the service to interpret the configuration
    * @return true if an attempt was made to start the service.

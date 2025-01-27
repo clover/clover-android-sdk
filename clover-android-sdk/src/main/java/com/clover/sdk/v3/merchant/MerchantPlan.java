@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDescription description}</li>
  * <li>{@link #getPrice price}</li>
  * <li>{@link #getTrialDays trialDays}</li>
+ * <li>{@link #getTrialRemainingDays trialRemainingDays}</li>
  * <li>{@link #getTrialExpirationTime trialExpirationTime}</li>
  * <li>{@link #getModules modules}</li>
  * <li>{@link #getAppBundle appBundle}</li>
@@ -96,6 +97,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public java.lang.Long getTrialDays() {
     return genClient.cacheGet(CacheKey.trialDays);
+  }
+
+  /**
+   * Transient field, the free trial period, as defined in this plan's group.
+   */
+  public java.lang.Long getTrialRemainingDays() {
+    return genClient.cacheGet(CacheKey.trialRemainingDays);
   }
 
   /**
@@ -282,6 +290,8 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     trialDays
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    trialRemainingDays
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     trialExpirationTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modules
@@ -439,6 +449,10 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'trialDays' field is set and is not null */
   public boolean isNotNullTrialDays() {
     return genClient.cacheValueIsNotNull(CacheKey.trialDays);
+  }
+  /** Checks whether the 'trialDays' field is set and is not null */
+  public boolean isNotNullTrialRemainingDays() {
+    return genClient.cacheValueIsNotNull(CacheKey.trialRemainingDays);
   }
 
   /** Checks whether the 'trialExpirationTime' field is set and is not null */
@@ -613,6 +627,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.trialDays);
   }
 
+  /** Checks whether the 'trialRemainingDays' field has been set, however the value could be null */
+  public boolean hasTrialRemainingDays() {
+    return genClient.cacheHasKey(CacheKey.trialRemainingDays);
+  }
+
   /** Checks whether the 'trialExpirationTime' field has been set, however the value could be null */
   public boolean hasTrialExpirationTime() {
     return genClient.cacheHasKey(CacheKey.trialExpirationTime);
@@ -777,6 +796,13 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
    */
   public MerchantPlan setTrialDays(java.lang.Long trialDays) {
     return genClient.setOther(trialDays, CacheKey.trialDays);
+  }
+
+  /**
+   * Sets the field 'trialRemainingDays'.
+   */
+  public MerchantPlan setTrialRemainingDays(java.lang.Long trialRemainingDays) {
+    return genClient.setOther(trialRemainingDays, CacheKey.trialRemainingDays);
   }
 
   /**
@@ -996,7 +1022,11 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
   }
   /** Clears the 'trialDays' field, the 'has' method for this field will now return false */
   public void clearTrialDays() {
-    genClient.clear(CacheKey.trialDays);
+    genClient.clear(CacheKey.trialRemainingDays);
+  }
+  /** Clears the 'trialRemainingDays' field, the 'has' method for this field will now return false */
+  public void clearTrialRemainingDays() {
+    genClient.clear(CacheKey.trialRemainingDays);
   }
   /** Clears the 'trialExpirationTime' field, the 'has' method for this field will now return false */
   public void clearTrialExpirationTime() {
@@ -1172,6 +1202,7 @@ public class MerchantPlan extends GenericParcelable implements com.clover.sdk.v3
     public static final long DESCRIPTION_MAX_LEN = 2047;
     public static final boolean PRICE_IS_REQUIRED = false;
     public static final boolean TRIALDAYS_IS_REQUIRED = false;
+    public static final boolean TRIALREMAININGDAYS_IS_REQUIRED = false;
     public static final boolean TRIALEXPIRATIONTIME_IS_REQUIRED = false;
     public static final boolean MODULES_IS_REQUIRED = false;
     public static final boolean APPBUNDLE_IS_REQUIRED = false;

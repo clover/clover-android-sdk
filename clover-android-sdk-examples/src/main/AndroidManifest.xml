@@ -203,7 +203,8 @@ xmlns:tools="http://schemas.android.com/tools"
 
         <activity
             android:name="com.clover.android.sdk.examples.CustomReceiptProviderTestActivity"
-            android:label="@string/custom_receipt_provider_test" />
+            android:label="@string/custom_receipt_provider_test"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <provider
             android:name=".CustomReceiptProviderTest"
             android:authorities="com.clover.android.sdk.examples.receipt.custom"

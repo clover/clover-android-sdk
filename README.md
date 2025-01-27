@@ -34,10 +34,10 @@ To generate your own local copy of the javadoc,
 
 ```
 $ pwd
-.../clover-android-sdk/clover-android-sdk
-$ gradle clean javadocRelease
+.../clover-android-sdk
+$ gradle clean dokkaHtmlMultiModule
 ```
-Docs can be found in `build/docs/javadoc/release`.
+Docs can be found in `build/dokka/htmlMultiModule`.
 
 Latest Apps for Testing
 =======================

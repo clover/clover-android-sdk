@@ -4,6 +4,7 @@ import com.clover.sdk.v3.customers.CustomerInfo;
 import com.clover.sdk.v3.order.DisplayOrder;
 import com.clover.sdk.v3.payments.Transaction;
 
+import android.app.PendingIntent;
 import android.content.ContentProviderClient;
 import android.content.Context;
 import android.database.ContentObserver;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.RemoteException;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -38,11 +40,14 @@ import java.util.*;
 public class CFPSessionConnector implements Serializable, CFPSessionListener {
     public static final String DISPLAY_ORDER = "com.clover.extra.DISPLAY_ORDER";
     public static final String CUSTOMER_INFO = "com.clover.extra.CUSTOMER_INFO";
+    public static final String CUSTOMER_PROVIDED_DATA = "com.clover.extra.CUSTOMER_PROVIDED_DATA";
     public static final String SESSION = "SESSION";
     public static final String PROPERTIES = "PROPERTIES";
     public static final String TRANSACTION = "TRANSACTION";
     public static final String MESSAGE = "MESSAGE";
     public static final String MESSAGE_DURATION = "MESSAGE_DURATION";
+    public static final String PROPERTY_KEY= "PROPERTY_KEY";
+    public static final String PROPERTY_VALUE = "PROPERTY_VALUE";
 
     public static final String QUERY_PARAMETER_VALUE = "value";
     public static final String QUERY_PARAMETER_NAME = "name";
@@ -54,6 +59,7 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
     public static final String BUNDLE_KEY_TRANSACTION = "TRANSACTION";
     private static final String EXTERNAL = "EXTERNAL";
     private static final String INTERNAL = "INTERNAL";
+    private static final String CUSTOMER = "CUSTOMER";
     protected String messageUuid;
 
     private static final String TAG = "SessionConnector";
@@ -81,7 +87,7 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
     }
 
     public void disconnect() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && sessionContentProviderClient != null) {
             sessionContentProviderClient.close();
         }
         sessionContentProviderClient = null;
@@ -96,6 +102,35 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return sessionListeners.add(listener);
     }
 
+    public UUID registerForUpdates(PendingIntent pi, UUID uuid) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("PENDING_INTENT", pi);
+        bundle.putSerializable("uuid", uuid);
+        try {
+            if (connect()) {
+                Bundle result = sessionContentProviderClient.call("registerForUpdates", null, bundle);
+                return (UUID)result.getSerializable("uuid");
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return null;
+    }
+
+    public PendingIntent unregisterForUpdates(UUID uuid) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("uuid", uuid);
+        try {
+            if (connect()) {
+                Bundle result = sessionContentProviderClient.call("unregisterForUpdates", null, bundle);
+                return (PendingIntent) result.getParcelable("PENDING_INTENT");
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return null;
+    }
+
     public boolean removeSessionListener(CFPSessionListener listener) {
         Context context = getContext();
         boolean result = sessionListeners.remove(listener);
@@ -106,10 +141,35 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return result;
     }
 
+    /*
+     Clears all data elements and properties associated with the current customer
+     order/payment transaction or interaction.
+     */
     public boolean clear() {
         try {
             if (connect()) {
                 sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_CLEAR_SESSION, null, null);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+
+        return true;
+    }
+
+    /*
+     Similar to clearSession with the exception that this will only clear
+     the DisplayOrder, Transaction and Message data.  It leaves any CustomerInfo
+     or properties in place, so that they can be utilized if needed for follow-on
+     orders or payments.  Primarily, this is intended to aid with loyalty customers
+     who might be logged/checked-in, but the merchant has interrupted the order build
+     process and doesn't want the customer to be forced to check-in again to continue
+     or start a new order.
+     */
+    public boolean pauseSession() {
+        try {
+            if (connect()) {
+                sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_PAUSE_SESSION, null, null);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -186,7 +246,25 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    /**
+     * Used to send data from the customer device/screen to a POS device/service. If the message can be sent
+     * remotely, it will be send to the POS/MFD and local listeners will NOT be notified. If there isn't a
+     * remote message conduit, then listeners on the current device will be notified. This allows the same
+     * call and listener to be used in both a tethered, and non-tethered, scenario.
+     * @param value - A string payload of the data.
+     *
+     *                setPOSProperty? -> fires on the POS device, either remote or local?
+     *                setCustomerProperty?
+     */
+    public void setRemoteProperty(String key, String value) {
+        setInternalProperty(key, value, CFPSessionContract.CALL_METHOD_SET_REMOTE_PROPERTY);
+    }
+
     public void setProperty(String key, String value) {
+        setInternalProperty(key, value, CFPSessionContract.CALL_METHOD_SET_PROPERTY);
+    }
+
+    private void setInternalProperty(String key, String value, String callMethod) {
         try {
             if (connect()) {
                 Bundle bundle = new Bundle();
@@ -195,7 +273,7 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
                 bundle.putString(CFPSessionContract.COLUMN_SRC, EXTERNAL);
                 messageUuid = UUID.randomUUID().toString();
                 bundle.putString("messageUuid", messageUuid);
-                sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_SET_PROPERTY, null, bundle);
+                sessionContentProviderClient.call(callMethod, null, bundle);
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
@@ -312,6 +390,7 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
             }
         }
     }
+
     public void sendSessionEvent(String eventType, String data) {
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_KEY_TYPE, eventType);
@@ -325,6 +404,18 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    public void sendRemoteSessionEvent(String eventType, String data) {
+        Bundle bundle = new Bundle();
+        bundle.putString(BUNDLE_KEY_TYPE, eventType);
+        bundle.putString(BUNDLE_KEY_DATA, data);
+        try {
+            if (connect()) {
+                sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_ON_REMOTE_EVENT, null, bundle);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+    }
     @Override
     public void onSessionDataChanged(String type, Object data) {
         String listenerSource = contextWeakReference.get().getPackageName();

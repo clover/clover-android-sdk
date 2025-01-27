@@ -174,6 +174,12 @@ object ReceiptContentContract {
   const val EXTRA_PRINTER = "printer"
 
   /**
+   * Timeout (in milliseconds) after which clover will stop waiting for the provider to respond and
+   * will throw print failure.
+   */
+  const val PROVIDER_TIMEOUT = 12000L
+
+  /**
    * Supported ReceiptTypes to be listed in provider's meta-data.
    * Value defines the mapping of ReceiptType to corresponding PrintJob
    *

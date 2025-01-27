@@ -30,11 +30,13 @@ import android.os.IInterface;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
+import androidx.annotation.VisibleForTesting;
 
 import com.clover.sdk.internal.util.Strings;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 /**
  * Base class for implementing service connectors. A service connector is a class that encapsulates
@@ -63,6 +65,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
 
   protected S mService;
   protected boolean mConnected; // true if connect() has been called since last disconnect()
+  protected final Executor mServiceExecutor;
 
   public interface OnServiceConnectedListener {
     void onServiceConnected(ServiceConnector<? extends IInterface> connector);
@@ -102,10 +105,17 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
    *                interface, for receiving connection notifications from the service.
    */
   public ServiceConnector(Context context, Account account, OnServiceConnectedListener client) {
+    this(context, account, client, AsyncTask.SERIAL_EXECUTOR);
+  }
+
+  @VisibleForTesting
+  ServiceConnector(Context context, Account account, OnServiceConnectedListener client, Executor serviceExecutor) {
     mContext = context;
     mAccount = account;
     mClient = client;
+    mServiceExecutor = serviceExecutor;
   }
+
 
   protected abstract String getServiceIntentAction();
 
@@ -185,6 +195,26 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     }
   }
 
+  /**
+   * Wait for the service to connect.  This method will block until the service is connected,
+   * up to a maximum of {@link #SERVICE_CONNECTION_TIMEOUT} milliseconds, retrying
+   * {@link #MAX_RETRY_ATTEMPTS} times.
+   * <p/>
+   * HISTORY: This method was changed from returning null when it catches an
+   * {@link InterruptedException}, or when the activity used to construct this has been
+   * destroyed, to throwing a {@link BindingException} in those cases. This method will never
+   * return null in it's current form. The {@link androidx.annotation.NonNull} annotation
+   * is omitted however to maintain backwards compatibility with Kotlin code. This
+   * is only a concern for classes that extend this class and override, or call this
+   * method directly.
+   *
+   * @return the service interface.
+   *
+   * @throws BindingException if we are not able to bind to the service with the
+   * timeout and number of attempts, if this thread is interrupted while waiting for
+   * binding to complete, or if the activity used to construct this has been destroyed.
+   *
+   */
   protected synchronized S waitForConnection() throws BindingException {
 
     int retryCount = 0;
@@ -195,17 +225,16 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
         Activity activity = (Activity) mContext;
         // Android prevents destroyed activities from binding so don't try
         if (activity.isDestroyed()) {
-          break;
+          throw new BindingException("Activity is destroyed");
         }
       }
 
       result = connect();
 
       try {
-        wait(SERVICE_CONNECTION_TIMEOUT);
+        doWait(SERVICE_CONNECTION_TIMEOUT);
       } catch (InterruptedException e) {
-        Log.i(TAG, "waitForConnection interrupted...");
-        return null;
+        throw new BindingException("Could not bind to Android service", e);
       }
       Log.i(TAG, "waitForConnection result: " + result + ", retryCount: " + retryCount);
       retryCount++;
@@ -217,6 +246,14 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
     }
 
     return service;
+  }
+
+  /**
+   * Provide a way to vary this behavior, for unit testing purposes only.
+   */
+  @VisibleForTesting
+  void doWait(long timeout) throws InterruptedException {
+    wait(timeout);
   }
 
   /**
@@ -271,7 +308,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected <T> void execute(final ServiceCallable<S, T> callable, final Callback<T> callback) {
     connect();
 
-    AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
+    mServiceExecutor.execute(new Runnable() {
       @Override
       public void run() {
         ResultStatus status = new ResultStatus();
@@ -299,7 +336,7 @@ public abstract class ServiceConnector<S extends IInterface> implements ServiceC
   protected void execute(final ServiceRunnable<S> runnable, final Callback<Void> callback) {
     connect();
 
-    AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
+    mServiceExecutor.execute(new Runnable() {
       @Override
       public void run() {
         ResultStatus status = new ResultStatus();

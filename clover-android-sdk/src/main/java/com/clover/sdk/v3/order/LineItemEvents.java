@@ -5,11 +5,9 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
@@ -201,5 +199,39 @@ public class LineItemEvents {
             throw new ClientException(SERVICE_ERROR);
         }
         return count;
+    }
+
+    /**
+     * Get all line item events whose type are LINE_ITEM_VOIDED, LINE_ITEM_VOID_PRINTED, LINE_ITEM_VOID_PRINT_CANCEL.
+     * ContentProvider using {@link LineItemEventContract} to get a list of LineItemEvents.
+     *
+     * @param orderId new line item events will be created for this order ID.
+     * @return The number of events created.
+     * @throws ClientException if an event could not be copied, in which case no events will be
+     *                         inserted. Inspect {@link ClientException#getResultStatus()} to understand the reason.
+     * @see LineItemEventContract#METHOD_GET_VOIDED_LINE_ITEM_EVENTS
+     */
+    public List<LineItemEvent> getVoidedLineItemEvents(@NonNull String orderId) throws ClientException {
+        final Bundle extras = new Bundle();
+        extras.putString(EXTRA_ORDER_ID, orderId);
+        final Bundle result = new UnstableContentResolverClient(context.getContentResolver(),
+                AUTHORITY_URI).call(METHOD_GET_VOIDED_LINE_ITEM_EVENTS, null, extras, null);
+        if (result == null) {
+            throw new ClientException(SERVICE_ERROR);
+        }
+        result.setClassLoader(getClass().getClassLoader());
+        final ResultStatus resultStatus = result.getParcelable(EXTRA_RESULT_STATUS);
+        if (resultStatus == null) {
+            throw new ClientException(SERVICE_ERROR);
+        }
+        final List<LineItemEvent> voidedItemEventList = result.getParcelableArrayList(EXTRA_VOIDED_LINE_ITEM_RESULT);
+        if (!resultStatus.isSuccess()) {
+            throw new ClientException(resultStatus);
+        }
+        if (voidedItemEventList == null) {
+            // This is not expected. A success result with no event.
+            throw new ClientException(SERVICE_ERROR);
+        }
+        return voidedItemEventList;
     }
 }
