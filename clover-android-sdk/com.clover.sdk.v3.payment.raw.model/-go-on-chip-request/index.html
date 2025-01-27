@@ -1,0 +1,1254 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>GoOnChipRequest</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r320
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.payment.raw.model/GoOnChipRequest///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.payment.raw.model</a><span class="delimiter">/</span><span class="current">GoOnChipRequest</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Go</span><wbr><span>On</span><wbr><span>Chip</span><wbr><span><span>Request</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">GoOnChipRequest</a><span class="token keyword"> extends </span><a href="../../com.clover.sdk/-generic-parcelable/index.html">GenericParcelable</a><span class="token keyword"> implements </span><a href="../../com.clover.sdk.v3/-validator/index.html">Validator</a><span class="token punctuation">, </span><a href="../../com.clover.sdk/-j-s-o-nifiable/index.html">JSONifiable</a></div><p class="paragraph">This is an auto-generated Clover data object. </p><h3 class="">Fields</h3><ul><li><a href="get-transaction-type.html">transactionType</a></li><li><a href="get-amount.html">amount</a></li><li><a href="get-cashback-amount.html">cashbackAmount</a></li><li><a href="get-currency-code.html">currencyCode</a></li><li><a href="get-currency-exponent.html">currencyExponent</a></li><li><a href="get-emv-data.html">emvData</a></li><li><a href="get-terminal-risk-management.html">terminalRiskManagement</a></li><li><a href="get-emv-tag-list.html">emvTagList</a></li><li><a href="get-pan-exception-list.html">panExceptionList</a></li><li><a href="get-pin-bypass-disabled.html">pinBypassDisabled</a></li><li><a href="get-disable-offline-approval.html">disableOfflineApproval</a></li><li><a href="get-pin-capture-timeout.html">pinCaptureTimeout</a></li></ul></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1959121502%2FConstructors%2F1904710855" anchor-label="GoOnChipRequest" id="1959121502%2FConstructors%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-go-on-chip-request.html"><span>Go</span><wbr><span>On</span><wbr><span>Chip</span><wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1959121502%2FConstructors%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-go-on-chip-request.html"><span class="token function">GoOnChipRequest</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new empty instance.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-go-on-chip-request.html"><span class="token function">GoOnChipRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;json</span></span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new instance from the given JSON String.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-go-on-chip-request.html"><span class="token function">GoOnChipRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/org/json/JSONObject.html">JSONObject</a>&nbsp;jsonObject</span></span><span class="token punctuation">)</span></div><div class="brief ">Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be reflected in this instance and vice-versa.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="-go-on-chip-request.html"><span class="token function">GoOnChipRequest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;src</span></span><span class="token punctuation">)</span></div><div class="brief ">Constructs a new instance that is a deep copy of the source instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-59394374%2FClasslikes%2F1904710855" anchor-label="Constraints" id="-59394374%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-constraints/index.html"><span><span>Constraints</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-59394374%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-constraints/index.html">Constraints</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-255210448%2FProperties%2F1904710855" anchor-label="CONTENTS_FILE_DESCRIPTOR" id="-255210448%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.common2/-signature2/-stroke/index.html#-255210448%2FProperties%2F1904710855"><span><span>CONTENTS_FILE_DESCRIPTOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-255210448%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="../../com.clover.common2/-signature2/-stroke/index.html#-255210448%2FProperties%2F1904710855">CONTENTS_FILE_DESCRIPTOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1936738961%2FProperties%2F1904710855" anchor-label="CREATOR" id="1936738961%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1936738961%2FProperties%2F1904710855"><span><span>CREATOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1936738961%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/os/Parcelable.Creator.html">Parcelable.Creator</a><span class="token operator">&lt;</span><a href="index.html">GoOnChipRequest</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#1936738961%2FProperties%2F1904710855">CREATOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1483810888%2FProperties%2F1904710855" anchor-label="JSON_CREATOR" id="1483810888%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1483810888%2FProperties%2F1904710855"><span><span>JSON_CREATOR</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1483810888%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="../../com.clover.sdk/-j-s-o-nifiable/-creator/index.html">JSONifiable.Creator</a><span class="token operator">&lt;</span><a href="index.html">GoOnChipRequest</a><span class="token operator">&gt;</span>&nbsp;<a href="index.html#1483810888%2FProperties%2F1904710855">JSON_CREATOR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-865205281%2FProperties%2F1904710855" anchor-label="PARCELABLE_WRITE_RETURN_VALUE" id="-865205281%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.common2/-signature2/-stroke/index.html#-865205281%2FProperties%2F1904710855"><span><span>PARCELABLE_WRITE_RETURN_VALUE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-865205281%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span>int&nbsp;<a href="../../com.clover.common2/-signature2/-stroke/index.html#-865205281%2FProperties%2F1904710855">PARCELABLE_WRITE_RETURN_VALUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1026475080%2FFunctions%2F1904710855" anchor-label="clearAmount" id="-1026475080%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-amount.html"><span>clear</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1026475080%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-amount.html"><span class="token function">clearAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'amount' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="605957822%2FFunctions%2F1904710855" anchor-label="clearCashbackAmount" id="605957822%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-cashback-amount.html"><span>clear</span><wbr><span>Cashback</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="605957822%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-cashback-amount.html"><span class="token function">clearCashbackAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'cashbackAmount' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2014526194%2FFunctions%2F1904710855" anchor-label="clearCurrencyCode" id="2014526194%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-currency-code.html"><span>clear</span><wbr><span>Currency</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2014526194%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-currency-code.html"><span class="token function">clearCurrencyCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'currencyCode' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="914316144%2FFunctions%2F1904710855" anchor-label="clearCurrencyExponent" id="914316144%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-currency-exponent.html"><span>clear</span><wbr><span>Currency</span><wbr><span><span>Exponent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="914316144%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-currency-exponent.html"><span class="token function">clearCurrencyExponent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'currencyExponent' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1865152622%2FFunctions%2F1904710855" anchor-label="clearDisableOfflineApproval" id="-1865152622%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-disable-offline-approval.html"><span>clear</span><wbr><span>Disable</span><wbr><span>Offline</span><wbr><span><span>Approval</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1865152622%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-disable-offline-approval.html"><span class="token function">clearDisableOfflineApproval</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'disableOfflineApproval' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-704963022%2FFunctions%2F1904710855" anchor-label="clearEmvData" id="-704963022%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-emv-data.html"><span>clear</span><wbr><span>Emv</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-704963022%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-emv-data.html"><span class="token function">clearEmvData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'emvData' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="13686822%2FFunctions%2F1904710855" anchor-label="clearEmvTagList" id="13686822%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-emv-tag-list.html"><span>clear</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13686822%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-emv-tag-list.html"><span class="token function">clearEmvTagList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'emvTagList' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-629039264%2FFunctions%2F1904710855" anchor-label="clearPanExceptionList" id="-629039264%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-pan-exception-list.html"><span>clear</span><wbr><span>Pan</span><wbr><span>Exception</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-629039264%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-pan-exception-list.html"><span class="token function">clearPanExceptionList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'panExceptionList' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1263918641%2FFunctions%2F1904710855" anchor-label="clearPinBypassDisabled" id="1263918641%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-pin-bypass-disabled.html"><span>clear</span><wbr><span>Pin</span><wbr><span>Bypass</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1263918641%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-pin-bypass-disabled.html"><span class="token function">clearPinBypassDisabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'pinBypassDisabled' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1790855770%2FFunctions%2F1904710855" anchor-label="clearPinCaptureTimeout" id="1790855770%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-pin-capture-timeout.html"><span>clear</span><wbr><span>Pin</span><wbr><span>Capture</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1790855770%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-pin-capture-timeout.html"><span class="token function">clearPinCaptureTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'pinCaptureTimeout' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1016733890%2FFunctions%2F1904710855" anchor-label="clearTerminalRiskManagement" id="1016733890%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-terminal-risk-management.html"><span>clear</span><wbr><span>Terminal</span><wbr><span>Risk</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1016733890%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-terminal-risk-management.html"><span class="token function">clearTerminalRiskManagement</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'terminalRiskManagement' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="422540178%2FFunctions%2F1904710855" anchor-label="clearTransactionType" id="422540178%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear-transaction-type.html"><span>clear</span><wbr><span>Transaction</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="422540178%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="clear-transaction-type.html"><span class="token function">clearTransactionType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Clears the 'transactionType' field, the 'has' method for this field will now return false</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1193280007%2FFunctions%2F1904710855" anchor-label="containsChanges" id="-1193280007%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contains-changes.html"><span>contains</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1193280007%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="contains-changes.html"><span class="token function">containsChanges</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns true if this instance has any changes.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="805572431%2FFunctions%2F1904710855" anchor-label="copyChanges" id="805572431%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy-changes.html"><span>copy</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="805572431%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="copy-changes.html"><span class="token function">copyChanges</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Create a copy of this instance that contains only fields that were set after the constructor was called.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="461818262%2FFunctions%2F1904710855" anchor-label="describeContents" id="461818262%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1578325224%2FFunctions%2F1904710855"><span>describe</span><wbr><span><span>Contents</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461818262%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>int&nbsp;<a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1578325224%2FFunctions%2F1904710855"><span class="token function">describeContents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>int&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/describe-contents.html"><span class="token function">describeContents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-17540721%2FFunctions%2F1904710855" anchor-label="getAmount" id="-17540721%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-amount.html"><span>get</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-17540721%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-amount.html"><span class="token function">getAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="270226899%2FFunctions%2F1904710855" anchor-label="getBundle" id="270226899%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk/-generic-parcelable/get-bundle.html"><span>get</span><wbr><span><span>Bundle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="270226899%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Bundle.html">Bundle</a>&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/get-bundle.html"><span class="token function">getBundle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets a Bundle which can be used to get and set data attached to this instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-749894251%2FFunctions%2F1904710855" anchor-label="getCashbackAmount" id="-749894251%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-cashback-amount.html"><span>get</span><wbr><span>Cashback</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-749894251%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-cashback-amount.html"><span class="token function">getCashbackAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1342725001%2FFunctions%2F1904710855" anchor-label="getCurrencyCode" id="1342725001%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-currency-code.html"><span>get</span><wbr><span>Currency</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1342725001%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Integer.html">Integer</a>&nbsp;<a href="get-currency-code.html"><span class="token function">getCurrencyCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-684435321%2FFunctions%2F1904710855" anchor-label="getCurrencyExponent" id="-684435321%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-currency-exponent.html"><span>get</span><wbr><span>Currency</span><wbr><span><span>Exponent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-684435321%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Integer.html">Integer</a>&nbsp;<a href="get-currency-exponent.html"><span class="token function">getCurrencyExponent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="600217449%2FFunctions%2F1904710855" anchor-label="getDisableOfflineApproval" id="600217449%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-disable-offline-approval.html"><span>get</span><wbr><span>Disable</span><wbr><span>Offline</span><wbr><span><span>Approval</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="600217449%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-disable-offline-approval.html"><span class="token function">getDisableOfflineApproval</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="507231035%2FFunctions%2F1904710855" anchor-label="getEmvData" id="507231035%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-emv-data.html"><span>get</span><wbr><span>Emv</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="507231035%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-emv-data.html"><span class="token function">getEmvData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="401814141%2FFunctions%2F1904710855" anchor-label="getEmvTagList" id="401814141%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-emv-tag-list.html"><span>get</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="401814141%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;<a href="get-emv-tag-list.html"><span class="token function">getEmvTagList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1958735456%2FFunctions%2F1904710855" anchor-label="getJSONObject" id="-1958735456%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-j-s-o-n-object.html"><span>get</span><wbr><span><span>JSONObject</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1958735456%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/org/json/JSONObject.html">JSONObject</a>&nbsp;<a href="get-j-s-o-n-object.html"><span class="token function">getJSONObject</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the internal JSONObject backing this instance, the return value is not a copy so changes to it will be reflected in this instance and vice-versa.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2067176567%2FFunctions%2F1904710855" anchor-label="getPanExceptionList" id="2067176567%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-pan-exception-list.html"><span>get</span><wbr><span>Pan</span><wbr><span>Exception</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2067176567%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-pan-exception-list.html"><span class="token function">getPanExceptionList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1052736518%2FFunctions%2F1904710855" anchor-label="getPinBypassDisabled" id="-1052736518%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-pin-bypass-disabled.html"><span>get</span><wbr><span>Pin</span><wbr><span>Bypass</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1052736518%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="get-pin-bypass-disabled.html"><span class="token function">getPinBypassDisabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-525799389%2FFunctions%2F1904710855" anchor-label="getPinCaptureTimeout" id="-525799389%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-pin-capture-timeout.html"><span>get</span><wbr><span>Pin</span><wbr><span>Capture</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-525799389%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;<a href="get-pin-capture-timeout.html"><span class="token function">getPinCaptureTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-812863335%2FFunctions%2F1904710855" anchor-label="getTerminalRiskManagement" id="-812863335%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-terminal-risk-management.html"><span>get</span><wbr><span>Terminal</span><wbr><span>Risk</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-812863335%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-terminal-risk-management.html"><span class="token function">getTerminalRiskManagement</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1340798875%2FFunctions%2F1904710855" anchor-label="getTransactionType" id="1340798875%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-transaction-type.html"><span>get</span><wbr><span>Transaction</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1340798875%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="get-transaction-type.html"><span class="token function">getTransactionType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1132139061%2FFunctions%2F1904710855" anchor-label="hasAmount" id="-1132139061%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-amount.html"><span>has</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1132139061%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-amount.html"><span class="token function">hasAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'amount' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1360272849%2FFunctions%2F1904710855" anchor-label="hasCashbackAmount" id="1360272849%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-cashback-amount.html"><span>has</span><wbr><span>Cashback</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1360272849%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-cashback-amount.html"><span class="token function">hasCashbackAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'cashbackAmount' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="567268037%2FFunctions%2F1904710855" anchor-label="hasCurrencyCode" id="567268037%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-currency-code.html"><span>has</span><wbr><span>Currency</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="567268037%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-currency-code.html"><span class="token function">hasCurrencyCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'currencyCode' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-38415933%2FFunctions%2F1904710855" anchor-label="hasCurrencyExponent" id="-38415933%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-currency-exponent.html"><span>has</span><wbr><span>Currency</span><wbr><span><span>Exponent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-38415933%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-currency-exponent.html"><span class="token function">hasCurrencyExponent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'currencyExponent' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-578866267%2FFunctions%2F1904710855" anchor-label="hasDisableOfflineApproval" id="-578866267%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-disable-offline-approval.html"><span>has</span><wbr><span>Disable</span><wbr><span>Offline</span><wbr><span><span>Approval</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-578866267%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-disable-offline-approval.html"><span class="token function">hasDisableOfflineApproval</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'disableOfflineApproval' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="314420863%2FFunctions%2F1904710855" anchor-label="hasEmvData" id="314420863%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-emv-data.html"><span>has</span><wbr><span>Emv</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="314420863%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-emv-data.html"><span class="token function">hasEmvData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'emvData' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1234745159%2FFunctions%2F1904710855" anchor-label="hasEmvTagList" id="-1234745159%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-emv-tag-list.html"><span>has</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1234745159%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-emv-tag-list.html"><span class="token function">hasEmvTagList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'emvTagList' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1581771341%2FFunctions%2F1904710855" anchor-label="hasPanExceptionList" id="-1581771341%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-pan-exception-list.html"><span>has</span><wbr><span>Pan</span><wbr><span>Exception</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1581771341%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-pan-exception-list.html"><span class="token function">hasPanExceptionList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'panExceptionList' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1793995326%2FFunctions%2F1904710855" anchor-label="hasPinBypassDisabled" id="1793995326%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-pin-bypass-disabled.html"><span>has</span><wbr><span>Pin</span><wbr><span>Bypass</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1793995326%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-pin-bypass-disabled.html"><span class="token function">hasPinBypassDisabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'pinBypassDisabled' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1974034841%2FFunctions%2F1904710855" anchor-label="hasPinCaptureTimeout" id="-1974034841%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-pin-capture-timeout.html"><span>has</span><wbr><span>Pin</span><wbr><span>Capture</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1974034841%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-pin-capture-timeout.html"><span class="token function">hasPinCaptureTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'pinCaptureTimeout' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1991947051%2FFunctions%2F1904710855" anchor-label="hasTerminalRiskManagement" id="-1991947051%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-terminal-risk-management.html"><span>has</span><wbr><span>Terminal</span><wbr><span>Risk</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1991947051%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-terminal-risk-management.html"><span class="token function">hasTerminalRiskManagement</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'terminalRiskManagement' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1963497761%2FFunctions%2F1904710855" anchor-label="hasTransactionType" id="-1963497761%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-transaction-type.html"><span>has</span><wbr><span>Transaction</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1963497761%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="has-transaction-type.html"><span class="token function">hasTransactionType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'transactionType' field has been set, however the value could be null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="180186831%2FFunctions%2F1904710855" anchor-label="isNotEmptyEmvTagList" id="180186831%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-empty-emv-tag-list.html"><span>is</span><wbr><span>Not</span><wbr><span>Empty</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="180186831%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-empty-emv-tag-list.html"><span class="token function">isNotEmptyEmvTagList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'emvTagList' field is set and is not null and is not empty</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1620505397%2FFunctions%2F1904710855" anchor-label="isNotNullAmount" id="1620505397%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-amount.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1620505397%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-amount.html"><span class="token function">isNotNullAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'amount' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2108102971%2FFunctions%2F1904710855" anchor-label="isNotNullCashbackAmount" id="2108102971%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-cashback-amount.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Cashback</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2108102971%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-cashback-amount.html"><span class="token function">isNotNullCashbackAmount</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'cashbackAmount' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1457430703%2FFunctions%2F1904710855" anchor-label="isNotNullCurrencyCode" id="1457430703%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-currency-code.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Currency</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1457430703%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-currency-code.html"><span class="token function">isNotNullCurrencyCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'currencyCode' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1366792877%2FFunctions%2F1904710855" anchor-label="isNotNullCurrencyExponent" id="1366792877%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-currency-exponent.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Currency</span><wbr><span><span>Exponent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1366792877%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-currency-exponent.html"><span class="token function">isNotNullCurrencyExponent</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'currencyExponent' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-717413105%2FFunctions%2F1904710855" anchor-label="isNotNullDisableOfflineApproval" id="-717413105%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-disable-offline-approval.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Disable</span><wbr><span>Offline</span><wbr><span><span>Approval</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-717413105%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-disable-offline-approval.html"><span class="token function">isNotNullDisableOfflineApproval</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'disableOfflineApproval' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-252946859%2FFunctions%2F1904710855" anchor-label="isNotNullEmvData" id="-252946859%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-emv-data.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Emv</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-252946859%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-emv-data.html"><span class="token function">isNotNullEmvData</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'emvData' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1304725795%2FFunctions%2F1904710855" anchor-label="isNotNullEmvTagList" id="1304725795%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-emv-tag-list.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1304725795%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-emv-tag-list.html"><span class="token function">isNotNullEmvTagList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'emvTagList' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-176562531%2FFunctions%2F1904710855" anchor-label="isNotNullPanExceptionList" id="-176562531%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-pan-exception-list.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Pan</span><wbr><span>Exception</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-176562531%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-pan-exception-list.html"><span class="token function">isNotNullPanExceptionList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'panExceptionList' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1889171820%2FFunctions%2F1904710855" anchor-label="isNotNullPinBypassDisabled" id="-1889171820%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-pin-bypass-disabled.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Pin</span><wbr><span>Bypass</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1889171820%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-pin-bypass-disabled.html"><span class="token function">isNotNullPinBypassDisabled</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'pinBypassDisabled' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1362234691%2FFunctions%2F1904710855" anchor-label="isNotNullPinCaptureTimeout" id="-1362234691%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-pin-capture-timeout.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Pin</span><wbr><span>Capture</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1362234691%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-pin-capture-timeout.html"><span class="token function">isNotNullPinCaptureTimeout</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'pinCaptureTimeout' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2130493889%2FFunctions%2F1904710855" anchor-label="isNotNullTerminalRiskManagement" id="-2130493889%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-terminal-risk-management.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Terminal</span><wbr><span>Risk</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2130493889%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-terminal-risk-management.html"><span class="token function">isNotNullTerminalRiskManagement</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'terminalRiskManagement' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-255600459%2FFunctions%2F1904710855" anchor-label="isNotNullTransactionType" id="-255600459%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-null-transaction-type.html"><span>is</span><wbr><span>Not</span><wbr><span>Null</span><wbr><span>Transaction</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-255600459%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean&nbsp;<a href="is-not-null-transaction-type.html"><span class="token function">isNotNullTransactionType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks whether the 'transactionType' field is set and is not null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1416346528%2FFunctions%2F1904710855" anchor-label="mergeChanges" id="-1416346528%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="merge-changes.html"><span>merge</span><wbr><span><span>Changes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1416346528%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="merge-changes.html"><span class="token function">mergeChanges</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;src</span></span><span class="token punctuation">)</span></div><div class="brief ">Copy all the changed fields from the given source to this instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-314400488%2FFunctions%2F1904710855" anchor-label="resetChangeLog" id="-314400488%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-change-log.html"><span>reset</span><wbr><span>Change</span><wbr><span><span>Log</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314400488%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="reset-change-log.html"><span class="token function">resetChangeLog</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Reset the log of changes made to this instance, calling copyChanges() after this would return an empty instance.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-683782221%2FFunctions%2F1904710855" anchor-label="setAmount" id="-683782221%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-amount.html"><span>set</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-683782221%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-amount.html"><span class="token function">setAmount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;amount</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'amount'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-968145607%2FFunctions%2F1904710855" anchor-label="setCashbackAmount" id="-968145607%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-cashback-amount.html"><span>set</span><wbr><span>Cashback</span><wbr><span><span>Amount</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-968145607%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-cashback-amount.html"><span class="token function">setCashbackAmount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;cashbackAmount</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'cashbackAmount'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1953729797%2FFunctions%2F1904710855" anchor-label="setCurrencyCode" id="-1953729797%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-currency-code.html"><span>set</span><wbr><span>Currency</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1953729797%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-currency-code.html"><span class="token function">setCurrencyCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Integer.html">Integer</a>&nbsp;currencyCode</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'currencyCode'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2108255165%2FFunctions%2F1904710855" anchor-label="setCurrencyExponent" id="2108255165%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-currency-exponent.html"><span>set</span><wbr><span>Currency</span><wbr><span><span>Exponent</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2108255165%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-currency-exponent.html"><span class="token function">setCurrencyExponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Integer.html">Integer</a>&nbsp;currencyExponent</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'currencyExponent'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="296894961%2FFunctions%2F1904710855" anchor-label="setDisableOfflineApproval" id="296894961%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-disable-offline-approval.html"><span>set</span><wbr><span>Disable</span><wbr><span>Offline</span><wbr><span><span>Approval</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="296894961%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-disable-offline-approval.html"><span class="token function">setDisableOfflineApproval</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;disableOfflineApproval</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'disableOfflineApproval'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="746320962%2FFunctions%2F1904710855" anchor-label="setEmvData" id="746320962%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-emv-data.html"><span>set</span><wbr><span>Emv</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="746320962%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-emv-data.html"><span class="token function">setEmvData</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;emvData</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'emvData'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-571296010%2FFunctions%2F1904710855" anchor-label="setEmvTagList" id="-571296010%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-emv-tag-list.html"><span>set</span><wbr><span>Emv</span><wbr><span>Tag</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-571296010%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-emv-tag-list.html"><span class="token function">setEmvTagList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/util/List.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a><span class="token operator">&gt;</span>&nbsp;emvTagList</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'emvTagList'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1843858525%2FFunctions%2F1904710855" anchor-label="setPanExceptionList" id="-1843858525%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-pan-exception-list.html"><span>set</span><wbr><span>Pan</span><wbr><span>Exception</span><wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1843858525%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-pan-exception-list.html"><span class="token function">setPanExceptionList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;panExceptionList</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'panExceptionList'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1850365928%2FFunctions%2F1904710855" anchor-label="setPinBypassDisabled" id="1850365928%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-pin-bypass-disabled.html"><span>set</span><wbr><span>Pin</span><wbr><span>Bypass</span><wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1850365928%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-pin-bypass-disabled.html"><span class="token function">setPinBypassDisabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;pinBypassDisabled</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'pinBypassDisabled'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1142150623%2FFunctions%2F1904710855" anchor-label="setPinCaptureTimeout" id="1142150623%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-pin-capture-timeout.html"><span>set</span><wbr><span>Pin</span><wbr><span>Capture</span><wbr><span><span>Timeout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1142150623%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-pin-capture-timeout.html"><span class="token function">setPinCaptureTimeout</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;pinCaptureTimeout</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'pinCaptureTimeout'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1029138952%2FFunctions%2F1904710855" anchor-label="setTerminalRiskManagement" id="1029138952%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-terminal-risk-management.html"><span>set</span><wbr><span>Terminal</span><wbr><span>Risk</span><wbr><span><span>Management</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1029138952%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-terminal-risk-management.html"><span class="token function">setTerminalRiskManagement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;terminalRiskManagement</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'terminalRiskManagement'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-840522590%2FFunctions%2F1904710855" anchor-label="setTransactionType" id="-840522590%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-transaction-type.html"><span>set</span><wbr><span>Transaction</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-840522590%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">GoOnChipRequest</a>&nbsp;<a href="set-transaction-type.html"><span class="token function">setTransactionType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;transactionType</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the field 'transactionType'.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="944892547%2FFunctions%2F1904710855" anchor-label="toString" id="944892547%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk/-generic-parcelable/to-string.html"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="944892547%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/to-string.html"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1245303289%2FFunctions%2F1904710855" anchor-label="validate" id="-1245303289%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="validate.html"><span><span>validate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1245303289%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void&nbsp;<a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="879110710%2FFunctions%2F1904710855" anchor-label="writeToParcel" id="879110710%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1953101016%2FFunctions%2F1904710855"><span>write</span><wbr><span>To</span><wbr><span><span>Parcel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="879110710%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">abstract </span><span class="token keyword"></span>void&nbsp;<a href="../../com.clover.sdk.cfp.connector.session/-c-f-p-message/index.html#-1953101016%2FFunctions%2F1904710855"><span class="token function">writeToParcel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Parcel.html">Parcel</a>&nbsp;p<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int&nbsp;p1</span></span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span>void&nbsp;<a href="../../com.clover.sdk/-generic-parcelable/write-to-parcel.html"><span class="token function">writeToParcel</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/os/Parcel.html">Parcel</a>&nbsp;dest<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span>int&nbsp;flags</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
