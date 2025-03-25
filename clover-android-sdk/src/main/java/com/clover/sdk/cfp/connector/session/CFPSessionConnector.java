@@ -13,15 +13,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.util.Log;
+
+import androidx.annotation.WorkerThread;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.locks.ReentrantLock;
 
 /*
   This connector exposes session data used by Remote Pay during the processing
@@ -35,6 +41,12 @@ import java.util.*;
   CustomerInfo
   DisplayOrder
   Transaction
+
+  !!! WARNING !!! Do not create or run this connector on the main application thread (UIThread)
+  !!! WARNING !!! This can create instability and can ultimately lead to potential ANRs and
+  !!! WARNING !!! generally sluggish application response.  Some session properties are shared
+  !!! WARNING !!! between the merchant and customer-facing device with potential delays in communication.
+
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CFPSessionConnector implements Serializable, CFPSessionListener {
@@ -62,14 +74,20 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
     private static final String CUSTOMER = "CUSTOMER";
     protected String messageUuid;
 
-    private static final String TAG = "SessionConnector";
+    private static final String TAG = "CFPSessionConnector";
+    private static final String CONNECTOR_ON_MAIN_THREAD_WARNING = "Connector is being invoked on the main UI thread, which can cause slow processing or a potential ANR";
 
     private ContentProviderClient sessionContentProviderClient;
-    private WeakReference<Context> contextWeakReference;
+    private final WeakReference<Context> contextWeakReference;
     Set<CFPSessionListener> sessionListeners = new LinkedHashSet<>();
     private SessionContentObserver sessionContentObserver = null;
     private ContentObserver propertyContentObserver;
+
+    @WorkerThread
     public CFPSessionConnector(Context context) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         this.contextWeakReference = new WeakReference<>(context);
         connect();
     }
@@ -78,7 +96,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return (null != contextWeakReference) ? contextWeakReference.get() : null;
     }
 
+    @WorkerThread
     public boolean connect() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Context context = getContext();
         if (sessionContentProviderClient == null && null != context) {
             sessionContentProviderClient = context.getContentResolver().acquireContentProviderClient(CFPSessionContract.AUTHORITY);
@@ -91,25 +113,39 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
             sessionContentProviderClient.close();
         }
         sessionContentProviderClient = null;
+        if (sessionContentObserver != null && getContext() != null) {
+            unregisterContentObserver(getContext(), sessionContentObserver);
+        }
+        sessionContentObserver = null;
     }
 
-    public boolean addSessionListener(CFPSessionListener listener) {
+    @WorkerThread
+    public void addSessionListener(CFPSessionListener listener) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Context context = getContext();
-        if (sessionListeners.size() == 0 && null == sessionContentObserver && null != context) {
+        if (sessionListeners.isEmpty() && null == sessionContentObserver && null != context) {
             sessionContentObserver = new SessionContentObserver(this);
             registerContentObserver(context, sessionContentObserver);
         }
-        return sessionListeners.add(listener);
+        sessionListeners.add(listener);
     }
 
+    @WorkerThread
     public UUID registerForUpdates(PendingIntent pi, UUID uuid) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Bundle bundle = new Bundle();
         bundle.putParcelable("PENDING_INTENT", pi);
         bundle.putSerializable("uuid", uuid);
         try {
             if (connect()) {
                 Bundle result = sessionContentProviderClient.call("registerForUpdates", null, bundle);
-                return (UUID)result.getSerializable("uuid");
+                if (result != null) {
+                    return (UUID)result.getSerializable("uuid");
+                }
             }
         } catch (RemoteException e) {
             Log.e(TAG, e.getMessage(), e);
@@ -117,13 +153,19 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return null;
     }
 
+    @WorkerThread
     public PendingIntent unregisterForUpdates(UUID uuid) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Bundle bundle = new Bundle();
         bundle.putSerializable("uuid", uuid);
         try {
             if (connect()) {
                 Bundle result = sessionContentProviderClient.call("unregisterForUpdates", null, bundle);
-                return (PendingIntent) result.getParcelable("PENDING_INTENT");
+                if (result != null) {
+                    return result.getParcelable("PENDING_INTENT");
+                }
             }
         } catch (RemoteException e) {
             Log.e(TAG, e.getMessage(), e);
@@ -131,10 +173,14 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return null;
     }
 
+    @WorkerThread
     public boolean removeSessionListener(CFPSessionListener listener) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Context context = getContext();
         boolean result = sessionListeners.remove(listener);
-        if (sessionListeners.size() == 0 && null != context) {
+        if (sessionListeners.isEmpty() && null != context) {
             unregisterContentObserver(context, sessionContentObserver);
             sessionContentObserver = null;
         }
@@ -145,7 +191,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
      Clears all data elements and properties associated with the current customer
      order/payment transaction or interaction.
      */
+    @WorkerThread
     public boolean clear() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (connect()) {
                 sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_CLEAR_SESSION, null, null);
@@ -153,7 +203,6 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
-
         return true;
     }
 
@@ -166,7 +215,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
      process and doesn't want the customer to be forced to check-in again to continue
      or start a new order.
      */
+    @WorkerThread
     public boolean pauseSession() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (connect()) {
                 sessionContentProviderClient.call(CFPSessionContract.CALL_METHOD_PAUSE_SESSION, null, null);
@@ -174,7 +227,6 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
-
         return true;
     }
 
@@ -182,7 +234,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return sessionContentProviderClient;
     }
 
+    @WorkerThread
     public CustomerInfo getCustomerInfo() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         CustomerInfo customerInfo = null;
         try {
             if (connect()) {
@@ -202,7 +258,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return customerInfo;
     }
 
+    @WorkerThread
     public void setCustomerInfo(CustomerInfo customerInfo) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (connect()) {
                 Bundle bundle = new Bundle();
@@ -214,7 +274,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    @WorkerThread
     public DisplayOrder getDisplayOrder() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         DisplayOrder displayOrder = null;
         try {
             if (connect()) {
@@ -233,7 +297,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return displayOrder;
     }
 
+    @WorkerThread
     public void setDisplayOrder(DisplayOrder displayOrder, boolean isOrderModificationSupported) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (connect()) {
                 Bundle bundle = new Bundle();
@@ -252,17 +320,26 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
      * remote message conduit, then listeners on the current device will be notified. This allows the same
      * call and listener to be used in both a tethered, and non-tethered, scenario.
      * @param value - A string payload of the data.
-     *
+     * <p>
      *                setPOSProperty? -> fires on the POS device, either remote or local?
      *                setCustomerProperty?
      */
+    @WorkerThread
     public void setRemoteProperty(String key, String value) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         setInternalProperty(key, value, CFPSessionContract.CALL_METHOD_SET_REMOTE_PROPERTY);
     }
 
+    @WorkerThread
     public void setProperty(String key, String value) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         setInternalProperty(key, value, CFPSessionContract.CALL_METHOD_SET_PROPERTY);
     }
+
 
     private void setInternalProperty(String key, String value, String callMethod) {
         try {
@@ -280,7 +357,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    @WorkerThread
     public String getProperty(String key) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (!connect()) return null;
             String selectionClause = CFPSessionContract.COLUMN_KEY + " = ?";
@@ -315,7 +396,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return null;
     }
 
+    @WorkerThread
     public void removeProperty(String key) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         try {
             if (!connect()) return;
             String selectionClause = CFPSessionContract.COLUMN_KEY + " = ?";
@@ -326,7 +411,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    @WorkerThread
     public Transaction getTransaction() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Transaction transaction = null;
         try {
             if (connect()) {
@@ -346,7 +435,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return null;
     }
 
+    @WorkerThread
     public void setTransaction(Transaction transaction) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         if (connect()) {
             try {
                 Bundle bundle = new Bundle();
@@ -358,7 +451,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    @WorkerThread
     public CFPMessage getMessage() {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         CFPMessage cfpMessage = null;
         try {
             if (connect()) {
@@ -378,7 +475,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         return null;
     }
 
+    @WorkerThread
     public void setMessage(CFPMessage cfpMessage) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         if (connect()) {
             try {
                 Bundle bundle = new Bundle();
@@ -391,7 +492,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+@WorkerThread
     public void sendSessionEvent(String eventType, String data) {
+    if (Looper.myLooper() == Looper.getMainLooper()) {
+        Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+    }
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_KEY_TYPE, eventType);
         bundle.putString(BUNDLE_KEY_DATA, data);
@@ -404,7 +509,11 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         }
     }
 
+    @WorkerThread
     public void sendRemoteSessionEvent(String eventType, String data) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.w(TAG, CONNECTOR_ON_MAIN_THREAD_WARNING);
+        }
         Bundle bundle = new Bundle();
         bundle.putString(BUNDLE_KEY_TYPE, eventType);
         bundle.putString(BUNDLE_KEY_DATA, data);
@@ -421,7 +530,6 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
         String listenerSource = contextWeakReference.get().getPackageName();
         for (CFPSessionListener listener : sessionListeners) {
             Log.d(this.getClass().getSimpleName(), "onSessionDataChanged called with type = " + type + " for " + listenerSource + " with listener " + listener.getClass().getSimpleName());
-
             listener.onSessionDataChanged(type, data);
         }
     }
@@ -459,26 +567,28 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
     /**
      * Maps method calls on the ContentObserver to the SessionConnector.
      */
-    class SessionContentObserver extends ContentObserver {
+    static class SessionContentObserver extends ContentObserver {
         private CFPSessionConnector connector;
+        final private ReentrantLock connectorLock = new ReentrantLock();
         private String lastUuid="";
 
         SessionContentObserver(CFPSessionConnector connector) {
-            super(new Handler());
-            this.connector = connector;
-        }
-
-        CFPSessionConnector getConnector() {
-            return connector;
+            super(new Handler(Looper.getMainLooper()));
+            connectorLock.lock();
+            try {
+                this.connector = connector;
+            } finally {
+                connectorLock.unlock();
+            }
         }
 
         void cleanupSessionConnector() {
-            this.connector = null;
-        }
-
-        @Override
-        public boolean deliverSelfNotifications() {
-            return false;
+            connectorLock.lock();
+            try {
+                connector = null;
+            } finally {
+                connectorLock.unlock();
+            }
         }
 
         @Override
@@ -488,73 +598,79 @@ public class CFPSessionConnector implements Serializable, CFPSessionListener {
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            if (null == getConnector()) return;
-
-            String messageUuid = uri.getQueryParameter("messageUuid"); //this ID is to determine if this instance was the one to set the property
+            String messageUuid = uri != null ? uri.getQueryParameter("messageUuid") : null; //this ID is to determine if this instance was the one to set the property
             //If the message has the same id, then we don't want duplicate notifications
             if ((messageUuid == null || !messageUuid.equals(lastUuid))) {
                 lastUuid = messageUuid;
-                switch (CFPSessionContract.matcher.match(uri)) {
-                    case CFPSessionContract.SESSION:
-                        getConnector().onSessionDataChanged(SESSION, null);
-                        break;
-                    case CFPSessionContract.SESSION_CUSTOMER_INFO:
-                        getConnector().onSessionDataChanged(CUSTOMER_INFO, getConnector().getCustomerInfo());
-                        break;
-                    case CFPSessionContract.SESSION_DISPLAY_ORDER:
-                        getConnector().onSessionDataChanged(DISPLAY_ORDER, getConnector().getDisplayOrder());
-                        break;
-                    case CFPSessionContract.PROPERTIES:
-                        getConnector().onSessionDataChanged(PROPERTIES, null);
-                        break;
-                    case CFPSessionContract.PROPERTIES_KEY:
-                        //We don't want to send a notification to the instance that set the property
-                        if (messageUuid == null || !messageUuid.equals(getConnector().messageUuid)) {
-                            String key = uri.getLastPathSegment();
-                            JSONObject property = getConnector().getPropertyWithSrc(key);
-                            String value = null;
-                            if (property != null && property.has("value")) {
-                                try {
-                                    value = property.get("value").toString();
-                                } catch (JSONException e) {
-                                    Log.e(TAG, e.getMessage(), e);
+                connectorLock.lock();
+                try {
+                    switch (CFPSessionContract.matcher.match(uri)) {
+                        case CFPSessionContract.SESSION:
+                            connector.onSessionDataChanged(SESSION, null);
+                            break;
+                        case CFPSessionContract.SESSION_CUSTOMER_INFO:
+                            CustomerInfo customerInfo = connector.getCustomerInfo();
+                            connector.onSessionDataChanged(CUSTOMER_INFO, customerInfo);
+                            break;
+                        case CFPSessionContract.SESSION_DISPLAY_ORDER:
+                            connector.onSessionDataChanged(DISPLAY_ORDER, connector.getDisplayOrder());
+                            break;
+                        case CFPSessionContract.PROPERTIES:
+                            connector.onSessionDataChanged(PROPERTIES, null);
+                            break;
+                        case CFPSessionContract.PROPERTIES_KEY:
+                            //We don't want to send a notification to the instance that set the property
+                            if (messageUuid == null || !messageUuid.equals(connector.messageUuid)) {
+                                String key = uri.getLastPathSegment();
+                                JSONObject property = connector.getPropertyWithSrc(key);
+                                String value = null;
+                                if (property != null && property.has("value")) {
+                                    try {
+                                        value = property.get("value").toString();
+                                    } catch (JSONException e) {
+                                        Log.e(TAG, e.getMessage(), e);
+                                    }
+                                }
+                                String src = null;
+                                if (property != null && property.has("src")) {
+                                    try {
+                                        src = property.get("src").toString();
+                                    } catch (JSONException e) {
+                                        Log.e(TAG, e.getMessage(), e);
+                                    }
+                                }
+                                //We don't want to send internally sourced notifications
+                                if (src == null || !src.equals(INTERNAL)) {
+                                    JSONObject obj = new JSONObject();
+                                    try {
+                                        obj.put(QUERY_PARAMETER_NAME, key);
+                                        obj.put(QUERY_PARAMETER_VALUE, value);
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    connector.onSessionDataChanged(PROPERTIES, obj);
                                 }
                             }
-                            String src = null;
-                            if (property != null && property.has("src")) {
-                                try {
-                                    src = property.get("src").toString();
-                                } catch (JSONException e) {
-                                    Log.e(TAG, e.getMessage(), e);
-                                }
-                            }
-                            //We don't want to send internally sourced notifications
-                            if (src == null || !src.equals(INTERNAL)) {
-                                JSONObject obj = new JSONObject();
-                                try {
-                                    obj.put(QUERY_PARAMETER_NAME, key);
-                                    obj.put(QUERY_PARAMETER_VALUE, value);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                getConnector().onSessionDataChanged(PROPERTIES, obj);
-                            }
-                        }
-                        break;
-                    case CFPSessionContract.SESSION_TRANSACTION:
-                        getConnector().onSessionDataChanged(TRANSACTION, getConnector().getTransaction());
-                        break;
-                    case CFPSessionContract.SESSION_MESSAGE:
-                        getConnector().onSessionDataChanged(MESSAGE, getConnector().getMessage());
-                        break;
-                    case CFPSessionContract.EVENT:
-                        String type = uri.getLastPathSegment();
-                        String payload = uri.getQueryParameter(QUERY_PARAMETER_VALUE);
-                        getConnector().onSessionEvent(type, payload);
-                        break;
-                    default:
-                        Log.d(TAG, "Unknown URI - Changed: --> " + uri.toString());
-                        return;
+                            break;
+                        case CFPSessionContract.SESSION_TRANSACTION:
+                            connector.onSessionDataChanged(TRANSACTION, connector.getTransaction());
+                            break;
+                        case CFPSessionContract.SESSION_MESSAGE:
+                            connector.onSessionDataChanged(MESSAGE, connector.getMessage());
+                            break;
+                        case CFPSessionContract.EVENT:
+                            String type = uri.getLastPathSegment();
+                            String payload = uri.getQueryParameter(QUERY_PARAMETER_VALUE);
+                            connector.onSessionEvent(type, payload);
+                            break;
+                        default:
+                            Log.d(TAG, "Unknown URI - Changed: --> " + uri);
+                            return;
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage(), e);
+                } finally {
+                    connectorLock.unlock();
                 }
             } else {
                 Log.d(TAG, "onChange not processed for uri " + uri);

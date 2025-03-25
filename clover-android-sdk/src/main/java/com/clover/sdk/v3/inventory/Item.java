@@ -58,6 +58,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getPriceWithoutVat priceWithoutVat}</li>
  * <li>{@link #getColorCode colorCode}</li>
+ * <li>{@link #getType type}</li>
  * <li>{@link #getIsAgeRestricted isAgeRestricted}</li>
  * <li>{@link #getAgeRestrictedObj ageRestrictedObj}</li>
  * </ul>
@@ -259,6 +260,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.isAgeRestricted);
   }
 
+  public com.clover.sdk.v3.inventory.ItemType getType() {
+    return genClient.cacheGet(CacheKey.type);
+  }
+
   /**
    * Age restricted information for this item
    */
@@ -325,6 +330,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     colorCode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.ItemType.class)),
     isAgeRestricted
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ageRestrictedObj
@@ -579,6 +586,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.colorCode);
   }
 
+  /** Checks whether the 'type' field is set and is not null */
+  public boolean isNotNullType() {
+    return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
   /** Checks whether the 'isAgeRestricted' field is set and is not null */
   public boolean isNotNullIsAgeRestricted() {
     return genClient.cacheValueIsNotNull(CacheKey.isAgeRestricted);
@@ -727,6 +739,11 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'colorCode' field has been set, however the value could be null */
   public boolean hasColorCode() {
     return genClient.cacheHasKey(CacheKey.colorCode);
+  }
+
+  /** Checks whether the 'type' field has been set, however the value could be null */
+  public boolean hasType() {
+    return genClient.cacheHasKey(CacheKey.type);
   }
 
   /** Checks whether the 'isAgeRestricted' field has been set, however the value could be null */
@@ -951,6 +968,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    */
   public Item setColorCode(java.lang.String colorCode) {
     return genClient.setOther(colorCode, CacheKey.colorCode);
+  }
+
+  /**
+   * Sets the field 'type'.
+   */
+  public Item setType(com.clover.sdk.v3.inventory.ItemType type) {
+    return genClient.setOther(type, CacheKey.type);
   }
 
   /**
@@ -1188,6 +1212,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean PRICEWITHOUTVAT_IS_REQUIRED = false;
     public static final boolean COLORCODE_IS_REQUIRED = false;
     public static final long COLORCODE_MAX_LEN = 9;
+
+    public static final boolean TYPE_IS_REQUIRED = false;
     static final boolean ISAGERESTRICTED_IS_REQUIRED = false;
     public static final boolean AGERESTRICTEDOBJ_IS_REQUIRED = false;
   }

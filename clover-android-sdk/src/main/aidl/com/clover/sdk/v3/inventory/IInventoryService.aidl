@@ -821,4 +821,14 @@ interface IInventoryService {
     * @clover.perm INVENTORY_W
     */
    void assignMenusToItem(in String itemId, in List<String> mendIds, out ResultStatus resultStatus);
+
+    /**
+     * Checks if any of the specified modifiers are unavailable.
+     *
+     * @param modifierIdsList A list of modifier IDs to check for availability.
+     * @param resultStatus    The result status of the operation.
+     * @return true if any of the specified modifiers are unavailable, false otherwise.
+     * @clover.perm INVENTORY_R
+     */
+   boolean checkModifierUnavailability(in List<String> modifierIdsList, out ResultStatus resultStatus);
 }

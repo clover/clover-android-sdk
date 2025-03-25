@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.view.ViewDebug;
 
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.Category;
@@ -92,7 +91,7 @@ public abstract class PrintJob implements Parcelable {
    */
   public static final int FLAG_PRINT_VOID_RECEIPT = 1 << 14;
 
-  public abstract static class Builder {
+    public abstract static class Builder {
     protected int flags = FLAG_NONE;
     protected boolean printToAny = false;
 
@@ -163,8 +162,15 @@ public abstract class PrintJob implements Parcelable {
 
   private static final String BUNDLE_KEY_FLAGS = "f";
   private static final String BUNDLE_KEY_PRINT_TO_ANY = "pta";
+  private static final String BUNDLE_KEY_CALLER_PACKAGE_NAME= "cp";
 
   public final int flags;
+
+  /**
+   * Used internally to track the application that initiated printing.
+   * This value will be null, and setting it has no effect.
+   */
+  public String callerPackageName;
 
   /**
    * Indicates that this job should be printed to any available printer in case the default is
@@ -213,6 +219,7 @@ public abstract class PrintJob implements Parcelable {
    */
   @Deprecated
   public void print(Context context, Account account, Printer printer) {
+    this.callerPackageName = context.getPackageName();
     Intent intent = new Intent(PrinterIntent.ACTION_PRINT_SERVICE);
     intent.putExtra(PrinterIntent.EXTRA_PRINTJOB, this);
     intent.putExtra(Intents.EXTRA_ACCOUNT, account);
@@ -228,6 +235,7 @@ public abstract class PrintJob implements Parcelable {
     Bundle bundle = in.readBundle(((Object) this).getClass().getClassLoader());
     flags = bundle.getInt(BUNDLE_KEY_FLAGS);
     printToAny = bundle.getBoolean(BUNDLE_KEY_PRINT_TO_ANY);
+    callerPackageName = bundle.getString(BUNDLE_KEY_CALLER_PACKAGE_NAME);
     // Add more data here, but remember old apps might not provide it!
   }
 
@@ -241,6 +249,7 @@ public abstract class PrintJob implements Parcelable {
     Bundle bundle = new Bundle();
     bundle.putInt(BUNDLE_KEY_FLAGS, this.flags);
     bundle.putBoolean(BUNDLE_KEY_PRINT_TO_ANY, this.printToAny);
+    bundle.putString(BUNDLE_KEY_CALLER_PACKAGE_NAME, this.callerPackageName);
     // Add more stuff here
 
     dest.writeBundle(bundle);

@@ -7,6 +7,8 @@ public final class RegionalExtras {
   public static final String INSTALLMENT_PLAN_KEY = "com.clover.regionalextras.ar.INSTALLMENT_PLAN_KEY";
   public static final String MERCHANT_ID_KEY = "com.clover.regionalextras.ar.MERCHANT_ID_KEY";
 
+  //New regional extras to add a selected currency
+  public static final String TX_EXTRA_CURRENCY = "com.clover.regionalextras.EXTRA_CURRENCY";
 
   //  Values - can be used in conjunction with keys to induce the desired effect during
   //  the processing of a transaction on the Clover payment device.

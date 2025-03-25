@@ -17,6 +17,9 @@ import java.util.concurrent.TimeoutException;
  */
 public class BaseIntentBuilder {
   public static final String PAPI_SDK_NAME = BaseIntentBuilder.class.getPackage().getName() + ":apapi";
+  protected static final String SERVICE_ACTION = "com.clover.remote.RemoteDeviceConnector";
+  public static final String LOCAL_PAY_DISPLAY_PACKAGE = "com.clover.remote.protocol.local";
+  public static final String USB_PAY_DISPLAY_PACKAGE = "com.clover.remote.protocol.usb";
 
   /**
    * returns a single-use Intent that can be used to launch an Activity to process the request

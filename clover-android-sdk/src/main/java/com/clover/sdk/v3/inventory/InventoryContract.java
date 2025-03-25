@@ -312,6 +312,20 @@ public final class InventoryContract {
      * Type: TEXT
      */
     public static final String MENU_REASON_CODE = "menu_reason_code";
+
+    /**
+     * Whether an item is age restricted or not.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String AGE_RESTRICTED = "age_restricted";
+
+    /**
+     * Age restricted details.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String AGE_RESTRICTED_DETAILS = "age_restricted_details";
   }
 
   /**

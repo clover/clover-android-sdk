@@ -34,7 +34,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
  * <li>{@link #getMinimumAge minimumAge}</li>
- * <li>{@link #getItems items}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -61,26 +60,13 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
     return genClient.cacheGet(CacheKey.minimumAge);
   }
 
-  /**
-   * Items associated with this age restricted type
-   */
-  public java.util.List<com.clover.sdk.v3.base.Reference> getItems() {
-    return genClient.cacheGet(CacheKey.items);
-  }
-
-
-
-
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     name
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     minimumAge
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
-    items
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
-      ;
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class));
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -158,7 +144,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
     genClient.validateLength(CacheKey.name, getName(), 127);
 
     genClient.validateMinMax(CacheKey.minimumAge, getMinimumAge(), 0L, 150L);
-    genClient.validateReferences(CacheKey.items);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -176,16 +161,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.minimumAge);
   }
 
-  /** Checks whether the 'items' field is set and is not null */
-  public boolean isNotNullItems() {
-    return genClient.cacheValueIsNotNull(CacheKey.items);
-  }
-
-  /** Checks whether the 'items' field is set and is not null and is not empty */
-  public boolean isNotEmptyItems() { return isNotNullItems() && !getItems().isEmpty(); }
-
-
-
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
@@ -200,12 +175,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
   public boolean hasMinimumAge() {
     return genClient.cacheHasKey(CacheKey.minimumAge);
   }
-
-  /** Checks whether the 'items' field has been set, however the value could be null */
-  public boolean hasItems() {
-    return genClient.cacheHasKey(CacheKey.items);
-  }
-
 
   /**
    * Sets the field 'id'.
@@ -228,16 +197,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
     return genClient.setOther(minimumAge, CacheKey.minimumAge);
   }
 
-  /**
-   * Sets the field 'items'.
-   *
-   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
-   */
-  public AgeRestrictedObj setItems(java.util.List<com.clover.sdk.v3.base.Reference> items) {
-    return genClient.setArrayRecord(items, CacheKey.items);
-  }
-
-
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -250,11 +209,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
   public void clearMinimumAge() {
     genClient.clear(CacheKey.minimumAge);
   }
-  /** Clears the 'items' field, the 'has' method for this field will now return false */
-  public void clearItems() {
-    genClient.clear(CacheKey.items);
-  }
-
 
   /**
    * Returns true if this instance has any changes.
@@ -323,7 +277,6 @@ public class AgeRestrictedObj extends GenericParcelable implements com.clover.sd
     public static final boolean MINIMUMAGE_IS_REQUIRED = false;
     public static final long MINIMUMAGE_MIN = 0;
     public static final long MINIMUMAGE_MAX = 150;
-    public static final boolean ITEMS_IS_REQUIRED = false;
   }
 
 }

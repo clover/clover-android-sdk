@@ -104,4 +104,10 @@
 
   <!-- Keypad Test -->
   <string name="start_keypad">Start Keypad</string>
+
+  <!-- Screensaver Test -->
+  <string name="screensaver_label">Screensaver test</string>
+
+  <!-- Dining Events Test -->
+  <string name="dining_events_test">Dining Events Test</string>
 </resources>

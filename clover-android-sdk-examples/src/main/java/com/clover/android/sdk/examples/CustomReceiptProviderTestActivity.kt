@@ -108,19 +108,18 @@ class CustomReceiptProviderTestActivity : Activity() {
     }
 
     enableBtn.setOnClickListener {
-      val conProvCN = ComponentName(this,
-        "com.clover.android.sdk.examples.CustomReceiptProviderTest")
-      val pm: PackageManager = this.packageManager
-      pm.setComponentEnabledSetting(conProvCN,
-        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, 0)
+      setProviderEnabledSetting(PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
     }
 
     disableBtn.setOnClickListener {
-      val conProvCN = ComponentName(this,
-        "com.clover.android.sdk.examples.CustomReceiptProviderTest")
-      val pm: PackageManager = this.packageManager
-      pm.setComponentEnabledSetting(conProvCN,
-        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0)
+      setProviderEnabledSetting(PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
     }
+  }
+
+  private fun setProviderEnabledSetting(providerState: Int) {
+    val conProvCN = ComponentName(this,
+      "com.clover.android.sdk.examples.CustomReceiptProviderTest")
+    val pm: PackageManager = this.packageManager
+    pm.setComponentEnabledSetting(conProvCN, providerState, 0)
   }
 }

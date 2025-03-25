@@ -3,8 +3,11 @@ package com.clover.sdk.v3.payments.api;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+
 import com.clover.sdk.v1.Intents;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,6 +38,30 @@ public class ReadCardRequestIntentBuilder extends BaseIntentBuilder {
             if (cardOptions.cardEntryMethods != null) {
                 i.putExtra(Intents.EXTRA_CARD_ENTRY_METHODS, RequestIntentBuilderUtils.convert(cardOptions.cardEntryMethods));
             }
+        }
+
+        return i;
+    }
+
+    /**
+     * Builds an Intent to trigger remote-pay to process the read card request. This is done WITHOUT a UI
+     * on the MFD, allowing an integrator to provide a custom UI if desired on the MFD.
+     * @param context
+     * @return Intent to be used with RemotePayemntsAPIConnector for a CFD ONLY read card request.
+     */
+    public Intent buildRemoteServiceIntent(Context context) {
+        Intent i = build(context);
+        i.setComponent(new ComponentName(LOCAL_PAY_DISPLAY_PACKAGE, LOCAL_PAY_DISPLAY_PACKAGE + ".pos.DualDisplayRemoteDeviceStateService"));
+        i.setAction(RequestType.READ_CARD);
+        List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(i, 0);
+        if (resolveInfos == null || resolveInfos.size() == 0) {
+            i.setComponent(new ComponentName(USB_PAY_DISPLAY_PACKAGE, "com.clover.remote.protocol.usb.pos.UsbRemoteDeviceStateService"));
+        }
+
+        resolveInfos = context.getPackageManager().queryIntentServices(i, 0);
+        if (resolveInfos == null || resolveInfos.size() == 0) {
+            //Neither USB or LPD are installed
+            return null;
         }
 
         return i;

@@ -1871,4 +1871,6 @@ public class Intents {
 
   //Pass terminal settings (e.g. Nexo: Config > E1 > DF34 Terminal Settings)
   public static final String EXTRA_TERMINAL_SETTINGS = "clover.intent.extra.TERMINAL_SETTINGS";
+
+  public static final String EXTRA_REQUEST_TYPE = "clover.intent.extra.EXTRA_REQUEST_TYPE";
 }
