@@ -33,4 +33,5 @@
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
   </style>
 
+  <style name="AppAppCompatTheme" parent="Theme.AppCompat.Light.NoActionBar" />
 </resources>

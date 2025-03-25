@@ -1507,4 +1507,9 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
       }
     });
   }
+
+  public boolean checkModifierUnavailability(final List<String> modifierIdList) throws RemoteException, ServiceException, ClientException, BindingException {
+    return execute((ServiceCallable<IInventoryService, Boolean>)
+            (service, status) -> service.checkModifierUnavailability(modifierIdList, status));
+  }
 }

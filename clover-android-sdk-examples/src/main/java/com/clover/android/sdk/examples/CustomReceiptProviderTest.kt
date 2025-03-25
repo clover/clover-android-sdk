@@ -259,7 +259,7 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
       extras?.let {
         // set PrintJob as classloader
         it.classLoader = PrintJob::class.java.classLoader
-        val printJob: PrintJob?
+        var printJob: PrintJob? = null
         when (it.getParcelable<PrintJob>(ReceiptContentContract.EXTRA_PRINT_JOB)) {
           is StaticBillPrintJob -> {
             printJob =
@@ -328,7 +328,9 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
             Log.i(TAG, "StaticLabelPrintJob: $printJob")
           }
         }
-
+        printJob?.let{
+          Log.i(TAG, "Print transaction is initiated by: ${printJob.callerPackageName}")
+        }
         // Parse Printer object
         printer = it.getParcelable(ReceiptContentContract.EXTRA_PRINTER)
         Log.i(TAG, "Printer: $printer")

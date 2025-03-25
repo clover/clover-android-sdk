@@ -209,10 +209,34 @@ xmlns:tools="http://schemas.android.com/tools"
             android:name=".CustomReceiptProviderTest"
             android:authorities="com.clover.android.sdk.examples.receipt.custom"
             android:exported="true"
+            android:enabled="false"
             tools:ignore="ExportedContentProvider">
             <meta-data
                 android:name="com.clover.printer.receipt.custom.content.receipt.types"
                 android:value="Payment,Bill,Refund,Credit"/>
         </provider>
+
+        <activity
+            android:name=".ScreensaverTestActivity"
+            android:label="@string/screensaver_label"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:theme="@style/AppAppCompatTheme" />
+        <service
+            android:name=".ToasterDreamService"
+            android:exported="true"
+            android:label="Flying Toasters"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/toaster_dream" />
+        </service>
+        <activity android:name=".DiningEventsActivity"
+            android:label="@string/dining_events_test"
+            android:theme="@style/AppAppCompatTheme" />
     </application>
 </manifest>

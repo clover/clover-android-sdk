@@ -21,18 +21,17 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.payments;
+package com.clover.sdk.v3.inventory;
 
 import android.os.Parcelable;
 import android.os.Parcel;
 
 /**
  * This is an auto-generated Clover data enum.
- * Type of additional charge. INTERAC is deprecated, use INTERAC_V2
  */
 @SuppressWarnings("all")
-public enum AdditionalChargeType implements Parcelable {
-  INTERAC, CREDIT_SURCHARGE, CONVENIENCE_FEE, INTERAC_V2, DELIVERY_FEE, CASH_DISCOUNT, VISA_CREDIT, VISA_DEBIT, VISA_INTERNATIONAL, MASTERCARD_CREDIT, MASTERCARD_DEBIT, MASTERCARD_INTERNATIONAL, AMEX, EFTPOS, JCB, DINERS, UNIONPAY_CREDIT, UNIONPAY_DEBIT, DISCOVER, CUP_CREDIT, CUP_DEBIT, DINERS_CLUB;
+public enum ItemType implements Parcelable {
+  REGULAR, RESTAURANT, SERVICE, RETAIL;
 
   @Override
   public int describeContents() {
@@ -44,15 +43,15 @@ public enum AdditionalChargeType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<AdditionalChargeType> CREATOR = new Creator<AdditionalChargeType>() {
+  public static final Creator<ItemType> CREATOR = new Creator<ItemType>() {
     @Override
-    public AdditionalChargeType createFromParcel(final Parcel source) {
-      return AdditionalChargeType.valueOf(source.readString());
+    public ItemType createFromParcel(final Parcel source) {
+      return ItemType.valueOf(source.readString());
     }
 
     @Override
-    public AdditionalChargeType[] newArray(final int size) {
-      return new AdditionalChargeType[size];
+    public ItemType[] newArray(final int size) {
+      return new ItemType[size];
     }
   };
 }
