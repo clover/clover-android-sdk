@@ -71,6 +71,7 @@ com.clover.sdk.v3.payment.raw.service
 com.clover.sdk.v3.payments
 com.clover.sdk.v3.payments.api
 com.clover.sdk.v3.printer
+com.clover.sdk.v3.remotepay
 com.clover.sdk.v3.report
 com.clover.sdk.v3.resellers
 com.clover.sdk.v3.scanner
