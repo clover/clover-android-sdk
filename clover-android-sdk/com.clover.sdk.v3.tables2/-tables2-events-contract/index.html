@@ -1,0 +1,260 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Tables2EventsContract</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r322
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.tables2/Tables2EventsContract///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.tables2</a><span class="delimiter">/</span><span class="current">Tables2EventsContract</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tables2Events</span><wbr><span><span>Contract</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">Tables2EventsContract</a></div><p class="paragraph">Contract for tables2 EventsProvider</p><p class="paragraph">Whenever any of <a href="../-tables2-events/index.html">Tables2Events</a> action is performed in dining app, that event will be inserted into db with necessary data. @see <a href="-tables2-events-columns/index.html">Tables2EventsColumns</a></p><p class="paragraph">App can access these events in multiple ways:</p><ul><li><p class="paragraph">Observe for content changes in EventsProvider using content uri:</p></li></ul><p class="paragraph">Ex:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">private val eventsObserver: ContentObserver = object : ContentObserver(null) {<br>  override fun onChange(selfChange: Boolean, uri: Uri?) {<br>    lifecycleScope.launch{<br>      val cursor = contentResolver.query(uri!!, null, null, null, null)<br>      cursor?.let {<br>        while (cursor.moveToNext()) {<br>          val eventName = cursor.getString(cursor.getColumnIndexOrThrow(Tables2EventsContract.Tables2EventsColumns.EVENT_NAME))<br>          val sourceOrderId = cursor.getString(cursor.getColumnIndexOrThrow(Tables2EventsContract.Tables2EventsColumns.SOURCE_ORDER_ID))<br>          ......<br>        }<br>      }<br>    }<br>  }<br>}<br><br>override fun onCreate(savedInstanceState: Bundle?) {<br>   ...<br>   contentResolver.registerContentObserver(uri, true, eventObserver)<br>}<br>override fun onDestroy() {<br>  super.onDestroy()<br>  contentResolver.unregisterContentObserver(eventObserver)<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><ul><li><p class="paragraph">Query all events from provider</p></li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">    val uri = Tables2EventsContract.contentUriForEvents()<br>    val cursor = contentResolver.query(uri, null, null, null, null)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><ul><li><p class="paragraph">Query event by id from provider</p></li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">    val uri = Tables2EventsContract.contentUriForEventById("5")<br>    val cursor = contentResolver.query(uri, null, null, null, null)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><ul><li><p class="paragraph">Query events by createdSince time</p></li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">    val uri = Tables2EventsContract.contentUriForEventsCreatedSince(1740690052943)<br>    val cursor = contentResolver.query(uri, null, null, null, null)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Detailed example of event data parsing is available in clover-android-sdk-examples#DiningEventsActivity</p><h6 class="">Note that events older than 48 hours will be deleted from the database.</h6><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tables2-events/index.html"><span><span>Tables2Events</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-tables2-events-columns/index.html"><span>Tables2Events</span><wbr><span>Contract.</span><wbr><span>Tables2Events</span><wbr><span><span>Columns</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html"><span>Content</span><wbr><span><span>Resolver</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html#registercontentobserver"><span>Content</span><wbr><span>Resolver.</span><wbr><span>register</span><wbr><span>Content</span><wbr><span><span>Observer</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://developer.android.com/reference/kotlin/android/content/ContentProvider.html#query"><span>Content</span><wbr><span>Provider.</span><wbr><span>query</span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1918203223%2FClasslikes%2F1904710855" anchor-label="Tables2EventsColumns" id="-1918203223%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tables2-events-columns/index.html"><span>Tables2Events</span><wbr><span><span>Columns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1918203223%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-tables2-events-columns/index.html">Tables2EventsColumns</a></div><div class="brief "><p class="paragraph">Columns for Tables2Events database</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1077851186%2FClasslikes%2F1904710855" anchor-label="Tables2EventsData" id="1077851186%2FClasslikes%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tables2-events-data/index.html"><span>Tables2Events</span><wbr><span><span>Data</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1077851186%2FClasslikes%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="-tables2-events-data/index.html">Tables2EventsData</a></div><div class="brief "><p class="paragraph">Defines the key names for the fields present in json blob <a href="-tables2-events-columns/index.html#1805920268%2FProperties%2F1904710855">Tables2EventsColumns.DATA</a></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-78062260%2FProperties%2F1904710855" anchor-label="AUTHORITY" id="-78062260%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-78062260%2FProperties%2F1904710855"><span><span>AUTHORITY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-78062260%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-78062260%2FProperties%2F1904710855">AUTHORITY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1721509624%2FProperties%2F1904710855" anchor-label="CONTENT_DIRECTORY" id="-1721509624%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1721509624%2FProperties%2F1904710855"><span><span>CONTENT_DIRECTORY</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1721509624%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1721509624%2FProperties%2F1904710855">CONTENT_DIRECTORY</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-558275351%2FProperties%2F1904710855" anchor-label="CONTENT_URI" id="-558275351%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-558275351%2FProperties%2F1904710855"><span><span>CONTENT_URI</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-558275351%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="index.html#-558275351%2FProperties%2F1904710855">CONTENT_URI</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2005794206%2FProperties%2F1904710855" anchor-label="CREATED_SINCE_PARAM" id="2005794206%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2005794206%2FProperties%2F1904710855"><span><span>CREATED_SINCE_PARAM</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2005794206%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#2005794206%2FProperties%2F1904710855">CREATED_SINCE_PARAM</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="974994230%2FProperties%2F1904710855" anchor-label="INSTANCE" id="974994230%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#974994230%2FProperties%2F1904710855"><span><span>INSTANCE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="974994230%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="index.html">Tables2EventsContract</a>&nbsp;<a href="index.html#974994230%2FProperties%2F1904710855">INSTANCE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="623394127%2FFunctions%2F1904710855" anchor-label="contentUriForEventById" id="623394127%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content-uri-for-event-by-id.html"><span>content</span><wbr><span>Uri</span><wbr><span>For</span><wbr><span>Event</span><wbr><span>By</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="623394127%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="content-uri-for-event-by-id.html"><span class="token function">contentUriForEventById</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;eventId</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Builds a content uri for querying event by id Ex. content://com.clover.tables2_events/events/5</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-561614560%2FFunctions%2F1904710855" anchor-label="contentUriForEvents" id="-561614560%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content-uri-for-events.html"><span>content</span><wbr><span>Uri</span><wbr><span>For</span><wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-561614560%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="content-uri-for-events.html"><span class="token function">contentUriForEvents</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Builds a content uri for querying all events Ex. content://com.clover.tables2_events/events</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-895489301%2FFunctions%2F1904710855" anchor-label="contentUriForEventsCreatedSince" id="-895489301%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="content-uri-for-events-created-since.html"><span>content</span><wbr><span>Uri</span><wbr><span>For</span><wbr><span>Events</span><wbr><span>Created</span><wbr><span><span>Since</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-895489301%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="content-uri-for-events-created-since.html"><span class="token function">contentUriForEventsCreatedSince</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Long.html">Long</a>&nbsp;timestamp</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Builds a content uri for querying all events created since give timestamp Ex. content://com.clover.tables2_events/events?createdSince=<timestamp></timestamp></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-589616549%2FFunctions%2F1904710855" anchor-label="getCONTENT_URI" id="-589616549%2FFunctions%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-c-o-n-t-e-n-t_-u-r-i.html"><span>get</span><wbr><span><span>CONTENT_URI</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-589616549%2FFunctions%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="get-c-o-n-t-e-n-t_-u-r-i.html"><span class="token function">getCONTENT_URI</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

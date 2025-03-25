@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Tables2Events</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/clover.css" rel="Stylesheet"></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Clover Android SDK
+                    </a>            </div>
+            <div class="library-version">r322
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":clover-android-sdk:dokkaHtmlPartial/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="clover-android-sdk::com.clover.sdk.v3.tables2/Tables2Events///PointingToDeclaration//1904710855">
+  <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.tables2</a><span class="delimiter">/</span><span class="current">Tables2Events</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Tables2Events</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">Tables2Events</a></div><p class="paragraph"><a href="../-tables2-events-contract/-tables2-events-columns/index.html#1985336966%2FProperties%2F1904710855">Tables2EventsContract.Tables2EventsColumns.EVENT_NAME</a>s for different dining events</p><ul><li><p class="paragraph"><a href="index.html#330522248%2FProperties%2F1904710855">MOVE_ORDER_FROM_TABLE_TO_TABLE</a>: When an order is moved from one table to other table</p></li><li><p class="paragraph"><a href="index.html#1899042651%2FProperties%2F1904710855">MOVE_ORDER_FROM_TABLE_TO_BAR_AND_MORE</a>: When an order is moved from a table to Bar &amp; More</p></li><li><p class="paragraph"><a href="index.html#1952308087%2FProperties%2F1904710855">MOVE_ORDER_FROM_BAR_AND_MORE_TO_TABLE</a>: When an order is moved from Bar &amp; More to a table</p></li><li><p class="paragraph"><a href="index.html#-1564559084%2FProperties%2F1904710855">COMBINE_ORDERS</a>: When any two orders are combined (including table order(s) or Bar order(s))</p></li><li><p class="paragraph"><a href="index.html#-1084269406%2FProperties%2F1904710855">MOVE_GUEST_TO_TABLE</a>: When a guest is moved to other table</p></li><li><p class="paragraph"><a href="index.html#1451878401%2FProperties%2F1904710855">MOVE_GUEST_TO_BAR_AND_MORE</a>: When a guest is moved to Bar &amp; More</p></li><li><p class="paragraph"><a href="index.html#-1737293689%2FProperties%2F1904710855">MOVE_WHOLE_TABLE_ITEMS_TO_GUEST</a>: When whole table item(s) are moved to a guest</p></li><li><p class="paragraph"><a href="index.html#1919246635%2FProperties%2F1904710855">MOVE_GUEST_ITEMS_TO_WHOLE_TABLE</a>: When guest item(s) are moved to whole table</p></li><li><p class="paragraph"><a href="index.html#965661130%2FProperties%2F1904710855">SPLIT_WHOLE_TABLE_ITEMS_BETWEEN_GUESTS</a>: When splitting item(s) between guest</p></li><li><p class="paragraph"><a href="index.html#550785890%2FProperties%2F1904710855">MOVE_ITEMS_BETWEEN_GUESTS</a>: When moving item(s) between guests</p></li><li><p class="paragraph"><a href="index.html#-1578504491%2FProperties%2F1904710855">CREATE_GUEST_ORDER</a>: When paying for individual/multiple guest(s)</p></li><li><p class="paragraph"><a href="index.html#-1040066545%2FProperties%2F1904710855">REVERT_GUEST_ORDER_CREATION</a>: When paying for individual/multiple guest(s) is reverted/cancelled</p></li></ul><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-tables2-events-contract/index.html"><span>Tables2Events</span><wbr><span><span>Contract</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1564559084%2FProperties%2F1904710855" anchor-label="COMBINE_ORDERS" id="-1564559084%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1564559084%2FProperties%2F1904710855"><span><span>COMBINE_ORDERS</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1564559084%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1564559084%2FProperties%2F1904710855">COMBINE_ORDERS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1578504491%2FProperties%2F1904710855" anchor-label="CREATE_GUEST_ORDER" id="-1578504491%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1578504491%2FProperties%2F1904710855"><span><span>CREATE_GUEST_ORDER</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1578504491%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1578504491%2FProperties%2F1904710855">CREATE_GUEST_ORDER</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1210069628%2FProperties%2F1904710855" anchor-label="INSTANCE" id="-1210069628%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1210069628%2FProperties%2F1904710855"><span><span>INSTANCE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1210069628%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="index.html">Tables2Events</a>&nbsp;<a href="index.html#-1210069628%2FProperties%2F1904710855">INSTANCE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1919246635%2FProperties%2F1904710855" anchor-label="MOVE_GUEST_ITEMS_TO_WHOLE_TABLE" id="1919246635%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1919246635%2FProperties%2F1904710855"><span><span>MOVE_GUEST_ITEMS_TO_WHOLE_TABLE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1919246635%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1919246635%2FProperties%2F1904710855">MOVE_GUEST_ITEMS_TO_WHOLE_TABLE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1451878401%2FProperties%2F1904710855" anchor-label="MOVE_GUEST_TO_BAR_AND_MORE" id="1451878401%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1451878401%2FProperties%2F1904710855"><span><span>MOVE_GUEST_TO_BAR_AND_MORE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1451878401%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1451878401%2FProperties%2F1904710855">MOVE_GUEST_TO_BAR_AND_MORE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1084269406%2FProperties%2F1904710855" anchor-label="MOVE_GUEST_TO_TABLE" id="-1084269406%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1084269406%2FProperties%2F1904710855"><span><span>MOVE_GUEST_TO_TABLE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1084269406%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1084269406%2FProperties%2F1904710855">MOVE_GUEST_TO_TABLE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="550785890%2FProperties%2F1904710855" anchor-label="MOVE_ITEMS_BETWEEN_GUESTS" id="550785890%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#550785890%2FProperties%2F1904710855"><span><span>MOVE_ITEMS_BETWEEN_GUESTS</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="550785890%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#550785890%2FProperties%2F1904710855">MOVE_ITEMS_BETWEEN_GUESTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1952308087%2FProperties%2F1904710855" anchor-label="MOVE_ORDER_FROM_BAR_AND_MORE_TO_TABLE" id="1952308087%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1952308087%2FProperties%2F1904710855"><span><span>MOVE_ORDER_FROM_BAR_AND_MORE_TO_TABLE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952308087%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1952308087%2FProperties%2F1904710855">MOVE_ORDER_FROM_BAR_AND_MORE_TO_TABLE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1899042651%2FProperties%2F1904710855" anchor-label="MOVE_ORDER_FROM_TABLE_TO_BAR_AND_MORE" id="1899042651%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1899042651%2FProperties%2F1904710855"><span><span>MOVE_ORDER_FROM_TABLE_TO_BAR_AND_MORE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1899042651%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1899042651%2FProperties%2F1904710855">MOVE_ORDER_FROM_TABLE_TO_BAR_AND_MORE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="330522248%2FProperties%2F1904710855" anchor-label="MOVE_ORDER_FROM_TABLE_TO_TABLE" id="330522248%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#330522248%2FProperties%2F1904710855"><span><span>MOVE_ORDER_FROM_TABLE_TO_TABLE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="330522248%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#330522248%2FProperties%2F1904710855">MOVE_ORDER_FROM_TABLE_TO_TABLE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1737293689%2FProperties%2F1904710855" anchor-label="MOVE_WHOLE_TABLE_ITEMS_TO_GUEST" id="-1737293689%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1737293689%2FProperties%2F1904710855"><span><span>MOVE_WHOLE_TABLE_ITEMS_TO_GUEST</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1737293689%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1737293689%2FProperties%2F1904710855">MOVE_WHOLE_TABLE_ITEMS_TO_GUEST</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1040066545%2FProperties%2F1904710855" anchor-label="REVERT_GUEST_ORDER_CREATION" id="-1040066545%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1040066545%2FProperties%2F1904710855"><span><span>REVERT_GUEST_ORDER_CREATION</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1040066545%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1040066545%2FProperties%2F1904710855">REVERT_GUEST_ORDER_CREATION</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="965661130%2FProperties%2F1904710855" anchor-label="SPLIT_WHOLE_TABLE_ITEMS_BETWEEN_GUESTS" id="965661130%2FProperties%2F1904710855" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#965661130%2FProperties%2F1904710855"><span><span>SPLIT_WHOLE_TABLE_ITEMS_BETWEEN_GUESTS</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="965661130%2FProperties%2F1904710855"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#965661130%2FProperties%2F1904710855">SPLIT_WHOLE_TABLE_ITEMS_BETWEEN_GUESTS</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
