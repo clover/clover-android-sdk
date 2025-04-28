@@ -8,10 +8,6 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.service.dreams.DreamService
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.clover.sdk.util.Screensaver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
