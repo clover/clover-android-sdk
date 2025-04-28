@@ -83,6 +83,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNsuHost nsuHost}</li>
  * <li>{@link #getSiTefCustomerReceipt siTefCustomerReceipt}</li>
  * <li>{@link #getSiTefMerchantReceipt siTefMerchantReceipt}</li>
+ * <li>{@link #getIsDccFailedForPreAuthCompletion isDccFailedForPreAuthCompletion}</li>
+ * <li>{@link #getIsCoBrandCard isCoBrandCard}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -445,6 +447,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.siTefMerchantReceipt);
   }
 
+  /**
+   * Indicates that the dcc information is missing for PreAuth Completion
+   */
+  public java.lang.Boolean getIsDccFailedForPreAuthCompletion() {
+    return genClient.cacheGet(CacheKey.isDccFailedForPreAuthCompletion);
+  }
+
+  /**
+   * Defines if the card is coBrand
+   */
+  public java.lang.Boolean getIsCoBrandCard() {
+    return genClient.cacheGet(CacheKey.isCoBrandCard);
+  }
+
 
 
 
@@ -553,6 +569,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     siTefMerchantReceipt
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    isDccFailedForPreAuthCompletion
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    isCoBrandCard
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -899,6 +919,16 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.siTefMerchantReceipt);
   }
 
+  /** Checks whether the 'isDccFailedForPreAuthCompletion' field is set and is not null */
+  public boolean isNotNullIsDccFailedForPreAuthCompletion() {
+    return genClient.cacheValueIsNotNull(CacheKey.isDccFailedForPreAuthCompletion);
+  }
+
+  /** Checks whether the 'isCoBrandCard' field is set and is not null */
+  public boolean isNotNullIsCoBrandCard() {
+    return genClient.cacheValueIsNotNull(CacheKey.isCoBrandCard);
+  }
+
 
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
@@ -1159,6 +1189,16 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'siTefMerchantReceipt' field has been set, however the value could be null */
   public boolean hasSiTefMerchantReceipt() {
     return genClient.cacheHasKey(CacheKey.siTefMerchantReceipt);
+  }
+
+  /** Checks whether the 'isDccFailedForPreAuthCompletion' field has been set, however the value could be null */
+  public boolean hasIsDccFailedForPreAuthCompletion() {
+    return genClient.cacheHasKey(CacheKey.isDccFailedForPreAuthCompletion);
+  }
+
+  /** Checks whether the 'isCoBrandCard' field has been set, however the value could be null */
+  public boolean hasIsCoBrandCard() {
+    return genClient.cacheHasKey(CacheKey.isCoBrandCard);
   }
 
 
@@ -1534,6 +1574,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(siTefMerchantReceipt, CacheKey.siTefMerchantReceipt);
   }
 
+  /**
+   * Sets the field 'isDccFailedForPreAuthCompletion'.
+   */
+  public TransactionInfo setIsDccFailedForPreAuthCompletion(java.lang.Boolean isDccFailedForPreAuthCompletion) {
+    return genClient.setOther(isDccFailedForPreAuthCompletion, CacheKey.isDccFailedForPreAuthCompletion);
+  }
+
+  /**
+   * Sets the field 'isCoBrandCard'.
+   */
+  public TransactionInfo setIsCoBrandCard(java.lang.Boolean isCoBrandCard) {
+    return genClient.setOther(isCoBrandCard, CacheKey.isCoBrandCard);
+  }
+
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -1743,6 +1797,14 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearSiTefMerchantReceipt() {
     genClient.clear(CacheKey.siTefMerchantReceipt);
   }
+  /** Clears the 'isDccFailedForPreAuthCompletion' field, the 'has' method for this field will now return false */
+  public void clearIsDccFailedForPreAuthCompletion() {
+    genClient.clear(CacheKey.isDccFailedForPreAuthCompletion);
+  }
+  /** Clears the 'isCoBrandCard' field, the 'has' method for this field will now return false */
+  public void clearIsCoBrandCard() {
+    genClient.clear(CacheKey.isCoBrandCard);
+  }
 
 
   /**
@@ -1862,6 +1924,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean NSUHOST_IS_REQUIRED = false;
     public static final boolean SITEFCUSTOMERRECEIPT_IS_REQUIRED = false;
     public static final boolean SITEFMERCHANTRECEIPT_IS_REQUIRED = false;
+    public static final boolean ISDCCFAILEDFORPREAUTHCOMPLETION_IS_REQUIRED = false;
+    public static final boolean ISCOBRANDCARD_IS_REQUIRED = false;
   }
 
 }

@@ -80,8 +80,15 @@ public enum Module implements Parcelable {
   CHECKOUT,
   SHIFT_PLANNING,
   TEMPORARY_BUSINESS_HOURS,
-  DAY_PARTS
-  ;
+  DAY_PARTS,
+  /**
+   * Denotes that the merchant has access to multiple menu features.
+   */
+  POS_MENUS,
+  /**
+   * Denotes that the merchant has access to multiple menu features for online ordering.
+   */
+  OLO_MENUS;
 
   @Override
   public int describeContents() {

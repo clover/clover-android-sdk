@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <RelativeLayout
         android:id="@+id/unsupported"
@@ -14,27 +14,27 @@
         android:visibility="invisible"
         tools:visibility="invisible">
 
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentTop="true"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/unsupported_title"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="#ff8b0000"
-            android:text="This device does not support Screensaver" />
-        <TextView
-            android:id="@+id/unsupported_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="Clover C501 123456" />
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
 
-      </LinearLayout>
+            <TextView
+                android:id="@+id/unsupported_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This device does not support Screensaver"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#ff8b0000" />
+
+            <TextView
+                android:id="@+id/unsupported_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clover C501 123456"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -45,75 +45,110 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-      <TextView
-          android:id="@+id/supported_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="@style/TextAppearance.AppCompat.Title"
-          android:textColor="#ff0000ff"
-          android:text="This device supports Screensaver" />
+        <TextView
+            android:id="@+id/supported_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This device supports Screensaver"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="#ff0000ff" />
+
         <TextView
             android:id="@+id/supported_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="Clover C501 123456" />
+            android:text="Clover C501 123456"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:id="@+id/components"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            tools:text="foo/bar" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/set_clock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Set clock" />
-            <Button
-                android:id="@+id/set_toasters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Set toasters" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/components"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    tools:text="foo/bar" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/enabled"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Enabled?" />
-            <CheckBox
-                android:id="@+id/activate_on_sleep"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activate on sleep?" />
-            <CheckBox
-                android:id="@+id/activate_on_dock"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Activate on dock?" />
-        </LinearLayout>
+                    <Button
+                        android:id="@+id/set_clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set clock" />
 
-        <Button
-            android:id="@+id/goto_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Go to sleep" />
+                    <Button
+                        android:id="@+id/set_toasters"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set toasters" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/enabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enabled?"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <CheckBox
+                        android:id="@+id/activate_on_sleep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Activate on sleep?"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <CheckBox
+                        android:id="@+id/activate_on_dock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Activate on dock?"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/dreams_enabled_on_battery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Dreams enabled on battery?"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/start_dreaming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start dreaming" />
+
+                    <Button
+                        android:id="@+id/goto_sleep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Go to sleep" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </FrameLayout>

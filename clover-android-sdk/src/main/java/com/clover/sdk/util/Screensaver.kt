@@ -139,7 +139,7 @@ class Screensaver(context: Context) {
       "",
       Bundle.EMPTY,
       null
-    ) as? Bundle
+    )
 
     return response
       ?.getStringArray(EXTRA_DREAM_COMPONENTS)
@@ -184,6 +184,49 @@ class Screensaver(context: Context) {
     }
   }
 
+  /**
+   * Start the active dream component now. This does not lock the screen.
+   */
+  @Throws(UnsupportedOperationException::class)
+  fun start() {
+    checkSupported(CALL_METHOD_START_DREAMING)
+
+    unstableClient.call(
+      CALL_METHOD_START_DREAMING, "", Bundle.EMPTY, null)
+  }
+
+  /**
+   * Get or set if dreams are enabled on battery power. If true, the device will
+   * allow the device to dream when on battery power.
+   *
+   * *If true, this can drastically reduce battery life.*
+   */
+  var dreamsEnabledOnBattery: Boolean
+    @Throws(UnsupportedOperationException::class)
+    get() {
+      checkSupported(CALL_METHOD_GET_DREAMS_ENABLED_ON_BATTERY)
+
+      val response = unstableClient.call(
+        CALL_METHOD_GET_DREAMS_ENABLED_ON_BATTERY,
+        null,
+        Bundle.EMPTY,
+        null
+      )
+
+      return response?.getBoolean(EXTRA_DREAMS_ENABLED_ON_BATTERY, false) ?: false
+    }
+
+    @Throws(UnsupportedOperationException::class)
+    set(value) {
+      checkSupported(CALL_METHOD_SET_DREAMS_ENABLED_ON_BATTERY)
+
+      val extras = Bundle().apply {
+        putBoolean(EXTRA_DREAMS_ENABLED_ON_BATTERY, value)
+      }
+
+      unstableClient.call(CALL_METHOD_SET_DREAMS_ENABLED_ON_BATTERY, "", extras, null)
+    }
+
   enum class ScreensaverSetting {
     /**
      * Is the screensaver enabled?
@@ -217,6 +260,12 @@ class Screensaver(context: Context) {
     private const val CALL_METHOD_SET_DREAM_COMPONENTS = "setDreamComponents"
     private const val CALL_METHOD_GET_DREAM_COMPONENTS = "getDreamComponents"
     private const val EXTRA_DREAM_COMPONENTS = "dreamComponents"
+
+    private const val CALL_METHOD_START_DREAMING = "startDreaming"
+
+    private const val CALL_METHOD_GET_DREAMS_ENABLED_ON_BATTERY = "getDreamsEnabledOnBattery"
+    private const val CALL_METHOD_SET_DREAMS_ENABLED_ON_BATTERY = "setDreamsEnabledOnBattery"
+    private const val EXTRA_DREAMS_ENABLED_ON_BATTERY = "dreamsEnabledOnBattery"
 
   }
 }

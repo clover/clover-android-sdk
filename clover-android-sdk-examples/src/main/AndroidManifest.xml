@@ -192,6 +192,10 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/Theme.AppCompat.Light"
             android:label="@string/salerefund_test" />
 
+        <activity android:name=".MifareCardReaderTestActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/mifare_card_reader_test" />
+
 
         <activity
           android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
@@ -238,5 +242,8 @@ xmlns:tools="http://schemas.android.com/tools"
         <activity android:name=".DiningEventsActivity"
             android:label="@string/dining_events_test"
             android:theme="@style/AppAppCompatTheme" />
+
+        <activity android:name=".mifare.MifareCardReaderStatusActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 </manifest>

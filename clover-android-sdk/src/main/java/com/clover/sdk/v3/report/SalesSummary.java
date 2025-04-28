@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.report;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -40,12 +41,13 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getNumExchanges numExchanges}</li>
  * <li>{@link #getDiscountAmount discountAmount}</li>
  * <li>{@link #getRefundAmount refundAmount}</li>
+ * <li>{@link #getNumRefundRepayments numRefundRepayments}</li>
  * <li>{@link #getRefundRepaymentAmount refundRepaymentAmount}</li>
+ * <li>{@link #getPaymentAmount paymentAmount}</li>
  * <li>{@link #getNet net}</li>
  * <li>{@link #getGiftCardLoads giftCardLoads}</li>
  * <li>{@link #getNonRevenueItems nonRevenueItems}</li>
  * <li>{@link #getOverpaymentAmount overpaymentAmount}</li>
- * <li>{@link #getAmountCollectedByOtherEmployeesOrDevices amountCollectedByOtherEmployeesOrDevices}</li>
  * <li>{@link #getPaymentTowardsFilteredGross paymentTowardsFilteredGross}</li>
  * <li>{@link #getServiceChargeAmount serviceChargeAmount}</li>
  * <li>{@link #getServiceChargeAmountCollected serviceChargeAmountCollected}</li>
@@ -54,6 +56,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTaxAmount taxAmount}</li>
  * <li>{@link #getAdditionalChargeAmount additionalChargeAmount}</li>
  * <li>{@link #getChargeDetails chargeDetails}</li>
+ * <li>{@link #getChargeBreakdown chargeBreakdown}</li>
  * <li>{@link #getTaxAmountCollected taxAmountCollected}</li>
  * <li>{@link #getAmountCollected amountCollected}</li>
  * <li>{@link #getTotalAmount totalAmount}</li>
@@ -145,10 +148,24 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Number of refund repayments after an item was fully paid and refunded.
+   */
+  public java.lang.Long getNumRefundRepayments() {
+    return genClient.cacheGet(CacheKey.numRefundRepayments);
+  }
+
+  /**
    * Amount of money re-paid after item was fully paid and then refunded.
    */
   public java.lang.Long getRefundRepaymentAmount() {
     return genClient.cacheGet(CacheKey.refundRepaymentAmount);
+  }
+
+  /**
+   * Total of all payments excluding tip, service charge, and non-revenue items. Includes tax for VAT items, otherwise does not include tax.
+   */
+  public java.lang.Long getPaymentAmount() {
+    return genClient.cacheGet(CacheKey.paymentAmount);
   }
 
   /**
@@ -177,13 +194,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public java.lang.Long getOverpaymentAmount() {
     return genClient.cacheGet(CacheKey.overpaymentAmount);
-  }
-
-  /**
-   * Amount paid minus amount refunded towards gross but which isn't visible because it was filtered out by employee or device. Includes tax and service. Does not include tip.
-   */
-  public java.lang.Long getAmountCollectedByOtherEmployeesOrDevices() {
-    return genClient.cacheGet(CacheKey.amountCollectedByOtherEmployeesOrDevices);
   }
 
   /**
@@ -240,6 +250,13 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public com.clover.sdk.v3.report.ChargeSummarySection getChargeDetails() {
     return genClient.cacheGet(CacheKey.chargeDetails);
+  }
+
+  /**
+   * Details about service charges and additional charges.
+   */
+  public com.clover.sdk.v3.report.AdditionalChargesSection getChargeBreakdown() {
+    return genClient.cacheGet(CacheKey.chargeBreakdown);
   }
 
   /**
@@ -459,7 +476,11 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     refundAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    numRefundRepayments
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     refundRepaymentAmount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    paymentAmount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     net
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -468,8 +489,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     nonRevenueItems
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     overpaymentAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-    amountCollectedByOtherEmployeesOrDevices
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     paymentTowardsFilteredGross
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
@@ -487,6 +506,8 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     chargeDetails
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.ChargeSummarySection.JSON_CREATOR)),
+    chargeBreakdown
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.report.AdditionalChargesSection.JSON_CREATOR)),
     taxAmountCollected
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     amountCollected
@@ -660,9 +681,19 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.refundAmount);
   }
 
+  /** Checks whether the 'numRefundRepayments' field is set and is not null */
+  public boolean isNotNullNumRefundRepayments() {
+    return genClient.cacheValueIsNotNull(CacheKey.numRefundRepayments);
+  }
+
   /** Checks whether the 'refundRepaymentAmount' field is set and is not null */
   public boolean isNotNullRefundRepaymentAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.refundRepaymentAmount);
+  }
+
+  /** Checks whether the 'paymentAmount' field is set and is not null */
+  public boolean isNotNullPaymentAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentAmount);
   }
 
   /** Checks whether the 'net' field is set and is not null */
@@ -683,11 +714,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'overpaymentAmount' field is set and is not null */
   public boolean isNotNullOverpaymentAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.overpaymentAmount);
-  }
-
-  /** Checks whether the 'amountCollectedByOtherEmployeesOrDevices' field is set and is not null */
-  public boolean isNotNullAmountCollectedByOtherEmployeesOrDevices() {
-    return genClient.cacheValueIsNotNull(CacheKey.amountCollectedByOtherEmployeesOrDevices);
   }
 
   /** Checks whether the 'paymentTowardsFilteredGross' field is set and is not null */
@@ -731,6 +757,11 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'chargeDetails' field is set and is not null */
   public boolean isNotNullChargeDetails() {
     return genClient.cacheValueIsNotNull(CacheKey.chargeDetails);
+  }
+
+  /** Checks whether the 'chargeBreakdown' field is set and is not null */
+  public boolean isNotNullChargeBreakdown() {
+    return genClient.cacheValueIsNotNull(CacheKey.chargeBreakdown);
   }
 
   /** Checks whether the 'taxAmountCollected' field is set and is not null */
@@ -920,9 +951,19 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheHasKey(CacheKey.refundAmount);
   }
 
+  /** Checks whether the 'numRefundRepayments' field has been set, however the value could be null */
+  public boolean hasNumRefundRepayments() {
+    return genClient.cacheHasKey(CacheKey.numRefundRepayments);
+  }
+
   /** Checks whether the 'refundRepaymentAmount' field has been set, however the value could be null */
   public boolean hasRefundRepaymentAmount() {
     return genClient.cacheHasKey(CacheKey.refundRepaymentAmount);
+  }
+
+  /** Checks whether the 'paymentAmount' field has been set, however the value could be null */
+  public boolean hasPaymentAmount() {
+    return genClient.cacheHasKey(CacheKey.paymentAmount);
   }
 
   /** Checks whether the 'net' field has been set, however the value could be null */
@@ -943,11 +984,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'overpaymentAmount' field has been set, however the value could be null */
   public boolean hasOverpaymentAmount() {
     return genClient.cacheHasKey(CacheKey.overpaymentAmount);
-  }
-
-  /** Checks whether the 'amountCollectedByOtherEmployeesOrDevices' field has been set, however the value could be null */
-  public boolean hasAmountCollectedByOtherEmployeesOrDevices() {
-    return genClient.cacheHasKey(CacheKey.amountCollectedByOtherEmployeesOrDevices);
   }
 
   /** Checks whether the 'paymentTowardsFilteredGross' field has been set, however the value could be null */
@@ -988,6 +1024,11 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'chargeDetails' field has been set, however the value could be null */
   public boolean hasChargeDetails() {
     return genClient.cacheHasKey(CacheKey.chargeDetails);
+  }
+
+  /** Checks whether the 'chargeBreakdown' field has been set, however the value could be null */
+  public boolean hasChargeBreakdown() {
+    return genClient.cacheHasKey(CacheKey.chargeBreakdown);
   }
 
   /** Checks whether the 'taxAmountCollected' field has been set, however the value could be null */
@@ -1193,10 +1234,24 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   }
 
   /**
+   * Sets the field 'numRefundRepayments'.
+   */
+  public SalesSummary setNumRefundRepayments(java.lang.Long numRefundRepayments) {
+    return genClient.setOther(numRefundRepayments, CacheKey.numRefundRepayments);
+  }
+
+  /**
    * Sets the field 'refundRepaymentAmount'.
    */
   public SalesSummary setRefundRepaymentAmount(java.lang.Long refundRepaymentAmount) {
     return genClient.setOther(refundRepaymentAmount, CacheKey.refundRepaymentAmount);
+  }
+
+  /**
+   * Sets the field 'paymentAmount'.
+   */
+  public SalesSummary setPaymentAmount(java.lang.Long paymentAmount) {
+    return genClient.setOther(paymentAmount, CacheKey.paymentAmount);
   }
 
   /**
@@ -1225,13 +1280,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public SalesSummary setOverpaymentAmount(java.lang.Long overpaymentAmount) {
     return genClient.setOther(overpaymentAmount, CacheKey.overpaymentAmount);
-  }
-
-  /**
-   * Sets the field 'amountCollectedByOtherEmployeesOrDevices'.
-   */
-  public SalesSummary setAmountCollectedByOtherEmployeesOrDevices(java.lang.Long amountCollectedByOtherEmployeesOrDevices) {
-    return genClient.setOther(amountCollectedByOtherEmployeesOrDevices, CacheKey.amountCollectedByOtherEmployeesOrDevices);
   }
 
   /**
@@ -1292,6 +1340,15 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
    */
   public SalesSummary setChargeDetails(com.clover.sdk.v3.report.ChargeSummarySection chargeDetails) {
     return genClient.setRecord(chargeDetails, CacheKey.chargeDetails);
+  }
+
+  /**
+   * Sets the field 'chargeBreakdown'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public SalesSummary setChargeBreakdown(com.clover.sdk.v3.report.AdditionalChargesSection chargeBreakdown) {
+    return genClient.setRecord(chargeBreakdown, CacheKey.chargeBreakdown);
   }
 
   /**
@@ -1532,9 +1589,17 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   public void clearRefundAmount() {
     genClient.clear(CacheKey.refundAmount);
   }
+  /** Clears the 'numRefundRepayments' field, the 'has' method for this field will now return false */
+  public void clearNumRefundRepayments() {
+    genClient.clear(CacheKey.numRefundRepayments);
+  }
   /** Clears the 'refundRepaymentAmount' field, the 'has' method for this field will now return false */
   public void clearRefundRepaymentAmount() {
     genClient.clear(CacheKey.refundRepaymentAmount);
+  }
+  /** Clears the 'paymentAmount' field, the 'has' method for this field will now return false */
+  public void clearPaymentAmount() {
+    genClient.clear(CacheKey.paymentAmount);
   }
   /** Clears the 'net' field, the 'has' method for this field will now return false */
   public void clearNet() {
@@ -1551,10 +1616,6 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'overpaymentAmount' field, the 'has' method for this field will now return false */
   public void clearOverpaymentAmount() {
     genClient.clear(CacheKey.overpaymentAmount);
-  }
-  /** Clears the 'amountCollectedByOtherEmployeesOrDevices' field, the 'has' method for this field will now return false */
-  public void clearAmountCollectedByOtherEmployeesOrDevices() {
-    genClient.clear(CacheKey.amountCollectedByOtherEmployeesOrDevices);
   }
   /** Clears the 'paymentTowardsFilteredGross' field, the 'has' method for this field will now return false */
   public void clearPaymentTowardsFilteredGross() {
@@ -1587,6 +1648,10 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'chargeDetails' field, the 'has' method for this field will now return false */
   public void clearChargeDetails() {
     genClient.clear(CacheKey.chargeDetails);
+  }
+  /** Clears the 'chargeBreakdown' field, the 'has' method for this field will now return false */
+  public void clearChargeBreakdown() {
+    genClient.clear(CacheKey.chargeBreakdown);
   }
   /** Clears the 'taxAmountCollected' field, the 'has' method for this field will now return false */
   public void clearTaxAmountCollected() {
@@ -1774,12 +1839,13 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean NUMEXCHANGES_IS_REQUIRED = false;
     public static final boolean DISCOUNTAMOUNT_IS_REQUIRED = false;
     public static final boolean REFUNDAMOUNT_IS_REQUIRED = false;
+    public static final boolean NUMREFUNDREPAYMENTS_IS_REQUIRED = false;
     public static final boolean REFUNDREPAYMENTAMOUNT_IS_REQUIRED = false;
+    public static final boolean PAYMENTAMOUNT_IS_REQUIRED = false;
     public static final boolean NET_IS_REQUIRED = false;
     public static final boolean GIFTCARDLOADS_IS_REQUIRED = false;
     public static final boolean NONREVENUEITEMS_IS_REQUIRED = false;
     public static final boolean OVERPAYMENTAMOUNT_IS_REQUIRED = false;
-    public static final boolean AMOUNTCOLLECTEDBYOTHEREMPLOYEESORDEVICES_IS_REQUIRED = false;
     public static final boolean PAYMENTTOWARDSFILTEREDGROSS_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNT_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEAMOUNTCOLLECTED_IS_REQUIRED = false;
@@ -1788,6 +1854,7 @@ public class SalesSummary extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean TAXAMOUNT_IS_REQUIRED = false;
     public static final boolean ADDITIONALCHARGEAMOUNT_IS_REQUIRED = false;
     public static final boolean CHARGEDETAILS_IS_REQUIRED = false;
+    public static final boolean CHARGEBREAKDOWN_IS_REQUIRED = false;
     public static final boolean TAXAMOUNTCOLLECTED_IS_REQUIRED = false;
     public static final boolean AMOUNTCOLLECTED_IS_REQUIRED = false;
     public static final boolean TOTALAMOUNT_IS_REQUIRED = false;

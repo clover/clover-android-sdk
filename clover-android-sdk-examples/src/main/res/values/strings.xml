@@ -110,4 +110,7 @@
 
   <!-- Dining Events Test -->
   <string name="dining_events_test">Dining Events Test</string>
+
+  <!-- Mifare Service Test -->
+  <string name="mifare_card_reader_test">Mifare Card Reader Test</string>
 </resources>

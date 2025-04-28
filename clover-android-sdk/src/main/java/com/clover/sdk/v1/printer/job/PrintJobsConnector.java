@@ -64,22 +64,22 @@ public class PrintJobsConnector extends CallConnector {
    * is one where the printer's category ({@link Printer#getCategory()} matches the
    * print job's category ({@link PrintJob#getPrinterCategory()}. If no suitable printer
    * is configured the job is not printed and {@code null} is returned.
-   *
+   * <p>
    * If there are multiple suitable configured printers the order of selection
    * is not defined. The selection is not stable; it may be different
    * for each invocations of this method.
-   *
+   * <p>
    * If it is preferable to ensure a suitable printer is configured before printing
    * call {@link PrinterConnector#getPrinters(Category)} passing
    * {@link PrintJob#getPrinterCategory()} as the argument, and pass the
    * explicit printer argument to {@link #print(Printer, PrintJob)}
    * instead of this method.
-   *
+   * <p>
    * This method is a convenience. The caller is not required to retrieve and evaluate
    * the list of configured printers first and select one, possibly
    * involving the user. Most merchants have at most one printer of each type (receipt,
    * order, label, fiscal) configured. This however is not guaranteed.
-   *
+   * <p>
    * This method is equivalent to calling {@link PrintJob#print(Context, Account)}
    * with {@link PrintJob#printToAny} set to true. The actual value of
    * {@link PrintJob#printToAny} is not considered here.
@@ -97,13 +97,20 @@ public class PrintJobsConnector extends CallConnector {
 
   /**
    * Get the state of a previously printed print job.
-   *
-   * Print jobs older than one hour are deleted regardless of their state. If the print job
-   * for the given ID has been deleted from the database, null is returned.
+   * <p>
+   * Jobs may be remove from the queue because of their age, or because of the size
+   * of the queue. If the job for the provided ID has been removed from the database,
+   * null is returned. It is not possible to infer success or failure from the absence
+   * of a print job ID in the queue. Print job statuses should be treated as short-
+   * lived. Retrieve the status immediately, and frequently after calling
+   * {@link #print(PrintJob)}. For example, you might initially retrieve the status every
+   * 5 seconds, backing off to every 60 seconds. If the print job is removed, assume the
+   * final status is the last retrieved.
    *
    * @param printJobId a {@link String}, the print job ID.
    *
-   * @return an {@link Integer}, the print job state or {@code null} if the print job does not exist.
+   * @return an {@link Integer}, the print job state or {@code null} if the print job does
+   * not exist.
    *
    * @see PrintJobsContract#STATE_IN_QUEUE
    * @see PrintJobsContract#STATE_PRINTING
