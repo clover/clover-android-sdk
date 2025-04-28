@@ -30,6 +30,7 @@ class MifareCardReaderStatusActivity: AppCompatActivity() {
       if (isMifareServiceConnected) {
         MifareCardReaderClient.getInstance(application).cancel()
       }
+      finish()
     }
   }
 
