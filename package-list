@@ -58,6 +58,10 @@ com.clover.sdk.v3.happyhour
 com.clover.sdk.v3.hours
 com.clover.sdk.v3.inventory
 com.clover.sdk.v3.merchant
+com.clover.sdk.v3.mifare.connector
+com.clover.sdk.v3.mifare.listener
+com.clover.sdk.v3.mifare.model
+com.clover.sdk.v3.mifare.service
 com.clover.sdk.v3.multiplemenu
 com.clover.sdk.v3.onlineorder
 com.clover.sdk.v3.order
