@@ -102,8 +102,15 @@ ext {
   JAVAX_INJECT_VERSION = "1"
   J_MOCK_VERSION = "2.12.0"
   EQUALSVERIFIER_VERSION = "3.15.2"
-  MOCKK_VERSION = "1.10.2" // Like Mockito, but specially for Kotlin.  See: https://mockk.io/
+  // https://mockk.io/
+  MOCKK_VERSION = "1.10.2"
+  // https://mvnrepository.com/artifact/com.nhaarman.mockitokotlin2/mockito-kotlin
   KOTLIN_MOCKITO_VERSION = "2.2.0"
+  // https://mvnrepository.com/artifact/org.mockito.kotlin/mockito-kotlin
+  // Don't confuse with KOTLIN_MOCKITO_VERSION!
+  MOCKITO_KOTLIN_VERSION = "4.1.0"
+  // https://kotest.io/
+  KOTEST_ASSERTIONS_VERSION = "5.9.1" 
 
   // Android platform libraries
 

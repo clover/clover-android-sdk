@@ -10,11 +10,8 @@ buildscript {
 
     repositories {
         mavenLocal()
-        if (project.properties.containsKey("localArtifactoryUrl")) {
-            maven { url localArtifactoryUrl }
-        }
-        google()
-        mavenCentral()
+  mavenCentral()
+  google()
         maven {
             url "https://plugins.gradle.org/m2/"
         }

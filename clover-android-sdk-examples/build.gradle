@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '323'
+version = '326'
 
 apply from: file("${project.rootDir}/app.gradle")
 apply plugin: 'kotlin-android'
@@ -25,6 +25,7 @@ apply plugin: 'kotlin-kapt'
 repositories {
   mavenLocal()
   mavenCentral()
+  google()
 }
 
 android {

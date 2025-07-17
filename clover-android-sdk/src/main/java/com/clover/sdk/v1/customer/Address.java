@@ -23,7 +23,7 @@ import org.json.JSONObject;
 /**
  * A class representing an address associated with a customer. Instances of this object are returned
  * by the {@link com.clover.sdk.v1.customer.ICustomerService#addAddress(String customerId, String address1,
- * String address2, String address3, String city, String state, String zip, ResultStatus resultStatus)} method or as part of a
+ * String address2, String address3, String city, String state, String zip, String country, ResultStatus resultStatus)} method or as part of a
  * {@link com.clover.sdk.v1.customer.Customer} object.
  */
 public class Address implements Parcelable {
@@ -35,6 +35,7 @@ public class Address implements Parcelable {
     private String city = null;
     private String state = null;
     private String zip = null;
+    private String country = null;
 
     public Builder id(String id) {
       this.id = id;
@@ -71,14 +72,19 @@ public class Address implements Parcelable {
       return this;
     }
 
+    public Builder country(String country) {
+      this.country = country;
+      return this;
+    }
+
     public Address build() {
-      return new Address(id, address1, address2, address3, city, state, zip);
+      return new Address(id, address1, address2, address3, city, state, zip, country);
     }
   }
 
   private final JSONObject data;
 
-  private Address(String id, String address1, String address2, String address3, String city, String state, String zip) {
+  private Address(String id, String address1, String address2, String address3, String city, String state, String zip, String country) {
     data = new JSONObject();
     try {
       data.put("id", id);
@@ -88,6 +94,7 @@ public class Address implements Parcelable {
       data.put("city", city);
       data.put("state", state);
       data.put("zip", zip);
+      data.put("country", country);
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -133,6 +140,10 @@ public class Address implements Parcelable {
 
   public String getZip() {
     return data.optString("zip", null);
+  }
+
+  public String getCountry() {
+    return data.optString("country", null);
   }
 
   @Override

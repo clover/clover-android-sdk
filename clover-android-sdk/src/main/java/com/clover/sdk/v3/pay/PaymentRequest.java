@@ -174,6 +174,12 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
 
 
 
+  /**
+   * Total service fee amount to be processed for associated MID
+   */
+  public java.lang.Long getServiceFeeAmount() {
+    return genClient.cacheGet(CacheKey.serviceFeeAmount);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
@@ -214,6 +220,8 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
             (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.LineItemPayment.JSON_CREATOR)),
     card
             (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.PaymentRequestCardDetails.JSON_CREATOR)),
+    serviceFeeAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -398,6 +406,10 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.card);
   }
 
+  /** Checks whether the 'serviceFeeAmount' field is set and is not null */
+  public boolean isNotNullServiceFeeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceFeeAmount);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -495,6 +507,10 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheHasKey(CacheKey.card);
   }
 
+  /** Checks whether the 'serviceFeeAmount' field has been set, however the value could be null */
+  public boolean hasServiceFeeAmount() {
+    return genClient.cacheHasKey(CacheKey.serviceFeeAmount);
+  }
 
   /**
    * Sets the field 'id'.
@@ -639,6 +655,12 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     return genClient.setRecord(card, CacheKey.card);
   }
 
+  /**
+   * Sets the field 'serviceFeeAmount'.
+   */
+  public PaymentRequest setServiceFeeAmount(java.lang.Long serviceFeeAmount) {
+    return genClient.setOther(serviceFeeAmount, CacheKey.serviceFeeAmount);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -717,6 +739,10 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     genClient.clear(CacheKey.card);
   }
 
+  /** Clears the 'serviceFeeAmount' field, the 'has' method for this field will now return false */
+  public void clearServiceFeeAmount() {
+    genClient.clear(CacheKey.serviceFeeAmount);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -802,6 +828,7 @@ public class PaymentRequest extends GenericParcelable implements com.clover.sdk.
     public static final boolean TAXABLEAMOUNTRATES_IS_REQUIRED = false;
     public static final boolean LINEITEMS_IS_REQUIRED = false;
     public static final boolean CARD_IS_REQUIRED = false;
+    public static final boolean SERVICEFEEAMOUNT_IS_REQUIRED = false;
   }
 
 }

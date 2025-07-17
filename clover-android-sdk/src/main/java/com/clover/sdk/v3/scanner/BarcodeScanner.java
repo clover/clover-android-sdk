@@ -53,6 +53,20 @@ public class BarcodeScanner {
    */
   private static final String RESULT_GET_AVAILABLE = "resultGetAvailable";
 
+  /**
+   * Return the Zebra license.
+   *
+   * @see #RESULT_ZEBRA_LICENSE_TIME
+   */
+  public static final String CALL_METHOD_ZEBRA_GET_LICENSE_TIME = "zebraGetLicenseTime";
+  /**
+   * A {@link Long}, the Zebra license time in milliseconds, or {@code -1} if
+   * no Zebra license (file) exists and Zebra is not licensed.
+   *
+   * @see #CALL_METHOD_ZEBRA_GET_LICENSE_TIME
+   */
+  public static final String RESULT_ZEBRA_LICENSE_TIME = "zebraLicenseTime";
+
   private static final String AUTHORITY = "com.clover.barcodescanner";
   private static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
@@ -243,5 +257,24 @@ public class BarcodeScanner {
    */
   public void executeStopScan(Bundle extras) {
     sExecutor.execute(() -> stopScan(extras));
+  }
+
+  /**
+   * Return the Zebra barcode scanner license time, in epoch time milliseconds.
+   * <p/>
+   * If this method is not supported on the device platform, -1 is returned.
+   *
+   * @see #CALL_METHOD_ZEBRA_GET_LICENSE_TIME
+   */
+  public long getZebraLicenseTime() {
+    try {
+      UnstableContentResolverClient client = getUnstableClient();
+      client.noDefault = true;
+      Bundle response = client.call(CALL_METHOD_ZEBRA_GET_LICENSE_TIME, null, Bundle.EMPTY, null);
+      return response != null ? response.getLong(RESULT_ZEBRA_LICENSE_TIME, -1) : -1;
+    } catch (IllegalArgumentException ex) {
+      Log.e("com.clover.android.sdk", "Failed to retrieve Zebra license time", ex);
+    }
+    return -1;
   }
 }

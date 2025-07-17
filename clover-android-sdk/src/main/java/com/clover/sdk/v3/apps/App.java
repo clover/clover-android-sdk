@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.apps;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -41,6 +42,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getVideoUrl videoUrl}</li>
  * <li>{@link #getActivationUrl activationUrl}</li>
  * <li>{@link #getSiteUrl siteUrl}</li>
+ * <li>{@link #getLaunchUrlPath launchUrlPath}</li>
+ * <li>{@link #getAppMarketUsageFeeApply appMarketUsageFeeApply}</li>
  * <li>{@link #getDefaultResponseType defaultResponseType}</li>
  * <li>{@link #getAppDomain appDomain}</li>
  * <li>{@link #getAndroidVersion androidVersion}</li>
@@ -49,6 +52,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSystemApp systemApp}</li>
  * <li>{@link #getHidden hidden}</li>
  * <li>{@link #getDistribution distribution}</li>
+ * <li>{@link #getRecaptcha recaptcha}</li>
  * <li>{@link #getFilenameIcon filenameIcon}</li>
  * <li>{@link #getFilenameIconSmall filenameIconSmall}</li>
  * <li>{@link #getFilenameIconLarge filenameIconLarge}</li>
@@ -78,6 +82,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPermissionCustomersBusinessnameWrite permissionCustomersBusinessnameWrite}</li>
  * <li>{@link #getPermissionCustomersCardRead permissionCustomersCardRead}</li>
  * <li>{@link #getPermissionCustomersCardWrite permissionCustomersCardWrite}</li>
+ * <li>{@link #getPermissionCustomersAchRead permissionCustomersAchRead}</li>
+ * <li>{@link #getPermissionCustomersAchWrite permissionCustomersAchWrite}</li>
  * <li>{@link #getPermissionCustomersEmailRead permissionCustomersEmailRead}</li>
  * <li>{@link #getPermissionCustomersEmailWrite permissionCustomersEmailWrite}</li>
  * <li>{@link #getPermissionCustomersNoteRead permissionCustomersNoteRead}</li>
@@ -143,6 +149,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsHipaaCompliant isHipaaCompliant}</li>
  * <li>{@link #getMerchantsPlanIdsExclusion merchantsPlanIdsExclusion}</li>
  * <li>{@link #getResellersUuidsExclusion resellersUuidsExclusion}</li>
+ * <li>{@link #getDefaultAppLocale defaultAppLocale}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -218,6 +225,20 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Launch url path to the developer app to initiate the Oauth flow from the left navigation panel of the Dashboard
+   */
+  public java.lang.String getLaunchUrlPath() {
+    return genClient.cacheGet(CacheKey.launchUrlPath);
+  }
+
+  /**
+   * If true, then if this App is installed by a merchant, they shall be charged an App Market Usage Fee.
+   */
+  public java.lang.Boolean getAppMarketUsageFeeApply() {
+    return genClient.cacheGet(CacheKey.appMarketUsageFeeApply);
+  }
+
+  /**
    * Default oauth response type.
    */
   public com.clover.sdk.v3.apps.OAuthResponseType getDefaultResponseType() {
@@ -250,6 +271,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
   public com.clover.sdk.v3.apps.Distribution getDistribution() {
     return genClient.cacheGet(CacheKey.distribution);
+  }
+
+  /**
+   * Whether the product should use recaptcha
+   */
+  public java.lang.Boolean getRecaptcha() {
+    return genClient.cacheGet(CacheKey.recaptcha);
   }
 
   public java.lang.String getFilenameIcon() {
@@ -378,6 +406,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
   public java.lang.Boolean getPermissionCustomersCardWrite() {
     return genClient.cacheGet(CacheKey.permissionCustomersCardWrite);
+  }
+
+  public java.lang.Boolean getPermissionCustomersAchRead() {
+    return genClient.cacheGet(CacheKey.permissionCustomersAchRead);
+  }
+
+  public java.lang.Boolean getPermissionCustomersAchWrite() {
+    return genClient.cacheGet(CacheKey.permissionCustomersAchWrite);
   }
 
   public java.lang.Boolean getPermissionCustomersEmailRead() {
@@ -782,6 +818,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheGet(CacheKey.resellersUuidsExclusion);
   }
 
+  /**
+   * Java Locale format. Examples: en_US, de_DE, en_CA, fr_CA
+   */
+  public java.lang.String getDefaultAppLocale() {
+    return genClient.cacheGet(CacheKey.defaultAppLocale);
+  }
+
 
 
 
@@ -808,6 +851,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     siteUrl
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    launchUrlPath
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    appMarketUsageFeeApply
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     defaultResponseType
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.OAuthResponseType.class)),
     appDomain
@@ -824,6 +871,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     distribution
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.apps.Distribution.class)),
+    recaptcha
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     filenameIcon
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     filenameIconSmall
@@ -881,6 +930,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     permissionCustomersCardRead
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionCustomersCardWrite
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    permissionCustomersAchRead
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    permissionCustomersAchWrite
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionCustomersEmailRead
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
@@ -1012,6 +1065,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.Long.class)),
     resellersUuidsExclusion
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+    defaultAppLocale
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -1099,6 +1154,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
     genClient.validateLength(CacheKey.siteUrl, getSiteUrl(), 255);
 
+    genClient.validateLength(CacheKey.launchUrlPath, getLaunchUrlPath(), 255);
+
     genClient.validateLength(CacheKey.appDomain, getAppDomain(), 255);
 
     genClient.validateLength(CacheKey.packageName, getPackageName(), 255);
@@ -1132,6 +1189,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     genClient.validateLength(CacheKey.appSecret, getAppSecret(), 255);
 
     genClient.validateLength(CacheKey.rejectionReason, getRejectionReason(), 2000);
+
+    genClient.validateLength(CacheKey.defaultAppLocale, getDefaultAppLocale(), 5);
     genClient.validateReferences(CacheKey.revisions);
     genClient.validateReferences(CacheKey.appBundle);
     genClient.validateReferences(CacheKey.categories);
@@ -1196,6 +1255,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.siteUrl);
   }
 
+  /** Checks whether the 'launchUrlPath' field is set and is not null */
+  public boolean isNotNullLaunchUrlPath() {
+    return genClient.cacheValueIsNotNull(CacheKey.launchUrlPath);
+  }
+
+  /** Checks whether the 'appMarketUsageFeeApply' field is set and is not null */
+  public boolean isNotNullAppMarketUsageFeeApply() {
+    return genClient.cacheValueIsNotNull(CacheKey.appMarketUsageFeeApply);
+  }
+
   /** Checks whether the 'defaultResponseType' field is set and is not null */
   public boolean isNotNullDefaultResponseType() {
     return genClient.cacheValueIsNotNull(CacheKey.defaultResponseType);
@@ -1234,6 +1303,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'distribution' field is set and is not null */
   public boolean isNotNullDistribution() {
     return genClient.cacheValueIsNotNull(CacheKey.distribution);
+  }
+
+  /** Checks whether the 'recaptcha' field is set and is not null */
+  public boolean isNotNullRecaptcha() {
+    return genClient.cacheValueIsNotNull(CacheKey.recaptcha);
   }
 
   /** Checks whether the 'filenameIcon' field is set and is not null */
@@ -1379,6 +1453,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionCustomersCardWrite' field is set and is not null */
   public boolean isNotNullPermissionCustomersCardWrite() {
     return genClient.cacheValueIsNotNull(CacheKey.permissionCustomersCardWrite);
+  }
+
+  /** Checks whether the 'permissionCustomersAchRead' field is set and is not null */
+  public boolean isNotNullPermissionCustomersAchRead() {
+    return genClient.cacheValueIsNotNull(CacheKey.permissionCustomersAchRead);
+  }
+
+  /** Checks whether the 'permissionCustomersAchWrite' field is set and is not null */
+  public boolean isNotNullPermissionCustomersAchWrite() {
+    return genClient.cacheValueIsNotNull(CacheKey.permissionCustomersAchWrite);
   }
 
   /** Checks whether the 'permissionCustomersEmailRead' field is set and is not null */
@@ -1754,6 +1838,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'resellersUuidsExclusion' field is set and is not null and is not empty */
   public boolean isNotEmptyResellersUuidsExclusion() { return isNotNullResellersUuidsExclusion() && !getResellersUuidsExclusion().isEmpty(); }
 
+  /** Checks whether the 'defaultAppLocale' field is set and is not null */
+  public boolean isNotNullDefaultAppLocale() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultAppLocale);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1811,6 +1900,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.siteUrl);
   }
 
+  /** Checks whether the 'launchUrlPath' field has been set, however the value could be null */
+  public boolean hasLaunchUrlPath() {
+    return genClient.cacheHasKey(CacheKey.launchUrlPath);
+  }
+
+  /** Checks whether the 'appMarketUsageFeeApply' field has been set, however the value could be null */
+  public boolean hasAppMarketUsageFeeApply() {
+    return genClient.cacheHasKey(CacheKey.appMarketUsageFeeApply);
+  }
+
   /** Checks whether the 'defaultResponseType' field has been set, however the value could be null */
   public boolean hasDefaultResponseType() {
     return genClient.cacheHasKey(CacheKey.defaultResponseType);
@@ -1849,6 +1948,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'distribution' field has been set, however the value could be null */
   public boolean hasDistribution() {
     return genClient.cacheHasKey(CacheKey.distribution);
+  }
+
+  /** Checks whether the 'recaptcha' field has been set, however the value could be null */
+  public boolean hasRecaptcha() {
+    return genClient.cacheHasKey(CacheKey.recaptcha);
   }
 
   /** Checks whether the 'filenameIcon' field has been set, however the value could be null */
@@ -1994,6 +2098,16 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionCustomersCardWrite' field has been set, however the value could be null */
   public boolean hasPermissionCustomersCardWrite() {
     return genClient.cacheHasKey(CacheKey.permissionCustomersCardWrite);
+  }
+
+  /** Checks whether the 'permissionCustomersAchRead' field has been set, however the value could be null */
+  public boolean hasPermissionCustomersAchRead() {
+    return genClient.cacheHasKey(CacheKey.permissionCustomersAchRead);
+  }
+
+  /** Checks whether the 'permissionCustomersAchWrite' field has been set, however the value could be null */
+  public boolean hasPermissionCustomersAchWrite() {
+    return genClient.cacheHasKey(CacheKey.permissionCustomersAchWrite);
   }
 
   /** Checks whether the 'permissionCustomersEmailRead' field has been set, however the value could be null */
@@ -2321,6 +2435,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.resellersUuidsExclusion);
   }
 
+  /** Checks whether the 'defaultAppLocale' field has been set, however the value could be null */
+  public boolean hasDefaultAppLocale() {
+    return genClient.cacheHasKey(CacheKey.defaultAppLocale);
+  }
+
 
   /**
    * Sets the field 'id'.
@@ -2406,6 +2525,20 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
+   * Sets the field 'launchUrlPath'.
+   */
+  public App setLaunchUrlPath(java.lang.String launchUrlPath) {
+    return genClient.setOther(launchUrlPath, CacheKey.launchUrlPath);
+  }
+
+  /**
+   * Sets the field 'appMarketUsageFeeApply'.
+   */
+  public App setAppMarketUsageFeeApply(java.lang.Boolean appMarketUsageFeeApply) {
+    return genClient.setOther(appMarketUsageFeeApply, CacheKey.appMarketUsageFeeApply);
+  }
+
+  /**
    * Sets the field 'defaultResponseType'.
    */
   public App setDefaultResponseType(com.clover.sdk.v3.apps.OAuthResponseType defaultResponseType) {
@@ -2461,6 +2594,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App setDistribution(com.clover.sdk.v3.apps.Distribution distribution) {
     return genClient.setOther(distribution, CacheKey.distribution);
+  }
+
+  /**
+   * Sets the field 'recaptcha'.
+   */
+  public App setRecaptcha(java.lang.Boolean recaptcha) {
+    return genClient.setOther(recaptcha, CacheKey.recaptcha);
   }
 
   /**
@@ -2664,6 +2804,20 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App setPermissionCustomersCardWrite(java.lang.Boolean permissionCustomersCardWrite) {
     return genClient.setOther(permissionCustomersCardWrite, CacheKey.permissionCustomersCardWrite);
+  }
+
+  /**
+   * Sets the field 'permissionCustomersAchRead'.
+   */
+  public App setPermissionCustomersAchRead(java.lang.Boolean permissionCustomersAchRead) {
+    return genClient.setOther(permissionCustomersAchRead, CacheKey.permissionCustomersAchRead);
+  }
+
+  /**
+   * Sets the field 'permissionCustomersAchWrite'.
+   */
+  public App setPermissionCustomersAchWrite(java.lang.Boolean permissionCustomersAchWrite) {
+    return genClient.setOther(permissionCustomersAchWrite, CacheKey.permissionCustomersAchWrite);
   }
 
   /**
@@ -3163,6 +3317,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.setArrayOther(resellersUuidsExclusion, CacheKey.resellersUuidsExclusion);
   }
 
+  /**
+   * Sets the field 'defaultAppLocale'.
+   */
+  public App setDefaultAppLocale(java.lang.String defaultAppLocale) {
+    return genClient.setOther(defaultAppLocale, CacheKey.defaultAppLocale);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -3208,6 +3369,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearSiteUrl() {
     genClient.clear(CacheKey.siteUrl);
   }
+  /** Clears the 'launchUrlPath' field, the 'has' method for this field will now return false */
+  public void clearLaunchUrlPath() {
+    genClient.clear(CacheKey.launchUrlPath);
+  }
+  /** Clears the 'appMarketUsageFeeApply' field, the 'has' method for this field will now return false */
+  public void clearAppMarketUsageFeeApply() {
+    genClient.clear(CacheKey.appMarketUsageFeeApply);
+  }
   /** Clears the 'defaultResponseType' field, the 'has' method for this field will now return false */
   public void clearDefaultResponseType() {
     genClient.clear(CacheKey.defaultResponseType);
@@ -3239,6 +3408,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'distribution' field, the 'has' method for this field will now return false */
   public void clearDistribution() {
     genClient.clear(CacheKey.distribution);
+  }
+  /** Clears the 'recaptcha' field, the 'has' method for this field will now return false */
+  public void clearRecaptcha() {
+    genClient.clear(CacheKey.recaptcha);
   }
   /** Clears the 'filenameIcon' field, the 'has' method for this field will now return false */
   public void clearFilenameIcon() {
@@ -3355,6 +3528,14 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'permissionCustomersCardWrite' field, the 'has' method for this field will now return false */
   public void clearPermissionCustomersCardWrite() {
     genClient.clear(CacheKey.permissionCustomersCardWrite);
+  }
+  /** Clears the 'permissionCustomersAchRead' field, the 'has' method for this field will now return false */
+  public void clearPermissionCustomersAchRead() {
+    genClient.clear(CacheKey.permissionCustomersAchRead);
+  }
+  /** Clears the 'permissionCustomersAchWrite' field, the 'has' method for this field will now return false */
+  public void clearPermissionCustomersAchWrite() {
+    genClient.clear(CacheKey.permissionCustomersAchWrite);
   }
   /** Clears the 'permissionCustomersEmailRead' field, the 'has' method for this field will now return false */
   public void clearPermissionCustomersEmailRead() {
@@ -3616,6 +3797,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearResellersUuidsExclusion() {
     genClient.clear(CacheKey.resellersUuidsExclusion);
   }
+  /** Clears the 'defaultAppLocale' field, the 'has' method for this field will now return false */
+  public void clearDefaultAppLocale() {
+    genClient.clear(CacheKey.defaultAppLocale);
+  }
 
 
   /**
@@ -3696,6 +3881,9 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final long ACTIVATIONURL_MAX_LEN = 255;
     public static final boolean SITEURL_IS_REQUIRED = false;
     public static final long SITEURL_MAX_LEN = 255;
+    public static final boolean LAUNCHURLPATH_IS_REQUIRED = false;
+    public static final long LAUNCHURLPATH_MAX_LEN = 255;
+    public static final boolean APPMARKETUSAGEFEEAPPLY_IS_REQUIRED = false;
     public static final boolean DEFAULTRESPONSETYPE_IS_REQUIRED = false;
     public static final boolean APPDOMAIN_IS_REQUIRED = false;
     public static final long APPDOMAIN_MAX_LEN = 255;
@@ -3706,6 +3894,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean SYSTEMAPP_IS_REQUIRED = false;
     public static final boolean HIDDEN_IS_REQUIRED = false;
     public static final boolean DISTRIBUTION_IS_REQUIRED = false;
+    public static final boolean RECAPTCHA_IS_REQUIRED = false;
     public static final boolean FILENAMEICON_IS_REQUIRED = false;
     public static final long FILENAMEICON_MAX_LEN = 255;
     public static final boolean FILENAMEICONSMALL_IS_REQUIRED = false;
@@ -3740,6 +3929,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean PERMISSIONCUSTOMERSBUSINESSNAMEWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSCARDREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSCARDWRITE_IS_REQUIRED = false;
+    public static final boolean PERMISSIONCUSTOMERSACHREAD_IS_REQUIRED = false;
+    public static final boolean PERMISSIONCUSTOMERSACHWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSEMAILREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSEMAILWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSNOTEREAD_IS_REQUIRED = false;
@@ -3815,6 +4006,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean ISHIPAACOMPLIANT_IS_REQUIRED = false;
     public static final boolean MERCHANTSPLANIDSEXCLUSION_IS_REQUIRED = false;
     public static final boolean RESELLERSUUIDSEXCLUSION_IS_REQUIRED = false;
+    public static final boolean DEFAULTAPPLOCALE_IS_REQUIRED = false;
+    public static final long DEFAULTAPPLOCALE_MAX_LEN = 5;
   }
 
 }

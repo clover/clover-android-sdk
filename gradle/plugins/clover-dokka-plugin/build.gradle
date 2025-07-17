@@ -4,11 +4,8 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenLocal()
-    if (project.properties.containsKey("localArtifactoryUrl")) {
-        maven { url localArtifactoryUrl }
-    }
-    mavenCentral()
-    google()
+  mavenCentral()
+  google()
 }
 dependencies {
     compileOnly("org.jetbrains.dokka:dokka-core:1.9.20")

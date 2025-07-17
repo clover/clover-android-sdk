@@ -49,10 +49,12 @@ public class BarcodeResult {
 
   private static final String INTENT_BARCODE_RESULT_EXTRA = "Barcode";
   private static final String INTENT_BARCODE_TYPE_EXTRA = "BarcodeType";
+  private static final String INTENT_BARCODE_SCANNER_IMPL_EXTRA = "BarcodeScannerImpl";
 
   private String action;
   private String barcode;
   private String type;
+  private String scannerImpl;
 
   /**
    * Constructs an instance of this class from an Intent received with the action
@@ -64,6 +66,7 @@ public class BarcodeResult {
     if (isBarcodeAction()) {
       barcode = intent.getStringExtra(INTENT_BARCODE_RESULT_EXTRA);
       type = intent.getStringExtra(INTENT_BARCODE_TYPE_EXTRA);
+      scannerImpl = intent.getStringExtra(INTENT_BARCODE_SCANNER_IMPL_EXTRA);
     }
   }
 
@@ -88,6 +91,14 @@ public class BarcodeResult {
    */
   public String getType() {
     return type;
+  }
+
+  /**
+   * Returns a String that describes the type of barcode scanner. If its an inbuilt type returns
+   * MLKIT or ZEBRA.
+   */
+  public String getScannerImpl(){
+    return scannerImpl;
   }
 
   /**

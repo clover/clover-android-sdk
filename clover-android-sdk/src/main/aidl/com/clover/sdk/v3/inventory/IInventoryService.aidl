@@ -831,4 +831,12 @@ interface IInventoryService {
      * @clover.perm INVENTORY_R
      */
    boolean checkModifierUnavailability(in List<String> modifierIdsList, out ResultStatus resultStatus);
+
+   /**
+    * Creates a new discount with the uuid passed in or updates the discount if one already exists.
+    *
+    * Not available to non-Clover apps.
+    * @y.exclude
+    */
+   Discount upsertDiscount(in Discount discount, out ResultStatus resultStatus);
 }

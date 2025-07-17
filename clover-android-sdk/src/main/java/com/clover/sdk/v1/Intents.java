@@ -1187,6 +1187,9 @@ public class Intents {
   public static final String EXTRA_TENDER = "clover.intent.extra.TENDER";
 
   /** {@link com.clover.sdk.v3.base.Tender}, Pre-selected customer tender */
+  public static final String EXTRA_CUSTOMER_TENDER_REQUIRED = "clover.intent.extra.CUSTOMER_TENDER_REQUIRED";
+
+  /** {@link com.clover.sdk.v3.base.Tender}, if Pre-selected customer tender is required*/
   public static final String EXTRA_CUSTOMER_TENDER = "clover.intent.extra.CUSTOMER_TENDER";
 
   /** {@link String}, a card number */
@@ -1839,6 +1842,11 @@ public class Intents {
    * Intent to track apply realtime discount for package name
    */
   public static final String EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME = "applyRealtimeDiscountForPkgName";
+
+  /**
+   * Service fee for DMV transactions
+   */
+  public static final String EXTRA_SERVICE_FEE_AMOUNT = "serviceFeeAmount";
 
   /**
    * The transaction name
