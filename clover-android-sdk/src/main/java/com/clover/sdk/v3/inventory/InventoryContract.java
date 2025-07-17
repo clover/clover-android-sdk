@@ -326,6 +326,13 @@ public final class InventoryContract {
      * Type: TEXT
      */
     public static final String AGE_RESTRICTED_DETAILS = "age_restricted_details";
+
+    /**
+     * Whether an item is cash discount or not.
+     * <p>
+     * Type: INTEGER (boolean)
+     */
+    public static final String EXCLUDE_CASH_DISCOUNT = "exclude_cash_discount";
   }
 
   /**
@@ -1144,6 +1151,13 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String PERCENTAGE = "percentage";
+
+    /**
+     * Discount fractional percent.
+     * <p/>
+     * Type: LONG
+     */
+    public static final String PERCENTAGE_DECIMAL = "percentage_decimal";
 
     /**
      * Discount Type.

@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.order;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -46,6 +47,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOrderFeeItems orderFeeItems}</li>
  * <li>{@link #getAmountRemaining amountRemaining}</li>
  * <li>{@link #getPayments payments}</li>
+ * <li>{@link #getCashDiscountTotal cashDiscountTotal}</li>
+ * <li>{@link #getCashDiscountPercentage cashDiscountPercentage}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -148,43 +151,61 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.payments);
   }
 
+  /**
+   * Cash discount order total, if applicable
+   */
+  public java.lang.String getCashDiscountTotal() {
+    return genClient.cacheGet(CacheKey.cashDiscountTotal);
+  }
+
+  /**
+   * Cash discount order percentage, if applicable
+   */
+  public java.lang.String getCashDiscountPercentage() {
+    return genClient.cacheGet(CacheKey.cashDiscountPercentage);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     currency
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     employee
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     subtotal
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     tax
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     total
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     title
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     note
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     isVat
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     serviceChargeName
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     serviceChargeAmount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     discounts
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayDiscount.JSON_CREATOR)),
     lineItems
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayLineItem.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayLineItem.JSON_CREATOR)),
     orderFeeItems
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayOrderFeeItem.JSON_CREATOR)),
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayOrderFeeItem.JSON_CREATOR)),
     amountRemaining
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     payments
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayPayment.JSON_CREATOR)),
-      ;
+            (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.DisplayPayment.JSON_CREATOR)),
+    cashDiscountTotal
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cashDiscountPercentage
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -271,6 +292,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     genClient.validateLength(CacheKey.note, getNote(), 2047);
 
     genClient.validateLength(CacheKey.amountRemaining, getAmountRemaining(), 127);
+
+    genClient.validateLength(CacheKey.cashDiscountTotal, getCashDiscountTotal(), 127);
+
+    genClient.validateLength(CacheKey.cashDiscountPercentage, getCashDiscountPercentage(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -365,6 +390,16 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'payments' field is set and is not null and is not empty */
   public boolean isNotEmptyPayments() { return isNotNullPayments() && !getPayments().isEmpty(); }
 
+  /** Checks whether the 'cashDiscountTotal' field is set and is not null */
+  public boolean isNotNullCashDiscountTotal() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashDiscountTotal);
+  }
+
+  /** Checks whether the 'cashDiscountPercentage' field is set and is not null */
+  public boolean isNotNullCashDiscountPercentage() {
+    return genClient.cacheValueIsNotNull(CacheKey.cashDiscountPercentage);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -445,6 +480,16 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'payments' field has been set, however the value could be null */
   public boolean hasPayments() {
     return genClient.cacheHasKey(CacheKey.payments);
+  }
+
+  /** Checks whether the 'cashDiscountTotal' field has been set, however the value could be null */
+  public boolean hasCashDiscountTotal() {
+    return genClient.cacheHasKey(CacheKey.cashDiscountTotal);
+  }
+
+  /** Checks whether the 'cashDiscountPercentage' field has been set, however the value could be null */
+  public boolean hasCashDiscountPercentage() {
+    return genClient.cacheHasKey(CacheKey.cashDiscountPercentage);
   }
 
 
@@ -568,6 +613,20 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setArrayRecord(payments, CacheKey.payments);
   }
 
+  /**
+   * Sets the field 'cashDiscountTotal'.
+   */
+  public DisplayOrder setCashDiscountTotal(java.lang.String cashDiscountTotal) {
+    return genClient.setOther(cashDiscountTotal, CacheKey.cashDiscountTotal);
+  }
+
+  /**
+   * Sets the field 'cashDiscountPercentage'.
+   */
+  public DisplayOrder setCashDiscountPercentage(java.lang.String cashDiscountPercentage) {
+    return genClient.setOther(cashDiscountPercentage, CacheKey.cashDiscountPercentage);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -632,6 +691,14 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'payments' field, the 'has' method for this field will now return false */
   public void clearPayments() {
     genClient.clear(CacheKey.payments);
+  }
+  /** Clears the 'cashDiscountTotal' field, the 'has' method for this field will now return false */
+  public void clearCashDiscountTotal() {
+    genClient.clear(CacheKey.cashDiscountTotal);
+  }
+  /** Clears the 'cashDiscountPercentage' field, the 'has' method for this field will now return false */
+  public void clearCashDiscountPercentage() {
+    genClient.clear(CacheKey.cashDiscountPercentage);
   }
 
 
@@ -719,6 +786,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     public static final boolean AMOUNTREMAINING_IS_REQUIRED = false;
     public static final long AMOUNTREMAINING_MAX_LEN = 127;
     public static final boolean PAYMENTS_IS_REQUIRED = false;
+    public static final boolean CASHDISCOUNTTOTAL_IS_REQUIRED = false;
+    public static final long CASHDISCOUNTTOTAL_MAX_LEN = 127;
+    public static final boolean CASHDISCOUNTPERCENTAGE_IS_REQUIRED = false;
+    public static final long CASHDISCOUNTPERCENTAGE_MAX_LEN = 127;
   }
 
 }

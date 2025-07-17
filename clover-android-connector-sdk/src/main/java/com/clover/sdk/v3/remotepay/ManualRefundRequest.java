@@ -155,6 +155,14 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   }
 
   /**
+   * Total service fee amount to be processed for associated MID
+   */
+  @Override
+  public java.lang.Long getServiceFeeAmount() {
+    return genClient.cacheGet(CacheKey.serviceFeeAmount);
+  }
+
+  /**
    * Identifier for the request
    */
   @Override
@@ -204,6 +212,8 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     externalReferenceId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceFeeAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     requestId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     version
@@ -388,6 +398,12 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
     return genClient.cacheValueIsNotNull(CacheKey.externalReferenceId);
   }
 
+  /** Checks whether the 'serviceFeeAmount' field is set and is not null */
+  @Override
+  public boolean isNotNullServiceFeeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceFeeAmount);
+  }
+
   /** Checks whether the 'requestId' field is set and is not null */
   @Override
   public boolean isNotNullRequestId() {
@@ -490,6 +506,12 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   @Override
   public boolean hasExternalReferenceId() {
     return genClient.cacheHasKey(CacheKey.externalReferenceId);
+  }
+
+  /** Checks whether the 'serviceFeeAmount' field has been set, however the value could be null */
+  @Override
+  public boolean hasServiceFeeAmount() {
+    return genClient.cacheHasKey(CacheKey.serviceFeeAmount);
   }
 
   /** Checks whether the 'requestId' field has been set, however the value could be null */
@@ -628,6 +650,14 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   }
 
   /**
+   * Sets the field 'serviceFeeAmount'.
+   */
+  @Override
+  public BaseTransactionRequest setServiceFeeAmount(java.lang.Long serviceFeeAmount) {
+    return genClient.setOther(serviceFeeAmount, CacheKey.serviceFeeAmount);
+  }
+
+  /**
    * Sets the field 'requestId'.
    */
   @Override
@@ -719,6 +749,11 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
   public void clearExternalReferenceId() {
     genClient.clear(CacheKey.externalReferenceId);
   }
+  /** Clears the 'serviceFeeAmount' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearServiceFeeAmount() {
+    genClient.clear(CacheKey.serviceFeeAmount);
+  }
   /** Clears the 'requestId' field, the 'has' method for this field will now return false */
   @Override
   public void clearRequestId() {
@@ -807,6 +842,7 @@ public class ManualRefundRequest extends com.clover.sdk.v3.remotepay.BaseTransac
     public static final boolean EXTRAS_IS_REQUIRED = false;
     public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
+    public static final boolean SERVICEFEEAMOUNT_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

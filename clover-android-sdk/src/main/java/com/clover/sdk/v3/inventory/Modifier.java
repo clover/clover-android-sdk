@@ -37,6 +37,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPrice price}</li>
  * <li>{@link #getModifierGroup modifierGroup}</li>
  * <li>{@link #getMenuModifier menuModifier}</li>
+ * <li>{@link #getMarkupPrice markupPrice}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -79,6 +80,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.price);
   }
 
+  public java.lang.Boolean getMarkupPrice() {
+    return genClient.cacheGet(CacheKey.markupPrice);
+  }
+
   public com.clover.sdk.v3.base.Reference getModifierGroup() {
     return genClient.cacheGet(CacheKey.modifierGroup);
   }
@@ -108,6 +113,8 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     menuModifier
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.MenuModifier.JSON_CREATOR)),
+    markupPrice
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -227,6 +234,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.menuModifier);
   }
 
+  /** Checks whether the 'markupPrice' field is set and is not null */
+  public boolean isNotNullMarkupPrice() {
+    return genClient.cacheValueIsNotNull(CacheKey.markupPrice);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -264,6 +275,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.menuModifier);
   }
 
+  /** Checks whether the 'markupPrice' field has been set, however the value could be null */
+  public boolean hasMarkupPrice() {
+    return genClient.cacheHasKey(CacheKey.markupPrice);
+  }
 
   /**
    * Sets the field 'id'.
@@ -318,6 +333,13 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(menuModifier, CacheKey.menuModifier);
   }
 
+  /**
+   * Sets the field 'markupPrice'.
+   */
+  public Modifier setMarkupPrice(java.lang.Boolean markupPrice) {
+    return genClient.setOther(markupPrice, CacheKey.markupPrice);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -348,6 +370,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     genClient.clear(CacheKey.menuModifier);
   }
 
+  /** Clears the 'markupPrice' field, the 'has' method for this field will now return false */
+  public void clearMarkupPrice() {
+    genClient.clear(CacheKey.markupPrice);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -420,6 +446,7 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long PRICE_MIN = 0;
     public static final boolean MODIFIERGROUP_IS_REQUIRED = false;
     public static final boolean MENUMODIFIER_IS_REQUIRED = false;
+    public static final boolean MARKUPPRICE_IS_REQUIRED = false;
   }
 
 }

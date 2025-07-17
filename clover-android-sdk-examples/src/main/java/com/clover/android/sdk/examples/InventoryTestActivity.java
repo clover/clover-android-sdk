@@ -1270,6 +1270,11 @@ public class InventoryTestActivity extends Activity {
     public void deleteOrderFee(String orderFeeId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement deleteOrderFee()");
     }
+
+    @Override
+    public Discount upsertDiscount(final Discount discount, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement upsertDiscount()");
+    }
   }
 
   static class CustomHttpClient extends DefaultHttpClient {

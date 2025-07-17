@@ -1512,4 +1512,12 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     return execute((ServiceCallable<IInventoryService, Boolean>)
             (service, status) -> service.checkModifierUnavailability(modifierIdList, status));
   }
+
+  public Discount upsertDiscount(final Discount discount) throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, Discount>() {
+      public Discount call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.upsertDiscount(discount, status);
+      }
+    });
+  }
 }

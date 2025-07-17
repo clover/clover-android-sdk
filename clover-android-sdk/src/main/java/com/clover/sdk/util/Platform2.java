@@ -75,6 +75,7 @@ public final class Platform2 {
   private static final String KNOTTYPINE = "knottypine";
   private static final String BAMBOOLEAF = "bambooleaf";
   private static final String HOLLOWPINE = "hollowpine";
+  private static final String SUGARMAPLE_MODEL = "C506";
 
   /**
    * List of features that may be present on Clover devices. The return value for
@@ -277,6 +278,18 @@ public final class Platform2 {
       @Override
       protected boolean isSupported(Context context) {
         return !context.getPackageManager().hasSystemFeature("clover.hardware.no_bundled_printer");
+      }
+    },
+
+    /**
+     * Form factor of this device is such that customers will interact with it directly in semi-attended environment.
+     * Merchant action should not be prompted to accept offline, duplicate payment, cash back, etc.
+     */
+    CUSTOMER_ONLY {
+      @Override
+      protected boolean isSupported(Context context) {
+        return Build.MODEL.equals(SUGARMAPLE_MODEL)
+                || context.getPackageManager().hasSystemFeature("clover.hardware.customer_facing_only");
       }
     },
     ;

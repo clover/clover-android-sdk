@@ -61,6 +61,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getType type}</li>
  * <li>{@link #getIsAgeRestricted isAgeRestricted}</li>
  * <li>{@link #getAgeRestrictedObj ageRestrictedObj}</li>
+ * <li>{@link #getExcludeCashDiscount excludeCashDiscount}</li>
+ * <li>{@link #getMarkupPrice markupPrice}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -271,6 +273,20 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.ageRestrictedObj);
   }
 
+  /**
+   * If this item is excluded for cash discount
+   */
+  public java.lang.Boolean getExcludeCashDiscount() {
+    return genClient.cacheGet(CacheKey.excludeCashDiscount);
+  }
+
+  /**
+   * If this item is marked up for price
+   */
+  public java.lang.Boolean getMarkupPrice() {
+    return genClient.cacheGet(CacheKey.markupPrice);
+  }
+
   public static final String AUTHORITY = "com.clover.inventory";
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -336,6 +352,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ageRestrictedObj
             (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.AgeRestrictedObj.JSON_CREATOR)),
+    excludeCashDiscount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    markupPrice
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -601,6 +621,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheValueIsNotNull(CacheKey.ageRestrictedObj);
   }
 
+  /** Checks whether the 'excludeCashDiscount' field is set and is not null */
+  public boolean isNotNullExcludeCashDiscount() {
+    return genClient.cacheValueIsNotNull(CacheKey.excludeCashDiscount);
+  }
+
+  /** Checks whether the 'markupPrice' field is set and is not null */
+  public boolean isNotNullMarkupPrice() {
+    return genClient.cacheValueIsNotNull(CacheKey.markupPrice);
+  }
+
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
@@ -754,6 +784,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'ageRestrictedObj' field has been set, however the value could be null */
   public boolean hasAgeRestrictedObj() {
     return genClient.cacheHasKey(CacheKey.ageRestrictedObj);
+  }
+
+  /** Checks whether the 'excludeCashDiscount' field has been set, however the value could be null */
+  public boolean hasExcludeCashDiscount() {
+    return genClient.cacheHasKey(CacheKey.excludeCashDiscount);
+  }
+
+  /** Checks whether the 'markupPrice' field has been set, however the value could be null */
+  public boolean hasMarkupPrice() {
+    return genClient.cacheHasKey(CacheKey.markupPrice);
   }
 
   /**
@@ -985,6 +1025,20 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   }
 
   /**
+   * Sets the field 'excludeCashDiscount'.
+   */
+  public Item setExcludeCashDiscount(java.lang.Boolean excludeCashDiscount) {
+    return genClient.setOther(excludeCashDiscount, CacheKey.excludeCashDiscount);
+  }
+
+  /**
+   * Sets the field 'markupPrice'.
+   */
+  public Item setMarkupPrice(java.lang.Boolean markupPrice) {
+    return genClient.setOther(markupPrice, CacheKey.markupPrice);
+  }
+
+  /**
    * Sets the field 'ageRestrictedObj'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1115,6 +1169,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     genClient.clear(CacheKey.ageRestrictedObj);
   }
 
+  /** Clears the 'excludeCashDiscount' field, the 'has' method for this field will now return false */
+  public void clearExcludeCashDiscount() {
+    genClient.clear(CacheKey.excludeCashDiscount);
+  }
+
+  /** Clears the 'markupPrice' field, the 'has' method for this field will now return false */
+  public void clearMarkupPrice() {
+    genClient.clear(CacheKey.markupPrice);
+  }
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1216,6 +1280,8 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean TYPE_IS_REQUIRED = false;
     static final boolean ISAGERESTRICTED_IS_REQUIRED = false;
     public static final boolean AGERESTRICTEDOBJ_IS_REQUIRED = false;
+    public static final boolean EXCLUDECASHDISCOUNT_IS_REQUIRED = false;
+    public static final boolean MARKUPPRICE_IS_REQUIRED = false;
   }
 
 }

@@ -168,6 +168,7 @@ public class PayIntent implements Parcelable {
     private String paymentType;
     private Boolean createAuth;
     private String applyRealtimeDiscountForPkgName;
+    private Long serviceFeeAmount;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -475,6 +476,7 @@ public class PayIntent implements Parcelable {
       this.paymentType = payIntent.paymentType;
       this.createAuth = payIntent.createAuth;
       this.applyRealtimeDiscountForPkgName = payIntent.applyRealtimeDiscountForPkgName;
+      this.serviceFeeAmount = payIntent.serviceFeeAmount;
 
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
@@ -867,6 +869,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder serviceFeeAmount(long serviceFeeAmount) {
+      this.serviceFeeAmount = serviceFeeAmount;
+      return this;
+    }
+
     @Deprecated
     public Builder testing(boolean isTesting) {
       this.isTesting = isTesting;
@@ -883,7 +890,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName, serviceFeeAmount);
     }
   }
 
@@ -994,7 +1001,7 @@ public class PayIntent implements Parcelable {
   public String paymentType;
   public Boolean createAuth;
   public String applyRealtimeDiscountForPkgName;
-
+  public Long serviceFeeAmount;
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, Long cashbackAmount, String orderId, String paymentId, String employeeId,
@@ -1013,7 +1020,7 @@ public class PayIntent implements Parcelable {
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
                     Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode,
                     String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow,
-                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName) {
+                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName, Long serviceFeeAmount) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -1075,6 +1082,7 @@ public class PayIntent implements Parcelable {
     this.paymentType = paymentType;
     this.createAuth = createAuth;
     this.applyRealtimeDiscountForPkgName = applyRealtimeDiscountForPkgName;
+    this.serviceFeeAmount = serviceFeeAmount;
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
@@ -1387,6 +1395,10 @@ public class PayIntent implements Parcelable {
       intent.putExtra(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME, applyRealtimeDiscountForPkgName);
     }
 
+    if (serviceFeeAmount != null) {
+      intent.putExtra(Intents.EXTRA_SERVICE_FEE_AMOUNT, serviceFeeAmount);
+    }
+
     if (paymentType != null) {
       intent.putExtra(Intents.EXTRA_PAYMENT_TYPE, paymentType);
     }
@@ -1455,6 +1467,7 @@ public class PayIntent implements Parcelable {
            ", paymentType=" + paymentType +
            ", createAuth=" + createAuth +
            ", applyRealtimeDiscountForPkgName=" + applyRealtimeDiscountForPkgName +
+           ", serviceFeeAmount=" + serviceFeeAmount +
            '}';
   }
 
@@ -1671,6 +1684,10 @@ public class PayIntent implements Parcelable {
 
     if (applyRealtimeDiscountForPkgName != null) {
       bundle.putString(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME, applyRealtimeDiscountForPkgName);
+    }
+
+    if (serviceFeeAmount != null) {
+      bundle.putLong(Intents.EXTRA_SERVICE_FEE_AMOUNT, serviceFeeAmount);
     }
 
     // write out
@@ -1921,6 +1938,11 @@ public class PayIntent implements Parcelable {
       builder.createAuth(bundle.getBoolean(Intents.EXTRA_CREATE_AUTH, false));
 
       builder.applyRealtimeDiscountForPkgName(bundle.getString(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME));
+
+      if (bundle.containsKey(Intents.EXTRA_SERVICE_FEE_AMOUNT)) {
+        builder.serviceFeeAmount(bundle.getLong(Intents.EXTRA_SERVICE_FEE_AMOUNT));
+      }
+
       // build
       return builder.build();
     }

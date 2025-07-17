@@ -24,18 +24,12 @@ buildscript {
       throw new GradleException("Couldn't find android-build at " + likelyAndroidBuild.absolutePath)
     }
   }
-
+  apply from: "${project.rootDir}/common-project.gradle"
   apply from: "${project.rootDir}/deps.gradle"
   repositories {
     mavenLocal()
-    if (project.properties.containsKey("localArtifactoryUrl")) {
-      maven { url localArtifactoryUrl }
-    }
-    google()
-    mavenCentral()
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
+  mavenCentral()
+  google()
   }
 
   dependencies {
@@ -50,10 +44,8 @@ plugins {
 }
 repositories {
   mavenLocal()
-  if (project.properties.containsKey("localArtifactoryUrl")) {
-    maven { url localArtifactoryUrl }
-  }
   mavenCentral()
+  google()
 }
 
 defaultTasks 'clean', 'install'

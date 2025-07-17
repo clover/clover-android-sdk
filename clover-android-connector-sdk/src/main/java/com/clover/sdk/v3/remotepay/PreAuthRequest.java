@@ -91,6 +91,14 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   }
 
   /**
+   * serviceFeeAmount
+   */
+  @Override
+  public java.lang.Long getServiceFeeAmount() {
+    return genClient.cacheGet(CacheKey.serviceFeeAmount);
+  }
+
+  /**
    * Allowed entry methods
    */
   @Override
@@ -206,6 +214,8 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     requestId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    serviceFeeAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     version
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
       ;
@@ -334,6 +344,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
     return genClient.cacheValueIsNotNull(CacheKey.amount);
   }
 
+  /** Checks whether the 'serviceFeeAmount' field is set and is not null */
+  @Override
+  public boolean isNotNullServiceFeeAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.serviceFeeAmount);
+  }
+
   /** Checks whether the 'cardEntryMethods' field is set and is not null */
   @Override
   public boolean isNotNullCardEntryMethods() {
@@ -442,6 +458,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   @Override
   public boolean hasAmount() {
     return genClient.cacheHasKey(CacheKey.amount);
+  }
+
+  /** Checks whether the 'serviceFeeAmount' field has been set, however the value could be null */
+  @Override
+  public boolean hasServiceFeeAmount() {
+    return genClient.cacheHasKey(CacheKey.serviceFeeAmount);
   }
 
   /** Checks whether the 'cardEntryMethods' field has been set, however the value could be null */
@@ -562,6 +584,14 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   }
 
   /**
+   * Sets the field 'serviceFeeAmount'.
+   */
+  @Override
+  public BaseTransactionRequest setServiceFeeAmount(java.lang.Long serviceFeeAmount) {
+    return genClient.setOther(serviceFeeAmount, CacheKey.serviceFeeAmount);
+  }
+
+  /**
    * Sets the field 'cardEntryMethods'.
    */
   @Override
@@ -679,6 +709,12 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
   public void clearAmount() {
     genClient.clear(CacheKey.amount);
   }
+  /** Clears the 'serviceFeeAmount' field, the 'has' method for this field will now return false */
+  @Override
+  public void clearServiceFeeAmount() {
+    genClient.clear(CacheKey.serviceFeeAmount);
+  }
+  /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   @Override
   public void clearCardEntryMethods() {
@@ -807,6 +843,7 @@ public class PreAuthRequest extends com.clover.sdk.v3.remotepay.BaseTransactionR
     public static final boolean EXTRAS_IS_REQUIRED = false;
     public static final boolean REGIONALEXTRAS_IS_REQUIRED = false;
     public static final boolean EXTERNALREFERENCEID_IS_REQUIRED = false;
+    public static final boolean SERVICEFEEAMOUNT_IS_REQUIRED = false;
     public static final boolean REQUESTID_IS_REQUIRED = false;
     public static final long REQUESTID_MAX_LEN = 13;
     public static final boolean VERSION_IS_REQUIRED = false;

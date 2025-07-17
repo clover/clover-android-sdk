@@ -41,30 +41,30 @@ import com.clover.sdk.GenericParcelable;
 public class FeatureMetrics extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Set to true if Accessibility Mode was selected by the user to perform a transaction.
+   * Set to true if audio accessibility mode was selected by the user to perform a transaction.
    */
-  public java.lang.Boolean getAccessibilityMode() {
+  public java.lang.Boolean getAudioAccessibilityMode() {
     return genClient.cacheGet(CacheKey.accessibilityMode);
   }
 
   /**
-   * Set to true if Accessibility Option 'PIN' was selected by the user to perform a transaction.
+   * Set to true if Accessibility Option "Enter PIN on screen" was selected by the user to perform a transaction.
    */
-  public java.lang.Boolean getAccessibilityOptionPin() {
+  public java.lang.Boolean getAudioAccessibilityOptionPin() {
     return genClient.cacheGet(CacheKey.accessibilityOptionPin);
   }
 
   /**
-   * Set to true if Accessibility Option 'TACTILE' was selected by the user to perform a transaction.
+   * Set to true if Accessibility Option "Request a tactile overlay" was selected by the user to perform a transaction.
    */
-  public java.lang.Boolean getAccessibilityOptionTactile() {
+  public java.lang.Boolean getAudioAccessibilityOptionTactile() {
     return genClient.cacheGet(CacheKey.accessibilityOptionTactile);
   }
 
   /**
-   * Set to true if Accessibility Option 'TRAINING' was selected by the user before performing a transaction.
+   * Set to true if Accessibility Option "Practice PIN on screen" was selected by the user before performing a transaction.
    */
-  public java.lang.Boolean getAccessibilityOptionTraining() {
+  public java.lang.Boolean getAudioAccessibilityOptionTraining() {
     return genClient.cacheGet(CacheKey.accessibilityOptionTraining);
   }
 

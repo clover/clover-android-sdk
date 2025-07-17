@@ -72,5 +72,6 @@ public class CardTransactionConstants {
   public static final String ORIGINAL_AMOUNT = "orig_amt";
   public static final String NETWORK_EXTRA_CARD = "card";
   public static final String POS_ENTRY_MODE = "posEntryMode";
+  public static final String INSTALLMENT_PLAN_RESPONSE = "installmentPlanResponse";
 
 }

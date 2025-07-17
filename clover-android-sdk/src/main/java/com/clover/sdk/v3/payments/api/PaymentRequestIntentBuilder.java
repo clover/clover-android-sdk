@@ -302,6 +302,10 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       if (!tenderOptions.cashDisabled) {
         tenderOptionsMap.put(TenderOption.CASH, "null");
       }
+      if(tenderOptions.customTenderName != null) {
+        i.putExtra(Intents.EXTRA_CUSTOMER_TENDER, tenderOptions.customTenderName);
+        i.putExtra(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED, tenderOptions.customTenderRequired);
+      }
       i.putExtra(Intents.EXTRA_TENDER_OPTIONS, (Serializable) tenderOptionsMap);
     }
 
@@ -690,30 +694,59 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
    * Tender options allow Integrators to control Cash and Custom Tenders on a per-transaction level.
    */
   public static class TenderOptions {
-    private boolean cashDisabled;
-    private boolean customDisabled;
+    final private boolean cashDisabled;
+    final private boolean customDisabled;
+    final private String customTenderName;
+    final private boolean customTenderRequired;
 
-    private TenderOptions(boolean disableCash, boolean disableCustom) {
+    private TenderOptions(boolean disableCash, boolean disableCustom, String customTenderName, boolean customTenderRequired) {
       this.cashDisabled = disableCash;
       this.customDisabled = disableCustom;
+      this.customTenderName = customTenderName;
+      this.customTenderRequired = customTenderRequired;
     }
 
     /**
      * The option to disable the cash and/or custom tenders independently of each other
-     * @param disableCash - if you would like to disable the cash tender, set to true
+     *
+     * @param disableCash   - if you would like to disable the cash tender, set to true
      * @param disableCustom - if you would like to disable the custom tenders, set to true
      * @return
      */
     public static TenderOptions Disable(boolean disableCash, boolean disableCustom) {
-      return new TenderOptions(disableCash, disableCustom);
+      return new TenderOptions(disableCash, disableCustom, null, false);
     }
 
     /**
      * The option to disable BOTH cash and custom tenders
+     *
      * @return
      */
     public static TenderOptions Disable() {
-      return new TenderOptions(true, true);
+      return new TenderOptions(true, true, null, false);
+    }
+
+    /**
+     * The option to specify a custom tender, and require it to be used or the payment
+     * will fail if the custom tender is not found.
+     *
+     * @param tenderKeyName - the key name of the custom tender to be used
+     * @return
+     */
+    public static TenderOptions RequireTender(String tenderKeyName) {
+      return new TenderOptions(false, true, tenderKeyName, true);
+    }
+
+    /**
+     * The option to specify a custom tender, but don't require it to be used.
+     *
+     * @param tenderKeyName - the key name of the custom tender to be used if available
+     * @param disableCash   - if you would like to disable the cash tender, set to true
+     * @param disableCustom - if you would like to disable the custom tenders, set to true
+     * @return
+     */
+    public static TenderOptions PreferTender(String tenderKeyName, boolean disableCash, boolean disableCustom) {
+      return new TenderOptions(disableCash, disableCustom, tenderKeyName, false);
     }
   }
 

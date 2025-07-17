@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.payments;
+package com.clover.sdk.v3.merchant;
 
 import android.os.Parcelable;
 import android.os.Parcel;
@@ -30,28 +30,28 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum CardType implements Parcelable {
-  VISA, MC, AMEX, DISCOVER, DINERS_CLUB, JCB, MAESTRO, SOLO, LASER, CHINA_UNION_PAY, CARTE_BLANCHE, UNKNOWN, GIFT_CARD, EBT, GIROCARD, INTERAC, RUPAY, EFTPOS, BANCNET, OTHER;
+public enum ModuleType implements Parcelable {
+    INTERNAL, EXTERNAL;
 
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(final Parcel dest, final int flags) {
-    dest.writeString(name());
-  }
-
-  public static final Creator<CardType> CREATOR = new Creator<CardType>() {
     @Override
-    public CardType createFromParcel(final Parcel source) {
-      return CardType.valueOf(source.readString());
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public CardType[] newArray(final int size) {
-      return new CardType[size];
+    public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeString(name());
     }
-  };
+
+    public static final Creator<ModuleType> CREATOR = new Creator<ModuleType>() {
+        @Override
+        public ModuleType createFromParcel(final Parcel source) {
+            return ModuleType.valueOf(source.readString());
+        }
+
+        @Override
+        public ModuleType[] newArray(final int size) {
+            return new ModuleType[size];
+        }
+    };
 }

@@ -75,8 +75,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOceanGatewayInfo oceanGatewayInfo}</li>
  * <li>{@link #getTerminalManagementComponents terminalManagementComponents}</li>
  * <li>{@link #getEmiInfo emiInfo}</li>
+ * <li>{@link #getInstallmentPlan installmentPlan}</li>
  * <li>{@link #getCloseoutBatchInfo closeoutBatchInfo}</li>
  * <li>{@link #getFeatureMetrics featureMetrics}</li>
+ * <li>{@link #getCapture Added}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -355,6 +357,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Associated InstallmentPlan information
+   */
+  public com.clover.sdk.v3.payments.InstallmentPlan getInstallmentPlan() {
+    return genClient.cacheGet(CacheKey.installmentPlan);
+  }
+
+   /**
    * Information about the Batch used for payments
    */
   public com.clover.sdk.v3.payments.CloseoutBatchInfo getCloseoutBatchInfo() {
@@ -366,6 +375,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public com.clover.sdk.v3.payments.FeatureMetrics getFeatureMetrics() {
     return genClient.cacheGet(CacheKey.featureMetrics);
+  }
+
+  public java.lang.Boolean getCapture() {
+    return genClient.cacheGet(CacheKey.capture);
   }
 
 
@@ -460,11 +473,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TerminalManagementComponent.JSON_CREATOR)),
     emiInfo
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PaymentEmiInfo.JSON_CREATOR)),
+    installmentPlan
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.InstallmentPlan.JSON_CREATOR)),
     closeoutBatchInfo
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.CloseoutBatchInfo.JSON_CREATOR)),
     featureMetrics
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.FeatureMetrics.JSON_CREATOR)),
-      ;
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(FeatureMetrics.JSON_CREATOR)),
+    capture
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -789,6 +806,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.emiInfo);
   }
 
+  /** Checks whether the 'installmentPlan' field is set and is not null */
+  public boolean isNotNullInstallmentPlan() {
+    return genClient.cacheValueIsNotNull(CacheKey.installmentPlan);
+  }
+
   /** Checks whether the 'closeoutBatchInfo' field is set and is not null */
   public boolean isNotNullCloseoutBatchInfo() {
     return genClient.cacheValueIsNotNull(CacheKey.closeoutBatchInfo);
@@ -797,6 +819,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'featureMetrics' field is set and is not null */
   public boolean isNotNullFeatureMetrics() {
     return genClient.cacheValueIsNotNull(CacheKey.featureMetrics);
+  }
+
+  /** Checks whether the 'capture' field is set and is not null */
+  public boolean isNotNullCapture() {
+    return genClient.cacheValueIsNotNull(CacheKey.capture);
   }
 
 
@@ -1021,6 +1048,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.emiInfo);
   }
 
+  /** Checks whether the 'installmentPlan' field has been set, however the value could be null */
+  public boolean hasInstallmentPlan() {
+    return genClient.cacheHasKey(CacheKey.installmentPlan);
+  }
+
   /** Checks whether the 'closeoutBatchInfo' field has been set, however the value could be null */
   public boolean hasCloseoutBatchInfo() {
     return genClient.cacheHasKey(CacheKey.closeoutBatchInfo);
@@ -1029,6 +1061,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'featureMetrics' field has been set, however the value could be null */
   public boolean hasFeatureMetrics() {
     return genClient.cacheHasKey(CacheKey.featureMetrics);
+  }
+
+  /** Checks whether the 'capture' field has been set, however the value could be null */
+  public boolean hasCapture() {
+    return genClient.cacheHasKey(CacheKey.capture);
   }
 
 
@@ -1395,6 +1432,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'installmentPlan'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setInstallmentPlan(com.clover.sdk.v3.payments.InstallmentPlan installmentPlan) {
+    return genClient.setRecord(installmentPlan, CacheKey.installmentPlan);
+  }
+
+  /**
    * Sets the field 'closeoutBatchInfo'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -1410,6 +1456,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Payment setFeatureMetrics(com.clover.sdk.v3.payments.FeatureMetrics featureMetrics) {
     return genClient.setRecord(featureMetrics, CacheKey.featureMetrics);
+  }
+
+  /**
+   * Sets the field 'capture'.
+   */
+  public Payment setCapture(java.lang.Boolean capture) {
+    return genClient.setOther(capture, CacheKey.capture);
   }
 
 
@@ -1589,6 +1642,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearEmiInfo() {
     genClient.clear(CacheKey.emiInfo);
   }
+  /** Clears the 'installmentPlan' field, the 'has' method for this field will now return false */
+  public void clearInstallmentPlan() {
+    genClient.clear(CacheKey.installmentPlan);
+  }
   /** Clears the 'closeoutBatchInfo' field, the 'has' method for this field will now return false */
   public void clearCloseoutBatchInfo() {
     genClient.clear(CacheKey.closeoutBatchInfo);
@@ -1596,6 +1653,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'featureMetrics' field, the 'has' method for this field will now return false */
   public void clearFeatureMetrics() {
     genClient.clear(CacheKey.featureMetrics);
+  }
+  /** Clears the 'capture' field, the 'has' method for this field will now return false */
+  public void clearCapture() {
+    genClient.clear(CacheKey.capture);
   }
 
 
@@ -1706,8 +1767,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean OCEANGATEWAYINFO_IS_REQUIRED = false;
     public static final boolean TERMINALMANAGEMENTCOMPONENTS_IS_REQUIRED = false;
     public static final boolean EMIINFO_IS_REQUIRED = false;
+    public static final boolean INSTALLMENTPLAN_IS_REQUIRED = false;
     public static final boolean CLOSEOUTBATCHINFO_IS_REQUIRED = false;
     public static final boolean FEATUREMETRICS_IS_REQUIRED = false;
+    public static final boolean CAPTURE_IS_REQUIRED = false;
   }
 
 }

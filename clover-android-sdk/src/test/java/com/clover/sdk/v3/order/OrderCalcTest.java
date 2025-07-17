@@ -1,6 +1,8 @@
 package com.clover.sdk.v3.order;
 
+import com.clover.core.internal.Lists;
 import com.clover.core.internal.calc.Calc;
+import com.clover.core.internal.calc.Decimal;
 import com.clover.core.internal.calc.Price;
 import com.clover.sdk.v3.inventory.TaxRate;
 
@@ -10,9 +12,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class OrderCalcTest {
@@ -315,6 +321,45 @@ public class OrderCalcTest {
     orderCalc.order.setLineItems(createDummyLineItems());
 
     assertEquals(0L, orderCalc.getTotalOrderFee());
+  }
+
+  @Test
+  public void testGetPercentageDiscounts_withPercentage() {
+    Collection<Discount> discountCollection = new ArrayList<>();
+    Discount discount = new Discount().setName("Test Percentage").setPercentage(5L);
+    discountCollection.add(discount);
+    List<Decimal> result = Lists.newArrayList();
+    result.add(new Decimal(5L, 0));
+    assertEquals(result, OrderCalc.getPercentDiscounts(discountCollection));
+  }
+
+  @Test
+  public void testGetPercentageDiscounts_withPercentageDecimal() {
+    Collection<Discount> discountCollection = new ArrayList<>();
+    Discount discount = new Discount().setName("Test Percentage").setPercentageDecimal(3985L);
+    discountCollection.add(discount);
+    assertFalse(OrderCalc.getPercentDiscounts(discountCollection).isEmpty());
+    assertEquals(new Decimal(0.3985), OrderCalc.getPercentDiscounts(discountCollection).stream().collect(Collectors.toList()).get(0));
+  }
+
+  @Test
+  public void testGetPercentageDiscounts_withPercentageDecimal_max() {
+    Collection<Discount> discountCollection = new ArrayList<>();
+    Discount discount = new Discount().setName("Test Percentage").setPercentageDecimal(999999L);
+    discountCollection.add(discount);
+    assertFalse(OrderCalc.getPercentDiscounts(discountCollection).isEmpty());
+    assertEquals(new Decimal(99.9999), OrderCalc.getPercentDiscounts(discountCollection).stream().collect(Collectors.toList()).get(0));
+
+  }
+
+
+
+  @Test
+  public void testGetPercentageDiscounts_withNoPercentage() {
+    Collection<Discount> discountCollection = new ArrayList<>();
+    Discount discount = new Discount().setName("Test Percentage");
+    discountCollection.add(discount);
+    assertTrue(OrderCalc.getPercentDiscounts(discountCollection).isEmpty());
   }
 
   private List<LineItem> createDummyLineItems() {

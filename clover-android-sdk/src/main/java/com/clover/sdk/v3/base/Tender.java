@@ -39,6 +39,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEnabled enabled}</li>
  * <li>{@link #getVisible visible}</li>
  * <li>{@link #getInstructions instructions}</li>
+ * <li>{@link #getSupportsCashDiscount supportsCashDiscount}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -107,6 +108,13 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.instructions);
   }
 
+  /**
+   * If this tender supports cash discount
+   */
+  public Boolean getSupportsCashDiscount() {
+    return genClient.cacheGet(CacheKey.supportsCashDiscount);
+  }
+
 
 
 
@@ -129,6 +137,8 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     instructions
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supportsCashDiscount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -253,6 +263,11 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.instructions);
   }
 
+  /** Checks whether the 'supportsCashDiscount' field is set and is not null */
+  public boolean isNotNullSupportsCashDiscount() {
+    return genClient.cacheValueIsNotNull(CacheKey.supportsCashDiscount);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -298,6 +313,11 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'instructions' field has been set, however the value could be null */
   public boolean hasInstructions() {
     return genClient.cacheHasKey(CacheKey.instructions);
+  }
+
+  /** Checks whether the 'supportsCashDiscount' field has been set, however the value could be null */
+  public boolean hasSupportsCashDiscount() {
+    return genClient.cacheHasKey(CacheKey.supportsCashDiscount);
   }
 
 
@@ -364,6 +384,13 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.setOther(instructions, CacheKey.instructions);
   }
 
+  /**
+   * Sets the field 'supportsCashDiscount'.
+   */
+  public Tender setSupportsCashDiscount(Boolean supportsCashDiscount) {
+    return genClient.setOther(supportsCashDiscount, CacheKey.supportsCashDiscount);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -400,6 +427,10 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Clears the 'instructions' field, the 'has' method for this field will now return false */
   public void clearInstructions() {
     genClient.clear(CacheKey.instructions);
+  }
+  /** Clears the 'supportsCashDiscount' field, the 'has' method for this field will now return false */
+  public void clearSupportsCashDiscount() {
+    genClient.clear(CacheKey.supportsCashDiscount);
   }
 
 
@@ -475,6 +506,7 @@ public class Tender extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean ENABLED_IS_REQUIRED = false;
     public static final boolean VISIBLE_IS_REQUIRED = false;
     public static final boolean INSTRUCTIONS_IS_REQUIRED = false;
+    public static final boolean SUPPORTSCASHDISCOUNT_IS_REQUIRED = false;
   }
 
 }

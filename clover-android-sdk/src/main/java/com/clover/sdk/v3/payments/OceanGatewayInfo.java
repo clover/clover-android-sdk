@@ -40,6 +40,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTransactionAmount transactionAmount}</li>
  * <li>{@link #getTransactionCurrency transactionCurrency}</li>
  * <li>{@link #getFpTransactionId fpTransactionId}</li>
+ * <li>{@link #getFpRefundTransactionId fpRefundTransactionId}</li>
  * <li>{@link #getMrn mrn}</li>
  * <li>{@link #getRefundTxnId refundTxnId}</li>
  * <li>{@link #getTransactionStatus transactionStatus}</li>
@@ -129,6 +130,13 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
    */
   public String getFpTransactionId() {
     return genClient.cacheGet(CacheKey.fpTransactionId);
+  }
+
+  /**
+   * This field contains the ocean generated rrn number for a transaction
+   */
+  public String getFpRefundTransactionId() {
+    return genClient.cacheGet(CacheKey.fpRefundTransactionId);
   }
 
   /**
@@ -266,6 +274,8 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
     transactionCurrency
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     fpTransactionId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    fpRefundTransactionId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     mrn
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
@@ -423,6 +433,11 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.fpTransactionId);
   }
 
+  /** Checks whether the 'fpRefundTransactionId' field is set and is not null */
+  public boolean isNotNullFpRefundTransactionId() {
+    return genClient.cacheValueIsNotNull(CacheKey.fpRefundTransactionId);
+  }
+
   /** Checks whether the 'mrn' field is set and is not null */
   public boolean isNotNullMrn() {
     return genClient.cacheValueIsNotNull(CacheKey.mrn);
@@ -553,6 +568,11 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'fpTransactionId' field has been set, however the value could be null */
   public boolean hasFpTransactionId() {
     return genClient.cacheHasKey(CacheKey.fpTransactionId);
+  }
+
+  /** Checks whether the 'fpTransactionId' field has been set, however the value could be null */
+  public boolean hasFpRefundTransactionId() {
+    return genClient.cacheHasKey(CacheKey.fpRefundTransactionId);
   }
 
   /** Checks whether the 'mrn' field has been set, however the value could be null */
@@ -704,6 +724,13 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
    */
   public OceanGatewayInfo setFpTransactionId(String fpTransactionId) {
     return genClient.setOther(fpTransactionId, CacheKey.fpTransactionId);
+  }
+
+  /**
+   * Sets the field 'fpRefundTransactionId'.
+   */
+  public OceanGatewayInfo setFpRefundTransactionId(String fpRefundTransactionId) {
+    return genClient.setOther(fpRefundTransactionId, CacheKey.fpRefundTransactionId);
   }
 
   /**
@@ -861,6 +888,10 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
   public void clearFpTransactionId() {
     genClient.clear(CacheKey.fpTransactionId);
   }
+  /** Clears the 'fpTransactionId' field, the 'has' method for this field will now return false */
+  public void clearFpRefundTransactionId() {
+    genClient.clear(CacheKey.fpRefundTransactionId);
+  }
   /** Clears the 'mrn' field, the 'has' method for this field will now return false */
   public void clearMrn() {
     genClient.clear(CacheKey.mrn);
@@ -997,6 +1028,7 @@ public class OceanGatewayInfo extends GenericParcelable implements com.clover.sd
     public static final boolean TRANSACTIONAMOUNT_IS_REQUIRED = false;
     public static final boolean TRANSACTIONCURRENCY_IS_REQUIRED = false;
     public static final boolean FPTRANSACTIONID_IS_REQUIRED = false;
+    public static final boolean FPREFUNDTRANSACTIONID_IS_REQUIRED = false;
     public static final boolean MRN_IS_REQUIRED = false;
     public static final boolean REFUNDTXNID_IS_REQUIRED = false;
     public static final boolean TRANSACTIONSTATUS_IS_REQUIRED = false;

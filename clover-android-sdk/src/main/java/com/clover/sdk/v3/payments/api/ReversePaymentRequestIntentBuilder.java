@@ -12,6 +12,8 @@ public class ReversePaymentRequestIntentBuilder extends BaseIntentBuilder {
     private String paymentId;
     private Long amount;
 
+    private ReceiptOptions receiptOptions;
+
     private ReversePaymentRequestIntentBuilder(){}
 
     /**
@@ -32,6 +34,10 @@ public class ReversePaymentRequestIntentBuilder extends BaseIntentBuilder {
         return this;
     }
 
+    public ReversePaymentRequestIntentBuilder receiptOptions(ReceiptOptions receiptOptions) {
+        this.receiptOptions = receiptOptions;
+        return this;
+    }
     /**
      * Builder method to create an Intent to be use by Integrator POS to initiate a payment reversal.
      * @param context
@@ -51,7 +57,26 @@ public class ReversePaymentRequestIntentBuilder extends BaseIntentBuilder {
         if (amount != null) {
             i.putExtra(Intents.EXTRA_AMOUNT, amount);
         }
+
+        if (receiptOptions != null) {
+            i.putExtra(Intents.EXTRA_SKIP_RECEIPT_SCREEN, receiptOptions.disableReceiptSelection);
+        }
+
         return i;
+    }
+
+    public static class ReceiptOptions {
+        private Boolean disableReceiptSelection;
+
+        private ReceiptOptions() {}
+
+        private ReceiptOptions(boolean disableReceiptSelection) {
+            this.disableReceiptSelection = disableReceiptSelection;
+        }
+
+        public static ReceiptOptions DisableReceiptSelection() {
+            return new ReceiptOptions(true);
+        }
     }
 
     public static class Response {

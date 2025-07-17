@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.clover.core.internal.Lists;
 import com.clover.core.internal.calc.Calc;
@@ -44,6 +45,8 @@ public class OrderCalc {
   private static final Decimal SERVICE_CHARGE_DIVISOR = new Decimal(10000);
   private static final Decimal UNIT_QUANTITY_DIVISOR = new Decimal(1000);
   private static final Decimal HUNDRED = new Decimal(100);
+  private static final Decimal FRACTIONAL_PERCENTAGE_DIVISOR = new Decimal(10000);
+
 
   Order order;
   CalcOrder calcOrder;
@@ -334,15 +337,20 @@ public class OrderCalc {
     return total;
   }
 
-  private static Collection<Decimal> getPercentDiscounts(Collection<Discount> discounts) {
+  @VisibleForTesting()
+  static Collection<Decimal> getPercentDiscounts(Collection<Discount> discounts) {
     if (discounts == null || discounts.isEmpty()) {
       return Collections.emptyList();
     }
     List<Decimal> result = Lists.newArrayList();
     for (Discount d : discounts) {
-      Long percent = d.getPercentage();
-      if (percent != null) {
-        result.add(new Decimal(percent, 0));
+      if (d.isNotNullPercentageDecimal()) {
+        result.add(new Decimal(d.getPercentageDecimal()).divide(FRACTIONAL_PERCENTAGE_DIVISOR));
+      } else {
+        Long percent = d.getPercentage();
+        if (percent != null) {
+          result.add(new Decimal(percent, 0));
+        }
       }
     }
     return result;
