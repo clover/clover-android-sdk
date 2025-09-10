@@ -839,4 +839,14 @@ interface IInventoryService {
     * @y.exclude
     */
    Discount upsertDiscount(in Discount discount, out ResultStatus resultStatus);
+
+   /**
+    * Checks if all of the specified modifiers are available.
+    *
+    * @param modifierIdsList A list of modifier IDs to check for availability.
+    * @param resultStatus    The result status of the operation.
+    * @return true if all of the specified modifiers are available, false otherwise.
+    * @clover.perm INVENTORY_R
+    */
+   boolean checkModifiersAvailability(in List<String> modifierIdsList, out ResultStatus resultStatus);
 }

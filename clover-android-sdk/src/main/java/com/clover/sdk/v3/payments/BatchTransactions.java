@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.payments;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -33,6 +34,12 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPaymentIds paymentIds}</li>
  * <li>{@link #getRefundIds refundIds}</li>
  * <li>{@link #getCreditIds creditIds}</li>
+ * <li>{@link #getPaymentDBIds paymentDBIds}</li>
+ * <li>{@link #getRefundDBIds refundDBIds}</li>
+ * <li>{@link #getCreditDBIds creditDBIds}</li>
+ * <li>{@link #getPaymentInfo paymentInfo}</li>
+ * <li>{@link #getRefundInfo refundInfo}</li>
+ * <li>{@link #getCreditInfo creditInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -41,22 +48,64 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
   /**
    * List of payments in the batch
    */
-  public java.util.List<java.lang.String> getPaymentIds() {
+  public java.util.List<String> getPaymentIds() {
     return genClient.cacheGet(CacheKey.paymentIds);
   }
 
   /**
    * List of refunds in the batch
    */
-  public java.util.List<java.lang.String> getRefundIds() {
+  public java.util.List<String> getRefundIds() {
     return genClient.cacheGet(CacheKey.refundIds);
   }
 
   /**
    * List of credits in the batch
    */
-  public java.util.List<java.lang.String> getCreditIds() {
+  public java.util.List<String> getCreditIds() {
     return genClient.cacheGet(CacheKey.creditIds);
+  }
+
+  /**
+   * List of payment database ids in the batch
+   */
+  public java.util.List<Long> getPaymentDBIds() {
+    return genClient.cacheGet(CacheKey.paymentDBIds);
+  }
+
+  /**
+   * List of refundsIDs in the batch
+   */
+  public java.util.List<Long> getRefundDBIds() {
+    return genClient.cacheGet(CacheKey.refundDBIds);
+  }
+
+  /**
+   * List of creditsIDs in the batch
+   */
+  public java.util.List<Long> getCreditDBIds() {
+    return genClient.cacheGet(CacheKey.creditDBIds);
+  }
+
+  /**
+   * List of payments transactions info in the batch
+   */
+  public java.util.List<BatchTransactionDetails> getPaymentInfo() {
+    return genClient.cacheGet(CacheKey.paymentInfo);
+  }
+
+  /**
+   * List of refunds transactions info in the batch
+   */
+  public java.util.List<BatchTransactionDetails> getRefundInfo() {
+    return genClient.cacheGet(CacheKey.refundInfo);
+  }
+
+  /**
+   * List of credits transactions info in the batch
+   */
+  public java.util.List<BatchTransactionDetails> getCreditInfo() {
+    return genClient.cacheGet(CacheKey.creditInfo);
   }
 
 
@@ -64,11 +113,23 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     paymentIds
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
     refundIds
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
     creditIds
-        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(String.class)),
+    paymentDBIds
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(Long.class)),
+    refundDBIds
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(Long.class)),
+    creditDBIds
+        (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(Long.class)),
+    paymentInfo
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(BatchTransactionDetails.JSON_CREATOR)),
+    refundInfo
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(BatchTransactionDetails.JSON_CREATOR)),
+    creditInfo
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(BatchTransactionDetails.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -167,6 +228,54 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
   /** Checks whether the 'creditIds' field is set and is not null and is not empty */
   public boolean isNotEmptyCreditIds() { return isNotNullCreditIds() && !getCreditIds().isEmpty(); }
 
+  /** Checks whether the 'paymentDBIds' field is set and is not null */
+  public boolean isNotNullPaymentDBIds() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentDBIds);
+  }
+
+  /** Checks whether the 'paymentDBIds' field is set and is not null and is not empty */
+  public boolean isNotEmptyPaymentDBIds() { return isNotNullPaymentDBIds() && !getPaymentDBIds().isEmpty(); }
+
+  /** Checks whether the 'refundDBIds' field is set and is not null */
+  public boolean isNotNullRefundDBIds() {
+    return genClient.cacheValueIsNotNull(CacheKey.refundDBIds);
+  }
+
+  /** Checks whether the 'refundDBIds' field is set and is not null and is not empty */
+  public boolean isNotEmptyRefundDBIds() { return isNotNullRefundDBIds() && !getRefundDBIds().isEmpty(); }
+
+  /** Checks whether the 'creditDBIds' field is set and is not null */
+  public boolean isNotNullCreditDBIds() {
+    return genClient.cacheValueIsNotNull(CacheKey.creditDBIds);
+  }
+
+  /** Checks whether the 'creditDBIds' field is set and is not null and is not empty */
+  public boolean isNotEmptyCreditDBIds() { return isNotNullCreditDBIds() && !getCreditDBIds().isEmpty(); }
+
+  /** Checks whether the 'paymentInfo' field is set and is not null */
+  public boolean isNotNullPaymentInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.paymentInfo);
+  }
+
+  /** Checks whether the 'paymentInfo' field is set and is not null and is not empty */
+  public boolean isNotEmptyPaymentInfo() { return isNotNullPaymentInfo() && !getPaymentInfo().isEmpty(); }
+
+  /** Checks whether the 'refundInfo' field is set and is not null */
+  public boolean isNotNullRefundInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.refundInfo);
+  }
+
+  /** Checks whether the 'refundInfo' field is set and is not null and is not empty */
+  public boolean isNotEmptyRefundInfo() { return isNotNullRefundInfo() && !getRefundInfo().isEmpty(); }
+
+  /** Checks whether the 'creditInfo' field is set and is not null */
+  public boolean isNotNullCreditInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.creditInfo);
+  }
+
+  /** Checks whether the 'creditInfo' field is set and is not null and is not empty */
+  public boolean isNotEmptyCreditInfo() { return isNotNullCreditInfo() && !getCreditInfo().isEmpty(); }
+
 
 
   /** Checks whether the 'paymentIds' field has been set, however the value could be null */
@@ -184,13 +293,43 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
     return genClient.cacheHasKey(CacheKey.creditIds);
   }
 
+  /** Checks whether the 'paymentDBIds' field has been set, however the value could be null */
+  public boolean hasPaymentDBIds() {
+    return genClient.cacheHasKey(CacheKey.paymentDBIds);
+  }
+
+  /** Checks whether the 'refundDBIds' field has been set, however the value could be null */
+  public boolean hasRefundDBIds() {
+    return genClient.cacheHasKey(CacheKey.refundDBIds);
+  }
+
+  /** Checks whether the 'creditDBIds' field has been set, however the value could be null */
+  public boolean hasCreditDBIds() {
+    return genClient.cacheHasKey(CacheKey.creditDBIds);
+  }
+
+  /** Checks whether the 'paymentInfo' field has been set, however the value could be null */
+  public boolean hasPaymentInfo() {
+    return genClient.cacheHasKey(CacheKey.paymentInfo);
+  }
+
+  /** Checks whether the 'refundInfo' field has been set, however the value could be null */
+  public boolean hasRefundInfo() {
+    return genClient.cacheHasKey(CacheKey.refundInfo);
+  }
+
+  /** Checks whether the 'creditInfo' field has been set, however the value could be null */
+  public boolean hasCreditInfo() {
+    return genClient.cacheHasKey(CacheKey.creditInfo);
+  }
+
 
   /**
    * Sets the field 'paymentIds'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public BatchTransactions setPaymentIds(java.util.List<java.lang.String> paymentIds) {
+  public BatchTransactions setPaymentIds(java.util.List<String> paymentIds) {
     return genClient.setArrayOther(paymentIds, CacheKey.paymentIds);
   }
 
@@ -199,7 +338,7 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public BatchTransactions setRefundIds(java.util.List<java.lang.String> refundIds) {
+  public BatchTransactions setRefundIds(java.util.List<String> refundIds) {
     return genClient.setArrayOther(refundIds, CacheKey.refundIds);
   }
 
@@ -208,8 +347,62 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public BatchTransactions setCreditIds(java.util.List<java.lang.String> creditIds) {
+  public BatchTransactions setCreditIds(java.util.List<String> creditIds) {
     return genClient.setArrayOther(creditIds, CacheKey.creditIds);
+  }
+
+  /**
+   * Sets the field 'paymentDBIds'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setPaymentDBIds(java.util.List<Long> paymentDBIds) {
+    return genClient.setArrayOther(paymentDBIds, CacheKey.paymentDBIds);
+  }
+
+  /**
+   * Sets the field 'refundDBIds'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setRefundDBIds(java.util.List<Long> refundDBIds) {
+    return genClient.setArrayOther(refundDBIds, CacheKey.refundDBIds);
+  }
+
+  /**
+   * Sets the field 'creditDBIds'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setCreditDBIds(java.util.List<Long> creditDBIds) {
+    return genClient.setArrayOther(creditDBIds, CacheKey.creditDBIds);
+  }
+
+  /**
+   * Sets the field 'paymentInfo'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setPaymentInfo(java.util.List<BatchTransactionDetails> paymentInfo) {
+    return genClient.setArrayRecord(paymentInfo, CacheKey.paymentInfo);
+  }
+
+  /**
+   * Sets the field 'refundInfo'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setRefundInfo(java.util.List<BatchTransactionDetails> refundInfo) {
+    return genClient.setArrayRecord(refundInfo, CacheKey.refundInfo);
+  }
+
+  /**
+   * Sets the field 'creditInfo'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public BatchTransactions setCreditInfo(java.util.List<BatchTransactionDetails> creditInfo) {
+    return genClient.setArrayRecord(creditInfo, CacheKey.creditInfo);
   }
 
 
@@ -224,6 +417,30 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
   /** Clears the 'creditIds' field, the 'has' method for this field will now return false */
   public void clearCreditIds() {
     genClient.clear(CacheKey.creditIds);
+  }
+  /** Clears the 'paymentDBIds' field, the 'has' method for this field will now return false */
+  public void clearPaymentDBIds() {
+    genClient.clear(CacheKey.paymentDBIds);
+  }
+  /** Clears the 'refundDBIds' field, the 'has' method for this field will now return false */
+  public void clearRefundDBIds() {
+    genClient.clear(CacheKey.refundDBIds);
+  }
+  /** Clears the 'creditDBIds' field, the 'has' method for this field will now return false */
+  public void clearCreditDBIds() {
+    genClient.clear(CacheKey.creditDBIds);
+  }
+  /** Clears the 'paymentInfo' field, the 'has' method for this field will now return false */
+  public void clearPaymentInfo() {
+    genClient.clear(CacheKey.paymentInfo);
+  }
+  /** Clears the 'refundInfo' field, the 'has' method for this field will now return false */
+  public void clearRefundInfo() {
+    genClient.clear(CacheKey.refundInfo);
+  }
+  /** Clears the 'creditInfo' field, the 'has' method for this field will now return false */
+  public void clearCreditInfo() {
+    genClient.clear(CacheKey.creditInfo);
   }
 
 
@@ -290,6 +507,12 @@ public class BatchTransactions extends GenericParcelable implements com.clover.s
     public static final boolean PAYMENTIDS_IS_REQUIRED = false;
     public static final boolean REFUNDIDS_IS_REQUIRED = false;
     public static final boolean CREDITIDS_IS_REQUIRED = false;
+    public static final boolean PAYMENTDBIDS_IS_REQUIRED = false;
+    public static final boolean REFUNDDBIDS_IS_REQUIRED = false;
+    public static final boolean CREDITDBIDS_IS_REQUIRED = false;
+    public static final boolean PAYMENTINFO_IS_REQUIRED = false;
+    public static final boolean REFUNDINFO_IS_REQUIRED = false;
+    public static final boolean CREDITINFO_IS_REQUIRED = false;
   }
 
 }

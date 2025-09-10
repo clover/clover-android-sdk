@@ -847,6 +847,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public boolean checkModifiersAvailability(List<String> modifierIdsList, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement checkModifiersAvailability()");
+    }
+
+    @Override
     public Item getItemWithCategories(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("getItemWithCategories() not supported through web service API");
     }

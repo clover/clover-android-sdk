@@ -1024,6 +1024,12 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order deletePreAuth3(final String orderId, final Authorization auth, final VoidReason voidReason, final VoidExtraData voidExtraData, TransactionInfo transactionInfo) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.deletePreAuth3(orderId, auth, voidReason, voidExtraData, status, transactionInfo));
+    });
+  }
+
   public Authorization incrementAuthorization(final String orderId, final String authId, final long amount) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute((service, status) -> {
       return getValue(service.incrementAuthorization(orderId, authId, amount, status));
