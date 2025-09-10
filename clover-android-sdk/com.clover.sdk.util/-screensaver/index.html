@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../../../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r326
+            <div class="library-version">r328
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -64,7 +64,7 @@
   <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.util</a><span class="delimiter">/</span><span class="current">Screensaver</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Screensaver</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">Screensaver</a></div><p class="paragraph">Enable, disable, and configure the screensaver.</p><p class="paragraph">Not all methods are supported on all devices. If a method is not supported, it will throw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-unsupported-operation-exception/index.html">UnsupportedOperationException</a>. For example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val screensaver = Screensaver(context)<br>try {<br>  screensaver.gotoSleep()<br>  // Supported on this device<br>} catch (e: UnsupportedOperationException) {<br>  // Not supported on this device<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Alternatively, you can check if the methods in this class are supported by inspecting <a href="index.html#-1386845462%2FProperties%2F1904710855">supported</a>.</p><p class="paragraph">All methods are blocking and should be invoked on a background thread.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">Screensaver</a></div><p class="paragraph">Enable, disable, and configure the screensaver.</p><p class="paragraph">Not all methods are supported on all devices. If a method is not supported, it will throw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-unsupported-operation-exception/index.html">UnsupportedOperationException</a>. For example:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val screensaver = Screensaver(context)<br>try {<br>  screensaver.gotoSleep()<br>  // Supported on this device<br>} catch (e: UnsupportedOperationException) {<br>  // Not supported on this device<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Alternatively, you can check if the methods in this class are supported by inspecting <a href="supported.html">supported</a>.</p><p class="paragraph">All methods are blocking and should be invoked on a background thread.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -113,13 +113,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1290613829%2FProperties%2F1904710855"><span>dreams</span><wbr><span>Enabled</span><wbr><span>On</span><wbr><span><span>Battery</span></span></a></div>
+                  <div><a href="dreams-enabled-on-battery.html"><span>dreams</span><wbr><span>Enabled</span><wbr><span>On</span><wbr><span><span>Battery</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1290613829%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#1290613829%2FProperties%2F1904710855">dreamsEnabledOnBattery</a></div><div class="brief "><p class="paragraph">Get or set if dreams are enabled on battery power. If true, the device will allow the device to dream when on battery power.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="dreams-enabled-on-battery.html">dreamsEnabledOnBattery</a></div><div class="brief "><p class="paragraph">Get or set if dreams are enabled on battery power. If true, the device will allow the device to dream when on battery power.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -128,13 +128,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1386845462%2FProperties%2F1904710855"><span><span>supported</span></span></a></div>
+                  <div><a href="supported.html"><span><span>supported</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1386845462%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="index.html#-1386845462%2FProperties%2F1904710855">supported</a></div><div class="brief "><p class="paragraph">Convenience method to check if the methods in this class are supported on this device.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/java/lang/Boolean.html">Boolean</a>&nbsp;<a href="supported.html">supported</a></div><div class="brief "><p class="paragraph">Convenience method to check if the methods in this class are supported on this device.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -143,13 +143,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#214485347%2FProperties%2F1904710855"><span>unstable</span><wbr><span><span>Client</span></span></a></div>
+                  <div><a href="unstable-client.html"><span>unstable</span><wbr><span><span>Client</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="214485347%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="com.clover.sdk.internal.util/UnstableContentResolverClient///PointingToDeclaration/">UnstableContentResolverClient</span>&nbsp;<a href="index.html#214485347%2FProperties%2F1904710855">unstableClient</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="com.clover.sdk.internal.util/UnstableContentResolverClient///PointingToDeclaration/">UnstableContentResolverClient</span>&nbsp;<a href="unstable-client.html">unstableClient</a></div></div></div>
                 </div>
               </div>
             </div>
