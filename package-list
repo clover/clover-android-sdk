@@ -1,6 +1,6 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-
+$dokka.location:com.clover.sdk.v3.mifare.connector/MifareCardReaderClient.Companion/Companion/#/PointingToDeclaration/clover-android-sdk/com.clover.sdk.v3.mifare.connector/-mifare-card-reader-client/-companion.html
 module:clover-android-connector-sdk
 com.clover.connector.sdk.v3
 com.clover.connector.sdk.v3.session
