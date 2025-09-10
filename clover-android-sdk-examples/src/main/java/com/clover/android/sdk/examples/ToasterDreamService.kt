@@ -1,5 +1,6 @@
 package com.clover.android.sdk.examples
 
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -16,12 +17,14 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
-import kotlin.time.Duration.Companion.seconds
-
+import androidx.core.graphics.scale
+import com.clover.android.sdk.examples.ScreensaverTestActivity.*
+import kotlin.time.Duration.Companion.minutes
 
 class ToasterDreamService : DreamService() {
     private lateinit var toasterView: ToasterView
     private lateinit var screensaver: Screensaver
+    private lateinit var prefs: SharedPreferences
 
     private val serviceScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private var sleepJob: Job? = null
@@ -30,6 +33,8 @@ class ToasterDreamService : DreamService() {
         super.onCreate()
         screensaver = Screensaver(this)
         toasterView = ToasterView(this)
+
+        prefs = getSharedPreferences(ScreensaverTestViewModel.PREFS_SCREENSAVER, MODE_PRIVATE)
     }
 
     override fun onAttachedToWindow() {
@@ -47,9 +52,15 @@ class ToasterDreamService : DreamService() {
         setContentView(toasterView)
 
         sleepJob = serviceScope.launch {
-            delay(5.seconds)
+            delay(prefs.getInt(
+                ScreensaverTestViewModel.PREF_DREAM_BRIGHT_MINUTES,
+                ScreensaverTestViewModel.DEFAULT_DREAM_BRIGHT_MINUTES).minutes
+            )
             screenBrightness = 0.1f
-            delay(10.seconds)
+            delay(prefs.getInt(
+                ScreensaverTestViewModel.PREF_DREAM_DIM_MINUTES,
+                ScreensaverTestViewModel.DEFAULT_DREAM_DIM_MINUTES).minutes
+            )
             screensaver.gotoSleep()
             finish()
         }
@@ -78,24 +89,15 @@ class ToasterDreamService : DreamService() {
         super.onDetachedFromWindow()
     }
 
-    override fun onDreamingStarted() {
-        super.onDreamingStarted()
-        toasterView.startAnimation()
-    }
-
-    override fun onDreamingStopped() {
-        super.onDreamingStopped()
-        toasterView.stopAnimation()
-    }
-
     private inner class ToasterView(context: android.content.Context) : View(context) {
         private val toasters = mutableListOf<Toaster>()
         private val paint = Paint()
         private var toasterBitmap: Bitmap? = null
-        private var running = false
         private val random = Random
         private val toasterSizeFraction = 0.2f
         private val diagonalSpeed = 5f  // Base speed for diagonal movement
+        private lateinit var dreamDebugDisplay: DreamDebugDisplay
+
 
         init {
             loadScaledToasterBitmap()
@@ -109,12 +111,7 @@ class ToasterDreamService : DreamService() {
             val scale = targetHeight.toFloat() / originalBitmap.height
             val targetWidth = (originalBitmap.width * scale).toInt()
 
-            toasterBitmap = Bitmap.createScaledBitmap(
-                originalBitmap,
-                targetWidth,
-                targetHeight,
-                true
-            )
+            toasterBitmap = originalBitmap.scale(targetWidth, targetHeight)
 
             if (originalBitmap != toasterBitmap) {
                 originalBitmap.recycle()
@@ -129,6 +126,20 @@ class ToasterDreamService : DreamService() {
             if (w > 0 && h > 0) {
                 repeat(10) { addToaster() }
             }
+        }
+
+        override fun onAttachedToWindow() {
+            super.onAttachedToWindow()
+            dreamDebugDisplay = DreamDebugDisplay(
+                brightMinutes = prefs.getInt(
+                    ScreensaverTestViewModel.PREF_DREAM_BRIGHT_MINUTES,
+                    ScreensaverTestViewModel.DEFAULT_DREAM_BRIGHT_MINUTES
+                ),
+                dimMinutes = prefs.getInt(
+                    ScreensaverTestViewModel.PREF_DREAM_DIM_MINUTES,
+                    ScreensaverTestViewModel.DEFAULT_DREAM_DIM_MINUTES
+                )
+            )
         }
 
         private fun addToaster() {
@@ -156,20 +167,10 @@ class ToasterDreamService : DreamService() {
             }
         }
 
-        fun startAnimation() {
-            running = true
-            postInvalidateOnAnimation()
-        }
-
-        fun stopAnimation() {
-            running = false
-        }
-
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
             canvas.drawColor(Color.BLACK)
 
-            // Update and draw toasters
             toasters.forEach { toaster ->
                 toaster.update()
                 toaster.draw(canvas, paint)
@@ -187,9 +188,9 @@ class ToasterDreamService : DreamService() {
                 }
             }
 
-            if (running) {
-                postInvalidateOnAnimation()
-            }
+            dreamDebugDisplay.draw(canvas)
+
+            postInvalidateOnAnimation()
         }
 
         private inner class Toaster(

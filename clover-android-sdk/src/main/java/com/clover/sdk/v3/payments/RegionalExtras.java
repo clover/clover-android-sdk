@@ -10,6 +10,14 @@ public final class RegionalExtras {
   //New regional extras to add a selected currency
   public static final String TX_EXTRA_CURRENCY = "com.clover.regionalextras.EXTRA_CURRENCY";
 
+  // Keys to be used in Argentina as filters inside the RegionalExtras
+  public static final String CARD_SYMBOL_KEY = "com.clover.regionalextras.ar.CARD_SYMBOL_KEY";
+  public static final String CASHBACK_AMOUNT_KEY = "com.clover.regionalextras.ar.CASHBACK_AMOUNT_KEY";
+  public static final String SUB_MERCHANT_KEY = "com.clover.regionalextras.ar.SUB_MERCHANT_KEY";
+  public static final String BUSINESS_ID_KEY = "com.clover.regionalextras.ar.BUSINESS_ID_KEY";
+  public static final String DYNAMIC_MERCHANT_NAME_KEY = "com.clover.regionalextras.ar.DYNAMIC_MERCHANT_NAME_KEY";
+
+
   //  Values - can be used in conjunction with keys to induce the desired effect during
   //  the processing of a transaction on the Clover payment device.
 

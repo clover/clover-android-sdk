@@ -1271,7 +1271,9 @@ public class PayIntent implements Parcelable {
 
     intent.putExtra(Intents.EXTRA_DISABLE_RESTART_TRANSACTION_WHEN_FAILED, disableRestartTransactionWhenFailed);
 
-    intent.putExtra(Intents.EXTRA_EXTERNAL_PAYMENT_ID, externalPaymentId);
+    if (externalPaymentId != null) {
+      intent.putExtra(Intents.EXTRA_EXTERNAL_PAYMENT_ID, externalPaymentId);
+    }
 
     intent.putExtra(Intents.EXTRA_EXTERNAL_REFERENCE_ID, externalReferenceId);
 

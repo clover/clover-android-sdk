@@ -48,12 +48,61 @@ public final class MerchantDevicesV2Contract {
   public static final String METHOD_GET_SERIAL = "getSerial";
 
   /**
+   * Get the SIM ICC ID (integrated circuit card identifier) on this device, or null if
+   * it's not available.
+   *
+   * @see #RESULT_GET_SIM_ICCID
+   */
+  public static final String METHOD_GET_SIM_ICCID = "getSimIccId";
+
+  /**
+   * Reboot this device. A countdown is shown to the user. The user may cancel the reboot
+   * at any time before the countdown ends.
+   * <p>
+   * To reboot immediately, and disallow the user from canceling the reboot, use
+   * with the extra {@link #EXTRA_REBOOT_NOW} set to true.
+   *
+   * @see #EXTRA_REBOOT_NOW
+   * @see #EXTRA_REBOOT_REASON
+   */
+  public static final String METHOD_REBOOT = "reboot";
+  /**
+   * A {@link Boolean}, an optional extra used with {@link #METHOD_REBOOT} to force the device to
+   * reboot immediately. If not present, the default is value is false.
+   * <p/>
+   * This is only supported on generation 2 and newer Clover devices. If this is passed on an
+   * unsupported device, the behavior is the same as if set to false; a countdown is shown to
+   * the user.
+   *
+   * @see #METHOD_REBOOT
+   * @see #EXTRA_REBOOT_REASON
+   */
+  public static final String EXTRA_REBOOT_NOW = "now";
+  /**
+   * A {@link String}, an optional extra used with {@link #METHOD_REBOOT} to provide a reason
+   * for the reboot. This is shown to the user during the countdown, if
+   * {@link #EXTRA_REBOOT_NOW} is false.
+   *
+   * @see #METHOD_REBOOT
+   * @see #EXTRA_REBOOT_NOW
+   */
+  public static final String EXTRA_REBOOT_REASON = "reason";
+
+  /**
    * Extra present in the response bundle from {@link #METHOD_GET_SERIAL}, a String, the serial
    * of this device.
    *
    * @see #METHOD_GET_SERIAL
    */
   public static final String RESULT_GET_SERIAL = "result_serial";
+
+  /**
+   * Extra present in the response bundle from {@link #METHOD_GET_SIM_ICCID}, a String, the
+   * SIM ICC ID of this device.
+   *
+   * @see #METHOD_GET_SIM_ICCID
+   */
+  public static final String RESULT_GET_SIM_ICCID = "result_sim_iccid";
 
   public interface DeviceColumns {
     /**

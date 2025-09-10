@@ -2437,4 +2437,67 @@ public final class InventoryContract {
       return builder.build();
     }
   }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.Allergen}.
+   */
+  public interface AllergenColumns {
+    /**
+     * A {@link String}, the 13-character Clover UUID of this allergen.
+     */
+    String UUID = "uuid";
+
+    /**
+     * A {@link String}, Supplied name of this allergen.
+     */
+    String NAME = "name";
+
+    /**
+     * A {@link String}, Locale Identifier specific to this allergen.
+     */
+    String LOCALE_ID = "locale_id";
+
+    String CREATED_TIME = "created_time";
+    String MODIFIED_TIME = "modified_time";
+    String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.Allergen} instances via
+   * content provider.
+   */
+  public static final class Allergen implements BaseColumns, AllergenColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private Allergen() {
+    }
+
+    /**
+     * Base content directory (table) for allergen_info
+     */
+    public static final String CONTENT_DIRECTORY = "allergen_info";
+
+    /**
+     * The content:// style URI for the allergen_info table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of allergen info.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/allergen_info";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single allergen info.
+     */
+    public static final String CONTENT_ALLERGEN_INFO_TYPE = "vnd.android.cursor.item/allergen_info";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
 }

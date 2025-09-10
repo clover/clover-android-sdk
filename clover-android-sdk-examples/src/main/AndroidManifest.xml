@@ -168,7 +168,8 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@android:style/Theme.DeviceDefault.Light"/>
         <activity
           android:name=".MerchantDevicesV2TestActivity"
-          android:label="@string/merchant_devices_v2_activity_label" />
+          android:label="@string/merchant_devices_v2_activity_label"
+          android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
             android:name=".Platform2DetailsActivity"
@@ -229,6 +230,20 @@ xmlns:tools="http://schemas.android.com/tools"
             android:name=".ToasterDreamService"
             android:exported="true"
             android:label="Flying Toasters"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/toaster_dream" />
+        </service>
+        <service
+            android:name=".QixDreamService"
+            android:exported="true"
+            android:label="Qix"
             android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />

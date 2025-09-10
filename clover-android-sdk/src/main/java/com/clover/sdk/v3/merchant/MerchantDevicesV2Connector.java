@@ -18,6 +18,7 @@ package com.clover.sdk.v3.merchant;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import androidx.annotation.Nullable;
 
 import com.clover.sdk.internal.util.UnstableContentResolverClient;
 import com.clover.sdk.v1.CallConnector;
@@ -31,6 +32,8 @@ import com.clover.sdk.v3.device.Device;
  * As the total number of devices for a merchant can be large, use
  * {@link MerchantDevicesV2Contract.Device} to query for all (or a subset) of the
  * merchant's devices.
+ * <p/>
+ * All of the methods in this class are blocking. They should not be called on the main thread.
  */
 public class MerchantDevicesV2Connector extends CallConnector {
 
@@ -49,6 +52,48 @@ public class MerchantDevicesV2Connector extends CallConnector {
       return null;
     }
     return result.getString(MerchantDevicesV2Contract.RESULT_GET_SERIAL);
+  }
+
+  /**
+   * Get the SIM ICC ID (integrated circuit card identifier) on this device, or `null` if
+   * it's not available.
+   * <p/>
+   * The SIM ICC ID is NOT available from {@link Device#getSimIccid()}.
+   */
+  @Nullable
+  public String getSimIccId() {
+    UnstableContentResolverClient client = new UnstableContentResolverClient(context.getContentResolver(),
+        MerchantDevicesV2Contract.AUTHORITY_URI);
+    Bundle result = client.call(MerchantDevicesV2Contract.METHOD_GET_SIM_ICCID, null, null, null);
+    if (result == null) {
+      return null;
+    }
+    return result.getString(MerchantDevicesV2Contract.RESULT_GET_SIM_ICCID);
+  }
+
+  /**
+   * Reboot this device.
+   *
+   * @param reason the reason for the reboot, or null if no reason is provided.
+   * @param now if true, reboot the device immediately. Otherwise, a countdown is shown to the
+   *            user. The user may cancel countdown, preventing the reboot. The now parameter
+   *            is only support on generation 2 and newer Clover devices. If this is set to true
+   *            on an unsupported device, the behavior is the same as if set to false; a countdown
+   *            is shown to the user.
+   */
+  public void reboot(@Nullable String reason, boolean now) {
+    UnstableContentResolverClient client =
+        new UnstableContentResolverClient(
+            context.getContentResolver(),
+            MerchantDevicesV2Contract.AUTHORITY_URI
+        );
+
+
+    final Bundle extras = new Bundle();
+    extras.putBoolean(MerchantDevicesV2Contract.EXTRA_REBOOT_NOW, now);
+    extras.putString(MerchantDevicesV2Contract.EXTRA_REBOOT_REASON, reason);
+
+    client.call(MerchantDevicesV2Contract.METHOD_REBOOT, null, extras, null);
   }
 
   /**

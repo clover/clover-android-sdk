@@ -944,9 +944,12 @@ interface IOrderServiceV3_1 {
 
     /**
      * Not available to non-Clover apps.
+     * @deprecated Use {@link #deletePreAuth3}.
      * @y.exclude
      */
     OrderFdParcelable deletePreAuth2(String orderId, in Authorization auth, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status);
+
+
 
   /**
     * This is a replacement for the methods addPayment2() and addLPMPayment()
@@ -1028,5 +1031,12 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   AuthorizationFdParcelable captureAuth(String orderId, in AuthorizationFdParcelable auth, out ResultStatus status);
+
+  /**
+   * Not available to non-Clover apps.
+   * Deletes a pre-authorized order with the given order ID and related transaction details.
+   * @y.exclude
+   */
+  OrderFdParcelable deletePreAuth3(String orderId, in Authorization auth, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status, in TransactionInfo transactionInfo);
 
 }

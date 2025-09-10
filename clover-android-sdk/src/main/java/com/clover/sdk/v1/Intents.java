@@ -1844,9 +1844,12 @@ public class Intents {
   public static final String EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME = "applyRealtimeDiscountForPkgName";
 
   /**
-   * Service fee for DMV transactions
+   * Service fee for a transactions
    */
   public static final String EXTRA_SERVICE_FEE_AMOUNT = "serviceFeeAmount";
+
+  /** {@link com.clover.sdk.v3.payments.ServiceFeePayment}, v3 ServiceFeePayment object */
+  public static final String EXTRA_SERVICE_FEE_PAYMENT = "serviceFeePayment";
 
   /**
    * The transaction name

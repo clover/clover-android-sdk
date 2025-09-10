@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '326'
+version = '328'
 
 apply from: file("${project.rootDir}/app.gradle")
 apply plugin: 'kotlin-android'
@@ -91,6 +91,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION")
   implementation "androidx.activity:activity-ktx:$ANDROIDX_ACTIVITY_VERSION"
   implementation "com.google.code.gson:gson:$GSON_VERSION"
+  implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINTLAYOUT_VERSION"
 
   def room_version = "2.6.1"
   implementation("androidx.room:room-common:$room_version")

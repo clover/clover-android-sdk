@@ -73,6 +73,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsAgeRestricted isAgeRestricted}</li>
  * <li>{@link #getAgeRestrictedType ageRestrictedType}</li>
  * <li>{@link #getMinimumAge minimumAge}</li>
+ * <li>{@link #getExcludeCashDiscount excludeCashDiscount}</li>
+ * <li>{@link #getLineItemInfo lineItemInfo}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -362,6 +364,21 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.minimumAge);
   }
 
+  /**
+   * If this item is excluded for cash discount
+   */
+  public java.lang.Boolean getExcludeCashDiscount() {
+    return genClient.cacheGet(CacheKey.excludeCashDiscount);
+  }
+
+  /**
+   * Line item infos that cover different use cases like allergens, etc.
+   */
+  public com.clover.sdk.v3.order.LineItemInfo getLineItemInfo() {
+    return genClient.cacheGet(CacheKey.lineItemInfo);
+  }
+
+
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -446,11 +463,15 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     unitQtyDecimalDigits
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     isAgeRestricted
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ageRestrictedType
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     minimumAge
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    excludeCashDiscount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+    lineItemInfo
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItemInfo.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -545,11 +566,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
 
     genClient.validateMinMax(CacheKey.percentage, getPercentage(), 0L, 1000000L);
 
+    genClient.validateMinMax(CacheKey.unitQtyDecimalDigits, getUnitQtyDecimalDigits(), 0L, 3L);
+
     genClient.validateLength(CacheKey.ageRestrictedType, getAgeRestrictedType(), 127);
 
     genClient.validateMinMax(CacheKey.minimumAge, getMinimumAge(), 0L, 150L);
-
-    genClient.validateMinMax(CacheKey.unitQtyDecimalDigits, getUnitQtyDecimalDigits(), 0L, 3L);
     genClient.validateReferences(CacheKey.item);
     genClient.validateReferences(CacheKey.exchangedLineItem);
     genClient.validateReferences(CacheKey.printGroup);
@@ -790,6 +811,17 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.minimumAge);
   }
 
+  /** Checks whether the 'excludeCashDiscount' field is set and is not null */
+  public boolean isNotNullExcludeCashDiscount() {
+    return genClient.cacheValueIsNotNull(CacheKey.excludeCashDiscount);
+  }
+
+  /** Checks whether the 'lineItemInfo' field is set and is not null */
+  public boolean isNotNullLineItemInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.lineItemInfo);
+  }
+
+
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -1005,6 +1037,16 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'minimumAge' field has been set, however the value could be null */
   public boolean hasMinimumAge() {
     return genClient.cacheHasKey(CacheKey.minimumAge);
+  }
+
+  /** Checks whether the 'excludeCashDiscount' field has been set, however the value could be null */
+  public boolean hasExcludeCashDiscount() {
+    return genClient.cacheHasKey(CacheKey.excludeCashDiscount);
+  }
+
+  /** Checks whether the 'lineItemInfo' field has been set, however the value could be null */
+  public boolean hasLineItemInfo() {
+    return genClient.cacheHasKey(CacheKey.lineItemInfo);
   }
 
 
@@ -1331,6 +1373,22 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(minimumAge, CacheKey.minimumAge);
   }
 
+  /**
+   * Sets the field 'excludeCashDiscount'.
+   */
+  public LineItem setExcludeCashDiscount(java.lang.Boolean excludeCashDiscount) {
+    return genClient.setOther(excludeCashDiscount, CacheKey.excludeCashDiscount);
+  }
+
+  /**
+   * Sets the field 'lineItemInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public LineItem setLineItemInfo(com.clover.sdk.v3.order.LineItemInfo lineItemInfo) {
+    return genClient.setRecord(lineItemInfo, CacheKey.lineItemInfo);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1484,7 +1542,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearIsPlatformOrderFee() {
     genClient.clear(CacheKey.isPlatformOrderFee);
   }
-  /** Clears the 'orderFee' field, the 'has' method for this field will now return false */
+  /** Clears the 'orderFeeType' field, the 'has' method for this field will now return false */
   public void clearOrderFeeType() {
     genClient.clear(CacheKey.orderFeeType);
   }
@@ -1492,26 +1550,25 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearUnitQtyDecimalDigits() {
     genClient.clear(CacheKey.unitQtyDecimalDigits);
   }
-
-  /**
-   * Clears the 'isAgeRestricted' field, the 'has' method for this field will now return false
-   */
+  /** Clears the 'isAgeRestricted' field, the 'has' method for this field will now return false */
   public void clearIsAgeRestricted() {
     genClient.clear(CacheKey.isAgeRestricted);
   }
-
-  /**
-   * Clears the 'ageRestrictedType' field, the 'has' method for this field will now return false
-   */
+  /** Clears the 'ageRestrictedType' field, the 'has' method for this field will now return false */
   public void clearAgeRestrictedType() {
     genClient.clear(CacheKey.ageRestrictedType);
   }
-
-  /**
-   * Clears the 'minimumAge' field, the 'has' method for this field will now return false
-   */
+  /** Clears the 'minimumAge' field, the 'has' method for this field will now return false */
   public void clearMinimumAge() {
     genClient.clear(CacheKey.minimumAge);
+  }
+  /** Clears the 'excludeCashDiscount' field, the 'has' method for this field will now return false */
+  public void clearExcludeCashDiscount() {
+    genClient.clear(CacheKey.excludeCashDiscount);
+  }
+  /** Clears the 'lineItemInfo' field, the 'has' method for this field will now return false */
+  public void clearLineItemInfo() {
+    genClient.clear(CacheKey.lineItemInfo);
   }
 
 
@@ -1633,6 +1690,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean AGERESTRICTEDTYPE_IS_REQUIRED = false;
     public static final long AGERESTRICTEDTYPE_MAX_LEN = 127;
     public static final boolean MINIMUMAGE_IS_REQUIRED = false;
+    public static final long MINIMUMAGE_MIN = 0;
+    public static final long MINIMUMAGE_MAX = 150;
+    public static final boolean EXCLUDECASHDISCOUNT_IS_REQUIRED = false;
+    public static final boolean LINEITEMINFO_IS_REQUIRED = false;
   }
 
 }
