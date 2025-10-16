@@ -259,6 +259,10 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/AppAppCompatTheme" />
 
         <activity android:name=".mifare.MifareCardReaderStatusActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:theme="@style/Theme.AppCompat.Light" >
+            <meta-data
+                android:name="com.clover.android.sdk.examples.FILTER_OUT_ACTIVITY"
+                android:value="true" />
+        </activity>
     </application>
 </manifest>

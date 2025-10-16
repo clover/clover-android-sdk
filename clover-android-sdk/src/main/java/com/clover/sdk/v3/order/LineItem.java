@@ -75,6 +75,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMinimumAge minimumAge}</li>
  * <li>{@link #getExcludeCashDiscount excludeCashDiscount}</li>
  * <li>{@link #getLineItemInfo lineItemInfo}</li>
+ * <li>{@link #getLineItemStatusReason lineItemStatusReason}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -378,6 +379,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.lineItemInfo);
   }
 
+  /**
+   * Reason for line item return or exchange. This is used for reporting purposes and may not be present in all cases.
+   */
+  public java.lang.String getLineItemStatusReason() {
+    return genClient.cacheGet(CacheKey.lineItemStatusReason);
+  }
+
 
 
 
@@ -469,9 +477,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     minimumAge
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     excludeCashDiscount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     lineItemInfo
             (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItemInfo.JSON_CREATOR)),
+    lineItemStatusReason
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -821,6 +831,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.lineItemInfo);
   }
 
+  /** Checks whether the 'lineItemStatusReason' field is set and is not null */
+  public boolean isNotNullLineItemStatusReason() {
+    return genClient.cacheValueIsNotNull(CacheKey.lineItemStatusReason);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1047,6 +1062,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'lineItemInfo' field has been set, however the value could be null */
   public boolean hasLineItemInfo() {
     return genClient.cacheHasKey(CacheKey.lineItemInfo);
+  }
+
+  /** Checks whether the 'lineItemStatusReason' field has been set, however the value could be null */
+  public boolean hasLineItemStatusReason() {
+    return genClient.cacheHasKey(CacheKey.lineItemStatusReason);
   }
 
 
@@ -1389,6 +1409,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setRecord(lineItemInfo, CacheKey.lineItemInfo);
   }
 
+  /**
+   * Sets the field 'lineItemStatusReason'.
+   */
+  public LineItem setLineItemStatusReason(java.lang.String lineItemStatusReason) {
+    return genClient.setOther(lineItemStatusReason, CacheKey.lineItemStatusReason);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1570,6 +1597,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearLineItemInfo() {
     genClient.clear(CacheKey.lineItemInfo);
   }
+  /** Clears the 'lineItemStatusReason' field, the 'has' method for this field will now return false */
+  public void clearLineItemStatusReason() {
+    genClient.clear(CacheKey.lineItemStatusReason);
+  }
 
 
   /**
@@ -1694,6 +1725,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long MINIMUMAGE_MAX = 150;
     public static final boolean EXCLUDECASHDISCOUNT_IS_REQUIRED = false;
     public static final boolean LINEITEMINFO_IS_REQUIRED = false;
+    public static final boolean LINEITEMSTATUSREASON_IS_REQUIRED = false;
   }
 
 }

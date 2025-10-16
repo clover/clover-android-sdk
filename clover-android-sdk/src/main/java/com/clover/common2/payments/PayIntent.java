@@ -1176,6 +1176,9 @@ public class PayIntent implements Parcelable {
       if (ts.isNotNullReceiptSelectionTimeoutThreshold()) {
         transactionSettings.setReceiptSelectionTimeoutThreshold(ts.getReceiptSelectionTimeoutThreshold());
       }
+      if (ts.isNotNullRtdProviders()) {
+        transactionSettings.setRtdProviders(ts.getRtdProviders());
+      }
     } else { // No incoming ts fields, so use deprecated properties and default values where appropriate.
       transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
       transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);

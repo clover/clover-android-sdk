@@ -35,6 +35,7 @@ import com.clover.common.payments.VoidExtraData;
 import com.clover.sdk.v3.payments.AdditionalChargeAmount;
 import com.clover.sdk.v3.payments.AuthorizationFdParcelable;
 import com.clover.sdk.v3.order.LineItem;
+import com.clover.sdk.v3.order.LineItemInfo;
 
 /**
  * An interface for interacting with the Clover order service.
@@ -1038,5 +1039,21 @@ interface IOrderServiceV3_1 {
    * @y.exclude
    */
   OrderFdParcelable deletePreAuth3(String orderId, in Authorization auth, in VoidReason voidReason, in VoidExtraData voidExtraData, out ResultStatus status, in TransactionInfo transactionInfo);
+
+  /**
+    * Not available to non-Clover apps.
+    * Set line item info for a given order and line item.
+    * @param orderId The ID of the order to be updated.
+    * @param lineItemId The ID of the line item to be updated.
+    * @param lineItemInfo The new line item info to set.
+    * @return The updated order with the new line item info.
+    * @y.exclude
+    */
+  OrderFdParcelable setLineItemInfo(String orderId, String lineItemId, in LineItemInfo lineItemInfo, out ResultStatus status);
+
+  /**
+   * @clover.perm ORDERS_W
+   */
+  LineItemFdParcelable exchangeItemWithReason(String orderId, String oldLineItemId, String itemId, String binName, String userData, String reason, boolean restock, out ResultStatus status);
 
 }

@@ -33,33 +33,33 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getId id}</li>
  * <li>{@link #getName name}</li>
- * <li>{@link #getLocaleId locale_id}</li>
+ * <li>{@link #getLocaleId localeId}</li>
  * </ul>
  * <p>
- * @see IOrderService
+ * @see com.clover.sdk.v3.order.IOrderService
  */
 @SuppressWarnings("all")
 public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Identifier for predefined allergen
+   * Unique identifier.
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Name of the allergen
    */
-  public String getName() {
+  public java.lang.String getName() {
     return genClient.cacheGet(CacheKey.name);
   }
 
   /**
    * Locale identifier for the allergen
    */
-  public String getLocaleId() {
-    return genClient.cacheGet(CacheKey.locale_id);
+  public java.lang.String getLocaleId() {
+    return genClient.cacheGet(CacheKey.localeId);
   }
 
 
@@ -67,12 +67,12 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     name
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
-    locale_id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
-      ;
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    localeId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -144,12 +144,12 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
 
   @Override
   public void validate() {
-    genClient.validateLength(CacheKey.id, getId(), 50);
+    genClient.validateCloverId(CacheKey.id, getId());
 
     genClient.validateNotNull(CacheKey.name, getName());
     genClient.validateLength(CacheKey.name, getName(), 127);
 
-    genClient.validateLength(CacheKey.locale_id, getLocaleId(), 127);
+    genClient.validateLength(CacheKey.localeId, getLocaleId(), 254);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -162,9 +162,9 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.name);
   }
 
-  /** Checks whether the 'locale_id' field is set and is not null */
+  /** Checks whether the 'localeId' field is set and is not null */
   public boolean isNotNullLocaleId() {
-    return genClient.cacheValueIsNotNull(CacheKey.locale_id);
+    return genClient.cacheValueIsNotNull(CacheKey.localeId);
   }
 
 
@@ -179,31 +179,31 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.name);
   }
 
-  /** Checks whether the 'locale_id' field has been set, however the value could be null */
+  /** Checks whether the 'localeId' field has been set, however the value could be null */
   public boolean hasLocaleId() {
-    return genClient.cacheHasKey(CacheKey.locale_id);
+    return genClient.cacheHasKey(CacheKey.localeId);
   }
 
 
   /**
    * Sets the field 'id'.
    */
-  public Allergen setId(String id) {
+  public Allergen setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public Allergen setName(String name) {
+  public Allergen setName(java.lang.String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
-   * Sets the field 'locale_id'.
+   * Sets the field 'localeId'.
    */
-  public Allergen setLocaleId(String locale_id) {
-    return genClient.setOther(locale_id, CacheKey.locale_id);
+  public Allergen setLocaleId(java.lang.String localeId) {
+    return genClient.setOther(localeId, CacheKey.localeId);
   }
 
 
@@ -215,9 +215,9 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearName() {
     genClient.clear(CacheKey.name);
   }
-  /** Clears the 'locale_id' field, the 'has' method for this field will now return false */
+  /** Clears the 'localeId' field, the 'has' method for this field will now return false */
   public void clearLocaleId() {
-    genClient.clear(CacheKey.locale_id);
+    genClient.clear(CacheKey.localeId);
   }
 
 
@@ -282,11 +282,11 @@ public class Allergen extends GenericParcelable implements com.clover.sdk.v3.Val
 
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
-    public static final long ID_MAX_LEN = 50;
+    public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 127;
-    public static final boolean LOCALE_ID_IS_REQUIRED = false;
-    public static final long LOCALE_ID_MAX_LEN = 127;
+    public static final boolean LOCALEID_IS_REQUIRED = false;
+    public static final long LOCALEID_MAX_LEN = 254;
   }
 
 }

@@ -18,6 +18,7 @@ import com.clover.sdk.v3.pay.PaymentRequestCardDetails;
 import com.clover.sdk.v3.order.VoidReason;
 import com.clover.sdk.v3.payments.Authorization;
 import com.clover.sdk.v3.order.LineItem;
+import com.clover.sdk.v3.order.LineItemInfo;
 
 /**
  * An interface for interacting with the Clover order service. The order
@@ -494,4 +495,15 @@ interface IOrderService {
        * @y.exclude
   */
   Order captureAuthorization(String orderId, in Authorization authorization, out ResultStatus status);
+
+  /**
+  * Not available to non-Clover apps.
+  * Set line item info for a given order and line item.
+  * @param orderId The ID of the order to be updated.
+  * @param lineItemId The ID of the line item to be updated.
+  * @param lineItemInfo The new line item info to set.
+  * @return The updated order with the new line item info.
+  * @y.exclude
+  */
+  Order setLineItemInfo(String orderId, String lineItemId, in LineItemInfo lineItemInfo, out ResultStatus status);
 }
