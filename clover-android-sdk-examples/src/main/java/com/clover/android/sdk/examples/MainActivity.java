@@ -23,6 +23,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
     });
 
     try {
-      PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES);
+      PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES | PackageManager.GET_META_DATA);
       ListAdapter listAdapter = new ActivityAdapter(this, filter(pi.activities));
       activityList.setAdapter(listAdapter);
     } catch (PackageManager.NameNotFoundException e) {
@@ -98,6 +99,13 @@ public class MainActivity extends Activity {
     final ActivityInfo thisActivity = getPackageManager().getActivityInfo(new ComponentName(getPackageName(), getClass().getName()), PackageManager.GET_ACTIVITIES);
     List<ActivityInfo> activityInfoList = new ArrayList<ActivityInfo>();
     for (ActivityInfo ai : activityInfos) {
+      Bundle metaData = ai.metaData;
+      if (metaData != null) {
+        if (metaData.getBoolean("com.clover.android.sdk.examples.FILTER_OUT_ACTIVITY", false)) {
+          continue;
+        }
+      }
+
       if (ai.name.equals(thisActivity.name)) {
         continue;
       }

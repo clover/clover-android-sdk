@@ -89,7 +89,8 @@ public enum Module implements Parcelable {
    * Denotes that the merchant has access to multiple menu features for online ordering.
    */
   OLO_MENUS,
-  APP_MARKET_PAY_PER_USE;
+  APP_MARKET_PAY_PER_USE,
+  ESTIMATE;
 
   @Override
   public int describeContents() {

@@ -85,6 +85,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSiTefMerchantReceipt siTefMerchantReceipt}</li>
  * <li>{@link #getIsDccFailedForPreAuthCompletion isDccFailedForPreAuthCompletion}</li>
  * <li>{@link #getIsCoBrandCard isCoBrandCard}</li>
+ * <li>{@link #getOriginalSaleAmount originalSaleAmount}</li>
+ * <li>{@link #getPartialPendingAmount partialPendingAmount}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -461,7 +463,19 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.isCoBrandCard);
   }
 
+  /**
+   * Original sale Amount
+   */
+  public java.lang.Long getOriginalSaleAmount() {
+    return genClient.cacheGet(CacheKey.originalSaleAmount);
+  }
 
+  /**
+   * Partially pending amount
+   */
+  public java.lang.Long getPartialPendingAmount() {
+    return genClient.cacheGet(CacheKey.partialPendingAmount);
+  }
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -573,8 +587,12 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     isCoBrandCard
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-      ;
 
+    originalSaleAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    partialPendingAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    ;
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
     private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
@@ -930,6 +948,15 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   }
 
 
+  /** Checks whether the 'originalSaleAmount' field is set and is not null */
+  public boolean isNotNullOriginalSaleAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.originalSaleAmount);
+  }
+
+  /** Checks whether the 'partialPendingAmount' field is set and is not null */
+  public boolean isNotNullPartialPendingAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.partialPendingAmount);
+  }
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
   public boolean hasLanguageIndicator() {
@@ -1201,6 +1228,16 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.isCoBrandCard);
   }
 
+
+  /** Checks whether the 'originalSaleAmount' field has been set, however the value could be null */
+  public boolean hasOriginalSaleAmount() {
+    return genClient.cacheHasKey(CacheKey.originalSaleAmount);
+  }
+
+  /** Checks whether the 'partialPendingAmount' field has been set, however the value could be null */
+  public boolean hasPartialPendingAmount() {
+    return genClient.cacheHasKey(CacheKey.partialPendingAmount);
+  }
 
   /**
    * Sets the field 'languageIndicator'.
@@ -1588,6 +1625,19 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(isCoBrandCard, CacheKey.isCoBrandCard);
   }
 
+  /**
+   * Sets the field 'originalSaleAmount'.
+   */
+  public TransactionInfo setOriginalSaleAmount(java.lang.Long originalSaleAmount) {
+    return genClient.setOther(originalSaleAmount, CacheKey.originalSaleAmount);
+  }
+
+  /**
+   * Sets the field 'partialPendingAmount'.
+   */
+  public TransactionInfo setPartialPendingAmount(java.lang.Long partialPendingAmount) {
+    return genClient.setOther(partialPendingAmount, CacheKey.partialPendingAmount);
+  }
 
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
@@ -1807,6 +1857,15 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   }
 
 
+  /** Clears the 'originalSaleAmount' field, the 'has' method for this field will now return false */
+  public void clearOriginalSaleAmount() {
+    genClient.clear(CacheKey.originalSaleAmount);
+  }
+  /** Clears the 'partialPendingAmount' field, the 'has' method for this field will now return false */
+  public void clearPartialPendingAmount() {
+    genClient.clear(CacheKey.partialPendingAmount);
+  }
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1926,6 +1985,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean SITEFMERCHANTRECEIPT_IS_REQUIRED = false;
     public static final boolean ISDCCFAILEDFORPREAUTHCOMPLETION_IS_REQUIRED = false;
     public static final boolean ISCOBRANDCARD_IS_REQUIRED = false;
+    public static final boolean ORIGINALSALEAMOUNT_IS_REQUIRED = false;
+    public static final boolean PARTIALPENDINGAMOUNT_IS_REQUIRED = false;
   }
 
 }

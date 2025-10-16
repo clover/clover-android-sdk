@@ -514,6 +514,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public LineItem exchangeItemWithReason(final String orderId, final String oldLineItemId, final String itemId, final String binName, final String userData, final String reason, final boolean restock) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, LineItem>() {
+      @Override
+      public LineItem call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.exchangeItemWithReason(orderId, oldLineItemId, itemId, binName, userData, reason, restock, status));
+      }
+    });
+  }
+
   public Order addPrintGroup(final String orderId, final PrintGroup printGroup) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override
@@ -1101,6 +1110,12 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     // making it default to not break existing implementers of OnOrderUpdateListener2
     default void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) {
     }
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onLineItemInfoUpdated(String orderId, String lineItemId, LineItemInfo lineItemInfo) {
+
+    }
+
   }
 
   private static class OnOrderUpdateListenerParent2 extends IOnOrderUpdateListener2.Stub {
@@ -1284,6 +1299,10 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     @Override
     public void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) throws RemoteException {
       postChange(listener -> listener.onOrderFeeDeleted(orderId, orderFeeLineItemId));
+    }
+
+    public void onLineItemInfoUpdated(String orderId, String lineItemId, LineItemInfo lineItemInfo) throws RemoteException {
+      postChange(listener -> listener.onLineItemInfoUpdated(orderId, lineItemId, lineItemInfo));
     }
 
     // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
@@ -1618,6 +1637,12 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
   public boolean fireVoidedLineItems(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute((service, status) -> {
       return service.fireVoidedLineItem(orderId, status);
+    });
+  }
+
+  public Order setLineItemInfo(final String orderId, final String lineItemId, final LineItemInfo lineItemInfo) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.setLineItemInfo(orderId, lineItemId, lineItemInfo, status));
     });
   }
 }

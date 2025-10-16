@@ -158,7 +158,7 @@ class MifareCardReaderStatusActivity: AppCompatActivity() {
               .cardClassicRead(
                   MifareCardDataRequest(
                       blockNum = 4, numBlocks = 3,
-                      mifareCardKey = MifareCardKey(0x0A, 0, 1, "FFFFFFFFFFFF")
+                      mifareCardKey = MifareCardKey(0x0B, 0, 1, "FFFFFFFFFFFFFFFFFFFFFFFF")
                   )
               )?.cardData?.let { cardData ->
                 withContext(Dispatchers.Main) {
@@ -202,7 +202,7 @@ class MifareCardReaderStatusActivity: AppCompatActivity() {
                       MifareCardDataRequest(
                           blockNum = 4,
                           numBlocks = 3,
-                          mifareCardKey = MifareCardKey(0x0A, 0, 1, "FFFFFFFFFFFF")
+                          mifareCardKey = MifareCardKey(0x0A, 0, 1, "FFFFFFFFFFFFFFFFFFFFFFFF")
                       ),
                       "11223344556677889900112233445566"
                   )

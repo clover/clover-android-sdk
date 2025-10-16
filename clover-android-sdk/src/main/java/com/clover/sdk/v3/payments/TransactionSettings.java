@@ -58,6 +58,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEnableKioskMode enableKioskMode}</li>
  * <li>{@link #getPreAuthType preAuthType}</li>
  * <li>{@link #getReceiptSelectionTimeoutThreshold receiptSelectionTimeoutThreshold}</li>
+ * <li>{@link #getRtdProviders rtdProviders}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -190,6 +191,13 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.receiptSelectionTimeoutThreshold);
   }
 
+  /**
+   * List of realtime discount provider constraints
+   */
+  public java.util.List<com.clover.sdk.v3.payments.RTDProviderConstraints> getRtdProviders() {
+    return genClient.cacheGet(CacheKey.rtdProviders);
+  }
+
 
 
 
@@ -250,6 +258,8 @@ public class TransactionSettings extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.PreAuthType.class)),
     receiptSelectionTimeoutThreshold
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    rtdProviders
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.RTDProviderConstraints.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -479,6 +489,14 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.receiptSelectionTimeoutThreshold);
   }
 
+  /** Checks whether the 'rtdProviders' field is set and is not null */
+  public boolean isNotNullRtdProviders() {
+    return genClient.cacheValueIsNotNull(CacheKey.rtdProviders);
+  }
+
+  /** Checks whether the 'rtdProviders' field is set and is not null and is not empty */
+  public boolean isNotEmptyRtdProviders() { return isNotNullRtdProviders() && !getRtdProviders().isEmpty(); }
+
 
 
   /** Checks whether the 'cardEntryMethods' field has been set, however the value could be null */
@@ -619,6 +637,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'receiptSelectionTimeoutThreshold' field has been set, however the value could be null */
   public boolean hasReceiptSelectionTimeoutThreshold() {
     return genClient.cacheHasKey(CacheKey.receiptSelectionTimeoutThreshold);
+  }
+
+  /** Checks whether the 'rtdProviders' field has been set, however the value could be null */
+  public boolean hasRtdProviders() {
+    return genClient.cacheHasKey(CacheKey.rtdProviders);
   }
 
 
@@ -822,6 +845,15 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.setOther(receiptSelectionTimeoutThreshold, CacheKey.receiptSelectionTimeoutThreshold);
   }
 
+  /**
+   * Sets the field 'rtdProviders'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public TransactionSettings setRtdProviders(java.util.List<com.clover.sdk.v3.payments.RTDProviderConstraints> rtdProviders) {
+    return genClient.setArrayRecord(rtdProviders, CacheKey.rtdProviders);
+  }
+
 
   /** Clears the 'cardEntryMethods' field, the 'has' method for this field will now return false */
   public void clearCardEntryMethods() {
@@ -935,6 +967,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   public void clearReceiptSelectionTimeoutThreshold() {
     genClient.clear(CacheKey.receiptSelectionTimeoutThreshold);
   }
+  /** Clears the 'rtdProviders' field, the 'has' method for this field will now return false */
+  public void clearRtdProviders() {
+    genClient.clear(CacheKey.rtdProviders);
+  }
 
 
   /**
@@ -1025,6 +1061,7 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean ENABLEKIOSKMODE_IS_REQUIRED = false;
     public static final boolean PREAUTHTYPE_IS_REQUIRED = false;
     public static final boolean RECEIPTSELECTIONTIMEOUTTHRESHOLD_IS_REQUIRED = false;
+    public static final boolean RTDPROVIDERS_IS_REQUIRED = false;
   }
 
 }

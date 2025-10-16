@@ -753,6 +753,11 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
     // making it default to not break existing implementers of OnOrderUpdateListener2
     default void onOrderFeeDeleted(String orderId, String orderFeeLineItemId) {
     }
+
+    // making it default to not break existing implementers of OnOrderUpdateListener2
+    default void onLineItemInfoUpdated(String orderId, String lineItemId, LineItemInfo lineItemInfo) {
+
+    }
   }
 
   private static class OnOrderUpdateListenerParent2 extends IOnOrderUpdateListener2.Stub {
@@ -938,6 +943,11 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
       postChange(listener -> listener.onOrderFeeDeleted(orderId, orderFeeLineItemId));
     }
 
+    @Override
+    public void onLineItemInfoUpdated(String orderId, String lineItemId, LineItemInfo lineItemInfo) throws RemoteException {
+      postChange(listener -> listener.onLineItemInfoUpdated(orderId, lineItemId, lineItemInfo));
+    }
+
     // This method must be called when the callback is no longer needed to prevent a memory leak. Due to the design of
     // AIDL services Android unnecessarily retains pointers to otherwise unreferenced instances of this class which in
     // turn are referencing Context objects that consume large amounts of memory.
@@ -1065,4 +1075,11 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
       }
     });
   }
+
+  public Order setLineItemInfo(final String orderId, final String lineItemId, final LineItemInfo lineItemInfo) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return service.setLineItemInfo(orderId, lineItemId, lineItemInfo, status);
+    });
+  }
+
 }
