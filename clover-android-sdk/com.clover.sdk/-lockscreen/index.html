@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../../../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r329
+            <div class="library-version">r333
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -67,7 +67,7 @@
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">Lockscreen</a></div><p class="paragraph">Lock and unlock a Clover device's lock screen. On Clover devices lock and unlocking the screen is tied to logging out and logging in Clover employees. </p> Please consider use of these methods carefully. Clover devices' passcode login system provides security and auditing to merchants. Misuse of this class can circumvent these systems. If you plan to use this class for a production Clover application please post in <a href="https://community.clover.com">community.clover.com</a> to ensure your use case will pass Clover's approval process.  Developers should prefer to unlock to the default employee if enabled by the merchant. This can be handled transparently with the <a href="unlock.html">unlock</a> method that will prefer the default employee if enabled, and otherwise will unlock to the owner employee.  To explicitly unlock to the default employee use <a href="unlock-default.html">unlockDefault</a>. Note that this will fail if the default employee is not enabled by the merchant.  To check if the merchant has a default employee use the following code: <div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">  EmployeeConnector ec; // Obtain an instance in the usual way
   Employee defaultEmployee = ec.getEmployee(Lockscreen.DEFAULT_EMPLOYEE_ID);
   boolean isDefaultEmployeeEnabled = defaultEmployee != null;
-</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div> To unlock to a specific employee use <a href="unlock.html">unlock</a>. To get a list of employees and their UUIDs use <a href="../../com.clover.sdk.v3.employees/-employee-connector/get-employees.html">getEmployees</a>.  All lock / unlock methods return a boolean indicating if the operation was successful. Attempting to unlock a device that is already unlocked will fail. Attempting to lock a device that is already locked will fail.  To understand if a Clover device is currently locked use @link com.clover.sdk.v3.employees.EmployeeConnector#getEmployee(). This will return either the currently logged in employee, or null otherwise.  To understand if the merchant has enabled the default employee, use <a href="../../com.clover.sdk.v3.employees/-employee-connector/get-employee.html">getEmployee</a> with and argument of <a href="-d-e-f-a-u-l-t_-e-m-p-l-o-y-e-e_-i-d.html">DEFAULT_EMPLOYEE_ID</a>.  The behavior of these methods on non-Clover devices and Android emulators differs. On non-Clover devices, Clover software does not control the lock screen. While the methods in this class will logout or login Clover employees, they will not cause the device's lock screen to show or hide.</div></div>
+</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div> To unlock to a specific employee use <a href="unlock.html">unlock</a>. To get a list of employees and their UUIDs use <a href="../../com.clover.sdk.v3.employees/-employee-connector/get-employees.html">getEmployees</a>.  All lock / unlock methods return a boolean indicating if the operation was successful. Attempting to unlock a device that is already unlocked will fail. Attempting to lock a device that is already locked will fail.  To understand if a Clover device is currently locked use @link com.clover.sdk.v3.employees.EmployeeConnector#getEmployee(). This will return either the currently logged in employee, or null otherwise.  To understand if the merchant has enabled the default employee, use <a href="../../com.clover.sdk.v3.employees/-employee-connector/get-employee.html">getEmployee</a> with and argument of <a href="index.html#-129876754%2FProperties%2F1904710855">DEFAULT_EMPLOYEE_ID</a>.  The behavior of these methods on non-Clover devices and Android emulators differs. On non-Clover devices, Clover software does not control the lock screen. While the methods in this class will logout or login Clover employees, they will not cause the device's lock screen to show or hide.</div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -116,13 +116,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-d-e-f-a-u-l-t_-e-m-p-l-o-y-e-e_-i-d.html"><span><span>DEFAULT_EMPLOYEE_ID</span></span></a></div>
+                  <div><a href="index.html#-129876754%2FProperties%2F1904710855"><span><span>DEFAULT_EMPLOYEE_ID</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-129876754%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-d-e-f-a-u-l-t_-e-m-p-l-o-y-e-e_-i-d.html">DEFAULT_EMPLOYEE_ID</a></div><div class="brief ">An ID for the default employee which is a employee that has no passcode.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-129876754%2FProperties%2F1904710855">DEFAULT_EMPLOYEE_ID</a></div><div class="brief ">An ID for the default employee which is a employee that has no passcode.</div></div></div>
                 </div>
               </div>
             </div>
@@ -182,7 +182,7 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
             </div>
         </div>
