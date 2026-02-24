@@ -183,11 +183,15 @@ public final class MerchantDevicesV2Contract {
      * Offline payments total payments limit.
      */
     public static final String OFFLINE_PAYMENTS_TOTAL_PAYMENTS_LIMIT = "offline_payments_total_payments_limit";
+    /**
+     * Offline payments total payments per card limit.
+     */
+    public static final String OFFLINE_PAYMENTS_PER_CARD_LIMIT = "offline_payments_per_card_limit";
 
     static final String[] COLUMNS = { ID, NAME, MODEL, MERCHANT_ID, ORDER_PREFIX,
         TERMINAL_PREFIX, SERIAL, SECURE_ID, BUILD_TYPE, DEVICE_TYPE_NAME, PRODUCT_NAME,
         PIN_DISABLED, OFFLINE_PAYMENTS, OFFLINE_PAYMENTS_ALL, OFFLINE_PAYMENTS_LIMIT,
-        OFFLINE_PAYMENTS_PROMPT_THRESHOLD, OFFLINE_PAYMENTS_TOTAL_PAYMENTS_LIMIT};
+        OFFLINE_PAYMENTS_PROMPT_THRESHOLD, OFFLINE_PAYMENTS_TOTAL_PAYMENTS_LIMIT, OFFLINE_PAYMENTS_PER_CARD_LIMIT};
   }
 
   public static final class Device implements BaseColumns, DeviceColumns {
@@ -229,6 +233,9 @@ public final class MerchantDevicesV2Contract {
       device.setOfflinePaymentsLimit(getLong(cursor, OFFLINE_PAYMENTS_LIMIT));
       device.setOfflinePaymentsPromptThreshold(getLong(cursor, OFFLINE_PAYMENTS_PROMPT_THRESHOLD));
       device.setOfflinePaymentsTotalPaymentsLimit(getLong(cursor, OFFLINE_PAYMENTS_TOTAL_PAYMENTS_LIMIT));
+      if (getColumnIndex(cursor, OFFLINE_PAYMENTS_PER_CARD_LIMIT) != -1) { // don't set this field if column per_card_limit doesn't exit in merchant_device_v2.db version 2
+        device.setOfflinePaymentsPerCardLimit(getLong(cursor, OFFLINE_PAYMENTS_PER_CARD_LIMIT));
+      }
 
       return device;
     }
@@ -290,6 +297,9 @@ public final class MerchantDevicesV2Contract {
       }
       if (device.hasOfflinePaymentsTotalPaymentsLimit()) {
         values.put(OFFLINE_PAYMENTS_TOTAL_PAYMENTS_LIMIT, device.getOfflinePaymentsTotalPaymentsLimit());
+      }
+      if (device.hasOfflinePaymentsPerCardLimit()) {
+        values.put(OFFLINE_PAYMENTS_PER_CARD_LIMIT, device.getOfflinePaymentsPerCardLimit());
       }
 
       return values;

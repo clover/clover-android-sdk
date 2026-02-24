@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum CardlessPaymentNetwork implements Parcelable {
-  ALIPAY, WECHAT, PAYPAL, VENMO, UPI, BHARAT_QR, AMAZON_PAY, ICICI_FASTAG, MOBIKWIK, CARDLESS_EMI, PAYMENT_LINK, STATIC_QR, PAYNOW;
+  ALIPAY, WECHAT, PAYPAL, VENMO, UPI, BHARAT_QR, AMAZON_PAY, ICICI_FASTAG, MOBIKWIK, CARDLESS_EMI, PAYMENT_LINK, STATIC_QR, PAYNOW, KLARNA;
 
   @Override
   public int describeContents() {

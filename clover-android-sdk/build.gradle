@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '329'
+version = '333'
 
 apply from: file("${project.rootDir}/lib.gradle")
 apply plugin: 'kotlin-android'
@@ -62,7 +62,12 @@ dependencies {
   api 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'
 
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
-
+  implementation("com.google.code.gson:gson") {
+    version {
+      strictly "$GSON_VERSION"
+    }
+  }
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$KOTLIN_COROUTINES_VERSION")
   // Android tests
   androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
   androidTestImplementation "androidx.multidex:multidex:$ANDROIDX_MULTIDEX_VERSION"

@@ -1356,6 +1356,9 @@ public class Intents {
   /** {@link String}, Is the customer phone number associated with Kiosk order */
   public static final String EXTRA_KIOSK_FULFILLMENT_INFO_PHONE_NUMBER = "clover.intent.extra.KIOSK_FULFILLMENT_INFO_PHONE_NUMBER";
 
+  /** {@link String}, Is the customer chosen kiosk app locale associated with Kiosk order */
+  public static final String EXTRA_KIOSK_FULFILLMENT_INFO_LOCALE = "clover.intent.extra.KIOSK_FULFILLMENT_INFO_LOCALE";
+
   /** {@link String}, elv transaction type for Germany */
   public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
   /** A value for {@link #EXTRA_GERMAN_ELV} */
@@ -1570,6 +1573,12 @@ public class Intents {
   /** {@link int}, A drawable resource ID, the image to be displayed on the customer-facing tender button */
   public static final String META_CUSTOMER_TENDER_IMAGE = "clover.intent.meta.CUSTOMER_TENDER_IMAGE";
 
+  /** {@link int}, A priority, to display the tender button on customer facing display. Priority 1, places the button outside of More Options */
+  public static final String META_CUSTOMER_TENDER_PRIORITY = "clover.intent.meta.CUSTOMER_TENDER_PRIORITY";
+
+  /** {@link int}, This flag enables/disables the visibility of the tender logos on the customer facing screen */
+  public static final String META_CUSTOMER_TENDER_LOGO_ENABLED = "clover.intent.meta.CUSTOMER_TENDER_LOGO_ENABLED";
+
   /** {@link int}, A drawable resource ID, the image to be displayed on the merchant-facing tender button*/
   public static final String META_MERCHANT_TENDER_IMAGE = "clover.intent.meta.MERCHANT_TENDER_IMAGE";
 
@@ -1581,6 +1590,9 @@ public class Intents {
 
   /** {@link String} Indicates name of theme to be used in station-pay/secure-pay*/
   public static final String EXTRA_THEME_NAME = "clover.intent.extra_THEME_NAME";
+
+    /**{@link String} Used for Android Payments API Service callback*/
+  public static final String EXTRA_RESULT_RECEIVER = "clover.intent.extra.EXTRA_RESULT_RECEIVER";
 
   /** {@link Boolean} flag Indicates if the secure pay app should send the transaction result when the transaction is complete.
    * Usually the result is sent when spa finishes, but this flag indicates, that the result shall be sent as soon as the
@@ -1884,4 +1896,7 @@ public class Intents {
   public static final String EXTRA_TERMINAL_SETTINGS = "clover.intent.extra.TERMINAL_SETTINGS";
 
   public static final String EXTRA_REQUEST_TYPE = "clover.intent.extra.EXTRA_REQUEST_TYPE";
+
+  public static final String EXTRA_DYNAMIC_TIP_SELECTION = "clover.intent.extra.EXTRA_DYNAMIC_TIP_SELECTION";
+
 }

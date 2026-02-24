@@ -67,6 +67,11 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPlainCardData plainCardData}</li>
  * <li>{@link #getTransactionData transactionData}</li>
  * <li>{@link #getAccountSelection accountSelection}</li>
+ * <li>{@link #getPanKsn panKsn}</li>
+ * <li>{@link #getTrack1Ksn track1Ksn}</li>
+ * <li>{@link #getTrack2Ksn track2Ksn}</li>
+ * <li>{@link #getTrack3Ksn track3Ksn}</li>
+ * <li>{@link #getEncRandomKey encRandomKey}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -216,8 +221,25 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheGet(CacheKey.accountSelection);
   }
 
+  public java.lang.String getPanKsn() {
+    return genClient.cacheGet(CacheKey.panKsn);
+  }
 
+  public java.lang.String getTrack1Ksn() {
+    return genClient.cacheGet(CacheKey.track1Ksn);
+  }
 
+  public java.lang.String getTrack2Ksn() {
+    return genClient.cacheGet(CacheKey.track2Ksn);
+  }
+
+  public java.lang.String getTrack3Ksn() {
+    return genClient.cacheGet(CacheKey.track3Ksn);
+  }
+
+  public java.lang.String getEncRandomKey() {
+    return genClient.cacheGet(CacheKey.encRandomKey);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     track1
@@ -292,6 +314,16 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.TransactionData.JSON_CREATOR)),
     accountSelection
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    panKsn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track1Ksn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track2Ksn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    track3Ksn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    encRandomKey
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -546,6 +578,30 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheValueIsNotNull(CacheKey.accountSelection);
   }
 
+  /** Checks whether the 'panKsn' field is set and is not null */
+  public boolean isNotNullPanKsn() {
+    return genClient.cacheValueIsNotNull(CacheKey.panKsn);
+  }
+
+  /** Checks whether the 'track1Ksn' field is set and is not null */
+  public boolean isNotNullTrack1Ksn() {
+    return genClient.cacheValueIsNotNull(CacheKey.track1Ksn);
+  }
+
+  /** Checks whether the 'track2Ksn' field is set and is not null */
+  public boolean isNotNullTrack2Ksn() {
+    return genClient.cacheValueIsNotNull(CacheKey.track2Ksn);
+  }
+
+  /** Checks whether the 'track3Ksn' field is set and is not null */
+  public boolean isNotNullTrack3Ksn() {
+    return genClient.cacheValueIsNotNull(CacheKey.track3Ksn);
+  }
+
+  /** Checks whether the 'encRandomKey' field is set and is not null */
+  public boolean isNotNullEncRandomKey() {
+    return genClient.cacheValueIsNotNull(CacheKey.encRandomKey);
+  }
 
 
   /** Checks whether the 'track1' field has been set, however the value could be null */
@@ -728,6 +784,30 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheHasKey(CacheKey.accountSelection);
   }
 
+  /** Checks whether the 'panKsn' field has been set, however the value could be null */
+  public boolean hasPanKsn() {
+    return genClient.cacheHasKey(CacheKey.panKsn);
+  }
+
+  /** Checks whether the 'track1Ksn' field has been set, however the value could be null */
+  public boolean hasTrack1Ksn() {
+    return genClient.cacheHasKey(CacheKey.track1Ksn);
+  }
+
+  /** Checks whether the 'track2Ksn' field has been set, however the value could be null */
+  public boolean hasTrack2Ksn() {
+    return genClient.cacheHasKey(CacheKey.track2Ksn);
+  }
+
+  /** Checks whether the 'track3Ksn' field has been set, however the value could be null */
+  public boolean hasTrack3Ksn() {
+    return genClient.cacheHasKey(CacheKey.track3Ksn);
+  }
+
+  /** Checks whether the 'encRandomKey' field has been set, however the value could be null */
+  public boolean hasEncRandomKey() {
+    return genClient.cacheHasKey(CacheKey.encRandomKey);
+  }
 
   /**
    * Sets the field 'track1'.
@@ -983,6 +1063,41 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.setOther(accountSelection, CacheKey.accountSelection);
   }
 
+  /**
+   * Sets the field 'panKsn'.
+   */
+  public PaymentRequestCardDetails setPanKsn(java.lang.String panKsn) {
+    return genClient.setOther(panKsn, CacheKey.panKsn);
+  }
+
+  /**
+   * Sets the field 'track1Ksn'.
+   */
+  public PaymentRequestCardDetails setTrack1Ksn(java.lang.String track1Ksn) {
+    return genClient.setOther(track1Ksn, CacheKey.track1Ksn);
+  }
+
+  /**
+   * Sets the field 'track2Ksn'.
+   */
+  public PaymentRequestCardDetails setTrack2Ksn(java.lang.String track2Ksn) {
+    return genClient.setOther(track2Ksn, CacheKey.track2Ksn);
+  }
+
+  /**
+   * Sets the field 'track3Ksn'.
+   */
+  public PaymentRequestCardDetails setTrack3Ksn(java.lang.String track3Ksn) {
+    return genClient.setOther(track3Ksn, CacheKey.track3Ksn);
+  }
+
+  /**
+   * Sets the field 'encRandomKey'.
+   */
+  public PaymentRequestCardDetails setEncRandomKey(java.lang.String encRandomKey) {
+    return genClient.setOther(encRandomKey, CacheKey.encRandomKey);
+  }
+
 
   /** Clears the 'track1' field, the 'has' method for this field will now return false */
   public void clearTrack1() {
@@ -1129,6 +1244,26 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     genClient.clear(CacheKey.accountSelection);
   }
 
+  /** Clears the 'panKsn' field, the 'has' method for this field will now return false */
+  public void clearPanKsn() {
+    genClient.clear(CacheKey.panKsn);
+  }
+  /** Clears the 'track1Ksn' field, the 'has' method for this field will now return false */
+  public void clearTrack1Ksn() {
+    genClient.clear(CacheKey.track1Ksn);
+  }
+  /** Clears the 'track2Ksn' field, the 'has' method for this field will now return false */
+  public void clearTrack2Ksn() {
+    genClient.clear(CacheKey.track2Ksn);
+  }
+  /** Clears the 'track3Ksn' field, the 'has' method for this field will now return false */
+  public void clearTrack3Ksn() {
+    genClient.clear(CacheKey.track3Ksn);
+  }
+  /** Clears the 'encRandomKey' field, the 'has' method for this field will now return false */
+  public void clearEncRandomKey() {
+    genClient.clear(CacheKey.encRandomKey);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1226,6 +1361,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     public static final boolean PLAINCARDDATA_IS_REQUIRED = false;
     public static final boolean TRANSACTIONDATA_IS_REQUIRED = false;
     public static final boolean ACCOUNTSELECTION_IS_REQUIRED = false;
+    public static final boolean PANKSN_IS_REQUIRED = false;
+    public static final boolean TRACK1KSN_IS_REQUIRED = false;
+    public static final boolean TRACK2KSN_IS_REQUIRED = false;
+    public static final boolean TRACK3KSN_IS_REQUIRED = false;
+    public static final boolean ENCRANDOMKEY_IS_REQUIRED = false;
   }
 
 }

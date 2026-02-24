@@ -4,5 +4,6 @@ data class RealtimeDiscountProviderInfo(
     val packageName: String,
     val serviceName: String,
     val displayName: String? = null,
-    val priority: Int = 0
+    val priority: Int = 0,
+    val remotePackageName: String? = null
 )

@@ -73,6 +73,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPurchaseCardL2 purchaseCardL2}</li>
  * <li>{@link #getPurchaseCardL3 purchaseCardL3}</li>
  * <li>{@link #getOceanGatewayInfo oceanGatewayInfo}</li>
+ * <li>{@link #getKlarnaGatewayInfo klarnaGatewayInfo}</li>
  * <li>{@link #getTerminalManagementComponents terminalManagementComponents}</li>
  * <li>{@link #getEmiInfo emiInfo}</li>
  * <li>{@link #getInstallmentPlan installmentPlan}</li>
@@ -343,6 +344,13 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Klarna Gateway info
+   */
+  public com.clover.sdk.v3.payments.KlarnaGatewayInfo getKlarnaGatewayInfo() {
+    return genClient.cacheGet(CacheKey.klarnaGatewayInfo);
+  }
+
+  /**
    * Terminal management components as defined by Nexo. They contain general information on the terminal, the installed payment app, etc.
    */
   public java.util.List<com.clover.sdk.v3.payments.TerminalManagementComponent> getTerminalManagementComponents() {
@@ -469,6 +477,8 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.PurchaseCardL3.JSON_CREATOR)),
     oceanGatewayInfo
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.OceanGatewayInfo.JSON_CREATOR)),
+    klarnaGatewayInfo
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.KlarnaGatewayInfo.JSON_CREATOR)),
     terminalManagementComponents
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.TerminalManagementComponent.JSON_CREATOR)),
     emiInfo
@@ -793,6 +803,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.oceanGatewayInfo);
   }
 
+  /** Checks whether the 'klarnaGatewayInfo' field is set and is not null */
+  public boolean isNotNullKlarnaGatewayInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.klarnaGatewayInfo);
+  }
+
   /** Checks whether the 'terminalManagementComponents' field is set and is not null */
   public boolean isNotNullTerminalManagementComponents() {
     return genClient.cacheValueIsNotNull(CacheKey.terminalManagementComponents);
@@ -1036,6 +1051,11 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'oceanGatewayInfo' field has been set, however the value could be null */
   public boolean hasOceanGatewayInfo() {
     return genClient.cacheHasKey(CacheKey.oceanGatewayInfo);
+  }
+
+  /** Checks whether the 'klarnaGatewayInfo' field has been set, however the value could be null */
+  public boolean hasKlarnaGatewayInfo() {
+    return genClient.cacheHasKey(CacheKey.klarnaGatewayInfo);
   }
 
   /** Checks whether the 'terminalManagementComponents' field has been set, however the value could be null */
@@ -1414,6 +1434,15 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'klarnaGatewayInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Payment setKlarnaGatewayInfo(com.clover.sdk.v3.payments.KlarnaGatewayInfo klarnaGatewayInfo) {
+    return genClient.setRecord(klarnaGatewayInfo, CacheKey.klarnaGatewayInfo);
+  }
+
+  /**
    * Sets the field 'terminalManagementComponents'.
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
@@ -1634,6 +1663,10 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearOceanGatewayInfo() {
     genClient.clear(CacheKey.oceanGatewayInfo);
   }
+  /** Clears the 'klarnaGatewayInfo' field, the 'has' method for this field will now return false */
+  public void clearKlarnaGatewayInfo() {
+    genClient.clear(CacheKey.klarnaGatewayInfo);
+  }
   /** Clears the 'terminalManagementComponents' field, the 'has' method for this field will now return false */
   public void clearTerminalManagementComponents() {
     genClient.clear(CacheKey.terminalManagementComponents);
@@ -1765,6 +1798,7 @@ public class Payment extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean PURCHASECARDL2_IS_REQUIRED = false;
     public static final boolean PURCHASECARDL3_IS_REQUIRED = false;
     public static final boolean OCEANGATEWAYINFO_IS_REQUIRED = false;
+    public static final boolean KLARNAGATEWAYINFO_IS_REQUIRED = false;
     public static final boolean TERMINALMANAGEMENTCOMPONENTS_IS_REQUIRED = false;
     public static final boolean EMIINFO_IS_REQUIRED = false;
     public static final boolean INSTALLMENTPLAN_IS_REQUIRED = false;

@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.billing;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -38,6 +39,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getMerchantPlan merchantPlan}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
+ * <li>{@link #getDeviceTypeName deviceTypeName}</li>
+ * <li>{@link #getDeviceTypeId deviceTypeId}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -81,6 +84,14 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
+  public java.lang.String getDeviceTypeName() {
+    return genClient.cacheGet(CacheKey.deviceTypeName);
+  }
+
+  public java.lang.Long getDeviceTypeId() {
+    return genClient.cacheGet(CacheKey.deviceTypeId);
+  }
+
 
 
 
@@ -100,6 +111,10 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    deviceTypeName
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    deviceTypeId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
 
@@ -216,6 +231,16 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
 
+  /** Checks whether the 'deviceTypeName' field is set and is not null */
+  public boolean isNotNullDeviceTypeName() {
+    return genClient.cacheValueIsNotNull(CacheKey.deviceTypeName);
+  }
+
+  /** Checks whether the 'deviceTypeId' field is set and is not null */
+  public boolean isNotNullDeviceTypeId() {
+    return genClient.cacheValueIsNotNull(CacheKey.deviceTypeId);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -256,6 +281,16 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
   /** Checks whether the 'modifiedTime' field has been set, however the value could be null */
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
+  }
+
+  /** Checks whether the 'deviceTypeName' field has been set, however the value could be null */
+  public boolean hasDeviceTypeName() {
+    return genClient.cacheHasKey(CacheKey.deviceTypeName);
+  }
+
+  /** Checks whether the 'deviceTypeId' field has been set, however the value could be null */
+  public boolean hasDeviceTypeId() {
+    return genClient.cacheHasKey(CacheKey.deviceTypeId);
   }
 
 
@@ -321,6 +356,20 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
+  /**
+   * Sets the field 'deviceTypeName'.
+   */
+  public MerchantPlanCharge setDeviceTypeName(java.lang.String deviceTypeName) {
+    return genClient.setOther(deviceTypeName, CacheKey.deviceTypeName);
+  }
+
+  /**
+   * Sets the field 'deviceTypeId'.
+   */
+  public MerchantPlanCharge setDeviceTypeId(java.lang.Long deviceTypeId) {
+    return genClient.setOther(deviceTypeId, CacheKey.deviceTypeId);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -353,6 +402,14 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
   /** Clears the 'modifiedTime' field, the 'has' method for this field will now return false */
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
+  }
+  /** Clears the 'deviceTypeName' field, the 'has' method for this field will now return false */
+  public void clearDeviceTypeName() {
+    genClient.clear(CacheKey.deviceTypeName);
+  }
+  /** Clears the 'deviceTypeId' field, the 'has' method for this field will now return false */
+  public void clearDeviceTypeId() {
+    genClient.clear(CacheKey.deviceTypeId);
   }
 
 
@@ -425,6 +482,8 @@ public class MerchantPlanCharge extends GenericParcelable implements com.clover.
     public static final boolean MERCHANTPLAN_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
+    public static final boolean DEVICETYPENAME_IS_REQUIRED = false;
+    public static final boolean DEVICETYPEID_IS_REQUIRED = false;
   }
 
 }

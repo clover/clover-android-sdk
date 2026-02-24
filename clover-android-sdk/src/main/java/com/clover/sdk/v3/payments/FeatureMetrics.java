@@ -31,54 +31,54 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getAccessibilityMode accessibilityMode}</li>
- * <li>{@link #getAccessibilityOptionPin accessibilityOptionPin}</li>
- * <li>{@link #getAccessibilityOptionTactile accessibilityOptionTactile}</li>
- * <li>{@link #getAccessibilityOptionTraining accessibilityOptionTraining}</li>
+ * <li>{@link #getAudioAccessibilityMode audioAccessibilityMode}</li>
+ * <li>{@link #getAudioAccessibilityOptionPin audioAccessibilityOptionPin}</li>
+ * <li>{@link #getAudioAccessibilityOptionTactile audioAccessibilityOptionTactile}</li>
+ * <li>{@link #getAudioAccessibilityOptionTraining audioAccessibilityOptionTraining}</li>
  * </ul>
  */
 @SuppressWarnings("all")
 public class FeatureMetrics extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Set to true if audio accessibility mode was selected by the user to perform a transaction.
+   * Set to true if Accessibility Mode was selected by the user to perform a transaction.
    */
   public java.lang.Boolean getAudioAccessibilityMode() {
-    return genClient.cacheGet(CacheKey.accessibilityMode);
+    return genClient.cacheGet(CacheKey.audioAccessibilityMode);
   }
 
   /**
-   * Set to true if Accessibility Option "Enter PIN on screen" was selected by the user to perform a transaction.
+   * Set to true if Accessibility Option 'PIN' was selected by the user to perform a transaction.
    */
   public java.lang.Boolean getAudioAccessibilityOptionPin() {
-    return genClient.cacheGet(CacheKey.accessibilityOptionPin);
+    return genClient.cacheGet(CacheKey.audioAccessibilityOptionPin);
   }
 
   /**
-   * Set to true if Accessibility Option "Request a tactile overlay" was selected by the user to perform a transaction.
+   * Set to true if Accessibility Option 'TACTILE' was selected by the user to perform a transaction.
    */
   public java.lang.Boolean getAudioAccessibilityOptionTactile() {
-    return genClient.cacheGet(CacheKey.accessibilityOptionTactile);
+    return genClient.cacheGet(CacheKey.audioAccessibilityOptionTactile);
   }
 
   /**
-   * Set to true if Accessibility Option "Practice PIN on screen" was selected by the user before performing a transaction.
+   * Set to true if Accessibility Option 'TRAINING' was selected by the user before performing a transaction.
    */
   public java.lang.Boolean getAudioAccessibilityOptionTraining() {
-    return genClient.cacheGet(CacheKey.accessibilityOptionTraining);
+    return genClient.cacheGet(CacheKey.audioAccessibilityOptionTraining);
   }
 
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    accessibilityMode
+    audioAccessibilityMode
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    accessibilityOptionPin
+    audioAccessibilityOptionPin
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    accessibilityOptionTactile
+    audioAccessibilityOptionTactile
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    accessibilityOptionTraining
+    audioAccessibilityOptionTraining
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
@@ -154,93 +154,93 @@ public class FeatureMetrics extends GenericParcelable implements com.clover.sdk.
   public void validate() {
   }
 
-  /** Checks whether the 'accessibilityMode' field is set and is not null */
-  public boolean isNotNullAccessibilityMode() {
-    return genClient.cacheValueIsNotNull(CacheKey.accessibilityMode);
+  /** Checks whether the 'audioAccessibilityMode' field is set and is not null */
+  public boolean isNotNullAudioAccessibilityMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.audioAccessibilityMode);
   }
 
-  /** Checks whether the 'accessibilityOptionPin' field is set and is not null */
-  public boolean isNotNullAccessibilityOptionPin() {
-    return genClient.cacheValueIsNotNull(CacheKey.accessibilityOptionPin);
+  /** Checks whether the 'audioAccessibilityOptionPin' field is set and is not null */
+  public boolean isNotNullAudioAccessibilityOptionPin() {
+    return genClient.cacheValueIsNotNull(CacheKey.audioAccessibilityOptionPin);
   }
 
-  /** Checks whether the 'accessibilityOptionTactile' field is set and is not null */
-  public boolean isNotNullAccessibilityOptionTactile() {
-    return genClient.cacheValueIsNotNull(CacheKey.accessibilityOptionTactile);
+  /** Checks whether the 'audioAccessibilityOptionTactile' field is set and is not null */
+  public boolean isNotNullAudioAccessibilityOptionTactile() {
+    return genClient.cacheValueIsNotNull(CacheKey.audioAccessibilityOptionTactile);
   }
 
-  /** Checks whether the 'accessibilityOptionTraining' field is set and is not null */
-  public boolean isNotNullAccessibilityOptionTraining() {
-    return genClient.cacheValueIsNotNull(CacheKey.accessibilityOptionTraining);
+  /** Checks whether the 'audioAccessibilityOptionTraining' field is set and is not null */
+  public boolean isNotNullAudioAccessibilityOptionTraining() {
+    return genClient.cacheValueIsNotNull(CacheKey.audioAccessibilityOptionTraining);
   }
 
 
 
-  /** Checks whether the 'accessibilityMode' field has been set, however the value could be null */
-  public boolean hasAccessibilityMode() {
-    return genClient.cacheHasKey(CacheKey.accessibilityMode);
+  /** Checks whether the 'audioAccessibilityMode' field has been set, however the value could be null */
+  public boolean hasAudioAccessibilityMode() {
+    return genClient.cacheHasKey(CacheKey.audioAccessibilityMode);
   }
 
-  /** Checks whether the 'accessibilityOptionPin' field has been set, however the value could be null */
-  public boolean hasAccessibilityOptionPin() {
-    return genClient.cacheHasKey(CacheKey.accessibilityOptionPin);
+  /** Checks whether the 'audioAccessibilityOptionPin' field has been set, however the value could be null */
+  public boolean hasAudioAccessibilityOptionPin() {
+    return genClient.cacheHasKey(CacheKey.audioAccessibilityOptionPin);
   }
 
-  /** Checks whether the 'accessibilityOptionTactile' field has been set, however the value could be null */
-  public boolean hasAccessibilityOptionTactile() {
-    return genClient.cacheHasKey(CacheKey.accessibilityOptionTactile);
+  /** Checks whether the 'audioAccessibilityOptionTactile' field has been set, however the value could be null */
+  public boolean hasAudioAccessibilityOptionTactile() {
+    return genClient.cacheHasKey(CacheKey.audioAccessibilityOptionTactile);
   }
 
-  /** Checks whether the 'accessibilityOptionTraining' field has been set, however the value could be null */
-  public boolean hasAccessibilityOptionTraining() {
-    return genClient.cacheHasKey(CacheKey.accessibilityOptionTraining);
+  /** Checks whether the 'audioAccessibilityOptionTraining' field has been set, however the value could be null */
+  public boolean hasAudioAccessibilityOptionTraining() {
+    return genClient.cacheHasKey(CacheKey.audioAccessibilityOptionTraining);
   }
 
 
   /**
-   * Sets the field 'accessibilityMode'.
+   * Sets the field 'audioAccessibilityMode'.
    */
-  public FeatureMetrics setAccessibilityMode(java.lang.Boolean accessibilityMode) {
-    return genClient.setOther(accessibilityMode, CacheKey.accessibilityMode);
+  public FeatureMetrics setAudioAccessibilityMode(java.lang.Boolean audioAccessibilityMode) {
+    return genClient.setOther(audioAccessibilityMode, CacheKey.audioAccessibilityMode);
   }
 
   /**
-   * Sets the field 'accessibilityOptionPin'.
+   * Sets the field 'audioAccessibilityOptionPin'.
    */
-  public FeatureMetrics setAccessibilityOptionPin(java.lang.Boolean accessibilityOptionPin) {
-    return genClient.setOther(accessibilityOptionPin, CacheKey.accessibilityOptionPin);
+  public FeatureMetrics setAudioAccessibilityOptionPin(java.lang.Boolean audioAccessibilityOptionPin) {
+    return genClient.setOther(audioAccessibilityOptionPin, CacheKey.audioAccessibilityOptionPin);
   }
 
   /**
-   * Sets the field 'accessibilityOptionTactile'.
+   * Sets the field 'audioAccessibilityOptionTactile'.
    */
-  public FeatureMetrics setAccessibilityOptionTactile(java.lang.Boolean accessibilityOptionTactile) {
-    return genClient.setOther(accessibilityOptionTactile, CacheKey.accessibilityOptionTactile);
+  public FeatureMetrics setAudioAccessibilityOptionTactile(java.lang.Boolean audioAccessibilityOptionTactile) {
+    return genClient.setOther(audioAccessibilityOptionTactile, CacheKey.audioAccessibilityOptionTactile);
   }
 
   /**
-   * Sets the field 'accessibilityOptionTraining'.
+   * Sets the field 'audioAccessibilityOptionTraining'.
    */
-  public FeatureMetrics setAccessibilityOptionTraining(java.lang.Boolean accessibilityOptionTraining) {
-    return genClient.setOther(accessibilityOptionTraining, CacheKey.accessibilityOptionTraining);
+  public FeatureMetrics setAudioAccessibilityOptionTraining(java.lang.Boolean audioAccessibilityOptionTraining) {
+    return genClient.setOther(audioAccessibilityOptionTraining, CacheKey.audioAccessibilityOptionTraining);
   }
 
 
-  /** Clears the 'accessibilityMode' field, the 'has' method for this field will now return false */
-  public void clearAccessibilityMode() {
-    genClient.clear(CacheKey.accessibilityMode);
+  /** Clears the 'audioAccessibilityMode' field, the 'has' method for this field will now return false */
+  public void clearAudioAccessibilityMode() {
+    genClient.clear(CacheKey.audioAccessibilityMode);
   }
-  /** Clears the 'accessibilityOptionPin' field, the 'has' method for this field will now return false */
-  public void clearAccessibilityOptionPin() {
-    genClient.clear(CacheKey.accessibilityOptionPin);
+  /** Clears the 'audioAccessibilityOptionPin' field, the 'has' method for this field will now return false */
+  public void clearAudioAccessibilityOptionPin() {
+    genClient.clear(CacheKey.audioAccessibilityOptionPin);
   }
-  /** Clears the 'accessibilityOptionTactile' field, the 'has' method for this field will now return false */
-  public void clearAccessibilityOptionTactile() {
-    genClient.clear(CacheKey.accessibilityOptionTactile);
+  /** Clears the 'audioAccessibilityOptionTactile' field, the 'has' method for this field will now return false */
+  public void clearAudioAccessibilityOptionTactile() {
+    genClient.clear(CacheKey.audioAccessibilityOptionTactile);
   }
-  /** Clears the 'accessibilityOptionTraining' field, the 'has' method for this field will now return false */
-  public void clearAccessibilityOptionTraining() {
-    genClient.clear(CacheKey.accessibilityOptionTraining);
+  /** Clears the 'audioAccessibilityOptionTraining' field, the 'has' method for this field will now return false */
+  public void clearAudioAccessibilityOptionTraining() {
+    genClient.clear(CacheKey.audioAccessibilityOptionTraining);
   }
 
 
@@ -304,10 +304,10 @@ public class FeatureMetrics extends GenericParcelable implements com.clover.sdk.
   };
 
   public interface Constraints {
-    public static final boolean ACCESSIBILITYMODE_IS_REQUIRED = false;
-    public static final boolean ACCESSIBILITYOPTIONPIN_IS_REQUIRED = false;
-    public static final boolean ACCESSIBILITYOPTIONTACTILE_IS_REQUIRED = false;
-    public static final boolean ACCESSIBILITYOPTIONTRAINING_IS_REQUIRED = false;
+    public static final boolean AUDIOACCESSIBILITYMODE_IS_REQUIRED = false;
+    public static final boolean AUDIOACCESSIBILITYOPTIONPIN_IS_REQUIRED = false;
+    public static final boolean AUDIOACCESSIBILITYOPTIONTACTILE_IS_REQUIRED = false;
+    public static final boolean AUDIOACCESSIBILITYOPTIONTRAINING_IS_REQUIRED = false;
   }
 
 }

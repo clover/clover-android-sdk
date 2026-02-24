@@ -3,6 +3,10 @@ package com.clover.sdk.v3.payments.api;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
+
 import com.clover.sdk.v1.Intents;
 
 public class RetrievePaymentRequestIntentBuilder extends BaseIntentBuilder {
@@ -21,6 +25,11 @@ public class RetrievePaymentRequestIntentBuilder extends BaseIntentBuilder {
         return this;
     }
 
+    /**
+     * Returns an activity intent to retrieve a payment. the <i>headless</i> flag does NOT apply to this intent.
+     * @param context
+     * @return
+     */
     public Intent build(Context context) {
         if (context == null) {
             throw new IllegalArgumentException("context must be populated with a non null value");
@@ -40,6 +49,23 @@ public class RetrievePaymentRequestIntentBuilder extends BaseIntentBuilder {
         }
 
         return i;
+    }
+
+    /**
+     * Returns a service intent to retrieve a payment. Once the task is complete, the ResultCallback will
+     * be called.
+     * @param context
+     * @param resultCallback
+     * @return an intent that can be executed using Context.startService()
+     */
+    public Intent buildServiceIntent(Context context, ResultCallback resultCallback) {
+        // require callback
+        Intent svcIntent = build(context);
+        PAPIResultReceiver rr = new PAPIResultReceiver(resultCallback);
+        svcIntent.putExtra(Intents.EXTRA_RESULT_RECEIVER, rr);
+        svcIntent.setComponent(new ComponentName("com.clover.payment.builder.pay", "com.clover.payment.builder.pay.handler.RetrievePaymentRequestHandlerService"));
+
+        return svcIntent;
     }
 
     public static class Response {

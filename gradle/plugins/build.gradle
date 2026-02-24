@@ -1,13 +1,4 @@
 buildscript {
-    if (!project.hasProperty('androidBuild')) {
-        def likelyAndroidBuild = file("$rootDir/../android-build")
-        if (likelyAndroidBuild.exists()) {
-            ext.androidBuild = likelyAndroidBuild.absolutePath
-        } else {
-            throw new GradleException("Couldn't find android-build at " + likelyAndroidBuild.absolutePath)
-        }
-    }
-
     repositories {
         mavenLocal()
   mavenCentral()

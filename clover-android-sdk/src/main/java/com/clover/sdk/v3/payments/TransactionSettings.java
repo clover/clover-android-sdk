@@ -100,6 +100,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.signatureThreshold);
   }
 
+  public java.lang.String getDynamicTipSelection() {
+    return genClient.cacheGet(CacheKey.dynamicTipSelection);
+  }
+
   public com.clover.sdk.v3.payments.DataEntryLocation getSignatureEntryLocation() {
     return genClient.cacheGet(CacheKey.signatureEntryLocation);
   }
@@ -260,6 +264,8 @@ public class TransactionSettings extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     rtdProviders
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.RTDProviderConstraints.JSON_CREATOR)),
+    dynamicTipSelection
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -377,6 +383,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   /** Checks whether the 'signatureThreshold' field is set and is not null */
   public boolean isNotNullSignatureThreshold() {
     return genClient.cacheValueIsNotNull(CacheKey.signatureThreshold);
+  }
+
+  /** Checks whether the 'dynamicTipSelection' field is set and is not null */
+  public boolean isNotNullDynamicTipSelection() {
+    return genClient.cacheValueIsNotNull(CacheKey.dynamicTipSelection);
   }
 
   /** Checks whether the 'signatureEntryLocation' field is set and is not null */
@@ -544,6 +555,11 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.signatureThreshold);
   }
 
+  /** Checks whether the 'dynamicTipSelection' field has been set, however the value could be null */
+  public boolean hasDynamicTipSelection() {
+    return genClient.cacheHasKey(CacheKey.dynamicTipSelection);
+  }
+
   /** Checks whether the 'signatureEntryLocation' field has been set, however the value could be null */
   public boolean hasSignatureEntryLocation() {
     return genClient.cacheHasKey(CacheKey.signatureEntryLocation);
@@ -706,6 +722,13 @@ public class TransactionSettings extends GenericParcelable implements com.clover
    */
   public TransactionSettings setSignatureThreshold(java.lang.Long signatureThreshold) {
     return genClient.setOther(signatureThreshold, CacheKey.signatureThreshold);
+  }
+
+  /**
+   * Sets the field 'dynamicTipSelection'.
+   */
+  public TransactionSettings setDynamicTipSelection(java.lang.String dynamicTipSelection) {
+    return genClient.setOther(dynamicTipSelection, CacheKey.dynamicTipSelection);
   }
 
   /**
@@ -891,6 +914,10 @@ public class TransactionSettings extends GenericParcelable implements com.clover
   public void clearSignatureThreshold() {
     genClient.clear(CacheKey.signatureThreshold);
   }
+  /** Clears the 'dynamicTipSelection' field, the 'has' method for this field will now return false */
+  public void clearDynamicTipSelection() {
+    genClient.clear(CacheKey.dynamicTipSelection);
+  }
   /** Clears the 'signatureEntryLocation' field, the 'has' method for this field will now return false */
   public void clearSignatureEntryLocation() {
     genClient.clear(CacheKey.signatureEntryLocation);
@@ -1042,6 +1069,7 @@ public class TransactionSettings extends GenericParcelable implements com.clover
     public static final boolean APPROVEOFFLINEPAYMENTWITHOUTPROMPT_IS_REQUIRED = false;
     public static final boolean FORCEOFFLINEPAYMENT_IS_REQUIRED = false;
     public static final boolean SIGNATURETHRESHOLD_IS_REQUIRED = false;
+    public static final boolean DYNAMICTIPSELECTION_IS_REQUIRED = false;
     public static final boolean SIGNATUREENTRYLOCATION_IS_REQUIRED = false;
     public static final boolean TIPMODE_IS_REQUIRED = false;
     public static final boolean TIPPABLEAMOUNT_IS_REQUIRED = false;

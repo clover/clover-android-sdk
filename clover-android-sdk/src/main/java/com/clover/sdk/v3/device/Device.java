@@ -55,11 +55,14 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOfflinePaymentsLimit offlinePaymentsLimit}</li>
  * <li>{@link #getOfflinePaymentsPromptThreshold offlinePaymentsPromptThreshold}</li>
  * <li>{@link #getOfflinePaymentsTotalPaymentsLimit offlinePaymentsTotalPaymentsLimit}</li>
+ * <li>{@link #getOfflinePaymentsPerCardLimit offlinePaymentsPerCardLimit}</li>
  * <li>{@link #getOfflinePaymentsLimitDefault offlinePaymentsLimitDefault}</li>
  * <li>{@link #getOfflinePaymentsPromptThresholdDefault offlinePaymentsPromptThresholdDefault}</li>
  * <li>{@link #getOfflinePaymentsTotalPaymentsLimitDefault offlinePaymentsTotalPaymentsLimitDefault}</li>
+ * <li>{@link #getOfflinePaymentsPerCardLimitDefault offlinePaymentsPerCardLimitDefault}</li>
  * <li>{@link #getOfflinePaymentsMaxLimit offlinePaymentsMaxLimit}</li>
  * <li>{@link #getOfflinePaymentsMaxTotalPaymentsLimit offlinePaymentsMaxTotalPaymentsLimit}</li>
+ * <li>{@link #getOfflinePaymentsMaxPerCardLimit offlinePaymentsMaxPerCardLimit}</li>
  * <li>{@link #getShowOfflinePayments showOfflinePayments}</li>
  * <li>{@link #getMaxOfflineDays maxOfflineDays}</li>
  * <li>{@link #getAllowStoreAndForward allowStoreAndForward}</li>
@@ -197,6 +200,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.offlinePaymentsTotalPaymentsLimit);
   }
 
+  public java.lang.Long getOfflinePaymentsPerCardLimit() {
+    return genClient.cacheGet(CacheKey.offlinePaymentsPerCardLimit);
+  }
+
   public java.lang.Long getOfflinePaymentsLimitDefault() {
     return genClient.cacheGet(CacheKey.offlinePaymentsLimitDefault);
   }
@@ -209,12 +216,20 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheGet(CacheKey.offlinePaymentsTotalPaymentsLimitDefault);
   }
 
+  public java.lang.Long getOfflinePaymentsPerCardLimitDefault() {
+    return genClient.cacheGet(CacheKey.offlinePaymentsPerCardLimitDefault);
+  }
+
   public java.lang.Long getOfflinePaymentsMaxLimit() {
     return genClient.cacheGet(CacheKey.offlinePaymentsMaxLimit);
   }
 
   public java.lang.Long getOfflinePaymentsMaxTotalPaymentsLimit() {
     return genClient.cacheGet(CacheKey.offlinePaymentsMaxTotalPaymentsLimit);
+  }
+
+  public java.lang.Long getOfflinePaymentsMaxPerCardLimit() {
+    return genClient.cacheGet(CacheKey.offlinePaymentsMaxPerCardLimit);
   }
 
   public java.lang.Boolean getShowOfflinePayments() {
@@ -291,15 +306,21 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsTotalPaymentsLimit
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsPerCardLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsLimitDefault
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsPromptThresholdDefault
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsTotalPaymentsLimitDefault
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsPerCardLimitDefault
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsMaxLimit
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     offlinePaymentsMaxTotalPaymentsLimit
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    offlinePaymentsMaxPerCardLimit
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     showOfflinePayments
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
@@ -539,6 +560,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsTotalPaymentsLimit);
   }
 
+  /** Checks whether the 'offlinePaymentsPerCardLimit' field is set and is not null */
+  public boolean isNotNullOfflinePaymentsPerCardLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsPerCardLimit);
+  }
+
   /** Checks whether the 'offlinePaymentsLimitDefault' field is set and is not null */
   public boolean isNotNullOfflinePaymentsLimitDefault() {
     return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsLimitDefault);
@@ -554,6 +580,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsTotalPaymentsLimitDefault);
   }
 
+  /** Checks whether the 'offlinePaymentsPerCardLimitDefault' field is set and is not null */
+  public boolean isNotNullOfflinePaymentsPerCardLimitDefault() {
+    return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsPerCardLimitDefault);
+  }
+
   /** Checks whether the 'offlinePaymentsMaxLimit' field is set and is not null */
   public boolean isNotNullOfflinePaymentsMaxLimit() {
     return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsMaxLimit);
@@ -562,6 +593,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'offlinePaymentsMaxTotalPaymentsLimit' field is set and is not null */
   public boolean isNotNullOfflinePaymentsMaxTotalPaymentsLimit() {
     return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsMaxTotalPaymentsLimit);
+  }
+
+  /** Checks whether the 'offlinePaymentsMaxPerCardLimit' field is set and is not null */
+  public boolean isNotNullOfflinePaymentsMaxPerCardLimit() {
+    return genClient.cacheValueIsNotNull(CacheKey.offlinePaymentsMaxPerCardLimit);
   }
 
   /** Checks whether the 'showOfflinePayments' field is set and is not null */
@@ -719,6 +755,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.offlinePaymentsTotalPaymentsLimit);
   }
 
+  /** Checks whether the 'offlinePaymentsPerCardLimit' field has been set, however the value could be null */
+  public boolean hasOfflinePaymentsPerCardLimit() {
+    return genClient.cacheHasKey(CacheKey.offlinePaymentsPerCardLimit);
+  }
+
   /** Checks whether the 'offlinePaymentsLimitDefault' field has been set, however the value could be null */
   public boolean hasOfflinePaymentsLimitDefault() {
     return genClient.cacheHasKey(CacheKey.offlinePaymentsLimitDefault);
@@ -734,6 +775,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     return genClient.cacheHasKey(CacheKey.offlinePaymentsTotalPaymentsLimitDefault);
   }
 
+  /** Checks whether the 'offlinePaymentsPerCardLimitDefault' field has been set, however the value could be null */
+  public boolean hasOfflinePaymentsPerCardLimitDefault() {
+    return genClient.cacheHasKey(CacheKey.offlinePaymentsPerCardLimitDefault);
+  }
+
   /** Checks whether the 'offlinePaymentsMaxLimit' field has been set, however the value could be null */
   public boolean hasOfflinePaymentsMaxLimit() {
     return genClient.cacheHasKey(CacheKey.offlinePaymentsMaxLimit);
@@ -742,6 +788,11 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Checks whether the 'offlinePaymentsMaxTotalPaymentsLimit' field has been set, however the value could be null */
   public boolean hasOfflinePaymentsMaxTotalPaymentsLimit() {
     return genClient.cacheHasKey(CacheKey.offlinePaymentsMaxTotalPaymentsLimit);
+  }
+
+  /** Checks whether the 'offlinePaymentsMaxPerCardLimit' field has been set, however the value could be null */
+  public boolean hasOfflinePaymentsMaxPerCardLimit() {
+    return genClient.cacheHasKey(CacheKey.offlinePaymentsMaxPerCardLimit);
   }
 
   /** Checks whether the 'showOfflinePayments' field has been set, however the value could be null */
@@ -948,6 +999,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'offlinePaymentsPerCardLimit'.
+   */
+  public Device setOfflinePaymentsPerCardLimit(java.lang.Long offlinePaymentsPerCardLimit) {
+    return genClient.setOther(offlinePaymentsPerCardLimit, CacheKey.offlinePaymentsPerCardLimit);
+  }
+
+  /**
    * Sets the field 'offlinePaymentsLimitDefault'.
    */
   public Device setOfflinePaymentsLimitDefault(java.lang.Long offlinePaymentsLimitDefault) {
@@ -969,6 +1027,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   }
 
   /**
+   * Sets the field 'offlinePaymentsPerCardLimitDefault'.
+   */
+  public Device setOfflinePaymentsPerCardLimitDefault(java.lang.Long offlinePaymentsPerCardLimitDefault) {
+    return genClient.setOther(offlinePaymentsPerCardLimitDefault, CacheKey.offlinePaymentsPerCardLimitDefault);
+  }
+
+  /**
    * Sets the field 'offlinePaymentsMaxLimit'.
    */
   public Device setOfflinePaymentsMaxLimit(java.lang.Long offlinePaymentsMaxLimit) {
@@ -980,6 +1045,13 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
    */
   public Device setOfflinePaymentsMaxTotalPaymentsLimit(java.lang.Long offlinePaymentsMaxTotalPaymentsLimit) {
     return genClient.setOther(offlinePaymentsMaxTotalPaymentsLimit, CacheKey.offlinePaymentsMaxTotalPaymentsLimit);
+  }
+
+  /**
+   * Sets the field 'offlinePaymentsMaxPerCardLimit'.
+   */
+  public Device setOfflinePaymentsMaxPerCardLimit(java.lang.Long offlinePaymentsMaxPerCardLimit) {
+    return genClient.setOther(offlinePaymentsMaxPerCardLimit, CacheKey.offlinePaymentsMaxPerCardLimit);
   }
 
   /**
@@ -1120,6 +1192,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearOfflinePaymentsTotalPaymentsLimit() {
     genClient.clear(CacheKey.offlinePaymentsTotalPaymentsLimit);
   }
+  /** Clears the 'offlinePaymentsPerCardLimit' field, the 'has' method for this field will now return false */
+  public void clearOfflinePaymentsPerCardLimit() {
+    genClient.clear(CacheKey.offlinePaymentsPerCardLimit);
+  }
   /** Clears the 'offlinePaymentsLimitDefault' field, the 'has' method for this field will now return false */
   public void clearOfflinePaymentsLimitDefault() {
     genClient.clear(CacheKey.offlinePaymentsLimitDefault);
@@ -1132,6 +1208,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   public void clearOfflinePaymentsTotalPaymentsLimitDefault() {
     genClient.clear(CacheKey.offlinePaymentsTotalPaymentsLimitDefault);
   }
+  /** Clears the 'offlinePaymentsPerCardLimitDefault' field, the 'has' method for this field will now return false */
+  public void clearOfflinePaymentsPerCardLimitDefault() {
+    genClient.clear(CacheKey.offlinePaymentsPerCardLimitDefault);
+  }
   /** Clears the 'offlinePaymentsMaxLimit' field, the 'has' method for this field will now return false */
   public void clearOfflinePaymentsMaxLimit() {
     genClient.clear(CacheKey.offlinePaymentsMaxLimit);
@@ -1139,6 +1219,10 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
   /** Clears the 'offlinePaymentsMaxTotalPaymentsLimit' field, the 'has' method for this field will now return false */
   public void clearOfflinePaymentsMaxTotalPaymentsLimit() {
     genClient.clear(CacheKey.offlinePaymentsMaxTotalPaymentsLimit);
+  }
+  /** Clears the 'offlinePaymentsMaxPerCardLimit' field, the 'has' method for this field will now return false */
+  public void clearOfflinePaymentsMaxPerCardLimit() {
+    genClient.clear(CacheKey.offlinePaymentsMaxPerCardLimit);
   }
   /** Clears the 'showOfflinePayments' field, the 'has' method for this field will now return false */
   public void clearShowOfflinePayments() {
@@ -1260,11 +1344,14 @@ public class Device extends GenericParcelable implements com.clover.sdk.v3.Valid
     public static final boolean OFFLINEPAYMENTSLIMIT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSPROMPTTHRESHOLD_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSTOTALPAYMENTSLIMIT_IS_REQUIRED = false;
+    public static final boolean OFFLINEPAYMENTSPERCARDLIMIT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSLIMITDEFAULT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSPROMPTTHRESHOLDDEFAULT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSTOTALPAYMENTSLIMITDEFAULT_IS_REQUIRED = false;
+    public static final boolean OFFLINEPAYMENTSPERCARDLIMITDEFAULT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSMAXLIMIT_IS_REQUIRED = false;
     public static final boolean OFFLINEPAYMENTSMAXTOTALPAYMENTSLIMIT_IS_REQUIRED = false;
+    public static final boolean OFFLINEPAYMENTSMAXPERCARDLIMIT_IS_REQUIRED = false;
     public static final boolean SHOWOFFLINEPAYMENTS_IS_REQUIRED = false;
     public static final boolean MAXOFFLINEDAYS_IS_REQUIRED = false;
     public static final boolean ALLOWSTOREANDFORWARD_IS_REQUIRED = false;

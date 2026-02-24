@@ -22,11 +22,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
 import com.clover.android.sdk.R;
 
 public class ReturnToMerchantDialogFragment extends DialogFragment {
@@ -107,6 +112,15 @@ public class ReturnToMerchantDialogFragment extends DialogFragment {
           callOnDismiss();
         }
         return true;
+      }
+
+      @Override
+      public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ESCAPE || keyCode == KeyEvent.KEYCODE_ENTER) {
+          onBackPressed();
+          return true;
+        }
+        return super.onKeyUp(keyCode, event);
       }
     };
   }

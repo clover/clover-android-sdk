@@ -169,6 +169,7 @@ public class PayIntent implements Parcelable {
     private Boolean createAuth;
     private String applyRealtimeDiscountForPkgName;
     private Long serviceFeeAmount;
+    private String dynamicTipSelection;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -336,6 +337,9 @@ public class PayIntent implements Parcelable {
         applyRealtimeDiscountForPkgName = intent.getStringExtra(Intents.EXTRA_APPLY_REALTIME_DISCOUNT_FOR_PKG_NAME);
       }
 
+      if (intent.hasExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION)) {
+        dynamicTipSelection = intent.getStringExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION);
+      }
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
       // reset by follow-on assignments and aids in preventing backward compatibility issues.
@@ -354,6 +358,7 @@ public class PayIntent implements Parcelable {
       Boolean approveOfflinePaymentWithoutPrompt=null;
       Boolean requiresRemoteConfirmation=null;
       Boolean disableCreditSurcharge=null;
+      String dynamicTipSelection = null;
 
       if (intent != null) {
         TransactionSettings existingTransactionSettings = intent.getParcelableExtra(Intents.EXTRA_TRANSACTION_SETTINGS);
@@ -378,10 +383,13 @@ public class PayIntent implements Parcelable {
         if (intent.hasExtra(Intents.EXTRA_TIPPABLE_AMOUNT)) {
           tippable_Amount = intent.getLongExtra(Intents.EXTRA_TIPPABLE_AMOUNT, -1L);
         }
+        if (intent.hasExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION)) {
+          dynamicTipSelection = intent.getStringExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION);
+        }
 
         return mergeDeprecatedTransactionSettingsProperties(existingTransactionSettings, tippable_Amount, isDisableCashBack,
           cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
-          approveOfflinePaymentWithoutPrompt, disableCreditSurcharge, requiresRemoteConfirmation);
+          approveOfflinePaymentWithoutPrompt, disableCreditSurcharge, requiresRemoteConfirmation, dynamicTipSelection);
       }
       return null;
     }
@@ -390,7 +398,7 @@ public class PayIntent implements Parcelable {
       if (payIntent != null) {
        return mergeDeprecatedTransactionSettingsProperties(payIntent.transactionSettings, payIntent.tippableAmount, payIntent.isDisableCashBack,
           payIntent.cardEntryMethods, payIntent.remotePrint, payIntent.isForceSwipePinEntry, payIntent.disableRestartTransactionWhenFailed, payIntent.allowOfflinePayment,
-          payIntent.approveOfflinePaymentWithoutPrompt, payIntent.isDisableCreditSurcharge, payIntent.requiresRemoteConfirmation);
+          payIntent.approveOfflinePaymentWithoutPrompt, payIntent.isDisableCreditSurcharge, payIntent.requiresRemoteConfirmation, payIntent.dynamicTipSelection);
       }
       return null;
     }
@@ -477,6 +485,7 @@ public class PayIntent implements Parcelable {
       this.createAuth = payIntent.createAuth;
       this.applyRealtimeDiscountForPkgName = payIntent.applyRealtimeDiscountForPkgName;
       this.serviceFeeAmount = payIntent.serviceFeeAmount;
+      this.dynamicTipSelection = payIntent.dynamicTipSelection;
 
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
@@ -880,6 +889,16 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder authorization(Authorization authorization) {
+      this.authorization = authorization;
+      return this;
+    }
+
+    public Builder dynamicTipSelection(String dynamicTipSelection) {
+      this.dynamicTipSelection = dynamicTipSelection;
+      return this;
+    }
+
     public PayIntent build() {
       return new PayIntent(action, amount, tippableAmount, tipAmount, taxAmount, cashbackAmount, orderId, paymentId, employeeId,
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
@@ -890,7 +909,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName, serviceFeeAmount);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName, serviceFeeAmount, dynamicTipSelection);
     }
   }
 
@@ -1002,6 +1021,8 @@ public class PayIntent implements Parcelable {
   public Boolean createAuth;
   public String applyRealtimeDiscountForPkgName;
   public Long serviceFeeAmount;
+  public String dynamicTipSelection;
+
 
   private PayIntent(String action, Long amount, Long tippableAmount,
                     Long tipAmount, Long taxAmount, Long cashbackAmount, String orderId, String paymentId, String employeeId,
@@ -1020,7 +1041,7 @@ public class PayIntent implements Parcelable {
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
                     Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode,
                     String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow,
-                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName, Long serviceFeeAmount) {
+                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName, Long serviceFeeAmount, String dynamicTipSelection) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -1086,12 +1107,14 @@ public class PayIntent implements Parcelable {
     this.vasSettings = vasSettings;
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
+    this.dynamicTipSelection = dynamicTipSelection;
+
     // As a general rule, the transactionSettings assignment should always be the last one
     // prior to the return statement.  This is to ensure any new/added overrides don't get
     // reset by follow-on assignments and aids in preventing backward compatibility issues.
     this.transactionSettings = mergeDeprecatedTransactionSettingsProperties(transactionSettings, tippableAmount, isDisableCashBack,
       cardEntryMethods, remotePrint, isForceSwipePinEntry, disableRestartTransactionWhenFailed, allowOfflinePayment,
-      approveOfflinePaymentWithoutPrompt, isDisableCreditSurcharge, requiresRemoteConfirmation);
+      approveOfflinePaymentWithoutPrompt, isDisableCreditSurcharge, requiresRemoteConfirmation, dynamicTipSelection);
   }
 
   // To maintain proper backward compatibility, this method will compare the existing
@@ -1109,7 +1132,8 @@ public class PayIntent implements Parcelable {
                                                                      Boolean allowOfflinePaymentIn,
                                                                      Boolean approveOfflinePaymentWithoutPromptIn,
                                                                      Boolean isDisableCreditSurcharge,
-                                                                     Boolean requiresRemoteConfirmation) {
+                                                                     Boolean requiresRemoteConfirmation,
+                                                                     String dynamicTipSelection) {
     TransactionSettings transactionSettings = new TransactionSettings();
     // Smart merge of incoming values where existing ts fields win
     if (ts != null) {
@@ -1179,6 +1203,9 @@ public class PayIntent implements Parcelable {
       if (ts.isNotNullRtdProviders()) {
         transactionSettings.setRtdProviders(ts.getRtdProviders());
       }
+      if (ts.isNotNullDynamicTipSelection()) {
+        transactionSettings.setDynamicTipSelection(ts.getDynamicTipSelection());
+      }
     } else { // No incoming ts fields, so use deprecated properties and default values where appropriate.
       transactionSettings.setCloverShouldHandleReceipts(!remotePrintIn);
       transactionSettings.setDisableRestartTransactionOnFailure(disableRestartTransactionWhenFailedIn);
@@ -1193,6 +1220,7 @@ public class PayIntent implements Parcelable {
       // Non-deprecated fields with default values - backward compatibility is key here
       transactionSettings.setDisableDuplicateCheck(false);
       transactionSettings.setDisableReceiptSelection(false);
+      transactionSettings.setDynamicTipSelection(dynamicTipSelection);
     }
     return transactionSettings;
   }
@@ -1407,6 +1435,10 @@ public class PayIntent implements Parcelable {
     if (paymentType != null) {
       intent.putExtra(Intents.EXTRA_PAYMENT_TYPE, paymentType);
     }
+
+    if (dynamicTipSelection != null) {
+        intent.putExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION, dynamicTipSelection);
+    }
   }
 
   @Override
@@ -1473,6 +1505,7 @@ public class PayIntent implements Parcelable {
            ", createAuth=" + createAuth +
            ", applyRealtimeDiscountForPkgName=" + applyRealtimeDiscountForPkgName +
            ", serviceFeeAmount=" + serviceFeeAmount +
+           ", dynamicTipSelection=" + dynamicTipSelection +
            '}';
   }
 
@@ -1695,6 +1728,10 @@ public class PayIntent implements Parcelable {
       bundle.putLong(Intents.EXTRA_SERVICE_FEE_AMOUNT, serviceFeeAmount);
     }
 
+    if (dynamicTipSelection != null) {
+      bundle.putString(Intents.EXTRA_DYNAMIC_TIP_SELECTION, dynamicTipSelection);
+    }
+
     // write out
     out.writeBundle(bundle);
   }
@@ -1906,7 +1943,9 @@ public class PayIntent implements Parcelable {
 
       builder.isAllowManualCardEntryOnMFD(bundle.getBoolean(Intents.EXTRA_ALLOW_MANUAL_CARD_ENTRY_ON_MFD, false));
 
-      builder.authorization = bundle.getParcelable(Intents.EXTRA_AUTHORIZATION);
+      if(bundle.containsKey(Intents.EXTRA_AUTHORIZATION)) {
+        builder.authorization(bundle.getParcelable(Intents.EXTRA_AUTHORIZATION));
+      }
 
       if (bundle.containsKey(Intents.EXTRA_C_TOKEN_REQUEST)) {
         builder.tokenRequest(bundle.getParcelable(Intents.EXTRA_C_TOKEN_REQUEST));
@@ -1946,6 +1985,10 @@ public class PayIntent implements Parcelable {
 
       if (bundle.containsKey(Intents.EXTRA_SERVICE_FEE_AMOUNT)) {
         builder.serviceFeeAmount(bundle.getLong(Intents.EXTRA_SERVICE_FEE_AMOUNT));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_DYNAMIC_TIP_SELECTION)) {
+        builder.dynamicTipSelection(bundle.getString(Intents.EXTRA_DYNAMIC_TIP_SELECTION));
       }
 
       // build

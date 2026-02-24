@@ -10,7 +10,6 @@ import android.os.IBinder
 import android.util.Log
 import com.clover.sdk.v3.remotepay.CloverDeviceEvent
 import com.clover.sdk.v3.remotepay.InputOption
-import java.util.concurrent.Executors
 
 /**
  * A connector that enables device requests (e.g. Read Card), using Android Payments API
@@ -28,7 +27,7 @@ class RemotePaymentsAPIConnector(var context: Context) {
                 _rpapiConnector = it
                 _intent?.also {
                     intent ->
-                    _rpapiConnector?.start(object:RemotePaymentsAPI_V1_ConnectorListener.Stub(){
+                    _rpapiConnector?.start(_intent, object:RemotePaymentsAPI_V1_ConnectorListener.Stub(){
                         override fun onDeviceEvent(cloverDeviceEvent: CloverDeviceEvent, isStartEvent:Boolean) {
                             _listener?.onDeviceEvent(cloverDeviceEvent, isStartEvent)
                         }
@@ -112,4 +111,5 @@ class RemotePaymentsAPIConnector(var context: Context) {
         context.unbindService(serviceConnection)
         _rpapiConnector = null;
     }
+
 }

@@ -39,7 +39,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getDayParts dayParts}</li>
-
+ * <li>{@link #getFallbackMenu fallbackMenu}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -94,6 +94,12 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.dayParts);
   }
 
+  /**
+   * Whether the menu is fallback menu for current merchant.
+   */
+  public java.lang.Boolean getFallbackMenu() {
+    return genClient.cacheGet(CacheKey.fallbackMenu);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
@@ -110,6 +116,8 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     dayParts
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.multiplemenu.MenuDayPart.JSON_CREATOR)),
+    fallbackMenu
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -226,6 +234,10 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'dayParts' field is set and is not null and is not empty */
   public boolean isNotEmptyDayParts() { return isNotNullDayParts() && !getDayParts().isEmpty(); }
 
+  /** Checks whether the 'fallbackMenu' field is set and is not null */
+  public boolean isNotNullFallbackMenu() {
+    return genClient.cacheValueIsNotNull(CacheKey.fallbackMenu);
+  }
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -260,6 +272,11 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
   /** Checks whether the 'dayParts' field has been set, however the value could be null */
   public boolean hasDayParts() {
     return genClient.cacheHasKey(CacheKey.dayParts);
+  }
+
+  /** Checks whether the 'fallbackMenu' field has been set, however the value could be null */
+  public boolean hasFallbackMenu() {
+    return genClient.cacheHasKey(CacheKey.fallbackMenu);
   }
 
   /**
@@ -313,6 +330,12 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setArrayRecord(dayParts, CacheKey.dayParts);
   }
 
+  /**
+   * Sets the field 'fallbackMenu'.
+   */
+  public Menu setFallbackMenu(java.lang.Boolean fallbackMenu) {
+    return genClient.setOther(fallbackMenu, CacheKey.fallbackMenu);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -343,6 +366,10 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     genClient.clear(CacheKey.dayParts);
   }
 
+  /** Clears the 'fallbackMenu' field, the 'has' method for this field will now return false */
+  public void clearFallbackMenu() {
+    genClient.clear(CacheKey.fallbackMenu);
+  }
   /**
    * Returns true if this instance has any changes.
    */
@@ -412,5 +439,6 @@ public class Menu extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
     public static final boolean DAYPARTS_IS_REQUIRED = false;
+    public static final boolean FALLBACKMENU_IS_REQUIRED = false;
   }
 }

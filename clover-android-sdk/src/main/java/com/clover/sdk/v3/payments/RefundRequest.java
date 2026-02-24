@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.payments;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -31,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getRefund refund}</li>
+ * <li>{@link #getExternalPaymentId externalPaymentId}</li>
  * <li>{@link #getCard card}</li>
  * <li>{@link #getIsAdjustment isAdjustment}</li>
  * </ul>
@@ -40,6 +42,13 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
 
   public com.clover.sdk.v3.payments.Refund getRefund() {
     return genClient.cacheGet(CacheKey.refund);
+  }
+
+  /**
+   * External payment ID when using custom tender
+   */
+  public java.lang.String getExternalPaymentId() {
+    return genClient.cacheGet(CacheKey.externalPaymentId);
   }
 
   public com.clover.sdk.v3.pay.PaymentRequestCardDetails getCard() {
@@ -56,6 +65,8 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     refund
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.Refund.JSON_CREATOR)),
+    externalPaymentId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     card
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.PaymentRequestCardDetails.JSON_CREATOR)),
     isAdjustment
@@ -139,6 +150,11 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.refund);
   }
 
+  /** Checks whether the 'externalPaymentId' field is set and is not null */
+  public boolean isNotNullExternalPaymentId() {
+    return genClient.cacheValueIsNotNull(CacheKey.externalPaymentId);
+  }
+
   /** Checks whether the 'card' field is set and is not null */
   public boolean isNotNullCard() {
     return genClient.cacheValueIsNotNull(CacheKey.card);
@@ -154,6 +170,11 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
   /** Checks whether the 'refund' field has been set, however the value could be null */
   public boolean hasRefund() {
     return genClient.cacheHasKey(CacheKey.refund);
+  }
+
+  /** Checks whether the 'externalPaymentId' field has been set, however the value could be null */
+  public boolean hasExternalPaymentId() {
+    return genClient.cacheHasKey(CacheKey.externalPaymentId);
   }
 
   /** Checks whether the 'card' field has been set, however the value could be null */
@@ -177,6 +198,13 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'externalPaymentId'.
+   */
+  public RefundRequest setExternalPaymentId(java.lang.String externalPaymentId) {
+    return genClient.setOther(externalPaymentId, CacheKey.externalPaymentId);
+  }
+
+  /**
    * Sets the field 'card'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -196,6 +224,10 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
   /** Clears the 'refund' field, the 'has' method for this field will now return false */
   public void clearRefund() {
     genClient.clear(CacheKey.refund);
+  }
+  /** Clears the 'externalPaymentId' field, the 'has' method for this field will now return false */
+  public void clearExternalPaymentId() {
+    genClient.clear(CacheKey.externalPaymentId);
   }
   /** Clears the 'card' field, the 'has' method for this field will now return false */
   public void clearCard() {
@@ -268,6 +300,7 @@ public class RefundRequest extends GenericParcelable implements com.clover.sdk.v
 
   public interface Constraints {
     public static final boolean REFUND_IS_REQUIRED = false;
+    public static final boolean EXTERNALPAYMENTID_IS_REQUIRED = false;
     public static final boolean CARD_IS_REQUIRED = false;
     public static final boolean ISADJUSTMENT_IS_REQUIRED = false;
   }

@@ -11,5 +11,6 @@ data class DiscountResponse(
     val orderId: String? = null,
     val discountType: String,
     val success: Boolean,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val additionalData: Map<String, String>? = null
 ) : Parcelable

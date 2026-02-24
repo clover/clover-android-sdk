@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.billing;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -31,6 +32,7 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getDeveloper developer}</li>
  * <li>{@link #getCharge charge}</li>
  * <li>{@link #getApp app}</li>
  * <li>{@link #getMerchant merchant}</li>
@@ -47,6 +49,10 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
 
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  public com.clover.sdk.v3.developer.Developer getDeveloper() {
+    return genClient.cacheGet(CacheKey.developer);
   }
 
   public com.clover.sdk.v3.billing.Charge getCharge() {
@@ -103,6 +109,8 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    developer
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.developer.Developer.JSON_CREATOR)),
     charge
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.billing.Charge.JSON_CREATOR)),
     app
@@ -207,6 +215,11 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
+  /** Checks whether the 'developer' field is set and is not null */
+  public boolean isNotNullDeveloper() {
+    return genClient.cacheValueIsNotNull(CacheKey.developer);
+  }
+
   /** Checks whether the 'charge' field is set and is not null */
   public boolean isNotNullCharge() {
     return genClient.cacheValueIsNotNull(CacheKey.charge);
@@ -262,6 +275,11 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
     return genClient.cacheHasKey(CacheKey.id);
   }
 
+  /** Checks whether the 'developer' field has been set, however the value could be null */
+  public boolean hasDeveloper() {
+    return genClient.cacheHasKey(CacheKey.developer);
+  }
+
   /** Checks whether the 'charge' field has been set, however the value could be null */
   public boolean hasCharge() {
     return genClient.cacheHasKey(CacheKey.charge);
@@ -313,6 +331,15 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
    */
   public MerchantAppCharge setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'developer'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public MerchantAppCharge setDeveloper(com.clover.sdk.v3.developer.Developer developer) {
+    return genClient.setRecord(developer, CacheKey.developer);
   }
 
   /**
@@ -392,6 +419,10 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
+  }
+  /** Clears the 'developer' field, the 'has' method for this field will now return false */
+  public void clearDeveloper() {
+    genClient.clear(CacheKey.developer);
   }
   /** Clears the 'charge' field, the 'has' method for this field will now return false */
   public void clearCharge() {
@@ -493,6 +524,7 @@ public class MerchantAppCharge extends GenericParcelable implements com.clover.s
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean DEVELOPER_IS_REQUIRED = false;
     public static final boolean CHARGE_IS_REQUIRED = false;
     public static final boolean APP_IS_REQUIRED = true;
     public static final boolean MERCHANT_IS_REQUIRED = true;
