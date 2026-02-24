@@ -14,6 +14,8 @@ import com.clover.sdk.v3.payment.raw.model.SecureEntryType;
 import com.clover.sdk.v3.payment.raw.model.SecureEntryScreenParameters;
 import com.clover.sdk.v3.payment.raw.handler.IGenericAlertHandler;
 import com.clover.sdk.v3.payment.raw.handler.ISelectApplicationHandler;
+import com.clover.sdk.v3.payment.raw.model.GetCardEmvDataResponse;
+import com.clover.sdk.v3.payment.raw.model.EncryptBufferResponse;
 
 interface IRawExtTransactionServiceListener {
   /**
@@ -90,4 +92,16 @@ interface IRawExtTransactionServiceListener {
    void onSecureEntryComplete(in SecureEntryType secEntryType,in SecureEntryResult result);
 
    void onCardDataExchangeCompleted();
+
+   /**
+   * Executed when read card EMV data (insert/tap) is available for processing
+   * getCardEmvDataResponse - the response of sucessful get emv data command
+   */
+   void onGetCardEmvDataCompleted(in GetCardEmvDataResponse getCardEmvDataResponse);
+
+   /**
+    * Callback executed when encrypted data is received.
+    * encryptBufferResponse - the response containing the encrypted data and KSN.
+   */
+   void onEncryptedDataReceived(in EncryptBufferResponse encryptedBufferResponse);
 }

@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.billing;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 

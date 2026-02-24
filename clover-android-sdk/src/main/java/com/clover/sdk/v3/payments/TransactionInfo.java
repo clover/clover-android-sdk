@@ -87,6 +87,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsCoBrandCard isCoBrandCard}</li>
  * <li>{@link #getOriginalSaleAmount originalSaleAmount}</li>
  * <li>{@link #getPartialPendingAmount partialPendingAmount}</li>
+ * <li>{@link #getPreDatedDate preDatedDate}</li>
+ * <li>{@link #getPreDatedTerm preDatedTerm}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -477,6 +479,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.partialPendingAmount);
   }
 
+  /**
+   *  Pre-dated date value in the yyyyMMdd format
+   */
+  public java.lang.String getPreDatedDate() {
+    return genClient.cacheGet(CacheKey.preDatedDate);
+  }
+
+  /**
+   *  Pre-dated value as term in calendar days
+   */
+  public java.lang.Integer getPreDatedTerm() {
+    return genClient.cacheGet(CacheKey.preDatedTerm);
+  }
+
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     languageIndicator
@@ -592,6 +608,10 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     partialPendingAmount
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    preDatedDate
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    preDatedTerm
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     ;
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -958,6 +978,16 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.partialPendingAmount);
   }
 
+  /** Checks whether the 'preDatedDate' field is set and is not null */
+  public boolean isNotNullPreDatedDate() {
+    return genClient.cacheValueIsNotNull(CacheKey.preDatedDate);
+  }
+
+  /** Checks whether the 'preDatedTerm' field is set and is not null */
+  public boolean isNotNullPreDatedTerm() {
+    return genClient.cacheValueIsNotNull(CacheKey.preDatedTerm);
+  }
+
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
   public boolean hasLanguageIndicator() {
     return genClient.cacheHasKey(CacheKey.languageIndicator);
@@ -1237,6 +1267,16 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'partialPendingAmount' field has been set, however the value could be null */
   public boolean hasPartialPendingAmount() {
     return genClient.cacheHasKey(CacheKey.partialPendingAmount);
+  }
+
+  /** Checks whether the 'preDatedDate' field has been set, however the value could be null */
+  public boolean hasPreDatedDate() {
+    return genClient.cacheHasKey(CacheKey.preDatedDate);
+  }
+
+  /** Checks whether the 'preDatedTerm' field has been set, however the value could be null */
+  public boolean hasPreDatedTerm() {
+    return genClient.cacheHasKey(CacheKey.preDatedTerm);
   }
 
   /**
@@ -1639,6 +1679,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(partialPendingAmount, CacheKey.partialPendingAmount);
   }
 
+  /**
+   * Sets the field 'preDatedDate'.
+   */
+  public TransactionInfo setPreDatedDate(java.lang.String preDatedDate) {
+    return genClient.setOther(preDatedDate, CacheKey.preDatedDate);
+  }
+
+  /**
+   * Sets the field 'preDatedTerm'.
+   */
+  public TransactionInfo setPreDatedTerm(java.lang.Integer preDatedTerm) {
+    return genClient.setOther(preDatedTerm, CacheKey.preDatedTerm);
+  }
+
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
     genClient.clear(CacheKey.languageIndicator);
@@ -1866,6 +1920,15 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     genClient.clear(CacheKey.partialPendingAmount);
   }
 
+  /** Clears the 'preDatedDate' field, the 'has' method for this field will now return false */
+  public void clearPreDatedDate() {
+    genClient.clear(CacheKey.preDatedDate);
+  }
+  /** Clears the 'preDatedTerm' field, the 'has' method for this field will now return false */
+  public void clearPreDatedTerm() {
+    genClient.clear(CacheKey.preDatedTerm);
+  }
+
   /**
    * Returns true if this instance has any changes.
    */
@@ -1987,6 +2050,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean ISCOBRANDCARD_IS_REQUIRED = false;
     public static final boolean ORIGINALSALEAMOUNT_IS_REQUIRED = false;
     public static final boolean PARTIALPENDINGAMOUNT_IS_REQUIRED = false;
+    public static final boolean PREDATEDDATE_IS_REQUIRED = false;
+    public static final boolean PREDATEDTERM_IS_REQUIRED = false;
   }
 
 }

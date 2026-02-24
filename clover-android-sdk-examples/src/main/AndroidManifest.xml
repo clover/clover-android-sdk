@@ -197,6 +197,9 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/Theme.AppCompat.Light"
             android:label="@string/mifare_card_reader_test" />
 
+        <activity android:name=".NfcReaderTestActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/nfc_reader_test" />
 
         <activity
           android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
@@ -259,6 +262,13 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/AppAppCompatTheme" />
 
         <activity android:name=".mifare.MifareCardReaderStatusActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+            <meta-data
+                android:name="com.clover.android.sdk.examples.FILTER_OUT_ACTIVITY"
+                android:value="true" />
+        </activity>
+
+        <activity android:name=".nfc.NfcReaderStatusActivity"
             android:theme="@style/Theme.AppCompat.Light" >
             <meta-data
                 android:name="com.clover.android.sdk.examples.FILTER_OUT_ACTIVITY"

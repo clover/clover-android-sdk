@@ -90,7 +90,13 @@ public enum Module implements Parcelable {
    */
   OLO_MENUS,
   APP_MARKET_PAY_PER_USE,
-  ESTIMATE;
+  ESTIMATE,
+  ADP_PAYROLL,
+  CLOVER_VAULT,
+  MULTI_LOCATION,
+  PAYBILLS,
+  HB_TIMESHEETS,
+  ALLERGY_MANAGEMENT;
 
   @Override
   public int describeContents() {

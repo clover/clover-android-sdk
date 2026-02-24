@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum ChargeSystemType implements Parcelable {
-  BRAINTREE, INFOLEASE, LOCAL, GOLEO;
+  BRAINTREE, INFOLEASE, LOCAL, GOLEO, ODESSA;
 
   @Override
   public int describeContents() {

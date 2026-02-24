@@ -1082,4 +1082,18 @@ public class OrderV3Connector extends ServiceConnector<IOrderService> {
     });
   }
 
+  /**
+   * Voids eligible alternate payments (e.g., Klarna).
+   * Records the void locally and sends a void request (synchronous or queued) to the server.
+   * Not available to non-Clover apps.
+   * @y\.exclude
+   */
+  public Order voidAlternatePayment(final String orderId, final String paymentId, final String iccContainer, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+      return execute(new ServiceCallable<IOrderService, Order>() {
+          @Override
+          public Order call(IOrderService service, ResultStatus status) throws RemoteException {
+              return service.voidAlternatePayment(orderId, paymentId, iccContainer, reason, source, status);
+          }
+      });
+  }
 }

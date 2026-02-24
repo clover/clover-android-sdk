@@ -1645,4 +1645,19 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
       return getValue(service.setLineItemInfo(orderId, lineItemId, lineItemInfo, status));
     });
   }
+
+  /**
+   * Voids eligible alternate payments (e.g., Klarna).
+   * Records the void locally and sends a void request (synchronous or queued) to the server.
+   * Not available to non-Clover apps.
+   * @y\.exclude
+   */
+  public Order voidAlternatePayment(final String orderId, final String paymentId, final String iccContainer, final VoidReason reason, final String source) throws RemoteException, ClientException, ServiceException, BindingException {
+      return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+          @Override
+          public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+              return getValue(service.voidAlternatePayment(orderId, paymentId, iccContainer, reason, source, status));
+          }
+      });
+  }
 }

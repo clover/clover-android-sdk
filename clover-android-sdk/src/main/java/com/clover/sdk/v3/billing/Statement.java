@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.billing;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -32,8 +33,11 @@ import com.clover.sdk.GenericParcelable;
  * <ul>
  * <li>{@link #getYear year}</li>
  * <li>{@link #getMonth month}</li>
+ * <li>{@link #getDay day}</li>
  * <li>{@link #getAmount amount}</li>
  * <li>{@link #getTax tax}</li>
+ * <li>{@link #getInvoiceNumber invoiceNumber}</li>
+ * <li>{@link #getBillingMethod billingMethod}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -47,12 +51,24 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheGet(CacheKey.month);
   }
 
+  public java.lang.Integer getDay() {
+    return genClient.cacheGet(CacheKey.day);
+  }
+
   public java.lang.Long getAmount() {
     return genClient.cacheGet(CacheKey.amount);
   }
 
   public java.lang.Long getTax() {
     return genClient.cacheGet(CacheKey.tax);
+  }
+
+  public java.lang.String getInvoiceNumber() {
+    return genClient.cacheGet(CacheKey.invoiceNumber);
+  }
+
+  public com.clover.sdk.v3.billing.BillingMethod getBillingMethod() {
+    return genClient.cacheGet(CacheKey.billingMethod);
   }
 
 
@@ -63,10 +79,16 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     month
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    day
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     amount
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     tax
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    invoiceNumber
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    billingMethod
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.billing.BillingMethod.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -151,6 +173,11 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheValueIsNotNull(CacheKey.month);
   }
 
+  /** Checks whether the 'day' field is set and is not null */
+  public boolean isNotNullDay() {
+    return genClient.cacheValueIsNotNull(CacheKey.day);
+  }
+
   /** Checks whether the 'amount' field is set and is not null */
   public boolean isNotNullAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.amount);
@@ -159,6 +186,16 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'tax' field is set and is not null */
   public boolean isNotNullTax() {
     return genClient.cacheValueIsNotNull(CacheKey.tax);
+  }
+
+  /** Checks whether the 'invoiceNumber' field is set and is not null */
+  public boolean isNotNullInvoiceNumber() {
+    return genClient.cacheValueIsNotNull(CacheKey.invoiceNumber);
+  }
+
+  /** Checks whether the 'billingMethod' field is set and is not null */
+  public boolean isNotNullBillingMethod() {
+    return genClient.cacheValueIsNotNull(CacheKey.billingMethod);
   }
 
 
@@ -173,6 +210,11 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.cacheHasKey(CacheKey.month);
   }
 
+  /** Checks whether the 'day' field has been set, however the value could be null */
+  public boolean hasDay() {
+    return genClient.cacheHasKey(CacheKey.day);
+  }
+
   /** Checks whether the 'amount' field has been set, however the value could be null */
   public boolean hasAmount() {
     return genClient.cacheHasKey(CacheKey.amount);
@@ -181,6 +223,16 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Checks whether the 'tax' field has been set, however the value could be null */
   public boolean hasTax() {
     return genClient.cacheHasKey(CacheKey.tax);
+  }
+
+  /** Checks whether the 'invoiceNumber' field has been set, however the value could be null */
+  public boolean hasInvoiceNumber() {
+    return genClient.cacheHasKey(CacheKey.invoiceNumber);
+  }
+
+  /** Checks whether the 'billingMethod' field has been set, however the value could be null */
+  public boolean hasBillingMethod() {
+    return genClient.cacheHasKey(CacheKey.billingMethod);
   }
 
 
@@ -199,6 +251,13 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   }
 
   /**
+   * Sets the field 'day'.
+   */
+  public Statement setDay(java.lang.Integer day) {
+    return genClient.setOther(day, CacheKey.day);
+  }
+
+  /**
    * Sets the field 'amount'.
    */
   public Statement setAmount(java.lang.Long amount) {
@@ -212,6 +271,20 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
     return genClient.setOther(tax, CacheKey.tax);
   }
 
+  /**
+   * Sets the field 'invoiceNumber'.
+   */
+  public Statement setInvoiceNumber(java.lang.String invoiceNumber) {
+    return genClient.setOther(invoiceNumber, CacheKey.invoiceNumber);
+  }
+
+  /**
+   * Sets the field 'billingMethod'.
+   */
+  public Statement setBillingMethod(com.clover.sdk.v3.billing.BillingMethod billingMethod) {
+    return genClient.setOther(billingMethod, CacheKey.billingMethod);
+  }
+
 
   /** Clears the 'year' field, the 'has' method for this field will now return false */
   public void clearYear() {
@@ -221,6 +294,10 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   public void clearMonth() {
     genClient.clear(CacheKey.month);
   }
+  /** Clears the 'day' field, the 'has' method for this field will now return false */
+  public void clearDay() {
+    genClient.clear(CacheKey.day);
+  }
   /** Clears the 'amount' field, the 'has' method for this field will now return false */
   public void clearAmount() {
     genClient.clear(CacheKey.amount);
@@ -228,6 +305,14 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   /** Clears the 'tax' field, the 'has' method for this field will now return false */
   public void clearTax() {
     genClient.clear(CacheKey.tax);
+  }
+  /** Clears the 'invoiceNumber' field, the 'has' method for this field will now return false */
+  public void clearInvoiceNumber() {
+    genClient.clear(CacheKey.invoiceNumber);
+  }
+  /** Clears the 'billingMethod' field, the 'has' method for this field will now return false */
+  public void clearBillingMethod() {
+    genClient.clear(CacheKey.billingMethod);
   }
 
 
@@ -293,8 +378,11 @@ public class Statement extends GenericParcelable implements com.clover.sdk.v3.Va
   public interface Constraints {
     public static final boolean YEAR_IS_REQUIRED = false;
     public static final boolean MONTH_IS_REQUIRED = false;
+    public static final boolean DAY_IS_REQUIRED = false;
     public static final boolean AMOUNT_IS_REQUIRED = false;
     public static final boolean TAX_IS_REQUIRED = false;
+    public static final boolean INVOICENUMBER_IS_REQUIRED = false;
+    public static final boolean BILLINGMETHOD_IS_REQUIRED = false;
   }
 
 }

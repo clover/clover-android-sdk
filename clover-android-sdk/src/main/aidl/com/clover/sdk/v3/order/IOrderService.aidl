@@ -506,4 +506,12 @@ interface IOrderService {
   * @y.exclude
   */
   Order setLineItemInfo(String orderId, String lineItemId, in LineItemInfo lineItemInfo, out ResultStatus status);
+
+  /**
+   * Voids eligible alternate payments (e.g., Klarna).
+   * Records the void locally and sends a void request (synchronous or queued) to the server.
+   * Not available to non-Clover apps.
+   * @y\.exclude
+   */
+  Order voidAlternatePayment(String orderId, String paymentId, String iccContainer, in VoidReason reason, String source, out ResultStatus status);
 }
