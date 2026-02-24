@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../../../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r329
+            <div class="library-version">r333
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -64,7 +64,7 @@
   <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.inventory</a><span class="delimiter">/</span><span class="current">InventoryContract</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Inventory</span><wbr><span><span>Contract</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">InventoryContract</a></div><p class="paragraph">The contract between the inventory provider and apps. For more detailed information about inventory please read <a href="../-i-inventory-service/index.html">IInventoryService</a>. </p> The content provider for inventory may be used directly by apps wishing to use a <a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">android.database.Cursor</a> to navigate a large inventory database. Read <a href="https://developer.android.com/guide/topics/providers/content-provider-basics">Content provider basics</a> for an overview of how to interact with a content provider. In this case only methods which read data such as <a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html#query">query</a> will work. Methods which write data will be rejected.  Using this contract requires the client app have <a href="../../com.clover.sdk.v3.employees/-permission/-i-n-v-e-n-t-o-r-y_-r/index.html">INVENTORY_R</a> permission.  Note that there are frequently multiple content URIs which join multiple tables such as <a href="-item-modifier-group/-c-o-n-t-e-n-t_-w-i-t-h_-n-a-m-e_-u-r-i.html">CONTENT_WITH_NAME_URI</a>. These join tables are very helpful when a client app needs to display filtered results. In this particular example an app can retrieve <a href="../-modifier-group/index.html">ModifierGroup</a> details for a particular <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> by querying the above content URI and selecting by <a href="-item-modifier-group/index.html#-1351339823%2FProperties%2F1904710855">ITEM_ID</a>.  To insert/update/delete inventory use the <a href="../-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a> via binding to the AIDL service, or through the wrapper class <a href="../-inventory-connector/index.html">com.clover.sdk.v3.inventory.InventoryConnector</a>.  The inventory database is typically kept up to date using push notifications from the Clover server to the client, so in most cases any changes made through the web or through another device will be immediately reflected on all devices belonging to a particular merchant. When network connections are available but unreliable, the inventory service will attempt to synchronize its local database (i.e. the backing store for this content provider) with the server on a regular basis, usually on an interval no greater than 3 hours.</div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">InventoryContract</a></div><p class="paragraph">The contract between the inventory provider and apps. For more detailed information about inventory please read <a href="../-i-inventory-service/index.html">IInventoryService</a>. </p> The content provider for inventory may be used directly by apps wishing to use a <a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">android.database.Cursor</a> to navigate a large inventory database. Read <a href="https://developer.android.com/guide/topics/providers/content-provider-basics">Content provider basics</a> for an overview of how to interact with a content provider. In this case only methods which read data such as <a href="https://developer.android.com/reference/kotlin/android/content/ContentResolver.html#query">query</a> will work. Methods which write data will be rejected.  Using this contract requires the client app have <a href="../../com.clover.sdk.v3.employees/-permission/-i-n-v-e-n-t-o-r-y_-r/index.html">INVENTORY_R</a> permission.  Note that there are frequently multiple content URIs which join multiple tables such as <a href="-item-modifier-group/index.html#1798225784%2FProperties%2F1904710855">CONTENT_WITH_NAME_URI</a>. These join tables are very helpful when a client app needs to display filtered results. In this particular example an app can retrieve <a href="../-modifier-group/index.html">ModifierGroup</a> details for a particular <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> by querying the above content URI and selecting by <a href="-item-modifier-group/index.html#-1351339823%2FProperties%2F1904710855">ITEM_ID</a>.  To insert/update/delete inventory use the <a href="../-i-inventory-service/index.html">com.clover.sdk.v3.inventory.IInventoryService</a> via binding to the AIDL service, or through the wrapper class <a href="../-inventory-connector/index.html">com.clover.sdk.v3.inventory.InventoryConnector</a>.  The inventory database is typically kept up to date using push notifications from the Clover server to the client, so in most cases any changes made through the web or through another device will be immediately reflected on all devices belonging to a particular merchant. When network connections are available but unreliable, the inventory service will attempt to synchronize its local database (i.e. the backing store for this content provider) with the server on a regular basis, usually on an interval no greater than 3 hours.</div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -310,7 +310,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-groups-and-items-columns/index.html">ItemGroupsAndItemsColumns</a><span class="token keyword"> implements </span><a href="-item-columns/index.html">InventoryContract.ItemColumns</a></div><div class="brief ">These column names are used to access fields of <a href="../-item-group/index.html">com.clover.sdk.v3.inventory.ItemGroup</a> which have names identical to <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> or which are computed when querying via the <a href="-item-group/-c-o-n-t-e-n-t_-u-r-i_-a-n-d_-i-t-e-m-s.html">CONTENT_URI_AND_ITEMS</a> URI.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">interface </span><a href="-item-groups-and-items-columns/index.html">ItemGroupsAndItemsColumns</a><span class="token keyword"> implements </span><a href="-item-columns/index.html">InventoryContract.ItemColumns</a></div><div class="brief ">These column names are used to access fields of <a href="../-item-group/index.html">com.clover.sdk.v3.inventory.ItemGroup</a> which have names identical to <a href="../-item/index.html">com.clover.sdk.v3.inventory.Item</a> or which are computed when querying via the <a href="-item-group/index.html#1119057037%2FProperties%2F1904710855">CONTENT_URI_AND_ITEMS</a> URI.</div></div></div>
                 </div>
               </div>
             </div>
@@ -863,13 +863,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-c-c-o-u-n-t_-n-a-m-e_-p-a-r-a-m.html"><span><span>ACCOUNT_NAME_PARAM</span></span></a></div>
+                  <div><a href="index.html#-368189499%2FProperties%2F1904710855"><span><span>ACCOUNT_NAME_PARAM</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-368189499%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-a-c-c-o-u-n-t_-n-a-m-e_-p-a-r-a-m.html">ACCOUNT_NAME_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-368189499%2FProperties%2F1904710855">ACCOUNT_NAME_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
                 </div>
               </div>
             </div>
@@ -878,13 +878,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-c-c-o-u-n-t_-t-y-p-e_-p-a-r-a-m.html"><span><span>ACCOUNT_TYPE_PARAM</span></span></a></div>
+                  <div><a href="index.html#-2019297994%2FProperties%2F1904710855"><span><span>ACCOUNT_TYPE_PARAM</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019297994%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-a-c-c-o-u-n-t_-t-y-p-e_-p-a-r-a-m.html">ACCOUNT_TYPE_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-2019297994%2FProperties%2F1904710855">ACCOUNT_TYPE_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
                 </div>
               </div>
             </div>
@@ -893,13 +893,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-u-t-h_-t-o-k-e-n_-p-a-r-a-m.html"><span><span>AUTH_TOKEN_PARAM</span></span></a></div>
+                  <div><a href="index.html#1143673056%2FProperties%2F1904710855"><span><span>AUTH_TOKEN_PARAM</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1143673056%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-a-u-t-h_-t-o-k-e-n_-p-a-r-a-m.html">AUTH_TOKEN_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1143673056%2FProperties%2F1904710855">AUTH_TOKEN_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
                 </div>
               </div>
             </div>
@@ -908,13 +908,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-u-t-h-o-r-i-t-y.html"><span><span>AUTHORITY</span></span></a></div>
+                  <div><a href="index.html#-1642753081%2FProperties%2F1904710855"><span><span>AUTHORITY</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1642753081%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-a-u-t-h-o-r-i-t-y.html">AUTHORITY</a></div><div class="brief ">The authority for the inventory provider</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1642753081%2FProperties%2F1904710855">AUTHORITY</a></div><div class="brief ">The authority for the inventory provider</div></div></div>
                 </div>
               </div>
             </div>
@@ -923,13 +923,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-u-t-h-o-r-i-t-y_-u-r-i.html"><span><span>AUTHORITY_URI</span></span></a></div>
+                  <div><a href="index.html#-1691889958%2FProperties%2F1904710855"><span><span>AUTHORITY_URI</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1691889958%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="-a-u-t-h-o-r-i-t-y_-u-r-i.html">AUTHORITY_URI</a></div><div class="brief ">A content:// style uri to the authority for the modifiers provider</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="index.html#-1691889958%2FProperties%2F1904710855">AUTHORITY_URI</a></div><div class="brief ">A content:// style uri to the authority for the modifiers provider</div></div></div>
                 </div>
               </div>
             </div>
@@ -938,13 +938,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-c-o-u-n-t_-k-e-y.html"><span><span>COUNT_KEY</span></span></a></div>
+                  <div><a href="index.html#-851726981%2FProperties%2F1904710855"><span><span>COUNT_KEY</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-851726981%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-c-o-u-n-t_-k-e-y.html">COUNT_KEY</a></div><div class="brief ">Integer result returned by call count methods.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-851726981%2FProperties%2F1904710855">COUNT_KEY</a></div><div class="brief ">Integer result returned by call count methods.</div></div></div>
                 </div>
               </div>
             </div>
@@ -953,13 +953,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-g-e-t_-c-o-u-n-t_-m-e-t-h-o-d.html"><span><span>GET_COUNT_METHOD</span></span></a></div>
+                  <div><a href="index.html#921902582%2FProperties%2F1904710855"><span><span>GET_COUNT_METHOD</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="921902582%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-g-e-t_-c-o-u-n-t_-m-e-t-h-o-d.html">GET_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#921902582%2FProperties%2F1904710855">GET_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
                 </div>
               </div>
             </div>
@@ -968,13 +968,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-g-e-t_-i-t-e-m_-m-o-d_-o-r_-v-a-r_-c-o-u-n-t_-m-e-t-h-o-d.html"><span><span>GET_ITEM_MOD_OR_VAR_COUNT_METHOD</span></span></a></div>
+                  <div><a href="index.html#-1942250165%2FProperties%2F1904710855"><span><span>GET_ITEM_MOD_OR_VAR_COUNT_METHOD</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942250165%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-g-e-t_-i-t-e-m_-m-o-d_-o-r_-v-a-r_-c-o-u-n-t_-m-e-t-h-o-d.html">GET_ITEM_MOD_OR_VAR_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1942250165%2FProperties%2F1904710855">GET_ITEM_MOD_OR_VAR_COUNT_METHOD</a></div><div class="brief ">Call method to get the inventory item count.</div></div></div>
                 </div>
               </div>
             </div>
@@ -983,13 +983,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-g-e-t_-i-t-e-m-s_-w-i-t-h_-m-o-d-i-f-i-e-r-s_-m-e-t-h-o-d.html"><span><span>GET_ITEMS_WITH_MODIFIERS_METHOD</span></span></a></div>
+                  <div><a href="index.html#1380701141%2FProperties%2F1904710855"><span><span>GET_ITEMS_WITH_MODIFIERS_METHOD</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1380701141%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-g-e-t_-i-t-e-m-s_-w-i-t-h_-m-o-d-i-f-i-e-r-s_-m-e-t-h-o-d.html">GET_ITEMS_WITH_MODIFIERS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with modifiers.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#1380701141%2FProperties%2F1904710855">GET_ITEMS_WITH_MODIFIERS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with modifiers.</div></div></div>
                 </div>
               </div>
             </div>
@@ -998,13 +998,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-g-e-t_-i-t-e-m-s_-w-i-t-h_-v-a-r-i-a-n-t-s_-m-e-t-h-o-d.html"><span><span>GET_ITEMS_WITH_VARIANTS_METHOD</span></span></a></div>
+                  <div><a href="index.html#-482903793%2FProperties%2F1904710855"><span><span>GET_ITEMS_WITH_VARIANTS_METHOD</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-482903793%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-g-e-t_-i-t-e-m-s_-w-i-t-h_-v-a-r-i-a-n-t-s_-m-e-t-h-o-d.html">GET_ITEMS_WITH_VARIANTS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with variants.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-482903793%2FProperties%2F1904710855">GET_ITEMS_WITH_VARIANTS_METHOD</a></div><div class="brief ">Call method to get the inventory item count with variants.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1013,13 +1013,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-i-s_-s-y-n-c_-p-a-r-a-m.html"><span><span>IS_SYNC_PARAM</span></span></a></div>
+                  <div><a href="index.html#-1839999796%2FProperties%2F1904710855"><span><span>IS_SYNC_PARAM</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1839999796%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-i-s_-s-y-n-c_-p-a-r-a-m.html">IS_SYNC_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1839999796%2FProperties%2F1904710855">IS_SYNC_PARAM</a></div><div class="brief ">Clover use only.</div></div></div>
                 </div>
               </div>
             </div>
@@ -1030,7 +1030,7 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
             </div>
         </div>

@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../../../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r329
+            <div class="library-version">r333
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -64,7 +64,7 @@
   <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.util</a><span class="delimiter">/</span><span class="current">CloverAuth</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Clover</span><wbr><span><span>Auth</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CloverAuth</a></div><p class="paragraph">Obtain authentication information. The primary use of this class is to get the Clover cloud base URL (see <a href="-auth-result/base-url.html">baseUrl</a>) and access token (see <a href="-auth-result/auth-token.html">authToken</a>) used for REST API calls to the Clover cloud. </p> The information returned from <a href="authenticate.html">authenticate</a> is cached for 24 hours on the device. After 24 hours the information is validated with the Clover cloud. This means that periodically, a call to <a href="authenticate.html">authenticate</a> will result in a blocking network request. Your app should be prepared for this. Do not call this method on the main UI thread, and be prepared to communicate any delays to the user. Access tokens are guaranteed to be valid for at least 24 hours. There is no situation where you can obtain an invalid access token from this method, as long as your app is a valid Clover app in the Clover cloud and is installed to this merchant.  The information returned from <a href="authenticate.html">authenticate</a> should not be persisted or cached. Call this method prior to all request to the Clover cloud.  The forceValidate argument to <a href="authenticate.html">authenticate</a> causes the token to be validated always, as opposed to every 24 hours as noted above. Use of this is atypical.  The app invoking methods in this class must be published Clover developer app and be installed to this merchant in the Clover cloud to succeed. It is not sufficient to only sideload an app.  See <a href="https://docs.clover.com/clover-platform/docs/query-web-services">this Clover documentation</a> for more information about making REST API calls from a Clover app.</div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">CloverAuth</a></div><p class="paragraph">Obtain authentication information. The primary use of this class is to get the Clover cloud base URL (see <a href="-auth-result/index.html#248736245%2FProperties%2F1904710855">baseUrl</a>) and access token (see <a href="-auth-result/index.html#412103554%2FProperties%2F1904710855">authToken</a>) used for REST API calls to the Clover cloud. </p> The information returned from <a href="authenticate.html">authenticate</a> is cached for 24 hours on the device. After 24 hours the information is validated with the Clover cloud. This means that periodically, a call to <a href="authenticate.html">authenticate</a> will result in a blocking network request. Your app should be prepared for this. Do not call this method on the main UI thread, and be prepared to communicate any delays to the user. Access tokens are guaranteed to be valid for at least 24 hours. There is no situation where you can obtain an invalid access token from this method, as long as your app is a valid Clover app in the Clover cloud and is installed to this merchant.  The information returned from <a href="authenticate.html">authenticate</a> should not be persisted or cached. Call this method prior to all request to the Clover cloud.  The forceValidate argument to <a href="authenticate.html">authenticate</a> causes the token to be validated always, as opposed to every 24 hours as noted above. Use of this is atypical.  The app invoking methods in this class must be published Clover developer app and be installed to this merchant in the Clover cloud to succeed. It is not sufficient to only sideload an app.  See <a href="https://docs.clover.com/clover-platform/docs/query-web-services">this Clover documentation</a> for more information about making REST API calls from a Clover app.</div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -113,13 +113,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-u-t-h_-a-u-t-h-o-r-i-t-y.html"><span><span>AUTH_AUTHORITY</span></span></a></div>
+                  <div><a href="index.html#-1612741796%2FProperties%2F1904710855"><span><span>AUTH_AUTHORITY</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1612741796%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-a-u-t-h_-a-u-t-h-o-r-i-t-y.html">AUTH_AUTHORITY</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-1612741796%2FProperties%2F1904710855">AUTH_AUTHORITY</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -128,13 +128,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-a-u-t-h_-u-r-i.html"><span><span>AUTH_URI</span></span></a></div>
+                  <div><a href="index.html#288101075%2FProperties%2F1904710855"><span><span>AUTH_URI</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="288101075%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="-a-u-t-h_-u-r-i.html">AUTH_URI</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a>&nbsp;<a href="index.html#288101075%2FProperties%2F1904710855">AUTH_URI</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -143,13 +143,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-m-e-t-h-o-d_-a-u-t-h.html"><span><span>METHOD_AUTH</span></span></a></div>
+                  <div><a href="index.html#-623241044%2FProperties%2F1904710855"><span><span>METHOD_AUTH</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-623241044%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-m-e-t-h-o-d_-a-u-t-h.html">METHOD_AUTH</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#-623241044%2FProperties%2F1904710855">METHOD_AUTH</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -158,13 +158,13 @@
           <div class="table-row" data-filterable-current=":clover-android-sdk:dokkaHtmlPartial/release" data-filterable-set=":clover-android-sdk:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-m-e-t-h-o-d_-a-u-t-h_-p-e-r-m-i-s-s-i-o-n-s.html"><span><span>METHOD_AUTH_PERMISSIONS</span></span></a></div>
+                  <div><a href="index.html#911054631%2FProperties%2F1904710855"><span><span>METHOD_AUTH_PERMISSIONS</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="911054631%2FProperties%2F1904710855"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="-m-e-t-h-o-d_-a-u-t-h_-p-e-r-m-i-s-s-i-o-n-s.html">METHOD_AUTH_PERMISSIONS</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://developer.android.com/reference/kotlin/java/lang/String.html">String</a>&nbsp;<a href="index.html#911054631%2FProperties%2F1904710855">METHOD_AUTH_PERMISSIONS</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -194,7 +194,7 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2026 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
             </div>
         </div>
