@@ -31,8 +31,8 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum EncryptMode implements Parcelable {
-    CBC((byte) 0x01),
-    ECB((byte) 0x02);
+    CBC((byte) 0x00),
+    ECB((byte) 0x01);
 
     private final byte code;
 

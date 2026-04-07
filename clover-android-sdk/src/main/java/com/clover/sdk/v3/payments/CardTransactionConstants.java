@@ -73,5 +73,6 @@ public class CardTransactionConstants {
   public static final String NETWORK_EXTRA_CARD = "card";
   public static final String POS_ENTRY_MODE = "posEntryMode";
   public static final String INSTALLMENT_PLAN_RESPONSE = "installmentPlanResponse";
+  public static final String CAN_NET_RESP_CODE = "canNetRespCode";
 
 }

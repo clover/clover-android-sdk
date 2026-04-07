@@ -62,6 +62,15 @@ internal class NfcReaderClientImpl(private val context: Context) : NfcReaderClie
         throw NfcReaderException("Couldn't execute Felica card raw command.")
     }
 
+    override fun felicaCommandRawWithTimeout(felicaCardCmd: FelicaCardCommand, timeout: Long): FelicaCardResponse? {
+        if (isNfcServiceAvailable()) {
+            val felicaCardCmd: FelicaCardCommand =
+                FelicaCardCommand(felicaCardCmd.commandDataInHex);
+            return iNfcReaderService?.felicaCommandRawWithTimeout(felicaCardCmd, timeout)
+        }
+        throw NfcReaderException("Couldn't execute Felica card raw command with timeout.")
+    }
+
     override fun felicaRfOff() {
         if (isNfcServiceAvailable()) {
             iNfcReaderService?.felicaRfOff()

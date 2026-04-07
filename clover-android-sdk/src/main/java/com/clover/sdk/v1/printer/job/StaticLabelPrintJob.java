@@ -2,13 +2,13 @@ package com.clover.sdk.v1.printer.job;
 
 /**
  * Copyright (C) 2016 Clover Network, Inc.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,22 +31,30 @@ public class StaticLabelPrintJob extends StaticOrderBasedPrintJob implements Par
     public  ArrayList<String> itemIds;
     public  boolean reprintAllowed;
     public  boolean markPrinted;
+    /**
+     * Custom banner text to be printed on the label.
+     * This text will be displayed as a banner on the printed label.
+     */
+    public final String banner;
 
     private static final String BUNDLE_KEY_ITEM_IDS = "i";
     private static final String BUNDLE_REPRINT_ALLOWED = "b";
     private static final String BUNDLE_KEY_MARK_PRINTED = "m";
+    private static final String BUNDLE_KEY_BANNER = "banner";
 
     public static class Builder extends StaticOrderBasedPrintJob.Builder {
 
         protected ArrayList<String> itemIds;
         private boolean reprintAllowed = false;
         private boolean markPrinted = false;
+        private String banner = null;
 
         public Builder StaticLabelPrintJob(StaticLabelPrintJob pj) {
             staticOrderBasedPrintJob(pj);
             this.itemIds = pj.itemIds;
             this.reprintAllowed = pj.reprintAllowed;
             this.markPrinted = pj.markPrinted;
+            this.banner = pj.banner;
             return this;
         }
 
@@ -65,6 +73,17 @@ public class StaticLabelPrintJob extends StaticOrderBasedPrintJob implements Par
             return this;
         }
 
+        /**
+         * Sets the custom banner text to be printed on the label.
+         *
+         * @param banner the banner text to display on the label, or null for no banner
+         * @return this Builder instance for method chaining
+         */
+        public StaticLabelPrintJob.Builder banner(String banner) {
+            this.banner = banner;
+            return this;
+        }
+
         public StaticLabelPrintJob build() {
             return new StaticLabelPrintJob(this);
         }
@@ -76,6 +95,7 @@ public class StaticLabelPrintJob extends StaticOrderBasedPrintJob implements Par
         this.itemIds = builder.itemIds;
         this.reprintAllowed = builder.reprintAllowed;
         this.markPrinted = builder.markPrinted;
+        this.banner = builder.banner;
     }
 
     public static final Creator<StaticLabelPrintJob> CREATOR = new Creator<StaticLabelPrintJob>() {
@@ -94,6 +114,7 @@ public class StaticLabelPrintJob extends StaticOrderBasedPrintJob implements Par
         itemIds = bundle.getStringArrayList(BUNDLE_KEY_ITEM_IDS);
         reprintAllowed = bundle.getBoolean(BUNDLE_REPRINT_ALLOWED);
         markPrinted = bundle.getBoolean(BUNDLE_KEY_MARK_PRINTED);
+        banner = bundle.getString(BUNDLE_KEY_BANNER);
     }
 
     @Override
@@ -108,6 +129,7 @@ public class StaticLabelPrintJob extends StaticOrderBasedPrintJob implements Par
         bundle.putStringArrayList(BUNDLE_KEY_ITEM_IDS, itemIds);
         bundle.putBoolean(BUNDLE_REPRINT_ALLOWED, reprintAllowed);
         bundle.putBoolean(BUNDLE_KEY_MARK_PRINTED, markPrinted);
+        bundle.putString(BUNDLE_KEY_BANNER, banner);
         dest.writeBundle(bundle);
     }
 }

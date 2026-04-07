@@ -20,5 +20,7 @@ interface INfcReaderService {
 
  FelicaCardResponse felicaCommandRaw(in FelicaCardCommand felicaCardCmd);
 
+ FelicaCardResponse felicaCommandRawWithTimeout(in FelicaCardCommand felicaCardCmd, in long timeout);
+
  void felicaRfOff();
 }

@@ -14,3 +14,4 @@ build/
 gen/
 # Android build files
 local.properties
+.kotlin

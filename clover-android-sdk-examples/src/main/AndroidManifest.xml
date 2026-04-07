@@ -274,5 +274,61 @@ xmlns:tools="http://schemas.android.com/tools"
                 android:name="com.clover.android.sdk.examples.FILTER_OUT_ACTIVITY"
                 android:value="true" />
         </activity>
+
+        <activity android:name=".DeviceCountersTestActivity"
+            android:label="@string/device_counters_test"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <!--
+             THIS SERVICE NEEDS CLOVER `PAYMENTS_R` PERMISSION TO BIND
+             ========================================================================================
+             REAL-TIME DISCOUNT (RTD) PROVIDER SERVICE CONFIGURATION
+             ========================================================================================
+             To act as an RTD Provider, a service MUST:
+             1. Be exported.
+             2. Handle the "com.clover.REALTIME_DISCOUNT_PROVIDER" intent action.
+             3. Declare constraints via <meta-data> tags. A provider is ONLY invoked if the current
+                transaction matches at least one of its declared constraints.
+
+             CONSTRAINT TYPES & PRECEDENCE:
+             When Clover resolves which provider to call, it evaluates constraints in this order of precedence:
+
+             [Precedence 1] 'wallet': Matches the digital wallet used.
+                 - Probable format values: GOOGLE_PAY, APPLE_PAY, SAMSUNG_PAY, DEFAULT
+             [Precedence 2] 'cardTypeWithRange': Matches the card brand AND a specific BIN range.
+                 - 'cardType' must exactly match the Clover CardType enum string.
+                 - 'lowBin' and 'highBin' define the inclusive alphanumeric range for the card's first 6 digits.
+             [Precedence 3] 'cardType': Matches any card of the specified brand.
+                 - Probable format values: VISA, MC, AMEX, DISCOVER, DINERS_CLUB, JCB, MAESTRO, SOLO, LASER,
+                   CHINA_UNION_PAY, CARTE_BLANCHE, UNKNOWN, GIFT_CARD, EBT, GIROCARD, INTERAC, RUPAY, EFTPOS, BANCNET, OTHER
+
+             HOW TO DESIGN YOUR CONSTRAINTS:
+             - AT LEAST ONE CONSTRAINT IS REQUIRED. However, you do NOT need to implement all three 
+               types (`wallet`, `cardType`, `cardTypeWithRange`). You can add or omit any of them as 
+               needed for your specific discount logic, as long as your service defines at least one.
+             - Be as specific as possible. If your discount only applies to Visa cards issued by a specific bank,
+               use 'cardTypeWithRange' rather than 'cardType'. This prevents your service from being unnecessarily
+               bound and queried for transactions it cannot discount, reducing checkout latency.
+             - Constraints are defined as JSON arrays of objects. You can define multiple rules within the same
+               metadata tag (e.g., value='[{"wallet":"GOOGLE_PAY"},{"wallet":"APPLE_PAY"}]').
+             - If multiple installed providers match the same transaction at the same precedence level, 
+               the Clover system's selection is non-deterministic. Cooperative, non-overlapping constraints are ideal.
+
+             EXAMPLES:
+             <meta-data android:name="wallet" android:value='[{"wallet":"GOOGLE_PAY"}]' />
+             <meta-data android:name="cardTypeWithRange" android:value='[{"cardType":"VISA","lowBin":"400000","highBin":"499999"}]' />
+             <meta-data android:name="cardType" android:value='[{"cardType":"GIFT_CARD"}]' />
+             ========================================================================================
+        -->
+        <service android:name=".rtd.ExampleRealtimeDiscountProviderService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.clover.REALTIME_DISCOUNT_PROVIDER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="cardTypeWithRange"
+                android:value='[{"cardType":"DINERS_CLUB","lowBin":"360705","highBin":"379999"}]' />
+        </service>
     </application>
 </manifest>
