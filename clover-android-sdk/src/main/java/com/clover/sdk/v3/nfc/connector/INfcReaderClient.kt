@@ -55,6 +55,14 @@ interface INfcReaderClient {
     fun felicaCommandRaw(felicaCardCmd: FelicaCardCommand): FelicaCardResponse?
 
     /**
+     * Returns Felica card response.
+     * Use this function to send Felica commands with timeout in milliseocnds after felicaRfOn() is called.
+     * This function sends the commands as it without NFC reader library pre-processing.
+     * Please make sure card is tapped until all felicaCommandRaw operations are completed.
+     */
+    fun felicaCommandRawWithTimeout(felicaCardCmd: FelicaCardCommand, timeout: Long): FelicaCardResponse?
+
+    /**
      * Turn off RF.
      * Call this function after all card operations are done.
      */

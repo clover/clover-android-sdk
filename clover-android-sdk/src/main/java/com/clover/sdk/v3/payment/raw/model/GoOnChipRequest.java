@@ -42,6 +42,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPinBypassDisabled pinBypassDisabled}</li>
  * <li>{@link #getDisableOfflineApproval disableOfflineApproval}</li>
  * <li>{@link #getPinCaptureTimeout pinCaptureTimeout}</li>
+ * <li>{@link #getKeySlot keySlot}</li>
+ * <li>{@link #getKeyType keyType}</li>
+ * <li>{@link #getPinBlockFormat pinBlockFormat}</li>
+ * <li>{@link #getEncSessionKey encSessionKey}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -95,6 +99,22 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.pinCaptureTimeout);
   }
 
+  public java.lang.String getKeySlot() {
+    return genClient.cacheGet(CacheKey.keySlot);
+  }
+
+  public com.clover.sdk.v3.payment.raw.model.KeyStorageKeyType getKeyType() {
+    return genClient.cacheGet(CacheKey.keyType);
+  }
+
+  public com.clover.sdk.v3.payment.raw.model.PinBlockFormat getPinBlockFormat() {
+    return genClient.cacheGet(CacheKey.pinBlockFormat);
+  }
+
+  public java.lang.String getEncSessionKey() {
+    return genClient.cacheGet(CacheKey.encSessionKey);
+  }
+
 
 
 
@@ -123,7 +143,15 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     pinCaptureTimeout
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-      ;
+    keySlot
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    keyType
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payment.raw.model.KeyStorageKeyType.class)),
+    pinBlockFormat
+            (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payment.raw.model.PinBlockFormat.class)),
+    encSessionKey
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -260,6 +288,26 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.pinCaptureTimeout);
   }
 
+  /** Checks whether the 'keySlot' field is set and is not null */
+  public boolean isNotNullKeySlot() {
+    return genClient.cacheValueIsNotNull(CacheKey.keySlot);
+  }
+
+  /** Checks whether the 'keyType' field is set and is not null */
+  public boolean isNotNullKeyType() {
+    return genClient.cacheValueIsNotNull(CacheKey.keyType);
+  }
+
+  /** Checks whether the 'pinBlockFormat' field is set and is not null */
+  public boolean isNotNullPinBlockFormat() {
+    return genClient.cacheValueIsNotNull(CacheKey.pinBlockFormat);
+  }
+
+  /** Checks whether the 'encSessionKey' field is set and is not null */
+  public boolean isNotNullEncSessionKey() {
+    return genClient.cacheValueIsNotNull(CacheKey.encSessionKey);
+  }
+
 
 
   /** Checks whether the 'transactionType' field has been set, however the value could be null */
@@ -320,6 +368,26 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'pinCaptureTimeout' field has been set, however the value could be null */
   public boolean hasPinCaptureTimeout() {
     return genClient.cacheHasKey(CacheKey.pinCaptureTimeout);
+  }
+
+  /** Checks whether the 'keySlot' field has been set, however the value could be null */
+  public boolean hasKeySlot() {
+    return genClient.cacheHasKey(CacheKey.keySlot);
+  }
+
+  /** Checks whether the 'keyType' field has been set, however the value could be null */
+  public boolean hasKeyType() {
+    return genClient.cacheHasKey(CacheKey.keyType);
+  }
+
+  /** Checks whether the 'pinBlockFormat' field has been set, however the value could be null */
+  public boolean hasPinBlockFormat() {
+    return genClient.cacheHasKey(CacheKey.pinBlockFormat);
+  }
+
+  /** Checks whether the 'encSessionKey' field has been set, however the value could be null */
+  public boolean hasEncSessionKey() {
+    return genClient.cacheHasKey(CacheKey.encSessionKey);
   }
 
 
@@ -409,6 +477,34 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(pinCaptureTimeout, CacheKey.pinCaptureTimeout);
   }
 
+  /**
+   * Sets the field 'keySlot'.
+   */
+  public GoOnChipRequest setKeySlot(java.lang.String keySlot) {
+    return genClient.setOther(keySlot, CacheKey.keySlot);
+  }
+
+  /**
+   * Sets the field 'keyType'.
+   */
+  public GoOnChipRequest setKeyType(com.clover.sdk.v3.payment.raw.model.KeyStorageKeyType keyType) {
+    return genClient.setOther(keyType, CacheKey.keyType);
+  }
+
+  /**
+   * Sets the field 'pinBlockFormat'.
+   */
+  public GoOnChipRequest setPinBlockFormat(com.clover.sdk.v3.payment.raw.model.PinBlockFormat pinBlockFormat) {
+    return genClient.setOther(pinBlockFormat, CacheKey.pinBlockFormat);
+  }
+
+  /**
+   * Sets the field 'encSessionKey'.
+   */
+  public GoOnChipRequest setEncSessionKey(java.lang.String encSessionKey) {
+    return genClient.setOther(encSessionKey, CacheKey.encSessionKey);
+  }
+
 
   /** Clears the 'transactionType' field, the 'has' method for this field will now return false */
   public void clearTransactionType() {
@@ -457,6 +553,22 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
   /** Clears the 'pinCaptureTimeout' field, the 'has' method for this field will now return false */
   public void clearPinCaptureTimeout() {
     genClient.clear(CacheKey.pinCaptureTimeout);
+  }
+  /** Clears the 'keySlot' field, the 'has' method for this field will now return false */
+  public void clearKeySlot() {
+    genClient.clear(CacheKey.keySlot);
+  }
+  /** Clears the 'keyType' field, the 'has' method for this field will now return false */
+  public void clearKeyType() {
+    genClient.clear(CacheKey.keyType);
+  }
+  /** Clears the 'pinBlockFormat' field, the 'has' method for this field will now return false */
+  public void clearPinBlockFormat() {
+    genClient.clear(CacheKey.pinBlockFormat);
+  }
+  /** Clears the 'encSessionKey' field, the 'has' method for this field will now return false */
+  public void clearEncSessionKey() {
+    genClient.clear(CacheKey.encSessionKey);
   }
 
 
@@ -532,6 +644,10 @@ public class GoOnChipRequest extends GenericParcelable implements com.clover.sdk
     public static final boolean PINBYPASSDISABLED_IS_REQUIRED = false;
     public static final boolean DISABLEOFFLINEAPPROVAL_IS_REQUIRED = false;
     public static final boolean PINCAPTURETIMEOUT_IS_REQUIRED = false;
+    public static final boolean KEYSLOT_IS_REQUIRED = false;
+    public static final boolean KEYTYPE_IS_REQUIRED = false;
+    public static final boolean PINBLOCKFORMAT_IS_REQUIRED = false;
+    public static final boolean ENCSESSIONKEY_IS_REQUIRED = false;
   }
 
 }

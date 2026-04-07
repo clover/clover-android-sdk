@@ -24,51 +24,33 @@
 package com.clover.sdk.v3.payment.raw.model;
 
 import android.os.Parcelable;
+import android.os.Parcel;
 
 /**
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
 public enum PinBlockFormat implements Parcelable {
-    ISO_0((byte)0x00),
-    ISO_1((byte)0x01),
-    ISO_2((byte)0x02),
-    ISO_3((byte)0x03),
-    ISO_4((byte)0x04);
+    ISO_0, ISO_1, ISO_2, ISO_3, ISO_4;
 
-    private final byte code;
-
-    PinBlockFormat(byte code) {
-        this.code = code;
-    }
-
-    public byte getCode() {
-        return code;
-    }
-
-    // Parcelable implementation
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(android.os.Parcel dest, int flags) {
-        dest.writeInt(code);
+    public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeString(name());
     }
 
     public static final Creator<PinBlockFormat> CREATOR = new Creator<PinBlockFormat>() {
         @Override
-        public PinBlockFormat createFromParcel(android.os.Parcel in) {
-            byte code = (byte) in.readInt();
-            for (PinBlockFormat format : PinBlockFormat.values()) {
-                if (format.getCode() == code) return format;
-            }
-            return null; // or throw exception
+        public PinBlockFormat createFromParcel(final Parcel source) {
+            return PinBlockFormat.valueOf(source.readString());
         }
 
         @Override
-        public PinBlockFormat[] newArray(int size) {
+        public PinBlockFormat[] newArray(final int size) {
             return new PinBlockFormat[size];
         }
     };

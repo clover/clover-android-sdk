@@ -113,6 +113,8 @@
 
   <!-- Mifare Service Test -->
   <string name="mifare_card_reader_test">Mifare Card Reader Test</string>
+  <!-- Device Counters Test -->
+  <string name="device_counters_test">Device Counters Test</string>
   <!-- NFC Reader Service Test -->
   <string name="nfc_reader_test">Felica/NFC Reader Test</string>
 </resources>

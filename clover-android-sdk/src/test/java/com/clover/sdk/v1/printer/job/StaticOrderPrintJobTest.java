@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -78,13 +79,20 @@ public class StaticOrderPrintJobTest {
   }
 
   @Test
+  public void assertProperties_banner() {
+    assertNull(printJob.banner);
+    printJob = new StaticOrderPrintJob.Builder().banner("testLabel").build();
+    assertEquals("testLabel", printJob.banner);
+  }
+
+  @Test
   public void constructorTest_deprecated() {
     ArrayList<String> list = new ArrayList<>();
     list.add("item1");
     list.add("item2");
     list.add("item4");
 
-    printJob = new StaticOrderPrintJob(new Order(), itemIds, true, 0, true);
+    printJob = new StaticOrderPrintJob(new Order(), itemIds, true, 0, true, null);
     assertEquals(printJob.itemIds, list);
     assertTrue(printJob.reprintAllowed);
     assertTrue(printJob.markPrinted);

@@ -16,6 +16,7 @@ import com.clover.sdk.v3.payment.raw.handler.IGenericAlertHandler;
 import com.clover.sdk.v3.payment.raw.handler.ISelectApplicationHandler;
 import com.clover.sdk.v3.payment.raw.model.GetCardEmvDataResponse;
 import com.clover.sdk.v3.payment.raw.model.EncryptBufferResponse;
+import com.clover.sdk.v3.payment.raw.model.ExchangeCommandResponse;
 
 interface IRawExtTransactionServiceListener {
   /**
@@ -104,4 +105,11 @@ interface IRawExtTransactionServiceListener {
     * encryptBufferResponse - the response containing the encrypted data and KSN.
    */
    void onEncryptedDataReceived(in EncryptBufferResponse encryptedBufferResponse);
+
+  /**
+   * Callback invoked when the Chip Direct operation is completed.
+   *
+   * @param chipDirectResponse the response containing the APDU result
+   */
+   void onExchangeCommandCompleted(in ExchangeCommandResponse exchangeCommandResponse);
 }

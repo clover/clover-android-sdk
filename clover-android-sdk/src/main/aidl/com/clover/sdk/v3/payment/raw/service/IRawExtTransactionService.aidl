@@ -12,6 +12,7 @@ import com.clover.sdk.v3.payment.raw.model.GetPinRequest;
 import com.clover.sdk.v3.payment.raw.model.GetCardDataDetailsRequest;
 import com.clover.sdk.v3.payment.raw.model.EncryptBufferRequest;
 import com.clover.sdk.v3.payment.raw.model.CheckEventRequest;
+import com.clover.sdk.v3.payment.raw.model.ExchangeCommandRequest;
 import com.clover.sdk.v3.payment.raw.listener.IRawExtTransactionServiceListener;
 
 interface IRawExtTransactionService {
@@ -46,4 +47,6 @@ interface IRawExtTransactionService {
     oneway void encryptBuffer(in EncryptBufferRequest request);
 
     oneway void checkForEvent(in CheckEventRequest request);
+
+    oneway void exchangeCommand(in ExchangeCommandRequest request);
 }

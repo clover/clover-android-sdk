@@ -44,6 +44,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getTimeout timeout}</li>
  * <li>{@link #getOpenLeftDigits openLeftDigits}</li>
  * <li>{@link #getOpenRightDigits openRightDigits}</li>
+ * <li>{@link #getCapkConfig capkConfig}</li>
+ * <li>{@link #getCrlConfig crlConfig}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -107,6 +109,14 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
   public java.lang.Integer getOpenRightDigits() {
     return genClient.cacheGet(CacheKey.openRightDigits);
   }
+
+  public java.lang.String getCapkConfig() {
+    return genClient.cacheGet(CacheKey.capkConfig);
+  }
+
+  public java.lang.String getCrlConfig() {
+    return genClient.cacheGet(CacheKey.crlConfig);
+  }
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     config
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
@@ -136,6 +146,10 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     openRightDigits
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    capkConfig
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    crlConfig
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -283,6 +297,15 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.openRightDigits);
   }
 
+  /** Checks whether the 'capkConfig' field is set and is not null */
+  public boolean isNotNullCapkConfig() {
+    return genClient.cacheValueIsNotNull(CacheKey.capkConfig);
+  }
+
+  /** Checks whether the 'crlConfig' field is set and is not null */
+  public boolean isNotNullCrlConfig() {
+    return genClient.cacheValueIsNotNull(CacheKey.crlConfig);
+  }
 
   /** Checks whether the 'config' field has been set, however the value could be null */
   public boolean hasConfig() {
@@ -354,6 +377,15 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
     return genClient.cacheHasKey(CacheKey.openRightDigits);
   }
 
+  /** Checks whether the 'capkConfig' field has been set, however the value could be null */
+  public boolean hasCapkConfig() {
+    return genClient.cacheHasKey(CacheKey.capkConfig);
+  }
+
+  /** Checks whether the 'crlConfig' field has been set, however the value could be null */
+  public boolean hasCrlConfig() {
+    return genClient.cacheHasKey(CacheKey.crlConfig);
+  }
 
   /**
    * Sets the field 'config'.
@@ -455,6 +487,20 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
     return genClient.setOther(openRightDigits, CacheKey.openRightDigits);
   }
 
+  /**
+   * Sets the field 'capkConfig'.
+   */
+  public GetCardDataRequest setCapkConfig(java.lang.String capkConfig) {
+    return genClient.setOther(capkConfig, CacheKey.capkConfig);
+  }
+
+  /**
+   * Sets the field 'crlConfig'.
+   */
+  public GetCardDataRequest setCrlConfig(java.lang.String crlConfig) {
+    return genClient.setOther(crlConfig, CacheKey.crlConfig);
+  }
+  
   /** Clears the 'config' field, the 'has' method for this field will now return false */
   public void clearConfig() {
     genClient.clear(CacheKey.config);
@@ -510,6 +556,14 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
   /** Clears the 'openRightDigits' field, the 'has' method for this field will now return false */
   public void clearOpenRightDigits() {
     genClient.clear(CacheKey.openRightDigits);
+  }
+  /** Clears the 'capkConfig' field, the 'has' method for this field will now return false */
+  public void clearCapkConfig() {
+    genClient.clear(CacheKey.capkConfig);
+  }
+  /** Clears the 'crlConfig' field, the 'has' method for this field will now return false */
+  public void clearCrlConfig() {
+    genClient.clear(CacheKey.crlConfig);
   }
 
 
@@ -587,6 +641,8 @@ public class GetCardDataRequest extends GenericParcelable implements com.clover.
     public static final boolean TIMEOUT_IS_REQUIRED = false;
     public static final boolean OPENLEFTDIGITS_IS_REQUIRED = false;
     public static final boolean OPENRIGHTDIGITS_IS_REQUIRED = false;
+    public static final boolean CAPKCONFIG_IS_REQUIRED = false;
+    public static final boolean CRLCONFIG_IS_REQUIRED = false;
   }
 
 }
