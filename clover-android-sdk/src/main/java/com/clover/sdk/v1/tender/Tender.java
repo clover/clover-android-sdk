@@ -15,6 +15,8 @@
  */
 package com.clover.sdk.v1.tender;
 
+import com.clover.sdk.v3.base.TenderProperties;
+
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -26,15 +28,16 @@ public class Tender implements Parcelable {
   private static final String KEY_ENABLED = "enabled";
   private static final String KEY_OPENS_CASH_DRAWER = "opensCashDrawer";
   private static final String KEY_SUPPORTS_TIPPING = "supportsTipping";
+  private static final String KEY_TENDER_PROPERTIES = "tenderProperties";
 
   private final Bundle data;
 
-  Tender() {
+  public Tender() {
     this.data = new Bundle();
   }
 
-  Tender(Parcel in) {
-    this.data = in.readBundle();
+  public Tender(Parcel in) {
+    this.data = in.readBundle(getClass().getClassLoader());
   }
 
   public Tender(Bundle in) {
@@ -63,6 +66,15 @@ public class Tender implements Parcelable {
 
   public boolean getSupportsTipping() {
     return data.getBoolean(KEY_SUPPORTS_TIPPING, false);
+  }
+
+  public TenderProperties getTenderProperties() {
+    data.setClassLoader(TenderProperties.class.getClassLoader());
+    return data.getParcelable(KEY_TENDER_PROPERTIES);
+  }
+
+  public void setTenderProperties(TenderProperties tenderProperties) {
+    data.putParcelable(KEY_TENDER_PROPERTIES, tenderProperties);
   }
 
   @Override

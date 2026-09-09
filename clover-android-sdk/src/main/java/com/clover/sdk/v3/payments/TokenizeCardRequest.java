@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCardMessage cardMessage}</li>
  * <li>{@link #getCardEntryMode cardEntryMode}</li>
  * <li>{@link #getAppTracking appTracking}</li>
+ * <li>{@link #getChildMid childMid}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -77,6 +78,13 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.appTracking);
   }
 
+  /**
+   * child MID used for Multiple-MID feature, if not set then parent MID is used by default
+   */
+  public java.lang.String getChildMid() {
+    return genClient.cacheGet(CacheKey.childMid);
+  }
+
 
 
 
@@ -93,7 +101,9 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
       (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     appTracking
       (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.apps.AppTracking.JSON_CREATOR)),
-    ;
+    childMid
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -197,6 +207,11 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.appTracking);
   }
 
+  /** Checks whether the 'childMid' field is set and is not null */
+  public boolean isNotNullChildMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.childMid);
+  }
+
 
 
   /** Checks whether the 'apiKey' field has been set, however the value could be null */
@@ -227,6 +242,11 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
   /** Checks whether the 'appTracking' field has been set, however the value could be null */
   public boolean hasAppTracking() {
     return genClient.cacheHasKey(CacheKey.appTracking);
+  }
+
+  /** Checks whether the 'childMid' field has been set, however the value could be null */
+  public boolean hasChildMid() {
+    return genClient.cacheHasKey(CacheKey.childMid);
   }
 
 
@@ -274,6 +294,13 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
     return genClient.setRecord(appTracking, CacheKey.appTracking);
   }
 
+  /**
+   * Sets the field 'childMid'.
+   */
+  public TokenizeCardRequest setChildMid(java.lang.String childMid) {
+    return genClient.setOther(childMid, CacheKey.childMid);
+  }
+
 
   /** Clears the 'apiKey' field, the 'has' method for this field will now return false */
   public void clearApiKey() {
@@ -298,6 +325,10 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
   /** Clears the 'appTracking' field, the 'has' method for this field will now return false */
   public void clearAppTracking() {
     genClient.clear(CacheKey.appTracking);
+  }
+  /** Clears the 'childMid' field, the 'has' method for this field will now return false */
+  public void clearChildMid() {
+    genClient.clear(CacheKey.childMid);
   }
 
 
@@ -367,6 +398,7 @@ public class TokenizeCardRequest extends GenericParcelable implements com.clover
     public static final boolean CARDMESSAGE_IS_REQUIRED = false;
     public static final boolean CARDENTRYMODE_IS_REQUIRED = false;
     public static final boolean APPTRACKING_IS_REQUIRED = false;
+    public static final boolean CHILDMID_IS_REQUIRED = false;
   }
 
 }

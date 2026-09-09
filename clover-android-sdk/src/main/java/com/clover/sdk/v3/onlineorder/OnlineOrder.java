@@ -46,6 +46,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getScheduled scheduled}</li>
  * <li>{@link #getServiceFee serviceFee}</li>
  * <li>{@link #getServiceFeeItem serviceFeeItem}</li>
+ * <li>{@link #getOnlineSupportInfo onlineSupportInfo}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
@@ -164,6 +165,13 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * The support info for online order
+   */
+  public com.clover.sdk.v3.onlineorder.OnlineSupportInfo getOnlineSupportInfo() {
+    return genClient.cacheGet(CacheKey.onlineSupportInfo);
+  }
+
+  /**
    * Timestamp when the online ordering item was created
    */
   public java.lang.Long getCreatedTime() {
@@ -226,6 +234,9 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    onlineSupportInfo
+            (com.clover.sdk.extractors.RecordExtractionStrategy
+                    .instance(com.clover.sdk.v3.onlineorder.OnlineSupportInfo.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -384,6 +395,11 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.serviceFeeItem);
   }
 
+  /** Checks whether the 'onlineSupportInfo' field is set and is not null */
+  public boolean isNotNullOnlineSupportInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.onlineSupportInfo);
+  }
+
   /** Checks whether the 'createdTime' field is set and is not null */
   public boolean isNotNullCreatedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
@@ -479,6 +495,11 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'serviceFeeItem' field has been set, however the value could be null */
   public boolean hasServiceFeeItem() {
     return genClient.cacheHasKey(CacheKey.serviceFeeItem);
+  }
+
+  /** Checks whether the 'onlineSupportInfo' field has been set, however the value could be null */
+  public boolean hasOnlineSupportInfo() {
+    return genClient.cacheHasKey(CacheKey.onlineSupportInfo);
   }
 
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
@@ -618,6 +639,15 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   }
 
   /**
+   * Sets the field 'onlineSupportInfo'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public OnlineOrder setOnlineSupportInfo(com.clover.sdk.v3.onlineorder.OnlineSupportInfo onlineSupportInfo) {
+    return genClient.setRecord(onlineSupportInfo, CacheKey.onlineSupportInfo);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public OnlineOrder setCreatedTime(java.lang.Long createdTime) {
@@ -702,6 +732,10 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'serviceFeeItem' field, the 'has' method for this field will now return false */
   public void clearServiceFeeItem() {
     genClient.clear(CacheKey.serviceFeeItem);
+  }
+  /** Clears the 'onlineSupportInfo' field, the 'has' method for this field will now return false */
+  public void clearOnlineSupportInfo() {
+    genClient.clear(CacheKey.onlineSupportInfo);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -794,6 +828,7 @@ public class OnlineOrder extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean SCHEDULED_IS_REQUIRED = false;
     public static final boolean SERVICEFEE_IS_REQUIRED = false;
     public static final boolean SERVICEFEEITEM_IS_REQUIRED = false;
+    public static final boolean ONLINESUPPORTINFO_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;

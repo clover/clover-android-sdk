@@ -25,6 +25,8 @@ public class RequestTipIntentBuilder extends BaseIntentBuilder {
     Long baseAmount;
     List<TipSuggestion> tipSuggestions = new ArrayList<TipSuggestion>();
 
+    String localeFulfilmentRequest;
+
     /**
      * Constructor that takes an amount that is displayed on the screen and is
      * also used used to calculate percentage based tips.
@@ -33,6 +35,18 @@ public class RequestTipIntentBuilder extends BaseIntentBuilder {
      */
     public RequestTipIntentBuilder(long baseAmount) {
         this.baseAmount = baseAmount;
+    }
+
+    /**
+     * Constructor that takes an amount that is displayed on the screen and is also used to calculate percentage based tips,
+     * as well as a locale string that is passed to the kiosk to apply to the tip screen.
+     * This is used in cases where the app locale is different from the kiosk locale and the developer wants to ensure that the tip screen is displayed in the correct language.
+     * @param baseAmount
+     * @param localeFulfilmentRequest
+     */
+    public RequestTipIntentBuilder(long baseAmount, String localeFulfilmentRequest) {
+        this.baseAmount = baseAmount;
+        this.localeFulfilmentRequest = localeFulfilmentRequest;
     }
 
     /**
@@ -60,6 +74,7 @@ public class RequestTipIntentBuilder extends BaseIntentBuilder {
 
         i.putExtra(Intents.EXTRA_AMOUNT, baseAmount);
         i.putExtra(Intents.EXTRA_TIPPABLE_AMOUNT, baseAmount);
+        i.putExtra(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST, localeFulfilmentRequest);
         if(tipSuggestions.size() > 0) {
             List<com.clover.sdk.v3.merchant.TipSuggestion> suggestions = new ArrayList<>();
             for (com.clover.sdk.v3.payments.api.TipSuggestion tipSuggestion : tipSuggestions) {

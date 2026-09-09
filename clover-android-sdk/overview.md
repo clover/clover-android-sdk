@@ -24,6 +24,7 @@ Interfaces to use with bound Clover services that allow management of a merchant
  * [com.clover.sdk.v1.printer.IPrinterService]
  * [com.clover.sdk.v1.printer.IReceiptRegistrationService]
  * [com.clover.sdk.v1.tender.ITenderService]
+ * [com.clover.sdk.v3.vas.IVasReaderService] 
 
 For more information about binding to services, refer to the Android documentation:
 <a href="http://developer.android.com/guide/components/bound-services.html#Binding" target="_blank">

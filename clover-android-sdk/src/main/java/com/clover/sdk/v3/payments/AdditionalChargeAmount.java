@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getRate rate}</li>
  * <li>{@link #getPretax pretax}</li>
  * <li>{@link #getType type}</li>
+ * <li>{@link #getExtra extra}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -75,6 +76,13 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     return genClient.cacheGet(CacheKey.type);
   }
 
+  /**
+   * A wrapper containing additional charge extra data. The specific data is in one of the fields of this object.
+   */
+  public com.clover.sdk.v3.payments.AdditionalChargeExtra getExtra() {
+    return genClient.cacheGet(CacheKey.extra);
+  }
+
 
 
 
@@ -89,6 +97,8 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     type
             (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeType.class)),
+    extra
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeExtra.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -193,6 +203,11 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     return genClient.cacheValueIsNotNull(CacheKey.type);
   }
 
+  /** Checks whether the 'extra' field is set and is not null */
+  public boolean isNotNullExtra() {
+    return genClient.cacheValueIsNotNull(CacheKey.extra);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -218,6 +233,11 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   /** Checks whether the 'type' field has been set, however the value could be null */
   public boolean hasType() {
     return genClient.cacheHasKey(CacheKey.type);
+  }
+
+  /** Checks whether the 'extra' field has been set, however the value could be null */
+  public boolean hasExtra() {
+    return genClient.cacheHasKey(CacheKey.extra);
   }
 
 
@@ -256,6 +276,15 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     return genClient.setOther(type, CacheKey.type);
   }
 
+  /**
+   * Sets the field 'extra'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public AdditionalChargeAmount setExtra(com.clover.sdk.v3.payments.AdditionalChargeExtra extra) {
+    return genClient.setRecord(extra, CacheKey.extra);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -276,6 +305,10 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
   /** Clears the 'type' field, the 'has' method for this field will now return false */
   public void clearType() {
     genClient.clear(CacheKey.type);
+  }
+  /** Clears the 'extra' field, the 'has' method for this field will now return false */
+  public void clearExtra() {
+    genClient.clear(CacheKey.extra);
   }
 
 
@@ -348,6 +381,7 @@ public class AdditionalChargeAmount extends GenericParcelable implements com.clo
     public static final long RATE_MAX = 1000000;
     public static final boolean PRETAX_IS_REQUIRED = false;
     public static final boolean TYPE_IS_REQUIRED = false;
+    public static final boolean EXTRA_IS_REQUIRED = false;
   }
 
 }

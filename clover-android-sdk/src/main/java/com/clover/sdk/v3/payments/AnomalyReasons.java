@@ -33,6 +33,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getLabel label}</li>
+ * <li>{@link #getType type}</li>
  * <li>{@link #getLabelKey labelKey}</li>
  * <li>{@link #getOrdinal ordinal}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
@@ -62,6 +63,13 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
    */
   public String getLabel() {
     return genClient.cacheGet(CacheKey.label);
+  }
+
+  /**
+   * Anomaly Reason
+   */
+  public com.clover.sdk.v3.payments.AnomalyReasonType getType() {
+    return genClient.cacheGet(CacheKey.type);
   }
 
   /**
@@ -100,6 +108,8 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     label
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(AnomalyReasonType.class)),
     labelKey
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     ordinal
@@ -205,6 +215,11 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.label);
   }
 
+  /** Checks whether the 'type' field is set and is not null */
+  public boolean isNotNullType() {
+    return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
   /** Checks whether the 'labelKey' field is set and is not null */
   public boolean isNotNullLabelKey() {
     return genClient.cacheValueIsNotNull(CacheKey.labelKey);
@@ -245,6 +260,11 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'label' field has been set, however the value could be null */
   public boolean hasLabel() {
     return genClient.cacheHasKey(CacheKey.label);
+  }
+
+  /** Checks whether the 'type' field has been set, however the value could be null */
+  public boolean hasType() {
+    return genClient.cacheHasKey(CacheKey.type);
   }
 
   /** Checks whether the 'labelKey' field has been set, however the value could be null */
@@ -297,6 +317,13 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
   }
 
   /**
+   * Sets the field 'type'.
+   */
+  public AnomalyReasons setType(AnomalyReasonType type) {
+    return genClient.setOther(type, CacheKey.type);
+  }
+
+  /**
    * Sets the field 'labelKey'.
    */
   public AnomalyReasons setLabelKey(String labelKey) {
@@ -343,6 +370,10 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'label' field, the 'has' method for this field will now return false */
   public void clearLabel() {
     genClient.clear(CacheKey.label);
+  }
+  /** Clears the 'type' field, the 'has' method for this field will now return false */
+  public void clearType() {
+    genClient.clear(CacheKey.type);
   }
   /** Clears the 'labelKey' field, the 'has' method for this field will now return false */
   public void clearLabelKey() {
@@ -431,6 +462,7 @@ public class AnomalyReasons extends GenericParcelable implements com.clover.sdk.
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean LABEL_IS_REQUIRED = false;
     public static final long LABEL_MAX_LEN = 255;
+    public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean LABELKEY_IS_REQUIRED = false;
     public static final long LABELKEY_MAX_LEN = 255;
     public static final boolean ORDINAL_IS_REQUIRED = false;

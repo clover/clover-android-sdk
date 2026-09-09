@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '334'
+version = '340'
 
 apply from: file("${project.rootDir}/lib.gradle")
 apply plugin: 'kotlin-android'
@@ -79,6 +79,7 @@ dependencies {
   testImplementation "androidx.test:core:$ANDROIDX_TEST_CORE_VERSION"
   testImplementation "org.mockito:mockito-inline:$MOCKITO_VERSION"
   testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
+  testImplementation "io.kotest:kotest-assertions-core:$KOTEST_ASSERTIONS_VERSION"
 }
 
 ext{

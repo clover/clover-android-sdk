@@ -41,6 +41,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEnabled enabled}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
+ * <li>{@link #getRate rate}</li>
+ * <li>{@link #getExtra extra}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -123,6 +125,20 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
     return genClient.cacheGet(CacheKey.deletedTime);
   }
 
+  /**
+   * additional charge rate
+   */
+  public java.lang.String getRate() {
+    return genClient.cacheGet(CacheKey.rate);
+  }
+
+  /**
+   * additional charge extra data
+   */
+  public com.clover.sdk.v3.payments.AdditionalChargeExtra getExtra() {
+    return genClient.cacheGet(CacheKey.extra);
+  }
+
 
 
 
@@ -149,6 +165,10 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTime
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    rate
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    extra
+            (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.AdditionalChargeExtra.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -283,6 +303,16 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
     return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
   }
 
+  /** Checks whether the 'rate' field is set and is not null */
+  public boolean isNotNullRate() {
+    return genClient.cacheValueIsNotNull(CacheKey.rate);
+  }
+
+  /** Checks whether the 'extra' field is set and is not null */
+  public boolean isNotNullExtra() {
+    return genClient.cacheValueIsNotNull(CacheKey.extra);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -338,6 +368,16 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
   /** Checks whether the 'deletedTime' field has been set, however the value could be null */
   public boolean hasDeletedTime() {
     return genClient.cacheHasKey(CacheKey.deletedTime);
+  }
+
+  /** Checks whether the 'rate' field has been set, however the value could be null */
+  public boolean hasRate() {
+    return genClient.cacheHasKey(CacheKey.rate);
+  }
+
+  /** Checks whether the 'extra' field has been set, however the value could be null */
+  public boolean hasExtra() {
+    return genClient.cacheHasKey(CacheKey.extra);
   }
 
 
@@ -420,6 +460,20 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
     return genClient.setOther(deletedTime, CacheKey.deletedTime);
   }
 
+  /**
+   * Sets the field 'rate'.
+   */
+  public AdditionalCharge setRate(java.lang.String rate) {
+    return genClient.setOther(rate, CacheKey.rate);
+  }
+
+  /**
+   * Sets the field 'extra'.
+   */
+  public AdditionalCharge setExtra(com.clover.sdk.v3.payments.AdditionalChargeExtra extra) {
+    return genClient.setRecord(extra, CacheKey.extra);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -464,6 +518,14 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
   /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
   public void clearDeletedTime() {
     genClient.clear(CacheKey.deletedTime);
+  }
+  /** Clears the 'rate' field, the 'has' method for this field will now return false */
+  public void clearRate() {
+    genClient.clear(CacheKey.rate);
+  }
+  /** Clears the 'extra' field, the 'has' method for this field will now return false */
+  public void clearExtra() {
+    genClient.clear(CacheKey.extra);
   }
 
 
@@ -542,6 +604,8 @@ public class AdditionalCharge extends GenericParcelable implements com.clover.sd
     public static final boolean ENABLED_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
+    public static final boolean RATE_IS_REQUIRED = false;
+    public static final boolean EXTRA_IS_REQUIRED = false;
   }
 
 }

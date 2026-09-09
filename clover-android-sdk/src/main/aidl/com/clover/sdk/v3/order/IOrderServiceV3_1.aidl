@@ -36,6 +36,9 @@ import com.clover.sdk.v3.payments.AdditionalChargeAmount;
 import com.clover.sdk.v3.payments.AuthorizationFdParcelable;
 import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.LineItemInfo;
+import com.clover.sdk.v3.order.UpdateBundleComponent;
+import com.clover.sdk.v3.order.UpdateBundleComponentFdParcelable;
+import com.clover.sdk.v3.shipping.ShippingOrderDetails;
 
 /**
  * An interface for interacting with the Clover order service.
@@ -1064,4 +1067,32 @@ interface IOrderServiceV3_1 {
    */
   OrderFdParcelable voidAlternatePayment(String orderId, String paymentId, String iccContainer, in VoidReason reason, String source, out ResultStatus status);
 
+  /**
+   * Add a bundle line item to an order. Bundle line item is a composite line item having more then one line items as children.
+   *
+   * @param orderId The ID of the order to which to add the line item.
+   * @param lineItem The bundle line item to be added to the order.
+   * @param list of lineItems The children line items of this bundle line item.
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable addBundleLineItem(String orderId, in LineItemFdParcelable bundleLineItem, in LineItemListFdParcelable childLineItems, out ResultStatus status);
+
+  /**
+   * Atomically updates bundle line item within an order.
+   *
+   * @param orderId The ID of the order to which to update the line item.
+   * @param lineItem The bundle line item to be updated.
+   * @param updateBundleComponent The component object holding all necessary updates.
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable updateBundleLineItem(String orderId, in LineItemFdParcelable bundleLineItem, in UpdateBundleComponentFdParcelable updateBundleComponent, out ResultStatus status);
+
+  /**
+   * Get the shipping details associated with an order.
+   *
+   * @param orderId The ID of the order for which to retrieve shipping details.
+   * @return The {@link ShippingOrderDetails} for the given order, or null if the order has no
+   *         shipping details.
+   */
+  ShippingOrderDetails getShippingOrder(String orderId, out ResultStatus status);
 }

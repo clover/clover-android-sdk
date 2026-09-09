@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getProtocolConfig protocolConfig}</li>
  * <li>{@link #getPushUrl pushUrl}</li>
  * <li>{@link #getPushTitle pushTitle}</li>
+ * <li>{@link #getPushMode pushMode}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -80,6 +81,8 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     return genClient.cacheGet(CacheKey.pushTitle);
   }
 
+  public VasPushMode getPushMode() { return genClient.cacheGet(CacheKey.pushMode); }
+
 
 
 
@@ -92,6 +95,8 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.VasDataType.JSON_CREATOR)),
     protocolConfig
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
+    pushMode
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.VasPushMode.class)),
     pushUrl
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     pushTitle
@@ -206,6 +211,11 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     return genClient.cacheValueIsNotNull(CacheKey.pushTitle);
   }
 
+  /** Checks whether the 'pushMode' field is set and is not null */
+  public boolean isNotNullPushMode() {
+    return genClient.cacheValueIsNotNull(CacheKey.pushMode);
+  }
+
 
 
   /** Checks whether the 'providerPackage' field has been set, however the value could be null */
@@ -283,6 +293,13 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     return genClient.setOther(pushTitle, CacheKey.pushTitle);
   }
 
+  /**
+   * Sets the field 'pushMode'.
+   */
+  public VasServiceProvider setPushMode(VasPushMode pushMode) {
+    return genClient.setOther(pushMode, CacheKey.pushMode);
+  }
+
 
   /** Clears the 'providerPackage' field, the 'has' method for this field will now return false */
   public void clearProviderPackage() {
@@ -307,6 +324,9 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   /** Clears the 'pushTitle' field, the 'has' method for this field will now return false */
   public void clearPushTitle() {
     genClient.clear(CacheKey.pushTitle);
+  }
+  public void clearPushMode() {
+    genClient.clear(CacheKey.pushMode);
   }
 
 
@@ -376,6 +396,7 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     public static final boolean PROTOCOLCONFIG_IS_REQUIRED = false;
     public static final boolean PUSHURL_IS_REQUIRED = false;
     public static final boolean PUSHTITLE_IS_REQUIRED = false;
+    public static final boolean PUSHMODE_IS_REQUIRED = false;
   }
 
 }

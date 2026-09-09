@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPercentageDecimal percentageDecimal}</li>
  * <li>{@link #getType type}</li>
  * <li>{@link #getDeleted deleted}</li>
+ * <li>{@link #getColor color}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -94,6 +95,13 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.deleted);
   }
 
+  /**
+   * Optional color code for discount, only present if ORDER_DISCOUNT_COLOR_ENABLE is enabled. Allowed values: Gray, Gold, Orange, Red, Violet, Blue, Purple, Pink, Green, Brown.
+   */
+  public java.lang.String getColor() {
+    return genClient.cacheGet(CacheKey.color);
+  }
+
 
 
 
@@ -112,7 +120,9 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.DiscountType.class)),
     deleted
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    ;
+    color
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -231,6 +241,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.deleted);
   }
 
+  /** Checks whether the 'color' field is set and is not null */
+  public boolean isNotNullColor() {
+    return genClient.cacheValueIsNotNull(CacheKey.color);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -266,6 +281,11 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'deleted' field has been set, however the value could be null */
   public boolean hasDeleted() {
     return genClient.cacheHasKey(CacheKey.deleted);
+  }
+
+  /** Checks whether the 'color' field has been set, however the value could be null */
+  public boolean hasColor() {
+    return genClient.cacheHasKey(CacheKey.color);
   }
 
 
@@ -318,6 +338,13 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(deleted, CacheKey.deleted);
   }
 
+  /**
+   * Sets the field 'color'.
+   */
+  public Discount setColor(java.lang.String color) {
+    return genClient.setOther(color, CacheKey.color);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -346,6 +373,10 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'deleted' field, the 'has' method for this field will now return false */
   public void clearDeleted() {
     genClient.clear(CacheKey.deleted);
+  }
+  /** Clears the 'color' field, the 'has' method for this field will now return false */
+  public void clearColor() {
+    genClient.clear(CacheKey.color);
   }
 
 
@@ -423,6 +454,7 @@ public class Discount extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final long PERCENTAGEDECIMAL_MAX = 1000000;
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean DELETED_IS_REQUIRED = false;
+    public static final boolean COLOR_IS_REQUIRED = false;
   }
 
 }

@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum Permission implements Parcelable {
-  ORDERS_R, ORDERS_W, INVENTORY_R, INVENTORY_W, PAYMENTS_R, PAYMENTS_W, CUSTOMERS_R, CUSTOMERS_W, EMPLOYEES_R, EMPLOYEES_W, MERCHANT_R, MERCHANT_W;
+  ORDERS_R, ORDERS_W, INVENTORY_R, INVENTORY_W, PAYMENTS_R, PAYMENTS_W, CUSTOMERS_R, CUSTOMERS_W, EMPLOYEES_R, EMPLOYEES_W, MERCHANT_R, MERCHANT_W, APPLE_VAS_R;
 
   @Override
   public int describeContents() {

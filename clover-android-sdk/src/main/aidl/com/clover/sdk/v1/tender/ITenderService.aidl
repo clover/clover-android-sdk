@@ -1,7 +1,8 @@
 package com.clover.sdk.v1.tender;
 
-import com.clover.sdk.v1.tender.Tender;
 import com.clover.sdk.v1.ResultStatus;
+import com.clover.sdk.v1.tender.Tender;
+import com.clover.sdk.v3.base.TenderProperties;
 
 /**
  * An interface for interacting with the Clover tender service. The tender
@@ -74,5 +75,26 @@ interface ITenderService {
    * Change the label for the given tender id.
    */
   void setLabel(in String tenderId, in String tenderLable, out ResultStatus resultStatus);
+
+  /**
+   * Creates a new tender with the provided label and properties. The label key must match your
+   * application's package name.
+   *
+   * @param label Display name shown to the merchant for this tender
+   * @param labelKey Your application's package name, unless you are {@code com.clover.*}
+   * @param enabled true to make the tender visible to the merchant
+   * @param opensCashDrawer true to open the cash drawer when this tender is used for payment
+   * @param tenderProperties, used to update tender properties, category from {@code TenderCategory} (for example {@code CARD},
+   *                       {@code CASH}, {@code CARDLESS}, {@code EMONEY}) used to mark whether
+   *                       the custom tender should be treated as cash-equivalent
+   * @return null if the tender could not be created
+   */
+  Tender checkAndCreateTenderV2(String label, String labelKey, boolean enabled, boolean opensCashDrawer, in TenderProperties tenderProperties, out ResultStatus resultStatus);
+
+  /**
+   * Update Tender properties like for the tender to mark as cash-equivalent, set category (for example {@code CARD}, {@code CARDLESS},
+   * {@code EMONEY}, or {@code CASH}) for the specified tender id.
+   */
+  void updateTenderProperties(in String tenderId, in TenderProperties tenderProperties, out ResultStatus resultStatus);
 
 }

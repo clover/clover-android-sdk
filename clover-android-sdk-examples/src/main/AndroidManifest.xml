@@ -22,6 +22,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -80,6 +81,14 @@ xmlns:tools="http://schemas.android.com/tools"
             android:label="@string/app_notification_test"
             android:taskAffinity="com.clover.sdk.examples.app" >
         </activity>
+        <activity
+            android:name=".DeviceNotificationTestActivity"
+            android:label="Device Notification Test"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".DeviceAttestationTestActivity"
+            android:label="Device Attestation Test"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name="com.clover.android.sdk.examples.InventoryListActivity"
             android:label="@string/inventory_list"
@@ -201,6 +210,10 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/Theme.AppCompat.Light"
             android:label="@string/nfc_reader_test" />
 
+        <activity android:name=".vas.VasReaderStatusActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/vas_reader_test" />
+
         <activity
           android:name="com.clover.android.sdk.examples.ReceiptRegistrationTestActivity"
           android:label="@string/receipt_registration_test" />
@@ -221,7 +234,7 @@ xmlns:tools="http://schemas.android.com/tools"
             tools:ignore="ExportedContentProvider">
             <meta-data
                 android:name="com.clover.printer.receipt.custom.content.receipt.types"
-                android:value="Payment,Bill,Refund,Credit"/>
+                android:value="Payment,Bill,Order,Refund,Credit"/>
         </provider>
 
         <activity

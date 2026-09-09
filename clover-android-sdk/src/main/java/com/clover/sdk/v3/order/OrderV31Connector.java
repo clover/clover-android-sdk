@@ -41,6 +41,7 @@ import com.clover.sdk.v3.payments.PaymentFdParcelable;
 import com.clover.sdk.v3.payments.Refund;
 import com.clover.sdk.v3.payments.RefundFdParcelable;
 import com.clover.sdk.v3.payments.TransactionInfo;
+import com.clover.sdk.v3.shipping.ShippingOrderDetails;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -1659,5 +1660,41 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
               return getValue(service.voidAlternatePayment(orderId, paymentId, iccContainer, reason, source, status));
           }
       });
+  }
+
+  /**
+   * Internally builds {@link BundleComponent} and attaches it to bundle line item.
+   * and adds that bundle line item and associated children line items to the order.
+   * */
+  public Order addBundleLineItem(final String orderId, final LineItem bundleLineItem, final List<LineItem> childLineItems) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.addBundleLineItem(orderId, new LineItemFdParcelable(bundleLineItem), new LineItemListFdParcelable(childLineItems), status));
+    });
+  }
+
+  /**
+   * Executes atomic updates for given bundle line item within an order.
+   * */
+  public Order updateBundleLineItem(final String orderId, final LineItem bundleLineItem, final UpdateBundleComponent updateBundleComponent) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute((service, status) -> {
+      return getValue(service.updateBundleLineItem(orderId, new LineItemFdParcelable(bundleLineItem), new UpdateBundleComponentFdParcelable(updateBundleComponent), status));
+    });
+  }
+
+  /**
+   * Get the shipping details associated with an order.
+   *
+   * @param orderId The ID of the order for which to retrieve shipping details.
+   * @return The {@link ShippingOrderDetails} for the given order, or null if the order has no
+   *         shipping details.
+   */
+  @Nullable
+  public ShippingOrderDetails getShippingOrder(final String orderId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, ShippingOrderDetails>() {
+      @Override
+      public ShippingOrderDetails call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return service.getShippingOrder(orderId, status);
+      }
+    });
   }
 }

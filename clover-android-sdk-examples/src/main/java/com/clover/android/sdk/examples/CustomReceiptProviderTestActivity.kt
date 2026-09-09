@@ -35,7 +35,8 @@ class CustomReceiptProviderTestActivity : Activity() {
       R.drawable.test_receipt_auto_select,
       R.drawable.test_receipt_small,
       R.drawable.test_receipt_medium,
-      R.drawable.test_receipt_large
+      R.drawable.test_receipt_large,
+      CustomReceiptProviderTest.SELECTED_FILE_GENERATED
     )
   )
 
@@ -68,10 +69,23 @@ class CustomReceiptProviderTestActivity : Activity() {
       testReceiptSizeSelector.adapter = adapter
     }
 
+    // Restore the persisted selection so the spinner reflects what the provider will use.
+    selectedFileResId =
+      sharedPrefs.getInt(SELECTED_FILE_RES_ID, R.drawable.test_receipt_auto_select)
+    testReceiptSizeSelector.setSelection(receiptRes.indexOf(selectedFileResId).coerceAtLeast(0))
+
     testReceiptSizeSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
       override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         selectedFileResId = receiptRes[pos]
-        Log.d(TAG, "Selected file: ${resources.getResourceEntryName(selectedFileResId)}")
+        // Persist immediately: the provider reads this pref on every print, and waiting for
+        // the Save button risks losing the choice if the process is killed first.
+        sharedPrefs.edit().putInt(SELECTED_FILE_RES_ID, selectedFileResId).apply()
+        val name = if (selectedFileResId == CustomReceiptProviderTest.SELECTED_FILE_GENERATED) {
+          "generated from order data"
+        } else {
+          resources.getResourceEntryName(selectedFileResId)
+        }
+        Log.d(TAG, "Selected file: $name")
       }
 
       override fun onNothingSelected(parent: AdapterView<*>) {
@@ -120,6 +134,8 @@ class CustomReceiptProviderTestActivity : Activity() {
     val conProvCN = ComponentName(this,
       "com.clover.android.sdk.examples.CustomReceiptProviderTest")
     val pm: PackageManager = this.packageManager
-    pm.setComponentEnabledSetting(conProvCN, providerState, 0)
+    // DONT_KILL_APP: without it the system kills this process immediately, which can drop
+    // shared-preference writes that haven't been flushed to disk yet.
+    pm.setComponentEnabledSetting(conProvCN, providerState, PackageManager.DONT_KILL_APP)
   }
 }

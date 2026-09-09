@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!-- smartling.instruction_attributes = comment -->
+<!--
   ~ Copyright (C) 2024 Clover Network, Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,106 +17,113 @@
 -->
 <resources>
 
-  <string name="app_name">Clover Android SDK Examples</string>
-  <string name="title_activity_barcode_scanner_test">Barcode Scanner Test</string>
-  <string name="inventory_test">Inventory Test</string>
-  <string name="customer_test">Customer Test</string>
-  <string name="order_test">Order Test</string>
-  <string name="app_notification_test">App Notification Test</string>
-  <string name="inventory_list">Inventory List</string>
-  <string name="title_activity_web_service">Web Service Test</string>
-  <string name="create_custom_tender_test">Create Custom Tender Test</string>
-  <string name="custom_tender_handler_test">Custom Tender Handler Test</string>
-  <string name="cashevent_test">Cash Event Test</string>
-  <string name="cash_drawers_test">Cash Drawers Test</string>
-  <string name="printer_test">Printer Test</string>
-  <string name="printjob_test">Print Job Test</string>
-  <string name="print_test">Print Test</string>
-  <string name="receipt_registration_test">Receipt Registration Test</string>
-  <string name="authenticate_employee">Authenticate Employee</string>
-  <string name="print_task_test">Print View And Image Test</string>
-  <string name="print_image_footer">Print Footer-Image</string>
-  <string name="platform2_details_name">Platform2 Details</string>
-  <string name="lockscreen_test_activity">Lockscreen Test</string>
-  <string name="merchant_devices_v2_activity_label">Merchant Devices V2 Test</string>
-  <string name="keypad_test">Keypad Test</string>
-  <string name="salerefund_test">Sale/Refund Test</string>
-  <string name="about_authEmp">This example will be highlighting the ACTION_AUTHENTICATE_EMPLOYEE intent. Button for ANY EMPLOYEE, CURRENT EMPLOYEE, and ADMIN ROLE will
-        prompt the user to input the employee\'s passcode to authenticate. Each button click will respond with a log of the requestCode and the resultCode.</string>
-  <string name="action_settings">Settings</string>
-  <string name="payload">Payload</string>
-  <string name="send_app_notification">Send app notification</string>
-  <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
-  <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
-  <string name="app_event_name">App event name</string>
-  <string name="custom_receipt_provider_test">Custom Receipt Provider Test</string>
-  <string name="custom_receipt_provider_note"><b>Note:</b> Activity will be closed automatically to apply the changes when either of the buttons is clicked. This is needed because
-  the current activity may still not be aware of the provider\'s new state unless it is restarted.</string>
-  <string name="custom_receipt_provider_timeout_note"><b>Note:</b> For custom receipt printing, Clover has fixed timeout set in place for provider\'s response.
-    If provider doesn\'t respond within that timeout, Clover will reject print request and show \"Print Failed\" toast message.\nThis behavior can be tested using timeout options: \n
-    \u25CF Timeout Uris: It will force provider to respond with list of uris after the timeout. \n
-    \u25CF Timeout Bitmaps: It will force provider to respond with receipt bitmap(s) after the timeout. \n
-    \u25CF Test without Timeout: Provider will respond normally without any timeout. \n
+  <string name="app_name" translatable="false" comment="Location: App name. Purpose: Name of the application. Not translatable.">Clover Android SDK Examples</string>
+  <string name="title_activity_barcode_scanner_test" comment="Location: Activity title. Purpose: Title for the Barcode Scanner Test activity.">Barcode Scanner Test</string>
+  <string name="inventory_test" comment="Location: Button/menu item. Purpose: Label for the Inventory Test feature.">Inventory Test</string>
+  <string name="customer_test" comment="Location: Button/menu item. Purpose: Label for the Customer Test feature.">Customer Test</string>
+  <string name="order_test" comment="Location: Button/menu item. Purpose: Label for the Order Test feature.">Order Test</string>
+  <string name="app_notification_test" comment="Location: Button/menu item. Purpose: Label for the App Notification Test feature.">App Notification Test</string>
+  <string name="inventory_list" comment="Location: Title. Purpose: Title for the inventory list screen.">Inventory List</string>
+  <string name="title_activity_web_service" comment="Location: Activity title. Purpose: Title for the Web Service Test activity.">Web Service Test</string>
+  <string name="create_custom_tender_test" comment="Location: Button/menu item. Purpose: Label for the Create Custom Tender Test feature.">Create Custom Tender Test</string>
+  <string name="custom_tender_handler_test" comment="Location: Button/menu item. Purpose: Label for the Custom Tender Handler Test feature.">Custom Tender Handler Test</string>
+  <string name="cashevent_test" comment="Location: Button/menu item. Purpose: Label for the Cash Event Test feature.">Cash Event Test</string>
+  <string name="cash_drawers_test" comment="Location: Button/menu item. Purpose: Label for the Cash Drawers Test feature.">Cash Drawers Test</string>
+  <string name="printer_test" comment="Location: Button/menu item. Purpose: Label for the Printer Test feature.">Printer Test</string>
+  <string name="printjob_test" comment="Location: Button/menu item. Purpose: Label for the Print Job Test feature.">Print Job Test</string>
+  <string name="print_test" comment="Location: Button/menu item. Purpose: Label for the Print Test feature.">Print Test</string>
+  <string name="receipt_registration_test" comment="Location: Button/menu item. Purpose: Label for the Receipt Registration Test feature.">Receipt Registration Test</string>
+  <string name="authenticate_employee" comment="Location: Button/menu item. Purpose: Label for the Authenticate Employee feature.">Authenticate Employee</string>
+  <string name="print_task_test" comment="Location: Button/menu item. Purpose: Label for the Print View And Image Test feature.">Print View And Image Test</string>
+  <string name="print_image_footer" comment="Location: Button. Purpose: Label for the button to print a footer image.">Print Footer-Image</string>
+  <string name="platform2_details_name" comment="Location: Title. Purpose: Title for the Platform2 Details screen.">Platform2 Details</string>
+  <string name="lockscreen_test_activity" comment="Location: Activity title. Purpose: Title for the Lockscreen Test activity.">Lockscreen Test</string>
+  <string name="merchant_devices_v2_activity_label" comment="Location: Activity title. Purpose: Title for the Merchant Devices V2 Test activity.">Merchant Devices V2 Test</string>
+  <string name="keypad_test" comment="Location: Button/menu item. Purpose: Label for the Keypad Test feature.">Keypad Test</string>
+  <string name="salerefund_test" comment="Location: Button/menu item. Purpose: Label for the Sale/Refund Test feature.">Sale/Refund Test</string>
+  <string name="about_authEmp" comment="Location: Explanatory text. Purpose: Describes the ACTION_AUTHENTICATE_EMPLOYEE intent example.">This example will be highlighting the ACTION_AUTHENTICATE_EMPLOYEE intent. Button for ANY EMPLOYEE, CURRENT EMPLOYEE, and ADMIN ROLE will
+         prompt the user to input the employee\'s passcode to authenticate. Each button click will respond with a log of the requestCode and the resultCode.</string>
+  <string name="action_settings" comment="Location: Menu item. Purpose: Label for the settings action.">Settings</string>
+  <string name="payload" comment="Location: Label. Purpose: Label for a payload field.">Payload</string>
+  <string name="send_app_notification" comment="Location: Button. Purpose: Label for the button to send an app notification.">Send app notification</string>
+  <string name="cannot_send_auth_failed" comment="Location: Error message. Purpose: Shown when an app notification cannot be sent due to authentication failure.">Cannot send app notification because authentication did not succeed.</string>
+  <string name="error_while_sending" comment="Location: Error message. Purpose: Shown when an error occurs while sending an app notification. Placeholders: %s is the error message.">An error occurred while sending the app notification: %s</string>
+  <string name="app_event_name" comment="Location: Label. Purpose: Label for the app event name field.">App event name</string>
+  <string name="custom_receipt_provider_test" comment="Location: Button/menu item. Purpose: Label for the Custom Receipt Provider Test feature.">Custom Receipt Provider Test</string>
+  <string name="custom_receipt_provider_note" comment="Location: Explanatory text. Purpose: Note explaining the behavior of the custom receipt provider test."><b>Note:</b> Activity will be closed automatically to apply the changes when either of the buttons is clicked. This is needed because
+   the current activity may still not be aware of the provider\'s new state unless it is restarted.</string>
+  <string name="custom_receipt_provider_timeout_note" comment="Location: Explanatory text. Purpose: Note explaining the timeout behavior of the custom receipt provider."><b>Note:</b> For custom receipt printing, Clover has fixed timeout set in place for provider\'s response.
+     If provider doesn\'t respond within that timeout, Clover will reject print request and show \"Print Failed\" toast message.\nThis behavior can be tested using timeout options: \n
+     \u25CF Timeout Uris: It will force provider to respond with list of uris after the timeout. \n
+     \u25CF Timeout Bitmaps: It will force provider to respond with receipt bitmap(s) after the timeout. \n
+     \u25CF Test without Timeout: Provider will respond normally without any timeout. \n
   </string>
-  <string name="bitmap_chunks_edit_text_desc">Number of bitmap chunks to be printed: (Please enter the number between 0 and 99):</string>
-  <string name="receipt_size_selection_spinner_desc">Select the size of the test receipt that you would like:</string>
-  <string name="enable_provider">Enable Provider</string>
-  <string name="disable_provider">Disable Provider</string>
-  <string name="save">Save</string>
-  <string name="with_uri_timeout">Timeout Uris</string>
-  <string name="with_bitmap_timeout">Timeout Bitmap(s)</string>
-  <string name="without_timeout">Test without timeout</string>
+  <string name="bitmap_chunks_edit_text_desc" comment="Location: Description for an input field. Purpose: Asks the user to enter the number of bitmap chunks to be printed.">Number of bitmap chunks to be printed: (Please enter the number between 0 and 99):</string>
+  <string name="receipt_size_selection_spinner_desc" comment="Location: Description for a dropdown menu. Purpose: Asks the user to select the size of the test receipt.">Select the size of the test receipt that you would like:</string>
+  <string name="enable_provider" comment="Location: Button. Purpose: Label for the button to enable a provider.">Enable Provider</string>
+  <string name="disable_provider" comment="Location: Button. Purpose: Label for the button to disable a provider.">Disable Provider</string>
+  <string name="save" comment="Location: Button. Purpose: Label for the save button.">Save</string>
+  <string name="with_uri_timeout" comment="Location: Button/option. Purpose: Option to test with a URI timeout.">Timeout Uris</string>
+  <string name="with_bitmap_timeout" comment="Location: Button/option. Purpose: Option to test with a bitmap timeout.">Timeout Bitmap(s)</string>
+  <string name="without_timeout" comment="Location: Button/option. Purpose: Option to test without a timeout.">Test without timeout</string>
 
-  <array name="connection_type">
+  <array name="connection_type" comment="Location: Dropdown menu options. Purpose: Options for connection type.">
     <item>Use app service</item>
     <item>Use HTTP</item>
   </array>
-  <array name="role">
+  <array name="role" comment="Location: Dropdown menu options. Purpose: Options for user roles.">
     <item>Employee</item>
     <item>Manager</item>
     <item>Admin</item>
   </array>
 
-  <string name="hello_world">Hello world!</string>
-  <string name="view_print">View Print</string>
-  <string name="image_print">Image Print</string>
-  <string name="select_a_printer_below">Select a printer below:</string>
+  <string name="hello_world" comment="Location: Placeholder text. Purpose: A generic 'hello world' string.">Hello world!</string>
+  <string name="view_print" comment="Location: Button. Purpose: Label for the button to view a print.">View Print</string>
+  <string name="image_print" comment="Location: Button. Purpose: Label for the button to print an image.">Image Print</string>
+  <string name="select_a_printer_below" comment="Location: Instructional text. Purpose: Asks the user to select a printer.">Select a printer below:</string>
 
-  <string name="unlock">Unlock</string>
-  <string name="lock">Lock</string>
-  <string name="select_string">Please select an employee below :\n(Deselect to disable)</string>
-  <string name="custom_item_test_activity">Order Custom Item Test</string>
-  <string name="order_id_custom_item">Order id :</string>
-  <string name="create_new_order">Create new order</string>
-  <string name="item_name">Item Name</string>
-  <string name="quantity_per_unit">Quantity - per unit</string>
-  <string name="item_unit">Item Unit</string>
-  <string name="item_price">Price</string>
-  <string name="add_item_to_order">Add item to order</string>
-  <string name="complete_order">Complete Order</string>
+  <string name="unlock" comment="Location: Button. Purpose: Label for the unlock button.">Unlock</string>
+  <string name="lock" comment="Location: Button. Purpose: Label for the lock button.">Lock</string>
+  <string name="select_string" comment="Location: Instructional text. Purpose: Asks the user to select an employee.">Please select an employee below :\n(Deselect to disable)</string>
+  <string name="custom_item_test_activity" comment="Location: Activity title. Purpose: Title for the Order Custom Item Test activity.">Order Custom Item Test</string>
+  <string name="order_id_custom_item" comment="Location: Label. Purpose: Label for the order ID field.">Order id :</string>
+  <string name="create_new_order" comment="Location: Button. Purpose: Label for the button to create a new order.">Create new order</string>
+  <string name="item_name" comment="Location: Label. Purpose: Label for the item name field.">Item Name</string>
+  <string name="quantity_per_unit" comment="Location: Label. Purpose: Label for the quantity per unit field.">Quantity - per unit</string>
+  <string name="item_unit" comment="Location: Label. Purpose: Label for the item unit field.">Item Unit</string>
+  <string name="item_price" comment="Location: Label. Purpose: Label for the item price field.">Price</string>
+  <string name="add_item_to_order" comment="Location: Button. Purpose: Label for the button to add an item to an order.">Add item to order</string>
+  <string name="complete_order" comment="Location: Button. Purpose: Label for the button to complete an order.">Complete Order</string>
 
-  <string name="uninstall_this_app">Uninstall this app (com.clover.android.sdk.examples) from the merchant Web Dashboard or from the More Tools app on this device or another device. You will see an indication here and in the logs when the pre-uninstall intent is received.\n\nThis screen is shown for explanatory purposes only. Pre-uninstall work should be done in the background and should not have any user interaction.</string>
+  <string name="uninstall_this_app" comment="Location: Explanatory text. Purpose: Explains how to trigger the pre-uninstall intent.">Uninstall this app (com.clover.android.sdk.examples) from the merchant Web Dashboard or from the More Tools app on this device or another device. You will see an indication here and in the logs when the pre-uninstall intent is received.\n\nThis screen is shown for explanatory purposes only. Pre-uninstall work should be done in the background and should not have any user interaction.</string>
 
   <!-- Merchant Devices V2 -->
-  <string name="name_label">Name</string>
-  <string name="model_label">Model</string>
-  <string name="id_label">ID</string>
-  <string name="this_device">This device:</string>
-  <string name="this_device_s_serial">This device\'s serial:</string>
+  <string name="name_label" comment="Location: Label. Purpose: Label for a name field.">Name</string>
+  <string name="model_label" comment="Location: Label. Purpose: Label for a model field.">Model</string>
+  <string name="id_label" comment="Location: Label. Purpose: Label for an ID field.">ID</string>
+  <string name="this_device" comment="Location: Label. Purpose: Label indicating the current device.">This device:</string>
+  <string name="this_device_s_serial" comment="Location: Label. Purpose: Label for the current device's serial number.">This device\'s serial:</string>
 
   <!-- Keypad Test -->
-  <string name="start_keypad">Start Keypad</string>
+  <string name="start_keypad" comment="Location: Button. Purpose: Label for the button to start the keypad.">Start Keypad</string>
 
   <!-- Screensaver Test -->
-  <string name="screensaver_label">Screensaver test</string>
+  <string name="screensaver_label" comment="Location: Label. Purpose: Label for the screensaver test.">Screensaver test</string>
 
   <!-- Dining Events Test -->
-  <string name="dining_events_test">Dining Events Test</string>
+  <string name="dining_events_test" comment="Location: Button/menu item. Purpose: Label for the Dining Events Test feature.">Dining Events Test</string>
 
   <!-- Mifare Service Test -->
-  <string name="mifare_card_reader_test">Mifare Card Reader Test</string>
+  <string name="mifare_card_reader_test" comment="Location: Button/menu item. Purpose: Label for the Mifare Card Reader Test feature.">Mifare Card Reader Test</string>
   <!-- Device Counters Test -->
-  <string name="device_counters_test">Device Counters Test</string>
+  <string name="device_counters_test" comment="Location: Button/menu item. Purpose: Label for the Device Counters Test feature.">Device Counters Test</string>
+
   <!-- NFC Reader Service Test -->
-  <string name="nfc_reader_test">Felica/NFC Reader Test</string>
+  <string name="nfc_reader_test" comment="Location: Button/menu item. Purpose: Label for the Felica/NFC Reader Test feature.">Felica/NFC Reader Test</string>
+
+  <!-- VAS Reader Service Test -->
+  <string name="vas_reader_test">VAS Reader Test</string>
+
+  <string name="merchant_unavailable">merchant unavailable</string>
+  <string name="total_customers">Total customers</string>
 </resources>

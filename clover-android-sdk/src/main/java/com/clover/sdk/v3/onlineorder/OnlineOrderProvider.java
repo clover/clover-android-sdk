@@ -11,7 +11,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,6 +50,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOrderapiTimeValidationEnabled orderapiTimeValidationEnabled}</li>
  * <li>{@link #getEnableDeliveryService enableDeliveryService}</li>
  * <li>{@link #getEnableOrderStatusManagement enableOrderStatusManagement}</li>
+ * <li>{@link #getEnableCancelOrder enableCancelOrder}</li>
+ * <li>{@link #getFeatureConfig featureConfig}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -195,8 +197,19 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.cacheGet(CacheKey.enableOrderStatusManagement);
   }
 
+  /**
+   * If provider has been enabled for Cancel Order feature support
+   */
+  public java.lang.Boolean getEnableCancelOrder() {
+    return genClient.cacheGet(CacheKey.enableCancelOrder);
+  }
 
-
+  /**
+   * Feature config for the provider
+   */
+  public java.lang.String getFeatureConfig() {
+    return genClient.cacheGet(CacheKey.featureConfig);
+  }
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
@@ -239,6 +252,10 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     enableOrderStatusManagement
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    enableCancelOrder
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    featureConfig
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -427,6 +444,15 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.enableOrderStatusManagement);
   }
 
+  /** Checks whether the 'enableCancelOrder' field is set and is not null */
+  public boolean isNotNullEnableCancelOrder() {
+    return genClient.cacheValueIsNotNull(CacheKey.enableCancelOrder);
+  }
+
+  /** Checks whether the 'featureConfig' field is set and is not null */
+  public boolean isNotNullFeatureConfig() {
+    return genClient.cacheValueIsNotNull(CacheKey.featureConfig);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -527,6 +553,16 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
   /** Checks whether the 'enableOrderStatusManagement' field has been set, however the value could be null */
   public boolean hasEnableOrderStatusManagement() {
     return genClient.cacheHasKey(CacheKey.enableOrderStatusManagement);
+  }
+
+  /** Checks whether the 'enableCancelOrder' field has been set, however the value could be null */
+  public boolean hasEnableCancelOrder() {
+    return genClient.cacheHasKey(CacheKey.enableCancelOrder);
+  }
+
+  /** Checks whether the 'featureConfig' field has been set, however the value could be null */
+  public boolean hasFeatureConfig() {
+    return genClient.cacheHasKey(CacheKey.featureConfig);
   }
 
 
@@ -670,6 +706,20 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     return genClient.setOther(enableOrderStatusManagement, CacheKey.enableOrderStatusManagement);
   }
 
+  /**
+   * Sets the field 'enableCancelOrder'.
+   */
+  public OnlineOrderProvider setEnableCancelOrder(java.lang.Boolean enableCancelOrder) {
+    return genClient.setOther(enableCancelOrder, CacheKey.enableCancelOrder);
+  }
+
+  /**
+   * Sets the field 'featureConfig'.
+   */
+  public OnlineOrderProvider setFeatureConfig(java.lang.String featureConfig) {
+    return genClient.setOther(featureConfig, CacheKey.featureConfig);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -750,6 +800,14 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
   /** Clears the 'enableOrderStatusManagement' field, the 'has' method for this field will now return false */
   public void clearEnableOrderStatusManagement() {
     genClient.clear(CacheKey.enableOrderStatusManagement);
+  }
+  /** Clears the 'enableCancelOrder' field, the 'has' method for this field will now return false */
+  public void clearEnableCancelOrder() {
+    genClient.clear(CacheKey.enableCancelOrder);
+  }
+  /** Clears the 'featureConfig' field, the 'has' method for this field will now return false */
+  public void clearFeatureConfig() {
+    genClient.clear(CacheKey.featureConfig);
   }
 
 
@@ -840,6 +898,8 @@ public class OnlineOrderProvider extends GenericParcelable implements com.clover
     public static final boolean ORDERAPITIMEVALIDATIONENABLED_IS_REQUIRED = false;
     public static final boolean ENABLEDELIVERYSERVICE_IS_REQUIRED = false;
     public static final boolean ENABLEORDERSTATUSMANAGEMENT_IS_REQUIRED = false;
+    public static final boolean ENABLECANCELORDER_IS_REQUIRED = false;
+    public static final boolean FEATURECONFIG_IS_REQUIRED = false;
   }
 
 }

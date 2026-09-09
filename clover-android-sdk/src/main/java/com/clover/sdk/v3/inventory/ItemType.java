@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum ItemType implements Parcelable {
-  REGULAR, RESTAURANT, SERVICE, RETAIL;
+  REGULAR, RESTAURANT, SERVICE, RETAIL, BUNDLE, DEPARTMENT;
 
   @Override
   public int describeContents() {

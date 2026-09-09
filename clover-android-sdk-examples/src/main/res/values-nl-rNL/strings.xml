@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_barcode_scanner_test">Barcodescannertest</string>
+  <string name="inventory_test">Voorraadtest</string>
+  <string name="customer_test">Klanttest</string>
+  <string name="order_test">Ordertest</string>
+  <string name="app_notification_test">App-notificatietest</string>
+  <string name="inventory_list">Voorraadlijst</string>
+  <string name="title_activity_web_service">Webservicetest</string>
+  <string name="create_custom_tender_test">Test aangepaste betaalmethode aanmaken</string>
+  <string name="custom_tender_handler_test">Aangepaste tender-handler-test</string>
+  <string name="cashevent_test">Cash-eventtest</string>
+  <string name="cash_drawers_test">Kassaladetest</string>
+  <string name="printer_test">Printertest</string>
+  <string name="printjob_test">Printopdracht-test</string>
+  <string name="print_test">Testafdruk</string>
+  <string name="receipt_registration_test">Registratietest kassabon</string>
+  <string name="authenticate_employee">Medewerker verifiëren</string>
+  <string name="print_task_test">Test afdrukweergave en afbeelding</string>
+  <string name="print_image_footer">Footer-afbeelding afdrukken</string>
+  <string name="platform2_details_name">Platform2-details</string>
+  <string name="lockscreen_test_activity">Vergrendelscherm-test</string>
+  <string name="merchant_devices_v2_activity_label">Handelaarsapparaten V2 Test</string>
+  <string name="keypad_test">Toetsenbloktest</string>
+  <string name="salerefund_test">Verkoop-/terugbetalingstest</string>
+  <string name="about_authEmp">Dit voorbeeld belicht de ACTION_AUTHENTICATE_EMPLOYEE-intent. De knoppen voor ELKE MEDEWERKER, HUIDIGE MEDEWERKER en ADMIN-ROL zullen
+        de gebruiker vragen om de PIN van de medewerker in te voeren om te authenticeren. Elke klik op een knop reageert met een log van de requestCode en de resultCode.</string>
+  <string name="action_settings">Instellingen</string>
+  <string name="payload">Payload</string>
+  <string name="send_app_notification">App-notificatie verzenden</string>
+  <string name="cannot_send_auth_failed">Kan app-melding niet verzenden omdat de authenticatie is mislukt.</string>
+  <string name="error_while_sending">Er is een fout opgetreden tijdens het verzenden van de app-notificatie: %s</string>
+  <string name="app_event_name">App-eventnaam</string>
+  <string name="custom_receipt_provider_test">Test aangepaste bonprovider</string>
+  <string name="custom_receipt_provider_note"><![CDATA[<b>Opmerking:</b> De activiteit wordt automatisch gesloten om de wijzigingen toe te passen wanneer op een van de knoppen wordt geklikt. Dit is nodig omdat de huidige activiteit mogelijk nog niet op de hoogte is van de nieuwe status van de provider, tenzij deze opnieuw wordt opgestart.]]></string>
+  <string name="custom_receipt_provider_timeout_note"><![CDATA[<b>Opmerking:</b> Voor het afdrukken van aangepaste bonnen heeft Clover een vaste time-out ingesteld voor de reactie van de provider.
+    Als de provider niet binnen die time-out reageert, weigert Clover het afdrukverzoek en wordt de toast-melding \"Afdrukken mislukt\" weergegeven.\nDit gedrag kan worden getest met behulp van de time-outopties: \n
+    \u25CF Time-out URI\'s: Hiermee wordt de provider gedwongen om na de time-out te reageren met een lijst met URI\'s. \n
+    \u25CF Time-out Bitmaps: Hiermee wordt de provider gedwongen om na de time-out te reageren met bon-bitmap(s). \n
+    \u25CF Testen zonder time-out: De provider reageert normaal zonder time-out. \n]]></string>
+  <string name="bitmap_chunks_edit_text_desc">Aantal af te drukken bitmap-chunks: (Voer een getal in tussen 0 en 99):</string>
+  <string name="receipt_size_selection_spinner_desc">Selecteer het formaat van de testbon dat u wilt:</string>
+  <string name="enable_provider">Provider inschakelen</string>
+  <string name="disable_provider">Provider uitschakelen</string>
+  <string name="save">Opslaan</string>
+  <string name="with_uri_timeout">Time-out URI\'s</string>
+  <string name="with_bitmap_timeout">Time-out bitmap(s)</string>
+  <string name="without_timeout">Test zonder time-out</string>
+  <string name="hello_world">Hallo wereld!</string>
+  <string name="view_print">Afdruk bekijken</string>
+  <string name="image_print">Afbeelding afdrukken</string>
+  <string name="select_a_printer_below">Selecteer hieronder een printer:</string>
+  <string name="unlock">Ontgrendelen</string>
+  <string name="lock">Vergrendelen</string>
+  <string name="select_string">Selecteer hieronder een medewerker :\n(Deselecteer om uit te schakelen)</string>
+  <string name="custom_item_test_activity">Test bestelling handmatig item</string>
+  <string name="order_id_custom_item">Bestellings-id :</string>
+  <string name="create_new_order">Nieuwe bestelling aanmaken</string>
+  <string name="item_name">Itemnaam</string>
+  <string name="quantity_per_unit">Aantal - per eenheid</string>
+  <string name="item_unit">Artikeleenheid</string>
+  <string name="item_price">Prijs</string>
+  <string name="add_item_to_order">Item aan bestelling toevoegen</string>
+  <string name="complete_order">Bestelling afronden</string>
+  <string name="uninstall_this_app">Verwijder deze app (com.clover.android.sdk.examples) via het Webdashboard voor verkopers of via de app Meer tools op dit apparaat of op een ander apparaat. U ziet hier en in de logs een indicatie wanneer de pre-uninstall intent is ontvangen.\n\nDit scherm wordt uitsluitend ter toelichting getoond. Werkzaamheden voorafgaand aan de verwijdering moeten op de achtergrond worden uitgevoerd en mogen geen gebruikersinteractie vereisen.</string>
+  <string name="name_label">Naam</string>
+  <string name="model_label">Model</string>
+  <string name="id_label">ID</string>
+  <string name="this_device">Dit apparaat:</string>
+  <string name="this_device_s_serial">Serienummer van dit apparaat:</string>
+  <string name="start_keypad">Keypad starten</string>
+  <string name="screensaver_label">Screensavertest</string>
+  <string name="dining_events_test">Diner-evenemententest</string>
+  <string name="mifare_card_reader_test">Mifare-kaartlezertest</string>
+  <string name="device_counters_test">Test apparaattellers</string>
+  <string name="nfc_reader_test">Felica/NFC-lezertest</string>
+</resources>

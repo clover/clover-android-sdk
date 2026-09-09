@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_barcode_scanner_test">バーコードリーダーテスト</string>
+  <string name="inventory_test">在庫管理テスト</string>
+  <string name="customer_test">顧客テスト</string>
+  <string name="order_test">注文テスト</string>
+  <string name="app_notification_test">アプリ通知テスト</string>
+  <string name="inventory_list">在庫一覧</string>
+  <string name="title_activity_web_service">Webサービステスト</string>
+  <string name="create_custom_tender_test">カスタム決済手段テスト作成</string>
+  <string name="custom_tender_handler_test">カスタム決済手段ハンドラーテスト</string>
+  <string name="cashevent_test">現金イベントテスト</string>
+  <string name="cash_drawers_test">キャッシュドロアテスト</string>
+  <string name="printer_test">プリンターテスト</string>
+  <string name="printjob_test">印刷ジョブテスト</string>
+  <string name="print_test">テスト印刷</string>
+  <string name="receipt_registration_test">レシート登録テスト</string>
+  <string name="authenticate_employee">スタッフ認証</string>
+  <string name="print_task_test">印刷ビューと画像テスト</string>
+  <string name="print_image_footer">フッター画像を印刷</string>
+  <string name="platform2_details_name">Platform2詳細</string>
+  <string name="lockscreen_test_activity">ロック画面テスト</string>
+  <string name="merchant_devices_v2_activity_label">加盟店端末V2テスト</string>
+  <string name="keypad_test">キーパッドテスト</string>
+  <string name="salerefund_test">会計/返金テスト</string>
+  <string name="about_authEmp">この例ではACTION_AUTHENTICATE_EMPLOYEEインテントについて紹介します。 [すべてのスタッフ] 、 [現在のスタッフ] 、および [管理者役割] のボタンでは、認証のためにスタッフのパスコードの入力を求めるプロンプトが表示されます。ボタンをクリックするたびに、requestCodeとresultCodeのログが返されます。</string>
+  <string name="action_settings">設定</string>
+  <string name="payload">ペイロード</string>
+  <string name="send_app_notification">アプリ通知を送信</string>
+  <string name="cannot_send_auth_failed">認証に失敗したため、アプリの通知を送信できません。</string>
+  <string name="error_while_sending">アプリ通知の送信中にエラーが発生しました：%s</string>
+  <string name="app_event_name">アプリイベント名</string>
+  <string name="custom_receipt_provider_test">カスタムレシートプロバイダーテスト</string>
+  <string name="custom_receipt_provider_note"><b>注：</b>いずれかのボタンをクリックすると、変更を適用するためにアクティビティが自動的に終了します。これは、アクティビティを再起動しない限り、現在のアクティビティがプロバイダーの新しい状態を認識できない可能性があるためです。</string>
+  <string name="custom_receipt_provider_timeout_note"><b>注記：</b>カスタムレシート印刷では、プロバイダーのレスポンスに対してTrunkCloverで固定タイムアウトが設定されています。
+     プロバイダーがそのタイムアウト内に応答しない場合、TrunkCloverは印刷リクエストを拒否し、「印刷に失敗しました」というトーストメッセージを表示します。\nこの動作は、以下のタイムアウトオプションを使用してテストできます： \n
+     ● タイムアウトURI：タイムアウト後に、URIのリストで応答するようプロバイダーに強制します。 \n
+     ● タイムアウトビットマップ：タイムアウト後に、レシートのビットマップで応答するようプロバイダーに強制します。 \n
+     ● タイムアウトなしでテスト：プロバイダーはタイムアウトなしで正常に応答します。 \n</string>
+  <string name="bitmap_chunks_edit_text_desc">印刷するビットマップチャンク数：（0〜99の数字を入力してください）：</string>
+  <string name="receipt_size_selection_spinner_desc">ご希望のテストレシートのサイズを選択してください：</string>
+  <string name="enable_provider">プロバイダーを有効にする</string>
+  <string name="disable_provider">プロバイダーを無効にする</string>
+  <string name="save">保存</string>
+  <string name="with_uri_timeout">タイムアウトURI</string>
+  <string name="with_bitmap_timeout">ビットマップのタイムアウト</string>
+  <string name="without_timeout">タイムアウトなしでテスト</string>
+  <string name="hello_world">こんにちは世界！</string>
+  <string name="view_print">印刷を表示</string>
+  <string name="image_print">画像印刷</string>
+  <string name="select_a_printer_below">以下からプリンターを選択してください：</string>
+  <string name="unlock">ロック解除</string>
+  <string name="lock">ロック</string>
+  <string name="select_string">以下からスタッフを選択してください：
+(選択解除で無効にする)</string>
+  <string name="custom_item_test_activity">カスタム商品の注文テスト</string>
+  <string name="order_id_custom_item">注文ID：</string>
+  <string name="create_new_order">新規注文作成</string>
+  <string name="item_name">商品名</string>
+  <string name="quantity_per_unit">単位あたりの数量</string>
+  <string name="item_unit">商品単位</string>
+  <string name="item_price">価格</string>
+  <string name="add_item_to_order">注文に商品を追加</string>
+  <string name="complete_order">注文を完了</string>
+  <string name="uninstall_this_app">このアプリ（com.clover.android.sdk.examples）を加盟店Webダッシュボード、またはこの端末もしくは別の端末の [その他のツール] アプリからアンインストールしてください。事前アンインストールインテントを受信すると、ここおよびログに通知が表示されます。\n\nこの画面は説明目的でのみ表示されています。事前アンインストール処理はバックグラウンドで実行する必要があり、ユーザーの操作を介在させないでください。</string>
+  <string name="name_label">名前</string>
+  <string name="model_label">モデル</string>
+  <string name="id_label">ID</string>
+  <string name="this_device">この端末：</string>
+  <string name="this_device_s_serial">この端末のシリアル番号：</string>
+  <string name="start_keypad">キーパッドを開始</string>
+  <string name="screensaver_label">スクリーンセーバーテスト</string>
+  <string name="dining_events_test">ダイニングイベントテスト</string>
+  <string name="mifare_card_reader_test">Mifareカードリーダーテスト</string>
+  <string name="device_counters_test">端末カウンターテスト</string>
+  <string name="nfc_reader_test">Felica/NFCリーダーテスト</string>
+  <string name="merchant_unavailable">加盟店は利用できません</string>
+  <string name="total_customers">客数合計</string>
+</resources>

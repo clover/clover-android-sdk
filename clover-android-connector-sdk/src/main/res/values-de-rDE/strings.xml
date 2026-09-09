@@ -1,4 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="sdkName">com.clover.connector.sdk.v3.PaymentConnector</string>
+  <string name="sdkVersion">3.0.0</string>
   <string name="default_manual_line_item_name">Manuelle Transaktion</string>
   <string name="authorization_line_item_name">Autorisierung</string>
 </resources>

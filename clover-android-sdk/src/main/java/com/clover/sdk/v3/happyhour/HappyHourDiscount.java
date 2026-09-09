@@ -44,6 +44,8 @@ import androidx.annotation.Nullable;
  * <li>{@link #getCategoryIds categoryIds}</li>
  * <li>{@link #getItemIds itemIds}</li>
  * <li>{@link #getDaysOfWeek daysOfWeek}</li>
+ * <li>{@link #getStartDate startDate}</li>
+ * <li>{@link #getEndDate endDate}</li>
  * </ul>
  * <p>
  *
@@ -147,6 +149,22 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     return genClient.cacheGet(CacheKey.daysOfWeek);
   }
 
+  /**
+   * Discount start date in milliseconds since epoch
+   */
+  @Nullable
+  public java.lang.Long getStartDate() {
+    return genClient.cacheGet(CacheKey.startDate);
+  }
+
+  /**
+   * Discount end date in milliseconds since epoch
+   */
+  @Nullable
+  public java.lang.Long getEndDate() {
+    return genClient.cacheGet(CacheKey.endDate);
+  }
+
 
 
 
@@ -175,6 +193,10 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
     daysOfWeek
         (com.clover.sdk.extractors.BasicListExtractionStrategy.instance(java.lang.String.class)),
+    startDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    endDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -336,6 +358,16 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /** Checks whether the 'daysOfWeek' field is set and is not null and is not empty */
   public boolean isNotEmptyDaysOfWeek() { return isNotNullDaysOfWeek() && !getDaysOfWeek().isEmpty(); }
 
+  /** Checks whether the 'startDate' field is set and is not null */
+  public boolean isNotNullStartDate() {
+    return genClient.cacheValueIsNotNull(CacheKey.startDate);
+  }
+
+  /** Checks whether the 'endDate' field is set and is not null */
+  public boolean isNotNullEndDate() {
+    return genClient.cacheValueIsNotNull(CacheKey.endDate);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -396,6 +428,16 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /** Checks whether the 'daysOfWeek' field has been set, however the value could be null */
   public boolean hasDaysOfWeek() {
     return genClient.cacheHasKey(CacheKey.daysOfWeek);
+  }
+
+  /** Checks whether the 'startDate' field has been set, however the value could be null */
+  public boolean hasStartDate() {
+    return genClient.cacheHasKey(CacheKey.startDate);
+  }
+
+  /** Checks whether the 'endDate' field has been set, however the value could be null */
+  public boolean hasEndDate() {
+    return genClient.cacheHasKey(CacheKey.endDate);
   }
 
 
@@ -489,6 +531,20 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     return genClient.setArrayOther(daysOfWeek, CacheKey.daysOfWeek);
   }
 
+  /**
+   * Sets the field 'startDate'.
+   */
+  public HappyHourDiscount setStartDate(@Nullable java.lang.Long startDate) {
+    return genClient.setOther(startDate, CacheKey.startDate);
+  }
+
+  /**
+   * Sets the field 'endDate'.
+   */
+  public HappyHourDiscount setEndDate(@Nullable java.lang.Long endDate) {
+    return genClient.setOther(endDate, CacheKey.endDate);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -537,6 +593,14 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /** Clears the 'daysOfWeek' field, the 'has' method for this field will now return false */
   public void clearDaysOfWeek() {
     genClient.clear(CacheKey.daysOfWeek);
+  }
+  /** Clears the 'startDate' field, the 'has' method for this field will now return false */
+  public void clearStartDate() {
+    genClient.clear(CacheKey.startDate);
+  }
+  /** Clears the 'endDate' field, the 'has' method for this field will now return false */
+  public void clearEndDate() {
+    genClient.clear(CacheKey.endDate);
   }
 
 
@@ -627,6 +691,8 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     public static final boolean CATEGORYIDS_IS_REQUIRED = false;
     public static final boolean ITEMIDS_IS_REQUIRED = false;
     public static final boolean DAYSOFWEEK_IS_REQUIRED = false;
+    public static final boolean STARTDATE_IS_REQUIRED = false;
+    public static final boolean ENDDATE_IS_REQUIRED = false;
   }
 
 }

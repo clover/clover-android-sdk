@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.merchant;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -37,6 +38,10 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAccountName accountName}</li>
  * <li>{@link #getAltMid altMid}</li>
  * <li>{@link #getMid mid}</li>
+ * <li>{@link #getAbn abn}</li>
+ * <li>{@link #getGst gst}</li>
+ * <li>{@link #getUen uen}</li>
+ * <li>{@link #getOfflineTipPerctRate offlineTipPerctRate}</li>
  * <li>{@link #getFns fns}</li>
  * <li>{@link #getTid tid}</li>
  * <li>{@link #getStoreId storeId}</li>
@@ -54,8 +59,22 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getSupportsMultiPayToken supportsMultiPayToken}</li>
  * <li>{@link #getSupportsPreauthOverage supportsPreauthOverage}</li>
  * <li>{@link #getClosingTime closingTime}</li>
+ * <li>{@link #getTelecheckIcaMid telecheck_ica_mid}</li>
+ * <li>{@link #getTelecheckCbpMid telecheck_cbp_mid}</li>
+ * <li>{@link #getTelecheckPpdMid telecheck_ppd_mid}</li>
  * <li>{@link #getNewBatchCloseEnabled newBatchCloseEnabled}</li>
  * <li>{@link #getProduction production}</li>
+ * <li>{@link #getVirtualPromoCode virtual_promo_code}</li>
+ * <li>{@link #getSupportsPreauth supports_preauth}</li>
+ * <li>{@link #getSupportsBulkcapture supports_bulkcapture}</li>
+ * <li>{@link #getMccGroupName mcc_group_name}</li>
+ * <li>{@link #getKlarnaPartnerAccountId klarnaPartnerAccountId}</li>
+ * <li>{@link #getKlarnaPaymentAccountId klarnaPaymentAccountId}</li>
+ * <li>{@link #getCloseHour closeHour}</li>
+ * <li>{@link #getSynchronyAccountId synchronyAccountId}</li>
+ * <li>{@link #getVatId vatId}</li>
+ * <li>{@link #getCnpGatewayId cnpGatewayId}</li>
+ * <li>{@link #getBrn brn}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -87,6 +106,22 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
 
   public java.lang.String getMid() {
     return genClient.cacheGet(CacheKey.mid);
+  }
+
+  public java.lang.String getAbn() {
+    return genClient.cacheGet(CacheKey.abn);
+  }
+
+  public java.lang.String getGst() {
+    return genClient.cacheGet(CacheKey.gst);
+  }
+
+  public java.lang.String getUen() {
+    return genClient.cacheGet(CacheKey.uen);
+  }
+
+  public java.lang.String getOfflineTipPerctRate() {
+    return genClient.cacheGet(CacheKey.offlineTipPerctRate);
   }
 
   public java.lang.String getFns() {
@@ -163,6 +198,18 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.closingTime);
   }
 
+  public java.lang.String getTelecheckIcaMid() {
+    return genClient.cacheGet(CacheKey.telecheck_ica_mid);
+  }
+
+  public java.lang.String getTelecheckCbpMid() {
+    return genClient.cacheGet(CacheKey.telecheck_cbp_mid);
+  }
+
+  public java.lang.String getTelecheckPpdMid() {
+    return genClient.cacheGet(CacheKey.telecheck_ppd_mid);
+  }
+
   public java.lang.Boolean getNewBatchCloseEnabled() {
     return genClient.cacheGet(CacheKey.newBatchCloseEnabled);
   }
@@ -174,63 +221,176 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheGet(CacheKey.production);
   }
 
+  /**
+   * this is a gift card promo code and will be received from ValueLink
+   */
+  public java.lang.String getVirtualPromoCode() {
+    return genClient.cacheGet(CacheKey.virtual_promo_code);
+  }
+
+  /**
+   * Field to identify if merchant supports Preauth entitlement
+   */
+  public java.lang.String getSupportsPreauth() {
+    return genClient.cacheGet(CacheKey.supports_preauth);
+  }
+
+  /**
+   * Field to identify if merchant supports bulkcapture
+   */
+  public java.lang.String getSupportsBulkcapture() {
+    return genClient.cacheGet(CacheKey.supports_bulkcapture);
+  }
+
+  /**
+   * Merchant Category Group Name
+   */
+  public java.lang.String getMccGroupName() {
+    return genClient.cacheGet(CacheKey.mcc_group_name);
+  }
+
+  /**
+   * Unique identifier of the Partner account
+   */
+  public java.lang.String getKlarnaPartnerAccountId() {
+    return genClient.cacheGet(CacheKey.klarnaPartnerAccountId);
+  }
+
+  /**
+   * Unique ID assigned to each partner
+   */
+  public java.lang.String getKlarnaPaymentAccountId() {
+    return genClient.cacheGet(CacheKey.klarnaPaymentAccountId);
+  }
+
+  /**
+   * Important field for payments team to process settlements
+   */
+  public java.lang.String getCloseHour() {
+    return genClient.cacheGet(CacheKey.closeHour);
+  }
+
+  /**
+   * MID/AccountId associated with the Synchrony. This is used in processing synchrony transactions.
+   */
+  public java.lang.String getSynchronyAccountId() {
+    return genClient.cacheGet(CacheKey.synchronyAccountId);
+  }
+
+  /**
+   * Field used for Fiscalisation. It is printed on the receipt
+   */
+  public java.lang.String getVatId() {
+    return genClient.cacheGet(CacheKey.vatId);
+  }
+
+  /**
+   * The CNP gateway identifier for this merchant. It is a combination of merchantId and locationId of the merchant separated by a delimiter(+)
+   */
+  public java.lang.String getCnpGatewayId() {
+    return genClient.cacheGet(CacheKey.cnpGatewayId);
+  }
+
+  /**
+   * The business registration number or T number of a merchant that will be printed on the receipt
+   */
+  public java.lang.String getBrn() {
+    return genClient.cacheGet(CacheKey.brn);
+  }
+
 
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     paymentProcessorName
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     authorizationFrontEnd
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     acquiringBackEnd
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     paymentGatewayApi
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     accountName
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     altMid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     mid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    abn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    gst
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    uen
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    offlineTipPerctRate
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     fns
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     tid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     storeId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     supportsTipping
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     frontendMid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     backendMid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     mcc
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     tokenType
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     groupId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     platform
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     debitKeyCode
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     sredCode
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     supportsTipAdjust
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     supportsNakedCredit
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     supportsMultiPayToken
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     supportsPreauthOverage
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     closingTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    telecheck_ica_mid
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    telecheck_cbp_mid
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    telecheck_ppd_mid
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     newBatchCloseEnabled
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     production
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-      ;
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    virtual_promo_code
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supports_preauth
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    supports_bulkcapture
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    mcc_group_name
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    klarnaPartnerAccountId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    klarnaPaymentAccountId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    closeHour
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    synchronyAccountId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    vatId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    cnpGatewayId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    brn
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -344,6 +504,26 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.mid);
   }
 
+  /** Checks whether the 'abn' field is set and is not null */
+  public boolean isNotNullAbn() {
+    return genClient.cacheValueIsNotNull(CacheKey.abn);
+  }
+
+  /** Checks whether the 'gst' field is set and is not null */
+  public boolean isNotNullGst() {
+    return genClient.cacheValueIsNotNull(CacheKey.gst);
+  }
+
+  /** Checks whether the 'uen' field is set and is not null */
+  public boolean isNotNullUen() {
+    return genClient.cacheValueIsNotNull(CacheKey.uen);
+  }
+
+  /** Checks whether the 'offlineTipPerctRate' field is set and is not null */
+  public boolean isNotNullOfflineTipPerctRate() {
+    return genClient.cacheValueIsNotNull(CacheKey.offlineTipPerctRate);
+  }
+
   /** Checks whether the 'fns' field is set and is not null */
   public boolean isNotNullFns() {
     return genClient.cacheValueIsNotNull(CacheKey.fns);
@@ -429,6 +609,21 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheValueIsNotNull(CacheKey.closingTime);
   }
 
+  /** Checks whether the 'telecheck_ica_mid' field is set and is not null */
+  public boolean isNotNullTelecheckIcaMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.telecheck_ica_mid);
+  }
+
+  /** Checks whether the 'telecheck_cbp_mid' field is set and is not null */
+  public boolean isNotNullTelecheckCbpMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.telecheck_cbp_mid);
+  }
+
+  /** Checks whether the 'telecheck_ppd_mid' field is set and is not null */
+  public boolean isNotNullTelecheckPpdMid() {
+    return genClient.cacheValueIsNotNull(CacheKey.telecheck_ppd_mid);
+  }
+
   /** Checks whether the 'newBatchCloseEnabled' field is set and is not null */
   public boolean isNotNullNewBatchCloseEnabled() {
     return genClient.cacheValueIsNotNull(CacheKey.newBatchCloseEnabled);
@@ -437,6 +632,61 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'production' field is set and is not null */
   public boolean isNotNullProduction() {
     return genClient.cacheValueIsNotNull(CacheKey.production);
+  }
+
+  /** Checks whether the 'virtual_promo_code' field is set and is not null */
+  public boolean isNotNullVirtualPromoCode() {
+    return genClient.cacheValueIsNotNull(CacheKey.virtual_promo_code);
+  }
+
+  /** Checks whether the 'supports_preauth' field is set and is not null */
+  public boolean isNotNullSupportsPreauth() {
+    return genClient.cacheValueIsNotNull(CacheKey.supports_preauth);
+  }
+
+  /** Checks whether the 'supports_bulkcapture' field is set and is not null */
+  public boolean isNotNullSupportsBulkcapture() {
+    return genClient.cacheValueIsNotNull(CacheKey.supports_bulkcapture);
+  }
+
+  /** Checks whether the 'mcc_group_name' field is set and is not null */
+  public boolean isNotNullMccGroupName() {
+    return genClient.cacheValueIsNotNull(CacheKey.mcc_group_name);
+  }
+
+  /** Checks whether the 'klarnaPartnerAccountId' field is set and is not null */
+  public boolean isNotNullKlarnaPartnerAccountId() {
+    return genClient.cacheValueIsNotNull(CacheKey.klarnaPartnerAccountId);
+  }
+
+  /** Checks whether the 'klarnaPaymentAccountId' field is set and is not null */
+  public boolean isNotNullKlarnaPaymentAccountId() {
+    return genClient.cacheValueIsNotNull(CacheKey.klarnaPaymentAccountId);
+  }
+
+  /** Checks whether the 'closeHour' field is set and is not null */
+  public boolean isNotNullCloseHour() {
+    return genClient.cacheValueIsNotNull(CacheKey.closeHour);
+  }
+
+  /** Checks whether the 'synchronyAccountId' field is set and is not null */
+  public boolean isNotNullSynchronyAccountId() {
+    return genClient.cacheValueIsNotNull(CacheKey.synchronyAccountId);
+  }
+
+  /** Checks whether the 'vatId' field is set and is not null */
+  public boolean isNotNullVatId() {
+    return genClient.cacheValueIsNotNull(CacheKey.vatId);
+  }
+
+  /** Checks whether the 'cnpGatewayId' field is set and is not null */
+  public boolean isNotNullCnpGatewayId() {
+    return genClient.cacheValueIsNotNull(CacheKey.cnpGatewayId);
+  }
+
+  /** Checks whether the 'brn' field is set and is not null */
+  public boolean isNotNullBrn() {
+    return genClient.cacheValueIsNotNull(CacheKey.brn);
   }
 
 
@@ -474,6 +724,26 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'mid' field has been set, however the value could be null */
   public boolean hasMid() {
     return genClient.cacheHasKey(CacheKey.mid);
+  }
+
+  /** Checks whether the 'abn' field has been set, however the value could be null */
+  public boolean hasAbn() {
+    return genClient.cacheHasKey(CacheKey.abn);
+  }
+
+  /** Checks whether the 'gst' field has been set, however the value could be null */
+  public boolean hasGst() {
+    return genClient.cacheHasKey(CacheKey.gst);
+  }
+
+  /** Checks whether the 'uen' field has been set, however the value could be null */
+  public boolean hasUen() {
+    return genClient.cacheHasKey(CacheKey.uen);
+  }
+
+  /** Checks whether the 'offlineTipPerctRate' field has been set, however the value could be null */
+  public boolean hasOfflineTipPerctRate() {
+    return genClient.cacheHasKey(CacheKey.offlineTipPerctRate);
   }
 
   /** Checks whether the 'fns' field has been set, however the value could be null */
@@ -561,6 +831,21 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     return genClient.cacheHasKey(CacheKey.closingTime);
   }
 
+  /** Checks whether the 'telecheck_ica_mid' field has been set, however the value could be null */
+  public boolean hasTelecheckIcaMid() {
+    return genClient.cacheHasKey(CacheKey.telecheck_ica_mid);
+  }
+
+  /** Checks whether the 'telecheck_cbp_mid' field has been set, however the value could be null */
+  public boolean hasTelecheckCbpMid() {
+    return genClient.cacheHasKey(CacheKey.telecheck_cbp_mid);
+  }
+
+  /** Checks whether the 'telecheck_ppd_mid' field has been set, however the value could be null */
+  public boolean hasTelecheckPpdMid() {
+    return genClient.cacheHasKey(CacheKey.telecheck_ppd_mid);
+  }
+
   /** Checks whether the 'newBatchCloseEnabled' field has been set, however the value could be null */
   public boolean hasNewBatchCloseEnabled() {
     return genClient.cacheHasKey(CacheKey.newBatchCloseEnabled);
@@ -569,6 +854,61 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Checks whether the 'production' field has been set, however the value could be null */
   public boolean hasProduction() {
     return genClient.cacheHasKey(CacheKey.production);
+  }
+
+  /** Checks whether the 'virtual_promo_code' field has been set, however the value could be null */
+  public boolean hasVirtualPromoCode() {
+    return genClient.cacheHasKey(CacheKey.virtual_promo_code);
+  }
+
+  /** Checks whether the 'supports_preauth' field has been set, however the value could be null */
+  public boolean hasSupportsPreauth() {
+    return genClient.cacheHasKey(CacheKey.supports_preauth);
+  }
+
+  /** Checks whether the 'supports_bulkcapture' field has been set, however the value could be null */
+  public boolean hasSupportsBulkcapture() {
+    return genClient.cacheHasKey(CacheKey.supports_bulkcapture);
+  }
+
+  /** Checks whether the 'mcc_group_name' field has been set, however the value could be null */
+  public boolean hasMccGroupName() {
+    return genClient.cacheHasKey(CacheKey.mcc_group_name);
+  }
+
+  /** Checks whether the 'klarnaPartnerAccountId' field has been set, however the value could be null */
+  public boolean hasKlarnaPartnerAccountId() {
+    return genClient.cacheHasKey(CacheKey.klarnaPartnerAccountId);
+  }
+
+  /** Checks whether the 'klarnaPaymentAccountId' field has been set, however the value could be null */
+  public boolean hasKlarnaPaymentAccountId() {
+    return genClient.cacheHasKey(CacheKey.klarnaPaymentAccountId);
+  }
+
+  /** Checks whether the 'closeHour' field has been set, however the value could be null */
+  public boolean hasCloseHour() {
+    return genClient.cacheHasKey(CacheKey.closeHour);
+  }
+
+  /** Checks whether the 'synchronyAccountId' field has been set, however the value could be null */
+  public boolean hasSynchronyAccountId() {
+    return genClient.cacheHasKey(CacheKey.synchronyAccountId);
+  }
+
+  /** Checks whether the 'vatId' field has been set, however the value could be null */
+  public boolean hasVatId() {
+    return genClient.cacheHasKey(CacheKey.vatId);
+  }
+
+  /** Checks whether the 'cnpGatewayId' field has been set, however the value could be null */
+  public boolean hasCnpGatewayId() {
+    return genClient.cacheHasKey(CacheKey.cnpGatewayId);
+  }
+
+  /** Checks whether the 'brn' field has been set, however the value could be null */
+  public boolean hasBrn() {
+    return genClient.cacheHasKey(CacheKey.brn);
   }
 
 
@@ -619,6 +959,34 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Gateway setMid(java.lang.String mid) {
     return genClient.setOther(mid, CacheKey.mid);
+  }
+
+  /**
+   * Sets the field 'abn'.
+   */
+  public Gateway setAbn(java.lang.String abn) {
+    return genClient.setOther(abn, CacheKey.abn);
+  }
+
+  /**
+   * Sets the field 'gst'.
+   */
+  public Gateway setGst(java.lang.String gst) {
+    return genClient.setOther(gst, CacheKey.gst);
+  }
+
+  /**
+   * Sets the field 'uen'.
+   */
+  public Gateway setUen(java.lang.String uen) {
+    return genClient.setOther(uen, CacheKey.uen);
+  }
+
+  /**
+   * Sets the field 'offlineTipPerctRate'.
+   */
+  public Gateway setOfflineTipPerctRate(java.lang.String offlineTipPerctRate) {
+    return genClient.setOther(offlineTipPerctRate, CacheKey.offlineTipPerctRate);
   }
 
   /**
@@ -741,6 +1109,27 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   }
 
   /**
+   * Sets the field 'telecheck_ica_mid'.
+   */
+  public Gateway setTelecheckIcaMid(java.lang.String telecheck_ica_mid) {
+    return genClient.setOther(telecheck_ica_mid, CacheKey.telecheck_ica_mid);
+  }
+
+  /**
+   * Sets the field 'telecheck_cbp_mid'.
+   */
+  public Gateway setTelecheckCbpMid(java.lang.String telecheck_cbp_mid) {
+    return genClient.setOther(telecheck_cbp_mid, CacheKey.telecheck_cbp_mid);
+  }
+
+  /**
+   * Sets the field 'telecheck_ppd_mid'.
+   */
+  public Gateway setTelecheckPpdMid(java.lang.String telecheck_ppd_mid) {
+    return genClient.setOther(telecheck_ppd_mid, CacheKey.telecheck_ppd_mid);
+  }
+
+  /**
    * Sets the field 'newBatchCloseEnabled'.
    */
   public Gateway setNewBatchCloseEnabled(java.lang.Boolean newBatchCloseEnabled) {
@@ -752,6 +1141,83 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
    */
   public Gateway setProduction(java.lang.Boolean production) {
     return genClient.setOther(production, CacheKey.production);
+  }
+
+  /**
+   * Sets the field 'virtual_promo_code'.
+   */
+  public Gateway setVirtualPromoCode(java.lang.String virtual_promo_code) {
+    return genClient.setOther(virtual_promo_code, CacheKey.virtual_promo_code);
+  }
+
+  /**
+   * Sets the field 'supports_preauth'.
+   */
+  public Gateway setSupportsPreauth(java.lang.String supports_preauth) {
+    return genClient.setOther(supports_preauth, CacheKey.supports_preauth);
+  }
+
+  /**
+   * Sets the field 'supports_bulkcapture'.
+   */
+  public Gateway setSupportsBulkcapture(java.lang.String supports_bulkcapture) {
+    return genClient.setOther(supports_bulkcapture, CacheKey.supports_bulkcapture);
+  }
+
+  /**
+   * Sets the field 'mcc_group_name'.
+   */
+  public Gateway setMccGroupName(java.lang.String mcc_group_name) {
+    return genClient.setOther(mcc_group_name, CacheKey.mcc_group_name);
+  }
+
+  /**
+   * Sets the field 'klarnaPartnerAccountId'.
+   */
+  public Gateway setKlarnaPartnerAccountId(java.lang.String klarnaPartnerAccountId) {
+    return genClient.setOther(klarnaPartnerAccountId, CacheKey.klarnaPartnerAccountId);
+  }
+
+  /**
+   * Sets the field 'klarnaPaymentAccountId'.
+   */
+  public Gateway setKlarnaPaymentAccountId(java.lang.String klarnaPaymentAccountId) {
+    return genClient.setOther(klarnaPaymentAccountId, CacheKey.klarnaPaymentAccountId);
+  }
+
+  /**
+   * Sets the field 'closeHour'.
+   */
+  public Gateway setCloseHour(java.lang.String closeHour) {
+    return genClient.setOther(closeHour, CacheKey.closeHour);
+  }
+
+  /**
+   * Sets the field 'synchronyAccountId'.
+   */
+  public Gateway setSynchronyAccountId(java.lang.String synchronyAccountId) {
+    return genClient.setOther(synchronyAccountId, CacheKey.synchronyAccountId);
+  }
+
+  /**
+   * Sets the field 'vatId'.
+   */
+  public Gateway setVatId(java.lang.String vatId) {
+    return genClient.setOther(vatId, CacheKey.vatId);
+  }
+
+  /**
+   * Sets the field 'cnpGatewayId'.
+   */
+  public Gateway setCnpGatewayId(java.lang.String cnpGatewayId) {
+    return genClient.setOther(cnpGatewayId, CacheKey.cnpGatewayId);
+  }
+
+  /**
+   * Sets the field 'brn'.
+   */
+  public Gateway setBrn(java.lang.String brn) {
+    return genClient.setOther(brn, CacheKey.brn);
   }
 
 
@@ -782,6 +1248,22 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'mid' field, the 'has' method for this field will now return false */
   public void clearMid() {
     genClient.clear(CacheKey.mid);
+  }
+  /** Clears the 'abn' field, the 'has' method for this field will now return false */
+  public void clearAbn() {
+    genClient.clear(CacheKey.abn);
+  }
+  /** Clears the 'gst' field, the 'has' method for this field will now return false */
+  public void clearGst() {
+    genClient.clear(CacheKey.gst);
+  }
+  /** Clears the 'uen' field, the 'has' method for this field will now return false */
+  public void clearUen() {
+    genClient.clear(CacheKey.uen);
+  }
+  /** Clears the 'offlineTipPerctRate' field, the 'has' method for this field will now return false */
+  public void clearOfflineTipPerctRate() {
+    genClient.clear(CacheKey.offlineTipPerctRate);
   }
   /** Clears the 'fns' field, the 'has' method for this field will now return false */
   public void clearFns() {
@@ -851,6 +1333,18 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   public void clearClosingTime() {
     genClient.clear(CacheKey.closingTime);
   }
+  /** Clears the 'telecheck_ica_mid' field, the 'has' method for this field will now return false */
+  public void clearTelecheckIcaMid() {
+    genClient.clear(CacheKey.telecheck_ica_mid);
+  }
+  /** Clears the 'telecheck_cbp_mid' field, the 'has' method for this field will now return false */
+  public void clearTelecheckCbpMid() {
+    genClient.clear(CacheKey.telecheck_cbp_mid);
+  }
+  /** Clears the 'telecheck_ppd_mid' field, the 'has' method for this field will now return false */
+  public void clearTelecheckPpdMid() {
+    genClient.clear(CacheKey.telecheck_ppd_mid);
+  }
   /** Clears the 'newBatchCloseEnabled' field, the 'has' method for this field will now return false */
   public void clearNewBatchCloseEnabled() {
     genClient.clear(CacheKey.newBatchCloseEnabled);
@@ -858,6 +1352,50 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
   /** Clears the 'production' field, the 'has' method for this field will now return false */
   public void clearProduction() {
     genClient.clear(CacheKey.production);
+  }
+  /** Clears the 'virtual_promo_code' field, the 'has' method for this field will now return false */
+  public void clearVirtualPromoCode() {
+    genClient.clear(CacheKey.virtual_promo_code);
+  }
+  /** Clears the 'supports_preauth' field, the 'has' method for this field will now return false */
+  public void clearSupportsPreauth() {
+    genClient.clear(CacheKey.supports_preauth);
+  }
+  /** Clears the 'supports_bulkcapture' field, the 'has' method for this field will now return false */
+  public void clearSupportsBulkcapture() {
+    genClient.clear(CacheKey.supports_bulkcapture);
+  }
+  /** Clears the 'mcc_group_name' field, the 'has' method for this field will now return false */
+  public void clearMccGroupName() {
+    genClient.clear(CacheKey.mcc_group_name);
+  }
+  /** Clears the 'klarnaPartnerAccountId' field, the 'has' method for this field will now return false */
+  public void clearKlarnaPartnerAccountId() {
+    genClient.clear(CacheKey.klarnaPartnerAccountId);
+  }
+  /** Clears the 'klarnaPaymentAccountId' field, the 'has' method for this field will now return false */
+  public void clearKlarnaPaymentAccountId() {
+    genClient.clear(CacheKey.klarnaPaymentAccountId);
+  }
+  /** Clears the 'closeHour' field, the 'has' method for this field will now return false */
+  public void clearCloseHour() {
+    genClient.clear(CacheKey.closeHour);
+  }
+  /** Clears the 'synchronyAccountId' field, the 'has' method for this field will now return false */
+  public void clearSynchronyAccountId() {
+    genClient.clear(CacheKey.synchronyAccountId);
+  }
+  /** Clears the 'vatId' field, the 'has' method for this field will now return false */
+  public void clearVatId() {
+    genClient.clear(CacheKey.vatId);
+  }
+  /** Clears the 'cnpGatewayId' field, the 'has' method for this field will now return false */
+  public void clearCnpGatewayId() {
+    genClient.clear(CacheKey.cnpGatewayId);
+  }
+  /** Clears the 'brn' field, the 'has' method for this field will now return false */
+  public void clearBrn() {
+    genClient.clear(CacheKey.brn);
   }
 
 
@@ -931,6 +1469,10 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean ACCOUNTNAME_IS_REQUIRED = false;
     public static final boolean ALTMID_IS_REQUIRED = false;
     public static final boolean MID_IS_REQUIRED = false;
+    public static final boolean ABN_IS_REQUIRED = false;
+    public static final boolean GST_IS_REQUIRED = false;
+    public static final boolean UEN_IS_REQUIRED = false;
+    public static final boolean OFFLINETIPPERCTRATE_IS_REQUIRED = false;
     public static final boolean FNS_IS_REQUIRED = false;
     public static final boolean TID_IS_REQUIRED = false;
     public static final boolean STOREID_IS_REQUIRED = false;
@@ -948,8 +1490,22 @@ public class Gateway extends GenericParcelable implements com.clover.sdk.v3.Vali
     public static final boolean SUPPORTSMULTIPAYTOKEN_IS_REQUIRED = false;
     public static final boolean SUPPORTSPREAUTHOVERAGE_IS_REQUIRED = false;
     public static final boolean CLOSINGTIME_IS_REQUIRED = false;
+    public static final boolean TELECHECK_ICA_MID_IS_REQUIRED = false;
+    public static final boolean TELECHECK_CBP_MID_IS_REQUIRED = false;
+    public static final boolean TELECHECK_PPD_MID_IS_REQUIRED = false;
     public static final boolean NEWBATCHCLOSEENABLED_IS_REQUIRED = false;
     public static final boolean PRODUCTION_IS_REQUIRED = false;
+    public static final boolean VIRTUAL_PROMO_CODE_IS_REQUIRED = false;
+    public static final boolean SUPPORTS_PREAUTH_IS_REQUIRED = false;
+    public static final boolean SUPPORTS_BULKCAPTURE_IS_REQUIRED = false;
+    public static final boolean MCC_GROUP_NAME_IS_REQUIRED = false;
+    public static final boolean KLARNAPARTNERACCOUNTID_IS_REQUIRED = false;
+    public static final boolean KLARNAPAYMENTACCOUNTID_IS_REQUIRED = false;
+    public static final boolean CLOSEHOUR_IS_REQUIRED = false;
+    public static final boolean SYNCHRONYACCOUNTID_IS_REQUIRED = false;
+    public static final boolean VATID_IS_REQUIRED = false;
+    public static final boolean CNPGATEWAYID_IS_REQUIRED = false;
+    public static final boolean BRN_IS_REQUIRED = false;
   }
 
 }

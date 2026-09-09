@@ -14,6 +14,10 @@ import com.clover.sdk.v3.inventory.Tag;
 import com.clover.sdk.v3.inventory.TaxRate;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v3.inventory.Menu;
+import com.clover.sdk.v3.inventory.Marker;
+import com.clover.sdk.v3.inventory.BundleDefinition;
+import com.clover.sdk.v3.inventory.BundleItemGroup;
+import com.clover.sdk.v3.inventory.BundleItem;
 
 /**
  * An interface for interacting with the Clover inventory service. The inventory
@@ -849,4 +853,47 @@ interface IInventoryService {
     * @clover.perm INVENTORY_R
     */
    boolean checkModifiersAvailability(in List<String> modifierIdsList, out ResultStatus resultStatus);
+
+   /**
+    * Retrieve the list of markers associated with an item.
+    * @clover.perm INVENTORY_R
+    */
+    List<Marker> getMarkersForItem(in String itemId, out ResultStatus resultStatus);
+
+   /**
+    * Gets all bundle items for given BundleItemGroupId.
+    */
+   List<BundleItem> getBundleItems(in String bundleItemGroupId, out ResultStatus resultStatus);
+
+   /**
+    * Gets all bundle item groups for given parent item's unique ID.
+    */
+   List<BundleItemGroup> getBundleItemGroups(in String itemId, out ResultStatus resultStatus);
+
+   /**
+    * Gets a single bundle definition identified by its parent item's unique ID.
+    */
+   BundleDefinition getBundleDefinition(in String itemId, out ResultStatus resultStatus);
+
+   /**
+    * Gets all bundle definitions defined for the merchant.
+    */
+   List<BundleDefinition> getBundleDefinitions(out ResultStatus resultStatus);
+
+   /**
+    * Retrieve the list of all markers for the merchant.
+    * @clover.perm INVENTORY_R
+    */
+    List<Marker> getAllMarkers(out ResultStatus resultStatus);
+
+   /**
+    * Associates and dissociates markers for an item.
+    *
+    * @clover.perm INVENTORY_W
+    */
+    void associateMarkerToItem(in String itemId,
+                               in List<String> markerIdsToAssociate,
+                               in List<String> markerIdsToDissociate,
+                               out ResultStatus resultStatus);
+
 }

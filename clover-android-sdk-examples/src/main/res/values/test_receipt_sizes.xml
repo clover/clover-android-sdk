@@ -5,5 +5,6 @@
     <item>Small (Flex, Mini)</item>
     <item>Medium (Station)</item>
     <item>Large (Invalid))</item>
+    <item>Generated from order data (taxes, tips, totals)</item>
   </string-array>
 </resources>

@@ -96,7 +96,41 @@ public enum Module implements Parcelable {
   MULTI_LOCATION,
   PAYBILLS,
   HB_TIMESHEETS,
-  ALLERGY_MANAGEMENT;
+  ALLERGY_MANAGEMENT,
+  /**
+   * Denotes that the merchant has access to Departments.
+   */
+  ITEM_DEPARTMENT,
+  BUNDLE,
+  /**
+   * Denotes that the merchant has access to Projects management feature.
+   */
+  PROJECTS,
+  /**
+   * Denotes that the merchant has access to Sub modifiers feature.
+   */
+  SUB_MODIFIERS,
+  /**
+   * Available on plans where LAN syncing is available.
+   */
+  LOCAL_CONNECT,
+  /**
+   * Denotes that the merchant has EMEA fiscalization enabled.
+   */
+  EMEA_FISCALIZATION,
+  /**
+   * Supports unlimited dining and drinking plans (e.g., all-you-can-eat, nomihodai).
+   */
+  UNLIMITED_DINING_PLANS,
+
+  /**
+   * Denotes that the merchant has access to Item Markers feature.
+   */
+  ITEM_MARKERS,
+
+  SHIPMENT,
+  TAX_ENGINE
+  ;
 
   @Override
   public int describeContents() {

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.clover.sdk.v1.printer.Category;
+import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
 
 import java.util.ArrayList;
@@ -28,12 +29,14 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
   private static final String BUNDLE_REPRINT_ALLOWED = "b";
   private static final String BUNDLE_KEY_MARK_PRINTED = "m";
   private static final String BUNDLE_KEY_BANNER = "banner";
+  private static final String BUNDLE_KEY_VOIDED_LINE_ITEMS = "voidedLineItems";
 
   public static class Builder extends StaticOrderBasedPrintJob.Builder {
     protected ArrayList<String> itemIds;
     private boolean reprintAllowed = false;
     private boolean markPrinted = false;
     private String banner = null;
+    private ArrayList<LineItem> voidedLineItems = null;
 
     public Builder staticOrderPrintJob(StaticOrderPrintJob pj) {
       staticOrderBasedPrintJob(pj);
@@ -41,7 +44,43 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
       this.reprintAllowed = pj.reprintAllowed;
       this.markPrinted = pj.markPrinted;
       this.banner = pj.banner;
+      this.voidedLineItems = pj.voidedLineItems;
+      return this;
+    }
 
+    @Override
+    public Builder order(Order order) {
+      super.order(order);
+      return this;
+    }
+
+    @Override
+    public Builder reason(String reason) {
+      super.reason(reason);
+      return this;
+    }
+
+    @Override
+    public Builder flag(int flag) {
+      super.flag(flag);
+      return this;
+    }
+
+    @Override
+    public Builder flags(int flags) {
+      super.flags(flags);
+      return this;
+    }
+
+    @Override
+    public Builder includePrintGroups(boolean includePrintGroups) {
+      super.includePrintGroups(includePrintGroups);
+      return this;
+    }
+
+    @Override
+    public Builder printToAny(boolean printToAny) {
+      super.printToAny(printToAny);
       return this;
     }
 
@@ -71,6 +110,17 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
       return this;
     }
 
+    /**
+     * Sets the voided line items associated with this print job.
+     *
+     * @param voidedLineItems voided line items, or null if not applicable
+     * @return this Builder instance for method chaining
+     */
+    public Builder voidedLineItems(ArrayList<LineItem> voidedLineItems) {
+      this.voidedLineItems = voidedLineItems;
+      return this;
+    }
+
     public StaticOrderPrintJob build() {
       return new StaticOrderPrintJob(this);
     }
@@ -84,6 +134,12 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
    * This text will be displayed as a banner on the printed output.
    */
   public final String banner;
+  /**
+   * Voided line items used for void-receipt printing.
+   * This is an optional field and may be null if not applicable.
+   */
+  public final ArrayList<LineItem> voidedLineItems;
+
 
   /**
    * Creates a new StaticOrderPrintJob instance.
@@ -103,6 +159,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     this.reprintAllowed = reprintAllowed;
     this.markPrinted = markPrinted;
     this.banner = banner;
+    this.voidedLineItems = null;
   }
 
   protected StaticOrderPrintJob(Builder builder) {
@@ -111,6 +168,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     this.reprintAllowed = builder.reprintAllowed;
     this.markPrinted = builder.markPrinted;
     this.banner = builder.banner;
+    this.voidedLineItems = builder.voidedLineItems;
   }
 
   public static final Creator<StaticOrderPrintJob> CREATOR = new Creator<StaticOrderPrintJob>() {
@@ -130,6 +188,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     reprintAllowed = bundle.getBoolean(BUNDLE_REPRINT_ALLOWED);
     markPrinted = bundle.getBoolean(BUNDLE_KEY_MARK_PRINTED);
     banner = bundle.getString(BUNDLE_KEY_BANNER);
+    voidedLineItems = bundle.getParcelableArrayList(BUNDLE_KEY_VOIDED_LINE_ITEMS);
   }
 
   @Override
@@ -145,6 +204,7 @@ public class StaticOrderPrintJob extends StaticOrderBasedPrintJob implements Par
     bundle.putBoolean(BUNDLE_REPRINT_ALLOWED, reprintAllowed);
     bundle.putBoolean(BUNDLE_KEY_MARK_PRINTED, markPrinted);
     bundle.putString(BUNDLE_KEY_BANNER, banner);
+    bundle.putParcelableArrayList(BUNDLE_KEY_VOIDED_LINE_ITEMS, voidedLineItems);
 
     dest.writeBundle(bundle);
   }
