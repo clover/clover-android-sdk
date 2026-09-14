@@ -86,7 +86,11 @@ com.clover.sdk.v3.report
 com.clover.sdk.v3.resellers
 com.clover.sdk.v3.scanner
 com.clover.sdk.v3.serverfeature
+com.clover.sdk.v3.shipping
 com.clover.sdk.v3.tables2
 com.clover.sdk.v3.tokens
+com.clover.sdk.v3.vas
+com.clover.sdk.v3.vas.connector
+com.clover.sdk.v3.vas.listener
 module:clover-android-sdk-retrofit
 com.clover.sdk.v3.retrofit

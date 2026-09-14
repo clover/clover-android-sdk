@@ -43,7 +43,7 @@
 <a class="library-name--link" href="../../../index.html">
                             Clover Android SDK
                     </a>            </div>
-            <div class="library-version">r334
+            <div class="library-version">r340
             </div>
         </div>
         <div class="filter-section" id="filter-section">
@@ -64,7 +64,7 @@
   <div class="breadcrumbs"><a href="../../index.html">clover-android-sdk</a><span class="delimiter">/</span><a href="../index.html">com.clover.sdk.v3.cash</a><span class="delimiter">/</span><span class="current">CashContract</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Cash</span><wbr><span><span>Contract</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">CashContract</a></div><p class="paragraph">The contract between the cash management provider and applications. Contains definitions for the supported URIs and columns. </p> Cash events are recorded locally on device only and not synced between devices or sent to the cloud.  This is a read-only contract. Cash events are created when cash payments or refunds occur. To manually record cash events use <a href="../-cash-events/index.html">com.clover.sdk.v3.cash.CashEvents</a>.</div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":clover-android-sdk:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">class </span><a href="index.html">CashContract</a></div><p class="paragraph">The contract between the cash management provider and applications. Contains definitions for the supported URIs and columns. </p> Cash events are synchronized from the cloud to the device via the Nsync protocol. </div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
