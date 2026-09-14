@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_barcode_scanner_test">Barcode Scanner Test</string>
+  <string name="inventory_test">Inventory Test</string>
+  <string name="customer_test">Customer Test</string>
+  <string name="order_test">Order Test</string>
+  <string name="app_notification_test">App Notification Test</string>
+  <string name="inventory_list">Inventory List</string>
+  <string name="title_activity_web_service">Web Service Test</string>
+  <string name="create_custom_tender_test">Create Custom Tender Test</string>
+  <string name="custom_tender_handler_test">Custom Tender Handler Test</string>
+  <string name="cashevent_test">Cash Event Test</string>
+  <string name="cash_drawers_test">Cash Drawers Test</string>
+  <string name="printer_test">Printer Test</string>
+  <string name="printjob_test">Print Job Test</string>
+  <string name="print_test">Print Test</string>
+  <string name="receipt_registration_test">Receipt Registration Test</string>
+  <string name="authenticate_employee">Authenticate Employee</string>
+  <string name="print_task_test">Print View And Image Test</string>
+  <string name="print_image_footer">Print Footer-Image</string>
+  <string name="platform2_details_name">Platform2 Details</string>
+  <string name="lockscreen_test_activity">Lockscreen Test</string>
+  <string name="merchant_devices_v2_activity_label">Merchant Devices V2 Test</string>
+  <string name="keypad_test">Keypad Test</string>
+  <string name="salerefund_test">Sale/Refund Test</string>
+  <string name="about_authEmp">This example will be highlighting the ACTION_AUTHENTICATE_EMPLOYEE intent. Button for ANY EMPLOYEE, CURRENT EMPLOYEE, and ADMIN ROLE will prompt the user to input the employee\'s passcode to authenticate. Each button click will respond with a log of the requestCode and the resultCode.</string>
+  <string name="action_settings">Settings</string>
+  <string name="payload">Payload</string>
+  <string name="send_app_notification">Send app notification</string>
+  <string name="cannot_send_auth_failed">Cannot send app notification because authentication did not succeed.</string>
+  <string name="error_while_sending">An error occurred while sending the app notification: %s</string>
+  <string name="app_event_name">App event name</string>
+  <string name="custom_receipt_provider_test">Custom Receipt Provider Test</string>
+  <string name="custom_receipt_provider_note"><![CDATA[<b>Note:</b> Activity will be closed automatically to apply the changes when either of the buttons is clicked. This is needed because
+  the current activity may still not be aware of the provider\'s new state unless it is restarted.]]></string>
+  <string name="custom_receipt_provider_timeout_note"><![CDATA[<b>Note:</b> For custom receipt printing, Clover has fixed timeout set in place for provider\'s response.
+    If provider doesn\'t respond within that timeout, Clover will reject print request and show \"Print Failed\" toast message.\nThis behaviour can be tested using timeout options: \n
+    \u25CF Timeout Uris: It will force provider to respond with list of uris after the timeout. \n
+    \u25CF Timeout Bitmaps: It will force provider to respond with receipt bitmap(s) after the timeout. \n
+    \u25CF Test without Timeout: Provider will respond normally without any timeout. \n]]></string>
+  <string name="bitmap_chunks_edit_text_desc">Number of bitmap chunks to be printed: (Please enter the number between 0 and 99):</string>
+  <string name="receipt_size_selection_spinner_desc">Select the size of the test receipt that you would like:</string>
+  <string name="enable_provider">Enable Provider</string>
+  <string name="disable_provider">Disable Provider</string>
+  <string name="save">Save</string>
+  <string name="with_uri_timeout">Timeout Uris</string>
+  <string name="with_bitmap_timeout">Timeout Bitmap(s)</string>
+  <string name="without_timeout">Test without timeout</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="view_print">View Print</string>
+  <string name="image_print">Image Print</string>
+  <string name="select_a_printer_below">Select a printer below:</string>
+  <string name="unlock">Unlock</string>
+  <string name="lock">Lock</string>
+  <string name="select_string">Please select an employee below :\n(Deselect to disable)</string>
+  <string name="custom_item_test_activity">Order Custom Item Test</string>
+  <string name="order_id_custom_item">Order ID :</string>
+  <string name="create_new_order">Create new order</string>
+  <string name="item_name">Item Name</string>
+  <string name="quantity_per_unit">Quantity - per unit</string>
+  <string name="item_unit">Item Unit</string>
+  <string name="item_price">Price</string>
+  <string name="add_item_to_order">Add item to order</string>
+  <string name="complete_order">Complete Order</string>
+  <string name="uninstall_this_app">Uninstall this app (com.clover.android.sdk.examples) from the merchant Web Dashboard or from the More Tools app on this device or another device. You will see an indication here and in the logs when the pre-uninstall intent is received.\n\nThis screen is shown for explanatory purposes only. Pre-uninstall work should be done in the background and should not have any user interaction.</string>
+  <string name="name_label">Name</string>
+  <string name="model_label">Model</string>
+  <string name="id_label">ID</string>
+  <string name="this_device">This device:</string>
+  <string name="this_device_s_serial">This device\'s serial:</string>
+  <string name="start_keypad">Start Keypad</string>
+  <string name="screensaver_label">Screensaver test</string>
+  <string name="dining_events_test">Dining Events Test</string>
+  <string name="mifare_card_reader_test">Mifare Card Reader Test</string>
+  <string name="device_counters_test">Device Counters Test</string>
+  <string name="nfc_reader_test">Felica/NFC Reader Test</string>
+</resources>

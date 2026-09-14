@@ -11,5 +11,6 @@ package com.clover.sdk.v1.app
 enum class CloseoutAppEvent(val appEvent: String) {
   BATCH_CLOSED("batch_closed"),
   BATCH_FAILED("batch_failed"),
-  EXTRA_BATCH_ID("batchId")
+  EXTRA_BATCH_ID("batchId"),
+  EXTRA_OPERATION_REPORT_ID("operationReportId")
 }

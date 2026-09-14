@@ -1,16 +1,20 @@
 package com.clover.sdk.v1.printer.job;
 
 import com.clover.sdk.v1.printer.Category;
+import com.clover.sdk.v3.order.LineItem;
 import com.clover.sdk.v3.order.Order;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -18,6 +22,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertTrue;
 
 
+@RunWith(RobolectricTestRunner.class)
 public class StaticOrderPrintJobTest {
   StaticOrderPrintJob printJob;
   ArrayList<String> itemIds = new ArrayList<>();
@@ -86,6 +91,25 @@ public class StaticOrderPrintJobTest {
   }
 
   @Test
+  public void assertProperties_voidedLineItems_defaultIsNull() {
+    assertNull(printJob.voidedLineItems);
+  }
+
+  @Test
+  public void assertProperties_voidedLineItems_setViaBuilder() {
+    ArrayList<LineItem> voidedLineItems = new ArrayList<>();
+    LineItem voidedLineItem = new LineItem();
+    voidedLineItem.setId("voided-line-item-id");
+    voidedLineItems.add(voidedLineItem);
+
+    printJob = new StaticOrderPrintJob.Builder().voidedLineItems(voidedLineItems).build();
+
+    assertNotNull(printJob.voidedLineItems);
+    assertEquals(1, printJob.voidedLineItems.size());
+    assertEquals("voided-line-item-id", printJob.voidedLineItems.get(0).getId());
+  }
+
+  @Test
   public void constructorTest_deprecated() {
     ArrayList<String> list = new ArrayList<>();
     list.add("item1");
@@ -110,5 +134,32 @@ public class StaticOrderPrintJobTest {
         .flag(PrintJob.FLAG_UNLABELED_ITEMS)
         .flag(PrintJob.FLAG_EXPEDITOR)
         .build();
+  }
+
+  @Test
+  public void builderMethodChaining_returnsCorrectType() {
+    // Test that chaining methods from parent classes returns StaticOrderPrintJob.Builder
+    // This verifies the fix for covariant return types in the builder hierarchy
+    StaticOrderPrintJob.Builder builder = new StaticOrderPrintJob.Builder();
+
+    // All these methods should return StaticOrderPrintJob.Builder for chaining
+    StaticOrderPrintJob printJob = builder
+        .order(new Order())
+        .reason("Test reason")
+        .flag(PrintJob.FLAG_REPRINT)
+        .includePrintGroups(true)
+        .itemIds(itemIds)
+        .reprintAllowed(true)
+        .markPrinted(true)
+        .banner("Test Banner")
+        .build();
+
+    assertNotNull(printJob);
+    assertTrue(printJob.reprintAllowed);
+    assertTrue(printJob.markPrinted);
+    assertEquals("Test Banner", printJob.banner);
+    assertEquals(itemIds, printJob.itemIds);
+    assertEquals(printJob.flags & PrintJob.FLAG_REPRINT, PrintJob.FLAG_REPRINT);
+    assertEquals(printJob.flags & PrintJob.FLAG_USE_PRINT_GROUP, PrintJob.FLAG_USE_PRINT_GROUP);
   }
 }

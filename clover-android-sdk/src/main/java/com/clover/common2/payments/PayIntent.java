@@ -148,6 +148,7 @@ public class PayIntent implements Parcelable {
     private Credit originatingCredit;
     private Refund refund;
     private Tender customerTender;
+    private boolean requiresCustomTender;
     // Optional map of values passed through to the server NOT used in payment processing or persisted
     private Map<String, String> passThroughValues;
     //Optional map of application specific values
@@ -170,6 +171,7 @@ public class PayIntent implements Parcelable {
     private String applyRealtimeDiscountForPkgName;
     private Long serviceFeeAmount;
     private String dynamicTipSelection;
+    private String localeFulfilmentRequest;
 
     public Builder intent(Intent intent) {
       action = intent.getAction();
@@ -284,6 +286,9 @@ public class PayIntent implements Parcelable {
       if (intent.hasExtra(Intents.EXTRA_CUSTOMER_TENDER)) {
         customerTender = intent.getParcelableExtra(Intents.EXTRA_CUSTOMER_TENDER);
       }
+      if (intent.hasExtra(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED)) {
+        requiresCustomTender = intent.getBooleanExtra(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED, false);
+      }
       if (intent.hasExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE)) {
         originatingPaymentPackage = intent.getStringExtra(Intents.EXTRA_ORIGINATING_PAYMENT_PACKAGE);
       }
@@ -339,6 +344,10 @@ public class PayIntent implements Parcelable {
 
       if (intent.hasExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION)) {
         dynamicTipSelection = intent.getStringExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION);
+      }
+
+      if (intent.hasExtra(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST)) {
+        localeFulfilmentRequest = intent.getStringExtra(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST);
       }
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
@@ -468,6 +477,7 @@ public class PayIntent implements Parcelable {
       }
       this.refund = payIntent.refund;
       this.customerTender = payIntent.customerTender;
+      this.requiresCustomTender = payIntent.requiresCustomTender;
       this.isDisableCreditSurcharge = payIntent.isDisableCreditSurcharge;
       this.isPresentQrcOnly = payIntent.isPresentQrcOnly;
       this.isManualCardEntryByPassMode = payIntent.isManualCardEntryByPassMode;
@@ -486,6 +496,7 @@ public class PayIntent implements Parcelable {
       this.applyRealtimeDiscountForPkgName = payIntent.applyRealtimeDiscountForPkgName;
       this.serviceFeeAmount = payIntent.serviceFeeAmount;
       this.dynamicTipSelection = payIntent.dynamicTipSelection;
+      this.localeFulfilmentRequest = payIntent.localeFulfilmentRequest;
 
       // As a general rule, the transactionSettings assignment should always be the last one
       // prior to the return statement.  This is to ensure any new/added overrides don't get
@@ -800,6 +811,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder requiresCustomTender(boolean requiresCustomTender) {
+      this.requiresCustomTender = requiresCustomTender;
+      return this;
+    }
+
     public Builder disableCreditSurcharge(boolean disableCreditSurcharge) {
       this.isDisableCreditSurcharge = disableCreditSurcharge;
       if (transactionSettings != null) { // ** Backward Compatibility **
@@ -899,6 +915,11 @@ public class PayIntent implements Parcelable {
       return this;
     }
 
+    public Builder localeFulfilmentRequest(String localeFulfilmentRequest) {
+      this.localeFulfilmentRequest = localeFulfilmentRequest;
+      return this;
+    }
+
     public PayIntent build() {
       return new PayIntent(action, amount, tippableAmount, tipAmount, taxAmount, cashbackAmount, orderId, paymentId, employeeId,
           transactionType, taxableAmountRates, serviceChargeAmount, isDisableCashBack, isTesting, cardEntryMethods,
@@ -909,7 +930,7 @@ public class PayIntent implements Parcelable {
           originatingPayment != null ? originatingPayment.getCardTransaction() : originatingTransaction,
           themeName, originatingPayment, originatingCredit, passThroughValues, applicationSpecificValues, refund,
           customerTender, isDisableCreditSurcharge, isPresentQrcOnly, isManualCardEntryByPassMode,isAllowManualCardEntryOnMFD, quickPaymentTransactionUuid,
-          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName, serviceFeeAmount, dynamicTipSelection);
+          authorization,tokenizeCardRequest,tokenizeCardResponse, dataReadMode, refundReason, thresholdManagerName, thresholdManagerId, ebtManualCardEntryScreenFlow, paymentType, createAuth, applyRealtimeDiscountForPkgName, serviceFeeAmount, dynamicTipSelection, requiresCustomTender, localeFulfilmentRequest);
     }
   }
 
@@ -1002,6 +1023,7 @@ public class PayIntent implements Parcelable {
   public final Credit originatingCredit;
   public final Refund refund;
   public final Tender customerTender;
+  public final boolean requiresCustomTender;
   public final Map<String, String> passThroughValues;
   public final Map<String, String> applicationSpecificValues;
   public boolean isDisableCreditSurcharge;
@@ -1022,6 +1044,7 @@ public class PayIntent implements Parcelable {
   public String applyRealtimeDiscountForPkgName;
   public Long serviceFeeAmount;
   public String dynamicTipSelection;
+  public String localeFulfilmentRequest;
 
 
   private PayIntent(String action, Long amount, Long tippableAmount,
@@ -1041,7 +1064,7 @@ public class PayIntent implements Parcelable {
                     boolean isPresntQrcOnly, boolean isManualCardEntryByPassMode, boolean isAllowManualCardEntryOnMFD, String quickPaymentTransactionUuid,
                     Authorization authorization,TokenizeCardRequest tokenizeCardRequest, TokenizeCardResponse tokenizeCardResponse, String dataReadMode,
                     String refundReason, String thresholdManagerName, String thresholdManagerId, String ebtManualCardEntryScreenFlow,
-                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName, Long serviceFeeAmount, String dynamicTipSelection) {
+                    String paymentType, Boolean createAuth, String applyRealtimeDiscountForPkgName, Long serviceFeeAmount, String dynamicTipSelection, boolean requiresCustomTender, String localeFulfilmentRequest) {
     this.action = action;
     this.amount = amount;
     this.tippableAmount = tippableAmount;
@@ -1087,6 +1110,7 @@ public class PayIntent implements Parcelable {
     this.originatingCredit = originatingCredit;
     this.refund = refund;
     this.customerTender = customerTender;
+    this.requiresCustomTender = requiresCustomTender;
     this.isDisableCreditSurcharge = isDisableCreditSurcharge;
     this.isPresentQrcOnly = isPresntQrcOnly;
     this.isManualCardEntryByPassMode =  isManualCardEntryByPassMode;
@@ -1108,6 +1132,7 @@ public class PayIntent implements Parcelable {
     this.passThroughValues = passThroughValues;
     this.applicationSpecificValues = applicationSpecificValues;
     this.dynamicTipSelection = dynamicTipSelection;
+    this.localeFulfilmentRequest = localeFulfilmentRequest;
 
     // As a general rule, the transactionSettings assignment should always be the last one
     // prior to the return statement.  This is to ensure any new/added overrides don't get
@@ -1369,6 +1394,7 @@ public class PayIntent implements Parcelable {
     }
     if (customerTender != null) {
       intent.putExtra(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
+      intent.putExtra(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED, requiresCustomTender);
     }
     intent.putExtra(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, isDisableCreditSurcharge);
     intent.putExtra(Intents.EXTRA_PRESENT_QRC_ONLY, isPresentQrcOnly);
@@ -1439,6 +1465,10 @@ public class PayIntent implements Parcelable {
     if (dynamicTipSelection != null) {
         intent.putExtra(Intents.EXTRA_DYNAMIC_TIP_SELECTION, dynamicTipSelection);
     }
+
+    if (localeFulfilmentRequest != null) {
+      intent.putExtra(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST, localeFulfilmentRequest);
+    }
   }
 
   @Override
@@ -1489,6 +1519,7 @@ public class PayIntent implements Parcelable {
            ", applicationSpecificValues=" + applicationSpecificValues +
            ", refund=" + refund +
            ", customerTender=" + customerTender +
+           ", requiresCustomTender=" + requiresCustomTender +
            ", isDisableCreditSurcharge=" + isDisableCreditSurcharge +
            ", isPresentQrcOnly=" + isPresentQrcOnly +
            ", isManualCardEntryByPassMode" + isManualCardEntryByPassMode +
@@ -1506,6 +1537,7 @@ public class PayIntent implements Parcelable {
            ", applyRealtimeDiscountForPkgName=" + applyRealtimeDiscountForPkgName +
            ", serviceFeeAmount=" + serviceFeeAmount +
            ", dynamicTipSelection=" + dynamicTipSelection +
+           ", localeFulfilmentRequest=" + localeFulfilmentRequest +
            '}';
   }
 
@@ -1672,6 +1704,7 @@ public class PayIntent implements Parcelable {
 
     if (customerTender != null) {
       bundle.putParcelable(Intents.EXTRA_CUSTOMER_TENDER, customerTender);
+      bundle.putBoolean(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED, requiresCustomTender);
     }
 
     bundle.putBoolean(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, isDisableCreditSurcharge);
@@ -1730,6 +1763,10 @@ public class PayIntent implements Parcelable {
 
     if (dynamicTipSelection != null) {
       bundle.putString(Intents.EXTRA_DYNAMIC_TIP_SELECTION, dynamicTipSelection);
+    }
+
+    if (localeFulfilmentRequest != null) {
+      bundle.putString(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST, localeFulfilmentRequest);
     }
 
     // write out
@@ -1935,6 +1972,10 @@ public class PayIntent implements Parcelable {
         }
       }
 
+      if (bundle.containsKey(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED)) {
+        builder.requiresCustomTender(bundle.getBoolean(Intents.EXTRA_CUSTOMER_TENDER_REQUIRED, false));
+      }
+
       builder.disableCreditSurcharge(bundle.getBoolean(Intents.EXTRA_DISABLE_CREDIT_SURCHARGE, false));
 
       builder.isPresentQrcOnly(bundle.getBoolean(Intents.EXTRA_PRESENT_QRC_ONLY, false));
@@ -1989,6 +2030,10 @@ public class PayIntent implements Parcelable {
 
       if (bundle.containsKey(Intents.EXTRA_DYNAMIC_TIP_SELECTION)) {
         builder.dynamicTipSelection(bundle.getString(Intents.EXTRA_DYNAMIC_TIP_SELECTION));
+      }
+
+      if (bundle.containsKey(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST)) {
+        builder.localeFulfilmentRequest(bundle.getString(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST));
       }
 
       // build

@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum Type implements Parcelable {
-  LOAD, TRANSACTION, OPEN, ADJUSTMENT, COUNT, UNLOAD;
+  TRANSACTION, ADJUSTMENT, OPEN, COUNT, LOAD, UNLOAD, EOD, SOD, INSPECTION ;
 
   @Override
   public int describeContents() {

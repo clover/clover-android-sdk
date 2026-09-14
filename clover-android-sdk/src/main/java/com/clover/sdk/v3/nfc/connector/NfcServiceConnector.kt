@@ -22,7 +22,7 @@ internal class NfcServiceConnector(private val context: Context) {
         private const val NFC_SERVICE_CLASS =
             "com.clover.payment.service.services.nfc.NfcReaderService"
         private const val CORE_PAYMENTS_PACKAGE = "com.clover.payment.core"
-        private const val DEVICE_TIMEOUT: Long = 30 * 1000 // 30 seconds
+        private const val DEVICE_TIMEOUT: Long = 24 * 60 * 60 * 1000 // 24 hours
         private const val TIME_INTERVAL_ONE_SEC: Long = 1000 // 1 sec
     }
 
@@ -59,6 +59,7 @@ internal class NfcServiceConnector(private val context: Context) {
 
     internal fun disconnect(): Boolean {
         if (bound) {
+            nfcServiceBinder?.closeSession()
             serviceConnection?.let { localServiceConnection ->
                 context.unbindService(localServiceConnection)
             } ?: run {

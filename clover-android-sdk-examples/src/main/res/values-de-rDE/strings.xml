@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_barcode_scanner_test">Barcode-Scanner-Test</string>
+  <string name="inventory_test">Inventar-Test</string>
+  <string name="customer_test">Kundentest</string>
+  <string name="order_test">Bestellungstest</string>
+  <string name="app_notification_test">App-Benachrichtigungstest</string>
+  <string name="inventory_list">Inventarliste</string>
+  <string name="title_activity_web_service">Webservice-Test</string>
+  <string name="create_custom_tender_test">Benutzerdefinierten Zahlungsart-Test erstellen</string>
+  <string name="custom_tender_handler_test">Test für benutzerdefinierten Zahlungsart-Handler</string>
+  <string name="cashevent_test">Bargeld-Ereignis-Test</string>
+  <string name="cash_drawers_test">Kassenschubladentest</string>
+  <string name="printer_test">Druckertest</string>
+  <string name="printjob_test">Druckauftrag-Test</string>
+  <string name="print_test">Drucktest</string>
+  <string name="receipt_registration_test">Belegregistrierungstest</string>
+  <string name="authenticate_employee">Mitarbeiter authentifizieren</string>
+  <string name="print_task_test">Druckansicht und Bildtest</string>
+  <string name="print_image_footer">Fußzeilenbild drucken</string>
+  <string name="platform2_details_name">Platform2-Details</string>
+  <string name="lockscreen_test_activity">Sperrbildschirm-Test</string>
+  <string name="merchant_devices_v2_activity_label">Händlergeräte V2 Test</string>
+  <string name="keypad_test">Keypad-Test</string>
+  <string name="salerefund_test">Verkauf/Rückerstattung-Test</string>
+  <string name="about_authEmp">Dieses Beispiel hebt den Intent ACTION_AUTHENTICATE_EMPLOYEE hervor. Schaltflächen für BELIEBIGER MITARBEITER, AKTUELLER MITARBEITER und ADMIN-ROLLE werden
+        den Benutzer auffordern, den Passcode des Mitarbeiters zur Authentifizierung einzugeben. Jeder Klick auf eine Schaltfläche antwortet mit einem Log von requestCode und resultCode.</string>
+  <string name="action_settings">Einstellungen</string>
+  <string name="payload">Nutzlast</string>
+  <string name="send_app_notification">App-Benachrichtigung senden</string>
+  <string name="cannot_send_auth_failed">App-Benachrichtigung kann nicht gesendet werden, da die Authentifizierung fehlgeschlagen ist.</string>
+  <string name="error_while_sending">Beim Senden der App-Benachrichtigung ist ein Fehler aufgetreten: %s</string>
+  <string name="app_event_name">App-Event-Name</string>
+  <string name="custom_receipt_provider_test">Benutzerdefinierter Beleganbieter-Test</string>
+  <string name="custom_receipt_provider_note"><![CDATA[<b>Hinweis:</b> Die Aktivität wird automatisch geschlossen, um die Änderungen zu übernehmen, wenn eine der Schaltflächen angeklickt wird. Dies ist erforderlich, da
+  die aktuelle Aktivität den neuen Status des Providers möglicherweise erst nach einem Neustart erkennt.]]></string>
+  <string name="custom_receipt_provider_timeout_note"><![CDATA[<b>Hinweis:</b> Für den benutzerdefinierten Belegdruck hat Clover ein festes Zeitlimit für die Antwort des Anbieters festgelegt.
+    Wenn der Anbieter nicht innerhalb dieses Zeitlimits antwortet, lehnt Clover die Druckanfrage ab und zeigt die Toast-Nachricht \"Print Failed\" an.\nDieses Verhalten kann mithilfe der Timeout-Optionen getestet werden: \n
+    \u25CF Timeout-URIs: Zwingt den Anbieter, nach Ablauf des Zeitlimits mit einer Liste von URIs zu antworten. \n
+    \u25CF Timeout-Bitmaps: Zwingt den Anbieter, nach Ablauf des Zeitlimits mit Beleg-Bitmap(s) zu antworten. \n
+    \u25CF Test ohne Zeitlimit: Der Anbieter antwortet normal ohne Zeitlimit. \n]]></string>
+  <string name="bitmap_chunks_edit_text_desc">Anzahl der zu druckenden Bitmap-Chunks: (Bitte geben Sie eine Zahl zwischen 0 und 99 ein):</string>
+  <string name="receipt_size_selection_spinner_desc">Wählen Sie die gewünschte Größe des Testbelegs:</string>
+  <string name="enable_provider">Anbieter aktivieren</string>
+  <string name="disable_provider">Anbieter deaktivieren</string>
+  <string name="save">Speichern</string>
+  <string name="with_uri_timeout">Timeout-URIs</string>
+  <string name="with_bitmap_timeout">Timeout-Bitmap(s)</string>
+  <string name="without_timeout">Test ohne Zeitüberschreitung</string>
+  <string name="hello_world">Hallo Welt!</string>
+  <string name="view_print">Druck anzeigen</string>
+  <string name="image_print">Bilddruck</string>
+  <string name="select_a_printer_below">Wählen Sie unten einen Drucker aus:</string>
+  <string name="unlock">Entsperren</string>
+  <string name="lock">Sperren</string>
+  <string name="select_string">Bitte wählen Sie unten einen Mitarbeiter aus :\n(Zum Deaktivieren Auswahl aufheben)</string>
+  <string name="custom_item_test_activity">Test: Bestellung benutzerdefinierter Artikel</string>
+  <string name="order_id_custom_item">Bestell-ID :</string>
+  <string name="create_new_order">Neue Bestellung erstellen</string>
+  <string name="item_name">Artikelname</string>
+  <string name="quantity_per_unit">Menge - pro Einheit</string>
+  <string name="item_unit">Artikeleinheit</string>
+  <string name="item_price">Preis</string>
+  <string name="add_item_to_order">Item zur Bestellung hinzufügen</string>
+  <string name="complete_order">Bestellung abschließen</string>
+  <string name="uninstall_this_app">Deinstallieren Sie diese App (com.clover.android.sdk.examples) im Händler-Web-Dashboard oder über die App „More Tools“ auf diesem oder einem anderen Gerät. Sie sehen hier und in den Protokollen einen Hinweis, wenn der Pre-Uninstall-Intent empfangen wird.\n\nDieser Bildschirm wird nur zu Erklärungszwecken angezeigt. Arbeiten vor der Deinstallation sollten im Hintergrund durchgeführt werden und keine Benutzerinteraktion erfordern.</string>
+  <string name="name_label">Name</string>
+  <string name="model_label">Modell</string>
+  <string name="id_label">ID</string>
+  <string name="this_device">Dieses Gerät:</string>
+  <string name="this_device_s_serial">Seriennummer dieses Geräts:</string>
+  <string name="start_keypad">Tastenfeld starten</string>
+  <string name="screensaver_label">Bildschirmschoner-Test</string>
+  <string name="dining_events_test">Dining-Events-Test</string>
+  <string name="mifare_card_reader_test">Mifare-Kartenlesertest</string>
+  <string name="device_counters_test">Gerätezähler-Test</string>
+  <string name="nfc_reader_test">Felica/NFC-Lesegerät-Test</string>
+</resources>

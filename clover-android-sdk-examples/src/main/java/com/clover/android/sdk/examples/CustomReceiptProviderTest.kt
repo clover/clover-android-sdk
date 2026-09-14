@@ -15,6 +15,7 @@ import android.os.ParcelFileDescriptor
 import android.os.ParcelFileDescriptor.AutoCloseOutputStream
 import android.provider.BaseColumns
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -24,6 +25,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.clover.sdk.SimpleSyncClient
+import com.clover.sdk.internal.util.UnstableContentResolverClient
 import com.clover.sdk.util.CloverAccount
 import com.clover.sdk.v1.ServiceConnector
 import com.clover.sdk.v1.ServiceConnector.OnServiceConnectedListener
@@ -37,13 +40,25 @@ import com.clover.sdk.v1.printer.job.StaticBillPrintJob
 import com.clover.sdk.v1.printer.job.StaticCreditPrintJob
 import com.clover.sdk.v1.printer.job.StaticGiftReceiptPrintJob
 import com.clover.sdk.v1.printer.job.StaticLabelPrintJob
+import com.clover.sdk.v1.printer.job.StaticOrderBasedPrintJob
 import com.clover.sdk.v1.printer.job.StaticOrderPrintJob
 import com.clover.sdk.v1.printer.job.StaticPaymentPrintJob
 import com.clover.sdk.v1.printer.job.StaticRefundPrintJob
 import com.clover.sdk.v1.printer.job.TextPrintJob
 import com.clover.sdk.v1.printer.job.TokenRequestBasedPrintJob
+import com.clover.sdk.v3.device.Device
+import com.clover.sdk.v3.employees.Employee
+import com.clover.sdk.v3.employees.EmployeeConnector
+import com.clover.sdk.v3.merchant.LogoType
+import com.clover.sdk.v3.merchant.Merchant
+import com.clover.sdk.v3.merchant.MerchantDevicesV2Connector
+import com.clover.sdk.v3.order.Order
+import com.clover.sdk.v3.order.OrderConnector
+import com.clover.sdk.v3.payments.Payment
+import com.clover.sdk.v3.payments.Refund
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -52,11 +67,16 @@ import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.IOException
+import androidx.core.graphics.scale
 
 class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener, CoroutineScope by MainScope() {
 
   private var printer: Printer? = null
   private var printerConnector: PrinterConnector? = null
+
+  private val devicesConnector by lazy { MerchantDevicesV2Connector(context) }
+  private var orderConnector: OrderConnector? = null
+  private var employeeConnector: EmployeeConnector? = null
   private var account: Account? = null
   private var supportedReceiptWidth: Int? = null
   private var selectedFileResId = R.drawable.test_receipt_auto_select
@@ -76,14 +96,21 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
     const val TABLE_NAME = "receipt_bitmaps"
     const val SEGMENT_URI = "segment_uri"
     lateinit var database: AppDatabase
-
     const val SHARED_PREFS = "customReceiptProviderPrefs"
     const val N_CHUNKS = "nChunks"
     const val SELECTED_FILE_RES_ID = "selectedFileResId"
     const val DELAYED_RESPONSE_URIS = "delayedResponseUris"
     const val DELAYED_RESPONSE_BITMAPS = "delayedResponseBitmaps"
     const val MAX_RECEIPT_HEIGHT = 2048
-    const val TAG = "CustomReceiptProviderTest"
+
+    /**
+     * Sentinel "selected file" value (not a real drawable id): instead of returning a canned
+     * test image, generate the receipt from the print job's order, payment and merchant data
+     * with [SampleReceiptGenerator].
+     */
+    const val SELECTED_FILE_GENERATED = 0
+
+    const val TAG = "CRPTest"
   }
 
   @Entity(tableName = TABLE_NAME)
@@ -187,30 +214,36 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
 
   @Throws(FileNotFoundException::class)
   override fun openFile(contentUri: Uri, mode: String): ParcelFileDescriptor {
-    val bitmap = getReceiptSegmentBitmap(contentUri)
-    val rescaledBitmap = if (selectedFileResId == R.drawable.test_receipt_auto_select && bitmap != null && supportedReceiptWidth != null) {
+    // Segments are already stored as PNG bytes, so stream them as-is. Decoding and
+    // re-encoding here roughly doubles the per-segment latency for no benefit.
+    val segmentBytes = if (selectedFileResId == R.drawable.test_receipt_auto_select && supportedReceiptWidth != null) {
       // WARNING: Generate the receipt bitmap with width = supportedReceiptWidth and height up to
       // CustomReceiptProviderTest.MAX_RECEIPT_HEIGHT. Instead of generating a receipt bitmap
       // matching the supportedReceiptWidth, for testing purpose this app resizes the test bitmap
       // resource to supportedReceiptWidth x supportedReceiptWidth
-      Bitmap.createScaledBitmap(bitmap, supportedReceiptWidth!!, supportedReceiptWidth!!, false)
+      getReceiptSegmentBytes(contentUri)?.let { bytes ->
+        val opts = BitmapFactory.Options().apply { inPreferredConfig = Bitmap.Config.RGB_565 }
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size, opts)
+        val rescaled = bitmap.scale(supportedReceiptWidth!!, supportedReceiptWidth!!, false)
+        ByteArrayOutputStream().also {
+          rescaled.compress(Bitmap.CompressFormat.PNG, 100, it)
+        }.toByteArray()
+      }
     } else {
-      getReceiptSegmentBitmap(contentUri)
+      getReceiptSegmentBytes(contentUri)
     }
 
     if (delayedResponseBitmaps == true) {
       runBlocking { delay(ReceiptContentContract.PROVIDER_TIMEOUT + 1000) }
     }
 
-    return openPipeHelper<Bitmap>(
-      contentUri, "*/*", null, rescaledBitmap
-    ) { output: ParcelFileDescriptor, uri: Uri, mimeType: String?, opts: Bundle?, args: Bitmap? ->
+    return openPipeHelper(
+      contentUri, "*/*", null, segmentBytes
+    ) { output: ParcelFileDescriptor, uri: Uri, mimeType: String?, opts: Bundle?, bytes: ByteArray? ->
       try {
-        AutoCloseOutputStream(output).use {
-          rescaledBitmap?.compress(Bitmap.CompressFormat.PNG, 100, it)
-        }
+        AutoCloseOutputStream(output).use { it.write(bytes ?: ByteArray(0)) }
       } catch (e: IOException) {
-        e.printStackTrace()
+        Log.d(TAG, "Receipt segment pipe closed by reader: $e")
       }
     }
   }
@@ -218,8 +251,9 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
   private fun connect() {
     disconnect()
     if (account != null) {
-      printerConnector = PrinterConnector(context, account, this)
-      printerConnector?.connect()
+      printerConnector = PrinterConnector(context, account, this).apply { connect() }
+      orderConnector = OrderConnector(context, account, this).apply { connect() }
+      employeeConnector = EmployeeConnector(context, account, this).apply { connect() }
     }
   }
 
@@ -228,22 +262,26 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
       printerConnector?.disconnect()
       printerConnector = null
     }
+    orderConnector?.disconnect()
+    orderConnector = null
+    employeeConnector?.disconnect()
+    employeeConnector = null
   }
 
-  private fun getReceiptSegmentBitmap(contentUri: Uri): Bitmap? {
+  private fun getReceiptSegmentBytes(contentUri: Uri): ByteArray? {
     val cursor = query(contentUri, null, null, null, null)
-    var bitmap: Bitmap? = null
+    var bytes: ByteArray? = null
 
     cursor?.let {
       it.moveToFirst()
-      val bitmapData = it.getBlob(it.getColumnIndex(COLUMN_NAME))
-      val opts = BitmapFactory.Options()
-      opts.inPreferredConfig = Bitmap.Config.RGB_565
-      bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.size, opts)
+      val columnIndex = it.getColumnIndex(COLUMN_NAME)
+      if (columnIndex >= 0) {
+        bytes = it.getBlob(columnIndex)
+      }
       it.close()
     }
 
-    return bitmap
+    return bytes
   }
 
   override fun call(method: String, arg: String?, extras: Bundle?): Bundle {
@@ -344,8 +382,15 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
           }
         }
 
-        val bitmapUri = storeInCP(selectedFileResId)
-        Log.d(TAG, "bitmapUri: $bitmapUri")
+        val contentUris: ArrayList<Uri?> = if (selectedFileResId == SELECTED_FILE_GENERATED) {
+          // Generate a real receipt (line items, tax summaries, tip, total, merchant header)
+          // from the print job data instead of returning a canned test image.
+          buildGeneratedReceiptUris(printJob, printer)
+        } else {
+          val bitmapUri = storeInCP(selectedFileResId)
+          Log.d(TAG, "bitmapUri: $bitmapUri")
+          ArrayList(List(nChunksToSend) { bitmapUri })
+        }
 
         if (delayedResponseUris == true) {
           runBlocking { delay(ReceiptContentContract.PROVIDER_TIMEOUT + 1000) }
@@ -353,22 +398,172 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
 
         result.putParcelableArrayList(
           ReceiptContentContract.EXTRA_RECEIPT_CONTENT_URIS,
-          ArrayList(List(nChunksToSend){bitmapUri})
+          contentUris
         )
       }
     }
     return result
   }
 
+  /**
+   * Builds receipt bitmap chunks from the [printJob]'s own data and returns their content URIs
+   * in print order (header chunk first). This is the path third-party receipt apps should
+   * model: extract the order/payment from the print job, fall back to the connectors for
+   * anything missing, compute amounts with OrderCalc, then render.
+   *
+   * Runs on a binder thread, so the synchronous connector calls below are safe.
+   */
+  private fun buildGeneratedReceiptUris(printJob: PrintJob?, printer: Printer?): ArrayList<Uri?> {
+    val uris = ArrayList<Uri?>()
+    val context = context ?: return uris
+    if (printJob == null) {
+      Log.w(TAG, "No print job in extras, cannot generate a receipt")
+      return uris
+    }
+
+    var order: Order? = null
+    var payment: Payment? = null
+    var refund: Refund? = null
+    when (printJob) {
+      is StaticPaymentPrintJob -> {
+        order = printJob.order
+        payment = printJob.payment
+        refund = printJob.refund
+      }
+      is StaticRefundPrintJob -> {
+        order = printJob.order
+        refund = printJob.refund
+      }
+
+      is StaticOrderBasedPrintJob -> order = printJob.order
+      else -> Log.w(TAG, "Unsupported print job type for generated receipts: $printJob")
+    }
+
+    // Each lookup below is a blocking IPC round-trip; run the independent ones concurrently
+    // instead of paying their latencies back to back on every print.
+    var employee: Employee? = null
+    var merchant: Merchant? = null
+    var device: Device? = null
+    var receiptWidth: Int? = null
+    var businessLogo: Bitmap? = null
+    var receiptLogo: Bitmap? = null
+    runBlocking(Dispatchers.IO) {
+      val orderAndEmployee = async {
+        // Prints triggered from the Transactions app send a StaticPaymentPrintJob WITHOUT the
+        // order. Fetching the order by id with OrderConnector is mandatory for compatibility.
+        // This is a quirk of the Transactions app's print implementation and not a general
+        // requirement for third-party receipt apps, but this code shows how to do it defensively
+        // just in case. The order id is available in the print job for both StaticPaymentPrintJob
+        // and StaticRefundPrintJob.
+        var resolvedOrder = order
+        if (resolvedOrder == null) {
+          val orderId = payment?.order?.id
+            ?: (printJob as? StaticRefundPrintJob)?.orderId
+          resolvedOrder = orderId?.let { id ->
+            kotlin.runCatching { orderConnector?.getOrder(id) }
+              .onFailure { Log.e(TAG, "Failed to fetch order $id", it) }
+              .getOrNull()
+          }
+        }
+        // The order only carries an employee reference; resolve it for the staff number.
+        val resolvedEmployee = resolvedOrder?.employee?.id?.let { id ->
+          kotlin.runCatching { employeeConnector?.getEmployee(id) }
+            .onFailure { Log.e(TAG, "Failed to fetch employee $id", it) }
+            .getOrNull()
+        }
+        resolvedOrder to resolvedEmployee
+      }
+
+      val merchantAsync = async {
+        // Always fetch the merchant separately; it is never included in the print job. The v3
+        // merchant carries the name/address/phone for the header plus the receipt properties
+        // (merchant-configured header/footer text). Reading it requires the Clover MERCHANT_R
+        // permission; without it the provider returns no data.
+        kotlin.runCatching {
+          val authorityUri = "content://com.clover.v3.merchant"
+          val result = UnstableContentResolverClient(context.contentResolver, authorityUri.toUri())
+            .call(SimpleSyncClient.METHOD_GET, null, null, null)
+            .getByteArray("data")
+            ?: return@runCatching null
+          Merchant(String(result))
+        }.onFailure { Log.e(TAG, "Failed to fetch merchant", it) }.getOrNull()
+      }
+
+      val deviceAsync = async {
+        // This device's record, for the merchant-assigned device name (e.g. "reg001") on the
+        // register line.
+        kotlin.runCatching { devicesConnector.device }
+          .onFailure { Log.e(TAG, "Failed to fetch device", it) }
+          .getOrNull()
+      }
+
+      val widthAsync = async {
+        // The bitmap width must match the printer's dot width. call() already kicked off this
+        // lookup; only ask the connector again if it hasn't landed yet.
+        supportedReceiptWidth
+          ?: printer?.let { printerConnector?.getPrinterTypeDetails(it)?.numDotsWidth }
+      }
+
+      val (resolvedOrder, resolvedEmployee) = orderAndEmployee.await()
+      order = resolvedOrder
+      employee = resolvedEmployee
+      merchant = merchantAsync.await()
+      device = deviceAsync.await()
+      receiptWidth = widthAsync.await()
+
+      if (merchant == null) {
+        Log.w(TAG, "Merchant object is null, cannot fetch logo.")
+      }
+      merchant?.let {
+        Log.d(TAG, "Merchant object fetched successfully.")
+        val logoSync = IntegratorLogoSync(context)
+        try {
+          businessLogo = logoSync.getLogo(it, LogoType.BUSINESS)
+          Log.d(TAG, "Business logo fetched. Is null: ${businessLogo == null}")
+          receiptLogo = logoSync.getLogo(it, LogoType.RECEIPT)
+          Log.d(TAG, "Receipt logo fetched. Is null: ${receiptLogo == null}")
+        } catch (e: Exception) {
+          Log.e(TAG, "Error fetching logos", e)
+        }
+      }
+    }
+    if (payment == null) {
+      payment = order?.payments?.firstOrNull()
+    }
+
+    val width = receiptWidth
+      ?: throw IllegalStateException("Failed to get printer type details: printer=$printer, printerConnector=$printerConnector")
+
+    val chunks = SampleReceiptGenerator(context).generateReceiptChunks(
+      SampleReceiptGenerator.ReceiptParams(
+        printJob = printJob,
+        order = order,
+        payment = payment,
+        refund = refund,
+        merchant = merchant,
+        employee = employee,
+        receiptWidth = width,
+        device = device,
+        businessLogo = businessLogo,
+        receiptLogo = receiptLogo
+      )
+    )
+    chunks.forEach { uris.add(storeBitmapInCP(it)) }
+    Log.i(TAG, "Generated receipt: ${chunks.size} chunk(s), width=$width")
+    return uris
+  }
+
   private fun storeInCP(res: Int): Uri? {
+    val b: Bitmap = BitmapFactory.decodeResource(this.context?.resources, res)
+    return storeBitmapInCP(b)
+  }
+
+  private fun storeBitmapInCP(bitmap: Bitmap): Uri? {
     val values = ContentValues()
 
     val stream = ByteArrayOutputStream()
-    val b: Bitmap = BitmapFactory.decodeResource(this.context?.resources, res)
-    b.compress(Bitmap.CompressFormat.PNG, 0, stream)
-    val blob = stream.toByteArray()
-
-    values.put(SEGMENT_URI, blob)
+    bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream)
+    values.put(SEGMENT_URI, stream.toByteArray())
 
     return context?.contentResolver?.insert(
       Uri.parse("$CONTENT_URI$TABLE_NAME"), values

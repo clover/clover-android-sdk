@@ -31,6 +31,8 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getSourceModifierId sourceModifierId}</li>
+ * <li>{@link #getSourceModifierUuid sourceModifierUuid}</li>
  * <li>{@link #getName name}</li>
  * <li>{@link #getAlternateName alternateName}</li>
  * <li>{@link #getAvailable available}</li>
@@ -50,6 +52,20 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  /**
+   * Source Modifier ID
+   */
+  public java.lang.Long getSourceModifierId() {
+    return genClient.cacheGet(CacheKey.sourceModifierId);
+  }
+
+  /**
+   * Source Modifier uuid corresponds to regular group.
+   */
+  public java.lang.String getSourceModifierUuid() {
+    return genClient.cacheGet(CacheKey.sourceModifierUuid);
   }
 
   /**
@@ -101,6 +117,10 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sourceModifierId
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    sourceModifierUuid
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     name
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     alternateName
@@ -204,6 +224,16 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
+  /** Checks whether the 'sourceModifierId' field is set and is not null */
+  public boolean isNotNullSourceModifierId() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourceModifierId);
+  }
+
+  /** Checks whether the 'sourceModifierUuid' field is set and is not null */
+  public boolean isNotNullSourceModifierUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourceModifierUuid);
+  }
+
   /** Checks whether the 'name' field is set and is not null */
   public boolean isNotNullName() {
     return genClient.cacheValueIsNotNull(CacheKey.name);
@@ -243,6 +273,16 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'sourceModifierId' field has been set, however the value could be null */
+  public boolean hasSourceModifierId() {
+    return genClient.cacheHasKey(CacheKey.sourceModifierId);
+  }
+
+  /** Checks whether the 'sourceModifierUuid' field has been set, however the value could be null */
+  public boolean hasSourceModifierUuid() {
+    return genClient.cacheHasKey(CacheKey.sourceModifierUuid);
   }
 
   /** Checks whether the 'name' field has been set, however the value could be null */
@@ -285,6 +325,20 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public Modifier setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'sourceModifierId'.
+   */
+  public Modifier setSourceModifierId(java.lang.Long sourceModifierId) {
+    return genClient.setOther(sourceModifierId, CacheKey.sourceModifierId);
+  }
+
+  /**
+   * Sets the field 'sourceModifierUuid'.
+   */
+  public Modifier setSourceModifierUuid(java.lang.String sourceModifierUuid) {
+    return genClient.setOther(sourceModifierUuid, CacheKey.sourceModifierUuid);
   }
 
   /**
@@ -345,6 +399,14 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearId() {
     genClient.clear(CacheKey.id);
   }
+  /** Clears the 'sourceModifierId' field, the 'has' method for this field will now return false */
+  public void clearSourceModifierId() {
+    genClient.clear(CacheKey.sourceModifierId);
+  }
+  /** Clears the 'sourceModifierUuid' field, the 'has' method for this field will now return false */
+  public void clearSourceModifierUuid() {
+    genClient.clear(CacheKey.sourceModifierUuid);
+  }
   /** Clears the 'name' field, the 'has' method for this field will now return false */
   public void clearName() {
     genClient.clear(CacheKey.name);
@@ -369,11 +431,11 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearMenuModifier() {
     genClient.clear(CacheKey.menuModifier);
   }
-
   /** Clears the 'markupPrice' field, the 'has' method for this field will now return false */
   public void clearMarkupPrice() {
     genClient.clear(CacheKey.markupPrice);
   }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -437,6 +499,8 @@ public class Modifier extends GenericParcelable implements com.clover.sdk.v3.Val
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean SOURCEMODIFIERID_IS_REQUIRED = false;
+    public static final boolean SOURCEMODIFIERUUID_IS_REQUIRED = false;
     public static final boolean NAME_IS_REQUIRED = true;
     public static final long NAME_MAX_LEN = 255;
     public static final boolean ALTERNATENAME_IS_REQUIRED = false;

@@ -33,7 +33,9 @@ import com.clover.sdk.GenericParcelable;
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getAccountId accountId}</li>
+ * <li>{@link #getUuid uuid}</li>
+ * <li>{@link #getEndTime endTime}</li>
+ * <li>{@link #getMerchantId merchantId}</li>
  * <li>{@link #getTxCount txCount}</li>
  * <li>{@link #getBatchType batchType}</li>
  * <li>{@link #getBatchDetails batchDetails}</li>
@@ -43,16 +45,30 @@ import com.clover.sdk.GenericParcelable;
 public class OperationalReport extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
+   * Report UUID. Null for OPEN (live) reports that have not been persisted.
+   */
+  public java.lang.String getUuid() {
+    return genClient.cacheGet(CacheKey.uuid);
+  }
+
+  /**
+   * Report close time (epoch milliseconds). Null for OPEN reports.
+   */
+  public java.lang.Long getEndTime() {
+    return genClient.cacheGet(CacheKey.endTime);
+  }
+
+  /**
    * Merchant ID (numeric)
    */
-  public java.lang.String getAccountId() {
-    return genClient.cacheGet(CacheKey.accountId);
+  public java.lang.String getMerchantId() {
+    return genClient.cacheGet(CacheKey.merchantId);
   }
 
   /**
    * Total transaction count across all currencies
    */
-  public java.lang.String getTxCount() {
+  public java.lang.Integer getTxCount() {
     return genClient.cacheGet(CacheKey.txCount);
   }
 
@@ -74,10 +90,14 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    accountId
+    uuid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    endTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    merchantId
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     txCount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     batchType
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     batchDetails
@@ -156,9 +176,19 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
   public void validate() {
   }
 
-  /** Checks whether the 'accountId' field is set and is not null */
-  public boolean isNotNullAccountId() {
-    return genClient.cacheValueIsNotNull(CacheKey.accountId);
+  /** Checks whether the 'uuid' field is set and is not null */
+  public boolean isNotNullUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.uuid);
+  }
+
+  /** Checks whether the 'endTime' field is set and is not null */
+  public boolean isNotNullEndTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.endTime);
+  }
+
+  /** Checks whether the 'merchantId' field is set and is not null */
+  public boolean isNotNullMerchantId() {
+    return genClient.cacheValueIsNotNull(CacheKey.merchantId);
   }
 
   /** Checks whether the 'txCount' field is set and is not null */
@@ -178,9 +208,19 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
 
 
 
-  /** Checks whether the 'accountId' field has been set, however the value could be null */
-  public boolean hasAccountId() {
-    return genClient.cacheHasKey(CacheKey.accountId);
+  /** Checks whether the 'uuid' field has been set, however the value could be null */
+  public boolean hasUuid() {
+    return genClient.cacheHasKey(CacheKey.uuid);
+  }
+
+  /** Checks whether the 'endTime' field has been set, however the value could be null */
+  public boolean hasEndTime() {
+    return genClient.cacheHasKey(CacheKey.endTime);
+  }
+
+  /** Checks whether the 'merchantId' field has been set, however the value could be null */
+  public boolean hasMerchantId() {
+    return genClient.cacheHasKey(CacheKey.merchantId);
   }
 
   /** Checks whether the 'txCount' field has been set, however the value could be null */
@@ -200,16 +240,30 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
 
 
   /**
-   * Sets the field 'accountId'.
+   * Sets the field 'uuid'.
    */
-  public OperationalReport setAccountId(java.lang.String accountId) {
-    return genClient.setOther(accountId, CacheKey.accountId);
+  public OperationalReport setUuid(java.lang.String uuid) {
+    return genClient.setOther(uuid, CacheKey.uuid);
+  }
+
+  /**
+   * Sets the field 'endTime'.
+   */
+  public OperationalReport setEndTime(java.lang.Long endTime) {
+    return genClient.setOther(endTime, CacheKey.endTime);
+  }
+
+  /**
+   * Sets the field 'merchantId'.
+   */
+  public OperationalReport setMerchantId(java.lang.String merchantId) {
+    return genClient.setOther(merchantId, CacheKey.merchantId);
   }
 
   /**
    * Sets the field 'txCount'.
    */
-  public OperationalReport setTxCount(java.lang.String txCount) {
+  public OperationalReport setTxCount(java.lang.Integer txCount) {
     return genClient.setOther(txCount, CacheKey.txCount);
   }
 
@@ -230,9 +284,17 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
   }
 
 
-  /** Clears the 'accountId' field, the 'has' method for this field will now return false */
-  public void clearAccountId() {
-    genClient.clear(CacheKey.accountId);
+  /** Clears the 'uuid' field, the 'has' method for this field will now return false */
+  public void clearUuid() {
+    genClient.clear(CacheKey.uuid);
+  }
+  /** Clears the 'endTime' field, the 'has' method for this field will now return false */
+  public void clearEndTime() {
+    genClient.clear(CacheKey.endTime);
+  }
+  /** Clears the 'merchantId' field, the 'has' method for this field will now return false */
+  public void clearMerchantId() {
+    genClient.clear(CacheKey.merchantId);
   }
   /** Clears the 'txCount' field, the 'has' method for this field will now return false */
   public void clearTxCount() {
@@ -308,7 +370,9 @@ public class OperationalReport extends GenericParcelable implements com.clover.s
   };
 
   public interface Constraints {
-    public static final boolean ACCOUNTID_IS_REQUIRED = false;
+    public static final boolean UUID_IS_REQUIRED = false;
+    public static final boolean ENDTIME_IS_REQUIRED = false;
+    public static final boolean MERCHANTID_IS_REQUIRED = false;
     public static final boolean TXCOUNT_IS_REQUIRED = false;
     public static final boolean BATCHTYPE_IS_REQUIRED = false;
     public static final boolean BATCHDETAILS_IS_REQUIRED = false;

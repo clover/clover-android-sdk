@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_barcode_scanner_test">Teste do leitor de código de barras</string>
+  <string name="inventory_test">Teste de estoque</string>
+  <string name="customer_test">Teste de cliente</string>
+  <string name="order_test">Teste de pedido</string>
+  <string name="app_notification_test">Teste de notificação do app</string>
+  <string name="inventory_list">Lista de inventário</string>
+  <string name="title_activity_web_service">Teste de serviço da web</string>
+  <string name="create_custom_tender_test">Criar teste de forma de pagamento personalizada</string>
+  <string name="custom_tender_handler_test">Teste de manipulador de tipo de pagamento personalizado</string>
+  <string name="cashevent_test">Teste de evento de caixa</string>
+  <string name="cash_drawers_test">Teste de gavetas de dinheiro</string>
+  <string name="printer_test">Teste de impressora</string>
+  <string name="printjob_test">Teste de impressão</string>
+  <string name="print_test">Teste de impressão</string>
+  <string name="receipt_registration_test">Teste de registro de recibo</string>
+  <string name="authenticate_employee">Autenticar funcionário</string>
+  <string name="print_task_test">Teste de impressão de visualização e imagem</string>
+  <string name="print_image_footer">Imprimir imagem do rodapé</string>
+  <string name="platform2_details_name">Detalhes do Platform2</string>
+  <string name="lockscreen_test_activity">Teste da tela de bloqueio</string>
+  <string name="merchant_devices_v2_activity_label">Teste de Dispositivos do Comerciante V2</string>
+  <string name="keypad_test">Teste do teclado numérico</string>
+  <string name="salerefund_test">Teste de venda/reembolso</string>
+  <string name="about_authEmp">Este exemplo destacará a intent ACTION_AUTHENTICATE_EMPLOYEE. Os botões para QUALQUER FUNCIONÁRIO, FUNCIONÁRIO ATUAL e FUNÇÃO ADMIN solicitarão
+        que o usuário insira o PIN do funcionário para autenticar. Cada clique no botão responderá com um log do requestCode e do resultCode.</string>
+  <string name="action_settings">Configurações</string>
+  <string name="payload">Payload</string>
+  <string name="send_app_notification">Enviar notificação do aplicativo</string>
+  <string name="cannot_send_auth_failed">Não é possível enviar a notificação do aplicativo porque a autenticação não foi bem-sucedida.</string>
+  <string name="error_while_sending">Ocorreu um erro ao enviar a notificação do aplicativo: %s</string>
+  <string name="app_event_name">Nome do evento do aplicativo</string>
+  <string name="custom_receipt_provider_test">Teste de provedor de recibo personalizado</string>
+  <string name="custom_receipt_provider_note"><![CDATA[<b>Observação:</b> a atividade será fechada automaticamente para aplicar as alterações quando qualquer um dos botões for clicado. Isso é necessário porque a atividade atual pode ainda não estar ciente do novo estado do provedor, a menos que seja reiniciada.]]></string>
+  <string name="custom_receipt_provider_timeout_note"><![CDATA[<b>Nota:</b> Para a impressão de recibos personalizada, a Clover possui um timeout fixo definido para a resposta do provedor.
+    Se o provedor não responder dentro desse timeout, a Clover rejeitará a solicitação de impressão e exibirá a mensagem toast \"Falha na impressão\".\nEste comportamento pode ser testado usando as opções de timeout: \n
+    \u25CF Timeout de URIs: Forçará o provedor a responder com uma lista de URIs após o timeout. \n
+    \u25CF Timeout de Bitmaps: Forçará o provedor a responder com bitmap(s) do recibo após o timeout. \n
+    \u25CF Testar sem Timeout: O provedor responderá normalmente, sem nenhum timeout. \n]]></string>
+  <string name="bitmap_chunks_edit_text_desc">Número de blocos de bitmap a serem impressos: (Por favor, insira o número entre 0 e 99):</string>
+  <string name="receipt_size_selection_spinner_desc">Selecione o tamanho do recibo de teste que você deseja:</string>
+  <string name="enable_provider">Ativar provedor</string>
+  <string name="disable_provider">Desativar provedor</string>
+  <string name="save">Salvar</string>
+  <string name="with_uri_timeout">URIs de tempo limite</string>
+  <string name="with_bitmap_timeout">Tempo limite de bitmap(s)</string>
+  <string name="without_timeout">Teste sem tempo limite</string>
+  <string name="hello_world">Olá mundo!</string>
+  <string name="view_print">Ver impressão</string>
+  <string name="image_print">Imprimir imagem</string>
+  <string name="select_a_printer_below">Selecione uma impressora abaixo:</string>
+  <string name="unlock">Desbloquear</string>
+  <string name="lock">Bloquear</string>
+  <string name="select_string">Selecione um funcionário abaixo :\n(Desmarque para desativar)</string>
+  <string name="custom_item_test_activity">Teste de pedido de item personalizado</string>
+  <string name="order_id_custom_item">ID do pedido :</string>
+  <string name="create_new_order">Criar novo pedido</string>
+  <string name="item_name">Nome do item</string>
+  <string name="quantity_per_unit">Quantidade - por unidade</string>
+  <string name="item_unit">Unidade do item</string>
+  <string name="item_price">Preço</string>
+  <string name="add_item_to_order">Adicionar item ao pedido</string>
+  <string name="complete_order">Finalizar pedido</string>
+  <string name="uninstall_this_app">Desinstale este aplicativo (com.clover.android.sdk.examples) do Painel Web do comerciante ou do aplicativo Mais ferramentas neste dispositivo ou em outro dispositivo. Você verá uma indicação aqui e nos logs quando a intenção de pré-desinstalação for recebida.\n\nEsta tela é exibida apenas para fins explicativos. O trabalho de pré-desinstalação deve ser feito em segundo plano e não deve ter nenhuma interação do usuário.</string>
+  <string name="name_label">Nome</string>
+  <string name="model_label">Modelo</string>
+  <string name="id_label">ID</string>
+  <string name="this_device">Este dispositivo:</string>
+  <string name="this_device_s_serial">Número de série deste dispositivo:</string>
+  <string name="start_keypad">Iniciar teclado</string>
+  <string name="screensaver_label">Teste do protetor de tela</string>
+  <string name="dining_events_test">Teste de eventos de refeições</string>
+  <string name="mifare_card_reader_test">Teste de leitor de cartão Mifare</string>
+  <string name="device_counters_test">Teste de contadores de dispositivo</string>
+  <string name="nfc_reader_test">Teste do leitor Felica/NFC</string>
+</resources>

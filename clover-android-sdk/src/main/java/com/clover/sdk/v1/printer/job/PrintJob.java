@@ -91,7 +91,12 @@ public abstract class PrintJob implements Parcelable {
    */
   public static final int FLAG_PRINT_VOID_RECEIPT = 1 << 14;
 
-    public abstract static class Builder {
+  /** Indicates if a print job is for RSS type. */
+  public static final int FLAG_PRINT_RSS_RECEIPT = 1 << 15;
+  /** Indicated if a print job is stamp duty eligible. Defines when a box is printed for merchant to paste the stamp */
+  public static final int FLAG_STAMP_DUTY_ELIGIBLE = 1 << 16;
+
+  public abstract static class Builder {
     protected int flags = FLAG_NONE;
     protected boolean printToAny = false;
 

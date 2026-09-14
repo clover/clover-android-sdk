@@ -174,7 +174,7 @@ public final class Platform2 {
       }
     },
     /**
-     * Device has a secure touch screen(eg: flex, mini) or a secure keypad(eg: pinetree)
+     * Device has a secure touch screen(eg: flex, mini) or a secure keypad(eg: Compact)
      */
     SECURE_TOUCH {
       @Override
@@ -386,5 +386,16 @@ public final class Platform2 {
     }
 
     return false;
+  }
+
+  /**
+   * Does this device has a secure keypad? A secure keypad is a numeric key entry hardware that is
+   * capable of secure PIN entry for use in financial transactions, as well as acting as a general
+   * purpose numeric keypad for application use.
+   *
+   * @return true if the used device has a secure keypad otherwise false
+   */
+  public static boolean hasSecureKeypad(Context context) {
+    return context.getPackageManager().hasSystemFeature("clover.hardware.secure_keypad");
   }
 }

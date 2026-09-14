@@ -34,6 +34,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getServiceTypes serviceTypes}</li>
  * <li>{@link #getExtras extras}</li>
  * <li>{@link #getPushMode pushMode}</li>
+ * <li>{@link #getVasPassInfo vasPassInfo}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -67,6 +68,13 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheGet(CacheKey.pushMode);
   }
 
+  /**
+   * Pass configuration entries to resolve per-passTypeId protocol configuration.
+   */
+  public java.util.List<com.clover.sdk.v3.payments.VasPassInfo> getVasPassInfo() {
+    return genClient.cacheGet(CacheKey.vasPassInfo);
+  }
+
 
 
 
@@ -79,6 +87,8 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
         (com.clover.sdk.extractors.MapExtractionStrategy.instance()),
     pushMode
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.VasPushMode.class)),
+    vasPassInfo
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.VasPassInfo.JSON_CREATOR)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -179,6 +189,14 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.cacheValueIsNotNull(CacheKey.pushMode);
   }
 
+  /** Checks whether the 'vasPassInfo' field is set and is not null */
+  public boolean isNotNullVasPassInfo() {
+    return genClient.cacheValueIsNotNull(CacheKey.vasPassInfo);
+  }
+
+  /** Checks whether the 'vasPassInfo' field is set and is not null and is not empty */
+  public boolean isNotEmptyVasPassInfo() { return isNotNullVasPassInfo() && !getVasPassInfo().isEmpty(); }
+
 
 
   /** Checks whether the 'vasMode' field has been set, however the value could be null */
@@ -199,6 +217,11 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
   /** Checks whether the 'pushMode' field has been set, however the value could be null */
   public boolean hasPushMode() {
     return genClient.cacheHasKey(CacheKey.pushMode);
+  }
+
+  /** Checks whether the 'vasPassInfo' field has been set, however the value could be null */
+  public boolean hasVasPassInfo() {
+    return genClient.cacheHasKey(CacheKey.vasPassInfo);
   }
 
 
@@ -232,6 +255,15 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     return genClient.setOther(pushMode, CacheKey.pushMode);
   }
 
+  /**
+   * Sets the field 'vasPassInfo'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public VasSettings setVasPassInfo(java.util.List<com.clover.sdk.v3.payments.VasPassInfo> vasPassInfo) {
+    return genClient.setArrayRecord(vasPassInfo, CacheKey.vasPassInfo);
+  }
+
 
   /** Clears the 'vasMode' field, the 'has' method for this field will now return false */
   public void clearVasMode() {
@@ -248,6 +280,10 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
   /** Clears the 'pushMode' field, the 'has' method for this field will now return false */
   public void clearPushMode() {
     genClient.clear(CacheKey.pushMode);
+  }
+  /** Clears the 'vasPassInfo' field, the 'has' method for this field will now return false */
+  public void clearVasPassInfo() {
+    genClient.clear(CacheKey.vasPassInfo);
   }
 
 
@@ -315,6 +351,7 @@ public class VasSettings extends GenericParcelable implements com.clover.sdk.v3.
     public static final boolean SERVICETYPES_IS_REQUIRED = false;
     public static final boolean EXTRAS_IS_REQUIRED = false;
     public static final boolean PUSHMODE_IS_REQUIRED = false;
+    public static final boolean VASPASSINFO_IS_REQUIRED = false;
   }
 
 }

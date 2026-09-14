@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User truth nonce:" />
+
+    <EditText
+        android:id="@+id/edit_nonce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="6bb6f79b-4760-4432-9f12-59ba5675ccb7"
+        android:singleLine="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User truth account ID:" />
+
+    <EditText
+        android:id="@+id/edit_account_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="38573728340593784"
+        android:singleLine="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Certificate reference:"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_header_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/radio_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Certificate"
+            android:checked="true"
+            android:layout_marginEnd="16dp" />
+
+        <RadioButton
+            android:id="@+id/radio_thumbprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thumbprint" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign" />
+
+    <Button
+        android:id="@+id/button_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        android:enabled="false" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result:"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#11000000"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/text_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#333333" />
+    </ScrollView>
+</LinearLayout>

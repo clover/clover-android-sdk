@@ -57,6 +57,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAsync async}</li>
  * <li>{@link #getIsFallback isFallback}</li>
  * <li>{@link #getIsAuth isAuth}</li>
+ * <li>{@link #getReferenceId referenceId}</li>
  * <li>{@link #getIsPrepaid isPrepaid}</li>
  * <li>{@link #getCardFunction cardFunction}</li>
  * <li>{@link #getQrCode qrCode}</li>
@@ -67,6 +68,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPlainCardData plainCardData}</li>
  * <li>{@link #getTransactionData transactionData}</li>
  * <li>{@link #getAccountSelection accountSelection}</li>
+ * <li>{@link #getTerminalGroupData terminalGroupData}</li>
  * <li>{@link #getPanKsn panKsn}</li>
  * <li>{@link #getTrack1Ksn track1Ksn}</li>
  * <li>{@link #getTrack2Ksn track2Ksn}</li>
@@ -181,6 +183,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheGet(CacheKey.isAuth);
   }
 
+  public java.lang.String getReferenceId() {
+    return genClient.cacheGet(CacheKey.referenceId);
+  }
+
   public java.lang.Boolean getIsPrepaid() {
     return genClient.cacheGet(CacheKey.isPrepaid);
   }
@@ -217,8 +223,18 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheGet(CacheKey.transactionData);
   }
 
+  /**
+   * This field is used to populate the account selection string viz. DEBIT/CREDIT/CHECKING/SAVINGS/UNKNOWN etc. This is used only in Core payments external service implementation currently
+   */
   public java.lang.String getAccountSelection() {
     return genClient.cacheGet(CacheKey.accountSelection);
+  }
+
+  /**
+   * Information about terminal data
+   */
+  public com.clover.sdk.v3.pay.TerminalGroupData getTerminalGroupData() {
+    return genClient.cacheGet(CacheKey.terminalGroupData);
   }
 
   public java.lang.String getPanKsn() {
@@ -240,6 +256,9 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public java.lang.String getEncRandomKey() {
     return genClient.cacheGet(CacheKey.encRandomKey);
   }
+
+
+
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     track1
@@ -294,6 +313,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     isAuth
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    referenceId
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     isPrepaid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     cardFunction
@@ -314,16 +335,18 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.TransactionData.JSON_CREATOR)),
     accountSelection
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    terminalGroupData
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.pay.TerminalGroupData.JSON_CREATOR)),
     panKsn
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     track1Ksn
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     track2Ksn
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     track3Ksn
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     encRandomKey
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -396,6 +419,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
 
   @Override
   public void validate() {
+
+    genClient.validateLength(CacheKey.referenceId, getReferenceId(), 32);
   }
 
   /** Checks whether the 'track1' field is set and is not null */
@@ -528,6 +553,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheValueIsNotNull(CacheKey.isAuth);
   }
 
+  /** Checks whether the 'referenceId' field is set and is not null */
+  public boolean isNotNullReferenceId() {
+    return genClient.cacheValueIsNotNull(CacheKey.referenceId);
+  }
+
   /** Checks whether the 'isPrepaid' field is set and is not null */
   public boolean isNotNullIsPrepaid() {
     return genClient.cacheValueIsNotNull(CacheKey.isPrepaid);
@@ -578,6 +608,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheValueIsNotNull(CacheKey.accountSelection);
   }
 
+  /** Checks whether the 'terminalGroupData' field is set and is not null */
+  public boolean isNotNullTerminalGroupData() {
+    return genClient.cacheValueIsNotNull(CacheKey.terminalGroupData);
+  }
+
   /** Checks whether the 'panKsn' field is set and is not null */
   public boolean isNotNullPanKsn() {
     return genClient.cacheValueIsNotNull(CacheKey.panKsn);
@@ -602,6 +637,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public boolean isNotNullEncRandomKey() {
     return genClient.cacheValueIsNotNull(CacheKey.encRandomKey);
   }
+
 
 
   /** Checks whether the 'track1' field has been set, however the value could be null */
@@ -734,6 +770,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheHasKey(CacheKey.isAuth);
   }
 
+  /** Checks whether the 'referenceId' field has been set, however the value could be null */
+  public boolean hasReferenceId() {
+    return genClient.cacheHasKey(CacheKey.referenceId);
+  }
+
   /** Checks whether the 'isPrepaid' field has been set, however the value could be null */
   public boolean hasIsPrepaid() {
     return genClient.cacheHasKey(CacheKey.isPrepaid);
@@ -784,6 +825,11 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     return genClient.cacheHasKey(CacheKey.accountSelection);
   }
 
+  /** Checks whether the 'terminalGroupData' field has been set, however the value could be null */
+  public boolean hasTerminalGroupData() {
+    return genClient.cacheHasKey(CacheKey.terminalGroupData);
+  }
+
   /** Checks whether the 'panKsn' field has been set, however the value could be null */
   public boolean hasPanKsn() {
     return genClient.cacheHasKey(CacheKey.panKsn);
@@ -808,6 +854,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public boolean hasEncRandomKey() {
     return genClient.cacheHasKey(CacheKey.encRandomKey);
   }
+
 
   /**
    * Sets the field 'track1'.
@@ -992,6 +1039,13 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   }
 
   /**
+   * Sets the field 'referenceId'.
+   */
+  public PaymentRequestCardDetails setReferenceId(java.lang.String referenceId) {
+    return genClient.setOther(referenceId, CacheKey.referenceId);
+  }
+
+  /**
    * Sets the field 'isPrepaid'.
    */
   public PaymentRequestCardDetails setIsPrepaid(java.lang.Boolean isPrepaid) {
@@ -1061,6 +1115,15 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
    */
   public PaymentRequestCardDetails setAccountSelection(java.lang.String accountSelection) {
     return genClient.setOther(accountSelection, CacheKey.accountSelection);
+  }
+
+  /**
+   * Sets the field 'terminalGroupData'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public PaymentRequestCardDetails setTerminalGroupData(com.clover.sdk.v3.pay.TerminalGroupData terminalGroupData) {
+    return genClient.setRecord(terminalGroupData, CacheKey.terminalGroupData);
   }
 
   /**
@@ -1203,6 +1266,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public void clearIsAuth() {
     genClient.clear(CacheKey.isAuth);
   }
+  /** Clears the 'referenceId' field, the 'has' method for this field will now return false */
+  public void clearReferenceId() {
+    genClient.clear(CacheKey.referenceId);
+  }
   /** Clears the 'isPrepaid' field, the 'has' method for this field will now return false */
   public void clearIsPrepaid() {
     genClient.clear(CacheKey.isPrepaid);
@@ -1243,7 +1310,10 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public void clearAccountSelection() {
     genClient.clear(CacheKey.accountSelection);
   }
-
+  /** Clears the 'terminalGroupData' field, the 'has' method for this field will now return false */
+  public void clearTerminalGroupData() {
+    genClient.clear(CacheKey.terminalGroupData);
+  }
   /** Clears the 'panKsn' field, the 'has' method for this field will now return false */
   public void clearPanKsn() {
     genClient.clear(CacheKey.panKsn);
@@ -1264,6 +1334,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
   public void clearEncRandomKey() {
     genClient.clear(CacheKey.encRandomKey);
   }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1351,6 +1422,8 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     public static final boolean ASYNC_IS_REQUIRED = false;
     public static final boolean ISFALLBACK_IS_REQUIRED = false;
     public static final boolean ISAUTH_IS_REQUIRED = false;
+    public static final boolean REFERENCEID_IS_REQUIRED = false;
+    public static final long REFERENCEID_MAX_LEN = 32;
     public static final boolean ISPREPAID_IS_REQUIRED = false;
     public static final boolean CARDFUNCTION_IS_REQUIRED = false;
     public static final boolean QRCODE_IS_REQUIRED = false;
@@ -1361,6 +1434,7 @@ public class PaymentRequestCardDetails extends GenericParcelable implements com.
     public static final boolean PLAINCARDDATA_IS_REQUIRED = false;
     public static final boolean TRANSACTIONDATA_IS_REQUIRED = false;
     public static final boolean ACCOUNTSELECTION_IS_REQUIRED = false;
+    public static final boolean TERMINALGROUPDATA_IS_REQUIRED = false;
     public static final boolean PANKSN_IS_REQUIRED = false;
     public static final boolean TRACK1KSN_IS_REQUIRED = false;
     public static final boolean TRACK2KSN_IS_REQUIRED = false;

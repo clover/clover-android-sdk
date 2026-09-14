@@ -63,6 +63,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getAgeRestrictedObj ageRestrictedObj}</li>
  * <li>{@link #getExcludeCashDiscount excludeCashDiscount}</li>
  * <li>{@link #getMarkupPrice markupPrice}</li>
+ * <li>{@link #getBundleDefinition bundleDefinition}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -287,6 +288,13 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheGet(CacheKey.markupPrice);
   }
 
+  /**
+   * Bundle definition for this bundle-item
+   */
+  public BundleDefinition getBundleDefinition() {
+    return genClient.cacheGet(CacheKey.bundleDefinition);
+  }
+
   public static final String AUTHORITY = "com.clover.inventory";
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -355,8 +363,10 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     excludeCashDiscount
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     markupPrice
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    ;
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+    bundleDefinition
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(BundleDefinition.JSON_CREATOR)),
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -796,31 +806,37 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.cacheHasKey(CacheKey.markupPrice);
   }
 
+  /** Checks whether the 'bundleDefinition' field has been set, however the value could be null */
+  public boolean hasBundleDefinition() {
+    return genClient.cacheHasKey(CacheKey.bundleDefinition);
+  }
+
+
   /**
    * Sets the field 'id'.
    */
-  public Item setId(java.lang.String id) {
+  public Item setId(String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'hidden'.
    */
-  public Item setHidden(java.lang.Boolean hidden) {
+  public Item setHidden(Boolean hidden) {
     return genClient.setOther(hidden, CacheKey.hidden);
   }
 
   /**
    * Sets the field 'available'.
    */
-  public Item setAvailable(java.lang.Boolean available) {
+  public Item setAvailable(Boolean available) {
     return genClient.setOther(available, CacheKey.available);
   }
 
   /**
    * Sets the field 'autoManage'.
    */
-  public Item setAutoManage(java.lang.Boolean autoManage) {
+  public Item setAutoManage(Boolean autoManage) {
     return genClient.setOther(autoManage, CacheKey.autoManage);
   }
 
@@ -838,84 +854,84 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Item setOptions(java.util.List<com.clover.sdk.v3.inventory.Option> options) {
+  public Item setOptions(java.util.List<Option> options) {
     return genClient.setArrayRecord(options, CacheKey.options);
   }
 
   /**
    * Sets the field 'name'.
    */
-  public Item setName(java.lang.String name) {
+  public Item setName(String name) {
     return genClient.setOther(name, CacheKey.name);
   }
 
   /**
    * Sets the field 'alternateName'.
    */
-  public Item setAlternateName(java.lang.String alternateName) {
+  public Item setAlternateName(String alternateName) {
     return genClient.setOther(alternateName, CacheKey.alternateName);
   }
 
   /**
    * Sets the field 'code'.
    */
-  public Item setCode(java.lang.String code) {
+  public Item setCode(String code) {
     return genClient.setOther(code, CacheKey.code);
   }
 
   /**
    * Sets the field 'sku'.
    */
-  public Item setSku(java.lang.String sku) {
+  public Item setSku(String sku) {
     return genClient.setOther(sku, CacheKey.sku);
   }
 
   /**
    * Sets the field 'price'.
    */
-  public Item setPrice(java.lang.Long price) {
+  public Item setPrice(Long price) {
     return genClient.setOther(price, CacheKey.price);
   }
 
   /**
    * Sets the field 'priceType'.
    */
-  public Item setPriceType(com.clover.sdk.v3.inventory.PriceType priceType) {
+  public Item setPriceType(PriceType priceType) {
     return genClient.setOther(priceType, CacheKey.priceType);
   }
 
   /**
    * Sets the field 'defaultTaxRates'.
    */
-  public Item setDefaultTaxRates(java.lang.Boolean defaultTaxRates) {
+  public Item setDefaultTaxRates(Boolean defaultTaxRates) {
     return genClient.setOther(defaultTaxRates, CacheKey.defaultTaxRates);
   }
 
   /**
    * Sets the field 'unitName'.
    */
-  public Item setUnitName(java.lang.String unitName) {
+  public Item setUnitName(String unitName) {
     return genClient.setOther(unitName, CacheKey.unitName);
   }
 
   /**
    * Sets the field 'cost'.
    */
-  public Item setCost(java.lang.Long cost) {
+  public Item setCost(Long cost) {
     return genClient.setOther(cost, CacheKey.cost);
   }
 
   /**
    * Sets the field 'isRevenue'.
    */
-  public Item setIsRevenue(java.lang.Boolean isRevenue) {
+  public Item setIsRevenue(Boolean isRevenue) {
     return genClient.setOther(isRevenue, CacheKey.isRevenue);
   }
 
   /**
    * Sets the field 'stockCount'.
    */
-  public Item setStockCount(java.lang.Long stockCount) {
+  public Item setStockCount(Long stockCount) {
     return genClient.setOther(stockCount, CacheKey.stockCount);
   }
 
@@ -1047,6 +1063,16 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     return genClient.setRecord(ageRestrictedObj, CacheKey.ageRestrictedObj);
   }
 
+  /**
+   * Sets the field 'bundleDefinition'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Item setBundleDefinition(BundleDefinition bundleDefinition) {
+    return genClient.setRecord(bundleDefinition, CacheKey.bundleDefinition);
+  }
+
+
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
@@ -1173,11 +1199,15 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
   public void clearExcludeCashDiscount() {
     genClient.clear(CacheKey.excludeCashDiscount);
   }
-
   /** Clears the 'markupPrice' field, the 'has' method for this field will now return false */
   public void clearMarkupPrice() {
     genClient.clear(CacheKey.markupPrice);
   }
+  /** Clears the 'bundleDefinition' field, the 'has' method for this field will now return false */
+  public void clearBundleDefinition() {
+    genClient.clear(CacheKey.bundleDefinition);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -1282,6 +1312,7 @@ public class Item extends GenericParcelable implements com.clover.sdk.v3.Validat
     public static final boolean AGERESTRICTEDOBJ_IS_REQUIRED = false;
     public static final boolean EXCLUDECASHDISCOUNT_IS_REQUIRED = false;
     public static final boolean MARKUPPRICE_IS_REQUIRED = false;
+    public static final boolean BUNDLEDEFINITION_IS_REQUIRED = false;
   }
 
 }

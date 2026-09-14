@@ -89,6 +89,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPartialPendingAmount partialPendingAmount}</li>
  * <li>{@link #getPreDatedDate preDatedDate}</li>
  * <li>{@link #getPreDatedTerm preDatedTerm}</li>
+ * <li>{@link #getIsDeferredAuth isDeferredAuth}</li>
+ * <li>{@link #getFiscalizationSignature fiscalizationSignature}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -480,18 +482,34 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   }
 
   /**
-   *  Pre-dated date value in the yyyyMMdd format
+   * Pre-dated date value in the yyyyMMdd format
    */
   public java.lang.String getPreDatedDate() {
     return genClient.cacheGet(CacheKey.preDatedDate);
   }
 
   /**
-   *  Pre-dated value as term in calendar days
+   * Pre-dated value as term in calendar days
    */
   public java.lang.Integer getPreDatedTerm() {
     return genClient.cacheGet(CacheKey.preDatedTerm);
   }
+
+  /**
+   * Is Deferred Auth payment
+   */
+  public java.lang.Boolean getIsDeferredAuth() {
+    return genClient.cacheGet(CacheKey.isDeferredAuth);
+  }
+
+  /**
+   * Contains information received by fiscalization host.
+   */
+  public com.clover.sdk.v3.payments.FiscalizationSignature getFiscalizationSignature() {
+    return genClient.cacheGet(CacheKey.fiscalizationSignature);
+  }
+
+
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
@@ -603,16 +621,20 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     isCoBrandCard
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-
     originalSaleAmount
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     partialPendingAmount
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     preDatedDate
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     preDatedTerm
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
-    ;
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    isDeferredAuth
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    fiscalizationSignature
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.FiscalizationSignature.JSON_CREATOR)),
+      ;
+
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
     private CacheKey(com.clover.sdk.extractors.ExtractionStrategy s) {
@@ -967,7 +989,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.isCoBrandCard);
   }
 
-
   /** Checks whether the 'originalSaleAmount' field is set and is not null */
   public boolean isNotNullOriginalSaleAmount() {
     return genClient.cacheValueIsNotNull(CacheKey.originalSaleAmount);
@@ -987,6 +1008,18 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public boolean isNotNullPreDatedTerm() {
     return genClient.cacheValueIsNotNull(CacheKey.preDatedTerm);
   }
+
+  /** Checks whether the 'isDeferredAuth' field is set and is not null */
+  public boolean isNotNullIsDeferredAuth() {
+    return genClient.cacheValueIsNotNull(CacheKey.isDeferredAuth);
+  }
+
+  /** Checks whether the 'fiscalizationSignature' field is set and is not null */
+  public boolean isNotNullFiscalizationSignature() {
+    return genClient.cacheValueIsNotNull(CacheKey.fiscalizationSignature);
+  }
+
+
 
   /** Checks whether the 'languageIndicator' field has been set, however the value could be null */
   public boolean hasLanguageIndicator() {
@@ -1258,7 +1291,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.cacheHasKey(CacheKey.isCoBrandCard);
   }
 
-
   /** Checks whether the 'originalSaleAmount' field has been set, however the value could be null */
   public boolean hasOriginalSaleAmount() {
     return genClient.cacheHasKey(CacheKey.originalSaleAmount);
@@ -1278,6 +1310,17 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public boolean hasPreDatedTerm() {
     return genClient.cacheHasKey(CacheKey.preDatedTerm);
   }
+
+  /** Checks whether the 'isDeferredAuth' field has been set, however the value could be null */
+  public boolean hasIsDeferredAuth() {
+    return genClient.cacheHasKey(CacheKey.isDeferredAuth);
+  }
+
+  /** Checks whether the 'fiscalizationSignature' field has been set, however the value could be null */
+  public boolean hasFiscalizationSignature() {
+    return genClient.cacheHasKey(CacheKey.fiscalizationSignature);
+  }
+
 
   /**
    * Sets the field 'languageIndicator'.
@@ -1693,6 +1736,23 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     return genClient.setOther(preDatedTerm, CacheKey.preDatedTerm);
   }
 
+  /**
+   * Sets the field 'isDeferredAuth'.
+   */
+  public TransactionInfo setIsDeferredAuth(java.lang.Boolean isDeferredAuth) {
+    return genClient.setOther(isDeferredAuth, CacheKey.isDeferredAuth);
+  }
+
+  /**
+   * Sets the field 'fiscalizationSignature'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public TransactionInfo setFiscalizationSignature(com.clover.sdk.v3.payments.FiscalizationSignature fiscalizationSignature) {
+    return genClient.setRecord(fiscalizationSignature, CacheKey.fiscalizationSignature);
+  }
+
+
   /** Clears the 'languageIndicator' field, the 'has' method for this field will now return false */
   public void clearLanguageIndicator() {
     genClient.clear(CacheKey.languageIndicator);
@@ -1909,8 +1969,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearIsCoBrandCard() {
     genClient.clear(CacheKey.isCoBrandCard);
   }
-
-
   /** Clears the 'originalSaleAmount' field, the 'has' method for this field will now return false */
   public void clearOriginalSaleAmount() {
     genClient.clear(CacheKey.originalSaleAmount);
@@ -1919,7 +1977,6 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearPartialPendingAmount() {
     genClient.clear(CacheKey.partialPendingAmount);
   }
-
   /** Clears the 'preDatedDate' field, the 'has' method for this field will now return false */
   public void clearPreDatedDate() {
     genClient.clear(CacheKey.preDatedDate);
@@ -1928,6 +1985,15 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
   public void clearPreDatedTerm() {
     genClient.clear(CacheKey.preDatedTerm);
   }
+  /** Clears the 'isDeferredAuth' field, the 'has' method for this field will now return false */
+  public void clearIsDeferredAuth() {
+    genClient.clear(CacheKey.isDeferredAuth);
+  }
+  /** Clears the 'fiscalizationSignature' field, the 'has' method for this field will now return false */
+  public void clearFiscalizationSignature() {
+    genClient.clear(CacheKey.fiscalizationSignature);
+  }
+
 
   /**
    * Returns true if this instance has any changes.
@@ -2052,6 +2118,8 @@ public class TransactionInfo extends GenericParcelable implements com.clover.sdk
     public static final boolean PARTIALPENDINGAMOUNT_IS_REQUIRED = false;
     public static final boolean PREDATEDDATE_IS_REQUIRED = false;
     public static final boolean PREDATEDTERM_IS_REQUIRED = false;
+    public static final boolean ISDEFERREDAUTH_IS_REQUIRED = false;
+    public static final boolean FISCALIZATIONSIGNATURE_IS_REQUIRED = false;
   }
 
 }

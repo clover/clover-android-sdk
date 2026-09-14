@@ -74,5 +74,6 @@ public class CardTransactionConstants {
   public static final String POS_ENTRY_MODE = "posEntryMode";
   public static final String INSTALLMENT_PLAN_RESPONSE = "installmentPlanResponse";
   public static final String CAN_NET_RESP_CODE = "canNetRespCode";
+  public static final String TRANS_ID = "transId";
 
 }

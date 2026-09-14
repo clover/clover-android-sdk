@@ -15,8 +15,9 @@
   ~ limitations under the License.
   -->
 
+<!-- smartling.instruction_attributes = comment -->
 <resources>
   <string name="sdkName">com.clover.connector.sdk.v3.PaymentConnector</string>
   <string name="sdkVersion">3.0.0</string>
-  <string name="default_manual_line_item_name">Manual Transaction</string>
-  <string name="authorization_line_item_name">Authorization</string></resources>
+  <string name="default_manual_line_item_name" comment="Location: CreateOrUpdateOrderTask.java. Purpose: Default name for a line item in a manually created order.">Manual Transaction</string>
+  <string name="authorization_line_item_name" comment="Location: CreateOrUpdateOrderTask.java. Purpose: The line item name used when the transaction type is an authorization, for web receipt generation.">Authorization</string></resources>

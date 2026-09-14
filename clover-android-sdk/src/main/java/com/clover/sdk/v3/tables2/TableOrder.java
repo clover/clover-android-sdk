@@ -35,6 +35,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getId id}</li>
  * <li>{@link #getTable table}</li>
  * <li>{@link #getGuests guests}</li>
+ * <li>{@link #getPrimaryTableLink primaryTableLink}</li>
  * <li>{@link #getOrder order}</li>
  * <li>{@link #getMerchant merchant}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
@@ -64,6 +65,13 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
    */
   public java.util.List<com.clover.sdk.v3.tables2.GuestV2> getGuests() {
     return genClient.cacheGet(CacheKey.guests);
+  }
+
+  /**
+   * Primary table link identifier for this merged table order
+   */
+  public java.lang.String getPrimaryTableLink() {
+    return genClient.cacheGet(CacheKey.primaryTableLink);
   }
 
   /**
@@ -111,6 +119,8 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.tables2.Table.JSON_CREATOR)),
     guests
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.tables2.GuestV2.JSON_CREATOR)),
+    primaryTableLink
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     order
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.Order.JSON_CREATOR)),
     merchant
@@ -194,6 +204,8 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   @Override
   public void validate() {
     genClient.validateCloverId(CacheKey.id, getId());
+
+    genClient.validateLength(CacheKey.primaryTableLink, getPrimaryTableLink(), 13);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -213,6 +225,11 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
 
   /** Checks whether the 'guests' field is set and is not null and is not empty */
   public boolean isNotEmptyGuests() { return isNotNullGuests() && !getGuests().isEmpty(); }
+
+  /** Checks whether the 'primaryTableLink' field is set and is not null */
+  public boolean isNotNullPrimaryTableLink() {
+    return genClient.cacheValueIsNotNull(CacheKey.primaryTableLink);
+  }
 
   /** Checks whether the 'order' field is set and is not null */
   public boolean isNotNullOrder() {
@@ -254,6 +271,11 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Checks whether the 'guests' field has been set, however the value could be null */
   public boolean hasGuests() {
     return genClient.cacheHasKey(CacheKey.guests);
+  }
+
+  /** Checks whether the 'primaryTableLink' field has been set, however the value could be null */
+  public boolean hasPrimaryTableLink() {
+    return genClient.cacheHasKey(CacheKey.primaryTableLink);
   }
 
   /** Checks whether the 'order' field has been set, however the value could be null */
@@ -308,6 +330,13 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   }
 
   /**
+   * Sets the field 'primaryTableLink'.
+   */
+  public TableOrder setPrimaryTableLink(java.lang.String primaryTableLink) {
+    return genClient.setOther(primaryTableLink, CacheKey.primaryTableLink);
+  }
+
+  /**
    * Sets the field 'order'.
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
@@ -358,6 +387,10 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
   /** Clears the 'guests' field, the 'has' method for this field will now return false */
   public void clearGuests() {
     genClient.clear(CacheKey.guests);
+  }
+  /** Clears the 'primaryTableLink' field, the 'has' method for this field will now return false */
+  public void clearPrimaryTableLink() {
+    genClient.clear(CacheKey.primaryTableLink);
   }
   /** Clears the 'order' field, the 'has' method for this field will now return false */
   public void clearOrder() {
@@ -445,6 +478,8 @@ public class TableOrder extends GenericParcelable implements com.clover.sdk.v3.V
     public static final long ID_MAX_LEN = 13;
     public static final boolean TABLE_IS_REQUIRED = false;
     public static final boolean GUESTS_IS_REQUIRED = false;
+    public static final boolean PRIMARYTABLELINK_IS_REQUIRED = false;
+    public static final long PRIMARYTABLELINK_MAX_LEN = 13;
     public static final boolean ORDER_IS_REQUIRED = false;
     public static final boolean MERCHANT_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;

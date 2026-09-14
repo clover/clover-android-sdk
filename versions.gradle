@@ -91,6 +91,7 @@ ext {
   RETROFIT_ADAPTER_VERSION = "2.6.2"
   OKHTTP_VERSION = "3.12.13" // 3.12.x is the latest version compatible with Android API 17 to 20 https://developer.squareup.com/blog/okhttp-3-13-requires-android-5/
   GLIDE_VERSION = "4.16.0"
+  COIL_VERSION = "1.4.0" // 1.4.x is the latest version with min sdk 17 https://coil-kt.github.io/coil/upgrading_to_coil2/#minimum-api-21
 
   // Test versions
 
@@ -156,4 +157,5 @@ ext {
   COMPOSE_VERSION = "1.7.2"
   COMPOSE_MATERIAL_VERSION = "1.3.0"
   COMPOSE_COMPILER_VERSION = "1.5.3" // For compatibility with KOTLIN_VERSION https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+  DATASTORE_VERSION = "1.0.0"
 }

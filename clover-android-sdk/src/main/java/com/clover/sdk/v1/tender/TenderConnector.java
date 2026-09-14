@@ -20,6 +20,7 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.base.TenderProperties;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -186,4 +187,31 @@ public class TenderConnector extends ServiceConnector<ITenderService> {
     }, callback);
   }
 
+  public Tender checkAndCreateTenderV2(final String label, final String labelKey, final boolean enabled, final boolean opensCashDrawer, final TenderProperties tenderProperties) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new TenderCallable<Tender>() {
+      @Override
+      public Tender call(ITenderService service, ResultStatus status) throws RemoteException {
+        return service.checkAndCreateTenderV2(label, labelKey, enabled, opensCashDrawer, tenderProperties, status);
+      }
+    });
+  }
+
+  public void checkAndCreateTenderV2(final String label, final String labelKey, final boolean enabled, final boolean opensCashDrawer, final TenderProperties tenderProperties, ServiceConnector.Callback<Tender> callback) {
+    execute(new TenderCallable<Tender>() {
+      @Override
+      public Tender call(ITenderService service, ResultStatus status) throws RemoteException {
+        return service.checkAndCreateTenderV2(label, labelKey, enabled, opensCashDrawer, tenderProperties, status);
+      }
+    }, callback);
+  }
+
+  public void updateTenderProperties(final String tenderId, final TenderProperties tenderProperties) throws RemoteException, ClientException, ServiceException, BindingException {
+    execute(new TenderCallable<Void>() {
+      @Override
+      public Void call(ITenderService service, ResultStatus status) throws RemoteException {
+        service.updateTenderProperties(tenderId, tenderProperties, status);
+        return null;
+      }
+    });
+  }
 }

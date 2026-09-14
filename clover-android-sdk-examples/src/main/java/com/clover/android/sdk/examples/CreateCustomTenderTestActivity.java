@@ -25,6 +25,8 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.ResultStatus;
 import com.clover.sdk.v1.tender.Tender;
 import com.clover.sdk.v1.tender.TenderConnector;
+import com.clover.sdk.v3.base.TenderCategory;
+import com.clover.sdk.v3.base.TenderProperties;
 
 import java.util.List;
 
@@ -121,8 +123,10 @@ public class CreateCustomTenderTestActivity extends Activity {
   private void createTender() {
     final String tenderName = "Clover Example Tender";
     final String packageName = getPackageName();
+    final TenderProperties tenderProperties = new TenderProperties();
+    tenderProperties.setCategory(TenderCategory.CASH);
 
-    tenderConnector.checkAndCreateTender(tenderName, packageName, true, false, new TenderConnector.TenderCallback<Tender>() {
+    tenderConnector.checkAndCreateTenderV2(tenderName, packageName, true, false, tenderProperties, new TenderConnector.TenderCallback<Tender>() {
       @Override
       public void onServiceSuccess(Tender result, ResultStatus status) {
         super.onServiceSuccess(result, status);

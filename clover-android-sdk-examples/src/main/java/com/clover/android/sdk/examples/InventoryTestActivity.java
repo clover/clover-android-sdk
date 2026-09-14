@@ -44,6 +44,9 @@ import com.clover.sdk.v1.ServiceCallback;
 import com.clover.sdk.v1.ServiceConnector;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.Attribute;
+import com.clover.sdk.v3.inventory.BundleDefinition;
+import com.clover.sdk.v3.inventory.BundleItem;
+import com.clover.sdk.v3.inventory.BundleItemGroup;
 import com.clover.sdk.v3.inventory.Category;
 import com.clover.sdk.v3.inventory.Discount;
 import com.clover.sdk.v3.inventory.IInventoryService;
@@ -52,6 +55,7 @@ import com.clover.sdk.v3.inventory.InventoryContract;
 import com.clover.sdk.v3.inventory.InventoryIntent;
 import com.clover.sdk.v3.inventory.Item;
 import com.clover.sdk.v3.inventory.ItemGroup;
+import com.clover.sdk.v3.inventory.Marker;
 import com.clover.sdk.v3.inventory.Menu;
 import com.clover.sdk.v3.inventory.Modifier;
 import com.clover.sdk.v3.inventory.ModifierGroup;
@@ -86,6 +90,7 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -852,6 +857,31 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<BundleItem> getBundleItems(String bundleItemGroupId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Not supported through web service API");
+    }
+
+    @Override
+    public List<BundleItemGroup> getBundleItemGroups(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Not supported through web service API");
+    }
+
+    @Override
+    public BundleDefinition getBundleDefinition(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Not supported through web service API");
+    }
+
+    @Override
+    public List<BundleDefinition> getBundleDefinitions(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Not supported through web service API");
+    }
+
+    @Override
+    public void associateMarkerToItem(String itemId, List<String> markerIdsToAssociate, List<String> markerIdsToDissociate, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement associateMarkerToItem()");
+    }
+
+    @Override
     public Item getItemWithCategories(String itemId, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("getItemWithCategories() not supported through web service API");
     }
@@ -892,6 +922,11 @@ public class InventoryTestActivity extends Activity {
     }
 
     @Override
+    public List<Marker> getMarkersForItem(String itemId, ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("getMarkersForItem() not supported through web service API");
+    }
+
+    @Override
     public void bulkAssignColorToItems(List<String> itemIds, String colorHexCode, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement bulkAssignColorToItems");
     }
@@ -904,6 +939,11 @@ public class InventoryTestActivity extends Activity {
     @Override
     public void removeTaxRatesFromItem(String itemId, List<String> taxRates, ResultStatus resultStatus) throws RemoteException {
       throw new UnsupportedOperationException("Need to implement removeTaxRatesFromItem()");
+    }
+
+    @Override
+    public List<Marker> getAllMarkers(ResultStatus resultStatus) throws RemoteException {
+      throw new UnsupportedOperationException("Need to implement getAllMarkers()");
     }
 
     @Override

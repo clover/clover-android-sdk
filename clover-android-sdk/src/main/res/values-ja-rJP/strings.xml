@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="title_activity_account_chooser">TrunkClover アカウント</string>
+  <string name="rotateInstructions">ご購入いただきありがとうございます。
+画面を元の向きに戻してください。</string>
+  <string name="backToRegisterDescription">右に回して加盟店の方へ戻す</string>
+  <string name="returnToMerchantPaymentSuccessful">ご購入ありがとうございました。
+スタッフにこちらの端末をお戻しください</string>
+  <string name="returnToMerchantTitle">すべて完了しました！</string>
+  <string name="returnToMerchant">この端末をスタッフにお渡しください</string>
+  <string name="returnToMerchantFontFamily">sans-serif-light</string>
+  <string name="register_uri">Register URI</string>
+  <string name="print_label">印刷</string>
+</resources>

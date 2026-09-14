@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum VasMode implements Parcelable {
-  PAY_ONLY, VAS_ONLY, VAS_OR_PAYMENT, VAS_AND_PAYMENT;
+  VAS_OR_PAYMENT, VAS_AND_PAYMENT, VAS_ONLY, PAY_ONLY;
 
   @Override
   public int describeContents() {

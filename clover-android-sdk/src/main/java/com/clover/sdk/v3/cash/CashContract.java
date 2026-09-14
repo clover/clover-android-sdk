@@ -23,11 +23,8 @@ import android.provider.BaseColumns;
  * The contract between the cash management provider and applications. Contains
  * definitions for the supported URIs and columns.
  * <p/>
- * Cash events are recorded locally on device only and not synced between devices or sent to the
- * cloud.
+ * Cash events are synchronized from the cloud to the device via the Nsync protocol.
  * <p/>
- * This is a read-only contract. Cash events are created when cash payments or refunds occur. To
- * manually record cash events use {@link com.clover.sdk.v3.cash.CashEvents}.
  */
 public final class CashContract {
 
@@ -42,6 +39,9 @@ public final class CashContract {
   public static final String ACCOUNT_TYPE_PARAM = "account_type";
 
   public interface CashEventColumns {
+
+    public static final String UUID = "id";
+
     /**
      * Transaction type, 'TRANSACTION', 'ADJUSTMENT', 'COUNT'.
      * <p>
@@ -83,6 +83,21 @@ public final class CashContract {
      * Type: VCHAR
      */
     public static final String EMPLOYEEID = "employee_id";
+
+    /**
+     * Device id (the device that initiated the event)
+     * <p>
+     * Type: VCHAR
+     */
+    public static final String DEVICEID = "device_id";
+
+    /**
+     * JSON payload for reconciliation details associated with this event.
+     * Mirrors {@code com.clover.common.message.CashEvent.reconciliation}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String RECONCILIATION = "reconciliation_data";
   }
 
   public static final class CashEvent implements BaseColumns, CashEventColumns {

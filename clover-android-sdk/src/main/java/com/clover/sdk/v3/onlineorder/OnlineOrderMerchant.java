@@ -44,6 +44,9 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * <li>{@link #getLeadTime leadTime}</li>
+ * <li>{@link #getBusyModeExpireTime busyModeExpireTime}</li>
+ * <li>{@link #getDefaultLeadTime defaultLeadTime}</li>
+ * <li>{@link #getBusyModeDuration busyModeDuration}</li>
  * <li>{@link #getDeletedTime deletedTime}</li>
  * </ul>
  */
@@ -146,6 +149,27 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Number of minutes till busy mode will be applied
+   */
+  public java.lang.Long getBusyModeExpireTime() {
+    return genClient.cacheGet(CacheKey.busyModeExpireTime);
+  }
+
+  /**
+   * Default Number of minutes to tell the customer the order usually takes to prepare
+   */
+  public java.lang.Integer getDefaultLeadTime() {
+    return genClient.cacheGet(CacheKey.defaultLeadTime);
+  }
+
+  /**
+   * Number of minutes till busy mode has been applied
+   */
+  public java.lang.Integer getBusyModeDuration() {
+    return genClient.cacheGet(CacheKey.busyModeDuration);
+  }
+
+  /**
    * Timestamp when online ordering merchant was last deleted
    */
   public java.lang.Long getDeletedTime() {
@@ -183,7 +207,13 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     modifiedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     leadTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    busyModeExpireTime
+         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    defaultLeadTime
+          (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    busyModeDuration
+          (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     deletedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
       ;
@@ -335,6 +365,21 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.leadTime);
   }
 
+  /** Checks whether the 'busyModeExpireTime' field is set and is not null */
+  public boolean isNotNullBusyModeExpireTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.busyModeExpireTime);
+  }
+
+  /** Checks whether the 'defaultLeadTime' field is set and is not null */
+  public boolean isNotNullDefaultLeadTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.defaultLeadTime);
+  }
+
+  /** Checks whether the 'busyModeDuration' field is set and is not null */
+  public boolean isNotNullBusyModeDuration() {
+    return genClient.cacheValueIsNotNull(CacheKey.busyModeDuration);
+  }
+
   /** Checks whether the 'deletedTime' field is set and is not null */
   public boolean isNotNullDeletedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.deletedTime);
@@ -410,6 +455,21 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   /** Checks whether the 'leadTime' field has been set, however the value could be null */
   public boolean hasLeadTime() {
     return genClient.cacheHasKey(CacheKey.leadTime);
+  }
+
+  /** Checks whether the 'busyModeExpireTime' field has been set, however the value could be null */
+  public boolean hasBusyModeExpireTime() {
+    return genClient.cacheHasKey(CacheKey.busyModeExpireTime);
+  }
+
+  /** Checks whether the 'defaultLeadTime' field has been set, however the value could be null */
+  public boolean hasDefaultLeadTime() {
+    return genClient.cacheHasKey(CacheKey.defaultLeadTime);
+  }
+
+  /** Checks whether the 'busyModeDuration' field has been set, however the value could be null */
+  public boolean hasBusyModeDuration() {
+    return genClient.cacheHasKey(CacheKey.busyModeDuration);
   }
 
   /** Checks whether the 'deletedTime' field has been set, however the value could be null */
@@ -519,6 +579,27 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'busyModeExpireTime'.
+   */
+  public OnlineOrderMerchant setBusyModeExpireTime(java.lang.Long busyModeExpireTime) {
+    return genClient.setOther(busyModeExpireTime, CacheKey.busyModeExpireTime);
+  }
+
+  /**
+   * Sets the field 'defaultLeadTime'.
+   */
+  public OnlineOrderMerchant setDefaultLeadTime(java.lang.Integer defaultLeadTime) {
+    return genClient.setOther(defaultLeadTime, CacheKey.defaultLeadTime);
+  }
+
+  /**
+   * Sets the field 'busyModeDuration'.
+   */
+  public OnlineOrderMerchant setBusyModeDuration(java.lang.Integer busyModeDuration) {
+    return genClient.setOther(busyModeDuration, CacheKey.busyModeDuration);
+  }
+
+  /**
    * Sets the field 'deletedTime'.
    */
   public OnlineOrderMerchant setDeletedTime(java.lang.Long deletedTime) {
@@ -581,6 +662,18 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
   /** Clears the 'leadTime' field, the 'has' method for this field will now return false */
   public void clearLeadTime() {
     genClient.clear(CacheKey.leadTime);
+  }
+  /** Clears the 'busyModeExpireTime' field, the 'has' method for this field will now return false */
+  public void clearBusyModeExpireTime() {
+    genClient.clear(CacheKey.busyModeExpireTime);
+  }
+  /** Clears the 'defaultLeadTime' field, the 'has' method for this field will now return false */
+  public void clearDefaultLeadTime() {
+    genClient.clear(CacheKey.defaultLeadTime);
+  }
+  /** Clears the 'busyModeDuration' field, the 'has' method for this field will now return false */
+  public void clearBusyModeDuration() {
+    genClient.clear(CacheKey.busyModeDuration);
   }
   /** Clears the 'deletedTime' field, the 'has' method for this field will now return false */
   public void clearDeletedTime() {
@@ -665,6 +758,9 @@ public class OnlineOrderMerchant extends GenericParcelable implements com.clover
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean LEADTIME_IS_REQUIRED = false;
+    public static final boolean BUSYMODEEXPIRETIME_IS_REQUIRED = false;
+    public static final boolean DEFAULTLEADTIME_IS_REQUIRED = false;
+    public static final boolean BUSYMODEDURATION_IS_REQUIRED = false;
     public static final boolean DELETEDTIME_IS_REQUIRED = false;
   }
 

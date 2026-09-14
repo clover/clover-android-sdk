@@ -559,6 +559,14 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     }, callback);
   }
 
+  public List<Marker> getAllMarkers() throws ClientException, ServiceException, BindingException, RemoteException {
+    return execute(new ServiceCallable<IInventoryService, List<Marker>>() {
+      public List<Marker> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getAllMarkers(status);
+      }
+    });
+  }
+
   public void assignTaxRatesToItem(final String itemId, final List<String> taxRates) throws ClientException, ServiceException, BindingException, RemoteException {
     execute(new ServiceRunnable<IInventoryService>() {
       public void run(IInventoryService service, ResultStatus status) throws RemoteException {
@@ -1525,4 +1533,23 @@ public class InventoryConnector extends ServiceConnector<IInventoryService> {
     return execute((ServiceCallable<IInventoryService, Boolean>)
             (service, status) -> service.checkModifiersAvailability(modifierIdList, status));
   }
+
+  public void getMarkersForItem(final String itemId, Callback<List<Marker>> callback) {
+    execute(new ServiceCallable<IInventoryService, List<Marker>>() {
+      public List<Marker> call(IInventoryService service, ResultStatus status) throws RemoteException {
+        return service.getMarkersForItem(itemId, status);
+      }
+    }, callback);
+  }
+
+  public void associateMarkerToItem(final String itemId,
+                                    final List<String> markerIdsToAssociate,
+                                    final List<String> markerIdsToDissociate) throws ClientException, ServiceException, BindingException, RemoteException {
+    execute(new ServiceRunnable<IInventoryService>() {
+      public void run(IInventoryService service, ResultStatus status) throws RemoteException {
+        service.associateMarkerToItem(itemId, markerIdsToAssociate, markerIdsToDissociate, status);
+      }
+    });
+  }
+
 }

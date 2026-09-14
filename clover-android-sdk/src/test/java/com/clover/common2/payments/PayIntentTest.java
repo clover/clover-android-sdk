@@ -555,4 +555,58 @@ public class PayIntentTest {
     assertNotNull(fromParcel.createAuth);
     assertTrue(fromParcel.createAuth);
   }
+
+  @Test
+  public void testLocaleFulfilmentRequest() {
+    PayIntent payIntent = new PayIntent.Builder().build();
+    assertNull(payIntent.localeFulfilmentRequest);
+
+    String localeFulfilmentRequest = "fr";
+
+    payIntent = new PayIntent.Builder().localeFulfilmentRequest(localeFulfilmentRequest).build();
+    assertNotNull(payIntent.localeFulfilmentRequest);
+    assertEquals("fr", payIntent.localeFulfilmentRequest);
+  }
+
+  @Test
+  public void testLocaleFulfilmentRequest_fromIntent() {
+    Intent sourceIntent = new Intent();
+    PayIntent payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNull(payIntent.localeFulfilmentRequest);
+
+    String localeFulfilmentRequest = "fr";
+
+    sourceIntent = new Intent();
+    sourceIntent.putExtra(Intents.EXTRA_LOCALE_FULFILMENT_REQUEST, localeFulfilmentRequest);
+    payIntent = new PayIntent.Builder().intent(sourceIntent).build();
+    assertNotNull(payIntent.localeFulfilmentRequest);
+    assertEquals("fr", payIntent.localeFulfilmentRequest);
+  }
+
+  @Test
+  public void testLocaleFulfilmentRequest_fromPayIntent() {
+    PayIntent sourcePayIntent = new PayIntent.Builder().build();
+    PayIntent payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertNull(payIntent.localeFulfilmentRequest);
+
+    String localeFulfilmentRequest = "fr";
+
+    sourcePayIntent = new PayIntent.Builder().localeFulfilmentRequest(localeFulfilmentRequest).build();
+    payIntent = new PayIntent.Builder().payIntent(sourcePayIntent).build();
+    assertEquals("fr", payIntent.localeFulfilmentRequest);
+  }
+
+  @Test
+  public void testLocaleFulfilmentRequest_serialization() {
+    String localeFulfilmentRequest = "fr";
+    PayIntent payIntent = new PayIntent.Builder().localeFulfilmentRequest(localeFulfilmentRequest).build();
+
+    Parcel p = Parcel.obtain();
+    payIntent.writeToParcel(p, 0);
+
+    p.setDataPosition(0);
+    PayIntent fromParcel = PayIntent.CREATOR.createFromParcel(p);
+    assertNotNull(fromParcel.localeFulfilmentRequest);
+    assertEquals("fr", fromParcel.localeFulfilmentRequest);
+  }
 }

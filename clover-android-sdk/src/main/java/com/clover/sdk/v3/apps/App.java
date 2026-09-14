@@ -72,6 +72,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPermissionPaymentsWrite permissionPaymentsWrite}</li>
  * <li>{@link #getPermissionEmployeesRead permissionEmployeesRead}</li>
  * <li>{@link #getPermissionEmployeesWrite permissionEmployeesWrite}</li>
+ * <li>{@link #getPermissionVasRead permissionVasRead}</li>
  * <li>{@link #getPermissionProcessCards permissionProcessCards}</li>
  * <li>{@link #getPermissionMidRead permissionMidRead}</li>
  * <li>{@link #getPermissionCustomersAddressRead permissionCustomersAddressRead}</li>
@@ -366,6 +367,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
   public java.lang.Boolean getPermissionEmployeesWrite() {
     return genClient.cacheGet(CacheKey.permissionEmployeesWrite);
+  }
+
+  public java.lang.Boolean getPermissionVasRead() {
+    return genClient.cacheGet(CacheKey.permissionVasRead);
   }
 
   public java.lang.Boolean getPermissionProcessCards() {
@@ -911,6 +916,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionEmployeesWrite
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    permissionVasRead
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionProcessCards
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionMidRead
@@ -1403,6 +1410,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionEmployeesWrite' field is set and is not null */
   public boolean isNotNullPermissionEmployeesWrite() {
     return genClient.cacheValueIsNotNull(CacheKey.permissionEmployeesWrite);
+  }
+
+  /** Checks whether the 'permissionVasRead' field is set and is not null */
+  public boolean isNotNullPermissionVasRead() {
+    return genClient.cacheValueIsNotNull(CacheKey.permissionVasRead);
   }
 
   /** Checks whether the 'permissionProcessCards' field is set and is not null */
@@ -2048,6 +2060,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionEmployeesWrite' field has been set, however the value could be null */
   public boolean hasPermissionEmployeesWrite() {
     return genClient.cacheHasKey(CacheKey.permissionEmployeesWrite);
+  }
+
+  /** Checks whether the 'permissionVasRead' field has been set, however the value could be null */
+  public boolean hasPermissionVasRead() {
+    return genClient.cacheHasKey(CacheKey.permissionVasRead);
   }
 
   /** Checks whether the 'permissionProcessCards' field has been set, however the value could be null */
@@ -2734,6 +2751,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App setPermissionEmployeesWrite(java.lang.Boolean permissionEmployeesWrite) {
     return genClient.setOther(permissionEmployeesWrite, CacheKey.permissionEmployeesWrite);
+  }
+
+  /**
+   * Sets the field 'permissionVasRead'.
+   */
+  public App setPermissionVasRead(java.lang.Boolean permissionVasRead) {
+    return genClient.setOther(permissionVasRead, CacheKey.permissionVasRead);
   }
 
   /**
@@ -3489,6 +3513,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearPermissionEmployeesWrite() {
     genClient.clear(CacheKey.permissionEmployeesWrite);
   }
+  /** Clears the 'permissionVasRead' field, the 'has' method for this field will now return false */
+  public void clearPermissionVasRead() {
+    genClient.clear(CacheKey.permissionVasRead);
+  }
   /** Clears the 'permissionProcessCards' field, the 'has' method for this field will now return false */
   public void clearPermissionProcessCards() {
     genClient.clear(CacheKey.permissionProcessCards);
@@ -3919,6 +3947,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean PERMISSIONPAYMENTSWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONEMPLOYEESREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONEMPLOYEESWRITE_IS_REQUIRED = false;
+    public static final boolean PERMISSIONVASREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONPROCESSCARDS_IS_REQUIRED = false;
     public static final boolean PERMISSIONMIDREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSADDRESSREAD_IS_REQUIRED = false;

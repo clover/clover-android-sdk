@@ -40,7 +40,15 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getModifierIds modifierIds}</li>
  * <li>{@link #getItems items}</li>
  * <li>{@link #getMenuModifierGroup menuModifierGroup}</li>
+ * <li>{@link #getSubModifierGroups subModifierGroups}</li>
+ * <li>{@link #getParentModifierGroup parentModifierGroup}</li>
+ * <li>{@link #getParentModifierGroupUuid parentModifierGroupUuid}</li>
+ * <li>{@link #getSourceModifierGroup sourceModifierGroup}</li>
+ * <li>{@link #getSourceModifierGroupUuid sourceModifierGroupUuid}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
+ * <li>{@link #getDeleted deleted}</li>
+ * <li>{@link #getType type}</li>
+ * <li>{@link #getIsSubModifierGroup isSubModifierGroup}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -110,10 +118,66 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sub Modifier Groups attribute that can be expanded to sub-modifier group specific attributes
+   */
+  public java.util.List<com.clover.sdk.v3.base.Reference> getSubModifierGroups() {
+    return genClient.cacheGet(CacheKey.subModifierGroups);
+  }
+
+  /**
+   * Reference to the parent modifier group
+   */
+  public com.clover.sdk.v3.base.Reference getParentModifierGroup() {
+    return genClient.cacheGet(CacheKey.parentModifierGroup);
+  }
+
+  /**
+   * Parent Modifier Group uuid.
+   */
+  public java.lang.String getParentModifierGroupUuid() {
+    return genClient.cacheGet(CacheKey.parentModifierGroupUuid);
+  }
+
+  /**
+   * Reference to the source modifier group
+   */
+  public com.clover.sdk.v3.base.Reference getSourceModifierGroup() {
+    return genClient.cacheGet(CacheKey.sourceModifierGroup);
+  }
+
+  /**
+   * Source modifier group uuid.
+   */
+  public java.lang.String getSourceModifierGroupUuid() {
+    return genClient.cacheGet(CacheKey.sourceModifierGroupUuid);
+  }
+
+  /**
    * The ordinal value used to determine where in an ordered list this modifier group should appear relative to others.
    */
   public java.lang.Integer getSortOrder() {
     return genClient.cacheGet(CacheKey.sortOrder);
+  }
+
+  /**
+   * Whether the modifier group has been deleted.
+   */
+  public java.lang.Boolean getDeleted() {
+    return genClient.cacheGet(CacheKey.deleted);
+  }
+
+  /**
+   * The type of modifier group
+   */
+  public com.clover.sdk.v3.inventory.ModifierGroupType getType() {
+    return genClient.cacheGet(CacheKey.type);
+  }
+
+  /**
+   * Whether modifier group is a sub-modifier group
+   */
+  public java.lang.Boolean getIsSubModifierGroup() {
+    return genClient.cacheGet(CacheKey.isSubModifierGroup);
   }
 
 
@@ -121,27 +185,43 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     name
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     alternateName
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     minRequired
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     maxAllowed
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     showByDefault
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     modifiers
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Modifier.JSON_CREATOR)),
+      (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.inventory.Modifier.JSON_CREATOR)),
     modifierIds
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     items
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+      (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     menuModifierGroup
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.MenuModifierGroup.JSON_CREATOR)),
+      (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.inventory.MenuModifierGroup.JSON_CREATOR)),
+    subModifierGroups
+      (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    parentModifierGroup
+      (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    parentModifierGroupUuid
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    sourceModifierGroup
+      (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
+    sourceModifierGroupUuid
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     sortOrder
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
+    deleted
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    type
+      (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.inventory.ModifierGroupType.class)),
+    isSubModifierGroup
+      (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -227,6 +307,9 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
 
     genClient.validateMin(CacheKey.sortOrder, getSortOrder(), 0L);
     genClient.validateReferences(CacheKey.items);
+    genClient.validateReferences(CacheKey.subModifierGroups);
+    genClient.validateReferences(CacheKey.parentModifierGroup);
+    genClient.validateReferences(CacheKey.sourceModifierGroup);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -285,9 +368,52 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheValueIsNotNull(CacheKey.menuModifierGroup);
   }
 
+  /** Checks whether the 'subModifierGroups' field is set and is not null */
+  public boolean isNotNullSubModifierGroups() {
+    return genClient.cacheValueIsNotNull(CacheKey.subModifierGroups);
+  }
+
+  /** Checks whether the 'subModifierGroups' field is set and is not null and is not empty */
+  public boolean isNotEmptySubModifierGroups() { return isNotNullSubModifierGroups() && !getSubModifierGroups().isEmpty(); }
+
+  /** Checks whether the 'parentModifierGroup' field is set and is not null */
+  public boolean isNotNullParentModifierGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.parentModifierGroup);
+  }
+
+  /** Checks whether the 'parentModifierGroupUuid' field is set and is not null */
+  public boolean isNotNullParentModifierGroupUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.parentModifierGroupUuid);
+  }
+
+  /** Checks whether the 'sourceModifierGroup' field is set and is not null */
+  public boolean isNotNullSourceModifierGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourceModifierGroup);
+  }
+
+  /** Checks whether the 'sourceModifierGroupUuid' field is set and is not null */
+  public boolean isNotNullSourceModifierGroupUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.sourceModifierGroupUuid);
+  }
+
   /** Checks whether the 'sortOrder' field is set and is not null */
   public boolean isNotNullSortOrder() {
     return genClient.cacheValueIsNotNull(CacheKey.sortOrder);
+  }
+
+  /** Checks whether the 'deleted' field is set and is not null */
+  public boolean isNotNullDeleted() {
+    return genClient.cacheValueIsNotNull(CacheKey.deleted);
+  }
+
+  /** Checks whether the 'type' field is set and is not null */
+  public boolean isNotNullType() {
+    return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
+  /** Checks whether the 'isSubModifierGroup' field is set and is not null */
+  public boolean isNotNullIsSubModifierGroup() {
+    return genClient.cacheValueIsNotNull(CacheKey.isSubModifierGroup);
   }
 
 
@@ -342,9 +468,49 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     return genClient.cacheHasKey(CacheKey.menuModifierGroup);
   }
 
+  /** Checks whether the 'subModifierGroups' field has been set, however the value could be null */
+  public boolean hasSubModifierGroups() {
+    return genClient.cacheHasKey(CacheKey.subModifierGroups);
+  }
+
+  /** Checks whether the 'parentModifierGroup' field has been set, however the value could be null */
+  public boolean hasParentModifierGroup() {
+    return genClient.cacheHasKey(CacheKey.parentModifierGroup);
+  }
+
+  /** Checks whether the 'parentModifierGroupUuid' field has been set, however the value could be null */
+  public boolean hasParentModifierGroupUuid() {
+    return genClient.cacheHasKey(CacheKey.parentModifierGroupUuid);
+  }
+
+  /** Checks whether the 'sourceModifierGroup' field has been set, however the value could be null */
+  public boolean hasSourceModifierGroup() {
+    return genClient.cacheHasKey(CacheKey.sourceModifierGroup);
+  }
+
+  /** Checks whether the 'sourceModifierGroupUuid' field has been set, however the value could be null */
+  public boolean hasSourceModifierGroupUuid() {
+    return genClient.cacheHasKey(CacheKey.sourceModifierGroupUuid);
+  }
+
   /** Checks whether the 'sortOrder' field has been set, however the value could be null */
   public boolean hasSortOrder() {
     return genClient.cacheHasKey(CacheKey.sortOrder);
+  }
+
+  /** Checks whether the 'deleted' field has been set, however the value could be null */
+  public boolean hasDeleted() {
+    return genClient.cacheHasKey(CacheKey.deleted);
+  }
+
+  /** Checks whether the 'type' field has been set, however the value could be null */
+  public boolean hasType() {
+    return genClient.cacheHasKey(CacheKey.type);
+  }
+
+  /** Checks whether the 'isSubModifierGroup' field has been set, however the value could be null */
+  public boolean hasIsSubModifierGroup() {
+    return genClient.cacheHasKey(CacheKey.isSubModifierGroup);
   }
 
 
@@ -425,10 +591,72 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   }
 
   /**
+   * Sets the field 'subModifierGroups'.
+   *
+   * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
+   */
+  public ModifierGroup setSubModifierGroups(java.util.List<com.clover.sdk.v3.base.Reference> subModifierGroups) {
+    return genClient.setArrayRecord(subModifierGroups, CacheKey.subModifierGroups);
+  }
+
+  /**
+   * Sets the field 'parentModifierGroup'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public ModifierGroup setParentModifierGroup(com.clover.sdk.v3.base.Reference parentModifierGroup) {
+    return genClient.setRecord(parentModifierGroup, CacheKey.parentModifierGroup);
+  }
+
+  /**
+   * Sets the field 'parentModifierGroupUuid'.
+   */
+  public ModifierGroup setParentModifierGroupUuid(java.lang.String parentModifierGroupUuid) {
+    return genClient.setOther(parentModifierGroupUuid, CacheKey.parentModifierGroupUuid);
+  }
+
+  /**
+   * Sets the field 'sourceModifierGroup'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public ModifierGroup setSourceModifierGroup(com.clover.sdk.v3.base.Reference sourceModifierGroup) {
+    return genClient.setRecord(sourceModifierGroup, CacheKey.sourceModifierGroup);
+  }
+
+  /**
+   * Sets the field 'sourceModifierGroupUuid'.
+   */
+  public ModifierGroup setSourceModifierGroupUuid(java.lang.String sourceModifierGroupUuid) {
+    return genClient.setOther(sourceModifierGroupUuid, CacheKey.sourceModifierGroupUuid);
+  }
+
+  /**
    * Sets the field 'sortOrder'.
    */
   public ModifierGroup setSortOrder(java.lang.Integer sortOrder) {
     return genClient.setOther(sortOrder, CacheKey.sortOrder);
+  }
+
+  /**
+   * Sets the field 'deleted'.
+   */
+  public ModifierGroup setDeleted(java.lang.Boolean deleted) {
+    return genClient.setOther(deleted, CacheKey.deleted);
+  }
+
+  /**
+   * Sets the field 'type'.
+   */
+  public ModifierGroup setType(com.clover.sdk.v3.inventory.ModifierGroupType type) {
+    return genClient.setOther(type, CacheKey.type);
+  }
+
+  /**
+   * Sets the field 'isSubModifierGroup'.
+   */
+  public ModifierGroup setIsSubModifierGroup(java.lang.Boolean isSubModifierGroup) {
+    return genClient.setOther(isSubModifierGroup, CacheKey.isSubModifierGroup);
   }
 
 
@@ -472,9 +700,41 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
   public void clearMenuModifierGroup() {
     genClient.clear(CacheKey.menuModifierGroup);
   }
+  /** Clears the 'subModifierGroups' field, the 'has' method for this field will now return false */
+  public void clearSubModifierGroups() {
+    genClient.clear(CacheKey.subModifierGroups);
+  }
+  /** Clears the 'parentModifierGroup' field, the 'has' method for this field will now return false */
+  public void clearParentModifierGroup() {
+    genClient.clear(CacheKey.parentModifierGroup);
+  }
+  /** Clears the 'parentModifierGroupUuid' field, the 'has' method for this field will now return false */
+  public void clearParentModifierGroupUuid() {
+    genClient.clear(CacheKey.parentModifierGroupUuid);
+  }
+  /** Clears the 'sourceModifierGroup' field, the 'has' method for this field will now return false */
+  public void clearSourceModifierGroup() {
+    genClient.clear(CacheKey.sourceModifierGroup);
+  }
+  /** Clears the 'sourceModifierGroupUuid' field, the 'has' method for this field will now return false */
+  public void clearSourceModifierGroupUuid() {
+    genClient.clear(CacheKey.sourceModifierGroupUuid);
+  }
   /** Clears the 'sortOrder' field, the 'has' method for this field will now return false */
   public void clearSortOrder() {
     genClient.clear(CacheKey.sortOrder);
+  }
+  /** Clears the 'deleted' field, the 'has' method for this field will now return false */
+  public void clearDeleted() {
+    genClient.clear(CacheKey.deleted);
+  }
+  /** Clears the 'type' field, the 'has' method for this field will now return false */
+  public void clearType() {
+    genClient.clear(CacheKey.type);
+  }
+  /** Clears the 'isSubModifierGroup' field, the 'has' method for this field will now return false */
+  public void clearIsSubModifierGroup() {
+    genClient.clear(CacheKey.isSubModifierGroup);
   }
 
 
@@ -554,8 +814,16 @@ public class ModifierGroup extends GenericParcelable implements com.clover.sdk.v
     public static final boolean MODIFIERIDS_IS_REQUIRED = false;
     public static final boolean ITEMS_IS_REQUIRED = false;
     public static final boolean MENUMODIFIERGROUP_IS_REQUIRED = false;
+    public static final boolean SUBMODIFIERGROUPS_IS_REQUIRED = false;
+    public static final boolean PARENTMODIFIERGROUP_IS_REQUIRED = false;
+    public static final boolean PARENTMODIFIERGROUPUUID_IS_REQUIRED = false;
+    public static final boolean SOURCEMODIFIERGROUP_IS_REQUIRED = false;
+    public static final boolean SOURCEMODIFIERGROUPUUID_IS_REQUIRED = false;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final long SORTORDER_MIN = 0;
+    public static final boolean DELETED_IS_REQUIRED = false;
+    public static final boolean TYPE_IS_REQUIRED = false;
+    public static final boolean ISSUBMODIFIERGROUP_IS_REQUIRED = false;
   }
 
 }

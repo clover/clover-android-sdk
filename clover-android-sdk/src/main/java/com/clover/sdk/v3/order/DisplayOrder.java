@@ -49,6 +49,8 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPayments payments}</li>
  * <li>{@link #getCashDiscountTotal cashDiscountTotal}</li>
  * <li>{@link #getCashDiscountPercentage cashDiscountPercentage}</li>
+ * <li>{@link #getRoundedAmount roundedAmount}</li>
+ * <li>{@link #getRoundingAdjustment roundingAdjustment}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -165,6 +167,20 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheGet(CacheKey.cashDiscountPercentage);
   }
 
+  /**
+   * Rounded amount of order total, if applicable
+   */
+  public java.lang.String getRoundedAmount() {
+    return genClient.cacheGet(CacheKey.roundedAmount);
+  }
+
+  /**
+   * Rounding adjustment amount of order, if applicable
+   */
+  public java.lang.String getRoundingAdjustment() {
+    return genClient.cacheGet(CacheKey.roundingAdjustment);
+  }
+
 
 
 
@@ -204,6 +220,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     cashDiscountTotal
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     cashDiscountPercentage
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    roundedAmount
+            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    roundingAdjustment
             (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     ;
 
@@ -296,6 +316,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     genClient.validateLength(CacheKey.cashDiscountTotal, getCashDiscountTotal(), 127);
 
     genClient.validateLength(CacheKey.cashDiscountPercentage, getCashDiscountPercentage(), 127);
+
+    genClient.validateLength(CacheKey.roundedAmount, getRoundedAmount(), 127);
+
+    genClient.validateLength(CacheKey.roundingAdjustment, getRoundingAdjustment(), 127);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -400,6 +424,16 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     return genClient.cacheValueIsNotNull(CacheKey.cashDiscountPercentage);
   }
 
+  /** Checks whether the 'roundedAmount' field is set and is not null */
+  public boolean isNotNullRoundedAmount() {
+    return genClient.cacheValueIsNotNull(CacheKey.roundedAmount);
+  }
+
+  /** Checks whether the 'roundingAdjustment' field is set and is not null */
+  public boolean isNotNullRoundingAdjustment() {
+    return genClient.cacheValueIsNotNull(CacheKey.roundingAdjustment);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -490,6 +524,16 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Checks whether the 'cashDiscountPercentage' field has been set, however the value could be null */
   public boolean hasCashDiscountPercentage() {
     return genClient.cacheHasKey(CacheKey.cashDiscountPercentage);
+  }
+
+  /** Checks whether the 'roundedAmount' field has been set, however the value could be null */
+  public boolean hasRoundedAmount() {
+    return genClient.cacheHasKey(CacheKey.roundedAmount);
+  }
+
+  /** Checks whether the 'roundingAdjustment' field has been set, however the value could be null */
+  public boolean hasRoundingAdjustment() {
+    return genClient.cacheHasKey(CacheKey.roundingAdjustment);
   }
 
 
@@ -627,6 +671,20 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     return genClient.setOther(cashDiscountPercentage, CacheKey.cashDiscountPercentage);
   }
 
+  /**
+   * Sets the field 'roundedAmount'.
+   */
+  public DisplayOrder setRoundedAmount(java.lang.String roundedAmount) {
+    return genClient.setOther(roundedAmount, CacheKey.roundedAmount);
+  }
+
+  /**
+   * Sets the field 'roundingAdjustment'.
+   */
+  public DisplayOrder setRoundingAdjustment(java.lang.String roundingAdjustment) {
+    return genClient.setOther(roundingAdjustment, CacheKey.roundingAdjustment);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -699,6 +757,14 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
   /** Clears the 'cashDiscountPercentage' field, the 'has' method for this field will now return false */
   public void clearCashDiscountPercentage() {
     genClient.clear(CacheKey.cashDiscountPercentage);
+  }
+  /** Clears the 'roundedAmount' field, the 'has' method for this field will now return false */
+  public void clearRoundedAmount() {
+    genClient.clear(CacheKey.roundedAmount);
+  }
+  /** Clears the 'roundingAdjustment' field, the 'has' method for this field will now return false */
+  public void clearRoundingAdjustment() {
+    genClient.clear(CacheKey.roundingAdjustment);
   }
 
 
@@ -790,6 +856,10 @@ public class DisplayOrder extends GenericParcelable implements com.clover.sdk.v3
     public static final long CASHDISCOUNTTOTAL_MAX_LEN = 127;
     public static final boolean CASHDISCOUNTPERCENTAGE_IS_REQUIRED = false;
     public static final long CASHDISCOUNTPERCENTAGE_MAX_LEN = 127;
+    public static final boolean ROUNDEDAMOUNT_IS_REQUIRED = false;
+    public static final long ROUNDEDAMOUNT_MAX_LEN = 127;
+    public static final boolean ROUNDINGADJUSTMENT_IS_REQUIRED = false;
+    public static final long ROUNDINGADJUSTMENT_MAX_LEN = 127;
   }
 
 }

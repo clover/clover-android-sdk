@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- smartling.instruction_attributes = comment -->
 <!--
   ~ Copyright (C) 2013 Clover Network, Inc.
   ~
@@ -18,7 +19,7 @@
 <resources>
 
   <!-- return to merchant -->
-  <string name="returnToMerchantPaymentSuccessful">Thank you for your purchase.\n Please return this device\n to an employee</string>
-  <string name="returnToMerchant">Please return this device\n to an employee</string>
+  <string name="returnToMerchantPaymentSuccessful" comment="Location: Customer-facing screen after successful payment. Purpose: Informs the customer that the payment was successful and to return the device. Screen Size: Portrait orientation.">Thank you for your purchase.\n Please return this device\n to an employee</string>
+  <string name="returnToMerchant" comment="Location: Customer-facing screen after purchase. Purpose: Message to the customer to return the device to the merchant. Screen Size: Portrait orientation.">Please return this device\n to an employee</string>
 
 </resources>

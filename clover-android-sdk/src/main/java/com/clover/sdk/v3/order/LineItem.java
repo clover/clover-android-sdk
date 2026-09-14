@@ -69,6 +69,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getIsOrderFee isOrderFee}</li>
  * <li>{@link #getIsPlatformOrderFee isPlatformOrderFee}</li>
  * <li>{@link #getOrderFeeType orderFeeType}</li>
+ * <li>{@link #getType type}</li>
  * <li>{@link #getUnitQtyDecimalDigits unitQtyDecimalDigits}</li>
  * <li>{@link #getIsAgeRestricted isAgeRestricted}</li>
  * <li>{@link #getAgeRestrictedType ageRestrictedType}</li>
@@ -76,6 +77,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getExcludeCashDiscount excludeCashDiscount}</li>
  * <li>{@link #getLineItemInfo lineItemInfo}</li>
  * <li>{@link #getLineItemStatusReason lineItemStatusReason}</li>
+ * <li>{@link #getBundleComponent bundleComponent}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.order.IOrderService
@@ -333,6 +335,9 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.orderFeeType);
   }
 
+  public LineItemType getType() {
+    return genClient.cacheGet(CacheKey.type);
+  }
 
   /**
    * This is applicable only if the item is priced by quantity of a unit.
@@ -384,6 +389,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public java.lang.String getLineItemStatusReason() {
     return genClient.cacheGet(CacheKey.lineItemStatusReason);
+  }
+
+  /**
+   * Information related to the curated Bundle corresponding to this bundle-line-item
+   */
+  public com.clover.sdk.v3.order.BundleComponent getBundleComponent() {
+    return genClient.cacheGet(CacheKey.bundleComponent);
   }
 
 
@@ -468,6 +480,8 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     orderFeeType
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    type
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(LineItemType.class)),
     unitQtyDecimalDigits
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     isAgeRestricted
@@ -482,6 +496,8 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
             (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItemInfo.JSON_CREATOR)),
     lineItemStatusReason
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    bundleComponent
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.BundleComponent.JSON_CREATOR)),
     ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -801,6 +817,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.orderFeeType);
   }
 
+  /** Checks whether the 'type' field is set and is not null */
+  public boolean isNotNullType() {
+    return genClient.cacheValueIsNotNull(CacheKey.type);
+  }
+
   /** Checks whether the 'unitQtyDecimalDigits' field is set and is not null */
   public boolean isNotNullUnitQtyDecimalDigits() {
     return genClient.cacheValueIsNotNull(CacheKey.unitQtyDecimalDigits);
@@ -834,6 +855,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'lineItemStatusReason' field is set and is not null */
   public boolean isNotNullLineItemStatusReason() {
     return genClient.cacheValueIsNotNull(CacheKey.lineItemStatusReason);
+  }
+
+  /** Checks whether the 'bundleComponent' field is set and is not null */
+  public boolean isNotNullBundleComponent() {
+    return genClient.cacheValueIsNotNull(CacheKey.bundleComponent);
   }
 
 
@@ -1033,6 +1059,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheHasKey(CacheKey.orderFeeType);
   }
 
+  /** Checks whether the 'type' field has been set, however the value could be null */
+  public boolean hasType() {
+    return genClient.cacheHasKey(CacheKey.type);
+  }
 
   /** Checks whether the 'unitQtyDecimalDigits' field has been set, however the value could be null */
   public boolean hasUnitQtyDecimalDigits() {
@@ -1067,6 +1097,11 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'lineItemStatusReason' field has been set, however the value could be null */
   public boolean hasLineItemStatusReason() {
     return genClient.cacheHasKey(CacheKey.lineItemStatusReason);
+  }
+
+  /** Checks whether the 'bundleComponent' field has been set, however the value could be null */
+  public boolean hasBundleComponent() {
+    return genClient.cacheHasKey(CacheKey.bundleComponent);
   }
 
 
@@ -1366,6 +1401,13 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   }
 
   /**
+   * Sets the field 'type'.
+   */
+  public LineItem setType(LineItemType type) {
+    return genClient.setOther(type, CacheKey.type);
+  }
+
+  /**
    * Sets the field 'unitQtyDecimalDigits'.
    */
   public LineItem setUnitQtyDecimalDigits(java.lang.Integer unitQtyDecimalDigits) {
@@ -1414,6 +1456,15 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
    */
   public LineItem setLineItemStatusReason(java.lang.String lineItemStatusReason) {
     return genClient.setOther(lineItemStatusReason, CacheKey.lineItemStatusReason);
+  }
+
+  /**
+   * Sets the field 'bundleComponent'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public LineItem setBundleComponent(com.clover.sdk.v3.order.BundleComponent bundleComponent) {
+    return genClient.setRecord(bundleComponent, CacheKey.bundleComponent);
   }
 
 
@@ -1573,6 +1624,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   public void clearOrderFeeType() {
     genClient.clear(CacheKey.orderFeeType);
   }
+  /** Clears the 'type' field, the 'has' method for this field will now return false */
+  public void clearType() {
+    genClient.clear(CacheKey.type);
+  }
   /** Clears the 'unitQtyDecimalDigits' field, the 'has' method for this field will now return false */
   public void clearUnitQtyDecimalDigits() {
     genClient.clear(CacheKey.unitQtyDecimalDigits);
@@ -1600,6 +1655,10 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'lineItemStatusReason' field, the 'has' method for this field will now return false */
   public void clearLineItemStatusReason() {
     genClient.clear(CacheKey.lineItemStatusReason);
+  }
+  /** Clears the 'bundleComponent' field, the 'has' method for this field will now return false */
+  public void clearBundleComponent() {
+    genClient.clear(CacheKey.bundleComponent);
   }
 
 
@@ -1714,6 +1773,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean ISORDERFEE_IS_REQUIRED = false;
     public static final boolean ISPLATFORMORDERFEE_IS_REQUIRED = false;
     public static final boolean ORDERFEETYPE_IS_REQUIRED = false;
+    public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean UNITQTYDECIMALDIGITS_IS_REQUIRED = false;
     public static final long UNITQTYDECIMALDIGITS_MIN = 0;
     public static final long UNITQTYDECIMALDIGITS_MAX = 3;
@@ -1726,6 +1786,7 @@ public class LineItem extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean EXCLUDECASHDISCOUNT_IS_REQUIRED = false;
     public static final boolean LINEITEMINFO_IS_REQUIRED = false;
     public static final boolean LINEITEMSTATUSREASON_IS_REQUIRED = false;
+    public static final boolean BUNDLECOMPONENT_IS_REQUIRED = false;
   }
 
 }

@@ -22,6 +22,7 @@ import com.clover.sdk.v1.Intents;
 public class OrderIntent {
   public static final String ACTION_ORDER_SERVICE_V3 = "com.clover.intent.action.ORDER_SERVICE_V3";
   public static final String ACTION_ORDER_SERVICE_V3_1 = "com.clover.intent.action.ORDER_SERVICE_V3_1";
+  public static final String ACTION_ORDER_SERVICE_MULTI_MID = "com.clover.intent.action.ORDER_SERVICE_MULTI_MID";
 
   public static Account getAccount(Intent intent) {
     return intent.getParcelableExtra(Intents.EXTRA_ACCOUNT);

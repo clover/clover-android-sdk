@@ -62,6 +62,22 @@ public class Intents {
   public static final String ACTION_ITEM_SELECT = "com.clover.intent.action.ITEM_SELECT";
 
   /**
+   * Launch an activity registered to handle order management, allowing a third-party app to view
+   * or edit an existing order.
+   * <p>
+   * Extras passed:
+   * <ul>
+   * <li>{@link #EXTRA_ORDER_ID} - The UUID of the order to be managed (Required)</li>
+   * </ul>
+   * <p>
+   * Result data includes:
+   * <ul>
+   * <li>NONE</li>
+   * </ul>
+   */
+  public static final String ACTION_MANAGE_ORDER = "com.clover.intent.action.MANAGE_ORDER";
+
+  /**
    * Launch the Print Receipts activity, to show receipt printing and sending options for an order
    * <p>
    * Extras passed:
@@ -1356,8 +1372,8 @@ public class Intents {
   /** {@link String}, Is the customer phone number associated with Kiosk order */
   public static final String EXTRA_KIOSK_FULFILLMENT_INFO_PHONE_NUMBER = "clover.intent.extra.KIOSK_FULFILLMENT_INFO_PHONE_NUMBER";
 
-  /** {@link String}, Is the customer chosen kiosk app locale associated with Kiosk order */
-  public static final String EXTRA_KIOSK_FULFILLMENT_INFO_LOCALE = "clover.intent.extra.KIOSK_FULFILLMENT_INFO_LOCALE";
+  /** {@link String}, Is the customer chosen clover order taking app's locale associated with order and further enhanced for other clover devices like KDS, Duo's */
+  public static final String EXTRA_LOCALE_FULFILMENT_REQUEST = "clover.intent.extra.LOCALE_FULFILMENT_REQUEST";
 
   /** {@link String}, elv transaction type for Germany */
   public static final String EXTRA_GERMAN_ELV = "clover.intent.extra.GERMAN_ELV";
@@ -1579,8 +1595,20 @@ public class Intents {
   /** {@link int}, This flag enables/disables the visibility of the tender logos on the customer facing screen */
   public static final String META_CUSTOMER_TENDER_LOGO_ENABLED = "clover.intent.meta.CUSTOMER_TENDER_LOGO_ENABLED";
 
+  /** A meta tag to display a title in bold on the prioritized Custom Tender button. */
+  public static final String META_CUSTOMER_TENDER_TITLE = "clover.intent.meta.CUSTOMER_TENDER_TITLE";
+
+  /** A meta tag to display a description of the button underneath the title of the prioritized Custom Tender button */
+  public static final String META_CUSTOMER_TENDER_DESCRIPTION = "clover.intent.meta.CUSTOMER_TENDER_DESCRIPTION";
+
   /** {@link int}, A drawable resource ID, the image to be displayed on the merchant-facing tender button*/
   public static final String META_MERCHANT_TENDER_IMAGE = "clover.intent.meta.MERCHANT_TENDER_IMAGE";
+
+  /** {@link int}, A meta tag to display text on the modify order button on merchant facing tender display. */
+  public static final String META_MODIFY_ORDER_LABEL = "clover.intent.meta.MODIFY_ORDER_LABEL";
+
+  /** {@link int}, A meta tag for a resource to display an image on the modify order button on merchant facing tender display. */
+  public static final String META_MODIFY_ORDER_IMAGE = "clover.intent.meta.MODIFY_ORDER_IMAGE";
 
   /** {@link Boolean} flag */
   public static final String EXTRA_USE_LAST_SWIPE = "clover.intent.extra_USE_LAST_SWIPE";
@@ -1898,5 +1926,11 @@ public class Intents {
   public static final String EXTRA_REQUEST_TYPE = "clover.intent.extra.EXTRA_REQUEST_TYPE";
 
   public static final String EXTRA_DYNAMIC_TIP_SELECTION = "clover.intent.extra.EXTRA_DYNAMIC_TIP_SELECTION";
+
+  /**
+   * Intent extra key indicating whether rounding logic should be applied to the current transaction.
+   * Expects a boolean value.
+   */
+  public static final String EXTRA_APPLY_ROUNDING = "clover.intent.extra.EXTRA_APPLY_ROUNDING";
 
 }

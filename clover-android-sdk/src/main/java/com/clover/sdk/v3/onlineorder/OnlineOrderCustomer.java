@@ -11,7 +11,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,6 +38,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCustomerPhoneNumber customerPhoneNumber}</li>
  * <li>{@link #getCustomerAddress customerAddress}</li>
  * <li>{@link #getIsSnapshot isSnapshot}</li>
+ * <li>{@link #getCustomerPin customerPin}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
  * </ul>
@@ -102,21 +103,27 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   }
 
   /**
+   * Online Order customer pin for online order
+   */
+  public java.lang.String getCustomerPin() {
+    return genClient.cacheGet(CacheKey.customerPin);
+  }
+
+  /**
    * Timestamp when the online ordering item was created
    */
   public java.lang.Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
+
+  
   /**
    * Timestamp when the online ordering item was last modified
    */
   public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
-
-
-
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
@@ -135,6 +142,8 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Address.JSON_CREATOR)),
     isSnapshot
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    customerPin
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
@@ -254,6 +263,11 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     return genClient.cacheValueIsNotNull(CacheKey.isSnapshot);
   }
 
+  /** Checks whether the 'customerPin' field is set and is not null */
+  public boolean isNotNullCustomerPin() {
+    return genClient.cacheValueIsNotNull(CacheKey.customerPin);
+  }
+
   /** Checks whether the 'createdTime' field is set and is not null */
   public boolean isNotNullCreatedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
@@ -263,8 +277,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   public boolean isNotNullModifiedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.modifiedTime);
   }
-
-
 
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
@@ -306,6 +318,11 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     return genClient.cacheHasKey(CacheKey.isSnapshot);
   }
 
+  /** Checks whether the 'customerPin' field has been set, however the value could be null */
+  public boolean hasCustomerPin() {
+    return genClient.cacheHasKey(CacheKey.customerPin);
+  }
+
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
   public boolean hasCreatedTime() {
     return genClient.cacheHasKey(CacheKey.createdTime);
@@ -315,7 +332,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   public boolean hasModifiedTime() {
     return genClient.cacheHasKey(CacheKey.modifiedTime);
   }
-
 
   /**
    * Sets the field 'id'.
@@ -376,6 +392,13 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   }
 
   /**
+   * Sets the field 'customerPin'.
+   */
+  public OnlineOrderCustomer setCustomerPin(java.lang.String customerPin) {
+    return genClient.setOther(customerPin, CacheKey.customerPin);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public OnlineOrderCustomer setCreatedTime(java.lang.Long createdTime) {
@@ -388,7 +411,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   public OnlineOrderCustomer setModifiedTime(java.lang.Long modifiedTime) {
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
-
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -422,6 +444,10 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   public void clearIsSnapshot() {
     genClient.clear(CacheKey.isSnapshot);
   }
+  /** Clears the 'customerPin' field, the 'has' method for this field will now return false */
+  public void clearCustomerPin() {
+    genClient.clear(CacheKey.customerPin);
+  }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
     genClient.clear(CacheKey.createdTime);
@@ -430,7 +456,6 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
   public void clearModifiedTime() {
     genClient.clear(CacheKey.modifiedTime);
   }
-
 
   /**
    * Returns true if this instance has any changes.
@@ -501,8 +526,8 @@ public class OnlineOrderCustomer extends GenericParcelable implements com.clover
     public static final boolean CUSTOMERPHONENUMBER_IS_REQUIRED = false;
     public static final boolean CUSTOMERADDRESS_IS_REQUIRED = false;
     public static final boolean ISSNAPSHOT_IS_REQUIRED = false;
+    public static final boolean CUSTOMERPIN_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;
   }
-
 }

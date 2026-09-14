@@ -29,11 +29,11 @@ import com.clover.sdk.GenericParcelable;
 /**
  * This is an auto-generated Clover data object.
  * <p>
- * Lightweight row for the history RecyclerView. First row is always OPEN (reportId=0), remaining are persisted reports.
+ * Lightweight row for the history RecyclerView. First row is always OPEN (reportUuid=null), remaining are persisted reports.
  * <p>
  * <h3>Fields</h3>
  * <ul>
- * <li>{@link #getReportId reportId}</li>
+ * <li>{@link #getReportUuid reportUuid}</li>
  * <li>{@link #getStartTime startTime}</li>
  * <li>{@link #getEndTime endTime}</li>
  * <li>{@link #getStatus status}</li>
@@ -47,23 +47,23 @@ import com.clover.sdk.GenericParcelable;
 public class OperationalReportHistoryRow extends GenericParcelable implements com.clover.sdk.v3.Validator, com.clover.sdk.JSONifiable {
 
   /**
-   * Report ID. 0 = OPEN/live (not persisted), >0 = persisted report
+   * Report UUID. Null = OPEN/live (not persisted), non-null = persisted report.
    */
-  public java.lang.Long getReportId() {
-    return genClient.cacheGet(CacheKey.reportId);
+  public java.lang.String getReportUuid() {
+    return genClient.cacheGet(CacheKey.reportUuid);
   }
 
   /**
-   * Report window start time. Empty string for OPEN row.
+   * Report window start time (epoch milliseconds). Null for OPEN row.
    */
-  public java.lang.String getStartTime() {
+  public java.lang.Long getStartTime() {
     return genClient.cacheGet(CacheKey.startTime);
   }
 
   /**
-   * Report window end time. Empty string for OPEN row.
+   * Report window end time (epoch milliseconds). Null for OPEN row.
    */
-  public java.lang.String getEndTime() {
+  public java.lang.Long getEndTime() {
     return genClient.cacheGet(CacheKey.endTime);
   }
 
@@ -106,12 +106,12 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
 
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
-    reportId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    reportUuid
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     startTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     endTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     status
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     totalARS
@@ -196,9 +196,9 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
   public void validate() {
   }
 
-  /** Checks whether the 'reportId' field is set and is not null */
-  public boolean isNotNullReportId() {
-    return genClient.cacheValueIsNotNull(CacheKey.reportId);
+  /** Checks whether the 'reportUuid' field is set and is not null */
+  public boolean isNotNullReportUuid() {
+    return genClient.cacheValueIsNotNull(CacheKey.reportUuid);
   }
 
   /** Checks whether the 'startTime' field is set and is not null */
@@ -238,9 +238,9 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
 
 
 
-  /** Checks whether the 'reportId' field has been set, however the value could be null */
-  public boolean hasReportId() {
-    return genClient.cacheHasKey(CacheKey.reportId);
+  /** Checks whether the 'reportUuid' field has been set, however the value could be null */
+  public boolean hasReportUuid() {
+    return genClient.cacheHasKey(CacheKey.reportUuid);
   }
 
   /** Checks whether the 'startTime' field has been set, however the value could be null */
@@ -280,23 +280,23 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
 
 
   /**
-   * Sets the field 'reportId'.
+   * Sets the field 'reportUuid'.
    */
-  public OperationalReportHistoryRow setReportId(java.lang.Long reportId) {
-    return genClient.setOther(reportId, CacheKey.reportId);
+  public OperationalReportHistoryRow setReportUuid(java.lang.String reportUuid) {
+    return genClient.setOther(reportUuid, CacheKey.reportUuid);
   }
 
   /**
    * Sets the field 'startTime'.
    */
-  public OperationalReportHistoryRow setStartTime(java.lang.String startTime) {
+  public OperationalReportHistoryRow setStartTime(java.lang.Long startTime) {
     return genClient.setOther(startTime, CacheKey.startTime);
   }
 
   /**
    * Sets the field 'endTime'.
    */
-  public OperationalReportHistoryRow setEndTime(java.lang.String endTime) {
+  public OperationalReportHistoryRow setEndTime(java.lang.Long endTime) {
     return genClient.setOther(endTime, CacheKey.endTime);
   }
 
@@ -336,9 +336,9 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
   }
 
 
-  /** Clears the 'reportId' field, the 'has' method for this field will now return false */
-  public void clearReportId() {
-    genClient.clear(CacheKey.reportId);
+  /** Clears the 'reportUuid' field, the 'has' method for this field will now return false */
+  public void clearReportUuid() {
+    genClient.clear(CacheKey.reportUuid);
   }
   /** Clears the 'startTime' field, the 'has' method for this field will now return false */
   public void clearStartTime() {
@@ -430,7 +430,7 @@ public class OperationalReportHistoryRow extends GenericParcelable implements co
   };
 
   public interface Constraints {
-    public static final boolean REPORTID_IS_REQUIRED = false;
+    public static final boolean REPORTUUID_IS_REQUIRED = false;
     public static final boolean STARTTIME_IS_REQUIRED = false;
     public static final boolean ENDTIME_IS_REQUIRED = false;
     public static final boolean STATUS_IS_REQUIRED = false;

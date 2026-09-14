@@ -52,7 +52,7 @@ public class CurrencyDetail extends GenericParcelable implements com.clover.sdk.
   /**
    * Total transaction count for this currency
    */
-  public java.lang.String getTxCount() {
+  public java.lang.Integer getTxCount() {
     return genClient.cacheGet(CacheKey.txCount);
   }
 
@@ -77,7 +77,7 @@ public class CurrencyDetail extends GenericParcelable implements com.clover.sdk.
     currency
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     txCount
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Integer.class)),
     batchTotals
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payment.raw.model.ManualTotals.JSON_CREATOR)),
     terminalDetails
@@ -212,7 +212,7 @@ public class CurrencyDetail extends GenericParcelable implements com.clover.sdk.
   /**
    * Sets the field 'txCount'.
    */
-  public CurrencyDetail setTxCount(java.lang.String txCount) {
+  public CurrencyDetail setTxCount(java.lang.Integer txCount) {
     return genClient.setOther(txCount, CacheKey.txCount);
   }
 

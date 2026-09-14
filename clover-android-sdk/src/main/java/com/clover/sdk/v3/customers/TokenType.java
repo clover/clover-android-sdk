@@ -31,7 +31,7 @@ import android.os.Parcel;
  */
 @SuppressWarnings("all")
 public enum TokenType implements Parcelable {
-  MULTIPAY, FINANCIAL;
+  MULTIPAY, FINANCIAL, SITEF;
 
   @Override
   public int describeContents() {

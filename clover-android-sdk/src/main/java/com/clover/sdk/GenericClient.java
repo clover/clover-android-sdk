@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
 
+import com.clover.sdk.v3.JsonHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -695,7 +697,7 @@ public final class GenericClient<D> {
         JSONArray array = new JSONArray();
         for (T obj : list) {
           if (obj == null) { continue; }
-          array.put(obj);
+          array.put(JsonHelper.toJSON(obj));
         }
 
         JSONObject elementsContainer = new JSONObject();

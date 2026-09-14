@@ -19,6 +19,7 @@ import com.clover.sdk.v1.printer.Printer;
 import com.clover.sdk.v3.order.OrderType;
 
 import android.accounts.Account;
+import android.content.ContentUris;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CancellationSignal;
@@ -333,6 +334,13 @@ public final class InventoryContract {
      * Type: INTEGER (boolean)
      */
     public static final String EXCLUDE_CASH_DISCOUNT = "exclude_cash_discount";
+
+    /**
+     * Item price type; use the {@link com.clover.sdk.v3.inventory.ItemType} enum to determine the correct type
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_TYPE = "type";
   }
 
   /**
@@ -624,6 +632,13 @@ public final class InventoryContract {
      * Type: TEXT
      */
     public static final String MENU_REASON_CODE = "menu_reason_code";
+
+    /**
+     * The ID of the master modifier in the Global Catalog.
+     * Essential for 'Coalition Availability' logic.
+     * Type: TEXT (Reference to MODIFIER._ID)
+     */
+    public static final String SOURCE_MODIFIER_ID = "source_modifier_id";
   }
 
   /**
@@ -788,6 +803,28 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String MENU_MAX_ALLOWED = "menu_max_allowed";
+
+    /**
+     * Distinguishes between standard groups and master library groups.
+     * Values: 'REGULAR', 'CATALOG', 'PROXY', 'TEMPLATE'.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String TYPE = "type";
+
+    /**
+     * Links a sub-group to its parent's UUID.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String PARENT_MODIFIER_GROUP_ID = "parent_modifier_group_id";
+
+    /**
+     * The UUID of the blueprint group in the Catalog.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String SOURCE_MODIFIER_GROUP_ID = "source_modifier_group_id";
   }
 
   /**
@@ -988,6 +1025,28 @@ public final class InventoryContract {
      * Type: INTEGER
      */
     public static final String DEFAULT = "is_default";
+
+    /**
+     * System Tax Id - The system tax uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String SYSTEM_TAX_ID = "system_tax_id";
+
+    /**
+     * System Tax Rate Label Key - The key to the system tax rate label.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String SYSTEM_TAX_LABEL_KEY = "system_tax_label_key";
+
+    /**
+     * System Tax Rate Label - The system tax rate label value.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String SYSTEM_TAX_LABEL = "system_tax_label";
+
   }
 
   /**
@@ -1165,6 +1224,13 @@ public final class InventoryContract {
      * Type: Type: ENUN: DEFAULT, CASH_DISCOUNT
      */
     public static final String TYPE = "type";
+
+    /**
+     * Discount color.
+     * <p/>
+     * Type: TEXT
+     */
+    public static final String COLOR = "color";
   }
 
   /**
@@ -1857,6 +1923,281 @@ public final class InventoryContract {
   }
 
   /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.BundleDefinition}.
+   */
+  public interface BundleDefinitionColumns {
+    /**
+     * The UUID of the Item this BundleDefinition is associated with.
+     * Foreign key to {@link Item#UUID}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_ID = "item_id";
+
+    /**
+     * Bundle Type.
+     * <p>
+     * Type: TEXT (e.g., "fixed", "variable")
+     */
+    public static final String TYPE = "type";
+
+    /**
+     * Bundle Pricing Mode.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String PRICING_MODE = "pricing_mode";
+
+    /**
+     * Fixed discount amount for the bundle.
+     * <p>
+     * Type: LONG
+     */
+    public static final String DISCOUNT_AMOUNT = "discount_amount";
+
+    /**
+     * Discount percentage for the bundle.
+     * <p>
+     * Type: LONG
+     */
+    public static final String DISCOUNT_PERCENT = "discount_percent";
+
+    /**
+     * Ceiling for the total discount allowed.
+     * <p>
+     * Type: LONG
+     */
+    public static final String DISCOUNT_MAX = "discount_max";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.BundleDefinition} instances via content provider.
+   */
+  public static final class BundleDefinition implements BaseColumns, BundleDefinitionColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private BundleDefinition() {
+    }
+
+    /**
+     * base content directory for bundle_definition
+     */
+    public static final String CONTENT_DIRECTORY = "bundle_definition";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of bundle_definitions.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/bundle_definition";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single bundle_definition.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bundle_definition";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.BundleItemGroup}.
+   */
+  public interface BundleItemGroupColumns {
+    /**
+     * Item Bundle Group uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Foreign key to {@link Item#UUID}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_ID = "item_id";
+
+    /**
+     * Item Bundle Group Name.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String NAME = "name";
+
+    /**
+     * Item Bundle Group Position.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String POSITION = "position";
+
+    /**
+     * Item Bundle Group Required Count.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String REQUIRED_COUNT = "required_count";
+
+    /**
+     * Item Bundle Group Allowed Count.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String ALLOWED_COUNT = "allowed_count";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.BundleItemGroup} instances via content provider.
+   */
+  public static final class BundleItemGroup implements BaseColumns, BundleItemGroupColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private BundleItemGroup() {
+    }
+
+    /**
+     * base content directory for bundle_item_group
+     */
+    public static final String CONTENT_DIRECTORY = "bundle_item_group";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of bundle_item_groups.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/bundle_item_group";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single bundle_item_group.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bundle_item_group";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of an {@link com.clover.sdk.v3.inventory.BundleItem}.
+   */
+  public interface BundleItemColumns {
+    /**
+     * Item Bundle Group Item uuid.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * Foreign key to {@link BundleItemGroup#UUID}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String BUNDLE_ITEM_GROUP_ID = "bundle_item_group_id";
+
+    /**
+     * Foreign key to {@link Item#UUID}.
+     * <p>
+     * Type: TEXT
+     */
+    public static final String ITEM_ID = "item_id";
+
+    /**
+     * Item Bundle Group Item Price Differential.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String PRICE_DIFFERENTIAL = "price_differential";
+
+    /**
+     * Minimum number of items required.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MIN_REQUIRED = "min_required";
+
+    /**
+     * Maximum number of items allowed.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String MAX_ALLOWED = "max_allowed";
+
+    /**
+     * Sort order for the item within its group.
+     * <p>
+     * Type: INTEGER
+     */
+    public static final String POSITION = "position";
+  }
+
+  /**
+   * Contract for accessing {@link com.clover.sdk.v3.inventory.BundleItem} instances via content provider.
+   */
+  public static final class BundleItem implements BaseColumns, BundleItemColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private BundleItem() {
+    }
+
+    /**
+     * base content directory for bundle_item
+     */
+    public static final String CONTENT_DIRECTORY = "bundle_item";
+
+    /**
+     * The content:// style URI for this table
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of bundle_items.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/bundle_item";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single bundle_item.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bundle_item";
+
+    public static Uri contentUriWithToken(String token) {
+      return CONTENT_URI.buildUpon().appendQueryParameter(AUTH_TOKEN_PARAM, token).build();
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
    * Columns containing data for tax rules. Tax rules currently can only be created and modified by Clover.
    */
   public interface TaxRuleColumns {
@@ -2500,4 +2841,357 @@ public final class InventoryContract {
       return builder.build();
     }
   }
+
+  public interface MarkerColumns {
+    String UUID = "uuid";
+
+    String NAME = "name";
+
+    String DISPLAY_NAME = "display_name";
+
+    String IS_SYSTEM_MARKER = "is_system_marker";
+
+    String ICON_URL = "icon_url";
+
+    String IS_ACTIVE = "is_active";
+
+    String DELETED_TIME = "deleted_time";
+
+    String CREATED_TIME = "created_time";
+
+   String MODIFIED_TIME = "modified_time";
+
+   String MARKER_CATEGORY_NAME = "marker_category_name";
+  }
+
+  public interface ItemMarkerAssociationColumns {
+    String UUID = "uuid";
+    String ITEM_UUID = "item_uuid";
+    String MARKER_UUID = "marker_uuid";
+
+    String DELETED_TIME = "deleted_time";
+
+    String MODIFIED_TIME = "modified_time";
+  }
+  public static final class Marker implements BaseColumns, MarkerColumns {
+    private Marker() {
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static final String CONTENT_DIRECTORY = "markers";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/markers";
+
+    public static final String CONTENT_MARKERS_TYPE = "vnd.android.cursor.item/markers";
+  }
+
+  public static final class ItemMarkerAssociation implements BaseColumns, ItemMarkerAssociationColumns {
+    private ItemMarkerAssociation() {
+    }
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+
+    public static final String CONTENT_DIRECTORY = "item_marker";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemMarkerAssociation";
+
+    public static final String CONTENT_ItemMarkerAssociation_TYPE = "vnd.android.cursor.item/itemMarkerAssociation";
+  }
+
+
+
+
+  public interface MarkerCategoryColumns {
+    String MARKER_CATEGORY_UUID = "marker_category_uuid";
+
+    String MARKER_CATEGORY_NAME = "marker_category_name";
+
+    String MODIFIED_TIME = "modified_time";
+  }
+
+  public static final class MarkerCategory implements BaseColumns, MarkerCategoryColumns {
+    private MarkerCategory() {
+    }
+
+    public static final String CONTENT_DIRECTORY = "markers_category";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/markers_category";
+
+    public static final String CONTENT_MARKERS_CATEGORY_TYPE = "vnd.android.cursor.item/markers_category";
+  }
+
+
+  /**
+   * These columns correspond to fields of order fee-tax rate associations used by
+   * {@link com.clover.sdk.v3.inventory.OrderFee#getTaxRates()}.
+   */
+  public interface OrderFeeTaxRateColumns {
+
+    /**
+     * Associated order fee id.
+     * <p>
+     * Type: TEXT
+     */
+    String ORDER_FEE_ID = "order_fee_id";
+
+    /**
+     * Associated tax rate id.
+     * <p>
+     * Type: TEXT
+     */
+    String TAX_RATE_ID = "tax_rate_id";
+
+    /**
+     * Time when this association row was created.
+     * <p>
+     * Type: INTEGER
+     */
+    String CREATED_TIME = "created_time";
+
+    /**
+     * Time when this association row was last modified.
+     * <p>
+     * Type: INTEGER
+     */
+    String MODIFIED_TIME = "modified_time";
+
+    /**
+     * Time when this association row was soft deleted.
+     * <p>
+     * Type: INTEGER
+     */
+    String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing order fee-tax rate associations via content provider.
+   */
+  public static final class OrderFeeTaxRate implements BaseColumns, OrderFeeTaxRateColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private OrderFeeTaxRate() {
+    }
+
+    /**
+     * Base content directory (table) for order fee-tax rate associations.
+     */
+    public static final String CONTENT_DIRECTORY = "order_fee_tax_rate";
+
+    /**
+     * The content:// style URI for this table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of order fee-tax rate associations.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/orderfeetaxrate";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single association row.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/orderfeetaxrate";
+
+    public static Uri contentUriWithAccount(Account account) {
+      Uri.Builder builder = CONTENT_URI.buildUpon();
+      builder.appendQueryParameter(ACCOUNT_NAME_PARAM, account.name);
+      builder.appendQueryParameter(ACCOUNT_TYPE_PARAM, account.type);
+      return builder.build();
+    }
+  }
+
+  /**
+   * These columns correspond to fields of order type-tax rate associations used by
+   * {@link com.clover.sdk.v3.order.OrderTypeTaxRate}.
+   */
+  public interface OrderTypeTaxRateColumns {
+
+    /**
+     *  Unique identifier for an OrderTypeTaxRate association. Generated by Clover. Required.
+     * <p>
+     * Type: TEXT
+     */
+    String UUID = "uuid";
+
+    /**
+     * Associated order type id.
+     * <p>
+     * Type: TEXT
+     */
+    String ORDER_TYPE_ID = "order_type_id";
+
+    /**
+     * Associated tax rate id.
+     * <p>
+     * Type: TEXT
+     */
+    String TAX_RATE_ID = "tax_rate_id";
+
+    /**
+     * Time when this association row was created.
+     * <p>
+     * Type: INTEGER
+     */
+    String CREATED_TIME = "created_time";
+
+    /**
+     * Time when this association row was last modified.
+     * <p>
+     * Type: INTEGER
+     */
+    String MODIFIED_TIME = "modified_time";
+
+    /**
+     * Time when this association row was soft deleted.
+     * <p>
+     * Type: INTEGER
+     */
+    String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing order type-tax rate associations via content provider.
+   */
+  public static final class OrderTypeTaxRate implements BaseColumns, OrderTypeTaxRateColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private OrderTypeTaxRate() {
+    }
+
+    /**
+     * Base content directory (table) for order type-tax rate associations.
+     */
+    public static final String CONTENT_DIRECTORY = "order_type_tax_rate";
+
+    /**
+     * The content:// style URI for this table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of order type-tax rate associations.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/ordertypetaxrate";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single association row.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/ordertypetaxrate";
+
+    /**
+     * Builds a row URI for CRUD on a single association row by primary key.
+     */
+    public static Uri contentItemUri(long id) {
+      return ContentUris.withAppendedId(CONTENT_URI, id);
+    }
+  }
+
+  /**
+   * These columns correspond to fields of item tax rate price associations used by
+   * {@link com.clover.sdk.v3.inventory.ItemTaxRatePrice}.
+   */
+  public interface ItemTaxRatePriceColumns {
+
+    /**
+     * Associated item id.
+     * <p>
+     * Type: TEXT
+     */
+    String ITEM_ID = "item_id";
+
+    /**
+     * Associated tax rate id.
+     * <p>
+     * Type: TEXT
+     */
+    String TAX_RATE_ID = "tax_rate_id";
+
+    /**
+     * Item price in cents. Required.
+     * <p>
+     * Type: INTEGER
+     */
+    String PRICE = "price";
+
+    /**
+     * Time when this association row was created.
+     * <p>
+     * Type: INTEGER
+     */
+    String CREATED_TIME = "created_time";
+
+    /**
+     * Time when this association row was last modified.
+     * <p>
+     * Type: INTEGER
+     */
+    String MODIFIED_TIME = "modified_time";
+
+    /**
+     * Time when this association row was soft deleted.
+     * <p>
+     * Type: INTEGER
+     */
+    String DELETED_TIME = "deleted_time";
+  }
+
+  /**
+   * Contract for accessing item tax rate price associations via content provider.
+   */
+  public static final class ItemTaxRatePrice implements BaseColumns, ItemTaxRatePriceColumns {
+    /**
+     * This utility class cannot be instantiated
+     */
+    private ItemTaxRatePrice() {
+    }
+
+    /**
+     * Base content directory (table) for item tax rate price associations.
+     */
+    public static final String CONTENT_DIRECTORY = "item_tax_rate_price";
+
+    /**
+     * The content:// style URI for this table.
+     */
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_DIRECTORY);
+
+    /**
+     * The MIME type of {@link #CONTENT_URI} providing a directory of item rate rate price associations.
+     */
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/itemtaxrateprice";
+
+    /**
+     * The MIME type of a {@link #CONTENT_URI} subdirectory of a single association row.
+     */
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/itemtaxrateprice";
+
+    /**
+     * Builds a row URI for CRUD on a single association row by primary key.
+     */
+    public static Uri contentItemUri(long id) {
+      return ContentUris.withAppendedId(CONTENT_URI, id);
+    }
+  }
+
+
 }
