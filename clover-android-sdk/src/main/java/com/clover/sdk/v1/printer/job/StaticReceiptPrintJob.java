@@ -45,6 +45,13 @@ public class StaticReceiptPrintJob extends StaticOrderBasedPrintJob implements P
       return this;
     }
 
+    @Override
+    public Builder receiptPrintTrackingContext(
+        ReceiptPrintTrackingContext receiptPrintTrackingContext) {
+      super.receiptPrintTrackingContext(receiptPrintTrackingContext);
+      return this;
+    }
+
     public StaticReceiptPrintJob build() {
       flags |= FLAG_SALE;
       return new StaticReceiptPrintJob(this);

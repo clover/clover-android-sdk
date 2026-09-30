@@ -2738,6 +2738,7 @@ public final class InventoryContract {
     String CREATED_TIME = "created_time";
     String MODIFIED_TIME = "modified_time";
     String DELETED_TIME = "deleted_time";
+    String WARNING_DISMISSED = "warning_dismissed";
   }
 
   /**

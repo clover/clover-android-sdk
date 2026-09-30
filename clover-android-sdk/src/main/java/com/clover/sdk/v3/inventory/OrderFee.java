@@ -43,6 +43,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getDeletedTime deletedTime}</li>
  * <li>{@link #getType type}</li>
  * <li>{@link #getServiceChargeUuid serviceChargeUuid}</li>
+ * <li>{@link #getWarningDismissed warningDismissed}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -124,6 +125,13 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheGet(CacheKey.serviceChargeUuid);
   }
 
+  /**
+   * Whether a warning associated with this order fee has been dismissed. Default value is false.
+   */
+  public Boolean getWarningDismissed() {
+    return genClient.cacheGet(CacheKey.warningDismissed);
+  }
+
 
 
 
@@ -154,6 +162,8 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
     serviceChargeUuid
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    warningDismissed
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -306,6 +316,11 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.cacheValueIsNotNull(CacheKey.serviceChargeUuid);
   }
 
+  /** Checks whether the 'warningDismissed' field is set and is not null */
+  public boolean isNotNullWarningDismissed() {
+    return genClient.cacheValueIsNotNull(CacheKey.warningDismissed);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -371,6 +386,11 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Checks whether the 'serviceChargeUuid' field has been set, however the value could be null */
   public boolean hasServiceChargeUuid() {
     return genClient.cacheHasKey(CacheKey.serviceChargeUuid);
+  }
+
+  /** Checks whether the 'warningDismissed' field has been set, however the value could be null */
+  public boolean hasWarningDismissed() {
+    return genClient.cacheHasKey(CacheKey.warningDismissed);
   }
 
 
@@ -467,6 +487,13 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     return genClient.setOther(serviceChargeUuid, CacheKey.serviceChargeUuid);
   }
 
+  /**
+   * Sets the field 'warningDismissed'.
+   */
+  public OrderFee setWarningDismissed(Boolean warningDismissed) {
+    return genClient.setOther(warningDismissed, CacheKey.warningDismissed);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -519,6 +546,10 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
   /** Clears the 'serviceChargeUuid' field, the 'has' method for this field will now return false */
   public void clearServiceChargeUuid() {
     genClient.clear(CacheKey.serviceChargeUuid);
+  }
+  /** Clears the 'warningDismissed' field, the 'has' method for this field will now return false */
+  public void clearWarningDismissed() {
+    genClient.clear(CacheKey.warningDismissed);
   }
 
 
@@ -601,6 +632,7 @@ public class OrderFee extends GenericParcelable implements com.clover.sdk.v3.Val
     public static final boolean TYPE_IS_REQUIRED = false;
     public static final boolean SERVICECHARGEUUID_IS_REQUIRED = false;
     public static final long SERVICECHARGEUUID_MAX_LEN = 13;
+    public static final boolean WARNINGDISMISSED_IS_REQUIRED = false;
   }
 
 }

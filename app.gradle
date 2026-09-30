@@ -103,7 +103,10 @@ android {
 
   packagingOptions {
     exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.md'
     exclude 'META-INF/NOTICE'
+    exclude 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
+    exclude 'META-INF/versions/17/OSGI-INF/MANIFEST.MF'
     pickFirst 'META-INF/ASL2.0'
   }
 }

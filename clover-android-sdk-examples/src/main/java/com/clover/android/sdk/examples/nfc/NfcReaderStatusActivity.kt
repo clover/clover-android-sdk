@@ -1,29 +1,38 @@
 package com.clover.android.sdk.examples.nfc
 
+import android.nfc.NfcAdapter
+import android.nfc.Tag
+import android.nfc.tech.NfcF
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.clover.android.sdk.examples.NfcReaderTestActivity
 import com.clover.android.sdk.examples.R
+import com.clover.sdk.util.Platform2
+import com.clover.sdk.v3.merchant.MerchantDevicesV2Connector
 import com.clover.sdk.v3.nfc.connector.NfcReaderClient
 import com.clover.sdk.v3.nfc.listener.INfcReaderClientListener
 import com.clover.sdk.v3.nfc.model.FelicaCardCommand
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NfcReaderStatusActivity : AppCompatActivity() {
 
     private var isNfcServiceConnected = false
+    private var useNativeNfc = false
+    private var nfcAdapter: NfcAdapter? = null
+    private var nfcStartupJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nfc_reader_status)
         findViewById<Button>(R.id.button_cancel).setOnClickListener {
-            if (isNfcServiceConnected) {
+            if (!useNativeNfc && isNfcServiceConnected) {
                 NfcReaderClient.getInstance(application).cancel()
             }
             finish()
@@ -32,11 +41,48 @@ class NfcReaderStatusActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        nfcStartupJob = lifecycleScope.launch {
+            val device = withContext(Dispatchers.IO) {
+                if (Platform2.isClover()) {
+                    runCatching {
+                        MerchantDevicesV2Connector(applicationContext).device
+                    }.onFailure {
+                        Log.w(TAG, "Unable to query Clover device information", it)
+                    }.getOrNull()
+                } else {
+                    null
+                }
+            }
+
+            val model = device?.model ?: Build.MODEL
+            val productName = device?.productName
+            val modelDescription = productName
+                ?.takeUnless { it.equals(model, ignoreCase = true) }
+                ?.let { "$it ($model)" }
+                ?: model
+
+            findViewById<TextView>(R.id.text_nfc_status_title).text =
+                "Clover model: $modelDescription\n\nPlease tap NFC card on the screen"
+
+            useNativeNfc = listOfNotNull(productName, model, Build.MODEL).any {
+                it.equals(MINI_4_PRODUCT_NAME, ignoreCase = true) ||
+                    it.equals(MINI_4_MODEL, ignoreCase = true)
+            }
+
+            if (useNativeNfc) {
+                startNativeNfc()
+            } else {
+                connectCloverNfcService()
+            }
+        }
+    }
+
+    private fun connectCloverNfcService() {
         lifecycleScope.launch(Dispatchers.IO) {
             NfcReaderClient.getInstance(application).connect(object : INfcReaderClientListener {
                 override fun onConnected() {
                     isNfcServiceConnected = true
-                    startNfc()
+                    startCloverNfc()
                 }
 
                 override fun onDisconnect() {
@@ -47,14 +93,8 @@ class NfcReaderStatusActivity : AppCompatActivity() {
     }
 
     @OptIn(ExperimentalStdlibApi::class)
-    private fun startNfc() {
-        val nfcReaderOPerationExtra = intent.extras?.getInt("NFC_READER_OPERATION_ID")
-        val nfcReaderOperationId = when (nfcReaderOPerationExtra) {
-            0 -> NfcReaderOperationIds.FELICA_UUID
-            1 -> NfcReaderOperationIds.FELICA_COMMAND
-            else -> NfcReaderOperationIds.FELICA_UUID
-        }
-
+    private fun startCloverNfc() {
+        val nfcReaderOperationId = getNfcReaderOperationId()
         val nfcStatusText = findViewById<TextView>(R.id.text_nfc_status)
 
         if (nfcReaderOperationId == NfcReaderOperationIds.FELICA_UUID) {
@@ -63,26 +103,17 @@ class NfcReaderStatusActivity : AppCompatActivity() {
                     NfcReaderClient.getInstance(application)
                         .felicaUuid()?.felicaCardUuid?.let { uuidString ->
                             withContext(Dispatchers.Main) {
-                                nfcStatusText.text = uuidString + "\n\nID: " + uuidString.substring(
-                                    0,
-                                    16
-                                ) + "\nPMm: " + uuidString.substring(16, uuidString.length)
+                                displayFelicaUuid(nfcStatusText, uuidString)
                             }
                         } ?: run {
                         withContext(Dispatchers.Main) {
                             nfcStatusText.text = "Felica card UUID read failed"
                         }
-                        Log.d(
-                            NfcReaderTestActivity::class.simpleName,
-                            "Felica card UUID no response received"
-                        )
+                        Log.d(TAG, "Felica card UUID no response received")
                     }
                 }
             } else {
-                Log.d(
-                    NfcReaderTestActivity::class.simpleName,
-                    "Felica Service is disconnected, please restart activity"
-                )
+                Log.d(TAG, "Felica Service is disconnected, please restart activity")
             }
         }
 
@@ -100,48 +131,152 @@ class NfcReaderStatusActivity : AppCompatActivity() {
                             nfcStatusText.text =
                                 "Felica command failed. Please check the card and try again."
                         }
-                        Log.d(
-                            NfcReaderTestActivity::class.simpleName,
-                            "Felica command NO response received"
-                        )
+                        Log.d(TAG, "Felica command NO response received")
                     }
 
                     NfcReaderClient.getInstance(application).felicaCommand(
-                        FelicaCardCommand("06010F090A8000800180028003800480058006800780088009")
+                        FelicaCardCommand(SUICA_READ_COMMAND)
                     )?.cardRsp?.let { felicaCardRspData ->
                         withContext(Dispatchers.Main) {
-
-                            // parse Suica card transaction data
-                            var xatDetailsAll: String = ""
-                            val felicaCardRspDataByteArray = felicaCardRspData.hexToByteArray()
-                            xatDetailsAll = felicaCardRspData + "\n"
-                            for (index in 0 until felicaCardRspDataByteArray.get(2)) {
-                                // each transaction is 16 bytes
-                                val xatDetails = suicaParseTransaction(
-                                    felicaCardRspDataByteArray,
-                                    3 + index * 16
-                                )
-                                xatDetailsAll = xatDetailsAll + xatDetails + "\n"
-                            }
-                            nfcStatusText.text = xatDetailsAll
+                            displaySuicaTransactions(nfcStatusText, felicaCardRspData)
                         }
                     } ?: run {
                         withContext(Dispatchers.Main) {
                             nfcStatusText.text =
                                 "Felica command failed. Please check the card and try again."
                         }
-                        Log.d(
-                            NfcReaderTestActivity::class.simpleName,
-                            "Felica command NO response received"
-                        )
+                        Log.d(TAG, "Felica command NO response received")
                     }
                 }
             }
         }
     }
 
+    private fun getNfcReaderOperationId(): NfcReaderOperationIds {
+        return when (intent.extras?.getInt("NFC_READER_OPERATION_ID")) {
+            0 -> NfcReaderOperationIds.FELICA_UUID
+            1 -> NfcReaderOperationIds.FELICA_COMMAND
+            else -> NfcReaderOperationIds.FELICA_UUID
+        }
+    }
+
+    private fun startNativeNfc() {
+        val nfcStatusText = findViewById<TextView>(R.id.text_nfc_status)
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+        val adapter = nfcAdapter
+        if (adapter == null) {
+            nfcStatusText.text = "Native NFC is not available on this device."
+            return
+        }
+        if (!adapter.isEnabled) {
+            nfcStatusText.text = "NFC is disabled. Enable NFC and try again."
+            return
+        }
+
+        adapter.enableReaderMode(
+            this,
+            { tag -> handleNativeFelicaTag(tag) },
+            NfcAdapter.FLAG_READER_NFC_F or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
+            null
+        )
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    private fun handleNativeFelicaTag(tag: Tag) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val nfcStatusText = findViewById<TextView>(R.id.text_nfc_status)
+            val nfcF = NfcF.get(tag)
+            if (nfcF == null) {
+                withContext(Dispatchers.Main) {
+                    nfcStatusText.text = "The detected card is not a FeliCa card."
+                }
+                return@launch
+            }
+
+            try {
+                if (getNfcReaderOperationId() == NfcReaderOperationIds.FELICA_UUID) {
+                    val uuidString = (tag.id + nfcF.manufacturer).toHexString().uppercase()
+                    withContext(Dispatchers.Main) {
+                        displayFelicaUuid(nfcStatusText, uuidString)
+                    }
+                    return@launch
+                }
+
+                nfcF.connect()
+                val response = nfcF.transceive(buildNativeFelicaCommand(tag.id, SUICA_READ_COMMAND))
+                val cardResponse = normalizeNativeFelicaResponse(response).toHexString().uppercase()
+                withContext(Dispatchers.Main) {
+                    displaySuicaTransactions(nfcStatusText, cardResponse)
+                }
+            } catch (exception: Exception) {
+                Log.w(TAG, "Native FeliCa operation failed", exception)
+                withContext(Dispatchers.Main) {
+                    nfcStatusText.text =
+                        "Felica command failed. Please check the card and try again."
+                }
+            } finally {
+                if (nfcF.isConnected) {
+                    nfcF.close()
+                }
+            }
+        }
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    private fun buildNativeFelicaCommand(idm: ByteArray, commandHex: String): ByteArray {
+        val command = commandHex.hexToByteArray()
+        return byteArrayOf((command.size + idm.size + 1).toByte(), command[0]) +
+            idm + command.copyOfRange(1, command.size)
+    }
+
+    private fun normalizeNativeFelicaResponse(response: ByteArray): ByteArray {
+        require(response.size >= FELICA_RESPONSE_HEADER_SIZE) {
+            "FeliCa response is too short"
+        }
+        require(response[1] == FELICA_READ_RESPONSE_CODE) {
+            "Unexpected FeliCa response code"
+        }
+        return response.copyOfRange(FELICA_RESPONSE_HEADER_SIZE, response.size)
+    }
+
+    private fun displayFelicaUuid(nfcStatusText: TextView, uuidString: String) {
+        if (uuidString.length < FELICA_UUID_HEX_LENGTH) {
+            nfcStatusText.text = "Felica card UUID read failed"
+            return
+        }
+        nfcStatusText.text = "$uuidString\n\nID: ${uuidString.substring(0, 16)}" +
+            "\nPMm: ${uuidString.substring(16)}"
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
+    private fun displaySuicaTransactions(nfcStatusText: TextView, felicaCardRspData: String) {
+        val responseBytes = felicaCardRspData.hexToByteArray()
+        if (responseBytes.size < 3 || responseBytes[0] != 0.toByte() ||
+            responseBytes[1] != 0.toByte()) {
+            nfcStatusText.text = "Felica card returned an error."
+            return
+        }
+
+        var transactionDetails = "$felicaCardRspData\n"
+        for (index in 0 until responseBytes[2].toInt()) {
+            val dataOffset = 3 + index * SUICA_TRANSACTION_SIZE
+            if (dataOffset + SUICA_TRANSACTION_SIZE > responseBytes.size) {
+                break
+            }
+            transactionDetails += suicaParseTransaction(responseBytes, dataOffset) + "\n"
+        }
+        nfcStatusText.text = transactionDetails
+    }
+
     override fun onStop() {
-        NfcReaderClient.getInstance(application).disconnect()
+        nfcStartupJob?.cancel()
+        nfcStartupJob = null
+        if (useNativeNfc) {
+            nfcAdapter?.disableReaderMode(this)
+        } else {
+            NfcReaderClient.getInstance(application).disconnect()
+        }
+        isNfcServiceConnected = false
         super.onStop()
     }
 
@@ -197,4 +332,15 @@ class NfcReaderStatusActivity : AppCompatActivity() {
         return num
     }
 
+    private companion object {
+        val TAG: String = NfcReaderStatusActivity::class.java.simpleName
+        const val MINI_4_PRODUCT_NAME = "Mini 4"
+        const val MINI_4_MODEL = "Clover_C306"
+        const val SUICA_READ_COMMAND =
+            "06010F090A8000800180028003800480058006800780088009"
+        const val SUICA_TRANSACTION_SIZE = 16
+        const val FELICA_UUID_HEX_LENGTH = 32
+        const val FELICA_RESPONSE_HEADER_SIZE = 10
+        const val FELICA_READ_RESPONSE_CODE: Byte = 0x07
+    }
 }

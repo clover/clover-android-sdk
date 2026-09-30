@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
  * limitations under the License.
  */
 group = 'com.clover.sdk'
-version = '340'
+version = '341'
 
 apply from: file("${project.rootDir}/lib.gradle")
 apply plugin: 'kotlin-android'
@@ -58,8 +58,7 @@ android {
 
 dependencies {
   api files('lib/calc-jvm.jar')
-  api 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'
-  api 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.10'
+  api 'org.jetbrains.kotlin:kotlin-stdlib:2.0.21'
 
   implementation "androidx.annotation:annotation:$ANDROIDX_ANNOTATION_VERSION"
   implementation("com.google.code.gson:gson") {

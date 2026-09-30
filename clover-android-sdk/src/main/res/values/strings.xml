@@ -30,5 +30,11 @@
   <string name="returnToMerchantFontFamily" comment="Location: 'Return to merchant' screen. Purpose: Defines the font family for the screen. Should not be translated.">sans-serif-light</string>
   <string name="register_uri" comment="Location: Internal. Purpose: URI for the register app. Should not be translated.">Register URI</string>
   <string name="print_label" comment="Location: Button. Purpose: Label for the print button.">Print</string>
+  <string name="decline_reason_voiding">VOIDING</string>
+  <string name="decline_reason_void">VOIDED</string>
+  <string name="decline_reason_cancel">CANCELED</string>
+  <string name="decline_reason_decline">DECLINED</string>
+  <string name="decline_reason_referral">CALL ISSUER</string>
+
 
 </resources>

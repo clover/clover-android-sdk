@@ -235,6 +235,9 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
       if (receiptOptions.cloverShouldHandleReceipts != null) {
         i.putExtra(Intents.EXTRA_REMOTE_RECEIPTS, !receiptOptions.cloverShouldHandleReceipts);
       }
+      if (receiptOptions.timeoutThreshold != null) {
+        i.putExtra(Intents.EXTRA_RECEIPT_SELECTION_TIMEOUT_THRESHOLD, receiptOptions.timeoutThreshold);
+      }
     }
     if (offlineOptions != null) {
       if (offlineOptions.allowOfflinePayment != null) {
@@ -471,6 +474,8 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
     private List<ReceiptOption> providedReceiptOptions;
     private Boolean cloverShouldHandleReceipts;
 
+    private Long timeoutThreshold;
+
     private ReceiptOptions() {}
     /**
      * Create ReceiptOptions with the default list of options displaying, with an option to have
@@ -483,7 +488,7 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
      * @return
      */
     public static ReceiptOptions Default(boolean cloverShouldHandleReceipts) {
-      return new ReceiptOptions(cloverShouldHandleReceipts, null, null, null, null);
+      return new ReceiptOptions(cloverShouldHandleReceipts, null, null, null, null, null);
     }
 
     /**
@@ -492,7 +497,7 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
      * @return
      */
     public static ReceiptOptions SkipReceiptSelection() {
-      return new ReceiptOptions(true, SmsReceiptOption.Disable(), EmailReceiptOption.Disable(), PrintReceiptOption.Disable(), NoReceiptOption.Disable());
+      return new ReceiptOptions(true, null, SmsReceiptOption.Disable(), EmailReceiptOption.Disable(), PrintReceiptOption.Disable(), NoReceiptOption.Disable());
     }
 
     /**
@@ -509,10 +514,15 @@ public class PaymentRequestIntentBuilder extends BaseIntentBuilder {
      * @return
      */
     public static ReceiptOptions Instance(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
-      return new ReceiptOptions(cloverShouldHandleReceipts, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
+      return new ReceiptOptions(cloverShouldHandleReceipts, null, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
     }
-    private ReceiptOptions(Boolean cloverShouldHandleReceipts, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
+
+    public static ReceiptOptions Instance(Boolean cloverShouldHandleReceipts, Long timeoutThreshold, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
+      return new ReceiptOptions(cloverShouldHandleReceipts, timeoutThreshold, smsReceiptOption, emailReceiptOption, printReceiptOption, noReceiptOption);
+    }
+    private ReceiptOptions(Boolean cloverShouldHandleReceipts, Long timeoutThreshold, SmsReceiptOption smsReceiptOption, EmailReceiptOption emailReceiptOption, PrintReceiptOption printReceiptOption, NoReceiptOption noReceiptOption) {
       this.cloverShouldHandleReceipts = cloverShouldHandleReceipts;
+      this.timeoutThreshold = timeoutThreshold;
       //if all receipt options are null, then providedReceiptOptions will be null (default behavior)
       if (smsReceiptOption != null || emailReceiptOption != null || printReceiptOption != null || noReceiptOption != null) {
         this.providedReceiptOptions = new ArrayList<>();

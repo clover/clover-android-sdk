@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.inventory;
+package com.clover.sdk.v3.payments;
 
 import android.os.Parcelable;
 import android.os.Parcel;
@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum ItemEntitlementPlanOptionType implements Parcelable {
-  TIMED;
+public enum ThreedsValidationResult implements Parcelable {
+  AUTHENTICATION_FAILED, AUTHENTICATION_SUCCESSFUL, ISSUER_DOES_NOT_PARTICIPATE, ATTEMPTED_UNSUCCESSFULLY, ATTEMPTED_SUCCESSFULLY, NOT_POSSIBLE, AUTHENTICATION_STATUS_UNKNOWN;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum ItemEntitlementPlanOptionType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<ItemEntitlementPlanOptionType> CREATOR = new Creator<ItemEntitlementPlanOptionType>() {
+  public static final Creator<ThreedsValidationResult> CREATOR = new Creator<ThreedsValidationResult>() {
     @Override
-    public ItemEntitlementPlanOptionType createFromParcel(final Parcel source) {
-      return ItemEntitlementPlanOptionType.valueOf(source.readString());
+    public ThreedsValidationResult createFromParcel(final Parcel source) {
+      return ThreedsValidationResult.valueOf(source.readString());
     }
 
     @Override
-    public ItemEntitlementPlanOptionType[] newArray(final int size) {
-      return new ItemEntitlementPlanOptionType[size];
+    public ThreedsValidationResult[] newArray(final int size) {
+      return new ThreedsValidationResult[size];
     }
   };
 }

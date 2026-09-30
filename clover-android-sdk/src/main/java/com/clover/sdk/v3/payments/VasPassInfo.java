@@ -99,6 +99,9 @@ public class VasPassInfo extends GenericParcelable implements com.clover.sdk.v3.
 
   private final GenericClient<VasPassInfo> genClient;
 
+  /**
+   * Constructs a new empty instance.
+   */
   public VasPassInfo() {
     genClient = new GenericClient<VasPassInfo>(this);
   }
@@ -108,20 +111,33 @@ public class VasPassInfo extends GenericParcelable implements com.clover.sdk.v3.
     return genClient;
   }
 
+  /**
+   * Constructs a new empty instance.
+   */
   protected VasPassInfo(boolean noInit) {
     genClient = null;
   }
 
+  /**
+   * Constructs a new instance from the given JSON String.
+   */
   public VasPassInfo(String json) throws IllegalArgumentException {
     this();
     genClient.initJsonObject(json);
   }
 
+  /**
+   * Construct a new instance backed by the given JSONObject, the parameter is not copied so changes to it will be
+   * reflected in this instance and vice-versa.
+   */
   public VasPassInfo(org.json.JSONObject jsonObject) {
     this();
     genClient.setJsonObject(jsonObject);
   }
 
+  /**
+   * Constructs a new instance that is a deep copy of the source instance. It does not copy the bundle or changelog.
+   */
   public VasPassInfo(VasPassInfo src) {
     this();
     if (src.genClient.getJsonObject() != null) {
@@ -129,6 +145,10 @@ public class VasPassInfo extends GenericParcelable implements com.clover.sdk.v3.
     }
   }
 
+  /**
+   * Returns the internal JSONObject backing this instance, the return value is not a copy so changes to it will be
+   * reflected in this instance and vice-versa.
+   */
   public org.json.JSONObject getJSONObject() {
     return genClient.getJSONObject();
   }

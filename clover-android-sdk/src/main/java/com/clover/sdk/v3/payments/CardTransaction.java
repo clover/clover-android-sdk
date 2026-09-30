@@ -45,6 +45,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEndBalance endBalance}</li>
  * <li>{@link #getAvsResult avsResult}</li>
  * <li>{@link #getCardholderName cardholderName}</li>
+ * <li>{@link #getExpirationDate expirationDate}</li>
  * <li>{@link #getToken token}</li>
  * <li>{@link #getVaultedCard vaultedCard}</li>
  * <li>{@link #getGatewayTxState gatewayTxState}</li>
@@ -127,6 +128,13 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheGet(CacheKey.cardholderName);
   }
 
+  /**
+   * Card expiration date in MM/YY format
+   */
+  public java.lang.String getExpirationDate() {
+    return genClient.cacheGet(CacheKey.expirationDate);
+  }
+
   public java.lang.String getToken() {
     return genClient.cacheGet(CacheKey.token);
   }
@@ -195,6 +203,8 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.payments.AVSResult.class)),
     cardholderName
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
+    expirationDate
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     token
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     vaultedCard
@@ -207,7 +217,7 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     debitRefund
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.DebitRefund.JSON_CREATOR)),
-    ;
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -368,6 +378,11 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     return genClient.cacheValueIsNotNull(CacheKey.cardholderName);
   }
 
+  /** Checks whether the 'expirationDate' field is set and is not null */
+  public boolean isNotNullExpirationDate() {
+    return genClient.cacheValueIsNotNull(CacheKey.expirationDate);
+  }
+
   /** Checks whether the 'token' field is set and is not null */
   public boolean isNotNullToken() {
     return genClient.cacheValueIsNotNull(CacheKey.token);
@@ -468,6 +483,11 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   /** Checks whether the 'cardholderName' field has been set, however the value could be null */
   public boolean hasCardholderName() {
     return genClient.cacheHasKey(CacheKey.cardholderName);
+  }
+
+  /** Checks whether the 'expirationDate' field has been set, however the value could be null */
+  public boolean hasExpirationDate() {
+    return genClient.cacheHasKey(CacheKey.expirationDate);
   }
 
   /** Checks whether the 'token' field has been set, however the value could be null */
@@ -600,6 +620,13 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   }
 
   /**
+   * Sets the field 'expirationDate'.
+   */
+  public CardTransaction setExpirationDate(java.lang.String expirationDate) {
+    return genClient.setOther(expirationDate, CacheKey.expirationDate);
+  }
+
+  /**
    * Sets the field 'token'.
    */
   public CardTransaction setToken(java.lang.String token) {
@@ -701,6 +728,10 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
   /** Clears the 'cardholderName' field, the 'has' method for this field will now return false */
   public void clearCardholderName() {
     genClient.clear(CacheKey.cardholderName);
+  }
+  /** Clears the 'expirationDate' field, the 'has' method for this field will now return false */
+  public void clearExpirationDate() {
+    genClient.clear(CacheKey.expirationDate);
   }
   /** Clears the 'token' field, the 'has' method for this field will now return false */
   public void clearToken() {
@@ -807,6 +838,7 @@ public class CardTransaction extends GenericParcelable implements com.clover.sdk
     public static final boolean ENDBALANCE_IS_REQUIRED = false;
     public static final boolean AVSRESULT_IS_REQUIRED = false;
     public static final boolean CARDHOLDERNAME_IS_REQUIRED = false;
+    public static final boolean EXPIRATIONDATE_IS_REQUIRED = false;
     public static final boolean TOKEN_IS_REQUIRED = false;
     public static final long TOKEN_MAX_LEN = 72;
     public static final boolean VAULTEDCARD_IS_REQUIRED = false;

@@ -23,10 +23,9 @@
 package com.clover.sdk.v3.inventory;
 
 
-import androidx.annotation.Nullable;
-
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
+import androidx.annotation.Nullable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -40,7 +39,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getOptionType optionType}</li>
  * <li>{@link #getDurationMinutes durationMinutes}</li>
  * <li>{@link #getPurchaseItem purchaseItem}</li>
- * <li>{@link #getIsDefault isDefault}</li>
  * <li>{@link #getSortOrder sortOrder}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * <li>{@link #getModifiedTime modifiedTime}</li>
@@ -93,14 +91,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
   }
 
   /**
-   * True if this is the default option for the plan
-   */
-  @Nullable
-  public Boolean getIsDefault() {
-    return genClient.cacheGet(CacheKey.isDefault);
-  }
-
-  /**
    * Display sort order of this option
    */
   @Nullable
@@ -146,8 +136,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     purchaseItem
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(Item.JSON_CREATOR)),
-    isDefault
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
     sortOrder
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     createdTime
@@ -257,11 +245,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
     return genClient.cacheValueIsNotNull(CacheKey.purchaseItem);
   }
 
-  /** Checks whether the 'isDefault' field is set and is not null */
-  public boolean isNotNullIsDefault() {
-    return genClient.cacheValueIsNotNull(CacheKey.isDefault);
-  }
-
   /** Checks whether the 'sortOrder' field is set and is not null */
   public boolean isNotNullSortOrder() {
     return genClient.cacheValueIsNotNull(CacheKey.sortOrder);
@@ -307,11 +290,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
   /** Checks whether the 'purchaseItem' field has been set, however the value could be null */
   public boolean hasPurchaseItem() {
     return genClient.cacheHasKey(CacheKey.purchaseItem);
-  }
-
-  /** Checks whether the 'isDefault' field has been set, however the value could be null */
-  public boolean hasIsDefault() {
-    return genClient.cacheHasKey(CacheKey.isDefault);
   }
 
   /** Checks whether the 'sortOrder' field has been set, however the value could be null */
@@ -375,13 +353,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
   }
 
   /**
-   * Sets the field 'isDefault'.
-   */
-  public ItemEntitlementPlanOption setIsDefault(@Nullable Boolean isDefault) {
-    return genClient.setOther(isDefault, CacheKey.isDefault);
-  }
-
-  /**
    * Sets the field 'sortOrder'.
    */
   public ItemEntitlementPlanOption setSortOrder(@Nullable Integer sortOrder) {
@@ -429,10 +400,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
   /** Clears the 'purchaseItem' field, the 'has' method for this field will now return false */
   public void clearPurchaseItem() {
     genClient.clear(CacheKey.purchaseItem);
-  }
-  /** Clears the 'isDefault' field, the 'has' method for this field will now return false */
-  public void clearIsDefault() {
-    genClient.clear(CacheKey.isDefault);
   }
   /** Clears the 'sortOrder' field, the 'has' method for this field will now return false */
   public void clearSortOrder() {
@@ -518,7 +485,6 @@ public class ItemEntitlementPlanOption extends GenericParcelable implements com.
     public static final boolean OPTIONTYPE_IS_REQUIRED = false;
     public static final boolean DURATIONMINUTES_IS_REQUIRED = false;
     public static final boolean PURCHASEITEM_IS_REQUIRED = false;
-    public static final boolean ISDEFAULT_IS_REQUIRED = false;
     public static final boolean SORTORDER_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
     public static final boolean MODIFIEDTIME_IS_REQUIRED = false;

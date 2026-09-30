@@ -1095,4 +1095,18 @@ interface IOrderServiceV3_1 {
    *         shipping details.
    */
   ShippingOrderDetails getShippingOrder(String orderId, out ResultStatus status);
+
+  /**
+   * Set the tax rate for one or more line items in an order.
+   *
+   * @param orderId The ID of the order containing the line item.
+   * @param lineItemIds The IDs of the line item to update.
+   * @param taxRateId The ID of the tax rate to apply to the line items.
+   * @return The updated order with the new tax rates applied.
+   *
+   * @clover.perm ORDERS_W
+   */
+  OrderFdParcelable setLineItemTaxRate(String orderId, in List<String> lineItemIds, String taxRateId, out ResultStatus status);
+
+
 }

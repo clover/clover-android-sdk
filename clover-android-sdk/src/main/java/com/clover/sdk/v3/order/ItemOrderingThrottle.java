@@ -34,11 +34,13 @@ import com.clover.sdk.GenericParcelable;
  * <h3>Fields</h3>
  * <ul>
  * <li>{@link #getId id}</li>
+ * <li>{@link #getVersion version}</li>
  * <li>{@link #getMenuRef menuRef}</li>
  * <li>{@link #getThrottlingEnabled throttlingEnabled}</li>
  * <li>{@link #getItemLimitPerWindow itemLimitPerWindow}</li>
  * <li>{@link #getTimeWindowMinutes timeWindowMinutes}</li>
  * <li>{@link #getClientCreatedTime clientCreatedTime}</li>
+ * <li>{@link #getClientModifiedTime clientModifiedTime}</li>
  * <li>{@link #getCreatedTime createdTime}</li>
  * </ul>
  * <p>
@@ -52,6 +54,13 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
    */
   public String getId() {
     return genClient.cacheGet(CacheKey.id);
+  }
+
+  /**
+   * Version number for the throttle configuration
+   */
+  public Long getVersion() {
+    return genClient.cacheGet(CacheKey.version);
   }
 
   /**
@@ -90,6 +99,13 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   }
 
   /**
+   * Client-side timestamp when the throttle was last modified
+   */
+  public Long getClientModifiedTime() {
+    return genClient.cacheGet(CacheKey.clientModifiedTime);
+  }
+
+  /**
    * Timestamp when the throttle was created; modifiedTime is not tracked independently and is implied from the parent Order.modifiedTime
    */
   public Long getCreatedTime() {
@@ -102,6 +118,8 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+    version
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     menuRef
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     throttlingEnabled
@@ -111,6 +129,8 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
     timeWindowMinutes
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     clientCreatedTime
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+    clientModifiedTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
     createdTime
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
@@ -195,6 +215,11 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
     return genClient.cacheValueIsNotNull(CacheKey.id);
   }
 
+  /** Checks whether the 'version' field is set and is not null */
+  public boolean isNotNullVersion() {
+    return genClient.cacheValueIsNotNull(CacheKey.version);
+  }
+
   /** Checks whether the 'menuRef' field is set and is not null */
   public boolean isNotNullMenuRef() {
     return genClient.cacheValueIsNotNull(CacheKey.menuRef);
@@ -220,6 +245,11 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
     return genClient.cacheValueIsNotNull(CacheKey.clientCreatedTime);
   }
 
+  /** Checks whether the 'clientModifiedTime' field is set and is not null */
+  public boolean isNotNullClientModifiedTime() {
+    return genClient.cacheValueIsNotNull(CacheKey.clientModifiedTime);
+  }
+
   /** Checks whether the 'createdTime' field is set and is not null */
   public boolean isNotNullCreatedTime() {
     return genClient.cacheValueIsNotNull(CacheKey.createdTime);
@@ -230,6 +260,11 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   /** Checks whether the 'id' field has been set, however the value could be null */
   public boolean hasId() {
     return genClient.cacheHasKey(CacheKey.id);
+  }
+
+  /** Checks whether the 'version' field has been set, however the value could be null */
+  public boolean hasVersion() {
+    return genClient.cacheHasKey(CacheKey.version);
   }
 
   /** Checks whether the 'menuRef' field has been set, however the value could be null */
@@ -257,6 +292,11 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
     return genClient.cacheHasKey(CacheKey.clientCreatedTime);
   }
 
+  /** Checks whether the 'clientModifiedTime' field has been set, however the value could be null */
+  public boolean hasClientModifiedTime() {
+    return genClient.cacheHasKey(CacheKey.clientModifiedTime);
+  }
+
   /** Checks whether the 'createdTime' field has been set, however the value could be null */
   public boolean hasCreatedTime() {
     return genClient.cacheHasKey(CacheKey.createdTime);
@@ -268,6 +308,13 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
    */
   public ItemOrderingThrottle setId(String id) {
     return genClient.setOther(id, CacheKey.id);
+  }
+
+  /**
+   * Sets the field 'version'.
+   */
+  public ItemOrderingThrottle setVersion(Long version) {
+    return genClient.setOther(version, CacheKey.version);
   }
 
   /**
@@ -308,6 +355,13 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   }
 
   /**
+   * Sets the field 'clientModifiedTime'.
+   */
+  public ItemOrderingThrottle setClientModifiedTime(Long clientModifiedTime) {
+    return genClient.setOther(clientModifiedTime, CacheKey.clientModifiedTime);
+  }
+
+  /**
    * Sets the field 'createdTime'.
    */
   public ItemOrderingThrottle setCreatedTime(Long createdTime) {
@@ -318,6 +372,10 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
     genClient.clear(CacheKey.id);
+  }
+  /** Clears the 'version' field, the 'has' method for this field will now return false */
+  public void clearVersion() {
+    genClient.clear(CacheKey.version);
   }
   /** Clears the 'menuRef' field, the 'has' method for this field will now return false */
   public void clearMenuRef() {
@@ -338,6 +396,10 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   /** Clears the 'clientCreatedTime' field, the 'has' method for this field will now return false */
   public void clearClientCreatedTime() {
     genClient.clear(CacheKey.clientCreatedTime);
+  }
+  /** Clears the 'clientModifiedTime' field, the 'has' method for this field will now return false */
+  public void clearClientModifiedTime() {
+    genClient.clear(CacheKey.clientModifiedTime);
   }
   /** Clears the 'createdTime' field, the 'has' method for this field will now return false */
   public void clearCreatedTime() {
@@ -407,11 +469,13 @@ public class ItemOrderingThrottle extends GenericParcelable implements com.clove
   public interface Constraints {
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
+    public static final boolean VERSION_IS_REQUIRED = false;
     public static final boolean MENUREF_IS_REQUIRED = false;
     public static final boolean THROTTLINGENABLED_IS_REQUIRED = false;
     public static final boolean ITEMLIMITPERWINDOW_IS_REQUIRED = false;
     public static final boolean TIMEWINDOWMINUTES_IS_REQUIRED = false;
     public static final boolean CLIENTCREATEDTIME_IS_REQUIRED = false;
+    public static final boolean CLIENTMODIFIEDTIME_IS_REQUIRED = false;
     public static final boolean CREATEDTIME_IS_REQUIRED = false;
   }
 

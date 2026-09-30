@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.inventory;
+package com.clover.sdk.v3.payments;
 
 import android.os.Parcelable;
 import android.os.Parcel;
@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum ItemEntitlementPlanOptionType implements Parcelable {
-  TIMED;
+public enum PaymentSplitFundingAccountType implements Parcelable {
+  FEE_ACCOUNT, RESERVE_ACCOUNT, HOLD_ACCOUNT, GROSS_FEE_ACCOUNT, SERVICE_FEE_ACCOUNT;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum ItemEntitlementPlanOptionType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<ItemEntitlementPlanOptionType> CREATOR = new Creator<ItemEntitlementPlanOptionType>() {
+  public static final Creator<PaymentSplitFundingAccountType> CREATOR = new Creator<PaymentSplitFundingAccountType>() {
     @Override
-    public ItemEntitlementPlanOptionType createFromParcel(final Parcel source) {
-      return ItemEntitlementPlanOptionType.valueOf(source.readString());
+    public PaymentSplitFundingAccountType createFromParcel(final Parcel source) {
+      return PaymentSplitFundingAccountType.valueOf(source.readString());
     }
 
     @Override
-    public ItemEntitlementPlanOptionType[] newArray(final int size) {
-      return new ItemEntitlementPlanOptionType[size];
+    public PaymentSplitFundingAccountType[] newArray(final int size) {
+      return new PaymentSplitFundingAccountType[size];
     }
   };
 }

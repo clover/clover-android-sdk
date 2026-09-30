@@ -27,16 +27,19 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
   private static final String BUNDLE_KEY_ORDER = "o";
   private static final String BUNDLE_KEY_REASON = "r";
   private static final String BUNDLE_KEY_URIS = "u";
+  private static final String BUNDLE_KEY_RECEIPT_PRINT_TRACKING_CONTEXT = "rtc";
 
 
   public abstract static class Builder extends PrintJob.Builder {
     protected Order order;
     protected String reason;
+    protected ReceiptPrintTrackingContext receiptPrintTrackingContext;
     public ArrayList<Uri> footerUris = new ArrayList<>();
 
     public Builder staticOrderBasedPrintJob(StaticOrderBasedPrintJob pj) {
       printJob(pj);
       this.order = pj.order;
+      this.receiptPrintTrackingContext = pj.receiptPrintTrackingContext;
 
       return this;
     }
@@ -53,6 +56,12 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
       return this;
     }
 
+    public Builder receiptPrintTrackingContext(
+        ReceiptPrintTrackingContext receiptPrintTrackingContext) {
+      this.receiptPrintTrackingContext = receiptPrintTrackingContext;
+      return this;
+    }
+
     protected StaticOrderBasedPrintJob.Builder footerUri(Uri... footerUris) {
       for (Uri uri: footerUris) {
         this.footerUris.add(uri);
@@ -63,6 +72,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
 
   public ArrayList<Uri> footerUris;
   public final Order order;
+  public final ReceiptPrintTrackingContext receiptPrintTrackingContext;
   // yes, this is not final
   // reason is that for backwards compat we needed subclass to possible write this value in the unparceling ctor
   public String reason;
@@ -71,6 +81,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
   public StaticOrderBasedPrintJob(Order order, int flags) {
     super(flags);
     this.order = order;
+    this.receiptPrintTrackingContext = null;
     this.reason = null;
   }
 
@@ -78,6 +89,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
   protected StaticOrderBasedPrintJob(Builder builder) {
     super(builder);
     this.order = builder.order;
+    this.receiptPrintTrackingContext = builder.receiptPrintTrackingContext;
     this.reason = builder.reason;
     this.footerUris = builder.footerUris;
   }
@@ -86,6 +98,8 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     super(in);
     Bundle bundle = in.readBundle(((Object)this).getClass().getClassLoader()); // needed otherwise BadParcelableException: ClassNotFoundException when unmarshalling
     order = bundle.getParcelable(BUNDLE_KEY_ORDER);
+    receiptPrintTrackingContext =
+        bundle.getParcelable(BUNDLE_KEY_RECEIPT_PRINT_TRACKING_CONTEXT);
     reason = bundle.getString(BUNDLE_KEY_REASON);
     footerUris = bundle.getParcelableArrayList(BUNDLE_KEY_URIS);
     // Add more data here, but remember old apps might not provide it!
@@ -96,6 +110,7 @@ public abstract class StaticOrderBasedPrintJob extends PrintJob implements Parce
     super.writeToParcel(dest, flags);
     Bundle bundle = new Bundle();
     bundle.putParcelable(BUNDLE_KEY_ORDER, order);
+    bundle.putParcelable(BUNDLE_KEY_RECEIPT_PRINT_TRACKING_CONTEXT, receiptPrintTrackingContext);
     bundle.putString(BUNDLE_KEY_REASON, reason);
     bundle.putParcelableArrayList(BUNDLE_KEY_URIS, footerUris);
     dest.writeBundle(bundle);

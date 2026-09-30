@@ -25,6 +25,11 @@ xmlns:tools="http://schemas.android.com/tools"
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
 
     <!-- For AppInstallDoneService -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -234,7 +239,7 @@ xmlns:tools="http://schemas.android.com/tools"
             tools:ignore="ExportedContentProvider">
             <meta-data
                 android:name="com.clover.printer.receipt.custom.content.receipt.types"
-                android:value="Payment,Bill,Order,Refund,Credit"/>
+                android:value="Payment,Bill,Order,Refund,Credit,Decline"/>
         </provider>
 
         <activity
