@@ -72,7 +72,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPermissionPaymentsWrite permissionPaymentsWrite}</li>
  * <li>{@link #getPermissionEmployeesRead permissionEmployeesRead}</li>
  * <li>{@link #getPermissionEmployeesWrite permissionEmployeesWrite}</li>
- * <li>{@link #getPermissionVasRead permissionVasRead}</li>
  * <li>{@link #getPermissionProcessCards permissionProcessCards}</li>
  * <li>{@link #getPermissionMidRead permissionMidRead}</li>
  * <li>{@link #getPermissionCustomersAddressRead permissionCustomersAddressRead}</li>
@@ -85,6 +84,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getPermissionCustomersCardWrite permissionCustomersCardWrite}</li>
  * <li>{@link #getPermissionCustomersAchRead permissionCustomersAchRead}</li>
  * <li>{@link #getPermissionCustomersAchWrite permissionCustomersAchWrite}</li>
+ * <li>{@link #getPermissionAppleVasRead permissionAppleVasRead}</li>
  * <li>{@link #getPermissionCustomersEmailRead permissionCustomersEmailRead}</li>
  * <li>{@link #getPermissionCustomersEmailWrite permissionCustomersEmailWrite}</li>
  * <li>{@link #getPermissionCustomersNoteRead permissionCustomersNoteRead}</li>
@@ -369,10 +369,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheGet(CacheKey.permissionEmployeesWrite);
   }
 
-  public java.lang.Boolean getPermissionVasRead() {
-    return genClient.cacheGet(CacheKey.permissionVasRead);
-  }
-
   public java.lang.Boolean getPermissionProcessCards() {
     return genClient.cacheGet(CacheKey.permissionProcessCards);
   }
@@ -419,6 +415,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
 
   public java.lang.Boolean getPermissionCustomersAchWrite() {
     return genClient.cacheGet(CacheKey.permissionCustomersAchWrite);
+  }
+
+  public java.lang.Boolean getPermissionAppleVasRead() {
+    return genClient.cacheGet(CacheKey.permissionAppleVasRead);
   }
 
   public java.lang.Boolean getPermissionCustomersEmailRead() {
@@ -916,8 +916,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionEmployeesWrite
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
-    permissionVasRead
-            (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionProcessCards
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionMidRead
@@ -941,6 +939,8 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     permissionCustomersAchRead
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionCustomersAchWrite
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+    permissionAppleVasRead
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     permissionCustomersEmailRead
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
@@ -1412,11 +1412,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheValueIsNotNull(CacheKey.permissionEmployeesWrite);
   }
 
-  /** Checks whether the 'permissionVasRead' field is set and is not null */
-  public boolean isNotNullPermissionVasRead() {
-    return genClient.cacheValueIsNotNull(CacheKey.permissionVasRead);
-  }
-
   /** Checks whether the 'permissionProcessCards' field is set and is not null */
   public boolean isNotNullPermissionProcessCards() {
     return genClient.cacheValueIsNotNull(CacheKey.permissionProcessCards);
@@ -1475,6 +1470,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionCustomersAchWrite' field is set and is not null */
   public boolean isNotNullPermissionCustomersAchWrite() {
     return genClient.cacheValueIsNotNull(CacheKey.permissionCustomersAchWrite);
+  }
+
+  /** Checks whether the 'permissionAppleVasRead' field is set and is not null */
+  public boolean isNotNullPermissionAppleVasRead() {
+    return genClient.cacheValueIsNotNull(CacheKey.permissionAppleVasRead);
   }
 
   /** Checks whether the 'permissionCustomersEmailRead' field is set and is not null */
@@ -2062,11 +2062,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     return genClient.cacheHasKey(CacheKey.permissionEmployeesWrite);
   }
 
-  /** Checks whether the 'permissionVasRead' field has been set, however the value could be null */
-  public boolean hasPermissionVasRead() {
-    return genClient.cacheHasKey(CacheKey.permissionVasRead);
-  }
-
   /** Checks whether the 'permissionProcessCards' field has been set, however the value could be null */
   public boolean hasPermissionProcessCards() {
     return genClient.cacheHasKey(CacheKey.permissionProcessCards);
@@ -2125,6 +2120,11 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Checks whether the 'permissionCustomersAchWrite' field has been set, however the value could be null */
   public boolean hasPermissionCustomersAchWrite() {
     return genClient.cacheHasKey(CacheKey.permissionCustomersAchWrite);
+  }
+
+  /** Checks whether the 'permissionAppleVasRead' field has been set, however the value could be null */
+  public boolean hasPermissionAppleVasRead() {
+    return genClient.cacheHasKey(CacheKey.permissionAppleVasRead);
   }
 
   /** Checks whether the 'permissionCustomersEmailRead' field has been set, however the value could be null */
@@ -2754,13 +2754,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   }
 
   /**
-   * Sets the field 'permissionVasRead'.
-   */
-  public App setPermissionVasRead(java.lang.Boolean permissionVasRead) {
-    return genClient.setOther(permissionVasRead, CacheKey.permissionVasRead);
-  }
-
-  /**
    * Sets the field 'permissionProcessCards'.
    */
   public App setPermissionProcessCards(java.lang.Boolean permissionProcessCards) {
@@ -2842,6 +2835,13 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
    */
   public App setPermissionCustomersAchWrite(java.lang.Boolean permissionCustomersAchWrite) {
     return genClient.setOther(permissionCustomersAchWrite, CacheKey.permissionCustomersAchWrite);
+  }
+
+  /**
+   * Sets the field 'permissionAppleVasRead'.
+   */
+  public App setPermissionAppleVasRead(java.lang.Boolean permissionAppleVasRead) {
+    return genClient.setOther(permissionAppleVasRead, CacheKey.permissionAppleVasRead);
   }
 
   /**
@@ -3513,10 +3513,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   public void clearPermissionEmployeesWrite() {
     genClient.clear(CacheKey.permissionEmployeesWrite);
   }
-  /** Clears the 'permissionVasRead' field, the 'has' method for this field will now return false */
-  public void clearPermissionVasRead() {
-    genClient.clear(CacheKey.permissionVasRead);
-  }
   /** Clears the 'permissionProcessCards' field, the 'has' method for this field will now return false */
   public void clearPermissionProcessCards() {
     genClient.clear(CacheKey.permissionProcessCards);
@@ -3564,6 +3560,10 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
   /** Clears the 'permissionCustomersAchWrite' field, the 'has' method for this field will now return false */
   public void clearPermissionCustomersAchWrite() {
     genClient.clear(CacheKey.permissionCustomersAchWrite);
+  }
+  /** Clears the 'permissionAppleVasRead' field, the 'has' method for this field will now return false */
+  public void clearPermissionAppleVasRead() {
+    genClient.clear(CacheKey.permissionAppleVasRead);
   }
   /** Clears the 'permissionCustomersEmailRead' field, the 'has' method for this field will now return false */
   public void clearPermissionCustomersEmailRead() {
@@ -3947,7 +3947,6 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean PERMISSIONPAYMENTSWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONEMPLOYEESREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONEMPLOYEESWRITE_IS_REQUIRED = false;
-    public static final boolean PERMISSIONVASREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONPROCESSCARDS_IS_REQUIRED = false;
     public static final boolean PERMISSIONMIDREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSADDRESSREAD_IS_REQUIRED = false;
@@ -3960,6 +3959,7 @@ public class App extends GenericParcelable implements com.clover.sdk.v3.Validato
     public static final boolean PERMISSIONCUSTOMERSCARDWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSACHREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSACHWRITE_IS_REQUIRED = false;
+    public static final boolean PERMISSIONAPPLEVASREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSEMAILREAD_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSEMAILWRITE_IS_REQUIRED = false;
     public static final boolean PERMISSIONCUSTOMERSNOTEREAD_IS_REQUIRED = false;

@@ -90,14 +90,14 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Unique identifier
    */
-  public String getId() {
+  public java.lang.String getId() {
     return genClient.cacheGet(CacheKey.id);
   }
 
   /**
    * Currency of this order. For example, "USD"
    */
-  public String getCurrency() {
+  public java.lang.String getCurrency() {
     return genClient.cacheGet(CacheKey.currency);
   }
 
@@ -111,7 +111,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Fulfillment information associated with this order. Contains customer info.
    */
-  public FulfillmentInfo getFulfillmentInfo() {
+  public com.clover.sdk.v3.order.FulfillmentInfo getFulfillmentInfo() {
     return genClient.cacheGet(CacheKey.fulfillmentInfo);
   }
 
@@ -125,124 +125,124 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Total price of the order in cents
    */
-  public Long getTotal() {
+  public java.lang.Long getTotal() {
     return genClient.cacheGet(CacheKey.total);
   }
 
   /**
    * External reference id if present in the order
    */
-  public String getExternalReferenceId() {
+  public java.lang.String getExternalReferenceId() {
     return genClient.cacheGet(CacheKey.externalReferenceId);
   }
 
   /**
    * If this order has an invoice, this is the id of that invoice. Null otherwise
    */
-  public String getInvoiceId() {
+  public java.lang.String getInvoiceId() {
     return genClient.cacheGet(CacheKey.invoiceId);
   }
 
   /**
    * The net of orders with payment minus the amount collected. Includes refunds, manual refunds, tax, tip, service charge, non-revenue items, paid gift card activations and loads and discounts
    */
-  public Long getUnpaidBalance() {
+  public java.lang.Long getUnpaidBalance() {
     return genClient.cacheGet(CacheKey.unpaidBalance);
   }
 
   /**
    * Is this order paid or not?
    */
-  public PaymentState getPaymentState() {
+  public com.clover.sdk.v3.order.PaymentState getPaymentState() {
     return genClient.cacheGet(CacheKey.paymentState);
   }
 
-  public String getTitle() {
+  public java.lang.String getTitle() {
     return genClient.cacheGet(CacheKey.title);
   }
 
   /**
    * An arbitrary string with information about this order, may be printed on the order receipt and displayed in apps
    */
-  public String getNote() {
+  public java.lang.String getNote() {
     return genClient.cacheGet(CacheKey.note);
   }
 
-  public OrderType getOrderType() {
+  public com.clover.sdk.v3.order.OrderType getOrderType() {
     return genClient.cacheGet(CacheKey.orderType);
   }
 
   /**
    * If true then this order should not have taxes applied to it
    */
-  public Boolean getTaxRemoved() {
+  public java.lang.Boolean getTaxRemoved() {
     return genClient.cacheGet(CacheKey.taxRemoved);
   }
 
   /**
    * This order was created by merchant with VAT enabled.
    */
-  public Boolean getIsVat() {
+  public java.lang.Boolean getIsVat() {
     return genClient.cacheGet(CacheKey.isVat);
   }
 
   /**
    * A String describing the state of the order. There is no restriction on the value but Clover will automatically set the value to "open", "OPEN" and "locked" in certain circumstances such as when an order has a line item added or a payment is taken. If no value is set, the state defaults to null, which indicates a hidden order. A hidden order is not displayed in user interfaces and can only be retrieved by its id. When creating an order via the REST API the value it is strongly recommended the value be set to "open", this is the only situation it is recommended to set this value manually. When creating an order via the Android SDK the value must be left empty and the value will be updated to "open" and "locked" automatically. Developers are discouraged from relying on the value of the state or modifying it other than setting it to "open" during order creation via the REST API.
    */
-  public String getState() {
+  public java.lang.String getState() {
     return genClient.cacheGet(CacheKey.state);
   }
 
   /**
    * Whether this order represents a manual transaction. A manual transaction is a transaction that has an arbitrary amount defined and is not associated with any inventory items. For example, the Clover Sale App and Clover Manual Transaction App create manual transactions. A manual transactions will have a single associated line item to hold the sale amount, but the generated receipt will display this differently to indicate that it is not considered a typical order with inventory items.
    */
-  public Boolean getManualTransaction() {
+  public java.lang.Boolean getManualTransaction() {
     return genClient.cacheGet(CacheKey.manualTransaction);
   }
 
   /**
    * Whether similar line items should be grouped together on the receipt that this order generates. Item "similarity" is based on items having matching values for a set of properties including price, modifiers, and discounts.
    */
-  public Boolean getGroupLineItems() {
+  public java.lang.Boolean getGroupLineItems() {
     return genClient.cacheGet(CacheKey.groupLineItems);
   }
 
   /**
    * Whether this order was created in test mode. Payments made against test orders are not processed. Test mode orders can be deleted from the Orders App on the merchant's device or web dashboard (https://www.clover.com/orders/m/{mId}/orders). They will also be deleted when the device sends a POST to the /v2/merchant/{mId}/orders/delete_all_tests endpoint.
    */
-  public Boolean getTestMode() {
+  public java.lang.Boolean getTestMode() {
     return genClient.cacheGet(CacheKey.testMode);
   }
 
   /**
    * Possible values: SPLIT_GUEST, SPLIT_ITEM, SPLIT_CUSTOM, FULL. During the payment flow, if the user chooses to split the payment for this order, this field will be set to one of the SPLIT_* values to indicate how the full amount should be split. If the user chooses to pay for the order in full with one payment, then this field will be FULL.
    */
-  public PayType getPayType() {
+  public com.clover.sdk.v3.order.PayType getPayType() {
     return genClient.cacheGet(CacheKey.payType);
   }
 
   /**
    * Creation timestamp
    */
-  public Long getCreatedTime() {
+  public java.lang.Long getCreatedTime() {
     return genClient.cacheGet(CacheKey.createdTime);
   }
 
   /**
    * The time at which the client created this order
    */
-  public Long getClientCreatedTime() {
+  public java.lang.Long getClientCreatedTime() {
     return genClient.cacheGet(CacheKey.clientCreatedTime);
   }
 
   /**
    * Last modified time of the order
    */
-  public Long getModifiedTime() {
+  public java.lang.Long getModifiedTime() {
     return genClient.cacheGet(CacheKey.modifiedTime);
   }
 
-  public Long getDeletedTimestamp() {
+  public java.lang.Long getDeletedTimestamp() {
     return genClient.cacheGet(CacheKey.deletedTimestamp);
   }
 
@@ -253,21 +253,21 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheGet(CacheKey.serviceCharge);
   }
 
-  public java.util.List<AdditionalCharge> getAdditionalCharges() {
+  public java.util.List<com.clover.sdk.v3.order.AdditionalCharge> getAdditionalCharges() {
     return genClient.cacheGet(CacheKey.additionalCharges);
   }
 
   /**
    * Amount or percentage discounts applied to the order subtotal. To retrieve discounts applied to individual items, use the Get all line items for an order endpoint with the discounts field expanded (v3/merchants/{mId}/orders/{orderId}/line_items?expand=discounts).
    */
-  public java.util.List<Discount> getDiscounts() {
+  public java.util.List<com.clover.sdk.v3.order.Discount> getDiscounts() {
     return genClient.cacheGet(CacheKey.discounts);
   }
 
   /**
    * Line items associated with this order
    */
-  public java.util.List<LineItem> getLineItems() {
+  public java.util.List<com.clover.sdk.v3.order.LineItem> getLineItems() {
     return genClient.cacheGet(CacheKey.lineItems);
   }
 
@@ -338,120 +338,123 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Print groups for line items of this order.
    */
-  public java.util.List<PrintGroup> getPrintGroups() {
+  public java.util.List<com.clover.sdk.v3.order.PrintGroup> getPrintGroups() {
     return genClient.cacheGet(CacheKey.printGroups);
   }
 
   /**
    * Latest order fulfillment event of this order.
    */
-  public LineItemEvent getOrderFulfillmentEvent() {
+  public com.clover.sdk.v3.order.LineItemEvent getOrderFulfillmentEvent() {
     return genClient.cacheGet(CacheKey.orderFulfillmentEvent);
   }
 
   /**
    * Whether this order is hidden from the standard order views.
    */
-  public Boolean getIsHidden() {
+  public java.lang.Boolean getIsHidden() {
     return genClient.cacheGet(CacheKey.isHidden);
   }
 
   /**
    * Unique identifier of the application that owns this order
    */
-  public String getAppUuid() {
+  public java.lang.String getAppUuid() {
     return genClient.cacheGet(CacheKey.appUuid);
   }
 
   /**
    * Whether editing this order should be handled by the application "appUuid" or not.
    */
-  public Boolean getAppRedirect() {
+  public java.lang.Boolean getAppRedirect() {
     return genClient.cacheGet(CacheKey.appRedirect);
   }
 
   /**
    * Item entitlement sessions associated with this order
    */
-  public java.util.List<ItemEntitlementSession> getItemEntitlementSessions() {
+  public java.util.List<com.clover.sdk.v3.order.ItemEntitlementSession> getItemEntitlementSessions() {
     return genClient.cacheGet(CacheKey.itemEntitlementSessions);
   }
 
   /**
    * Timed sessions associated with this order
    */
-  public java.util.List<TimedSession> getTimedSessions() {
+  public java.util.List<com.clover.sdk.v3.order.TimedSession> getTimedSessions() {
     return genClient.cacheGet(CacheKey.timedSessions);
   }
 
   /**
    * Item ordering throttle configuration associated with this order
    */
-  public ItemOrderingThrottle getOrderingThrottle() {
+  public com.clover.sdk.v3.order.ItemOrderingThrottle getOrderingThrottle() {
     return genClient.cacheGet(CacheKey.orderingThrottle);
   }
 
+  public com.clover.sdk.v3.payments.ReceiptTrackingDetails getReceiptDetails() {
+    return genClient.cacheGet(CacheKey.receiptDetails);
+  }
 
 
   public static final String AUTHORITY = "com.clover.orders";
 
   private enum CacheKey implements com.clover.sdk.ExtractionStrategyEnum {
     id
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     currency
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     customers
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.customers.Customer.JSON_CREATOR)),
     fulfillmentInfo
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(FulfillmentInfo.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.FulfillmentInfo.JSON_CREATOR)),
     employee
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.Reference.JSON_CREATOR)),
     total
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     externalReferenceId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     invoiceId
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     unpaidBalance
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     paymentState
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(PaymentState.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.PaymentState.class)),
     title
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     note
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     orderType
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(OrderType.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.OrderType.JSON_CREATOR)),
     taxRemoved
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     isVat
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     state
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     manualTransaction
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     groupLineItems
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     testMode
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     payType
-        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(PayType.class)),
+        (com.clover.sdk.extractors.EnumExtractionStrategy.instance(com.clover.sdk.v3.order.PayType.class)),
     createdTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     clientCreatedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     modifiedTime
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     deletedTimestamp
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     serviceCharge
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.base.ServiceCharge.JSON_CREATOR)),
     additionalCharges
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(AdditionalCharge.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.AdditionalCharge.JSON_CREATOR)),
     discounts
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(Discount.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.Discount.JSON_CREATOR)),
     lineItems
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(LineItem.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.LineItem.JSON_CREATOR)),
     payments
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.payments.Payment.JSON_CREATOR)),
     refunds
@@ -473,21 +476,24 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     tables
         (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.tables2.Table.JSON_CREATOR)),
     printGroups
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(PrintGroup.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.PrintGroup.JSON_CREATOR)),
     orderFulfillmentEvent
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(LineItemEvent.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.LineItemEvent.JSON_CREATOR)),
     isHidden
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     appUuid
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(String.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.String.class)),
     appRedirect
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Boolean.class)),
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
     itemEntitlementSessions
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(ItemEntitlementSession.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.ItemEntitlementSession.JSON_CREATOR)),
     timedSessions
-        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(TimedSession.JSON_CREATOR)),
+        (com.clover.sdk.extractors.RecordListExtractionStrategy.instance(com.clover.sdk.v3.order.TimedSession.JSON_CREATOR)),
     orderingThrottle
-        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(ItemOrderingThrottle.JSON_CREATOR));
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.order.ItemOrderingThrottle.JSON_CREATOR)),
+    receiptDetails
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.ReceiptTrackingDetails.JSON_CREATOR)),
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -848,6 +854,10 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheValueIsNotNull(CacheKey.orderingThrottle);
   }
 
+  /** Checks whether the 'receiptDetails' field is set and is not null */
+  public boolean isNotNullReceiptDetails() {
+    return genClient.cacheValueIsNotNull(CacheKey.receiptDetails);
+  }
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -1080,18 +1090,23 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     return genClient.cacheHasKey(CacheKey.orderingThrottle);
   }
 
+  /** Checks whether the 'receiptDetails' field has been set, however the value could be null */
+  public boolean hasReceiptDetails() {
+    return genClient.cacheHasKey(CacheKey.receiptDetails);
+  }
+
 
   /**
    * Sets the field 'id'.
    */
-  public Order setId(String id) {
+  public Order setId(java.lang.String id) {
     return genClient.setOther(id, CacheKey.id);
   }
 
   /**
    * Sets the field 'currency'.
    */
-  public Order setCurrency(String currency) {
+  public Order setCurrency(java.lang.String currency) {
     return genClient.setOther(currency, CacheKey.currency);
   }
 
@@ -1109,7 +1124,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Order setFulfillmentInfo(FulfillmentInfo fulfillmentInfo) {
+  public Order setFulfillmentInfo(com.clover.sdk.v3.order.FulfillmentInfo fulfillmentInfo) {
     return genClient.setRecord(fulfillmentInfo, CacheKey.fulfillmentInfo);
   }
 
@@ -1125,49 +1140,49 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   /**
    * Sets the field 'total'.
    */
-  public Order setTotal(Long total) {
+  public Order setTotal(java.lang.Long total) {
     return genClient.setOther(total, CacheKey.total);
   }
 
   /**
    * Sets the field 'externalReferenceId'.
    */
-  public Order setExternalReferenceId(String externalReferenceId) {
+  public Order setExternalReferenceId(java.lang.String externalReferenceId) {
     return genClient.setOther(externalReferenceId, CacheKey.externalReferenceId);
   }
 
   /**
    * Sets the field 'invoiceId'.
    */
-  public Order setInvoiceId(String invoiceId) {
+  public Order setInvoiceId(java.lang.String invoiceId) {
     return genClient.setOther(invoiceId, CacheKey.invoiceId);
   }
 
   /**
    * Sets the field 'unpaidBalance'.
    */
-  public Order setUnpaidBalance(Long unpaidBalance) {
+  public Order setUnpaidBalance(java.lang.Long unpaidBalance) {
     return genClient.setOther(unpaidBalance, CacheKey.unpaidBalance);
   }
 
   /**
    * Sets the field 'paymentState'.
    */
-  public Order setPaymentState(PaymentState paymentState) {
+  public Order setPaymentState(com.clover.sdk.v3.order.PaymentState paymentState) {
     return genClient.setOther(paymentState, CacheKey.paymentState);
   }
 
   /**
    * Sets the field 'title'.
    */
-  public Order setTitle(String title) {
+  public Order setTitle(java.lang.String title) {
     return genClient.setOther(title, CacheKey.title);
   }
 
   /**
    * Sets the field 'note'.
    */
-  public Order setNote(String note) {
+  public Order setNote(java.lang.String note) {
     return genClient.setOther(note, CacheKey.note);
   }
 
@@ -1176,84 +1191,84 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Order setOrderType(OrderType orderType) {
+  public Order setOrderType(com.clover.sdk.v3.order.OrderType orderType) {
     return genClient.setRecord(orderType, CacheKey.orderType);
   }
 
   /**
    * Sets the field 'taxRemoved'.
    */
-  public Order setTaxRemoved(Boolean taxRemoved) {
+  public Order setTaxRemoved(java.lang.Boolean taxRemoved) {
     return genClient.setOther(taxRemoved, CacheKey.taxRemoved);
   }
 
   /**
    * Sets the field 'isVat'.
    */
-  public Order setIsVat(Boolean isVat) {
+  public Order setIsVat(java.lang.Boolean isVat) {
     return genClient.setOther(isVat, CacheKey.isVat);
   }
 
   /**
    * Sets the field 'state'.
    */
-  public Order setState(String state) {
+  public Order setState(java.lang.String state) {
     return genClient.setOther(state, CacheKey.state);
   }
 
   /**
    * Sets the field 'manualTransaction'.
    */
-  public Order setManualTransaction(Boolean manualTransaction) {
+  public Order setManualTransaction(java.lang.Boolean manualTransaction) {
     return genClient.setOther(manualTransaction, CacheKey.manualTransaction);
   }
 
   /**
    * Sets the field 'groupLineItems'.
    */
-  public Order setGroupLineItems(Boolean groupLineItems) {
+  public Order setGroupLineItems(java.lang.Boolean groupLineItems) {
     return genClient.setOther(groupLineItems, CacheKey.groupLineItems);
   }
 
   /**
    * Sets the field 'testMode'.
    */
-  public Order setTestMode(Boolean testMode) {
+  public Order setTestMode(java.lang.Boolean testMode) {
     return genClient.setOther(testMode, CacheKey.testMode);
   }
 
   /**
    * Sets the field 'payType'.
    */
-  public Order setPayType(PayType payType) {
+  public Order setPayType(com.clover.sdk.v3.order.PayType payType) {
     return genClient.setOther(payType, CacheKey.payType);
   }
 
   /**
    * Sets the field 'createdTime'.
    */
-  public Order setCreatedTime(Long createdTime) {
+  public Order setCreatedTime(java.lang.Long createdTime) {
     return genClient.setOther(createdTime, CacheKey.createdTime);
   }
 
   /**
    * Sets the field 'clientCreatedTime'.
    */
-  public Order setClientCreatedTime(Long clientCreatedTime) {
+  public Order setClientCreatedTime(java.lang.Long clientCreatedTime) {
     return genClient.setOther(clientCreatedTime, CacheKey.clientCreatedTime);
   }
 
   /**
    * Sets the field 'modifiedTime'.
    */
-  public Order setModifiedTime(Long modifiedTime) {
+  public Order setModifiedTime(java.lang.Long modifiedTime) {
     return genClient.setOther(modifiedTime, CacheKey.modifiedTime);
   }
 
   /**
    * Sets the field 'deletedTimestamp'.
    */
-  public Order setDeletedTimestamp(Long deletedTimestamp) {
+  public Order setDeletedTimestamp(java.lang.Long deletedTimestamp) {
     return genClient.setOther(deletedTimestamp, CacheKey.deletedTimestamp);
   }
 
@@ -1271,7 +1286,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setAdditionalCharges(java.util.List<AdditionalCharge> additionalCharges) {
+  public Order setAdditionalCharges(java.util.List<com.clover.sdk.v3.order.AdditionalCharge> additionalCharges) {
     return genClient.setArrayRecord(additionalCharges, CacheKey.additionalCharges);
   }
 
@@ -1280,7 +1295,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setDiscounts(java.util.List<Discount> discounts) {
+  public Order setDiscounts(java.util.List<com.clover.sdk.v3.order.Discount> discounts) {
     return genClient.setArrayRecord(discounts, CacheKey.discounts);
   }
 
@@ -1289,7 +1304,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setLineItems(java.util.List<LineItem> lineItems) {
+  public Order setLineItems(java.util.List<com.clover.sdk.v3.order.LineItem> lineItems) {
     return genClient.setArrayRecord(lineItems, CacheKey.lineItems);
   }
 
@@ -1388,7 +1403,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setPrintGroups(java.util.List<PrintGroup> printGroups) {
+  public Order setPrintGroups(java.util.List<com.clover.sdk.v3.order.PrintGroup> printGroups) {
     return genClient.setArrayRecord(printGroups, CacheKey.printGroups);
   }
 
@@ -1397,28 +1412,28 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Order setOrderFulfillmentEvent(LineItemEvent orderFulfillmentEvent) {
+  public Order setOrderFulfillmentEvent(com.clover.sdk.v3.order.LineItemEvent orderFulfillmentEvent) {
     return genClient.setRecord(orderFulfillmentEvent, CacheKey.orderFulfillmentEvent);
   }
 
   /**
    * Sets the field 'isHidden'.
    */
-  public Order setIsHidden(Boolean isHidden) {
+  public Order setIsHidden(java.lang.Boolean isHidden) {
     return genClient.setOther(isHidden, CacheKey.isHidden);
   }
 
   /**
    * Sets the field 'appUuid'.
    */
-  public Order setAppUuid(String appUuid) {
+  public Order setAppUuid(java.lang.String appUuid) {
     return genClient.setOther(appUuid, CacheKey.appUuid);
   }
 
   /**
    * Sets the field 'appRedirect'.
    */
-  public Order setAppRedirect(Boolean appRedirect) {
+  public Order setAppRedirect(java.lang.Boolean appRedirect) {
     return genClient.setOther(appRedirect, CacheKey.appRedirect);
   }
 
@@ -1427,7 +1442,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setItemEntitlementSessions(java.util.List<ItemEntitlementSession> itemEntitlementSessions) {
+  public Order setItemEntitlementSessions(java.util.List<com.clover.sdk.v3.order.ItemEntitlementSession> itemEntitlementSessions) {
     return genClient.setArrayRecord(itemEntitlementSessions, CacheKey.itemEntitlementSessions);
   }
 
@@ -1436,7 +1451,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * Nulls in the given List are skipped. List parameter is copied, so it will not reflect any changes, but objects inside it will.
    */
-  public Order setTimedSessions(java.util.List<TimedSession> timedSessions) {
+  public Order setTimedSessions(java.util.List<com.clover.sdk.v3.order.TimedSession> timedSessions) {
     return genClient.setArrayRecord(timedSessions, CacheKey.timedSessions);
   }
 
@@ -1445,11 +1460,18 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
    *
    * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
    */
-  public Order setOrderingThrottle(ItemOrderingThrottle orderingThrottle) {
+  public Order setOrderingThrottle(com.clover.sdk.v3.order.ItemOrderingThrottle orderingThrottle) {
     return genClient.setRecord(orderingThrottle, CacheKey.orderingThrottle);
   }
 
-
+  /**
+   * Sets the field 'receiptDetails'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Order setReceiptDetails(com.clover.sdk.v3.payments.ReceiptTrackingDetails receiptDetails) {
+    return genClient.setRecord(receiptDetails, CacheKey.receiptDetails);
+  }
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -1635,8 +1657,10 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
   public void clearOrderingThrottle() {
     genClient.clear(CacheKey.orderingThrottle);
   }
-
-
+  /** Clears the 'receiptDetails' field, the 'has' method for this field will now return false */
+  public void clearReceiptDetails() {
+    genClient.clear(CacheKey.receiptDetails);
+  }
 
   /**
    * Returns true if this instance has any changes.
@@ -1751,7 +1775,7 @@ public class Order extends GenericParcelable implements com.clover.sdk.v3.Valida
     public static final boolean ITEMENTITLEMENTSESSIONS_IS_REQUIRED = false;
     public static final boolean TIMEDSESSIONS_IS_REQUIRED = false;
     public static final boolean ORDERINGTHROTTLE_IS_REQUIRED = false;
-
+    public static final boolean RECEIPTDETAILS_IS_REQUIRED = false;
   }
 
 }

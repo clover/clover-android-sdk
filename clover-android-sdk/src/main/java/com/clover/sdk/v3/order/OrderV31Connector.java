@@ -479,6 +479,15 @@ public class OrderV31Connector extends ServiceConnector<IOrderServiceV3_1> {
     });
   }
 
+  public Order setLineItemTaxRate(final String orderId, final List<String> lineItemIds, final String taxRateId) throws RemoteException, ClientException, ServiceException, BindingException {
+    return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
+      @Override
+      public Order call(IOrderServiceV3_1 service, ResultStatus status) throws RemoteException {
+        return getValue(service.setLineItemTaxRate(orderId, lineItemIds, taxRateId, status));
+      }
+    });
+  }
+
   public Order addLineItemModification(final String orderId, final String lineItemId, final Modifier modifier) throws RemoteException, ClientException, ServiceException, BindingException {
     return execute(new ServiceCallable<IOrderServiceV3_1, Order>() {
       @Override

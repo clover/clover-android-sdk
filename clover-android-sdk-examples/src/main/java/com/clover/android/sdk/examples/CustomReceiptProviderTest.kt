@@ -68,6 +68,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.IOException
 import androidx.core.graphics.scale
+import com.clover.sdk.v1.printer.job.StaticPaymentDeclinePrintJob
 
 class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener, CoroutineScope by MainScope() {
 
@@ -299,6 +300,11 @@ class CustomReceiptProviderTest : ContentProvider(), OnServiceConnectedListener,
         it.classLoader = PrintJob::class.java.classLoader
         var printJob: PrintJob? = null
         when (it.getParcelable<PrintJob>(ReceiptContentContract.EXTRA_PRINT_JOB)) {
+          is StaticPaymentDeclinePrintJob -> {
+            printJob =
+              (it.getParcelable<StaticPaymentDeclinePrintJob>(ReceiptContentContract.EXTRA_PRINT_JOB)) as StaticPaymentDeclinePrintJob
+            Log.i(TAG, "StaticPaymentDeclinePrintJob: $printJob")
+          }
           is StaticBillPrintJob -> {
             printJob =
               (it.getParcelable<StaticBillPrintJob>(ReceiptContentContract.EXTRA_PRINT_JOB)) as StaticBillPrintJob

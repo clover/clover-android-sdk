@@ -24,6 +24,7 @@ import com.clover.sdk.v1.printer.job.StaticCreditPrintJob
 import com.clover.sdk.v1.printer.job.StaticGiftReceiptPrintJob
 import com.clover.sdk.v1.printer.job.StaticLabelPrintJob
 import com.clover.sdk.v1.printer.job.StaticOrderPrintJob
+import com.clover.sdk.v1.printer.job.StaticPaymentDeclinePrintJob
 import com.clover.sdk.v1.printer.job.StaticPaymentPrintJob
 import com.clover.sdk.v1.printer.job.StaticRefundPrintJob
 import com.clover.sdk.v1.printer.job.TextPrintJob
@@ -215,6 +216,7 @@ object ReceiptContentContract {
     GIFT_CARD(GiftCardPrintJob::class.java),
     BALANCE_INQUIRY(BalanceInquiryPrintJob::class.java),
     TOKEN_REQUEST_BASED(TokenRequestBasedPrintJob::class.java),
-    LABEL(StaticLabelPrintJob::class.java);
+    LABEL(StaticLabelPrintJob::class.java),
+    DECLINE(StaticPaymentDeclinePrintJob::class.java);
   }
 }

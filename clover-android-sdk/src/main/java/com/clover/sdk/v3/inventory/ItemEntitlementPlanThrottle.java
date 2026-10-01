@@ -23,10 +23,9 @@
 package com.clover.sdk.v3.inventory;
 
 
-import androidx.annotation.Nullable;
-
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
+import androidx.annotation.Nullable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -38,7 +37,6 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getEnabled enabled}</li>
  * <li>{@link #getLimitPerParticipantPerRound limitPerParticipantPerRound}</li>
  * <li>{@link #getRoundDurationMinutes roundDurationMinutes}</li>
- * <li>{@link #getVersion version}</li>
  * </ul>
  * <p>
  * @see com.clover.sdk.v3.inventory.IInventoryService
@@ -63,19 +61,11 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
   }
 
   /**
-   * Duration of each throttle round in minutes
+   * Duration of each ordering round in minutes
    */
   @Nullable
   public Integer getRoundDurationMinutes() {
     return genClient.cacheGet(CacheKey.roundDurationMinutes);
-  }
-
-  /**
-   * Version number for the throttle configuration
-   */
-  @Nullable
-  public Long getVersion() {
-    return genClient.cacheGet(CacheKey.version);
   }
 
 
@@ -88,8 +78,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
     roundDurationMinutes
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Integer.class)),
-    version
-        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(Long.class)),
       ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
@@ -179,11 +167,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
     return genClient.cacheValueIsNotNull(CacheKey.roundDurationMinutes);
   }
 
-  /** Checks whether the 'version' field is set and is not null */
-  public boolean isNotNullVersion() {
-    return genClient.cacheValueIsNotNull(CacheKey.version);
-  }
-
 
 
   /** Checks whether the 'enabled' field has been set, however the value could be null */
@@ -199,11 +182,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
   /** Checks whether the 'roundDurationMinutes' field has been set, however the value could be null */
   public boolean hasRoundDurationMinutes() {
     return genClient.cacheHasKey(CacheKey.roundDurationMinutes);
-  }
-
-  /** Checks whether the 'version' field has been set, however the value could be null */
-  public boolean hasVersion() {
-    return genClient.cacheHasKey(CacheKey.version);
   }
 
 
@@ -228,13 +206,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
     return genClient.setOther(roundDurationMinutes, CacheKey.roundDurationMinutes);
   }
 
-  /**
-   * Sets the field 'version'.
-   */
-  public ItemEntitlementPlanThrottle setVersion(@Nullable Long version) {
-    return genClient.setOther(version, CacheKey.version);
-  }
-
 
   /** Clears the 'enabled' field, the 'has' method for this field will now return false */
   public void clearEnabled() {
@@ -247,10 +218,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
   /** Clears the 'roundDurationMinutes' field, the 'has' method for this field will now return false */
   public void clearRoundDurationMinutes() {
     genClient.clear(CacheKey.roundDurationMinutes);
-  }
-  /** Clears the 'version' field, the 'has' method for this field will now return false */
-  public void clearVersion() {
-    genClient.clear(CacheKey.version);
   }
 
 
@@ -317,7 +284,6 @@ public class ItemEntitlementPlanThrottle extends GenericParcelable implements co
     public static final boolean ENABLED_IS_REQUIRED = false;
     public static final boolean LIMITPERPARTICIPANTPERROUND_IS_REQUIRED = false;
     public static final boolean ROUNDDURATIONMINUTES_IS_REQUIRED = false;
-    public static final boolean VERSION_IS_REQUIRED = false;
   }
 
 }

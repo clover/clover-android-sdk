@@ -22,6 +22,7 @@
 
 package com.clover.sdk.v3.payments;
 
+
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
 
@@ -81,7 +82,12 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     return genClient.cacheGet(CacheKey.pushTitle);
   }
 
-  public VasPushMode getPushMode() { return genClient.cacheGet(CacheKey.pushMode); }
+  /**
+   * VAS pushmode for the transaction. If not passed, the default behavior is PUSH_NONE.
+   */
+  public com.clover.sdk.v3.payments.VasPushMode getPushMode() {
+    return genClient.cacheGet(CacheKey.pushMode);
+  }
 
 
 
@@ -248,6 +254,11 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
     return genClient.cacheHasKey(CacheKey.pushTitle);
   }
 
+  /** Checks whether the 'pushMode' field has been set, however the value could be null */
+  public boolean hasPushMode() {
+    return genClient.cacheHasKey(CacheKey.pushMode);
+  }
+
 
   /**
    * Sets the field 'providerPackage'.
@@ -296,7 +307,7 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   /**
    * Sets the field 'pushMode'.
    */
-  public VasServiceProvider setPushMode(VasPushMode pushMode) {
+  public VasServiceProvider setPushMode(com.clover.sdk.v3.payments.VasPushMode pushMode) {
     return genClient.setOther(pushMode, CacheKey.pushMode);
   }
 
@@ -325,6 +336,7 @@ public class VasServiceProvider extends GenericParcelable implements com.clover.
   public void clearPushTitle() {
     genClient.clear(CacheKey.pushTitle);
   }
+  /** Clears the 'pushMode' field, the 'has' method for this field will now return false */
   public void clearPushMode() {
     genClient.clear(CacheKey.pushMode);
   }

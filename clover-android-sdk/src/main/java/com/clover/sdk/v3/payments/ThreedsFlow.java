@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-package com.clover.sdk.v3.inventory;
+package com.clover.sdk.v3.payments;
 
 import android.os.Parcelable;
 import android.os.Parcel;
@@ -30,8 +30,8 @@ import android.os.Parcel;
  * This is an auto-generated Clover data enum.
  */
 @SuppressWarnings("all")
-public enum ItemEntitlementPlanOptionType implements Parcelable {
-  TIMED;
+public enum ThreedsFlow implements Parcelable {
+  FRICTIONLESS, CHALLENGE;
 
   @Override
   public int describeContents() {
@@ -43,15 +43,15 @@ public enum ItemEntitlementPlanOptionType implements Parcelable {
     dest.writeString(name());
   }
 
-  public static final Creator<ItemEntitlementPlanOptionType> CREATOR = new Creator<ItemEntitlementPlanOptionType>() {
+  public static final Creator<ThreedsFlow> CREATOR = new Creator<ThreedsFlow>() {
     @Override
-    public ItemEntitlementPlanOptionType createFromParcel(final Parcel source) {
-      return ItemEntitlementPlanOptionType.valueOf(source.readString());
+    public ThreedsFlow createFromParcel(final Parcel source) {
+      return ThreedsFlow.valueOf(source.readString());
     }
 
     @Override
-    public ItemEntitlementPlanOptionType[] newArray(final int size) {
-      return new ItemEntitlementPlanOptionType[size];
+    public ThreedsFlow[] newArray(final int size) {
+      return new ThreedsFlow[size];
     }
   };
 }

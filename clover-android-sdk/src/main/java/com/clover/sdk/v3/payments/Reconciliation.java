@@ -36,6 +36,7 @@ import com.clover.sdk.GenericParcelable;
  * <li>{@link #getCashDetails cashDetails}</li>
  * <li>{@link #getNonCashDetails nonCashDetails}</li>
  * <li>{@link #getNextShiftOpeningDetails nextShiftOpeningDetails}</li>
+ * <li>{@link #getNoteExtra noteExtra}</li>
  * </ul>
  */
 @SuppressWarnings("all")
@@ -62,6 +63,13 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheGet(CacheKey.nextShiftOpeningDetails);
   }
 
+  /**
+   * Additional detail about the note field column data
+   */
+  public com.clover.sdk.v3.payments.NoteExtra getNoteExtra() {
+    return genClient.cacheGet(CacheKey.noteExtra);
+  }
+
 
 
 
@@ -72,7 +80,9 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.NonCashDetails.JSON_CREATOR)),
     nextShiftOpeningDetails
         (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.NextShiftOpeningDetails.JSON_CREATOR)),
-      ;
+    noteExtra
+        (com.clover.sdk.extractors.RecordExtractionStrategy.instance(com.clover.sdk.v3.payments.NoteExtra.JSON_CREATOR)),
+    ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -161,6 +171,11 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
     return genClient.cacheValueIsNotNull(CacheKey.nextShiftOpeningDetails);
   }
 
+  /** Checks whether the 'noteExtra' field is set and is not null */
+  public boolean isNotNullNoteExtra() {
+    return genClient.cacheValueIsNotNull(CacheKey.noteExtra);
+  }
+
 
 
   /** Checks whether the 'cashDetails' field has been set, however the value could be null */
@@ -176,6 +191,11 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
   /** Checks whether the 'nextShiftOpeningDetails' field has been set, however the value could be null */
   public boolean hasNextShiftOpeningDetails() {
     return genClient.cacheHasKey(CacheKey.nextShiftOpeningDetails);
+  }
+
+  /** Checks whether the 'noteExtra' field has been set, however the value could be null */
+  public boolean hasNoteExtra() {
+    return genClient.cacheHasKey(CacheKey.noteExtra);
   }
 
 
@@ -206,6 +226,15 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
     return genClient.setRecord(nextShiftOpeningDetails, CacheKey.nextShiftOpeningDetails);
   }
 
+  /**
+   * Sets the field 'noteExtra'.
+   *
+   * The parameter is not copied so changes to it will be reflected in this instance and vice-versa.
+   */
+  public Reconciliation setNoteExtra(com.clover.sdk.v3.payments.NoteExtra noteExtra) {
+    return genClient.setRecord(noteExtra, CacheKey.noteExtra);
+  }
+
 
   /** Clears the 'cashDetails' field, the 'has' method for this field will now return false */
   public void clearCashDetails() {
@@ -218,6 +247,10 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
   /** Clears the 'nextShiftOpeningDetails' field, the 'has' method for this field will now return false */
   public void clearNextShiftOpeningDetails() {
     genClient.clear(CacheKey.nextShiftOpeningDetails);
+  }
+  /** Clears the 'noteExtra' field, the 'has' method for this field will now return false */
+  public void clearNoteExtra() {
+    genClient.clear(CacheKey.noteExtra);
   }
 
 
@@ -284,6 +317,7 @@ public class Reconciliation extends GenericParcelable implements com.clover.sdk.
     public static final boolean CASHDETAILS_IS_REQUIRED = false;
     public static final boolean NONCASHDETAILS_IS_REQUIRED = false;
     public static final boolean NEXTSHIFTOPENINGDETAILS_IS_REQUIRED = false;
+    public static final boolean NOTEEXTRA_IS_REQUIRED = false;
   }
 
 }

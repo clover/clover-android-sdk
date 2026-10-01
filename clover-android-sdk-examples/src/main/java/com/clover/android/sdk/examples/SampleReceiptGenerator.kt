@@ -258,6 +258,25 @@ class SampleReceiptGenerator(private val context: Context) {
     if (flags and PrintJob.FLAG_BILL == PrintJob.FLAG_BILL) labels += "BILL — NOT A RECEIPT"
     if (flags and PrintJob.FLAG_MERCHANT == PrintJob.FLAG_MERCHANT) labels += "MERCHANT COPY"
     if (flags and PrintJob.FLAG_CUSTOMER == PrintJob.FLAG_CUSTOMER) labels += "CUSTOMER COPY"
+    if (flags and PrintJob.FLAG_PRINT_RSS_RECEIPT == PrintJob.FLAG_PRINT_RSS_RECEIPT) labels += "RSS COPY"
+    if (flags and PrintJob.FLAG_STAMP_DUTY_ELIGIBLE == PrintJob.FLAG_STAMP_DUTY_ELIGIBLE) labels += "Stamp Deuty Eligible"
+
+    val flagStates = listOf(
+      "*** REPRINT ***" to (flags and PrintJob.FLAG_REPRINT == PrintJob.FLAG_REPRINT),
+      "*** VOIDED ***" to (flags and PrintJob.FLAG_PRINT_VOID_RECEIPT == PrintJob.FLAG_PRINT_VOID_RECEIPT),
+      "*** REFUND ***" to (flags and PrintJob.FLAG_REFUND == PrintJob.FLAG_REFUND || params.refund != null),
+      "BILL — NOT A RECEIPT" to (flags and PrintJob.FLAG_BILL == PrintJob.FLAG_BILL),
+      "MERCHANT COPY" to (flags and PrintJob.FLAG_MERCHANT == PrintJob.FLAG_MERCHANT),
+      "CUSTOMER COPY" to (flags and PrintJob.FLAG_CUSTOMER == PrintJob.FLAG_CUSTOMER),
+      "RSS COPY" to (flags and PrintJob.FLAG_PRINT_RSS_RECEIPT == PrintJob.FLAG_PRINT_RSS_RECEIPT),
+      "Stamp Deuty Eligible" to (flags and PrintJob.FLAG_STAMP_DUTY_ELIGIBLE == PrintJob.FLAG_STAMP_DUTY_ELIGIBLE)
+    )
+    var log = "payment=${params.payment} \n order=${params.order}  \n merchant =${params.merchant.toString()}"
+    flagStates.forEach { (label, enabled) ->
+      log += "\n generateFlagBannerView: flagLabel='$label', enabled=$enabled, "
+    }
+    Log.d(TAG, log)
+
     if (labels.isEmpty()) return null
 
     return verticalSection(params) {

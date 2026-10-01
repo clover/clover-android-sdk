@@ -23,10 +23,9 @@
 package com.clover.sdk.v3.inventory;
 
 
-import androidx.annotation.Nullable;
-
 import com.clover.sdk.GenericClient;
 import com.clover.sdk.GenericParcelable;
+import androidx.annotation.Nullable;
 
 /**
  * This is an auto-generated Clover data object.
@@ -363,9 +362,9 @@ public class ItemEntitlementPlan extends GenericParcelable implements com.clover
     genClient.validateCloverId(CacheKey.id, getId());
 
     genClient.validateNotNull(CacheKey.name, getName());
-    genClient.validateLength(CacheKey.name, getName(), 127);
+    genClient.validateLength(CacheKey.name, getName(), 64);
 
-    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 127);
+    genClient.validateLength(CacheKey.alternateName, getAlternateName(), 64);
 
     genClient.validateLength(CacheKey.colorCode, getColorCode(), 9);
     genClient.validateReferences(CacheKey.planMenu);
@@ -926,9 +925,9 @@ public class ItemEntitlementPlan extends GenericParcelable implements com.clover
     public static final boolean ID_IS_REQUIRED = false;
     public static final long ID_MAX_LEN = 13;
     public static final boolean NAME_IS_REQUIRED = true;
-    public static final long NAME_MAX_LEN = 127;
+    public static final long NAME_MAX_LEN = 64;
     public static final boolean ALTERNATENAME_IS_REQUIRED = false;
-    public static final long ALTERNATENAME_MAX_LEN = 127;
+    public static final long ALTERNATENAME_MAX_LEN = 64;
     public static final boolean PLANMENU_IS_REQUIRED = false;
     public static final boolean PUBLISHED_IS_REQUIRED = false;
     public static final boolean ORDERINGCUTOFFMINUTES_IS_REQUIRED = false;

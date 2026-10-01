@@ -1796,6 +1796,17 @@ public class Intents {
 
   public static final String EXTRA_RECEIPT_DELIVERY_TYPE = "clover.intent.extra.RECEIPT_DELIVERY_TYPE";
 
+  /** Optional receipt print subtype used when a remote receipt selector asks the host to print. */
+  public static final String EXTRA_RECEIPT_PRINT_TYPE = "clover.intent.extra.RECEIPT_PRINT_TYPE";
+
+  public static final String RECEIPT_PRINT_TYPE_RSS = "RSS";
+
+  public static final String EXTRA_RECEIPT_CUSTOMER_NAME = "clover.intent.extra.RECEIPT_CUSTOMER_NAME";
+
+  public static final String EXTRA_RECEIPT_PROVISO = "clover.intent.extra.RECEIPT_PROVISO";
+
+  public static final String EXTRA_RECEIPT_STAMP_TAX_AMOUNT = "clover.intent.extra.RECEIPT_STAMP_TAX_AMOUNT";
+
   public static final String EXTRA_CLOVER_SHOULD_HANDLE_RECEIPTS = "clover.intent.extra.CLOVER_SHOULD_HANDLE_RECEIPTS";
 
   public static final String EXTRA_SELECTED_RECEIPT_OPTION = "clover.intent.extra.SELECTED_RECEIPT_OPTIONS";

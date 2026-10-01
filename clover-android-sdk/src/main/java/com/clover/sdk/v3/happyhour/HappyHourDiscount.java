@@ -46,6 +46,8 @@ import androidx.annotation.Nullable;
  * <li>{@link #getDaysOfWeek daysOfWeek}</li>
  * <li>{@link #getStartDate startDate}</li>
  * <li>{@link #getEndDate endDate}</li>
+ * <li>{@link #getOrderThreshold orderThreshold}</li>
+ * <li>{@link #getIsOrderLevelDiscount isOrderLevelDiscount}</li>
  * </ul>
  * <p>
  *
@@ -165,6 +167,22 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     return genClient.cacheGet(CacheKey.endDate);
   }
 
+  /**
+   * Minimum order amount (in currency units, e.g. cents) required for this order-level happy hour discount to be applicable
+   */
+  @Nullable
+  public java.lang.Long getOrderThreshold() {
+    return genClient.cacheGet(CacheKey.orderThreshold);
+  }
+
+  /**
+   * Identifies whether this happy hour discount applies at the order level (true) or the item level (false)
+   */
+  @Nullable
+  public java.lang.Boolean getIsOrderLevelDiscount() {
+    return genClient.cacheGet(CacheKey.isOrderLevelDiscount);
+  }
+
 
 
 
@@ -197,7 +215,11 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
     endDate
         (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
-    ;
+    orderThreshold
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Long.class)),
+    isOrderLevelDiscount
+        (com.clover.sdk.extractors.BasicExtractionStrategy.instance(java.lang.Boolean.class)),
+      ;
 
     private final com.clover.sdk.extractors.ExtractionStrategy extractionStrategy;
 
@@ -287,6 +309,8 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     genClient.validateMinMax(CacheKey.beginTimeMinutes, getBeginTimeMinutes(), 0L, 59L);
 
     genClient.validateMinMax(CacheKey.endTimeMinutes, getEndTimeMinutes(), 0L, 59L);
+
+    genClient.validateMin(CacheKey.orderThreshold, getOrderThreshold(), 0L);
   }
 
   /** Checks whether the 'id' field is set and is not null */
@@ -368,6 +392,16 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     return genClient.cacheValueIsNotNull(CacheKey.endDate);
   }
 
+  /** Checks whether the 'orderThreshold' field is set and is not null */
+  public boolean isNotNullOrderThreshold() {
+    return genClient.cacheValueIsNotNull(CacheKey.orderThreshold);
+  }
+
+  /** Checks whether the 'isOrderLevelDiscount' field is set and is not null */
+  public boolean isNotNullIsOrderLevelDiscount() {
+    return genClient.cacheValueIsNotNull(CacheKey.isOrderLevelDiscount);
+  }
+
 
 
   /** Checks whether the 'id' field has been set, however the value could be null */
@@ -438,6 +472,16 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /** Checks whether the 'endDate' field has been set, however the value could be null */
   public boolean hasEndDate() {
     return genClient.cacheHasKey(CacheKey.endDate);
+  }
+
+  /** Checks whether the 'orderThreshold' field has been set, however the value could be null */
+  public boolean hasOrderThreshold() {
+    return genClient.cacheHasKey(CacheKey.orderThreshold);
+  }
+
+  /** Checks whether the 'isOrderLevelDiscount' field has been set, however the value could be null */
+  public boolean hasIsOrderLevelDiscount() {
+    return genClient.cacheHasKey(CacheKey.isOrderLevelDiscount);
   }
 
 
@@ -545,6 +589,20 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     return genClient.setOther(endDate, CacheKey.endDate);
   }
 
+  /**
+   * Sets the field 'orderThreshold'.
+   */
+  public HappyHourDiscount setOrderThreshold(@Nullable java.lang.Long orderThreshold) {
+    return genClient.setOther(orderThreshold, CacheKey.orderThreshold);
+  }
+
+  /**
+   * Sets the field 'isOrderLevelDiscount'.
+   */
+  public HappyHourDiscount setIsOrderLevelDiscount(@Nullable java.lang.Boolean isOrderLevelDiscount) {
+    return genClient.setOther(isOrderLevelDiscount, CacheKey.isOrderLevelDiscount);
+  }
+
 
   /** Clears the 'id' field, the 'has' method for this field will now return false */
   public void clearId() {
@@ -601,6 +659,14 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
   /** Clears the 'endDate' field, the 'has' method for this field will now return false */
   public void clearEndDate() {
     genClient.clear(CacheKey.endDate);
+  }
+  /** Clears the 'orderThreshold' field, the 'has' method for this field will now return false */
+  public void clearOrderThreshold() {
+    genClient.clear(CacheKey.orderThreshold);
+  }
+  /** Clears the 'isOrderLevelDiscount' field, the 'has' method for this field will now return false */
+  public void clearIsOrderLevelDiscount() {
+    genClient.clear(CacheKey.isOrderLevelDiscount);
   }
 
 
@@ -693,6 +759,9 @@ public class HappyHourDiscount extends GenericParcelable implements com.clover.s
     public static final boolean DAYSOFWEEK_IS_REQUIRED = false;
     public static final boolean STARTDATE_IS_REQUIRED = false;
     public static final boolean ENDDATE_IS_REQUIRED = false;
+    public static final boolean ORDERTHRESHOLD_IS_REQUIRED = false;
+    public static final long ORDERTHRESHOLD_MIN = 0;
+    public static final boolean ISORDERLEVELDISCOUNT_IS_REQUIRED = false;
   }
 
 }

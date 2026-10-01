@@ -79,6 +79,13 @@ public class StaticPaymentPrintJob extends StaticReceiptPrintJob implements Parc
       return this;
     }
 
+    @Override
+    public Builder receiptPrintTrackingContext(
+        ReceiptPrintTrackingContext receiptPrintTrackingContext) {
+      super.receiptPrintTrackingContext(receiptPrintTrackingContext);
+      return this;
+    }
+
     public StaticPaymentPrintJob build() {
       flags |= FLAG_SALE;
       return new StaticPaymentPrintJob(this);
